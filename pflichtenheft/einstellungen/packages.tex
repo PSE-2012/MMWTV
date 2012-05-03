@@ -1,18 +1,17 @@
-% Ändern von Schriftschnitten - (Muss am Anfang stehen !)
+% Ã„ndern von Schriftschnitten - (Muss am Anfang stehen !)
 \usepackage{fix-cm}
 
-% Umlaute/Sonderzeichen können direkt im Quelltext verwenden werden.
+% Umlaute/Sonderzeichen kÃ¶nnen direkt im Quelltext verwenden werden.
 % Silbentrennung von Worten mit Umlauten.
-\usepackage[T1]{fontenc}								 
-\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel,translator}
 
-\usepackage{ngerman}
-
-%------Einfache Definition der Zeilenabstände und Seitenränder-------------------
+%------Einfache Definition der ZeilenabstÃ¤nde und SeitenrÃ¤nder-------------------
 \usepackage{geometry}
 \usepackage{setspace}
 
-%------Schriftgrößenanpassung von einzelnen Textpassagen-------------------------
+%------SchriftgrÃ¶ÃŸnanpassung von einzelnen Textpassagen-------------------------
 \usepackage{relsize}
 
 %------Trennlinien in Kopf- und Fusszeile
@@ -24,7 +23,7 @@
 %------Packet zum Sperren, Unterstreichen und Hervorheben von Texten------------
 \usepackage{soul}
 
-%------ergänzende Schriftart----------------------------------------------------
+%------ergÃ¤nzende Schriftart----------------------------------------------------
 \usepackage{helvet}
 
 %------Lange Tabellen-----------------------------------------------------------
@@ -33,23 +32,26 @@
 \usepackage{ragged2e}
 \usepackage{lscape}
 
+% Glossar
+\usepackage[nonumberlist,acronym,toc]{glossaries}
+
 %------PDF-Optionen-------------------------------------------------------------
 \usepackage[
 	bookmarks,
 	bookmarksopen=true,
 	colorlinks=true,
-	linkcolor=black,				% einfache interne Verknüpfungen
-	anchorcolor=black,			% Ankertext
-	citecolor=black, 				% Verweise auf Literaturverzeichniseinträge im Text
-	filecolor=black, 				% Verknüpfungen, die lokale Dateien öffnen
-	menucolor=black, 				% Acrobat-Menüpunkte
-	urlcolor=black, 				% Farbe für URL-Links
-	backref,								% Zurücktext nach jedem Bibliografie-Eintrag als Liste von Überschriftsnummern
-	pagebackref,						% Zurücktext nach jedem Bibliografie-Eintrag als Liste von Seitenzahlen
+	linkcolor=black,				% einfache interne VerknÃ¼pfungen
+	anchorcolor=black,				% Ankertext
+	citecolor=black, 				% Verweise auf LiteraturverzeichniseintrÃ¤ge im Text
+	filecolor=black, 				% VerknÃ¼pfungen, die lokale Dateien Ã¶ffnen
+	menucolor=black, 				% Acrobat-MenÃ¼punkte
+	urlcolor=black, 				% Farbe fÃ¼r URL-Links
+	backref,						% ZurÃ¼cktext nach jedem Bibliografie-Eintrag als Liste von Ãœberschriftsnummern
+	pagebackref,					% ZurÃ¼cktext nach jedem Bibliografie-Eintrag als Liste von Seitenzahlen
 	plainpages=false,				% zur korrekten Erstellung der Bookmarks
 	pdfpagelabels,					% zur korrekten Erstellung der Bookmarks
-	hypertexnames=false,		% zur korrekten Erstellung der Bookmarks
-	linktocpage 						% Seitenzahlen anstatt Text im Inhaltsverzeichnis verlinken
+	hypertexnames=false,			% zur korrekten Erstellung der Bookmarks
+	linktocpage 					% Seitenzahlen anstatt Text im Inhaltsverzeichnis verlinken
 	]{hyperref}
 
 
