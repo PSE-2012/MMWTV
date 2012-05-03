@@ -1,44 +1,44 @@
 %Seiten- und Dokumentenlayout Einstellungen
 
 \documentclass[
-	11pt,								% Schriftgrˆﬂe
+	11pt,								% Schriftgr√∂√üe
 	DIV12,
-	german,								% f¸r Umlaute, Silbentrennung etc.
+	german,								% f√ºr Umlaute, Silbentrennung etc.
 	oneside,							% einseitiges Dokument
 	titlepage,							% es wird eine Titelseite verwendet
-	halfparskip,						% Abstand zwischen Abs‰tzen (halbe Zeile)
-	normalheadings,						% Grˆﬂe der ‹berschriften verkleinern
-	tablecaptionabove,					% Beschriftung von Tabellen unterhalb ausgeben
+	parskip=half,						% Abstand zwischen Abs√§tzen (halbe Zeile)
+	headings=normal,					% Gr√∂√üe der √úberschriften verkleinern	
+	caption=tableheading,				% Beschriftung von Tabellen unterhalb ausgeben
 	final								% Status des Dokuments (final/draft)
 ]{scrreprt}
 
 
 \include{einstellungen/packages}
 
-%------Seitenr‰nder-------------------------------------------------------------
+%------Seitenr√§nder-------------------------------------------------------------
 \geometry{verbose, 										% zeigt die eingestellten Parameter beim Latexlauf an
 			paper=a4paper, 								% Papierformat			
 			top=25mm, 									% Rand oben
 			left=25mm, 									% Rand links
 			right=25mm, 								% Rand rechts
 			bottom=45mm, 								% Rand unten
-			pdftex										% schreibt das Papierformat in die Ausgabe damit Ausgabeprogramm Papiergrˆﬂe erkennt		
+			pdftex										% schreibt das Papierformat in die Ausgabe damit Ausgabeprogramm Papiergr√∂√üe erkennt		
 	} 
 	
 %Seitenlayout
 \onehalfspace        % 1,5-facher Abstand  
 
-%------Kopf- und Fuﬂzeilen ------------------------------------------------------
+%------Kopf- und Fu√üzeilen ------------------------------------------------------
 \pagestyle{scrheadings}
 
-%------Kopf- und Fuﬂzeile auch auf Kapitelanfangsseiten -------------------------
+%------Kopf- und Fu√üzeile auch auf Kapitelanfangsseiten -------------------------
 \renewcommand*{\chapterpagestyle}{scrheadings}
 
 %------Schriftform der Kopfzeile ------------------------------------------------
 \renewcommand{\headfont}{\normalfont}
 
 %------Kopfzeile-----------------------------------------------------------------
-\setlength{\headheight}{21mm}					% Hˆhe der Kopfzeile
+\setlength{\headheight}{21mm}					% H√∂he der Kopfzeile
 \ihead{\large{\textsc{\praktikumTitel}}\\		% Text in der linken Box
 			 \small{\projektTitel}}
 \chead{}										% Text in der mittleren Box
@@ -46,4 +46,3 @@
 %----Fusszeile
 \cfoot{}										% Text in mittlerer Box
 \ofoot{\pagemark}								% Seitenzahl in rechter Box			
-
