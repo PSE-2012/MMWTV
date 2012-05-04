@@ -2,6 +2,30 @@
 
 \section{Szenarien}
 
+\subsection{/S10/ Analyse eines Scharfzeichner-Werkzeugs}
+Ziel: Qualität eines Scharfzeichners in verschiedenen Situationen analysieren
+Kategorie: 
+Vorbedingung: -keine-
+Nachbedingung: -keine-
+Akteure: Nutzer
+Auslösendes Ereignis: 
+Beschreibung:
+
+\begin{enumerate}
+\item Der Nutzer startet das Programm und sieht einen Willkommensbildschirm, auf dem allgemeine Informationen und seine zuletzt benutzten Projekte angezeigt werden.
+\item Über die Werkzeugleiste erstellt der Nutzer ein neues Projekt.
+\item Er lädt über den Projekt-Erstellung-Sicht ein Referenzbild in das neue Projekt und gibt an, dass das zu testende Scharfzeichner-Werkzeug nur manuell aufgerufen wird.
+\item Das neue Projekt wird gespeichert und kann so einfach weiter genutzt werden.
+
+\item Die Filter-Ansicht wird nach dem Erstellen des Projekts automatisch angezeigt und der Nutzer wählt hier den Weichzeichner-Filter aus, um sein Referenzbild zu verfälschen.
+\item Über einen Button schließt der Nutzer die ">Testsignal-Phase"<. Das Programm generiert ein Testbild indem der ausgewählte Filter auf das Referenzbild angewendet wird und speichert dieses im Projekt-Ordner.
+\item Jetzt wird dem Nutzer eine Analysewerkzeug-Sicht angezeigt, die alle verfügbaren Analyse-Tools auflistet. Der Nutzer markiert MSD (Mean Square Difference) und startet über einen Button den Analysedurchlauf.
+\item Das Programm steuert das für das zu testende Werkzeug. Da der Scharfzeichner manuell angesteuert wird, bekommt der Nutzer ein Dialogfenster angezeigt, in dem er den Pfad zu dem vom Scharfzeichner verarbeiteten Testbild angeben muss.
+\item Anschließend berechnet das Programm die MSD zwischen Referenzbild und diesem bearbeiteten Bild. Dem Nutzer wird während des Analysedurchlaufs ein Fortschrittsbalken und Statusmeldungen angezeigt.
+\item Nach Abschluss des Analysedurchlaufs wechselt das Programm in die Analyse-Auswertung-Sicht und stellt die Ergebnisse graphisch durch ein Diagramm dar.
+\end{enumerate}
+
+
 \section{Anwendungsf"alle}
 
 \section{Objektmodell}
