@@ -1,0 +1,35 @@
+% Hauptdokument
+
+\input{einstellungen/newCommands.tex}
+\input{einstellungen/layout.tex}
+
+\include{inhalt/glossar}
+
+\begin{document}
+
+\include{titelseite}	
+\include{inhalt/versionsuebersicht}
+
+\tableofcontents	%Inhaltsverzeichnis
+%\listoffigures		%Abbildungsverzeichnis, mal sehen ob wir eins brauchen werden..
+
+\include{inhalt/einleitung}
+\include{inhalt/zielbestimmung}
+\include{inhalt/produkteinsatz}
+\include{inhalt/produktumgebung}
+\include{inhalt/funkAnforderungen}
+\include{inhalt/produktdaten}
+\include{inhalt/nfunkAnforderungen}
+\include{inhalt/systemmodelle}
+
+%Glossar ausgeben
+\printglossary[style=altlist,title=Glossar]
+
+%Abkürzungen ausgeben
+\deftranslation[to=German]{Acronyms}{Abkürzungsverzeichnis}
+\printglossary[type=\acronymtype,style=long]
+
+%Symbole ausgeben
+\printglossary[type=symbolslist,style=long]
+
+\end{document}

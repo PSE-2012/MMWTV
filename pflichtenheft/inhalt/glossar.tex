@@ -1,0 +1,32 @@
+%so wird das glossary indexiert
+%pdflatex datei
+%makeindex -s datei.ist -t datei.alg -o datei.acr datei.acn
+%makeindex -s datei.ist -t datei.glg -o datei.gls datei.glo
+%makeindex -s datei.ist -t datei.slg -o datei.syi datei.syg
+%pdflatex datei
+
+\newglossary[slg]{symbolslist}{syi}{syg}{Symbolverzeichnis}
+\renewcommand*{\glspostdescription}{}
+\makeglossaries
+
+%Syntax um Symbole zu definieren
+%\newglossaryentry{symb:Pi}{
+%name=$\pi$,
+%description={Die Kreiszahl.},
+%sort=symbolpi, type=symbolslist
+%}
+%mit \gls{symb:Pi} wird dann das Symbol gesetzt
+
+%Syntax um Abkürzungen zu definieren
+%\newacronym{MS}{MS}{Microsoft}
+%%Eine Abkürzung mit Glossareintrag
+%\newacronym{AD}{AD}{Active Directory\protect\glsadd{glos:AD}}
+%mit z.B. \gls{MS} wird die Abkürzung im Text eingebunden
+
+%Syntax um Glossareinträge zu definieren
+%\newglossaryentry{glos:AD}{
+%name=Active Directory,
+%description={Active Directory ist in einem Windows 2000/" "Windows
+%Server 2003-Netzwerk...}
+%}
+%mit \gls{glos:AD} kann man es im Text einbinden
