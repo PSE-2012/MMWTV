@@ -4,6 +4,7 @@
 \newcommand{\projektTitel}{MMWTV }
 
 % Nummerierung für Muss-, Wunsch- und Abgrenzkriterien /MK-10/, /MK-20/, ...
-\newcommand{\newItemMK}{\ \newline \stepcounter{enumi}/MK-\arabic{enumi}0/ }
-\newcommand{\newItemWK}{\ \newline \stepcounter{enumi}/WK-\arabic{enumi}0/ }
-\newcommand{\newItemAK}{\ \newline \stepcounter{enumi}/AK-\arabic{enumi}0/ }
+% usage:
+% \nItem{argument}
+% results in : /argument-countervalue/
+\newcommand{\nItem}[1]{\ \newline \stepcounter{enumi}/#1-\arabic{enumi}0/ }
