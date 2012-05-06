@@ -5,42 +5,34 @@
 % läuft es über die Fußzeile hinaus. Man kann es zwar mit longtable umgehen
 % aber die Ereignissflussspalte wird dann auf einer eigenen Seite gedruckt.
 % Außerdem sollte ein Szenario nicht so lang sein :-).
-%\begin{tabular}{p{1.89}|p{13.4cm}}
-%\hline
-%Szenario-Name &\\
-%\hline
-%Akteur-Instanzen &\\
-%\hline
-%Ereignisfluss & 
-%\begin{enumerate}
+%\begin{tabular}{p{1.55cm}|p{14cm}}
+%Szenario-Name & \\ \hline
+%Akteur-Instanzen & \\ \hline
+%Ereignisfluss & \begin{compactenum}[1]
 %\item 
-%\end{enumerate}\\
-%\hline
+%\end{compactenum} \\
 %\end{tabular}
 
-\begin{tabular}{p{1.89cm}|p{13.3cm}}
-\hline
-Szenario-Name & ScharfzeichnerAnalyse\\
-\hline
-Akteur-Instanzen &Bob:BildFilerEntwickler\\ % Ich weiß, klingt vollkommen behämmert ;-). Bitte ersetzen.
-\hline
-Ereignisfluss & 
-\begin{enumerate}
-\item Der Nutzer startet das Programm und sieht einen Willkommensbildschirm, auf dem allgemeine Informationen und seine zuletzt benutzten Projekte angezeigt werden.
-\item Über die Werkzeugleiste erstellt der Nutzer ein neues Projekt.
-\item Er lädt über den Projekt-Erstellung-Sicht ein Referenzbild in das neue Projekt und gibt an, dass das zu testende Scharfzeichner-Werkzeug nur manuell aufgerufen wird.
-\item Das neue Projekt wird gespeichert und kann so einfach weiter genutzt werden.
-
-\item Die Filter-Ansicht wird nach dem Erstellen des Projekts automatisch angezeigt und der Nutzer wählt hier den Weichzeichner-Filter aus, um sein Referenzbild zu verfälschen.
-\item Über einen Button schließt der Nutzer die ">Testsignal-Phase"<. Das Programm generiert ein Testbild indem der ausgewählte Filter auf das Referenzbild angewendet wird und speichert dieses im Projekt-Ordner.
-\item Jetzt wird dem Nutzer eine Analysewerkzeug-Sicht angezeigt, die alle verfügbaren Analyse-Tools auflistet. Der Nutzer markiert MSD (Mean Square Difference) und startet über einen Button den Analysedurchlauf.
-\item Das Programm steuert das für das zu testende Werkzeug. Da der Scharfzeichner manuell angesteuert wird, bekommt der Nutzer ein Dialogfenster angezeigt, in dem er den Pfad zu dem vom Scharfzeichner verarbeiteten Testbild angeben muss.
-\item Anschließend berechnet das Programm die MSD zwischen Referenzbild und diesem bearbeiteten Bild. Dem Nutzer wird während des Analysedurchlaufs ein Fortschrittsbalken und Statusmeldungen angezeigt.
-\item Nach Abschluss des Analysedurchlaufs wechselt das Programm in die Analyse-Auswertung-Sicht und stellt die Ergebnisse graphisch durch ein Diagramm dar.
-\end{enumerate}\\
-\hline
+\begin{tabular}{p{1.55cm}|p{14cm}}
+Szenario-Name & ScharfzeichnerAnalyse\\ \hline
+Akteur-Instanzen &Bob:VideoEncoderEntwickler\\ \hline
+Ereignis-fluss & \begin{compactenum}[1]
+\item Bob startet \projektTitel, es erscheint ein Willkomensfenster auf dem allgemeine Informationen und seine zuletzt geöffneten Projekte angezeigt werden.
+\item Bob klickt auf das ">Projekt erstellen"< Symbol aus der Werkzeugleiste.
+\item Es öffnet sich ein ">Neues Projekt"< Assistent in dem Bob ein Referenzvideo im \gls{glos:YUV} Format einträgt und angibt, dass das zu testende Werkzeug von ihm manuell aufgerufen wird.
+\item Bob überprüft die eingegebenen Informationen und klickt auf den ">Projekt erstellen"< Button. Das neue Projekt wird geöffnet.
+\item Bob wählt das von ihm zuvor angegebene Video aus dem Projektexplorer.
+\item Bob wählt den Weichzeichner-Filter aus dem Filterkatalog-Tab und klickt auf das ">Filter anwenden"< Symbol aus der Werkzeugleiste 
+\item Bob minimiert den \projektTitel, öffnet sein zu testendes Scharfzeichner-Werkzeug und wendet es auf das neu erstellte Video an, dieses befindet sich im Projektordner.
+\item Bob wechselt nun wieder zum \projektTitel. Er klickt auf das ">Metriken"<-Tab, anstelle des Filterkatalogs sieht er nun eine Auswahl an Analysemetriken. Bob doppelklickt auf den Eintrag \gls{MSD}.
+\item Der Eintrag MSD ist nun hervorgehoben. Bob klickt auf das ">Analyse"< Symbol aus der Werkzeugleiste.
+\item Es öffnet sich ein Formular in das Bob den Pfad des Videos angibt das zuvor von seinem Werkzeug erzeugt wurde.
+\item Bob klickt auf das ">Analyse"< Symbol aus der Werkzeugleiste
+\item Im Log-Fenster wird nun zusätzlich zu den aktuellen Statusmeldungen ein Fortschrittsbalken angezeigt. Bob wartet bis der Vorgang beendet ist.
+\item Nach Abschluss des Analysedurchlaufs werden Bob die Ergebnisse der Analyse, im Hauptfenster des \projektTitel, graphisch angezeigt.
+\item Bob weiß nun, dass sein Scharfzeichner-Werkzeug den Weichzeichnungseffekt nur mangelhaft beseitigen konnte. Das neu gewonnenen Wissen nutzt er um sein Werkzeug zu verbessern.
+\end{compactenum}\\
 \end{tabular}
-
 %-------------------------------------------------------------------------------------------------------
 \section{Anwendungsfälle}
 
@@ -50,21 +42,21 @@ Ereignisfluss &
 %Anwendungs-fallname & someName\\ \hline
 %Akteur & SomeActor\\ \hline
 %
-%Ereignisfluss & \begin{enumerate}
+%Ereignisfluss & \begin{compactenum}
 %\item Some process.
-%\end{enumerate}\\ \hline
+%\end{compactenum}\\ \hline
 %
-%Anfangs-bedingungen & \begin{itemize}
+%Anfangs-bedingungen & \begin{compactitem}
 %\item Some point.
-%\end{itemize} \\ \hline
+%\end{compactitem} \\ \hline
 %
-%Abschluss-bedingungen & \begin{itemize}
+%Abschluss-bedingungen & \begin{compactitem}
 %\item Some point
-%\end{itemize}\\ \hline
+%\end{compactitem}\\ \hline
 %
-%Qualitäts-anforderungen & \begin{itemize}
+%Qualitäts-anforderungen & \begin{compactitem}
 %\item Some point
-%\end{itemize}\\ \hline
+%\end{compactitem}\\ \hline
 %
 %\end{tabular}
 
