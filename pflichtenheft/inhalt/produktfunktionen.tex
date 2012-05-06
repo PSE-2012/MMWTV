@@ -1,11 +1,54 @@
-\documentclass[]{book}
-
-\begin{document}
-
 \chapter {Produktfunktionen}
 
 \subsection{Grundfunktionen}
 
+\newItemPF Willkommensbildschirm
+\newline
+Beim Starten zeigt die Anwendung ein Willkommensbildschirm an, auf dem allgemeine Informationen und zuletzt benutzte Projekte zusammen mit einer \emph{Projekt-Erstellung-Sicht} angezeigt werden.
+
+\newItemPF Projektverwaltung
+\newline
+Die Anwendung bietet dem Benutzer die Möglichkeit, durch eine \emph{Projekt-Erstellung-Sicht} Projekte anlegen, speichern, löschen und verwalten zu können.
+
+\newItemPF Laden von Referenzdateien
+\newline
+Der Benutzer kann durch ein Dialogfenster eine Referenzdatei im YUV Format in ein Projekt laden, indem er den Pfad zu der Datei angibt. Man darf auch mehrere Referenzdateien laden.
+
+\newItemPF Manuelle Steuerung
+\newline
+Man kann im Projekt angeben, dass ein zu testende Videobearbeitungswerkzeug manuell angesteuert wird.
+
+\newItemPF Testsignalansicht
+\newline
+Die Filter und Testsignale, mit denen man ein Referenzvideo verfälschen kann, werden in einem Projekt automatisch angezeigt. Der Benutzer kann beliebige Metriken auswählen. Über einen Button kann die \emph{Testsignalauswahlphase} abgeschlossen werden.
+
+\newItemPF Erweiterbarkeit
+\newline
+Die Anwendung ist um beliebige Testsignale und Filter in der Form von Plugins erweiterbar.
+
+\newItemPF Generierung von Testdateien
+\newline
+Nach Abschluss der \emph{Testsignalauswahlphase} werden die ausgewählten Metriken auf die Referenzdatei angewendet und eine verfälschte Testdatei im YUV Format generiert, die im Projektordner gespeichert wird. Somit wird die \emph{Generierungsphase} abgeschlossen.
+
+\newItemPF Analysewerkzeuge
+\newline
+Nach Abschluss der \emph{Generierungsphase} wird eine \emph{Analysewerkzeugsicht} automatisch angezeigt. Über einen Button kann man auch manuell für zwei Referenzvideos direkt eine \emph{Analysewerkzeugsicht} öffnen, ohne die \emph{Testauswahlphase} und die \emph{Generierungsphase} durchzugehen. Alle verfügbaren Analysewerkzeuge werden in dieser Sicht aufgelistet. Der Benutzer kann beliebige Werkzeuge markieren und schliesslich über einen Button einen Analysedurchlauf starten.
+
+\newItemPF Analysedurchlauf
+\newline
+Falls im Projekt angegeben wurde, dass das zu testende Videobearbeitungswerkzeug manuell angesteuert wird, 
+bekommt der Nutzer ein Dialogfenster angezeigt, in dem er den Pfad zu dem vom Werkzeug manuell verarbeiteten Video angeben muss, das dann mit dem Referenzvideo verglichen werden soll. Falls manuelle Steuerung nicht angegeben wurde, sollen die zwei Referenzvideos bzw. das Referenzvideo und die von unserer Anwendung verfälschte Version davon verglichen werden. Dann startet der Analysedurchlauf. Die zwei angegebenen Videodateien werden mit einander mittels der ausgewählten Analysemetriken verglichen und die Ergebnisse analysiert, bewertet und optional in eine Logdatei gespeichert. Dem Nutzer werden während des Analysedurchlaufs ein Fortschrittsbalken und Statusmeldungen angezeigt. Die Analysedaten werden schliesslich graphisch durch Diagramme dargestellt.
+
+\newItemPF GUI
+\newline
+Die Anwendung unterstützt eine interaktive graphische Benutzeroberfläche mit verschiedenen Sichten, die ein- und ausgeblendet werden können. Dabei können Ein- und Ausgabevideos abgespielt, sowie einzelne Frames ausgewählt und visuallisiert werden.
+
 \subsection{Optionale Funktionalität}
 
-\end{document}
+\newItemPF Eingebaute Kommandozeile
+\newline
+Der Benutzer hat die Möglichkeit, durch eine Kommandozeile Argumente an die Anwendung übergeben zu können.
+
+\newItemPF Logdatei
+\newline
+Es gibt die Option, eine Logdatei für einen Analysevorgang zu erstellen. In der Logdatei sollen im Rahmen des jeweiligen Analysevorgangs ausgeführte Operationen sowie erhaltene Ergebnisse in Textformat chronologisch aufgelistet werden. Die Auswahl, welche Arten von Operationen und Ergebnissen in der Logdatei gespeichert werden sollen, steht dem Benutzer zur verfügung.
