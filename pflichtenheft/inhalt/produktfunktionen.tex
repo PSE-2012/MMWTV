@@ -22,7 +22,7 @@ Die Anwendung listet alle Referenzvideos und Testvideos des Projekts in einem Pr
 
 \nItem{PF} Filter
 \newline
-Ein Video kann durch Filter verfälscht werden um ein Testvideo zu generieren, mit dem bestimmte Eigenschaften des \gls{glos:VBW} gezielt analysiert werden sollen.
+Ein Video kann durch Filter verändert werden um ein Testvideo zu generieren, mit dem bestimmte Eigenschaften des \gls{glos:VBW} gezielt analysiert werden sollen.
 
 \nItem{PF} Standard-Filter
 \newline
@@ -34,35 +34,19 @@ Die Anwendung stellt dem Benutzer einige Filter standardmäßig bereit:
 
 \nItem{PF} Filter-Plugins
 \newline
-Die Anwendung ist um beliebige Testsignale und Filter in der Form von Plugins erweiterbar.
-
-
-% Sind diese Ansteuerungen von den Encodern/Tools die getestet werden nicht letztlich so etwas wie "Filter"?
-% Auch sie verfälschen ja ein Referenzvideo - und am Ende ist es unserem Programm egal, wie die Videos entstanden sind, die es dann vergleicht.
-\nItem{PF} Manuelle Ansteuerung eines \gls{glos:VBW}
-\newline
-Ein zu testendes \gls{glos:VBW} kann manuell angesteuert werden. Dabei wird der Benutzer zu Beginn der Analysephase aufgefordert, anzugeben wo sich die zu den Referenz-/Testdateien gehörigen Dateien befinden, die durch das \gls{glos:VBW} bearbeitet wurden.
-\nItem{PF} Automatische Ansteuerung eines \gls{glos:VBW}
-\newline
-Ein zu testendes \gls{glos:VBW} kann automatisch angesteuert werden. Dazu macht der Benutzer in der \emph{Projekt-Erstellung-Sicht} nötige Angaben zu Programmpfad und Parametern. \projektTitel steuert dieses \gls{glos:VBW} dann zu Beginn der Analysephase automatisch an und generiert die entsprechenden Vergleichsdateien für die Analyse.
-
-
+Die Anwendung ist um beliebige Testsignale und Filter in der Form von Plugins erweiterbar. Videobearbeitungswerkzeuge (wie z. B. Encoder) kann man auch als externe Filter betrachten und sie als Plugins laden, solange sie die Form von ausführbaren Programmen haben.
 
 \nItem{PF} Testsignalansicht
 \newline
-Alle Filter und Testsignale, mit denen ein Referenzdatei verfälscht werden kann, werden aufgelistet. Der Benutzer kann beliebige Filter auswählen und nacheinander auf eine bestehende Datei anwenden. Über einen Button kann die \emph{Testsignalauswahlphase} abgeschlossen werden.
+Alle Filter und Testsignale, mit denen eine Referenzdatei manipuliert werden kann, werden aufgelistet. Der Benutzer kann beliebige Filter auswählen und nacheinander über einen Button auf eine bestehende Datei anwenden.
 
 \nItem{PF} Generierung von Testdateien
 \newline
-Nach Abschluss der \emph{Testsignalauswahlphase} werden die ausgewählten Filter auf die Referenzdatei angewendet und eine verfälschte Testdatei im YUV Format generiert, die im Projektordner gespeichert wird. Somit ist die \emph{Generierungsphase} abgeschlossen.
-
-
-
-
+Wendet man ausgewählte Filter auf eine Datei an, dann wird eine durch die jeweiligen Filter manipulierte Datei im YUV Format generiert, die im Projektordner gespeichert und im Projektexplorer bei den Testvideos aufgelistet wird.
 
 \nItem{PF} Analysewerkzeugsicht
 \newline
-Nach Abschluss der \emph{Generierungsphase} wird eine \emph{Analysewerkzeugsicht} automatisch angezeigt. Über einen Button kann man auch manuell für zwei Referenzvideos direkt eine \emph{Analysewerkzeugsicht} öffnen, ohne die \emph{Testauswahlphase} und die \emph{Generierungsphase} durchzugehen. Alle verfügbaren Analysewerkzeuge werden in dieser Sicht aufgelistet. Der Benutzer kann beliebige Werkzeuge markieren und schliesslich über einen Button einen Analysedurchlauf starten.
+Alle verfügbaren Analysewerkzeuge werden in dieser Sicht aufgelistet. Der Benutzer kann beliebige Werkzeuge markieren und schliesslich über einen Button einen Analysedurchlauf für die aus dem Projektexplorer ausgewählten Videodateien starten.
 
 \nItem{PF} Analyse-Metriken
 \newline
@@ -75,8 +59,7 @@ Nach Abschluss der \emph{Generierungsphase} wird eine \emph{Analysewerkzeugsicht
 
 \nItem{PF} Analysedurchlauf
 \newline
-Falls im Projekt angegeben wurde, dass das zu testende Videobearbeitungswerkzeug manuell angesteuert wird, 
-bekommt der Nutzer ein Dialogfenster angezeigt, in dem er den Pfad zu dem vom Werkzeug manuell verarbeiteten Video angeben muss, das dann mit dem Referenzvideo verglichen werden soll. Falls manuelle Steuerung nicht angegeben wurde, sollen die zwei Referenzvideos bzw. das Referenzvideo und die von unserer Anwendung verfälschte Version davon verglichen werden. Dann startet der Analysedurchlauf. Die zwei angegebenen Videodateien werden mit einander mittels der ausgewählten Analysemetriken verglichen und die Ergebnisse analysiert, bewertet und optional in eine Logdatei gespeichert. Dem Nutzer werden während des Analysedurchlaufs ein Fortschrittsbalken und Statusmeldungen angezeigt. 
+Wenn ein Analysedurchlauf gestartet wird, werden die ausgewählten Videos mittels der ausgewählten Analysemetriken verglichen und die Ergebnisse analysiert, bewertet und optional in eine Logdatei gespeichert. Dem Nutzer werden während des Analysedurchlaufs ein Fortschrittsbalken und Statusmeldungen angezeigt. 
 
 \nItem{PF} Darstellung der Analyseergebnisse als Diagramme
 \newline
@@ -99,7 +82,7 @@ Die Anwendung unterstützt eine interaktive graphische Benutzeroberfläche mit v
 
 \nItem{PF} Vorschau für Filter
 \newline
-Die Auswirkungen eines Filters oder Testsignals auf das gewählte Video wird dem Benutzer schon in der \emph{Testsignalauswahlphase} als Vorschau an einem Frame veranschaulicht.
+Die Auswirkungen eines Filters oder Testsignals auf ein gewähltes Video werden dem Benutzer als Vorschau an einem Frame veranschaulicht.
 
 
 \nItem{PF} Eingebaute Kommandozeile
