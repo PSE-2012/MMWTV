@@ -8,4 +8,6 @@
 % usage:
 % \nItem{argument}
 % results in : /argument-countervalue/
-\newcommand{\nItem}[1]{\ \newline \stepcounter{enumi}/#1-\arabic{enumi}0/ }
+\newcounter{counterKriterien}
+\newcommand{\nItem}[1]{\ \newline
+\stepcounter{counterKriterien}/#1-\arabic{counterKriterien}0/ }
