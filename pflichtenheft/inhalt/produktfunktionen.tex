@@ -2,51 +2,59 @@
 
 \subsection{Grundfunktionen}
 \setcounter{counterKriterien}{0}
+
+\subsubsection{Graphische Bedienoberfläche}
 \nItem{PF} Willkommensbildschirm
 \newline
-Beim Start zeigt die Anwendung einen Willkommensbildschirm an, auf dem allgemeine Informationen und zuletzt benutzte Projekte zusammen mit einer \emph{Projekt-Erstellung-Sicht} angezeigt werden.
-
-\nItem{PF} Projektverwaltung
-\newline
-Die Anwendung bietet dem Benutzer die Möglichkeit, durch eine \emph{Projekt-Erstellung-Sicht} Projekte anlegen, speichern, löschen und verwalten zu können.
-
-\nItem{PF} Laden von Referenzdateien
-\newline
-Der Benutzer kann durch ein Dialogfenster eine Referenzdatei im YUV-Format in ein Projekt laden, indem er den Pfad zu der Datei angibt. Es können mehrere Referenzdateien geladen werden.
-
-\nItem{PF} Projektexplorer
-\newline
-Die Anwendung listet alle Referenzvideos und Testvideos des Projekts in einem Projektexplorer auf. Der Benutzer kann ein oder mehrere Videos auswählen um auf diesen Filter oder Analysen auszuführen.
-
-
-
-\nItem{PF} Filter
-\newline
-Ein Video kann durch Filter verändert werden um ein Testvideo zu generieren, mit dem bestimmte Eigenschaften des \gls{glos:VBW} gezielt analysiert werden sollen.
-
-\nItem{PF} Standard-Filter
-\newline
-Die Anwendung stellt dem Benutzer einige Filter standardmäßig bereit:
-\begin{itemize}
-\item Weichzeichner
-\item ...
-\end{itemize}
-
-\nItem{PF} Filter-Plugins
-\newline
-Die Anwendung ist um beliebige Testsignale und Filter in der Form von Plugins erweiterbar. Videobearbeitungswerkzeuge (wie z. B. Encoder) kann man auch als externe Filter betrachten und sie als Plugins laden, solange sie die Form von ausführbaren Programmen haben.
+Beim Start zeigt die Anwendung einen Willkommensbildschirm an, auf dem allgemeine Informationen und zuletzt
+ benutzte Projekte zusammen mit einer \emph{Projekt-Erstellung-Sicht} angezeigt werden.
 
 \nItem{PF} Testsignalansicht
 \newline
-Alle Filter und Testsignale, mit denen eine Referenzdatei manipuliert werden kann, werden aufgelistet. Der Benutzer kann beliebige Filter auswählen und nacheinander über einen Button auf eine bestehende Datei anwenden.
+Alle Filter und Testsignale, mit denen eine Referenzdatei manipuliert werden kann, werden aufgelistet. Der
+ Benutzer kann beliebige Filter auswählen und nacheinander über einen Button auf eine (im Projektexplorer)
+  bestehende Datei anwenden.
 
-\nItem{PF} Generierung von Testdateien
+\nItem{PF} Projektexplorer
 \newline
-Wendet man ausgewählte Filter auf eine Datei an, dann wird eine durch die jeweiligen Filter manipulierte Datei im YUV Format generiert, die im Projektordner gespeichert und im Projektexplorer bei den Testvideos aufgelistet wird.
+Die Anwendung listet alle Referenzvideos und Testvideos des Projekts in einem Projektexplorer auf. Der
+ Benutzer kann ein oder mehrere Videos auswählen um auf diesen Filter oder Analysen auszuführen.
+
+\nItem{PF} Darstellung der Analyseergebnisse als Diagramme
+\newline
+Die Analysedaten werden nach Möglichkeit graphisch durch z.B. Diagramme dargestellt.
+
+\nItem{PF} Darstellung der Analyseergebnisse als Overlay
+\newline
+Analysedaten (z.B. berechnete Unterschiede) werden als Overlay über dem Video eingeblendet.
+
+\nItem{PF} GUI
+\newline
+Die Anwendung unterstützt eine interaktive graphische Benutzeroberfläche mit verschiedenen Sichten, die ein-
+ und ausgeblendet werden können. Dabei können Ein- und Ausgabevideos abgespielt, sowie einzelne Frames
+  ausgewählt und visuallisiert werden.
+
+\subsubsection{Projektverwaltung}
+\nItem{PF} Projektverwaltung
+\newline
+Die Anwendung bietet dem Benutzer die Möglichkeit, durch eine \emph{Projekt-Erstellung-Sicht} Projekte
+ anlegen, speichern, löschen und verwalten zu können.
+
+\nItem{PF} Laden von Referenzdateien
+\newline
+Der Benutzer kann durch ein Dialogfenster eine Referenzdatei im YUV-Format in ein Projekt laden, indem er
+ den Pfad zu der Datei angibt. Es können mehrere Referenzdateien geladen werden.
+
+\subsubsection{Portabilität}
+
+\subsubsection{Analyse}
 
 \nItem{PF} Analysewerkzeugsicht
 \newline
-Alle verfügbaren Analysewerkzeuge werden in dieser Sicht aufgelistet. Der Benutzer kann beliebige Werkzeuge markieren und schliesslich über einen Button einen Analysedurchlauf für die aus dem Projektexplorer ausgewählten Videodateien starten.
+Alle verfügbaren Analysewerkzeuge werden in dieser Sicht aufgelistet. Der Benutzer kann beliebige Werkzeuge
+ markieren und schließlich über einen Button einen Analysedurchlauf für die aus dem Projektexplorer
+  ausgewählten Videodateien starten.
+
 
 \nItem{PF} Analyse-Metriken
 \newline
@@ -59,20 +67,36 @@ Alle verfügbaren Analysewerkzeuge werden in dieser Sicht aufgelistet. Der Benut
 
 \nItem{PF} Analysedurchlauf
 \newline
-Wenn ein Analysedurchlauf gestartet wird, werden die ausgewählten Videos mittels der ausgewählten Analysemetriken verglichen und die Ergebnisse analysiert, bewertet und optional in eine Logdatei gespeichert. Dem Nutzer werden während des Analysedurchlaufs ein Fortschrittsbalken und Statusmeldungen angezeigt. 
+Wenn ein Analysedurchlauf gestartet wird, werden die ausgewählten Videos mittels der ausgewählten
+ Analysemetriken verglichen und die Ergebnisse analysiert, bewertet und optional in eine Logdatei
+  gespeichert. Dem Nutzer werden während des Analysedurchlaufs ein Fortschrittsbalken und Statusmeldungen
+   angezeigt. 
 
-\nItem{PF} Darstellung der Analyseergebnisse als Diagramme
+\subsubsection{Verzerrung}
+\nItem{PF} Filter
 \newline
-Die Analysedaten werden graphisch durch Diagramme dargestellt.
+Ein Video, welches in ein Projekt eingebunden wurde, kann durch Filter verzerrt werden.Dieses wird
+nach dem Verzerren mit ihrem Referenzvideo verknüpft  Auf solch ein verzerrtes Video kann über den Projektexplorer zugegriffen werden um es ggf. weiter zu verzerren oder zu analysieren.
 
-\nItem{PF} Darstellung der Analyseergebnisse als Overlay
+
+\nItem{PF} Filter-Plugins
 \newline
-Analysedaten (z.B. berechnete Unterschiede) werden als Overlay über dem Video eingeblendet.
+Die Anwendung ist um beliebige Testsignale und Filter in der Form von Plugins erweiterbar.
+ Videobearbeitungswerkzeuge (wie z. B. Encoder) kann man auch als externe Filter betrachten und sie als
+  Plugins laden, solange sie die Form von ausführbaren Programmen haben und über die Kommandozeile 
+angesteuert werden können.
 
-
-\nItem{PF} GUI
+\nItem{PF} Standard-Filter
 \newline
-Die Anwendung unterstützt eine interaktive graphische Benutzeroberfläche mit verschiedenen Sichten, die ein- und ausgeblendet werden können. Dabei können Ein- und Ausgabevideos abgespielt, sowie einzelne Frames ausgewählt und visuallisiert werden.
+Die Anwendung stellt dem Benutzer einige Filter standardmäßig bereit:
+\begin{compactItem}
+\item Weichzeichner
+\item ...
+\end{compactItem}
+
+\nItem{PF} Generierung von Testdateien
+\newline
+Wendet man ausgewählte Filter auf eine Datei an, dann wird eine durch die jeweiligen Filter manipulierte Datei im \gls{YUV} Format generiert, die im Projektordner gespeichert und im Projektexplorer bei den Testvideos aufgelistet wird.
 
 
 
@@ -91,4 +115,7 @@ Der Benutzer hat die Möglichkeit, durch eine Kommandozeile Argumente an die Anw
 
 \nItem{PF} Logdatei
 \newline
-Es gibt die Option, eine Logdatei für einen Analysevorgang zu erstellen. In der Logdatei sollen im Rahmen des jeweiligen Analysevorgangs ausgeführte Operationen sowie erhaltene Ergebnisse in Textformat chronologisch aufgelistet werden. Die Auswahl, welche Arten von Operationen und Ergebnissen in der Logdatei gespeichert werden sollen, steht dem Benutzer zur verfügung.
+Es gibt die Option, eine Logdatei für einen Analysevorgang zu erstellen. In der Logdatei sollen im Rahmen
+ des jeweiligen Analysevorgangs ausgeführte Operationen sowie erhaltene Ergebnisse in Textformat
+  chronologisch aufgelistet werden. Die Auswahl, welche Arten von Operationen und Ergebnissen in der
+   Logdatei gespeichert werden sollen, steht dem Benutzer zur Verfügung.
