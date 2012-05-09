@@ -2,7 +2,6 @@
 
 \section{Mußkriterien}
 \setcounter{counterKriterien}{0}
- 
 \nItem{MK} Die Anwendung kann Videos im .YUV Format von der Festplatte lesen, manipulieren und wieder auf die Festplatte schreiben.
 \nItem{MK} Ein bestimmter Satz an Filtern und Analysemetriken soll der Anwendung bereits zum Auslieferungszeitpunkt zur Verfügung stehen.
 \nItem{MK} Benutzer haben die Möglichkeiten Projekte anzulegen, solch ein Projekt dient als Ablageort für Daten über:
@@ -16,19 +15,53 @@
 
 \section{Wunschkriterien}
 \setcounter{counterKriterien}{0}
-\nItem{WK} Die Anwendung sollte ohne großen Aufwand um neue Filter oder Bewertungsmetriken erweitert werden können.
+\subsection{Graphische Bedienoberfläche}
+\nItem{WK} Es wird eine Vorschau, basierend auf den ausgewählten Filtern, generiert.
 \nItem{WK} Die Ergebnisse eines Analysedurchlaufs sollen graphisch aufbereitet werden.
-\nItem{WK} Die Daten die der \gls{glos:VE} vom \gls{ITEC}  bereitstellt sollen visuell aufbereitet werden
+\nItem{WK} Die Daten die der \gls{glos:VE} vom \gls{ITEC}  bereitstellt sollen visuell aufbereitet werden.
+\subsection{Portabilität}
 \nItem{WK} Ein angelegtes Projekt ist auch unter einer anderen MMWTV Installation lauffähig, vorausgesetzt die nötigen Resourcen (z.B. Video Dateien die dem Projekt zuvor zur Verfügung gestellt wurden) stehen bereit.
 \nItem{WK} Es sollen verschiedene Videoverarbeitungswerkzeuge benutzt werden können.
-\nItem{WK} Das .YUV Format kann in ein anderes Format umgewandelt werden.
-\nItem{WK} Es sollen Optional Parameter für Videoverarbeitungswerkzeuge eingegeben werden können.
-\nItem{WK} Analysedurchlaufs ein Fortschrittsbalken und Statusmeldungen angezeigt.
-\nItem{WK} Ein Vergleich der Analysedaten soll möglich sein.
+\nItem{WK} Für \projektTitel ist es unerheblich welches \gls{VBW} verwendet wurde, solange es in einem
+			kompatiblem Format zur Verfügung gestellt wird.
+\nItem{WK} Der Nutzer hat die Möglichkeit aktuelle und/oder zurückliegende Analyseergebnisse in einem
+			portablem Format (z.B. PDF) zu exportieren.
+\nItem{WK} \projektTitel kann auch mit anderen verbreiteten (aber Verlustfreien) Video Codecs umgehen.
+\subsection{Analyse}
+\nItem{WK} Der Benutzer kann eigene Bewertungsmetriken definieren, dafür sollten ihm einige Beispiel
+			Metriken zur Verfügung gestellt werden.
+\nItem{WK} Während eines Analysevorgangs wird eine Fortschrittsanzeige und die voraussichtliche Dauer
+			des Vorgangs angezeigt.
+\nItem{WK}	Während eines Analysevorgangs wird der Grobablauf in dem, von der Bedienoberfläche zur
+			 Verfügung gestelltem, Statusfenster dokumentiert.
+\nItem{WK} 	Analysedaten werden mit einem Projekt verknüpft, so kann der Benutzer auf diese später
+			zurückgreifen um Sie mit z.B. aktuellen Daten zu vergleichen.
+\subsection{Verzerrung}
+\nItem{WK} Der Benutzer kann eigene Filter definieren, dafür sollten ihm einige Beispiel Filter zur
+			Verfügung gestellt werden.
+\nItem{WK} Es ist möglich eigene Videoverarbeitungswerkzeuge als Filter einzubinden, vorausgesetzt
+			das einzubindende Werkzeug besitzt eine Kommandozeilenschnittstelle.
+\nItem{WK} Wenn ein Benutzer sein \gls{VBW} in \projektTitel einbindet(als externen Filter) hat er die
+			Möglichkeit die von diesem \gls{VBW} akzeptierten Parameter und ihre Typen{int, String}
+			festzulegen. Diese Parameter können dann von der Bedienoberfläche verwaltet werden und, 
+			kommandozeilenbasiert, an das entsprechende Werkzeug beim Aufruf übergeben werden.
+\nItem{WK} Es ist möglich Einstellungen für einen bestimmten Filter(wobei es auch ein externer sein kann)
+			 als Favoriten abzuspeichern um auf diese später zurückgreifen zu können.
+\nItem{WK} Für bekannte Filter werden interaktive Werkzeuge angeboten, die es erlauben einige Parameter
+			manuell und in Echtzeit festzulegen. Z.b. Wird eine Schiebeleiste angeboten mit der
+			man den Grad des Weichzeichnerfilters einstellen kann und die Auswirkungen in Echtzeit auf
+			dem zu verzerrendem Video sieht.
+\nItem{WK} \projektTitel erlaubt eine Einstellung der Reihenfolge in der Filter angewandt werden. Solch
+			eine Reihenfolge darf als Favorit gespeichert werden um auf diese später zurückgreifen zu können.
+\nItem{WK}	Während eines Verzerrungsvorgangs wird der Grobablauf in dem, von der Bedienoberfläche zur
+			 Verfügung gestellten, Statusfenster dokumentiert.
+\nItem{WK}	Es ist möglich einige generelle Einstellungen am Video vorzunehmen (z.b. Farbkanälle 
+			nach Bedarf zu deaktivieren).
 
 \section{Abgrenzungskriterien}
 \setcounter{counterKriterien}{0}
 \nItem{AK} Audiounterstützung ist nicht geplant
 \nItem{AK} \projektTitel verfolgt nicht das Ziel ein Videoverarbeitungswerkzeug auf seine Performanz zu untersuchen.
-\nItem{AK} Da die Videoverarbeitungswerkzeuge nicht direkt in die zu entwickelnde Anwendung eingebunden werden sind keine Echtzeitanalysen vorgesehen.
+\nItem{AK} Da die \gls{VBW} nicht direkt in \projektTitel eingebunden
+			werden, kann \projektTitel nicht auf auf Echtzeitdaten eines \gls{VBW} zugreifen.
 
