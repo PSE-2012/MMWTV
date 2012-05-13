@@ -2,8 +2,8 @@
 
 \section{Mußkriterien}
 \setcounter{counterKriterien}{0}
-\nItem{MK} \projektTitel verfügt über eine graphische Oberfläche.
-\nItem{MK} \projektTitel kann ein bereitgestelltes Video im \gls{glos:YUV} darstellen und bietet grundlegende Kontrollfunktionalitäten an wie:
+\nItem{MK} \projektTitel verfügt über eine interaktive graphische Oberfläche.\\
+\nItem{MK} \projektTitel kann ein bereitgestelltes Video im \gls{glos:YUV} Format darstellen und bietet grundlegende Kontrollfunktionalitäten an wie:
 \begin{compactitem}
 \item zeige das nächste Frame
 \item zeige das vorherige Frame
@@ -24,53 +24,61 @@ Und folgende Analysemetriken:
 \item \gls{mse}
 \item \gls{snr}
 \item \gls{psnr}
-% % hier sollten noch ein paar rein
+% % hier sollten noch ein paar rein, vlcht SSIM ?
 \end{compactitem}
-\nItem{MK} Falls es für einen Filter sinnvolle Einstellungsmöglichkeiten gibt, kann man diese verändern. Beispielsweise die stärke eines Weichzeichners oder des zu erzeugenden Rauschens.
+\nItem{MK} Falls es für einen Filter sinnvolle Einstellungsmöglichkeiten gibt, kann man diese verändern. Beispielsweise die stärke eines Weichzeichners oder des zu erzeugenden Rauschens.\\
 \nItem{MK} Benutzer haben die Möglichkeiten Projekte anzulegen, solch ein Projekt dient als Ablageort für Daten über:
 \begin{compactitem}
 \item absolvierte Analysevorgänge
 \item relevante Projekteinstellungen
 \item vom Benutzer bereitgestellte Ressourcen (z.B. ein \gls{glos:YUV} Video)
 \end{compactitem}
-\nItem{MK} 	Analysedaten werden mit einem Projekt verknüpft, so kann der Benutzer auf diese später zurückgreifen um Sie mit z.B. aktuellen Daten zu vergleichen.
-\nItem{MK} Für \projektTitel ist es unerheblich welches \gls{VBW} vom Nutzer verwendet wurde, solange das bereitgestellte Video oder Bild (Video mit nur einem Frame) im \gls{glos:YUV} Format zur Verfügung gestellt wird.
-\nItem{WK} Der Nutzer hat die Möglichkeit aktuelle und oder zurückliegende Analyseergebnisse in einem portablem Format (z.B. \gls{csv}) zu exportieren.
-\nItem{MK} Die Ergebnisse eines Analysedurchlaufs sollen graphisch aufbereitet dargestellt werden (z.B. als Differenzbild).
+\nItem{MK} 	Analysedaten werden mit einem Projekt verknüpft, so kann der Benutzer auf diese später zurückgreifen um Sie mit z.B. aktuellen Daten zu vergleichen.\\
+\nItem{MK} Für \projektTitel ist es unerheblich welches \gls{VBW} vom Nutzer verwendet wurde, solange das bereitgestellte Video oder Bild (Video mit nur einem Frame) im \gls{glos:YUV} Format zur Verfügung gestellt wird.\\
+\nItem{WK} Der Nutzer hat die Möglichkeit aktuelle und oder zurückliegende Analyseergebnisse in einem portablem Format (z.B. \gls{csv}) zu exportieren.\\
+\nItem{MK} Die Ergebnisse eines Analysedurchlaufs sollen graphisch aufbereitet dargestellt werden (z.B. als Differenzbild).\\
 \nItem{MK} \gls{OQAT} unterstützt Lokalisierung, d.h. der Nutzer hat die Möglichkeit die Sprachfunktionalität der Anwendung durch Sprachpakete zu erweitern. Es wird nur die deutsche Sprachdatei Standardmäßig bereitgestellt.
 \section{Wunschkriterien}
 \setcounter{counterKriterien}{0}
-\nItem{WK} Es wird eine Vorschau, basierend auf den ausgewählten Filtern, generiert.
-\nItem{WK} \projektTitel kann die Daten die der \gls{glos:VE} vom \gls{ITEC}  bereitstellt erkennen und darstellen.
-\nItem{WK} Ein angelegtes Projekt ist auch unter einer anderen \projektTitel Installation lauffähig, vorausgesetzt die nötigen Resourcen (z.B. Video Dateien die dem Projekt zuvor zur Verfügung gestellt wurden)  stehen bereit und es handelt sich um die selbe Version von \projektTitel.
+% 
+%\nItem{WK} Es wird eine Vorschau, basierend auf den ausgewählten Filtern, generiert.
+\nItem{WK} \projektTitel kann die Daten die der \gls{glos:VE} vom \gls{ITEC}  bereitstellt erkennen und darstellen.\\
+\nItem{WK} Ein angelegtes Projekt ist auch unter einer anderen \projektTitel Installation lauffähig, vorausgesetzt die nötigen Resourcen (z.B. Video Dateien die dem Projekt zuvor zur Verfügung gestellt wurden)  stehen bereit und es handelt sich um die selbe Version von \projektTitel.\\
 % Metriken als plugins einbinden zu können wird eine ziemlich harte Nuss...
 % Filter sind da nicht so schwierig denke ich..
-\nItem{WK} Der Benutzer kann eigene Bewertungsmetriken bzw. Filter implementieren und diese als Plugins einbinden können.
-\nItem{WK} Während eines Analysevorgangs wird eine Fortschrittsanzeige und die voraussichtliche Dauer des Vorgangs angezeigt.
-\nItem{WK}	Während eines Analysevorgangs werden die vom \projektTitel durchgeführten Operation in einem Statusfenster dargestellt und optional in einem Logfile gespeichert.
-\nItem{WK} Es ist möglich Einstellungen, falls vorhanden, für einen bestimmten Filter abzuspeichern um auf diese später zurückgreifen zu können.
+\nItem{WK} Der Benutzer kann eigene Analysemetriken bzw. Filter implementieren und diese als Plugins einbinden.\\
+\nItem{WK} Während eines Analysevorgangs wird eine Fortschrittsanzeige und die voraussichtliche Dauer des Vorgangs angezeigt.\\
+% Ein beinahe identisches MK befindet sich ein paar Zeilen weiter oben.
+%\nItem{WK}	Während eines Analysevorgangs werden die vom \projektTitel durchgeführten Operation in einem Statusfenster dargestellt und optional in einem Logfile gespeichert.
+\nItem{WK} Es ist möglich Einstellungen, falls vorhanden, für einen bestimmten Filter abzuspeichern um auf diese später zurückgreifen zu können.\\
 % % % % % % % % % % % % % % % % % %
 % Würde es rausnehmen.
-% Unsinnige Fähigkeit, trägt nicht zur Architektur bei. 
-\nItem{WK} Es ist möglich eigene Videoverarbeitungswerkzeuge als Filter einzubinden, vorausgesetzt das einzubindende Werkzeug besitzt eine Kommandozeilenschnittstelle.
-\nItem{WK} Wenn ein Benutzer sein \gls{VBW} in \projektTitel einbindet(als externen Filter) hat er die
-			Möglichkeit die von diesem \gls{VBW} akzeptierten Parameter und ihre Typen{int, String}
-			festzulegen. Diese Parameter können dann von der Bedienoberfläche verwaltet werden und, 
-			kommandozeilenbasiert, an das entsprechende Werkzeug beim Aufruf übergeben werden.
-\nItem{WK} \projektTitel kann auch mit anderen verbreiteten (aber Verlustfreien) Video Codecs umgehen.			
+% Unsinnige Fähigkeit, trägt nicht zur Architektur bei. Weitere Argumente -> paar Zeilen weiter unten ;-).
+%\nItem{WK} Es ist möglich eigene Videoverarbeitungswerkzeuge als Filter einzubinden, vorausgesetzt das einzubindende Werkzeug besitzt eine Kommandozeilenschnittstelle.
+% Ich denke davon sollten wir abstand nehmen, die dazukommende Komplexität bringt dem
+% Nutzer keinen Langzeitvorteil
+%\nItem{WK} Wenn ein Benutzer sein \gls{VBW} in \projektTitel einbindet(als externen Filter) hat er die
+%			Möglichkeit die von diesem \gls{VBW} akzeptierten Parameter und ihre Typen{int, String}
+%			festzulegen. Diese Parameter können dann von der Bedienoberfläche verwaltet werden und, 
+%			kommandozeilenbasiert, an das entsprechende Werkzeug beim Aufruf übergeben werden.
+% Wir können beliebig viele encoder einbinden... Aber wollen wir das ? Die Aufgabe des PSE
+% ist ein Rundes Programm. Unsere Aufgabe ist die Analyse, und wenn wir ansere Zeit
+% mit dem Einbinden (morgen veralteter) encoder verbringen haben wir schon verloren
+%\nItem{WK} \projektTitel kann auch mit anderen verbreiteten (aber Verlustfreien) Video Codecs umgehen.			
 % % das ist durch Filter abgedeckt, siehe MK.
-\nItem{WK}	Es ist möglich einige generelle Einstellungen am Video vorzunehmen (z.b. Farbkanälle 
-			nach Bedarf zu deaktivieren).
+%\nItem{WK}	Es ist möglich einige generelle Einstellungen am Video vorzunehmen (z.b. Farbkanälle 
+%			nach Bedarf zu deaktivieren).
 % % % % % % % % % % % % % % % % % %
-\nItem{WK} Für Filter für die Einstellungsparameter existieren kann man diese interaktiv verändern. Z.b. Wird eine Schiebeleiste angeboten mit der man den Grad des Weichzeichners einstellen kann und die Auswirkungen in Echtzeit auf dem Video auf das der Filter angewandt werden soll sieht.
+\nItem{WK} Für Filter für die Einstellungsparameter existieren kann man diese interaktiv verändern. Z.b. Wird eine Schiebeleiste angeboten mit der man den Grad des Weichzeichners einstellen kann und die Auswirkungen in Echtzeit auf dem Video auf das der Filter angewandt werden soll sieht.\\
 \nItem{WK} \projektTitel erlaubt eine Einstellung der Reihenfolge in der Filter angewandt werden. Solch
-			eine Reihenfolge kann gespeichert werden um auf diese später zurückgreifen zu können.
+			eine Reihenfolge kann gespeichert werden um auf diese später zurückgreifen zu können.\\
+\nItem{WK} Der Projektexplorer sollte Drag and Drop unterstützen.
 \section{Abgrenzungskriterien}
 \setcounter{counterKriterien}{0}
-\nItem{AK} \projektTitel beherrscht nur \gls{FR} Analysemetriken.
-\nItem{AK} Die Anwendung kann nicht mit Audiodaten umzugehen
-\nItem{AK} \projektTitel verfolgt nicht das Ziel ein \gls{VBW} auf seine Performanz zu untersuchen. Damit ist gemeint es werden keinerlei Daten des \gls{VBW} gesammelt (z.B. Laufzeit, in Anspruch genommene Ressourcen)
+\nItem{AK} \projektTitel beherrscht nur \gls{FR} Analysemetriken.\\
+\nItem{AK} Die Anwendung kann nicht mit Audiodaten umzugehen\\
+\nItem{AK} \projektTitel verfolgt nicht das Ziel ein \gls{VBW} auf seine Performanz zu untersuchen. Damit ist gemeint es werden keinerlei Daten des \gls{VBW} gesammelt (z.B. Laufzeit, in Anspruch genommene Ressourcen)\\
 % % % würde es rausnehmen, oben steht das gleiche
-\nItem{AK} Da die \gls{VBW} nicht direkt in \projektTitel eingebunden
-			werden, kann \projektTitel nicht auf Echtzeitdaten eines \gls{VBW} zugreifen.
+%\nItem{AK} Da die \gls{VBW} nicht direkt in \projektTitel eingebunden
+%			werden, kann \projektTitel nicht auf Echtzeitdaten eines \gls{VBW} zugreifen.
 
