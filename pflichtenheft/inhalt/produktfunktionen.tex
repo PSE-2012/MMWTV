@@ -4,21 +4,59 @@
 \setcounter{counterKriterien}{0}
 
 \subsubsection{Graphische Bedienoberfläche}
+% finde es unsinnig pauschal eine Projekterstellungssicht anzuzeigen, vlcht möchte der Benutzer ein
+% bereits vorhandenes Projekt öffnen. Das ist mein Vorschlag:
+%\nItem{PF} Startbildschirm \\
+%Nach dem Start der Anwendung werden dem Benutzer die zuletzt geöffneten Projekte angezeigt. Der Benutzer
+%hat dann die Möglichkeit ein bereits bestehendes Projekt zu öffnen oder aber ein neues Anzulegen.
 \nItem{PF} Willkommensbildschirm
 \newline
 Beim Start zeigt die Anwendung einen Willkommensbildschirm an, auf dem allgemeine Informationen und zuletzt
  benutzte Projekte zusammen mit einer \emph{Projekt-Erstellung-Sicht} angezeigt werden.
-
+ % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+ 
+% Es ist unsinnig zwischen Filtern und Testsignalen zu unterscheiden. Wie soll ein Testsignal aussehen ?
+%\nItem{PF} Filtercontainer \\
+%Der Filtercontainer ist die Stelle der Grafischen Oberfläche, an der der Nutzer einen, der Anwendung
+%zur Verfügung stehenden, Filter auswählen kann (durch einen Klick mit der Maus). Um einen Filter auszuwählen
+%muss ein gültiges Video im Projektexplorer gewählt worden sein. Durch die Auswahl eines Filters wird
+%der entsprechende Filter als der nächste anzuwendende Filter markiert. Im Visualisierungsbereich des
+%Fensters kann der Nutzer alle, in der von ihm gewählten Reihenfolge, markierten Filter und auch den
+%dadurch verursachten Effekt sehen. Dem Benutzer steht die Möglichkeit offen einen bereits gewählten
+%Filter wieder abzuwählen.
+% Man sollte wahrscheinlich erwähnen, dass es nicht möglich sein wird das Video abzuspielen bis der Filter 
+% tatsächlich angewandt wurde.
 \nItem{PF} Testsignalansicht
 \newline
 Alle Filter und Testsignale, mit denen eine Referenzdatei manipuliert werden kann, werden aufgelistet. Der
  Benutzer kann beliebige Filter auswählen und nacheinander über einen Button auf eine (im Projektexplorer)
-  bestehende Datei anwenden.
+ bestehende Datei anwenden.
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
+%  Wieder eine in meinen Augen nicht zielführende Unterscheidung zwischen Typen von Videos. 
+%  Eine vlcht. geschicktere Version:
+\nItem{PF} Projektexplorer \\
+Nachdem ein bestehendes Projekt geöffnet oder ein neues erstellt worden ist wird dem
+Benutzer, unter anderem, ein Projektexplorer zur Verfügung gestellt. Ein Projektexplorer ist ein 
+Fenster das zwei Registerreiter enthält. \\
+Der erste Reiter, die Smartlist, enthält die dem Projekt zugewiesenen Videosequenzen. Dabei wird
+grundsätzlich zwischen einer Referenz- und Erzeugten Sequenz unterschieden. Wie in Abb.\ref{pExplorer}
+ersichtlich ist die Smartlist eine Baumstruktur, dabei ist jedes Vaterelement
+ein Referenzvideo im Bezug zu seinen Kindelementen. Beispielsweise ist, in Abb.\ref{pExplorer}, 
+">Carphone.yuv"< ein Referenzvideo im Bezug zum Kindelement ">Gaussian Blurr"<. Gaussian Blurr ist ein
+vom Nutzer gewählter Name für die Videosequenz ">Carphone.yuv"< an der der Gaußscher Weichzeichner angewandt
+wurde und ">processed"< ist der vom Nutzer gewählter Name für die ">Gaussian Blurr"< Videosequenz auf
+der er sein \gls{VBW} ausgeführt hat.
+\begin{figure}[h]
+\includegraphics[scale=1]{bilder/projektexplorer.png}
+\caption{Projektexplorer}
+\label{pExplorer}
+\end{figure}
 \nItem{PF} Projektexplorer
 \newline
 Die Anwendung listet alle Referenzvideos und Testvideos des Projekts in einem Projektexplorer auf. Der
  Benutzer kann ein oder mehrere Videos auswählen um auf diesen Filter oder Analysen auszuführen.
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \nItem{PF} Darstellung der Analyseergebnisse als Diagramme
 \newline
