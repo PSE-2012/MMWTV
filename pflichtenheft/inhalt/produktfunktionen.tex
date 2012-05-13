@@ -2,35 +2,35 @@
 
 \subsection{Grundfunktionen}
 \setcounter{counterKriterien}{0}
-
-\subsubsection{Graphische Bedienoberfläche}
+%ist noch nicht sortiert, die subsubsection kann man später wieder auskommentieren
+%\subsubsection{Graphische Bedienoberfläche}
 % finde es unsinnig pauschal eine Projekterstellungssicht anzuzeigen, vlcht möchte der Benutzer ein
 % bereits vorhandenes Projekt öffnen. Das ist mein Vorschlag:
-%\nItem{PF} Startbildschirm \\
-%Nach dem Start der Anwendung werden dem Benutzer die zuletzt geöffneten Projekte angezeigt. Der Benutzer
-%hat dann die Möglichkeit ein bereits bestehendes Projekt zu öffnen oder aber ein neues Anzulegen.
-\nItem{PF} Willkommensbildschirm
-\newline
-Beim Start zeigt die Anwendung einen Willkommensbildschirm an, auf dem allgemeine Informationen und zuletzt
- benutzte Projekte zusammen mit einer \emph{Projekt-Erstellung-Sicht} angezeigt werden.
+\nItem{PF} Startbildschirm \\
+Nach dem Start der Anwendung werden dem Benutzer die zuletzt geöffneten Projekte angezeigt. Der Benutzer
+hat dann die Möglichkeit ein bereits bestehendes Projekt zu öffnen oder aber ein neues Anzulegen.
+%\nItem{PF} Willkommensbildschirm
+%\newline
+%Beim Start zeigt die Anwendung einen Willkommensbildschirm an, auf dem allgemeine Informationen und zuletzt
+% benutzte Projekte zusammen mit einer \emph{Projekt-Erstellung-Sicht} angezeigt werden.
  % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
  
 % Es ist unsinnig zwischen Filtern und Testsignalen zu unterscheiden. Wie soll ein Testsignal aussehen ?
-%\nItem{PF} Filtercontainer \\
-%Der Filtercontainer ist die Stelle der Grafischen Oberfläche, an der der Nutzer einen, der Anwendung
-%zur Verfügung stehenden, Filter auswählen kann (durch einen Klick mit der Maus). Um einen Filter auszuwählen
-%muss ein gültiges Video im Projektexplorer gewählt worden sein. Durch die Auswahl eines Filters wird
-%der entsprechende Filter als der nächste anzuwendende Filter markiert. Im Visualisierungsbereich des
-%Fensters kann der Nutzer alle, in der von ihm gewählten Reihenfolge, markierten Filter und auch den
-%dadurch verursachten Effekt sehen. Dem Benutzer steht die Möglichkeit offen einen bereits gewählten
-%Filter wieder abzuwählen.
-% Man sollte wahrscheinlich erwähnen, dass es nicht möglich sein wird das Video abzuspielen bis der Filter 
-% tatsächlich angewandt wurde.
-\nItem{PF} Testsignalansicht
-\newline
-Alle Filter und Testsignale, mit denen eine Referenzdatei manipuliert werden kann, werden aufgelistet. Der
- Benutzer kann beliebige Filter auswählen und nacheinander über einen Button auf eine (im Projektexplorer)
- bestehende Datei anwenden.
+\nItem{PF} Filtercontainer \\
+Der Filtercontainer ist die Stelle der Grafischen Oberfläche, an der der Nutzer einen, der Anwendung
+zur Verfügung stehenden, Filter auswählen kann (durch einen Klick mit der Maus). Um einen Filter auszuwählen
+muss ein gültiges Video im Projektexplorer gewählt worden sein. Durch die Auswahl eines Filters wird
+der entsprechende Filter als der nächste anzuwendende Filter markiert. Im Visualisierungsbereich des
+Fensters kann der Nutzer alle, in der von ihm gewählten Reihenfolge, markierten Filter und auch den
+dadurch verursachten Effekt sehen. Dem Benutzer steht die Möglichkeit offen einen bereits gewählten
+Filter wieder abzuwählen.
+ Man sollte wahrscheinlich erwähnen, dass es nicht möglich sein wird das Video abzuspielen bis der Filter 
+ tatsächlich angewandt wurde.
+%\nItem{PF} Testsignalansicht
+%\newline
+%Alle Filter und Testsignale, mit denen eine Referenzdatei manipuliert werden kann, werden aufgelistet. Der
+% Benutzer kann beliebige Filter auswählen und nacheinander über einen Button auf eine (im Projektexplorer)
+% bestehende Datei anwenden.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 %  Wieder eine in meinen Augen nicht zielführende Unterscheidung zwischen Typen von Videos. 
@@ -41,66 +41,91 @@ Benutzer, unter anderem, ein Projektexplorer zur Verfügung gestellt. Ein Projek
 Fenster das zwei Registerreiter enthält. \\
 Der erste Reiter, die Smartlist, enthält die dem Projekt zugewiesenen Videosequenzen. Dabei wird
 grundsätzlich zwischen einer Referenz- und Erzeugten Sequenz unterschieden. Wie in Abb.\ref{pExplorer}
-ersichtlich ist die Smartlist eine Baumstruktur, dabei ist jedes Vaterelement
+ersichtlich, ist die Smartlist eine Baumstruktur, dabei ist jedes Vaterelement
 ein Referenzvideo im Bezug zu seinen Kindelementen. Beispielsweise ist, in Abb.\ref{pExplorer}, 
 ">Carphone.yuv"< ein Referenzvideo im Bezug zum Kindelement ">Gaussian Blurr"<. Gaussian Blurr ist ein
 vom Nutzer gewählter Name für die Videosequenz ">Carphone.yuv"< an der der Gaußscher Weichzeichner angewandt
 wurde und ">processed"< ist der vom Nutzer gewählter Name für die ">Gaussian Blurr"< Videosequenz auf
-der er sein \gls{VBW} ausgeführt hat.
+der er sein \gls{VBW} ausgeführt hat.\\
+Der zweite Reiter (Dateiexplorer) stellt eine Schnittstelle zum Dateisystem des Benutzers dar. Mit Hilfe
+des Dateiexplorers kann der Nutzer \projektTitel neue Videosequenzen bekannt machen.
 \begin{figure}[h]
 \includegraphics[scale=1]{bilder/projektexplorer.png}
 \caption{Projektexplorer}
 \label{pExplorer}
 \end{figure}
-\nItem{PF} Projektexplorer
-\newline
-Die Anwendung listet alle Referenzvideos und Testvideos des Projekts in einem Projektexplorer auf. Der
- Benutzer kann ein oder mehrere Videos auswählen um auf diesen Filter oder Analysen auszuführen.
+%\nItem{PF} Projektexplorer
+%\newline
+%Die Anwendung listet alle Referenzvideos und Testvideos des Projekts in einem Projektexplorer auf. Der
+% Benutzer kann ein oder mehrere Videos auswählen um auf diesen Filter oder Analysen auszuführen.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%Das ist durch die nächste PF genauer erläutert
+%\nItem{PF} Darstellung der Analyseergebnisse als Diagramme
+%\newline
+%Die Analysedaten werden nach Möglichkeit graphisch durch z.B. Diagramme dargestellt.
+% Im Prinzip nicht(komplett ;-) ) falsch, aber die Formulierung gefählt mir nicht und außerdem würden
+% wir uns dadurch auf nur eine Art der Visualisierung festlegen.
+%\nItem{PF} Darstellung der Analyseergebnisse als Overlay
+%\newline
+%Analysedaten (z.B. berechnete Unterschiede) werden als Overlay über dem Video eingeblendet.
+% Hier eine Alternative
+\nItem{PF} Die Ergebnisse eines Analysevorgangs werden im Visualisierungsbereich von \gls{OQAT} dargestellt.
+Die Art der Darstellung hängt dabei von der gewählten Analysemetrik ab. Wenn z.B. \gls{mse} als die
+zu verwendende Analysemetrik gewählt wurde wird neben des Differenzvideos(wobei ein Pixel den \gls{mse}
+Wert des jeweiligen Pixels trägt) auch der globale \gls{mse} für das jeweilige Frame und für die gesamte
+Videosequenz dargestellt.
+%\nItem{PF} GUI
+%\newline
+%Die Anwendung unterstützt eine interaktive graphische Benutzeroberfläche mit verschiedenen Sichten, die ein-
+% und ausgeblendet werden können. Dabei können Ein- und Ausgabevideos abgespielt, sowie einzelne Frames
+%  ausgewählt und visuallisiert werden.
+\nItem{PF} \gls{OQAT} stellt dem Nutzer eine Interaktive Benutzeroberfläche zur Verfügung, die
+Funktionsweise dieser wird im Kapitel GUI näher erläutert.
+% Gleiches Argument wie oben, das Zeug ist noch nicht sortiert. Da sind pseudoKapitel nur verwirrend.
+%\subsubsection{Projektverwaltung}
+% Etwas ungenau, sowas haben wir bereits in dem MK. An dieser Stelle muss man also etwas spezifiescher
+% werden
+%\nItem{PF} Projektverwaltung
+%\newline
+%Die Anwendung bietet dem Benutzer die Möglichkeit, durch eine \emph{Projekt-Erstellung-Sicht} Projekte
+% anlegen, speichern, löschen und verwalten zu können.
+\nItem{PF} Um \gls{OQAT} verwenden zu können muss der Benutzer ein neues Projekt anlegen oder aber
+ein bereits existierendes öffnen. \\
+Ein neues Projekt kann entweder über das Hauptmenü, Toolbar oder aber mit Hilfe des sich
+im Startfensters befindenden Buttons angelegt werden. Nachdem der Nutzer eine dieser Möglichkeiten
+in Anspruch genommen hat, öffnet sich Projekterstellungs-Dialog. In diesem Dialog
+muss der Benutzer folgende Daten angeben:
+\begin{compactitem}
+\item Projektname
+\item Ein Pfad unter dem die Projektdaten abgelegt werden sollen. Dieses kann auch leer gelassen werden, 
+dann wird ein Defaultpfad verwendet.
+\end{compactitem}
+% Diese Funktionalität ist in der ">ProjektExplorer"< etwas genauer erläutert worden
+%\nItem{PF} Laden von Referenzdateien
+%\newline
+%Der Benutzer kann durch ein Dialogfenster eine Referenzdatei im YUV-Format in ein Projekt laden, indem er
+% den Pfad zu der Datei angibt. Es können mehrere Referenzdateien geladen werden.
 
-\nItem{PF} Darstellung der Analyseergebnisse als Diagramme
-\newline
-Die Analysedaten werden nach Möglichkeit graphisch durch z.B. Diagramme dargestellt.
+%\subsubsection{Portabilität}
+%
+%\subsubsection{Analyse}
 
-\nItem{PF} Darstellung der Analyseergebnisse als Overlay
-\newline
-Analysedaten (z.B. berechnete Unterschiede) werden als Overlay über dem Video eingeblendet.
+%\nItem{PF} Analysewerkzeugsicht
+%\newline
+%Alle verfügbaren Analysewerkzeuge werden in dieser Sicht aufgelistet. Der Benutzer kann beliebige Werkzeuge
+% markieren und schließlich über einen Button einen Analysedurchlauf für die aus dem Projektexplorer
+%  ausgewählten Videodateien starten.
+\nItem{PF}
 
-\nItem{PF} GUI
-\newline
-Die Anwendung unterstützt eine interaktive graphische Benutzeroberfläche mit verschiedenen Sichten, die ein-
- und ausgeblendet werden können. Dabei können Ein- und Ausgabevideos abgespielt, sowie einzelne Frames
-  ausgewählt und visuallisiert werden.
-
-\subsubsection{Projektverwaltung}
-\nItem{PF} Projektverwaltung
-\newline
-Die Anwendung bietet dem Benutzer die Möglichkeit, durch eine \emph{Projekt-Erstellung-Sicht} Projekte
- anlegen, speichern, löschen und verwalten zu können.
-
-\nItem{PF} Laden von Referenzdateien
-\newline
-Der Benutzer kann durch ein Dialogfenster eine Referenzdatei im YUV-Format in ein Projekt laden, indem er
- den Pfad zu der Datei angibt. Es können mehrere Referenzdateien geladen werden.
-
-\subsubsection{Portabilität}
-
-\subsubsection{Analyse}
-
-\nItem{PF} Analysewerkzeugsicht
-\newline
-Alle verfügbaren Analysewerkzeuge werden in dieser Sicht aufgelistet. Der Benutzer kann beliebige Werkzeuge
- markieren und schließlich über einen Button einen Analysedurchlauf für die aus dem Projektexplorer
-  ausgewählten Videodateien starten.
-
-
-\nItem{PF} Analyse-Metriken
-\newline
-\projektTitel stellt dem Benutzer einige Analyse-Metriken standardmäßig bereit:
-\begin{itemize}
-\item \gls{MSE}
-\item \gls{PSNR}
-\end{itemize}
+% Muss es hier hiin ? In den Musskriterien ist das gleiche drin. -> entweder hier genauer oder aber
+% unnötig
+%\nItem{PF} Analyse-Metriken
+%\newline
+%\projektTitel stellt dem Benutzer einige Analyse-Metriken standardmäßig bereit:
+%\begin{itemize}
+%\item \gls{MSE}
+%\item \gls{PSNR}
+%\end{itemize}
 
 
 \nItem{PF} Analysedurchlauf
