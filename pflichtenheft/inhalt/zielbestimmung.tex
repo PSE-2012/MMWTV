@@ -7,7 +7,7 @@
 \begin{compactitem}
 \item zeige das nächste Frame
 \item zeige das vorherige Frame
-\item spiele das Video mit einer Geschwindigkeit von X \footnote{ natürlich ist |X| nach oben beschränkt. Die tatsächliche Beschränkung von X wird im Laufe der Entwicklung festgelegt aber es wird angenommen das X nicht viel größer 100 FPS sein darf.} \gls{fps} (wobei X vom Nutzer angegeben wird).
+\item spiele das Video mit einer Geschwindigkeit von X \footnote{ natürlich ist |X| nach oben beschränkt. Die tatsächliche Beschränkung von X wird im Laufe der Entwicklung festgelegt aber es wird angenommen das X nicht viel größer 100 FPS sein darf.} \gls{fps}.
 \item das Video anhalten.
 \end{compactitem} 
 \nItem{MK} Die Anwendung kann Videos im \gls{glos:YUV} Format von der Festplatte lesen, manipulieren und wieder auf die Festplatte schreiben.
@@ -34,14 +34,13 @@ Und folgende Analysemetriken:
 \item vom Benutzer bereitgestellte Ressourcen (z.B. ein \gls{glos:YUV} Video)
 \end{compactitem}
 \nItem{MK} 	Analysedaten werden mit einem Projekt verknüpft, so kann der Benutzer auf diese später zurückgreifen um Sie mit z.B. aktuellen Daten zu vergleichen.
-\nItem{MK} Für \projektTitel ist es unerheblich welches \gls{VBW} vom Nutzer verwendet wurde, solange das bereitgestellte Video oder Bild (Video mit nur einem Frame) im \gls{glos:YUV} zur Verfügung gestellt wird.
+\nItem{MK} Für \projektTitel ist es unerheblich welches \gls{VBW} vom Nutzer verwendet wurde, solange das bereitgestellte Video oder Bild (Video mit nur einem Frame) im \gls{glos:YUV} Format zur Verfügung gestellt wird.
 \nItem{WK} Der Nutzer hat die Möglichkeit aktuelle und oder zurückliegende Analyseergebnisse in einem portablem Format (z.B. \gls{csv}) zu exportieren.
 \nItem{MK} Die Ergebnisse eines Analysedurchlaufs sollen graphisch aufbereitet dargestellt werden (z.B. als Differenzbild).
 \nItem{MK} \gls{OQAT} unterstützt Lokalisierung, d.h. der Nutzer hat die Möglichkeit die Sprachfunktionalität der Anwendung durch Sprachpakete zu erweitern. Es wird nur die deutsche Sprachdatei Standardmäßig bereitgestellt.
 \section{Wunschkriterien}
 \setcounter{counterKriterien}{0}
 \nItem{WK} Es wird eine Vorschau, basierend auf den ausgewählten Filtern, generiert.
-
 \nItem{WK} \projektTitel kann die Daten die der \gls{glos:VE} vom \gls{ITEC}  bereitstellt erkennen und darstellen.
 \nItem{WK} Ein angelegtes Projekt ist auch unter einer anderen \projektTitel Installation lauffähig, vorausgesetzt die nötigen Resourcen (z.B. Video Dateien die dem Projekt zuvor zur Verfügung gestellt wurden)  stehen bereit und es handelt sich um die selbe Version von \projektTitel.
 % Metriken als plugins einbinden zu können wird eine ziemlich harte Nuss...
