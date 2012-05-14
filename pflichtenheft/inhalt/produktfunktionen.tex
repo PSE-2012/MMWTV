@@ -1,6 +1,6 @@
 \chapter {Produktfunktionen}
 
-\subsection{Grundfunktionen}
+\subsection{Grundfunktionalität}
 \setcounter{counterKriterien}{0}
 %ist noch nicht sortiert, die subsubsection kann man später wieder auskommentieren
 %\subsubsection{Graphische Bedienoberfläche}
@@ -69,18 +69,21 @@ des Dateiexplorers kann der Nutzer \projektTitel neue Videosequenzen bekannt mac
 %\newline
 %Analysedaten (z.B. berechnete Unterschiede) werden als Overlay über dem Video eingeblendet.
 % Hier eine Alternative
-\nItem{PF} Die Ergebnisse eines Analysevorgangs werden im Visualisierungsbereich von \gls{OQAT} dargestellt.
-Die Art der Darstellung hängt dabei von der gewählten Analysemetrik ab. Wenn z.B. \gls{mse} als die
-zu verwendende Analysemetrik gewählt wurde wird neben des Differenzvideos(wobei ein Pixel den \gls{mse}
-Wert des jeweiligen Pixels trägt) auch der globale \gls{mse} für das jeweilige Frame und für die gesamte
-Videosequenz dargestellt.
+% edit: habe meine Alternative nun auskommentiert da ein paar Zeilen weiter das gleiche in einem 
+% besseren Zusammenhang erklärt wird
+%\nItem{PF} Die Ergebnisse eines Analysevorgangs werden im Visualisierungsbereich von \gls{OQAT} dargestellt.
+%Die Art der Darstellung hängt dabei von der gewählten Analysemetrik ab. Wenn z.B. \gls{mse} als die
+%zu verwendende Analysemetrik gewählt wurde wird neben des Differenzvideos(wobei ein Pixel den \gls{mse}
+%Wert des jeweiligen Pixels trägt) auch der globale \gls{mse} für das jeweilige Frame und für die gesamte
+%Videosequenz dargestellt.
 %\nItem{PF} GUI
 %\newline
 %Die Anwendung unterstützt eine interaktive graphische Benutzeroberfläche mit verschiedenen Sichten, die ein-
 % und ausgeblendet werden können. Dabei können Ein- und Ausgabevideos abgespielt, sowie einzelne Frames
 %  ausgewählt und visuallisiert werden.
-\nItem{PF} \gls{OQAT} stellt dem Nutzer eine Interaktive Benutzeroberfläche zur Verfügung, die
-Funktionsweise dieser wird im Kapitel GUI näher erläutert.
+\nItem{PF} Graphische Oberfläche \\
+\gls{OQAT} stellt dem Nutzer eine Interaktive Benutzeroberfläche zur Verfügung, die
+einzelnen Bestandteile dieser werden im Kapitel \emph{Graphische Oberfläche} näher erläutert.\\
 % Gleiches Argument wie oben, das Zeug ist noch nicht sortiert. Da sind pseudoKapitel nur verwirrend.
 %\subsubsection{Projektverwaltung}
 % Etwas ungenau, sowas haben wir bereits in dem MK. An dieser Stelle muss man also etwas spezifiescher
@@ -89,7 +92,8 @@ Funktionsweise dieser wird im Kapitel GUI näher erläutert.
 %\newline
 %Die Anwendung bietet dem Benutzer die Möglichkeit, durch eine \emph{Projekt-Erstellung-Sicht} Projekte
 % anlegen, speichern, löschen und verwalten zu können.
-\nItem{PF} Um \gls{OQAT} verwenden zu können muss der Benutzer ein neues Projekt anlegen oder aber
+\nItem{PF} Projekte anlegen \\
+Um \gls{OQAT} verwenden zu können muss der Benutzer ein neues Projekt anlegen oder aber
 ein bereits existierendes öffnen. \\
 Ein neues Projekt kann entweder über das Hauptmenü, Toolbar oder aber mit Hilfe des sich
 im Startfensters befindenden Buttons angelegt werden. Nachdem der Nutzer eine dieser Möglichkeiten
@@ -115,9 +119,17 @@ dann wird ein Defaultpfad verwendet.
 %Alle verfügbaren Analysewerkzeuge werden in dieser Sicht aufgelistet. Der Benutzer kann beliebige Werkzeuge
 % markieren und schließlich über einen Button einen Analysedurchlauf für die aus dem Projektexplorer
 %  ausgewählten Videodateien starten.
-\nItem{PF}
+\nItem{PF} MetriList\\
+Die \emph{MetriList} enthält alle der Anwendung zur Verfügung stehenden Analysemetriken.
+Sobald im SmartTree ein Video und ein gültiges Referenzvideo ausgewählt wurde, darf der Benutzer
+eine oder mehrere Metriken auswählen. Eine erfolgreiche Auswahl wird durch das hervorheben des
+jeweiligen Eintrags der \emph{MetriList} und einen entsprechenden Vermerk in dem Visualisierungsbereich
+gekennzeichnet. Eine Metrik kann erst ausgewählt werden wenn möglicherweise zuvor gewählte Filter,
+z.B. durch den Klick auf das entsprechende Symbol aus der Toolbar, bereits angewandt wurden. Versucht
+der Benutzer eine Metrik auszuwählen ohne ein Video und Referenzvideo entsprechend markiert zu haben oder
+während markierte aber nicht abgearbeitete Filter existieren wird er darauf hingewiesen.
 
-% Muss es hier hiin ? In den Musskriterien ist das gleiche drin. -> entweder hier genauer oder aber
+% Muss es hier hin ? In den Musskriterien ist das gleiche drin. -> entweder hier genauer oder aber
 % unnötig
 %\nItem{PF} Analyse-Metriken
 %\newline
@@ -127,15 +139,34 @@ dann wird ein Defaultpfad verwendet.
 %\item \gls{PSNR}
 %\end{itemize}
 
-
-\nItem{PF} Analysedurchlauf
-\newline
-Wenn ein Analysedurchlauf gestartet wird, werden die ausgewählten Videos mittels der ausgewählten
- Analysemetriken verglichen und die Ergebnisse analysiert, bewertet und optional in eine Logdatei
-  gespeichert. Dem Nutzer werden während des Analysedurchlaufs ein Fortschrittsbalken und Statusmeldungen
-   angezeigt. 
-
-\subsubsection{Verzerrung}
+% Ziemlich wage Formulierung. 
+%">..Video werden anhand einer Metrik verglichen.."< Wie genau soll das aussehen ?
+%"<..Ergebnisse werden analysiert"< achja ? Wozu und vorallem wie sollen wir die Ergebnisse analysieren ?
+% Die Auswertung der Ergebnisse überlassen wir dem Benutzer, wir errechnen die Ergebnisse anhand einer
+% Metrik, nicht mehr und nicht weniger. Die Logdatei speichern Geschichte gehört hier nicht ganz hin,
+% schließlich hat der Nutzer auch die Möglichkeit solche Daten auch nach dem Durchlauf(nächste Woche..)
+% zu exportieren -> Es ist eine eigene Funktionseinheit die beschrieben werden sollte.
+% 
+%\nItem{PF} Analysedurchlauf
+%\newline
+%Wenn ein Analysedurchlauf gestartet wird, werden die ausgewählten Videos mittels der ausgewählten
+% Analysemetriken verglichen und die Ergebnisse analysiert, bewertet und optional in eine Logdatei
+%  gespeichert. Dem Nutzer werden während des Analysedurchlaufs ein Fortschrittsbalken und Statusmeldungen
+%   angezeigt. 
+% hier ein Gegenvorschlag:
+\nItem{PF} Analysevorgang \\
+Nachdem der Nutzer eine oder mehrere Metriken aus der \emph{MetriList} und ein
+Video samt einem Referenzvideo ausgewählt hat, kann der Benutzer einen Analysevorgang starten. Hat der
+Nutzer mehrere Metriken ausgewählt werden diese im Batchverfahren abgearbeitet. Nachdem ein Analysevorgang
+beendet wurde, stehen dem Nutzer die Ergebnisse im Visualisierungsbereich zur Verfügung(wurden 
+mehrere Metriken angewandt werden diese unter verschiedenen Registerreitern des Visualisierungsbereichs
+abgelegt). Die Art der Darstellung der Analyseergebnisse hängt ganz und gar von der Art der gewählten 
+Metrik ab. Wenn Beispielsweise die Metrik gls{mse} gewählt wurde wird neben des Differenzvideos(wobei ein
+Pixel den \gls{mse} Wert des jeweiligen Pixels trägt) auch der globale \gls{mse} für das jeweilige Frame
+und für die gesamte Videosequenz dargestellt.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ist noch nicht sortiert
+%\subsubsection{Verzerrung}
 \nItem{PF} Filter
 \newline
 Ein Video, welches in ein Projekt eingebunden wurde, kann durch Filter verzerrt werden.Dieses wird
