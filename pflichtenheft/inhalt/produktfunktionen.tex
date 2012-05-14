@@ -24,8 +24,8 @@ der entsprechende Filter als der nächste anzuwendende Filter markiert. Im Visua
 Fensters kann der Nutzer alle, in der von ihm gewählten Reihenfolge, markierten Filter und auch den
 dadurch verursachten Effekt sehen. Dem Benutzer steht die Möglichkeit offen einen bereits gewählten
 Filter wieder abzuwählen.
- Man sollte wahrscheinlich erwähnen, dass es nicht möglich sein wird das Video abzuspielen bis der Filter 
- tatsächlich angewandt wurde.
+% Man sollte wahrscheinlich erwähnen, dass es nicht möglich sein wird das Video abzuspielen bis der Filter 
+% tatsächlich angewandt wurde.
 %\nItem{PF} Testsignalansicht
 %\newline
 %Alle Filter und Testsignale, mit denen eine Referenzdatei manipuliert werden kann, werden aufgelistet. Der
@@ -39,15 +39,16 @@ Filter wieder abzuwählen.
 Nachdem ein bestehendes Projekt geöffnet oder ein neues erstellt worden ist wird dem
 Benutzer, unter anderem, ein Projektexplorer zur Verfügung gestellt. Ein Projektexplorer ist ein 
 Fenster das zwei Registerreiter enthält. \\
-Der erste Reiter, die Smartlist, enthält die dem Projekt zugewiesenen Videosequenzen. Dabei wird
+Der erste Reiter, die \emph{Smartlist}, enthält die dem Projekt zugewiesenen Videosequenzen. Dabei wird
 grundsätzlich zwischen einer Referenz- und Erzeugten Sequenz unterschieden. Wie in Abb.\ref{pExplorer}
 ersichtlich, ist die Smartlist eine Baumstruktur, dabei ist jedes Vaterelement
 ein Referenzvideo im Bezug zu seinen Kindelementen. Beispielsweise ist, in Abb.\ref{pExplorer}, 
 ">Carphone.yuv"< ein Referenzvideo im Bezug zum Kindelement ">Gaussian Blurr"<. Gaussian Blurr ist ein
 vom Nutzer gewählter Name für die Videosequenz ">Carphone.yuv"< an der der Gaußscher Weichzeichner angewandt
 wurde und ">processed"< ist der vom Nutzer gewählter Name für die ">Gaussian Blurr"< Videosequenz auf
-der er sein \gls{VBW} ausgeführt hat.\\
-Der zweite Reiter (Dateiexplorer) stellt eine Schnittstelle zum Dateisystem des Benutzers dar. Mit Hilfe
+der er sein \gls{VBW} ausgeführt hat. Jede der in der \emph{Smartlist} aufgeführten wird im Projektordner
+oder in einem vom Benutzer angegebenen Stelle seiner Festplatte abgelegt.\\
+Der zweite Reiter \emph{Dateiexplorer} stellt eine Schnittstelle zum Dateisystem des Benutzers dar. Mit Hilfe
 des Dateiexplorers kann der Nutzer \projektTitel neue Videosequenzen bekannt machen.
 \begin{figure}[h]
 \includegraphics[scale=1]{bilder/projektexplorer.png}
@@ -167,12 +168,15 @@ und für die gesamte Videosequenz dargestellt.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ist noch nicht sortiert
 %\subsubsection{Verzerrung}
-\nItem{PF} Filter
-\newline
-Ein Video, welches in ein Projekt eingebunden wurde, kann durch Filter verzerrt werden.Dieses wird
-nach dem Verzerren mit ihrem Referenzvideo verknüpft  Auf solch ein verzerrtes Video kann über den Projektexplorer zugegriffen werden um es ggf. weiter zu verzerren oder zu analysieren.
+% Eine detailiertere Version davon ist unter PF Filtercontainer zu finden
+%\nItem{PF} Filter
+%\newline
+%Ein Video, welches in ein Projekt eingebunden wurde, kann durch Filter verzerrt werden.Dieses wird
+%nach dem Verzerren mit ihrem Referenzvideo verknüpft  Auf solch ein verzerrtes Video kann über den Projektexplorer zugegriffen werden um es ggf. weiter zu verzerren oder zu analysieren.
 
 
+% Unsinnige unterscheidung zwischen Testsignalen und Filtern
+% Das mit den externen Filtern ist eine haarige Angelegenheit
 \nItem{PF} Filter-Plugins
 \newline
 Die Anwendung ist um beliebige Testsignale und Filter in der Form von Plugins erweiterbar.
@@ -180,6 +184,9 @@ Die Anwendung ist um beliebige Testsignale und Filter in der Form von Plugins er
   Plugins laden, solange sie die Form von ausführbaren Programmen haben und über die Kommandozeile 
 angesteuert werden können.
 
+% Bin mir nicht sicher ob es hier nochmal aufgegriffen werden muss
+% Bei den Musskriterien ist eine etwas treffendere Beschreibung drin.
+% Welchen Zweck wird kantendetektion haben ?
 \nItem{PF} Standard-Filter
 \newline
 Die Anwendung stellt dem Benutzer einige Filter standardmäßig bereit:
@@ -195,29 +202,41 @@ Die Anwendung stellt dem Benutzer einige Filter standardmäßig bereit:
 \item Erosion (Abtragung)
 
 \end{itemize}
-
-\nItem{PF} Generierung von Testdateien
-\newline
-Wendet man ausgewählte Filter auf eine Datei an, dann wird eine durch die jeweiligen Filter manipulierte Datei im \gls{glos:YUV} Format generiert, die im Projektordner gespeichert und im Projektexplorer bei den Testvideos aufgelistet wird.
-
-
-
-
+%  Etwas kurz geraten, weiter unten ist meine Version
+%\nItem{PF} Generierung von Testdateien
+%\newline
+%Wendet man ausgewählte Filter auf eine Datei an, dann wird eine durch die jeweiligen Filter manipulierte Datei im \gls{glos:YUV} Format generiert, die im Projektordner gespeichert und im Projektexplorer bei den Testvideos aufgelistet wird.
+\nItem{PF} Filtervorgang\\
+Nachdem der Nutzer einen oder mehrere Filter, gemäß der PF Filtercontainer, markiert hat, kann er
+den Filtervorgang, durch den Klick auf das entsprechende Symbol in der Toolbar oder im Hauptmenü,
+einleiten. Die Dauer des Filtervorgangs ist Abhängig von der Anzahl der gewählten Filter und der Auflösung
+und Länge des gewählten Video aus der Smartlist. Nach einem Filtervorgang wird das neu entstandene Video
+als Kindelement, des für den Filtervorgang ausgewähltem Video, aufgeführt.
 
 \subsection{Optionale Funktionalität}
+\nItem{PF} Motion Vektoren des .H264 Encoders des \gls{ITEC}\\
+Der .H264 Encoder des Instituts gibt, neben der encodierten Videosequenz, auch die verwendeten Motion
+Vektoren. \gls{OQAT} kann diese Vektoren im Visualisierungsbereich darstellen.\\
+nItem{PF} Drag and Drop\\
+Der Projektexplorer ist \email{Drag and Drop} fähig, d.h. eine gültige Videodatei kann nicht nur über
+die Toolbar oder das Hauptmenü hinzugefügt werden sondern darf auch nach dem \email{Drag and Drop} Prinzip
+in die Smartlist eingefügt werden. Das einzubindende Video kann dabei als ein neues Element (ohne
+Vaterelement) oder aber als Kindelement eines bereits vorhandenen Videos eingefügt werden.
+% So ziehmlich das gleiche ist in unseren WKs zu finden.
+%\nItem{PF} Vorschau für Filter
+%\newline
+%Die Auswirkungen eines Filters oder Testsignals auf ein gewähltes Video werden dem Benutzer als Vorschau an einem Frame veranschaulicht.
+% Ich dachte wir haben uns davon verabschiedet.
+%
+%\nItem{PF} Eingebaute Kommandozeile
+%\newline
+%Der Benutzer hat die Möglichkeit, durch eine Kommandozeile Argumente an die Anwendung übergeben zu können.
+% Eine ähnliche Beschreibung ist in den Musskriterien verzeichnet
+%\nItem{PF} Logdatei
+%\newline
+%Es gibt die Option, eine Logdatei für einen Analysevorgang zu erstellen. In der Logdatei sollen im Rahmen
+% des jeweiligen Analysevorgangs ausgeführte Operationen sowie erhaltene Ergebnisse in Textformat
+%  chronologisch aufgelistet werden. Die Auswahl, welche Arten von Operationen und Ergebnissen in der
+%   Logdatei gespeichert werden sollen, steht dem Benutzer zur Verfügung.
 
-\nItem{PF} Vorschau für Filter
-\newline
-Die Auswirkungen eines Filters oder Testsignals auf ein gewähltes Video werden dem Benutzer als Vorschau an einem Frame veranschaulicht.
 
-
-\nItem{PF} Eingebaute Kommandozeile
-\newline
-Der Benutzer hat die Möglichkeit, durch eine Kommandozeile Argumente an die Anwendung übergeben zu können.
-
-\nItem{PF} Logdatei
-\newline
-Es gibt die Option, eine Logdatei für einen Analysevorgang zu erstellen. In der Logdatei sollen im Rahmen
- des jeweiligen Analysevorgangs ausgeführte Operationen sowie erhaltene Ergebnisse in Textformat
-  chronologisch aufgelistet werden. Die Auswahl, welche Arten von Operationen und Ergebnissen in der
-   Logdatei gespeichert werden sollen, steht dem Benutzer zur Verfügung.
