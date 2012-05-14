@@ -1,20 +1,35 @@
 \chapter{Globale Testfälle}
 \section{Testfälle}
 \setcounter{counterKriterien}{0}
-\nItem{T} Analysedaten sollen speichern/laden.
-\nItem{T} Gui Funktionalität testen.
-\nItem{T} Videos sollen korrekt im Projekt abgelegt werden.
-\nItem{T} Analysedaten visuell darstellen.
-\nItem{T} Projekt auf anderen Rechnern öffnen.
-\nItem{T} Filter und Metriken sollen korrekt auf Videos angewandt werden
+
+\nItem{T} Projekt erstellen, speichern und laden
+\nItem{T} Projekt bearbeiten, speichern und laden
+\nItem{T} Projekt auf anderem Rechner öffnen
+
+\nItem{T} Filter auswählen ohne Video ausgewählt zu haben - Fehlermeldung
+\nItem{T} Filter auswählen, Vorschau betrachten
+\nItem{T} Filter anwenden, generierte Video-Datei überprüfen
+\nItem{T} Filter-Einstellungen verändern
+\nItem{T} Mehrere Filter auf ein Video anwenden, Reihenfolge verändern
+
+\nItem{T} Analysemetrik auswählen ohne zwei Videos ausgewählt zu haben - Fehlermeldung
+\nItem{T} Analyse starten ohne Metrik auszuwählen - Fehlermeldung
+\nItem{T} Analyse durchführen, Ergebnisse anzeigen
+\nItem{T} Analyseergebnisse speichern und laden
+\nItem{T} Analyseergebnisse exportieren (csv)
+
+\nItem{T} GUI Funktionalität
+
+
+
 
 \section{Testszenarien}
 \setcounter{counterKriterien}{0}
 \nItem{TS}   \begin{compactenum}[1]
 \item Der Benutzer startet das Programm.
-\item Das Programm begrüßt den Nutzer mit dem Willkommensbildschirm. Da noch keine Projekte vorhanden sind, sind die meisten Buttons grau deaktiviert und grau hinterlegt.
+\item Das Programm begrüßt den Nutzer mit dem Willkommensbildschirm. Da noch keine Projekte vorhanden sind, sind die meisten Buttons deaktiviert.
 \item Der Nutzer klickt auf den ">Projekt erstellen"< Button.
-\item Es erscheint ein Fenster, welche einen Projektnamen verlangt sowie ein Testvideo. Optional lässt sich eine Beschreibung eintragen.
+\item Es erscheint ein Fenster, welches einen Projektnamen verlangt sowie ein Testvideo. Optional lässt sich eine Beschreibung eintragen.
 \item Der Nutzer gibt einen Namen und eine Beschreibung ein und lädt über den im Programm eingefügten Explorer ein Originalvideo in das Projekt.
 \item Das Programm erstellt das Projekt und stellt die Ordnerstruktur bereit.
 \item Der Nutzer beendet das Programm.
@@ -28,14 +43,14 @@
 \item Das Programm öffnet die Ordnerstruktur und zeigt im linken Explorerfenster nun alle Dateien des Projektes an.
 \item Der Nutzer wählt im rechten Werkzeugsfenster den Flimmer Filter und den Weichzeichner. Dazu gibt er dem Programm noch den Grad der beiden Einstellungen an.
 \item Er bestätigt und klickt auf den ">Testviedeo erstellen"< Button.
-\item Die Software fängt an das Video zu erstellen und gibt in einem Pop-up fenster den aktuellen Fortschritt an. Nachdem das Video erstellt ist, verschwindet das Pop-up und die Software signalisiert ihren Fortschritt mit einem Ton.
+\item Die Software fängt an das Video zu erstellen und zeigt den aktuellen Fortschritt an. Nachdem das Video erstellt ist signalisiert \projektTitel die Fertigstellung mit einem Ton.
 \item Der Nutzer beendet das Programm.
 \end{compactenum}
 
 \nItem{TS}
 \begin{compactenum}[1]
 \item \projektTitel wird von \dAU gestartet, das Willkommensfenster wird angezeigt.
-\item \dAU verwendet ein bestehendes Projekt mit einem bestehendem 
+\item \dAU verwendet ein bestehendes Projekt.
 \item Er wählt ein Video aus und klickt das ">Analyse"< Symbol
 \item Eine Fehlermeldung erscheint ">Fehlende Komponenten: Werkzeug, Metrik"<
 \end{compactenum}
