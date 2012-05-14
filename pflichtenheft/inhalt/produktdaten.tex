@@ -1,39 +1,3 @@
 
 
 \chapter{Produktdaten}
-Ein Projekt fasst folgende Daten zusammen:
-	\begin{itemize}
-		\item Projektname und -beschreibung
-		%  Wer hat eig. über das gesamte Pflichtenheft hinweg dieses höchst unpassende Wort eines
-		% Testsignals eingeführt ?
-		\item Dateipfad zu Referenzvideos als .yuv-Dateien (optional - es ist auch möglich nur mit generierten
-		 Testsignalen zu arbeiten)
-		 % Die Einstellungen eines filters gehören nicht zum Projekt
-		 % Dieses Könnte Probleme nach sich ziehen.
-		 % Z.b. exportierst du ein Projekt mit bestimmten Einstellungen für einen Filter
-		 % auf eine andere Maschine. Wenn diese andere OQAT Installation aber nicht alle diese Filter
-		 % hat kann es haarig werden.
-		 % deshalb würde ich Vorschlagen Filtereinstellungen gehören nicht ins Projekt.
-		\item Reihenfolge und Parameter der angewendeten Filter oder Testsignale
-		% Testsignale vs. Videos ..... ich hab nicht mal mehr die Lust es zu ändern.
-	        \item Testvideos als .yuv-Dateien, die durch Filter aus den Referenzvideos oder Testsignalen
-	         generiert wurden
-	         % Verflucht optional ;-)
-	         % wird wahrscheinlich rausfliegen
-	        \item Angaben (Pfad, Parameter) zur Ansteuerung des zu testenden Videobearbeitungswerkzeugs 
-	        oder Encoders (optional)
-		\item Ergebnisse der Analysedurchläufe, abhängig von der gewählten Metrik
-		%was soll denn so ein Errorlog an Sinnvollen daten beinhalten ?
-		% Bsp: ">Konnte Vorgang nicht ausführen"<.. Wir unser System ist im weitesten Sinne homogen,
-		% Wir haben fast nur Umgang mit YUV Dateien, mir fällt keine sinnvolle Errormeldung, die der
-		% Nutzer aufbewahren möchte, ein.
-		\item Errorlogs
-	\end{itemize}
-	% c# hat zwei (native) Möglichkeiten um Anwendungsdaten abzulegen, XML und als Binary.
-	% Warum hat sich der Autor dieser Zeilen für das eine und gegen das andere entschieden.
-Die Einstellungen werden in einer XML-Datei gespeichert. Analyse-Ergebnisse werden in separaten Dateien
- gespeichert. Die generierten Testvideos werden vom Programm im Projektunterordner "Testvideos" abgelegt.
-
-
-% brauchen wir auch eine Beschreibung des YUV-Format?
-% Ja !
