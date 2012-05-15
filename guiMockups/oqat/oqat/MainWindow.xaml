@@ -214,13 +214,21 @@
                     </Grid.RowDefinitions>
                     
                     <Image Grid.Column="0" Grid.ColumnSpan="6" 
-                           Grid.Row="0" Grid.RowSpan="5" Source="Resources\foreman_both_controls.png" Margin="10" HorizontalAlignment="Left"/>
+                           Grid.Row="0" Grid.RowSpan="5" Source="Resources\foreman_analysis_controls.gif" Margin="10" HorizontalAlignment="Left"/>
                     <WrapPanel Grid.Row="5" Grid.ColumnSpan="5" Orientation="Vertical">
                         <Label>
-                            Warteschlange:
+                            Interpretation:
                         </Label>
+                        <TextBlock>
+                            Hier kann der Benutzer seine Interpretation der Analyseergebnisse
+                            <LineBreak/>
+                            hinschreiben. Diese Informatin wird dann im Projekt aufbewahrt <LineBreak/>
+                            und der Nutzer kann später darauf zurückgreifen
+                        </TextBlock>
+                    
                         <WrapPanel>
-                            <Button Width="100">PSNR</Button>
+                            <Button Width="100" Margin="0,0,150,0">Daten speichern</Button>
+                            <Button Width="100" >Daten verwerfen</Button>
                         </WrapPanel>
                     </WrapPanel>
                 </Grid>
