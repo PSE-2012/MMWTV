@@ -105,11 +105,31 @@
                 </Grid>
             </TabItem>
             <TabItem Header="MetriList">
-                <TreeView Name="treeView4">
-                    <TreeViewItem Header="MSE"/>
-                    <TreeViewItem Header="SNR"/>
-                    <TreeViewItem Header="PSNR"/>
-                </TreeView>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TreeView Name="treeView4" Grid.RowSpan="4">
+                        <TreeViewItem Header="MSE"/>
+                        <TreeViewItem Header="SNR"/>
+                        <TreeViewItem Header="PSNR"/>
+                    </TreeView>
+                    <WrapPanel Grid.Row="4" Orientation="Vertical">
+                        <Label Margin="4,0,0,0">
+                            Name:
+                        </Label>
+                        <TextBox Margin="4,0,0,0">
+                            h264_foreman_blur_analysis
+                        </TextBox>
+                        <Button VerticalAlignment="Bottom">
+                            Anwenden
+                        </Button>
+                    </WrapPanel>
+                </Grid>
             </TabItem>
         </TabControl>
         <TabControl DockPanel.Dock="Left" TabStripPlacement="Top" Margin="10,10,5,5" Width="180">
@@ -193,16 +213,15 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     
-                    <Image Grid.Column="0" Grid.ColumnSpan="5" 
-                           Grid.Row="0" Grid.RowSpan="5" Source="Resources\foreman_src_controls.png" Margin="10" HorizontalAlignment="Left"/>
+                    <Image Grid.Column="0" Grid.ColumnSpan="6" 
+                           Grid.Row="0" Grid.RowSpan="5" Source="Resources\foreman_both_controls.png" Margin="10" HorizontalAlignment="Left"/>
                     <WrapPanel Grid.Row="5" Grid.ColumnSpan="5" Orientation="Vertical">
-                        <!--<Label>
+                        <Label>
                             Warteschlange:
                         </Label>
                         <WrapPanel>
-                            <Button Width="100">Blur</Button>
-                            <Button Width="100">Sharpen</Button>
-                        </WrapPanel>-->
+                            <Button Width="100">PSNR</Button>
+                        </WrapPanel>
                     </WrapPanel>
                 </Grid>
             </TabItem>
