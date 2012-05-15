@@ -1,21 +1,11 @@
-\chapter{Nichtfunktionale Anforderungen}
-\section{Zuverlässigkeit}
-\begin{itemize}
-\item Ein Filter- oder Analysevorgang findet nur für gültige YUV-Dateien statt, d.h. wenn eine YUV-Datei nicht gelesen werden kann, stürzt das Programm nicht ab und gibt eine entsprechende Fehlermeldung aus.
-\item Fehlerhafte Eingaben für Pfad, FPS, Filter und Analysemetriken werden vom Programm nicht angenommen und der Benutzer wird gefordert, sie zu korrigieren.
-\end{itemize}
-\setcounter{counterKriterien}{0}
+\chapter{Qualitätsbestimmungen}
 
-\section{Benutzbarkeit}
 \begin{itemize}
+\item Die GUI soll falsche Benutzereingaben weitestgehend vermeiden.
+\item Fehlerhafte Eingaben für Pfad, FPS, Filter und Analysemetriken werden vom Programm nicht angenommen und der Benutzer wird gefordert, sie zu korrigieren.
+\item Ein Filter- oder Analysevorgang findet nur für gültige YUV-Dateien statt, d.h. wenn eine YUV-Datei nicht gelesen werden kann, stürzt das Programm nicht ab und gibt eine entsprechende Fehlermeldung aus.
 %Der Nutzer sollte ohne lange Einarbeitungsphase das Programm bedienen können.
 \item \projektTitel wird unerfahrenen Benutzern eine Hilfe anbieten.
-\end{itemize}
-
-\section{Leistung und Effizienz}
-
-\section{Wartbarkeit und Änderbarkeit}
-\begin{itemize}
 \item Durch Erweiterungsmodule sind Filter und Bewertungsmetriken leicht zu ergänzen.
-\item Die Anwendung ist um weiter natürliche Sprachen durch Sprachpakete erweiterbar.
+
 \end{itemize}
