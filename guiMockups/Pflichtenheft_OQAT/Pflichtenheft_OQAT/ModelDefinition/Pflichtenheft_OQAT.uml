@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner"
+  dslVersion="1.0.0.0"
+  Id="6efd2e31-f583-4122-8f1f-3befc02788d3"
+  name="Pflichtenheft_OQAT" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <ownedCommentsInternal>
+    <comment
+      Id="6e79ecc1-8c06-4024-9153-773913400db5">
+      <body>OQAT</body>
+    </comment>
+    <comment
+      Id="f842b208-a11b-436b-881b-5fc0dec48703">
+      <body>Benutzer</body>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
+      <profileInstance
+        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
+        name="StandardProfileL2" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="29349502-908c-4fda-9054-c48619c59ed0">
+      <profileInstance
+        Id="532ea607-fb19-44b8-8502-3351b05452be"
+        name="StandardProfileL3" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <activity
+        Id="eaa13fec-be47-4e6a-9740-aa0b1794c515"
+        name="PflichtenheftEinleitung"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <opaqueAction
+            Id="76df69db-37d6-4c71-8f24-8f1f3e794b09"
+            name="externes Werkzeug"
+            isLeaf="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="54b6ad51-3717-40ba-a0bf-f0840242afa9"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <inputPinMoniker
+                  Id="ebf65c6f-7bc2-44ad-989e-653ecc4d5cdd"
+                  LastKnownName="verarbeitetNutzer.yuv"
+                  LastKnownLocation="Pflichtenheft_OQAT.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <pins>
+              <opaqueActionHasInputValues>
+                <inputPin
+                  Id="b1cb6c2a-bdba-4c96-b850-226de7186edc"
+                  name="verarbeitetOqat.yuv"
+                  isLeaf="false"
+                  ordering="Unordered"
+                  isControlType="false"
+                  isControl="false">
+                  <upperBound>
+                    <literalInteger
+                      Id="7b010817-fbbe-4739-a4cb-026d8dc8622d"
+                      name="2147483647"
+                      value="2147483647" />
+                  </upperBound>
+                </inputPin>
+              </opaqueActionHasInputValues>
+            </pins>
+          </opaqueAction>
+          <opaqueAction
+            Id="5a1f196a-96d6-49d3-a7ba-90d86c6cb45c"
+            name="Filter anwenden"
+            isLeaf="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="86f2cfc4-edab-494c-904a-6dcc8416e6ab"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <inputPinMoniker
+                  Id="b1cb6c2a-bdba-4c96-b850-226de7186edc"
+                  LastKnownName="verarbeitetOqat.yuv"
+                  LastKnownLocation="Pflichtenheft_OQAT.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <pins>
+              <opaqueActionHasInputValues>
+                <inputPin
+                  Id="d7dd0611-3a52-40a3-9579-edb30de9b65e"
+                  name="referenz.yuv"
+                  isLeaf="false"
+                  ordering="Unordered"
+                  isControlType="false"
+                  isControl="false">
+                  <upperBound>
+                    <literalInteger
+                      Id="5040384d-a27d-4188-b89b-a1f739c30c3f"
+                      name="2147483647"
+                      value="2147483647" />
+                  </upperBound>
+                </inputPin>
+              </opaqueActionHasInputValues>
+            </pins>
+          </opaqueAction>
+          <opaqueAction
+            Id="a77e70ba-3604-40d5-9968-cb57924031db"
+            name="Analyse"
+            isLeaf="false">
+            <pins>
+              <opaqueActionHasInputValues>
+                <inputPin
+                  Id="ebf65c6f-7bc2-44ad-989e-653ecc4d5cdd"
+                  name="verarbeitetNutzer.yuv"
+                  isLeaf="false"
+                  ordering="Unordered"
+                  isControlType="false"
+                  isControl="false">
+                  <upperBound>
+                    <literalInteger
+                      Id="c31d957e-8bcd-4702-a285-bb1272e8e10e"
+                      name="2147483647"
+                      value="2147483647" />
+                  </upperBound>
+                </inputPin>
+              </opaqueActionHasInputValues>
+              <opaqueActionHasOutputValues>
+                <outputPin
+                  Id="7fe441bb-bf82-4596-adb2-177a83b8e7da"
+                  name="Analysedaten"
+                  isLeaf="false"
+                  ordering="Unordered"
+                  isControlType="false"
+                  isControl="false">
+                  <objectFlowTargets>
+                    <objectFlow
+                      Id="8f0707c7-d68f-40f1-9948-990906137779"
+                      isLeaf="false"
+                      isMulticast="false"
+                      isMultireceive="false">
+                      <opaqueActionMoniker
+                        Id="4531a69d-5277-4bf9-8991-49895f079bf6"
+                        LastKnownName="Visualisierung"
+                        LastKnownLocation="Pflichtenheft_OQAT.uml" />
+                    </objectFlow>
+                  </objectFlowTargets>
+                  <upperBound>
+                    <literalInteger
+                      Id="83878bf7-e09b-4546-bf3a-45015e983d5e"
+                      name="2147483647"
+                      value="2147483647" />
+                  </upperBound>
+                </outputPin>
+              </opaqueActionHasOutputValues>
+              <opaqueActionHasInputValues>
+                <inputPin
+                  Id="9d3759aa-baca-4937-9b2d-a1547b8b783a"
+                  name="referenz.yuv"
+                  isLeaf="false"
+                  ordering="Unordered"
+                  isControlType="false"
+                  isControl="false">
+                  <upperBound>
+                    <literalInteger
+                      Id="209cf58a-c501-4029-830d-e02ad35d60a9"
+                      name="2147483647"
+                      value="2147483647" />
+                  </upperBound>
+                </inputPin>
+              </opaqueActionHasInputValues>
+            </pins>
+          </opaqueAction>
+          <opaqueAction
+            Id="4531a69d-5277-4bf9-8991-49895f079bf6"
+            name="Visualisierung"
+            isLeaf="false" />
+          <initialNode
+            Id="fa3bbebd-8e08-40b8-b44f-ae8387650f0e"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="57286b7b-08fc-49a8-8d0e-683108b0e882"
+                isLeaf="false">
+                <forkNodeMoniker
+                  Id="a626b2bc-038d-4fe9-a321-0486a992458c"
+                  LastKnownName="Fork1"
+                  LastKnownLocation="Pflichtenheft_OQAT.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <forkNode
+            Id="a626b2bc-038d-4fe9-a321-0486a992458c"
+            name="Fork1"
+            isLeaf="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="3165c1cf-563f-4f71-b1d0-3cd8522ce3dc"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <inputPinMoniker
+                  Id="d7dd0611-3a52-40a3-9579-edb30de9b65e"
+                  LastKnownName="referenz.yuv"
+                  LastKnownLocation="Pflichtenheft_OQAT.uml" />
+              </objectFlow>
+              <objectFlow
+                Id="d04b868a-9964-4c5f-8b6e-f8a19bb17525"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <inputPinMoniker
+                  Id="9d3759aa-baca-4937-9b2d-a1547b8b783a"
+                  LastKnownName="referenz.yuv"
+                  LastKnownLocation="Pflichtenheft_OQAT.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </forkNode>
+        </nodes>
+      </activity>
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>

@@ -1,8 +1,8 @@
 ﻿<Window x:Class="oqat.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Objective Quality Assessment Toolkit" Height="768" Width="1024"
-        Background="dimgray">
+        Title="Objective Quality Assessment Toolkit" Height="768" Width="1024">
+        <!--Background="dimgray"-->
    
         <DockPanel>
             <Menu DockPanel.Dock="Top" Name="mnuMenu">
@@ -22,16 +22,7 @@
                 <MenuItem Header="_Bearbeiten" />
                 <MenuItem Header="_Hilfe" />
             </Menu>
-        <StatusBar DockPanel.Dock="Bottom" Height="30" VerticalAlignment="Bottom" 
-                   Background="DimGray">
 
-            mir fehlt noch content, schließlich bin ich eine statusleiste
-
-
-            <StatusBarItem HorizontalAlignment="Right" Width="300" Margin="1,1,1,1">
-                <ProgressBar Minimum="0" Maximum="100" Value=" 45" Height="40" Width="300"/>
-            </StatusBarItem>
-        </StatusBar>
         <ToolBar DockPanel.Dock="Top" Height="40">
                 <Button>
                     <Image Source="Resources\Images\fileOpen.png"/>
@@ -80,53 +71,83 @@
                 </ComboBox>-->
             </ToolBar>
         <TabControl DockPanel.Dock="Right" TabStripPlacement="Top" Margin="10,10,5,5" Width="180">
-            <TabItem Header="Filter" Height="30" >
-                <TreeView Name="treeView3">
-                    <TreeViewItem Header="simpleFilter">
+            <TabItem Header="FiltList" Height="30" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TreeView Name="treeView3" Grid.RowSpan="4">
+                    <TreeViewItem Header="Faltungsfilter">
                         <TreeViewItem Header="weichzeichner" />
                         <TreeViewItem Header="scharfzeichner" />
-                        <TreeViewItem Header="querzeichner" />
+                        <TreeViewItem Header="Sobel-Filter" />
                     </TreeViewItem>
-                    <TreeViewItem Header="coolFilter">
-                        <TreeViewItem Header="xRay">
-                            <TreeViewItem Header="rauschen" />
-                            <TreeViewItem Header="verwackeln" />
+                    <TreeViewItem Header="Rauschgenerator">
+                        <TreeViewItem Header="Chrominanzrauschen" />
+                        <TreeViewItem Header="Luminanzrauschen"/>
                         </TreeViewItem>
-                    </TreeViewItem>
                 </TreeView>
+                <WrapPanel Grid.Row="4" Orientation="Vertical">
+                        <Label Margin="4,0,0,0">
+                            Name:
+                        </Label>
+                        <TextBox Margin="4,0,0,0">
+                            foreman_blurr
+                        </TextBox>
+                        <Button VerticalAlignment="Bottom">
+                            Anwenden
+                        </Button>
+                    </WrapPanel>
+                </Grid>
             </TabItem>
-            <TabItem Header="Analyse">
+            <TabItem Header="MetriList">
                 <TreeView Name="treeView4">
-                    <TreeViewItem Header="Sinnlose Metriken">
-                        <TreeViewItem Header="metrikA" />
-                        <TreeViewItem Header="metrikB" />
-                        <TreeViewItem Header="metrikX" />
-                    </TreeViewItem>
-                    <TreeViewItem Header="etwas bessere Metricken">
-                        <TreeViewItem Header="coolMetrikA"/>
-                            <TreeViewItem Header="coolMetrikB" />
-                            <TreeViewItem Header="coolMetrikC" />
-                    </TreeViewItem>
+                    <TreeViewItem Header="MSE"/>
+                    <TreeViewItem Header="SNR"/>
+                    <TreeViewItem Header="PSNR"/>
                 </TreeView>
             </TabItem>
         </TabControl>
         <TabControl DockPanel.Dock="Left" TabStripPlacement="Top" Margin="10,10,5,5" Width="180">
-                <TabItem Header="Resourcen" Height="30" >
-                    <TreeView Name="treeView1">
-                        <TreeViewItem Header="MyVideoSamples">
-                            <TreeViewItem Header="VideoA.yuv" />
-                            <TreeViewItem Header="VideoB.yuv" />
-                            <TreeViewItem Header="VideoC.yuv" />
+                <TabItem Header="SmartTree" Height="30" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TreeView Name="treeView1" Grid.RowSpan="4">
+                    <TreeViewItem Header="foremen.yuv">
+                        <TreeViewItem Header="Gaussian Blurr">
+                            <TreeViewItem Header="processed" />
                         </TreeViewItem>
-                        <TreeViewItem Header="wwwVideoSamples">
-                            <TreeViewItem Header="funnyVideo.yuv">
-                                <TreeViewItem Header="notThatFunnyButStill.yuv" />
-                                <TreeViewItem Header="broken.avi" />
+                        <TreeViewItem Header="sharpen">
+                            <TreeViewItem Header="posterize">
+                                <TreeViewItem Header="Processed"/>
                             </TreeViewItem>
                         </TreeViewItem>
-                    </TreeView>
-                </TabItem>
-                <TabItem Header="CoolTab">
+                    </TreeViewItem>
+                </TreeView>
+                    <WrapPanel Grid.Row="4" Orientation="Vertical">
+                    <Label VerticalAlignment="Top">
+                        Name = foreman.yuv
+                    </Label>
+                        <Label VerticalAlignment="Top">
+                            Size = 312 MB
+                        </Label>
+                        <Label VerticalAlignment="Top">
+                            Resolution = 640 x 480
+                        </Label>
+                    </WrapPanel>
+                </Grid>
+            </TabItem>
+                <TabItem Header="Dateiexplorer">
                     <TreeView Name="treeView2">
                         <TreeViewItem Header="Asien">
                             <TreeViewItem Header="China" />
@@ -144,26 +165,43 @@
                     </TreeView>
                 </TabItem>
             </TabControl>
-        <TabControl DockPanel.Dock="Bottom" Height="130" Margin="5">
+        <!--<TabControl DockPanel.Dock="Bottom" Height="130" Margin="5">
             <TabItem Header="Log" >
                
             </TabItem>
             <TabItem Header="Error" >
                
             </TabItem>
-            <TabItem Header="Konsole">
-                
+        </TabControl>-->
+        <TabControl Margin="0,0,0,4">
+            <TabItem Header="foremen" >
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <Image Grid.Column="0" Grid.ColumnSpan="5" 
+                           Grid.Row="0" Grid.RowSpan="5" Source="Resources\foreman_src_controls.png" Margin="10" HorizontalAlignment="Left"/>
+                    <WrapPanel Grid.Row="5" Grid.ColumnSpan="5">
+                        
+                    </WrapPanel>
+                </Grid>
             </TabItem>
-        </TabControl>
-        <TabControl>
-            <TabItem Header="ErgebnisAnsicht" >
-                <Image Source="Resources\Images\Desert.jpg" Margin="10" Height="auto" Width="auto" >
-                </Image>
-            </TabItem>
-            <TabItem Header="Noch eine Ergebnisansicht" >
-                <Image Source="Resources\Images\chuck.jpg" Margin="10" Height="auto" Width="auto" >
-                </Image>
-            </TabItem>
+            <!--<TabItem Header="" >
+            </TabItem>-->
         </TabControl>
     </DockPanel>
 </Window>
