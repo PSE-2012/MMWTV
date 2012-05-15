@@ -12,6 +12,21 @@
 %\item 
 %\end{compactenum} \\
 %\end{tabular}
+\section{MVVM-Architektur}
+\setcounter{counterKriterien}{0}
+
+Es wird die MVVM-Architektur zur Realisierung von \projektTitel verwendet.
+
+\nItem{S} Model \\
+Hier befinden sich Projekte, Filter sowie Analysemetriken. Wenn die Daten
+sich ändern schickt das Model eine Benachrichtigung an sein ViewModel.
+
+\nItem{S} ViewModel \\
+Im ViewModel werden alle vom Benutzer erhaltenen Eingaben entsprechend verarbeitet und
+gegebenenfalls an das Model weitergeleitet, es leitet auch die Daten des Models and das View weiter.
+
+\nItem{S} View \\
+Ein View ist die Präsentation der Daten des Models.
 
 \begin{tabular}{p{1.55cm}|p{14cm}}
 Szenario-Name & Scharfzeichner-Analyse\\ \hline
