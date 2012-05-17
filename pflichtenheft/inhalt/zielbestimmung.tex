@@ -24,12 +24,14 @@ Diese sind:
 \nItem{MK} Ein an Analysemetriken steht der Anwendung bereits zum Auslieferungszeitpunkt zur Verfügung.
 Diese sind:
 \begin{compactitem}
-\item \gls{mse}
-\item \gls{snr}
-\item \gls{psnr}
+\item Mean squared error
+\item Signal-to-noise ratio
+\item Peak signal-to-noise ratio
 % % hier sollten noch ein paar rein, vlcht SSIM ?
 \end{compactitem}
 \nItem{MK} Falls es für einen Filter sinnvolle Einstellungsmöglichkeiten gibt, kann man diese verändern. Beispielsweise kann die Stärke eines Weichzeichners eingestellt werden.\\
+\nItem{MK} Ein Filtervorgang kann mehrere Filter beinhalten. Die Reihenfolge in der Filter angewandt
+werden ist variabel und kann vom Nutzer bestimmt werden.\\
 \nItem{MK} Benutzer haben die Möglichkeiten Projekte anzulegen. Ein Projekt dient als Ablageort für
 absolvierte Analysevorgänge, relevante Projekteinstellungen und die vom Benutzer bereitgestellte Ressourcen.\\
 \nItem{MK} Der Nutzer hat die Möglichkeit aktuelle und oder zurückliegende Analyseergebnisse in einem portablem Format (z.B. \gls{csv}) zu exportieren.\\
@@ -50,11 +52,10 @@ absolvierte Analysevorgänge, relevante Projekteinstellungen und die vom Benutze
 %\nItem{WK}	Während eines Analysevorgangs werden die vom \projektTitel durchgeführten Operation in einem Statusfenster dargestellt und optional in einem Logfile gespeichert.
 \nItem{WK} Einstellungsparameter für Filter können abgespeichert und geladen werden.\\
 \nItem{WK} Für einen ausgewählten Filter wird, im Visualisierungsbereich, eine Vorschau generiert.\\
-\nItem{WK} Ein Filtervorgang kann mehrere Filter beinhalten. Die Reihenfolge in der Filter angewandt
-werden ist variabel und kann vom Nutzer bestimmt werden.\\
+
 \nItem{WK} Der Projektexplorer unterstützt Drag and Drop.
 \section{Abgrenzungskriterien}
 \setcounter{counterKriterien}{0}
-\nItem{AK} \projektTitel beherrscht nur \gls{FR} Analysemetriken.\\
+\nItem{AK} \projektTitel beherrscht nur Full Reference  Analysemetriken.\\
 \nItem{AK} \gls{OQAT} arbeitet nicht mit Audiodaten.\\
 \nItem{AK} \projektTitel untersucht nicht die Performanz von \gls{glos:VBW}en\\
