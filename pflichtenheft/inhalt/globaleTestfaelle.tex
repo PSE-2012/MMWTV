@@ -2,6 +2,9 @@
 \section{Testfälle}
 \setcounter{counterKriterien}{0}
 
+%veraltet => neu schreiben
+------------*
+
 \nItem{T} Projekt erstellen, speichern und laden
 \nItem{T} Projekt bearbeiten, speichern und laden
 \nItem{T} Projekt auf anderem Rechner öffnen
@@ -25,49 +28,52 @@
 
 \section{Testszenarien}
 \setcounter{counterKriterien}{0}
-\nItem{TS}   \begin{compactenum}[1]
-\item Der Benutzer startet das Programm.
-\item Das Programm begrüßt den Nutzer mit dem Willkommensbildschirm. Da noch keine Projekte vorhanden sind, sind die meisten Buttons deaktiviert.
-\item Der Nutzer klickt auf den ">Projekt erstellen"< Button.
-\item Es erscheint ein Fenster, welches einen Projektnamen verlangt sowie ein Testvideo. Optional lässt sich eine Beschreibung eintragen.
-\item Der Nutzer gibt einen Namen und eine Beschreibung ein und lädt über den im Programm eingefügten Explorer ein Originalvideo in das Projekt.
-\item Das Programm erstellt das Projekt und stellt die Ordnerstruktur bereit.
-\item Der Nutzer beendet das Programm.
 
-\end{compactenum}
+%Projekt erstellen
+%Bestehendes Projekt öffnen
+%Filter anwenden
+%Makrofilter erstellen
+%Analyse
+%alte Analysedaten anzeigen
 
-\nItem{TS}  \begin{compactenum}[1]
-\item Der Benutzer startet das Programm.
-\item Das Programm begrüßt den Nutzer mit dem Willkommensbildschirm.
-\item Der Nutzer wählt mit einem Linksklick im linken Explorerfenster ein Projekt.
-\item Das Programm öffnet die Ordnerstruktur und zeigt im linken Explorerfenster nun alle Dateien des Projektes an.
-\item Der Nutzer wählt im rechten Werkzeugsfenster den Flimmer Filter und den Weichzeichner. Dazu gibt er dem Programm noch den Grad der beiden Einstellungen an.
-\item Er bestätigt und klickt auf den ">Testviedeo erstellen"< Button.
-\item Die Software fängt an das Video zu erstellen und zeigt den aktuellen Fortschritt an. Nachdem das Video erstellt ist signalisiert \projektTitel die Fertigstellung mit einem Ton.
-\item Der Nutzer beendet das Programm.
-\end{compactenum}
+\nItem{TS} Neues Projekt erstellen\\
+\begin{enumerate}
+\item \dAU startet \projektTitel.
+\item Der Wilkommensbildschirm öffnet sich.
+\item \dAU klickt auf den \emph{neues Projekt erstellen} Button.
+\item Ein Projekt Erstellungsdialog wird geöffnet.
+\item \dAU trägt einen Projekt Titel, eine kurze Beschreibung ein und bestätigt den Vorgang.
+\item \dAU klickt auf den Dateiexplorer und wählt \emph{carphone.yuf} mit einem Rechtklick aus. Aus dem erscheinenden Dialog wählt er die \emph{Ressource hinzufügen} Option aus.
+\item Das Video wird nun im Projektexplorer angezeigt.
+\item \dAU beendet das Programm, da sein Ziel erreicht ist.
+\end{enumerate}
 
-\nItem{TS}
-\begin{compactenum}[1]
-\item \projektTitel wird von \dAU gestartet, das Willkommensfenster wird angezeigt.
-\item \dAU verwendet ein bestehendes Projekt.
-\item Er wählt ein Video aus und klickt das ">Analyse"< Symbol
-\item Eine Fehlermeldung erscheint ">Fehlende Komponenten: Werkzeug, Metrik"<
-\end{compactenum}
 
-\nItem{TS} \begin{compactenum}[1]
-\item \dAU  startet \projektTitel, es erscheint ein Willkomensfenster auf dem allgemeine Informationen und seine zuletzt geöffneten Projekte angezeigt werden.
-\item \dAU  klickt auf das ">Projekt erstellen"< Symbol aus der Werkzeugleiste.
-\item Es öffnet sich ein ">Neues Projekt"< Assistent, in dem Bob ein Referenzvideo im \gls{glos:YUV} Format einträgt.
-\item \dAU  überprüft die eingegebenen Informationen und klickt auf den ">Projekt erstellen"< Button. Das neue Projekt wird geöffnet.
-\item \dAU  wählt das von ihm zuvor angegebene Video aus dem Projektexplorer.
-\item \dAU  wählt den Weichzeichner-Filter aus dem Filterkatalog-Tab. Im Filter-Paramter-Abschnitt stellt er die Intensität des Weichzeichner-Effekts ein und klickt anschließend auf das ">Filter anwenden"< Symbol aus der Werkzeugleiste 
-\item \dAU  minimiert nun \projektTitel und öffnet sein zu testendes Scharfzeichner-Werkzeug auf dem gerade durch den Weichzeichner-Filter generierten Testvideo, das neu im Projektordner erstellt wurde.
-\item \dAU  wechselt nun wieder zu \projektTitel. Er wählt in der Werkzeugleiste die Option ">Testvideo hinzufügen"< und lädt das gerade durch sein Scharfzeichner-Werkzeug erstellte Video in sein Projekt.
-\item \dAU  wählt das ursprüngliche Referenzvideo ohne Weichzeichner-Effekt und sein gerade vom Scharfzeichner bearbeitetes Video an, um diese zu vergleichen.
-\item Dazu klickt \dAU  auf das ">Metriken"<-Tab. Anstelle des Filterkatalogs sieht er nun eine Auswahl an Analysemetriken. Bob doppelklickt auf den Eintrag \gls{MSE}.
-\item Der Eintrag \gls{MSE} ist nun hervorgehoben. \dAU  klickt auf das ">Analyse"< Symbol aus der Werkzeugleiste.
-\item Im Log-Fenster wird nun zusätzlich zu den aktuellen Statusmeldungen ein Fortschrittsbalken angezeigt. Bob wartet bis der Vorgang beendet ist.
-\item Nach Abschluss des Analysedurchlaufs werden \dAU  die Ergebnisse der Analyse im Hauptfenster von \projektTitel graphisch dargestellt.
-\item \dAU  weiß nun, dass sein Scharfzeichner-Werkzeug den Weichzeichnungseffekt nur mangelhaft beseitigen konnte. Das neu gewonnenen Wissen nutzt er um sein Werkzeug zu verbessern.
-\end{compactenum}
+\nItem{TS} Bestehendes Projekt öffnen\\ %Filter anwenden/Makrofilter erstellen
+\begin{enumerate}
+\item \dAU startet \projektTitel
+\item Der Willkommesnbildschirm öffnet sich.
+\item \dAU wählt aus der Liste seiner zuletzt geöffneten Projekten das \emph{H264Test} Projekt aus.
+\item \dAU klickt auf das \emph{carphone.yuf} Video im Smarttree.
+\item \dAU wählt den Weichzeichner aus der Filterliste aus.
+\item \dAU erhöht die stärke des Weichszeichners und fügt es der Warteliste der Anzuwendenden Filter hinzu.
+\item \dAU wählt den Scharfzeichner aus der Filterliste aus und fügt es zur Warteliste der anzuwendenden Filter hinzu. 
+\item \dAU schiebt den Scharfzeichner vor den Weichzeichner in der Warteliste.
+\item \dAU speichert die Reihenfolge unter dem Namen \emph{ScharfWeich} ab.
+\item \dAU klickt auf Filter anwenden.
+\item Das Video wird im \emph{smarteTree} als Kindelement des \emph{carphone.YUF} aufgelistet.
+\item  \dAU beendet \projektTitel.
+\end{enumerate}
+
+\nItem{TS} Analyse
+\begin{enumerate}
+\item \dAU startet \projektTitel.
+\item öffnet das \emph{H264Test} Projekt.
+\item \dAU wählt im Dateiexplorer die \emph{carphoneH264encoded.YUF} und fügt diese als Kindelement des \emph{carphone.yuv} Video (im emph{smartTree}) hinzu.
+\item \dAU wählt die \emph{PSNR} Metrik aus der Metrikenliste aus.
+\item \dAU markiert das \emph{carphone.yuv} Video aus dem \emph{smartTree} als Referenzvideo und \emph{carphoneH264encoded.YUF} als das zu analysierende Video.
+\item \dAU startet die Analyse durch einen Klick auf das ensprechende Symbol der Toolbar.
+\item \dAU wartet bis der Analysevorgang beendet wurde.
+\item \dAU schaut sich die Ergebnisse der Analyse an und gibt eine Beschreibung an die er zusammen mit den Analyseergebnissen abspeichert um auch später auf diese zurückgreifen zu können.
+\item \dAU schließt das Programm.
+\end{enumerate}
