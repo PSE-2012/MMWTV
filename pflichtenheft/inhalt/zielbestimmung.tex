@@ -18,8 +18,8 @@ Diese sind:
 \begin{compactitem}
 \item Rauschgenerator
 \item Verschiedene Farbfilter (Graustufen, Sepia, Farbkanäle ein/ ausblenden)
-\item Faltungs-Filter (Scharfzeichner, Weichzeichner, Sobel-Filter, ...)
-\item Posterisation
+\item Faltungs-Filter (Scharfzeichner, Weichzeichner, Sobel-Filter)
+%\item Posterisation
 \end{compactitem}
 \nItem{MK} Ein an Analysemetriken steht der Anwendung bereits zum Auslieferungszeitpunkt zur Verfügung.
 Diese sind:
@@ -30,13 +30,15 @@ Diese sind:
 % % hier sollten noch ein paar rein, vlcht SSIM ?
 \end{compactitem}
 \nItem{MK} Falls es für einen Filter sinnvolle Einstellungsmöglichkeiten gibt, kann man diese verändern. Beispielsweise kann die Stärke eines Weichzeichners eingestellt werden.\\
+\nItem{MK} Einstellungsparameter für Filter können abgespeichert und geladen werden.\\
 \nItem{MK} Ein Filtervorgang kann mehrere Filter beinhalten. Die Reihenfolge in der Filter angewandt
-werden ist variabel und kann vom Nutzer bestimmt werden.\\
+werden ist variabel und kann vom Nutzer bestimmt bzw. abgespeichert werden. Bei einem solchen Vorgang wird nur ein Video abgespeichert.\\
 \nItem{MK} Benutzer haben die Möglichkeiten Projekte anzulegen. Ein Projekt dient als Ablageort für
 absolvierte Analysevorgänge, relevante Projekteinstellungen und die vom Benutzer bereitgestellte Ressourcen.\\
 \nItem{MK} Der Nutzer hat die Möglichkeit aktuelle und oder zurückliegende Analyseergebnisse in einem portablem Format (z.B. \gls{csv}) zu exportieren.\\
 \nItem{MK} Die Ergebnisse eines Analysedurchlaufs werden graphisch aufbereitet (z.B. als Differenzbild).\\
 \nItem{MK} \gls{OQAT} unterstützt Lokalisierung, d.h. der Nutzer hat die Möglichkeit die Sprachfunktionalität der Anwendung durch Sprachpakete zu erweitern. Es wird nur die deutsche Sprachdatei standardmäßig bereitgestellt.
+
 \section{Wunschkriterien}
 \setcounter{counterKriterien}{0}
 % 
@@ -50,7 +52,7 @@ absolvierte Analysevorgänge, relevante Projekteinstellungen und die vom Benutze
 \nItem{WK} Während eines Analysevorgangs wird eine Fortschrittsanzeige und die voraussichtliche Dauer des Vorgangs angezeigt.\\
 % Ein beinahe identisches MK befindet sich ein paar Zeilen weiter oben.
 %\nItem{WK}	Während eines Analysevorgangs werden die vom \projektTitel durchgeführten Operation in einem Statusfenster dargestellt und optional in einem Logfile gespeichert.
-\nItem{WK} Einstellungsparameter für Filter können abgespeichert und geladen werden.\\
+
 \nItem{WK} Für einen ausgewählten Filter wird, im Visualisierungsbereich, eine Vorschau generiert.\\
 
 \nItem{WK} Der Projektexplorer unterstützt Drag and Drop.
