@@ -18,28 +18,32 @@ Diese sind:
 \begin{compactitem}
 \item Rauschgenerator
 \item Verschiedene Farbfilter (Graustufen, Sepia, Farbkanäle ein/ ausblenden)
-\item Faltungs-Filter (Scharfzeichner, Weichzeichner, Sobel-Filter, ...)
-\item Posterisation
+\item Faltungs-Filter (Scharfzeichner, Weichzeichner, Sobel-Filter)
+%\item Posterisation
 \end{compactitem}
-\nItem{MK} Ein an Analysemetriken steht der Anwendung bereits zum Auslieferungszeitpunkt zur Verfügung.
+\nItem{MK} Ein Satz an Analysemetriken steht der Anwendung bereits zum Auslieferungszeitpunkt zur Verfügung.
 Diese sind:
 \begin{compactitem}
-\item \gls{mse}
-\item \gls{snr}
-\item \gls{psnr}
+\item Mean squared error
+\item Signal-to-noise ratio
+\item Peak signal-to-noise ratio
 % % hier sollten noch ein paar rein, vlcht SSIM ?
 \end{compactitem}
 \nItem{MK} Falls es für einen Filter sinnvolle Einstellungsmöglichkeiten gibt, kann man diese verändern. Beispielsweise kann die Stärke eines Weichzeichners eingestellt werden.\\
+\nItem{MK} Einstellungsparameter für Filter können abgespeichert und geladen werden.\\
+\nItem{MK} Ein Filtervorgang kann mehrere Filter beinhalten. Die Reihenfolge, in der Filter angewandt
+werden, ist variabel und kann vom Nutzer bestimmt und abgespeichert werden. Bei einem solchen Vorgang wird nur ein Video für den kompletten Filtervorgang abgespeichert.\\
 \nItem{MK} Benutzer haben die Möglichkeiten Projekte anzulegen. Ein Projekt dient als Ablageort für
 absolvierte Analysevorgänge, relevante Projekteinstellungen und die vom Benutzer bereitgestellte Ressourcen.\\
-\nItem{MK} Der Nutzer hat die Möglichkeit aktuelle und oder zurückliegende Analyseergebnisse in einem portablem Format (z.B. \gls{csv}) zu exportieren.\\
+\nItem{MK} Der Nutzer hat die Möglichkeit aktuelle und oder zurückliegende Analyseergebnisse in einem portablen Format (z.B. \gls{csv}) zu exportieren.\\
 \nItem{MK} Die Ergebnisse eines Analysedurchlaufs werden graphisch aufbereitet (z.B. als Differenzbild).\\
-\nItem{MK} \gls{OQAT} unterstützt Lokalisierung, d.h. der Nutzer hat die Möglichkeit die Sprachfunktionalität der Anwendung durch Sprachpakete zu erweitern. Es wird nur die deutsche Sprachdatei standardmäßig bereitgestellt.
+\nItem{MK} \projektTitel unterstützt Lokalisierung, d.h. der Nutzer hat die Möglichkeit die Sprachfunktionalität der Anwendung durch Sprachpakete zu erweitern. Es wird nur die deutsche Sprachdatei standardmäßig bereitgestellt.
+
 \section{Wunschkriterien}
 \setcounter{counterKriterien}{0}
 % 
 %\nItem{WK} Es wird eine Vorschau, basierend auf den ausgewählten Filtern, generiert.
-\nItem{WK} \projektTitel kann die Daten die der \gls{glos:VE} vom \gls{ITEC}  bereitstellt erkennen und darstellen.\\
+\nItem{WK} \projektTitel kann die Daten, die der \gls{glos:VE} des \gls{ITEC} bereitstellt, erkennen und darstellen.\\
 \nItem{WK} Ein angelegtes Projekt ist auch unter einer anderen \projektTitel Installation lauffähig, vorausgesetzt die nötigen Resourcen (z.B. Video Dateien die dem Projekt zuvor zur Verfügung gestellt wurden)  sind vorhanden und es handelt sich um die selbe Version von \projektTitel.\\
 % Metriken als plugins einbinden zu können wird eine ziemlich harte Nuss...
 % Filter sind da nicht so schwierig denke ich..
@@ -48,13 +52,10 @@ absolvierte Analysevorgänge, relevante Projekteinstellungen und die vom Benutze
 \nItem{WK} Während eines Analysevorgangs wird eine Fortschrittsanzeige und die voraussichtliche Dauer des Vorgangs angezeigt.\\
 % Ein beinahe identisches MK befindet sich ein paar Zeilen weiter oben.
 %\nItem{WK}	Während eines Analysevorgangs werden die vom \projektTitel durchgeführten Operation in einem Statusfenster dargestellt und optional in einem Logfile gespeichert.
-\nItem{WK} Einstellungsparameter für Filter können abgespeichert und geladen werden.\\
-\nItem{WK} Für einen ausgewählten Filter wird, im Visualisierungsbereich, eine Vorschau generiert.\\
-\nItem{WK} Ein Filtervorgang kann mehrere Filter beinhalten. Die Reihenfolge in der Filter angewandt
-werden ist variabel und kann vom Nutzer bestimmt werden.\\
+\nItem{WK} Für einen ausgewählten Filter wird im Visualisierungsbereich eine Vorschau generiert.\\
 \nItem{WK} Der Projektexplorer unterstützt Drag and Drop.
 \section{Abgrenzungskriterien}
 \setcounter{counterKriterien}{0}
-\nItem{AK} \projektTitel beherrscht nur \gls{FR} Analysemetriken.\\
+\nItem{AK} \projektTitel beherrscht nur \gls{glos:FR} Analysemetriken.\\
 \nItem{AK} \gls{OQAT} arbeitet nicht mit Audiodaten.\\
 \nItem{AK} \projektTitel untersucht nicht die Performanz von \gls{glos:VBW}en\\
