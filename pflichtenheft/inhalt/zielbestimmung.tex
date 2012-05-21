@@ -24,9 +24,12 @@ Diese sind:
 \nItem{MK} Ein Satz an Analysemetriken steht der Anwendung bereits zum Auslieferungszeitpunkt zur Verfügung.
 Diese sind:
 \begin{compactitem}
-\item Mean squared error
-\item Signal-to-noise ratio
+\item Mean square error \\
+Die Mean Square Error dient zur Berechnung der Abweichung eines Schätzers von dem zu schätzenden Wert. Es ergibt sich aus der Differenz zwischen den Werten und dem arithmetischem Mittel. Die Differenz wird quadriert und durch die Anzahl der Werten dividiert.
+\item Signal-to-noise ratio \\
+Das Signal-to-noise Ratio ist ein Maß für die Qualität eines Signals, das von einem Rauschsignal überlagert ist. Es ist definiert als das Verhältnis der mittleren Leistung des Signals zur mittleren Rauschleistung des Störsignals.
 \item Peak signal-to-noise ratio
+PSNR ist ein Maßstab zur Messung von Unterschieden zwischen zwei Bildsignalen. Er wird unter anderem dazu verwendet, um mittels eines unkomprimierten Original-Videos und eines verlustbehaftet komprimierten entsprechenden Vergleichs-Videos den Qualitätsverlust zu quantifizieren. Der PSNR basiert auf der MSE für die Pixel des Original-Videos und des Vergleichsvideos und wird durch eine Formel errechnet. Bei Farbsignalen wird der PSNR separat je Farbkomponente errechnet und anschliessend der Mittelwert gebildet.
 % % hier sollten noch ein paar rein, vlcht SSIM ?
 \end{compactitem}
 \nItem{MK} Falls es für einen Filter sinnvolle Einstellungsmöglichkeiten gibt, kann man diese verändern. Beispielsweise kann die Stärke eines Weichzeichners eingestellt werden.\\
