@@ -68,7 +68,7 @@
 \nItem{TS} Analyse durchführen.
 \begin{enumerate}
 \item \dAU startet \projektTitel.
-\item öffnet das \emph{H264Test} Projekt.
+\item \dAU öffnet das \emph{H264Test} Projekt.
 \item \dAU wählt im Dateiexplorer die \emph{carphoneH264encoded.YUF} und fügt diese als Kindelement des \emph{carphone.yuv} Video (im emph{smartTree}) hinzu.
 \item \dAU wählt die \emph{PSNR} Metrik aus der MetriList aus.
 \item \dAU markiert das \emph{carphone.yuv} Video aus dem \emph{SmartTree} als Referenzvideo und \emph{carphoneH264encoded.YUF} als das zu analysierende Video.
@@ -78,3 +78,29 @@
 \item \dAU schließt das Programm.
 \end{enumerate}
 
+\nItem{TS} titel.
+\begin{enumerate}
+\item \dau startet \projektTitel.
+\item Es erscheint ein Wilkommensbildschirm.
+\item \dAU wählt die Option \emph{neues Projekt erstellen}.
+\item Im geöfneten Projekterstellungsdialog trägt \dAU den Projekttitel (mpeg-4-TestProjekt) und den Pfad(~/bob/Videos/) zu einem Videoverzeichnis in seinem Arbeitsverzeichnis.
+\item \dAU klickt auf den \emph{Projekt anlegen} Button.
+\item Im \emph{smartTree} des \emph{ProjektExplorers} werden nun alle kompatiblen (.YUV) Videos, die sich
+im Videoverzeichnis von \dAU befinden, aufgelistet.
+\item \dAU wählt den \emph{foreman.yuv} Eintrag im Smarttree aus.
+\item \dAU klickt auf das \emph{play} Symbol des Videoplayers (im Hauptvisualisierungsbereich).
+\item Nachdem \dAU sich vergewissert hat, dass die Videosequenz seinen Ansprüchen genügt pausiert er
+das Video (durch einen Klick auf das \emph{pause} Symbol des Videoplayers).
+\item \dAU wählt einen Rauschfilter aus der Filterliste.
+\item \dAU wählt den \emph{Weichzeichner} Filter aus der Filterliste aus und fügt ihn der Warteschlange der auf das Video anzuwendenden Filter hinzu.
+\item \dAU gibt einen Namen an (foremanRauschenWeich.yuv), klickt auf den \emph{Filter anwenden} Button und wartet bis der Vorgang beendet wurde.
+\item Im SmartTree wird nun \emph{foremanRauschenWeich.yuv} als Kindelement von \emph{foreman.yuv} aufgeführt(und befindet sich außerdem im Projektordner von Bob).
+\item Bob startet seinen MPEG-4 Encoder, wendet ihn auf das \emph{foremanRauschenWeich.yuv} Video aus seinem Projektverzeichnis an und speichert das erzeugte Video (\emph{foremanRauschenWeichEncoded.yuv} Video in seinem Projektverzeichnis ab.
+\item Bob wählt das \emph{foremanRauschenWeichEncoded.yuv} Video aus dem Dateiexplorer( ein Tab im Projektexplorer) und fügt es als Kindelement von \emph{foremanRauschenWeich.yuv} hinzu.
+\item Bob wählt den Analyse-Tab (neben dem Filter-Tab) aus, im Videoplayer sind nun zwei leere Boxen zu sehen.
+\item Bob wählt das \emph{foreman.yuv} Video als Referenzvideo und das \emph{foremanRauschenWeichEncoded.yuv} als das zu vergleichende Video aus. In der linken (zuvor leeren) Box wird nun das Referenzvideo und in der rechten Box das zu vergleichende Video angezeigt.
+\item Bob wählt die PSNR Metrik aus der Metriken Liste aus und klickt auf den \emph{Analyse starten} Button.
+\item Bob wartet bis der Analysevorgang fertig ist und startet das Ergebnisvideo (im Player).
+\item Nachdem Bob sich das Ergebnisvideo angeschaut hat schreibt er eine kurze Beschreibung der Analyseergebnisse und speichert diese ab.
+\item Bob schließt \projektTitel.
+\end{enumerate}
