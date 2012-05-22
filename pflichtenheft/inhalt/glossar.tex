@@ -45,26 +45,26 @@
 %mit \gls{glos:AD} kann man es im Text einbinden
 \newglossaryentry{glos:psnr}{
 name=Peak signal-to-noise ratio,
-description={!!Ich wurde noch nicht beschrieben!!}}
+description={PSNR ist ein Maßstab zur Messung von Unterschieden zwischen zwei Bildsignalen. Er wird unter anderem dazu verwendet, um mittels eines unkomprimierten Original-Videos und eines verlustbehaftet komprimierten entsprechenden Vergleichs-Videos den Qualitätsverlust zu quantifizieren. Der PSNR basiert auf der MSE für die Pixel des Original-Videos und des Vergleichsvideos und wird durch eine Formel errechnet. Bei Farbsignalen wird der PSNR separat je Farbkomponente errechnet und anschliessend der Mittelwert gebildet.}}
 \newglossaryentry{glos:snr}{
 name=Signal-to-noise ratio,
-description={!!Ich wurde noch nicht beschrieben!!}}
+description={Das Signal-to-noise Ratio ist ein Maß für die Qualität eines Signals, das von einem Rauschsignal überlagert ist. Es ist definiert als das Verhältnis der mittleren Leistung des Signals zur mittleren Rauschleistung des Störsignals.}}
 \newglossaryentry{glos:mse}{
 name=Mean squared error,
-description={!!Ich wurde noch nicht beschrieben!!}}
+description={Der Mean Square Error dient zur Berechnung der Abweichung eines Schätzers von dem zu schätzenden Wert. Es ergibt sich aus der Differenz zwischen den Werten und dem arithmetischem Mittel. Die Differenz wird quadriert und durch die Anzahl der Werte dividiert.}}
 \newglossaryentry{glos:qos}{
 name=Quality of Service,
-description={!!Ich wurde noch nicht beschrieben!!}}
+description={Quality of Service oder Dienstgüte beschreibt die Güte eines Kommunikationsdienstes aus der Sicht der Anwender, das heißt, wie stark die Güte des Dienstes mit deren Anforderungen übereinstimmt.}}
 \newglossaryentry{glos:mos}{
 name=Mean opinion score,
-description={!!Ich wurde noch nicht beschrieben!!}}
+description={Der Mean Opinion Score ist das arithmetische Mittel einzelner Bewertungen und kann in einem Bereich von 1 (schlechtester Wert) bis 5 (bester Wert) liegen.}}
 \newglossaryentry{glos:FR}{
 name=Full Reference,
-description={!!Ich wurde noch nicht beschrieben!!}}
+description={Bei Full Reference Qualitätsanalyse ist (im Gegensatz zu einem No-Reference oder Reduced-Reference) das unveränderte Originalvideo vorhanden. Das heißt, eine Analyse bedarf immer zwei Videodateien, eine Referenzvideo und ein verarbeitetes Video(das mit Hilfe des Referenzvideos erstellt wurde)}}
 
 \newglossaryentry{glos:VBW}{
 name=Videobearbeitungswerkzeug,
-description={Ein Werkzeug, dessen Qualität getestet werden soll; z.B. ein Video Encoder, aber auch die Analyse von auch Bildbearbeitungswerkzeugen ist mit \projektTitel möglich.}}
+description={Ein Werkzeug, dessen Qualität getestet werden soll; z.B. ein Video Encoder, aber auch die Analyse von auch Bildbearbeitungswerkzeugen ist mit \projektTitel möglich(vorausgesetzt das Bild wird als ein .YUV Video mit einem Frame encodiert).}}
 \newglossaryentry{glos:Filter}{
 name=Filter,
 description={Ein Werkzeug, mit dem \projektTitel ein Video manipuliert, um anschließend bestimmte Eigenschaften eines Videobearbeitungswerkzeugs gezielt auf diesem Video zu testen.}}
@@ -73,7 +73,7 @@ name=Referenzvideo,
 description={Ein Video, das als Vergleichswert dient. Aus einem Referenzvideo werden beispielsweise durch \gls{glos:Filter} und \gls{glos:VBW}e neue Videos generiert. Anschließend werden diese generierten Videos mit dem ursprünglichen Referenzvideo verglichen.}}
 \newglossaryentry{glos:VE}{
 name=Video Encoder,
-description={Videoencoder werden hauptsächlich genutzt um Videodaten zu komprimieren. \projektTitel unterstützt die Analyse der Qualität von Encodern.}}
+description={Videoencoder werden hauptsächlich genutzt um Videodaten zu komprimieren.}}
 \newglossaryentry{glos:YUV}{
 name=.YUV,
 description={.yuv ist ein Dateiformat, in dem Videosequenzen unkomprimiert gespeichert werden. YUV teilt die Farbinformationen der Pixel dabei in Helligkeit (Luminance) und Farbigkeit (Chrominance) auf.}}
