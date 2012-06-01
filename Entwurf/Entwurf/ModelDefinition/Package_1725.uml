@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="44a6866d-d8d6-4a85-8ce6-5bf7a8df0640"
+  name="Filter" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="503a13d3-9656-49e2-95ce-2aacad06653f"
+        name="PF_Convolution"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="9f9e5c5b-9c57-49c0-acd5-571b4a6ea0d6">
+            <interfaceMoniker
+              Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
+              LastKnownName="IPlugin"
+              LastKnownLocation="Package_1716.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="38be4c0b-2b3f-443a-909c-3a601a2fff21"
+            name="process"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="8e38ffc4-48ca-43c0-b0be-32495ad5c777"
+                  name="Video original"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6fe56d1b-9049-4b1f-b6ed-725f0168473d"
+                  name="OptFilter options"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="1c345e66-de58-4b8b-bb61-1eb28598e0f3"
+        name="PF_Color"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="a24c8593-0088-43be-9c17-064220c802a4">
+            <interfaceMoniker
+              Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
+              LastKnownName="IPlugin"
+              LastKnownLocation="Package_1716.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="bf09bcf8-d38e-4ab9-bda5-34c7da66eb98"
+            name="process"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b5fbeaac-b361-4485-8cca-48f476c34a02"
+                  name="Video original"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="eca1fd65-48af-4bc5-b4f5-8a13f2708056"
+                  name="OptFilter options"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="648e1522-3fa0-4926-af73-f7bcf625aad5"
+        name="PF_NoiseGen"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="fc362997-9750-4b97-a10a-5e3d753bdd65">
+            <interfaceMoniker
+              Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
+              LastKnownName="IPlugin"
+              LastKnownLocation="Package_1716.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="9cba79a4-ce0c-45bb-8a6c-5c23c7b05aa2"
+            name="process"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f1a92e7d-6621-45f3-9de8-109852a4032d"
+                  name="Video original"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="0725510e-9323-472a-9d11-9adc575490b5"
+                  name="OptFilter options"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="72baf6af-6f28-4735-8b36-f9cdfd01aac8"
+        name="PF_Macro"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="3bfcf237-dc15-447f-9bd4-82abad2562c7">
+            <interfaceMoniker
+              Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
+              LastKnownName="IPlugin"
+              LastKnownLocation="Package_1716.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="8881d73a-ead9-4697-8ddd-a5b9aff885b4"
+            isDerived="false"
+            sourceEndRoleName="MakroFilter"
+            targetEndRoleName="FilterPlugin"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="a66186b0-aa2e-4561-9a4d-3397c362aa67"
+              LastKnownName="FilterPlugin"
+              LastKnownLocation="Entwurf.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="57c3accb-c2f7-4d6c-ae69-fe4c740ffbb2"
+                  name="MakroFilter"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="e3e763ab-cd8d-41e1-958f-5287d27cc6ff"
+                  name="FilterPlugin"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="0a477bfe-0ebd-4436-8bf9-3cc2ad87e65b"
+                      name="Lower"
+                      value="1,*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="07489e86-0580-4904-b346-08865aab7844"
+                      name="Upper"
+                      value="1,*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedOperationsInternal>
+          <operation
+            Id="67106ba3-0295-4db5-b227-eef86cbe817e"
+            name="process"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b9543f1c-1d6a-4909-a6cb-4c5df92b82a1"
+                  name="Video original"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="c5f6c730-3aed-43bf-8578-efd7a9791ed2"
+                  name="IOptItem options"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

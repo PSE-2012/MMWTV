@@ -7,31 +7,16 @@
 - Filter auf Video/Frame
 - Video zurückgeben oder direkt verändern?
 
-- OptFilter mit xsd-File
-</body>
+- Video class von aforge</body>
     </comment>
   </ownedCommentsInternal>
-  <profileInstances>
-    <packageHasProfileInstances Id="c758be67-ad88-4ae3-bd5e-1823b1f541cb">
-      <profileInstance Id="87a0c5b2-5050-44fc-97d0-9fbf49d7bdbd" name="StandardProfileL2">
-        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
-      </profileInstance>
-      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="786a2799-aeab-458f-9522-c522a53be164">
-      <profileInstance Id="73f4bc11-9029-4cbc-87fe-494126849eb7" name="StandardProfileL3">
-        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
-      </profileInstance>
-      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
-    </packageHasProfileInstances>
-  </profileInstances>
   <packagedElements>
     <logicalClassDesignerModelHasTypes>
       <class Id="38a54136-16fc-4cb3-8c73-847db24dd69c" name="Video" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="304d0f67-d422-4401-a11a-1b88ff5037ea" />
         <targetEnds>
           <association Id="fc16e7d2-35ae-4ec0-8bc9-a6187312d6c2" isDerived="false" sourceEndRoleName="Video" targetEndRoleName="Frame" isLeaf="false" isAbstract="false">
-            <classMoniker Id="58286b1f-6f3c-4f3c-b21c-2152e2bc5e13" LastKnownName="Image" />
+            <classMoniker Id="58286b1f-6f3c-4f3c-b21c-2152e2bc5e13" LastKnownName="Bitmap" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd Id="524e3613-4764-47bf-8c59-422b507e5861" name="Video" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
@@ -60,268 +45,665 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="58286b1f-6f3c-4f3c-b21c-2152e2bc5e13" name="Image" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="58286b1f-6f3c-4f3c-b21c-2152e2bc5e13" name="Bitmap" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="d89671a9-f407-4f4b-bca4-d8d7e39c954f" />
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="18decd08-48a2-4fdd-b56a-1bbb42e071b3" name="Projekt" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="18decd08-48a2-4fdd-b56a-1bbb42e071b3" name="Project" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="5671e4d3-210a-4b44-bc75-5e6c72af03c0" />
+        <targetEnds>
+          <association Id="c22d7ec7-a187-48a0-8970-ca4e97cb4492" isDerived="false" sourceEndRoleName="Project" targetEndRoleName="SmartTree" isLeaf="false" isAbstract="false">
+            <classMoniker Id="8d7f9c60-8203-4c5e-9a40-e1cd74ee5d5b" LastKnownName="SmartTree" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="85548465-023c-4190-987e-c5b6a0b54935" name="Project" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="2b57b16b-002e-4afa-a73c-ff61351e3700" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d351249b-9361-4ce2-9c7a-7a7ab4eddc89" name="SmartTree" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="47610f20-b698-4bed-9435-cc354c810071" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="5ce900d8-f285-4062-8c32-bb4d4e822f24" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="665050c8-c177-4ad3-be15-38a33dd87a6f" name="string" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="33405107-e7e3-4dff-989a-71bb990b5fdb" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="a819943e-29dc-47d4-ad10-2e4ab0e548b7" LastKnownName="name" />
+            </type_NamedElement>
+          </property>
+          <property Id="11ce683a-bf40-48cb-a782-a689047f9dcd" name="string" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="566f84c4-9188-463e-b904-6dae64674ad5" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="ee6b4337-8cab-4d1b-96f9-96dec4a1f6d5" LastKnownName="description" />
+            </type_NamedElement>
+          </property>
+          <property Id="069fa544-771e-4a62-b34d-37e7e18337ca" name="Analysevorgaenge" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="be1016cf-09cf-41f0-bd0c-e31f0f955fab" />
+          </property>
+          <property Id="d51d844a-32dd-49e7-b2cb-e4a096436d7e" name="Projekteinstellungen" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="aaea6183-346a-4283-a5bd-c1f16fbbd02a" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="a819943e-29dc-47d4-ad10-2e4ab0e548b7" name="name" isAbstract="false" isLeaf="false" cachedFullName="name">
+        <elementDefinition Id="23450f33-e5d8-4022-bb50-d9f35a09bf64" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="ee6b4337-8cab-4d1b-96f9-96dec4a1f6d5" name="description" isAbstract="false" isLeaf="false" cachedFullName="description">
+        <elementDefinition Id="1db41f20-46f7-4404-b42d-33b35359819c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="0c7001c8-6417-4e7c-91ab-684932e06166" name="VideoReader" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="582a34c5-ab53-4af8-8c77-2cf50be890db" />
+        <ownedOperationsInternal>
+          <operation Id="4f957080-14cd-414f-a7c8-ccaaca88fcc1" name="loadVideo" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="57be5a37-51df-4cf7-8e93-8c88418975a4" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="68eadf34-66c2-4866-a881-19fd60fa6a71" direction="Return" isUnique="false">
+                  <elementDefinition Id="889fe6d7-05a4-4f78-9ee8-cf5482513a8c" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="495377d7-9aaa-493d-a72b-a88b1b346440" LastKnownName="Video" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="495377d7-9aaa-493d-a72b-a88b1b346440" name="Video" isAbstract="false" isLeaf="false" cachedFullName="Entwurf::Video">
+        <elementDefinition Id="304d0f67-d422-4401-a11a-1b88ff5037ea" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="5c4ad86d-0e16-40b8-83bb-55abd03bbb86" name="VideoWriter" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="836025c2-a388-4db0-8ceb-a886f896a3d1" />
+        <ownedOperationsInternal>
+          <operation Id="bab96f43-6c54-4e10-a1d2-079345371bf6" name="writeVideo" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="33ac05f6-2ca5-4819-b731-604ffff26388" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="aa14aea5-8579-4f5b-a46d-71bf28a42ae4" name="Video vid" direction="In" isUnique="false">
+                  <elementDefinition Id="8fa5cde8-2c91-4196-8d2f-a60152130a43" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="c0a0b5ff-16a6-4b1f-bc08-582bffb36f52" name="VideoSourcePlayer (Aforge)" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="2f9ad65b-5145-4406-8c1d-97cdb21e2167" />
+        <targetEnds>
+          <association Id="496acbfa-0240-40f7-938a-188680df866d" isDerived="false" sourceEndRoleName="Player" targetEndRoleName="VideoSource" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="db5d5b93-e21b-4279-af00-18a70a0363f8" LastKnownName="IVideoSource (Aforge)" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5ebd9cad-789a-4700-8411-70e144e304a6" name="Player" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="633e0f47-4281-4038-a854-a9b9355ae5f3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="41bdcf9b-1fd6-498f-9367-655100b5b0a8" name="VideoSource" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="c7b3ce3f-3159-4860-b305-88a50998e2aa" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="1d719e3f-e696-4d50-8ea6-6566f7c8c90f" />
+          </association>
+        </targetEnds>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="db5d5b93-e21b-4279-af00-18a70a0363f8" name="IVideoSource (Aforge)" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="8028688e-c9dc-41d2-9069-564ff03ef8f9" />
         <suppliersInternal>
-          <dependency Id="aabc27d8-8b18-432c-bebd-d9b98f72bcf0">
+          <dependency Id="c562a89f-acb0-44d5-8bc6-f83eb6e1d5b4">
             <classMoniker Id="38a54136-16fc-4cb3-8c73-847db24dd69c" LastKnownName="Video" />
-            <elementDefinition Id="9bacb239-cd95-43d1-8f46-07a8fe414dd9" />
+            <elementDefinition Id="2b414eb8-30a6-41a5-b9d5-3b8b96514b14" />
           </dependency>
         </suppliersInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="c0365b07-891f-4f02-adfe-1fa036aa7224" name="FilterList" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="5c602c40-006e-4848-bcdc-5dbb9a1a369b" />
-        <targetEnds>
-          <association Id="c3dd858a-6f19-4da5-8575-6b3a0036e84d" isDerived="false" sourceEndRoleName="FilterList" targetEndRoleName="Filter" isLeaf="false" isAbstract="false">
-            <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IFilter" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="011de8f0-153b-452e-8cec-64e280c3c30b" name="FilterList" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="e793f38d-6bfb-4235-84cb-7e896bc761d3" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="35fee535-c8fd-4b66-bffb-a2d65321498f" name="Filter" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <lowerValueInternal>
-                    <literalString Id="5b25b4d7-fd4a-49a5-9c8b-7711ff656e6a" name="Lower" value="*">
-                      <elementDefinition Id="f13399fa-346a-4dd8-a142-fdedc68e9e67" />
-                    </literalString>
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString Id="d21bbc55-8868-475f-be40-a0d9dfb1d746" name="Upper" value="*">
-                      <elementDefinition Id="f674eea2-cba4-4126-9c62-23824fc79478" />
-                    </literalString>
-                  </upperValueInternal>
-                  <elementDefinition Id="d9aaa776-36dc-4aab-8ebc-ff4b7221583d" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="9239a59e-bad5-48bb-bbb4-5e03086dd939" />
-          </association>
-        </targetEnds>
-        <ownedAttributesInternal>
-          <property Id="86c91db6-e295-4c4b-b07f-d1a7dc6c4bdd" name="aktivierteFilter" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="02023d5e-d9fd-4dd5-a36d-8094c27a0af7" />
-          </property>
-        </ownedAttributesInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <Interface Id="e3521520-3473-4d91-90f8-bd845bdb6425" name="IFilter" isAbstract="false" isLeaf="false">
-        <elementDefinition Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b" />
-        <ownedOperations>
-          <operation Id="48624ffe-1032-4b90-ad82-2aff786289d7" name="process" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="18f26fe9-ce1f-4046-a27d-114b56ee9023" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="3a067f58-14cb-4df0-a284-23c3f5148b2c" name="Video original" direction="In" isUnique="false">
-                  <elementDefinition Id="d60efc31-fe42-4d13-8b6c-11ec06c9dc56" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="0d8e0e6e-c49e-4fcb-896f-a5585d781b54" name="OptFilter options" direction="In" isUnique="false">
-                  <elementDefinition Id="5b217c59-c1d0-41bc-a202-0908221df7ed" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperations>
       </Interface>
     </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="260126e3-706a-4e1e-9857-7e0abf769932" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
+        <elementDefinition Id="71a35fde-c6e5-4115-8b6c-669417907e6a" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="cdd766d0-23f8-486a-82de-bea8b185e707" name="bool" isAbstract="false" isLeaf="false" cachedFullName="bool">
+        <elementDefinition Id="e157fd9f-982f-4e74-838b-bf46b83e3250" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="b953d862-b90f-4250-9724-b9ee3e65c10c" name="optParamDict" isAbstract="false" isLeaf="false" cachedFullName="optParamDict">
+        <elementDefinition Id="e1dadea8-9b79-4d85-840d-fe203087bcf7" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="73fa0552-63fb-4d97-9a62-797ef9b51c66" name="IPlugin[]" isAbstract="false" isLeaf="false" cachedFullName="IPlugin[]">
+        <elementDefinition Id="9d6c8666-913a-47c0-a07b-b7587a9d06da" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="35d5d424-8a22-4f7f-b7cc-785eeb3820f2" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
+        <elementDefinition Id="71a35fde-c6e5-4115-8b6c-669417907e6a" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="dc5a86a9-b5c2-4679-98c2-1b6b27ddf3bb" name="Plugins">
+        <ownedCommentsInternal>
+          <comment Id="5e129a28-b56c-468b-aa9d-cf81f02d8798">
+            <elementDefinition Id="49be46a6-31dc-4561-b817-08090cb8f6e3" />
+            <body>Einstellungen abspeichern?
+</body>
+          </comment>
+        </ownedCommentsInternal>
+        <elementDefinition Id="949e2f81-31a6-44da-8ab2-0d3248139e17" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <Interface Id="e3521520-3473-4d91-90f8-bd845bdb6425" name="IPlugin" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b" />
+              <suppliersInternal>
+                <dependency Id="ff06e36c-c7f8-4172-853d-c63108cf26e3">
+                  <interfaceMoniker Id="945642fc-4511-4ffa-940c-8b7df07b91fd" LastKnownName="IOptItem" />
+                  <elementDefinition Id="93860a24-e75a-4a66-95e8-803cacd7b9d2" />
+                </dependency>
+              </suppliersInternal>
+              <targetEnds>
+                <association Id="0ed81a02-b831-4162-b5b3-56cfacbe601d" isDerived="false" sourceEndRoleName="IPlugin" targetEndRoleName="OptType" isLeaf="false" isAbstract="false">
+                  <enumerationMoniker Id="b05de4d4-261f-4735-8d0d-536df0b65162" LastKnownName="OptType" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="1e363d94-4a85-498a-9021-321471160963" name="IPlugin" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="06bfcfbb-f558-4f45-8e57-b4c641246ae3" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="9d933765-ad4c-43e2-bfc8-666176ab5901" name="OptType" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="b0a173f1-e27f-4379-a393-63871df20065" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="be1f6074-d440-4ecb-872d-7192a4199b07" />
+                </association>
+                <association Id="26b27dc6-d079-4068-8eb8-8c84b32045b7" isDerived="false" sourceEndRoleName="IPlugin" targetEndRoleName="PluginManager" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="7ac08d91-6c4e-4b13-9844-ae121120f834" LastKnownName="PluginManager" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="8a11dc8d-be37-4bb4-be5f-9042e7c16562" name="IPlugin" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                        <lowerValueInternal>
+                          <literalString Id="8a465cbf-0a8c-468e-8fae-c7e54de84fe4" name="Lower" value="*">
+                            <elementDefinition Id="095928c0-c576-4c6c-b1ee-1a9c14a7fe57" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="5e6f3892-71dc-44e4-93bd-b55959be2b86" name="Upper" value="*">
+                            <elementDefinition Id="c281d75a-1770-4b6e-b0aa-e533c5b6c4ab" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="45150593-078e-48b1-a60d-715ce3ddb217" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="d9e8c3e1-081a-4fbe-a8bc-a377658f9088" name="PluginManager" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="454c2b46-89ec-485f-9548-b810799df7d6" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="8472ab76-ea9b-41ae-bf98-d5542795c1b1" />
+                </association>
+              </targetEnds>
+              <ownedAttributes>
+                <property Id="fe3fa2fc-c26a-45cc-ad82-5a276b09816d" name="active" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="a6d74b3e-5887-46cb-a1b2-378b357a54c6" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="cdd766d0-23f8-486a-82de-bea8b185e707" LastKnownName="bool" />
+                  </type_NamedElement>
+                </property>
+                <property Id="766f9acb-f2f7-45c9-98ea-ca21087f4218" name="name" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="cc6d2652-6406-4c6c-bb82-3bd8c190910a" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="260126e3-706a-4e1e-9857-7e0abf769932" LastKnownName="string" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributes>
+              <ownedOperations>
+                <operation Id="48624ffe-1032-4b90-ad82-2aff786289d7" name="process" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="18f26fe9-ce1f-4046-a27d-114b56ee9023" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="11996bad-5e97-4f82-ae9c-5459d98365a8" name="Video original" direction="In" isUnique="false">
+                        <elementDefinition Id="ce9a32a7-ccc5-49ab-b14e-938f1b01d89d" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="8670ff4c-a759-4d17-98a9-e7f054120436" name="IOptItem options" direction="In" isUnique="false">
+                        <elementDefinition Id="f2b1a70b-4e20-43d1-a605-ab9d7f0000d6" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+              </ownedOperations>
+            </Interface>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <Interface Id="945642fc-4511-4ffa-940c-8b7df07b91fd" name="IOptItem" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="85f9ae5d-9c57-434b-9111-dd0129dfdb94" />
+              <ownedAttributes>
+                <property Id="b7f23817-56c5-4544-94e3-c4a3b659c19e" name="Dictionary &lt;Tkey, TValue&gt;" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="6fcd456c-bdd8-4aaf-9120-333121baf0f6" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="b953d862-b90f-4250-9724-b9ee3e65c10c" LastKnownName="optParamDict" />
+                  </type_NamedElement>
+                </property>
+                <property Id="465f0e33-93bf-4134-b758-7e8a5a511eb3" name="alias" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="a6200d5d-ca2d-45e8-bf7d-0556ad06056f" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="35d5d424-8a22-4f7f-b7cc-785eeb3820f2" LastKnownName="string" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributes>
+            </Interface>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <enumeration Id="b05de4d4-261f-4735-8d0d-536df0b65162" name="OptType" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="e887022e-7745-4ecd-ae96-62c4f03bbfe1" />
+              <ownedLiterals>
+                <enumerationLiteral Id="d76d1bea-acc2-4049-ad85-8dd04271e603" name="Filter">
+                  <elementDefinition Id="07859dc3-d98e-4a88-ace5-9b529f377e0d" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="4c2b29f7-8402-4042-a0fb-bab926fc35e1" name="Metric">
+                  <elementDefinition Id="41892086-70ae-459b-852f-937205424145" />
+                </enumerationLiteral>
+              </ownedLiterals>
+            </enumeration>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="7ac08d91-6c4e-4b13-9844-ae121120f834" name="PluginManager" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="098e1cff-1f94-4e98-b536-357697aba00e" />
+              <ownedOperationsInternal>
+                <operation Id="5301bb37-ff74-478e-a238-1563a9fba465" name="getPlugins" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="26c70777-3f3f-47b1-96b6-f083ffe4da40" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="baeef6c0-97a7-4c72-9d59-0315a0b9afe1" name="OptType type" direction="In" isUnique="false">
+                        <elementDefinition Id="2dbe0472-7fbb-4aa9-aa02-f6c6d73796bc" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="fedbf0a0-ab24-46bb-a91c-bab033f99a3c" direction="Return" isUnique="false">
+                        <elementDefinition Id="1fa883fa-0df2-4dde-8d2c-6fc8f5c566c3" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="73fa0552-63fb-4d97-9a62-797ef9b51c66" LastKnownName="IPlugin[]" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+              </ownedOperationsInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <package Id="b8b0bb77-7906-406c-940f-931e486c9ce3" name="Filter">
+              <ownedCommentsInternal>
+                <comment Id="990fabc4-1f54-4b34-92f4-ce68e533999a">
+                  <elementDefinition Id="75b85c47-b3e4-4b11-8fe4-4bba8818fc65" />
+                  <body>Scharfzeichner
+Weichzeichner
+...
+als eigene Plugins oder Optionen?!</body>
+                </comment>
+              </ownedCommentsInternal>
+              <elementDefinition Id="44a6866d-d8d6-4a85-8ce6-5bf7a8df0640" />
+              <packagedElements>
+                <packageHasNamedElement>
+                  <class Id="d456b7a4-d41e-417c-a568-451c9fae48a1" name="PF_Convolution" isAbstract="false" isLeaf="false" isActiveClass="false">
+                    <elementDefinition Id="503a13d3-9656-49e2-95ce-2aacad06653f" />
+                    <suppliersInternal>
+                      <interfaceRealization Id="5f026aa2-8308-47fc-bde6-4f311cc82544">
+                        <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
+                        <elementDefinition Id="9f9e5c5b-9c57-49c0-acd5-571b4a6ea0d6" />
+                      </interfaceRealization>
+                    </suppliersInternal>
+                    <ownedOperationsInternal>
+                      <operation Id="7dec67c3-247d-4865-a682-f372ca8ba929" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="38be4c0b-2b3f-443a-909c-3a601a2fff21" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="f6f8458e-7a86-4301-9f7b-dc304334f437" name="Video original" direction="In" isUnique="false">
+                              <elementDefinition Id="8e38ffc4-48ca-43c0-b0be-32495ad5c777" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="67a1c0a4-5545-47af-9c98-ae423d717b3b" name="OptFilter options" direction="In" isUnique="false">
+                              <elementDefinition Id="6fe56d1b-9049-4b1f-b6ed-725f0168473d" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                    </ownedOperationsInternal>
+                  </class>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <class Id="2a863bcd-03e3-4ddb-8cdd-7cb13605cb5a" name="PF_Color" isAbstract="false" isLeaf="false" isActiveClass="false">
+                    <elementDefinition Id="1c345e66-de58-4b8b-bb61-1eb28598e0f3" />
+                    <suppliersInternal>
+                      <interfaceRealization Id="189765a4-c214-4339-b2ff-d4dddd4b82e3">
+                        <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
+                        <elementDefinition Id="a24c8593-0088-43be-9c17-064220c802a4" />
+                      </interfaceRealization>
+                    </suppliersInternal>
+                    <ownedOperationsInternal>
+                      <operation Id="1aaf0b80-ef52-4b1f-b8db-dfb6f7713be4" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="bf09bcf8-d38e-4ab9-bda5-34c7da66eb98" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="a6d4f957-ecd0-4de7-9552-4eefc643ed6c" name="Video original" direction="In" isUnique="false">
+                              <elementDefinition Id="b5fbeaac-b361-4485-8cca-48f476c34a02" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="b578e195-291a-439d-aad9-6361ee1cadc4" name="OptFilter options" direction="In" isUnique="false">
+                              <elementDefinition Id="eca1fd65-48af-4bc5-b4f5-8a13f2708056" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                    </ownedOperationsInternal>
+                  </class>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <class Id="1fa83f55-a119-4668-9f97-2050d0578708" name="PF_NoiseGen" isAbstract="false" isLeaf="false" isActiveClass="false">
+                    <elementDefinition Id="648e1522-3fa0-4926-af73-f7bcf625aad5" />
+                    <suppliersInternal>
+                      <interfaceRealization Id="8595c73a-d3e6-4ec5-afce-4ce10daf1e69">
+                        <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
+                        <elementDefinition Id="fc362997-9750-4b97-a10a-5e3d753bdd65" />
+                      </interfaceRealization>
+                    </suppliersInternal>
+                    <ownedOperationsInternal>
+                      <operation Id="01a8d311-1006-4daa-9b72-79a3d81e6634" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="9cba79a4-ce0c-45bb-8a6c-5c23c7b05aa2" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="74aabf63-3569-4546-a24b-44e56a1853a1" name="Video original" direction="In" isUnique="false">
+                              <elementDefinition Id="f1a92e7d-6621-45f3-9de8-109852a4032d" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="dd5ed249-36ea-4f1e-b696-5340a34c1e6d" name="OptFilter options" direction="In" isUnique="false">
+                              <elementDefinition Id="0725510e-9323-472a-9d11-9adc575490b5" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                    </ownedOperationsInternal>
+                  </class>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <class Id="28e4cfe7-0574-49d9-bd97-68cf0816c6b7" name="PF_Macro" isAbstract="false" isLeaf="false" isActiveClass="false">
+                    <elementDefinition Id="72baf6af-6f28-4735-8b36-f9cdfd01aac8" />
+                    <suppliersInternal>
+                      <interfaceRealization Id="ba2722d7-eead-464b-8bd1-ca8ab01f99d2">
+                        <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
+                        <elementDefinition Id="3bfcf237-dc15-447f-9bd4-82abad2562c7" />
+                      </interfaceRealization>
+                    </suppliersInternal>
+                    <ownedOperationsInternal>
+                      <operation Id="8304e785-a22b-4b7c-95a5-ee22230f372a" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="67106ba3-0295-4db5-b227-eef86cbe817e" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="a90ee578-2dad-49d3-acc6-12957d1617a1" name="Video original" direction="In" isUnique="false">
+                              <elementDefinition Id="b9543f1c-1d6a-4909-a6cb-4c5df92b82a1" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="bc79a2f0-41cd-4942-9d34-a5d0fe43d289" name="IOptItem options" direction="In" isUnique="false">
+                              <elementDefinition Id="c5f6c730-3aed-43bf-8578-efd7a9791ed2" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                    </ownedOperationsInternal>
+                  </class>
+                </packageHasNamedElement>
+              </packagedElements>
+            </package>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <package Id="9762ba55-a43a-4e68-b8a7-5513b1ceaf5f" name="Metrics">
+              <elementDefinition Id="09bf7c41-c947-4dff-88f0-b12661c26ffe" />
+              <packagedElements>
+                <packageHasNamedElement>
+                  <class Id="b9540f31-1354-4b25-bc12-0668d12ced5f" name="PM_MSE" isAbstract="false" isLeaf="false" isActiveClass="false">
+                    <elementDefinition Id="47101813-b6f9-429b-9d02-0db802f98218" />
+                    <suppliersInternal>
+                      <interfaceRealization Id="30afc6dc-c75f-412a-a4e3-03ab003e0ec8">
+                        <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
+                        <elementDefinition Id="32efb96c-02b7-4cac-bd05-60649fb110c7" />
+                      </interfaceRealization>
+                    </suppliersInternal>
+                    <ownedOperationsInternal>
+                      <operation Id="9cf53047-0e80-4795-baeb-85ce8847d261" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="2ecbcf67-673f-48c2-a016-26c4901ea24a" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="fd16b838-be01-405c-b912-0dec6bed9654" name="Video original" direction="In" isUnique="false">
+                              <elementDefinition Id="7ae95130-d822-4c8e-8a32-c5b17b0a8cd4" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="eacb27c0-998a-4d93-b7bb-0556af25cb45" name="OptFilter options" direction="In" isUnique="false">
+                              <elementDefinition Id="4858d5ad-883e-4053-869e-a0d21037c897" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                    </ownedOperationsInternal>
+                  </class>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <class Id="955568c9-00c3-4fa5-906e-fc90ca3ba6f3" name="PM_SNR" isAbstract="false" isLeaf="false" isActiveClass="false">
+                    <elementDefinition Id="513df48e-1848-444f-9cdc-406e518b4c50" />
+                    <suppliersInternal>
+                      <interfaceRealization Id="945b6ca2-7fe5-4425-b9f3-b4c37a3717d3">
+                        <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
+                        <elementDefinition Id="4cbbc2b1-ce10-4a77-a94c-641536831af0" />
+                      </interfaceRealization>
+                    </suppliersInternal>
+                    <ownedOperationsInternal>
+                      <operation Id="afd5f6c8-c3fd-4d1d-9b80-b78abd61189d" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="b0d84573-1f93-40b9-8414-46a46e62d72c" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="d30d36d5-d48d-4eb9-bad4-f3b9dc1051ec" name="Video original" direction="In" isUnique="false">
+                              <elementDefinition Id="656989ca-ee61-4d95-b5c4-190969f9166d" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="c2ee0ec2-0132-494f-bc98-c0200ac7d423" name="OptFilter options" direction="In" isUnique="false">
+                              <elementDefinition Id="932ea678-c155-4f55-9a8e-ea87af075f0e" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                    </ownedOperationsInternal>
+                  </class>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <class Id="77739163-11e5-4fde-9bbd-35710b3d7f75" name="PM_SSIM" isAbstract="false" isLeaf="false" isActiveClass="false">
+                    <elementDefinition Id="9f3689cb-0f72-4199-91da-af2da7a6d33a" />
+                    <suppliersInternal>
+                      <interfaceRealization Id="129a01e5-c81a-41d6-9203-0cac56848215">
+                        <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
+                        <elementDefinition Id="0c5aa2c1-2ac9-416e-92bc-cab0df07c045" />
+                      </interfaceRealization>
+                    </suppliersInternal>
+                    <ownedOperationsInternal>
+                      <operation Id="7a278977-13aa-4eaa-b700-255705251f83" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="eaa17caa-c31c-4930-9e92-c8f90ef72aeb" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="0ca50db1-c288-428a-b50b-9b4e8ba4fe5b" name="Video original" direction="In" isUnique="false">
+                              <elementDefinition Id="a1f1d465-9f0b-46a6-a521-4f8c14de4614" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="451352d8-c381-41f7-b2f3-eca7f094d12c" name="OptFilter options" direction="In" isUnique="false">
+                              <elementDefinition Id="165da219-6a8f-40b8-aee7-d08b950ae921" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                    </ownedOperationsInternal>
+                  </class>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <class Id="1f831bf2-e784-4a73-96c5-2adfc2a676f8" name="PM_PSNR" isAbstract="false" isLeaf="false" isActiveClass="false">
+                    <elementDefinition Id="9465ad83-550c-4f71-9c01-cc72e1fbc0d0" />
+                    <suppliersInternal>
+                      <interfaceRealization Id="ac745721-0f40-4e6e-9caa-0155f3f5f024">
+                        <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
+                        <elementDefinition Id="6aafb8fe-30d3-4093-899e-fb1165924ed8" />
+                      </interfaceRealization>
+                    </suppliersInternal>
+                    <ownedOperationsInternal>
+                      <operation Id="cfb709bc-e5c4-4d8d-8a19-71670f612d01" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="06f1ffca-51a5-418e-a029-af7323d86ad5" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="00356fdc-914d-4ada-af65-59ecc8af2e9f" name="Video original" direction="In" isUnique="false">
+                              <elementDefinition Id="374af914-e19b-4270-b07e-796c9e3ff1c0" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="04d4b19d-9a45-4e94-b5d6-69ffaf20fb1f" name="OptFilter options" direction="In" isUnique="false">
+                              <elementDefinition Id="d4eebf85-60c4-4028-8d30-91b3212ace22" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                    </ownedOperationsInternal>
+                  </class>
+                </packageHasNamedElement>
+              </packagedElements>
+            </package>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
     <logicalClassDesignerModelHasTypes>
-      <class Id="ff8d3217-d37b-4cd3-9732-316484b95a7e" name="Options" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="c5b8f830-7649-4882-ba6c-049643069510" />
+      <class Id="8d7f9c60-8203-4c5e-9a40-e1cd74ee5d5b" name="SmartTree" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="3474e193-7fb3-4f5b-ac1a-af314ea870b8" />
         <targetEnds>
-          <association Id="2ee38b5d-acf3-4645-beb9-5c628883833a" isDerived="false" sourceEndRoleName="Options" targetEndRoleName="OptionsFilter" isLeaf="false" isAbstract="false">
-            <classMoniker Id="6c07007e-ce8b-4373-8dcf-ecbbd9602cf9" LastKnownName="OptFilter" />
+          <association Id="010c6d58-8ece-40e4-95e2-b0c248d72fe9" isDerived="false" sourceEndRoleName="SmartTree" targetEndRoleName="Video" isLeaf="false" isAbstract="false">
+            <classMoniker Id="38a54136-16fc-4cb3-8c73-847db24dd69c" LastKnownName="Video" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="7d48283b-f3ff-4c34-9062-0a1ffb159523" name="Options" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="fc0fefcb-8465-4aa3-9889-6025357fd856" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="21e40e3e-dc87-4b25-bcf5-8d837f09a04b" name="OptionsFilter" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <memberEnd Id="23066074-146f-4a7f-9663-a549ae8cc541" name="SmartTree" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
                   <lowerValueInternal>
-                    <literalString Id="7f0c19ec-7dd2-4a7e-85ec-bd479426508b" name="Lower" value="*">
-                      <elementDefinition Id="a996faae-c52d-4828-b86a-089bc6d63a39" />
+                    <literalString Id="16f458a0-5506-4b52-b032-aa599fd979e4" name="Lower" value="*">
+                      <elementDefinition Id="fae4a53a-f4b0-4cf6-b8f2-bf35d8cca6f9" />
                     </literalString>
                   </lowerValueInternal>
                   <upperValueInternal>
-                    <literalString Id="751f8eee-f7f6-4b09-acc0-38f08f2140de" name="Upper" value="*">
-                      <elementDefinition Id="0887b4e6-a0e0-4c18-9f9d-5ee191194515" />
+                    <literalString Id="84135fb7-dea3-4902-a700-b678a3f6eef0" name="Upper" value="*">
+                      <elementDefinition Id="8d8a9a16-2359-4507-b8f6-2028b636935c" />
                     </literalString>
                   </upperValueInternal>
-                  <elementDefinition Id="641f403f-696c-41c1-ae4e-6f064a5a306e" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="16bc511c-ea69-4977-8d88-a6a05203ca40" />
-          </association>
-        </targetEnds>
-        <ownedAttributesInternal>
-          <property Id="0fb2e362-80e5-433b-b6ec-a6e7ab2c277c" name="OptFilterColl" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="0afed8d2-ccf5-4971-9c74-be566192fb46" />
-          </property>
-          <property Id="d9443077-b112-4371-91ca-34ac237cdfd9" name="OptCore" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="8e4852fb-08ff-4a0b-836e-e2fce5642022" />
-          </property>
-          <property Id="35b27215-9057-4b51-88fe-37549516c065" name="OptMetrikColl" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="7359421f-741e-4d2e-ab60-c6d93892cf76" />
-          </property>
-        </ownedAttributesInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="e25df8b8-9c09-4afd-9d6d-db5063497be0" name="MetriList" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="c70428bf-c504-436d-9acd-1edc8c151769" />
-        <targetEnds>
-          <association Id="b242839b-8122-4a0a-bfbe-1df2aec6cfd3" isDerived="false" sourceEndRoleName="MetriList" targetEndRoleName="Metrik" isLeaf="false" isAbstract="false">
-            <interfaceMoniker Id="27e0b6db-79fe-4e47-9f41-853098319737" LastKnownName="IMetrik" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="a4aaa68d-e487-4273-9d30-6fac7591b2d0" name="MetriList" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="80a5d889-bdb8-447a-ab04-8247c6d39af0" />
+                  <elementDefinition Id="498e77fa-88a2-4df0-955d-0dd99594f8d0" />
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="ffd20ac2-6db3-48b8-887a-b8786dcbe7dd" name="Metrik" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <memberEnd Id="c89ed4c2-2d8a-4acf-9ae5-bd1cb9167f68" name="Video" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <lowerValueInternal>
-                    <literalString Id="bc81be68-467b-4638-b811-9a8d6f7b16dc" name="Lower" value="*">
-                      <elementDefinition Id="a858e118-e5d2-4e5c-aaea-c5684a475074" />
+                    <literalString Id="07a869d5-8370-4910-8fa8-3cc394e846da" name="Lower" value="*">
+                      <elementDefinition Id="ab3d8ddf-b837-48f8-98e4-5f963315ab35" />
                     </literalString>
                   </lowerValueInternal>
                   <upperValueInternal>
-                    <literalString Id="720fb0cb-be10-427c-8977-c3e86cc566dd" name="Upper" value="*">
-                      <elementDefinition Id="ad6d54c6-e7c6-47a9-b25c-7ed4f80240a3" />
+                    <literalString Id="0cd2ed3b-f3c1-4b0f-aaf4-2e7907d5e8c5" name="Upper" value="*">
+                      <elementDefinition Id="0217adbc-71fa-44e1-ae00-eaa0f03c7c7d" />
                     </literalString>
                   </upperValueInternal>
-                  <elementDefinition Id="a924eebf-cf2a-4ab7-978f-3d816afeed34" />
+                  <elementDefinition Id="8bc874d3-6803-47f1-a2a1-b49280bc031a" />
                 </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
-            <elementDefinition Id="b162a50c-515c-4dd1-9978-7a2b0f9c00fc" />
+            <elementDefinition Id="87373e56-89b0-4c42-b891-6ad94387fccb" />
           </association>
         </targetEnds>
       </class>
     </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="d1adfc7f-3d52-4b74-b2ff-be082408b47c" name="View">
+        <ownedCommentsInternal>
+          <comment Id="94bfd747-13d1-4fca-a12d-92c15a4b367b">
+            <elementDefinition Id="20cc8599-0403-4160-a8b2-a570c7cc7e69" />
+            <body>AvalonDock?</body>
+          </comment>
+        </ownedCommentsInternal>
+        <elementDefinition Id="6e6a291f-a8c1-4de3-9f6f-fdbc82f50202" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="e603ea7e-e02c-4e3d-bdd7-81ba29ba3cbd" name="MainWindow" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="c0b1d067-72aa-4b71-8d5c-77a30228042f" />
+              <ownedOperationsInternal>
+                <operation Id="67ecde4a-4c4e-4699-9c7c-98d5ee78403c" name="populatePluginList" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="61eda94f-3b80-4d83-a23e-d171fe3416a6" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="a3098a5e-d5d4-4ef3-a110-e401c55edc55" name="OptType type" direction="In" isUnique="false">
+                        <elementDefinition Id="3b6b869d-71b6-49c9-accb-3ed38690fb32" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="f4ca93ae-0baf-4a52-aa39-b05816847a06" name="initPluginOptions" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="79d9c322-029e-4e4a-8384-2a4bb0ecc251" />
+                </operation>
+              </ownedOperationsInternal>
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
     <logicalClassDesignerModelHasTypes>
-      <Interface Id="27e0b6db-79fe-4e47-9f41-853098319737" name="IMetrik" isAbstract="false" isLeaf="false">
-        <elementDefinition Id="9381bb3a-1c0f-49eb-a4f5-b3ceadd88c95" />
-      </Interface>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="28e4cfe7-0574-49d9-bd97-68cf0816c6b7" name="MakroFilter" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="72baf6af-6f28-4735-8b36-f9cdfd01aac8" />
-        <suppliersInternal>
-          <interfaceRealization Id="309d3dab-a64d-48b6-a764-cb21787fc152">
-            <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IFilter" />
-            <elementDefinition Id="d90f0a3a-1601-4022-aeff-97bbcb13f92f" />
-          </interfaceRealization>
-        </suppliersInternal>
-        <targetEnds>
-          <association Id="b02f3c94-6718-473c-8410-dea2119350f3" isDerived="false" sourceEndRoleName="MakroFilter" targetEndRoleName="FilterPlugin" isLeaf="false" isAbstract="false">
-            <classMoniker Id="c092fa41-3125-470a-bd5a-f24569bd70a7" LastKnownName="FilterPlugin" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="bd2e0bee-9128-4e25-bd44-4fefb35427e4" name="MakroFilter" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="57c3accb-c2f7-4d6c-ae69-fe4c740ffbb2" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="924d4f5b-e97b-4192-a037-8eea42282e45" name="FilterPlugin" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <lowerValueInternal>
-                    <literalString Id="235da5ff-fded-4bab-9988-af97ff2cc897" name="Lower" value="1,*">
-                      <elementDefinition Id="0a477bfe-0ebd-4436-8bf9-3cc2ad87e65b" />
-                    </literalString>
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString Id="765434bc-73ff-4541-bf6c-c0c796da5a22" name="Upper" value="1,*">
-                      <elementDefinition Id="07489e86-0580-4904-b346-08865aab7844" />
-                    </literalString>
-                  </upperValueInternal>
-                  <elementDefinition Id="e3e763ab-cd8d-41e1-958f-5287d27cc6ff" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="8881d73a-ead9-4697-8ddd-a5b9aff885b4" />
-          </association>
-        </targetEnds>
-        <ownedOperationsInternal>
-          <operation Id="8b77d37e-b9de-4287-9745-c1cdcf98c99a" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="f0074a3f-c4b5-48d8-8e75-6bc1c57d5100" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="80117a59-44ac-41b4-8447-f4a56ee614a2" name="Video original" direction="In" isUnique="false">
-                  <elementDefinition Id="9adcb7fb-f8cd-4ca4-9bcb-b54860ada3d8" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="4d7a2e7e-4dca-46b7-900e-e925ca43c9c3" direction="In" isUnique="false">
-                  <elementDefinition Id="d314c5ec-119f-4aae-bdf5-b8059114ce34" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="c092fa41-3125-470a-bd5a-f24569bd70a7" name="FilterPlugin" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="a66186b0-aa2e-4561-9a4d-3397c362aa67" />
-        <suppliersInternal>
-          <interfaceRealization Id="4ed7905c-f472-463f-93df-e87b3f457a12">
-            <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IFilter" />
-            <elementDefinition Id="9d6c1e31-fe6b-4b6c-8291-4cd28e645d1b" />
-          </interfaceRealization>
-        </suppliersInternal>
-        <ownedOperationsInternal>
-          <operation Id="3fc88565-b90e-47d0-9300-bda7a09bb006" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="464eabac-c837-4afc-9c99-8048302e6b67" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="b1018bda-a224-47a4-aba2-24cc46255268" name="Video original" direction="In" isUnique="false">
-                  <elementDefinition Id="c958ac55-11fd-4fe4-b768-e9ad714df108" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="ca00abd8-c990-4e7e-a858-cd29bdbecd31" direction="In" isUnique="false">
-                  <elementDefinition Id="8e64d60a-d23d-4d21-99a6-800008c65bc3" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="6c07007e-ce8b-4373-8dcf-ecbbd9602cf9" name="OptFilter" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="b543bf77-443b-4bf8-88bf-feea131d6f6b" />
-        <suppliersInternal>
-          <dependency Id="6d0bc4b5-9364-418b-bc65-b5492a3c69a6">
-            <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IFilter" />
-            <elementDefinition Id="372adcab-b416-40e7-bef9-ebcea5abded4" />
-          </dependency>
-        </suppliersInternal>
-        <ownedAttributesInternal>
-          <property Id="d17cd5ba-c37a-48c2-bd76-57897a4dd6b5" name="active" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="437fecfb-ab22-4928-af76-7ebbaa58623c" />
-          </property>
-          <property Id="3a826238-f587-4d1e-b24e-2622b4378c84" name="name" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="d0782269-2a4f-4550-8e62-d817269b0cb0" />
-          </property>
-        </ownedAttributesInternal>
+      <class Id="0c17cde6-4818-4950-af3d-3601d1de4180" name="History" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="14f98dd7-a014-46b7-b803-399e5104a556" />
       </class>
     </logicalClassDesignerModelHasTypes>
   </packagedElements>
   <package Id="111c9f5b-9d27-4ac1-a666-70e16e6552a4" name="Entwurf">
     <elementDefinition Id="46634d97-dc6c-4362-9484-7c7ecb77101f" />
+    <profileInstances>
+      <packageHasProfileInstances Id="c758be67-ad88-4ae3-bd5e-1823b1f541cb">
+        <profileInstance Id="87a0c5b2-5050-44fc-97d0-9fbf49d7bdbd" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="786a2799-aeab-458f-9522-c522a53be164">
+        <profileInstance Id="73f4bc11-9029-4cbc-87fe-494126849eb7" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
   </package>
 </logicalClassDesignerModel>
