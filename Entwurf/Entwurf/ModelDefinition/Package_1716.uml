@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="949e2f81-31a6-44da-8ab2-0d3248139e17"
+  name="Plugins" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <packagedElements>
+    <packageHasNamedElement>
+      <Interface
+        Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
+        name="IPlugin"
+        isAbstract="false"
+        isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="93860a24-e75a-4a66-95e8-803cacd7b9d2">
+            <interfaceMoniker
+              Id="85f9ae5d-9c57-434b-9111-dd0129dfdb94"
+              LastKnownName="IOptItem"
+              LastKnownLocation="Package_1716.uml" />
+          </dependency>
+        </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="be1f6074-d440-4ecb-872d-7192a4199b07"
+            isDerived="false"
+            sourceEndRoleName="IPlugin"
+            targetEndRoleName="OptType"
+            isLeaf="false"
+            isAbstract="false">
+            <enumerationMoniker
+              Id="e887022e-7745-4ecd-ae96-62c4f03bbfe1"
+              LastKnownName="OptType"
+              LastKnownLocation="Package_1716.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="06bfcfbb-f558-4f45-8e57-b4c641246ae3"
+                  name="IPlugin"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b0a173f1-e27f-4379-a393-63871df20065"
+                  name="OptType"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="8472ab76-ea9b-41ae-bf98-d5542795c1b1"
+            isDerived="false"
+            sourceEndRoleName="IPlugin"
+            targetEndRoleName="PluginManager"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="098e1cff-1f94-4e98-b536-357697aba00e"
+              LastKnownName="PluginManager"
+              LastKnownLocation="Package_1716.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="45150593-078e-48b1-a60d-715ce3ddb217"
+                  name="IPlugin"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Shared"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="095928c0-c576-4c6c-b1ee-1a9c14a7fe57"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="c281d75a-1770-4b6e-b0aa-e533c5b6c4ab"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="454c2b46-89ec-485f-9548-b810799df7d6"
+                  name="PluginManager"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributes>
+          <property
+            Id="a6d74b3e-5887-46cb-a1b2-378b357a54c6"
+            name="active"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="e157fd9f-982f-4e74-838b-bf46b83e3250"
+                LastKnownName="bool"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="cc6d2652-6406-4c6c-bb82-3bd8c190910a"
+            name="name"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="71a35fde-c6e5-4115-8b6c-669417907e6a"
+                LastKnownName="string"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributes>
+        <ownedOperations>
+          <operation
+            Id="18f26fe9-ce1f-4046-a27d-114b56ee9023"
+            name="process"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ce9a32a7-ccc5-49ab-b14e-938f1b01d89d"
+                  name="Video original"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f2b1a70b-4e20-43d1-a605-ab9d7f0000d6"
+                  name="IOptItem options"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="85f9ae5d-9c57-434b-9111-dd0129dfdb94"
+        name="IOptItem"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedAttributes>
+          <property
+            Id="6fcd456c-bdd8-4aaf-9120-333121baf0f6"
+            name="Dictionary &lt;Tkey, TValue&gt;"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="e1dadea8-9b79-4d85-840d-fe203087bcf7"
+                LastKnownName="optParamDict"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="a6200d5d-ca2d-45e8-bf7d-0556ad06056f"
+            name="alias"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="71a35fde-c6e5-4115-8b6c-669417907e6a"
+                LastKnownName="string"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributes>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="e887022e-7745-4ecd-ae96-62c4f03bbfe1"
+        name="OptType"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedLiterals>
+          <enumerationLiteral
+            Id="07859dc3-d98e-4a88-ace5-9b529f377e0d"
+            name="Filter" />
+          <enumerationLiteral
+            Id="41892086-70ae-459b-852f-937205424145"
+            name="Metric" />
+        </ownedLiterals>
+      </enumeration>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="423240f8-e121-448b-bb78-1cded11ce4df"
+        name="MetriList"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="098e1cff-1f94-4e98-b536-357697aba00e"
+        name="PluginManager"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedOperationsInternal>
+          <operation
+            Id="26c70777-3f3f-47b1-96b6-f083ffe4da40"
+            name="getPlugins"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2dbe0472-7fbb-4aa9-aa02-f6c6d73796bc"
+                  name="OptType type"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1fa883fa-0df2-4dde-8d2c-6fc8f5c566c3"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="9d6c8666-913a-47c0-a07b-b7587a9d06da"
+                      LastKnownName="IPlugin[]"
+                      LastKnownLocation="Entwurf.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="44a6866d-d8d6-4a85-8ce6-5bf7a8df0640"
+        LastKnownName="Filter"
+        LastKnownLocation="Package_1725.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="09bf7c41-c947-4dff-88f0-b12661c26ffe"
+        LastKnownName="Metrics"
+        LastKnownLocation="Package_1726.uml" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

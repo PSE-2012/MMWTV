@@ -10,8 +10,23 @@
 - Filter auf Video/Frame
 - Video zurückgeben oder direkt verändern?
 
-- OptFilter mit xsd-File
+- Video class von aforge</body>
+    </comment>
+    <comment
+      Id="75b85c47-b3e4-4b11-8fe4-4bba8818fc65">
+      <body>Scharfzeichner
+Weichzeichner
+...
+als eigene Plugins oder Optionen?!</body>
+    </comment>
+    <comment
+      Id="49be46a6-31dc-4561-b817-08090cb8f6e3">
+      <body>Einstellungen abspeichern?
 </body>
+    </comment>
+    <comment
+      Id="20cc8599-0403-4160-a8b2-a570c7cc7e69">
+      <body>AvalonDock?</body>
     </comment>
   </ownedCommentsInternal>
   <profileInstances>
@@ -46,7 +61,7 @@
             isAbstract="false">
             <classMoniker
               Id="d89671a9-f407-4f4b-bca4-d8d7e39c954f"
-              LastKnownName="Image"
+              LastKnownName="Bitmap"
               LastKnownLocation="Entwurf.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
@@ -95,7 +110,7 @@
     <packageHasNamedElement>
       <class
         Id="d89671a9-f407-4f4b-bca4-d8d7e39c954f"
-        name="Image"
+        name="Bitmap"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false" />
@@ -103,19 +118,113 @@
     <packageHasNamedElement>
       <class
         Id="5671e4d3-210a-4b44-bc75-5e6c72af03c0"
-        name="Projekt"
+        name="Project"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <suppliersInternal>
-          <dependency
-            Id="9bacb239-cd95-43d1-8f46-07a8fe414dd9">
+        <targetEnds>
+          <association
+            Id="5ce900d8-f285-4062-8c32-bb4d4e822f24"
+            isDerived="false"
+            sourceEndRoleName="Project"
+            targetEndRoleName="SmartTree"
+            isLeaf="false"
+            isAbstract="false">
             <classMoniker
-              Id="304d0f67-d422-4401-a11a-1b88ff5037ea"
-              LastKnownName="Video"
+              Id="3474e193-7fb3-4f5b-ac1a-af314ea870b8"
+              LastKnownName="SmartTree"
               LastKnownLocation="Entwurf.uml" />
-          </dependency>
-        </suppliersInternal>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2b57b16b-002e-4afa-a73c-ff61351e3700"
+                  name="Project"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="47610f20-b698-4bed-9435-cc354c810071"
+                  name="SmartTree"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="33405107-e7e3-4dff-989a-71bb990b5fdb"
+            name="string"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="23450f33-e5d8-4022-bb50-d9f35a09bf64"
+                LastKnownName="name"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="566f84c4-9188-463e-b904-6dae64674ad5"
+            name="string"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="1db41f20-46f7-4404-b42d-33b35359819c"
+                LastKnownName="description"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="be1016cf-09cf-41f0-bd0c-e31f0f955fab"
+            name="Analysevorgaenge"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="aaea6183-346a-4283-a5bd-c1f16fbbd02a"
+            name="Projekteinstellungen"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -135,8 +244,8 @@
             isAbstract="false">
             <interfaceMoniker
               Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
-              LastKnownName="IFilter"
-              LastKnownLocation="Entwurf.uml" />
+              LastKnownName="IPlugin"
+              LastKnownLocation="Package_1716.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
@@ -201,41 +310,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <Interface
-        Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
-        name="IFilter"
-        isAbstract="false"
-        isLeaf="false">
-        <ownedOperations>
-          <operation
-            Id="18f26fe9-ce1f-4046-a27d-114b56ee9023"
-            name="process"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="true"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="d60efc31-fe42-4d13-8b6c-11ec06c9dc56"
-                  name="Video original"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="5b217c59-c1d0-41bc-a202-0908221df7ed"
-                  name="OptFilter options"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperations>
-      </Interface>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
@@ -407,104 +481,6 @@
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
-        Id="72baf6af-6f28-4735-8b36-f9cdfd01aac8"
-        name="MakroFilter"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <suppliersInternal>
-          <interfaceRealization
-            Id="d90f0a3a-1601-4022-aeff-97bbcb13f92f">
-            <interfaceMoniker
-              Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
-              LastKnownName="IFilter"
-              LastKnownLocation="Entwurf.uml" />
-          </interfaceRealization>
-        </suppliersInternal>
-        <targetEnds>
-          <association
-            Id="8881d73a-ead9-4697-8ddd-a5b9aff885b4"
-            isDerived="false"
-            sourceEndRoleName="MakroFilter"
-            targetEndRoleName="FilterPlugin"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="a66186b0-aa2e-4561-9a4d-3397c362aa67"
-              LastKnownName="FilterPlugin"
-              LastKnownLocation="Entwurf.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="57c3accb-c2f7-4d6c-ae69-fe4c740ffbb2"
-                  name="MakroFilter"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="e3e763ab-cd8d-41e1-958f-5287d27cc6ff"
-                  name="FilterPlugin"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="0a477bfe-0ebd-4436-8bf9-3cc2ad87e65b"
-                      name="Lower"
-                      value="1,*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="07489e86-0580-4904-b346-08865aab7844"
-                      name="Upper"
-                      value="1,*" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
-        <ownedOperationsInternal>
-          <operation
-            Id="f0074a3f-c4b5-48d8-8e75-6bc1c57d5100"
-            name="process"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="9adcb7fb-f8cd-4ca4-9bcb-b54860ada3d8"
-                  name="Video original"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="d314c5ec-119f-4aae-bdf5-b8059114ce34"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <class
         Id="a66186b0-aa2e-4561-9a4d-3397c362aa67"
         name="FilterPlugin"
         isAbstract="false"
@@ -515,8 +491,8 @@
             Id="9d6c1e31-fe6b-4b6c-8291-4cd28e645d1b">
             <interfaceMoniker
               Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
-              LastKnownName="IFilter"
-              LastKnownLocation="Entwurf.uml" />
+              LastKnownName="IPlugin"
+              LastKnownLocation="Package_1716.uml" />
           </interfaceRealization>
         </suppliersInternal>
         <ownedOperationsInternal>
@@ -559,8 +535,8 @@
             Id="372adcab-b416-40e7-bef9-ebcea5abded4">
             <interfaceMoniker
               Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
-              LastKnownName="IFilter"
-              LastKnownLocation="Entwurf.uml" />
+              LastKnownName="IPlugin"
+              LastKnownLocation="Package_1716.uml" />
           </dependency>
         </suppliersInternal>
         <ownedAttributesInternal>
@@ -588,6 +564,268 @@
             isComposite="false" />
         </ownedAttributesInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="23450f33-e5d8-4022-bb50-d9f35a09bf64"
+        name="name" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="1db41f20-46f7-4404-b42d-33b35359819c"
+        name="description" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="582a34c5-ab53-4af8-8c77-2cf50be890db"
+        name="VideoReader"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedOperationsInternal>
+          <operation
+            Id="57be5a37-51df-4cf7-8e93-8c88418975a4"
+            name="loadVideo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="889fe6d7-05a4-4f78-9ee8-cf5482513a8c"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="304d0f67-d422-4401-a11a-1b88ff5037ea"
+                      LastKnownName="Video"
+                      LastKnownLocation="Entwurf.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="836025c2-a388-4db0-8ceb-a886f896a3d1"
+        name="VideoWriter"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedOperationsInternal>
+          <operation
+            Id="33ac05f6-2ca5-4819-b731-604ffff26388"
+            name="writeVideo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="8fa5cde8-2c91-4196-8d2f-a60152130a43"
+                  name="Video vid"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="2f9ad65b-5145-4406-8c1d-97cdb21e2167"
+        name="VideoSourcePlayer (Aforge)"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="1d719e3f-e696-4d50-8ea6-6566f7c8c90f"
+            isDerived="false"
+            sourceEndRoleName="Player"
+            targetEndRoleName="VideoSource"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="8028688e-c9dc-41d2-9069-564ff03ef8f9"
+              LastKnownName="IVideoSource (Aforge)"
+              LastKnownLocation="Entwurf.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="633e0f47-4281-4038-a854-a9b9355ae5f3"
+                  name="Player"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c7b3ce3f-3159-4860-b305-88a50998e2aa"
+                  name="VideoSource"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="8028688e-c9dc-41d2-9069-564ff03ef8f9"
+        name="IVideoSource (Aforge)"
+        isAbstract="false"
+        isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="2b414eb8-30a6-41a5-b9d5-3b8b96514b14">
+            <classMoniker
+              Id="304d0f67-d422-4401-a11a-1b88ff5037ea"
+              LastKnownName="Video"
+              LastKnownLocation="Entwurf.uml" />
+          </dependency>
+        </suppliersInternal>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="a49cce0d-d50b-475c-a89b-d25ca57cbe84"
+        name="active" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="71a35fde-c6e5-4115-8b6c-669417907e6a"
+        name="string" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="e157fd9f-982f-4e74-838b-bf46b83e3250"
+        name="bool" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="e1dadea8-9b79-4d85-840d-fe203087bcf7"
+        name="optParamDict" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="9d6c8666-913a-47c0-a07b-b7587a9d06da"
+        name="IPlugin[]" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="949e2f81-31a6-44da-8ab2-0d3248139e17"
+        LastKnownName="Plugins"
+        LastKnownLocation="Package_1716.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="3474e193-7fb3-4f5b-ac1a-af314ea870b8"
+        name="SmartTree"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="87373e56-89b0-4c42-b891-6ad94387fccb"
+            isDerived="false"
+            sourceEndRoleName="SmartTree"
+            targetEndRoleName="Video"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="304d0f67-d422-4401-a11a-1b88ff5037ea"
+              LastKnownName="Video"
+              LastKnownLocation="Entwurf.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="498e77fa-88a2-4df0-955d-0dd99594f8d0"
+                  name="SmartTree"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Shared"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="fae4a53a-f4b0-4cf6-b8f2-bf35d8cca6f9"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="8d8a9a16-2359-4507-b8f6-2028b636935c"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8bc874d3-6803-47f1-a2a1-b49280bc031a"
+                  name="Video"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="ab3d8ddf-b837-48f8-98e4-5f963315ab35"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="0217adbc-71fa-44e1-ae00-eaa0f03c7c7d"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="6e6a291f-a8c1-4de3-9f6f-fdbc82f50202"
+        LastKnownName="View"
+        LastKnownLocation="Package_1744.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="14f98dd7-a014-46b7-b803-399e5104a556"
+        name="History"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType
