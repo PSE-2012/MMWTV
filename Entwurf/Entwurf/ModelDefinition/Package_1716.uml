@@ -114,24 +114,6 @@
         </targetEnds>
         <ownedAttributes>
           <property
-            Id="a6d74b3e-5887-46cb-a1b2-378b357a54c6"
-            name="active"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="e157fd9f-982f-4e74-838b-bf46b83e3250"
-                LastKnownName="bool"
-                LastKnownLocation="Entwurf.uml" />
-            </type_NamedElement>
-          </property>
-          <property
             Id="cc6d2652-6406-4c6c-bb82-3bd8c190910a"
             name="name"
             isLeaf="false"
@@ -152,8 +134,16 @@
         </ownedAttributes>
         <ownedOperations>
           <operation
-            Id="18f26fe9-ce1f-4046-a27d-114b56ee9023"
-            name="process"
+            Id="111958b5-b532-4ee4-9aa3-e08fbaecd1c7"
+            name="getOptionsView"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="76e10b94-8a00-4c5d-89fd-3b0a61027949"
+            name="getProgress"
             isLeaf="false"
             isStatic="false"
             isAbstract="true"
@@ -162,17 +152,16 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="ce9a32a7-ccc5-49ab-b14e-938f1b01d89d"
-                  name="Video original"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="f2b1a70b-4e20-43d1-a605-ab9d7f0000d6"
-                  name="IOptItem options"
-                  direction="In"
-                  isUnique="false" />
+                  Id="bdc8f131-6eac-4c3d-83d5-6c0614b8bb8e"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4"
+                      LastKnownName="int"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
@@ -302,6 +291,11 @@
         Id="09bf7c41-c947-4dff-88f0-b12661c26ffe"
         LastKnownName="Metrics"
         LastKnownLocation="Package_1726.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4"
+        name="int" />
     </packageHasNamedElement>
   </packagedElements>
 </package>

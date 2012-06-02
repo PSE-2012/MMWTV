@@ -7,13 +7,21 @@
 - Filter auf Video/Frame
 - Video zurückgeben oder direkt verändern?
 
-- Video class von aforge</body>
+- Video class von aforge
+
+Arbeiten auf RGB - oder yuv?</body>
     </comment>
   </ownedCommentsInternal>
   <packagedElements>
     <logicalClassDesignerModelHasTypes>
       <class Id="38a54136-16fc-4cb3-8c73-847db24dd69c" name="Video" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="304d0f67-d422-4401-a11a-1b88ff5037ea" />
+        <suppliersInternal>
+          <interfaceRealization Id="c01a26be-3023-48a4-b425-e9ed4cbd719a">
+            <interfaceMoniker Id="db5d5b93-e21b-4279-af00-18a70a0363f8" LastKnownName="IVideoSource (Aforge)" />
+            <elementDefinition Id="1a17ff48-6381-4ceb-a684-1bf5146b2ae3" />
+          </interfaceRealization>
+        </suppliersInternal>
         <targetEnds>
           <association Id="fc16e7d2-35ae-4ec0-8bc9-a6187312d6c2" isDerived="false" sourceEndRoleName="Video" targetEndRoleName="Frame" isLeaf="false" isAbstract="false">
             <classMoniker Id="58286b1f-6f3c-4f3c-b21c-2152e2bc5e13" LastKnownName="Bitmap" />
@@ -53,8 +61,8 @@
       <class Id="18decd08-48a2-4fdd-b56a-1bbb42e071b3" name="Project" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="5671e4d3-210a-4b44-bc75-5e6c72af03c0" />
         <targetEnds>
-          <association Id="c22d7ec7-a187-48a0-8970-ca4e97cb4492" isDerived="false" sourceEndRoleName="Project" targetEndRoleName="SmartTree" isLeaf="false" isAbstract="false">
-            <classMoniker Id="8d7f9c60-8203-4c5e-9a40-e1cd74ee5d5b" LastKnownName="SmartTree" />
+          <association Id="c22d7ec7-a187-48a0-8970-ca4e97cb4492" isDerived="false" sourceEndRoleName="Project" targetEndRoleName="Resources" isLeaf="false" isAbstract="false">
+            <classMoniker Id="8d7f9c60-8203-4c5e-9a40-e1cd74ee5d5b" LastKnownName="SmartNode" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd Id="85548465-023c-4190-987e-c5b6a0b54935" name="Project" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
@@ -62,7 +70,7 @@
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="d351249b-9361-4ce2-9c7a-7a7ab4eddc89" name="SmartTree" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <memberEnd Id="d351249b-9361-4ce2-9c7a-7a7ab4eddc89" name="Resources" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="47610f20-b698-4bed-9435-cc354c810071" />
                 </memberEnd>
               </associationHasOwnedEnds>
@@ -145,47 +153,13 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="c0a0b5ff-16a6-4b1f-bc08-582bffb36f52" name="VideoSourcePlayer (Aforge)" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="2f9ad65b-5145-4406-8c1d-97cdb21e2167" />
-        <targetEnds>
-          <association Id="496acbfa-0240-40f7-938a-188680df866d" isDerived="false" sourceEndRoleName="Player" targetEndRoleName="VideoSource" isLeaf="false" isAbstract="false">
-            <interfaceMoniker Id="db5d5b93-e21b-4279-af00-18a70a0363f8" LastKnownName="IVideoSource (Aforge)" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="5ebd9cad-789a-4700-8411-70e144e304a6" name="Player" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="633e0f47-4281-4038-a854-a9b9355ae5f3" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="41bdcf9b-1fd6-498f-9367-655100b5b0a8" name="VideoSource" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="c7b3ce3f-3159-4860-b305-88a50998e2aa" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="1d719e3f-e696-4d50-8ea6-6566f7c8c90f" />
-          </association>
-        </targetEnds>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
       <Interface Id="db5d5b93-e21b-4279-af00-18a70a0363f8" name="IVideoSource (Aforge)" isAbstract="false" isLeaf="false">
         <elementDefinition Id="8028688e-c9dc-41d2-9069-564ff03ef8f9" />
-        <suppliersInternal>
-          <dependency Id="c562a89f-acb0-44d5-8bc6-f83eb6e1d5b4">
-            <classMoniker Id="38a54136-16fc-4cb3-8c73-847db24dd69c" LastKnownName="Video" />
-            <elementDefinition Id="2b414eb8-30a6-41a5-b9d5-3b8b96514b14" />
-          </dependency>
-        </suppliersInternal>
       </Interface>
     </logicalClassDesignerModelHasTypes>
     <packageHasNamedElement>
       <referencedType Id="260126e3-706a-4e1e-9857-7e0abf769932" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
         <elementDefinition Id="71a35fde-c6e5-4115-8b6c-669417907e6a" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="cdd766d0-23f8-486a-82de-bea8b185e707" name="bool" isAbstract="false" isLeaf="false" cachedFullName="bool">
-        <elementDefinition Id="e157fd9f-982f-4e74-838b-bf46b83e3250" />
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -224,22 +198,6 @@
                 </dependency>
               </suppliersInternal>
               <targetEnds>
-                <association Id="0ed81a02-b831-4162-b5b3-56cfacbe601d" isDerived="false" sourceEndRoleName="IPlugin" targetEndRoleName="OptType" isLeaf="false" isAbstract="false">
-                  <enumerationMoniker Id="b05de4d4-261f-4735-8d0d-536df0b65162" LastKnownName="OptType" />
-                  <relationshipOwnedElementsInternal>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="1e363d94-4a85-498a-9021-321471160963" name="IPlugin" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                        <elementDefinition Id="06bfcfbb-f558-4f45-8e57-b4c641246ae3" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="9d933765-ad4c-43e2-bfc8-666176ab5901" name="OptType" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                        <elementDefinition Id="b0a173f1-e27f-4379-a393-63871df20065" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                  </relationshipOwnedElementsInternal>
-                  <elementDefinition Id="be1f6074-d440-4ecb-872d-7192a4199b07" />
-                </association>
                 <association Id="26b27dc6-d079-4068-8eb8-8c84b32045b7" isDerived="false" sourceEndRoleName="IPlugin" targetEndRoleName="PluginManager" isLeaf="false" isAbstract="false">
                   <classMoniker Id="7ac08d91-6c4e-4b13-9844-ae121120f834" LastKnownName="PluginManager" />
                   <relationshipOwnedElementsInternal>
@@ -268,12 +226,6 @@
                 </association>
               </targetEnds>
               <ownedAttributes>
-                <property Id="fe3fa2fc-c26a-45cc-ad82-5a276b09816d" name="active" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="a6d74b3e-5887-46cb-a1b2-378b357a54c6" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="cdd766d0-23f8-486a-82de-bea8b185e707" LastKnownName="bool" />
-                  </type_NamedElement>
-                </property>
                 <property Id="766f9acb-f2f7-45c9-98ea-ca21087f4218" name="name" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="cc6d2652-6406-4c6c-bb82-3bd8c190910a" />
                   <type_NamedElement>
@@ -282,17 +234,18 @@
                 </property>
               </ownedAttributes>
               <ownedOperations>
-                <operation Id="48624ffe-1032-4b90-ad82-2aff786289d7" name="process" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-                  <elementDefinition Id="18f26fe9-ce1f-4046-a27d-114b56ee9023" />
+                <operation Id="cf56e095-66af-49fa-8ea3-22c93c295063" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="111958b5-b532-4ee4-9aa3-e08fbaecd1c7" />
+                </operation>
+                <operation Id="8e9cb273-54a5-4b92-a5ef-5e700a29db65" name="getProgress" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="76e10b94-8a00-4c5d-89fd-3b0a61027949" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="11996bad-5e97-4f82-ae9c-5459d98365a8" name="Video original" direction="In" isUnique="false">
-                        <elementDefinition Id="ce9a32a7-ccc5-49ab-b14e-938f1b01d89d" />
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="8670ff4c-a759-4d17-98a9-e7f054120436" name="IOptItem options" direction="In" isUnique="false">
-                        <elementDefinition Id="f2b1a70b-4e20-43d1-a605-ab9d7f0000d6" />
+                      <parameter Id="fe3cdf16-e731-4df8-8020-bd2a80ac4c98" direction="Return" isUnique="false">
+                        <elementDefinition Id="bdc8f131-6eac-4c3d-83d5-6c0614b8bb8e" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
+                        </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -318,19 +271,6 @@
                 </property>
               </ownedAttributes>
             </Interface>
-          </packageHasNamedElement>
-          <packageHasNamedElement>
-            <enumeration Id="b05de4d4-261f-4735-8d0d-536df0b65162" name="OptType" isAbstract="false" isLeaf="false">
-              <elementDefinition Id="e887022e-7745-4ecd-ae96-62c4f03bbfe1" />
-              <ownedLiterals>
-                <enumerationLiteral Id="d76d1bea-acc2-4049-ad85-8dd04271e603" name="Filter">
-                  <elementDefinition Id="07859dc3-d98e-4a88-ace5-9b529f377e0d" />
-                </enumerationLiteral>
-                <enumerationLiteral Id="4c2b29f7-8402-4042-a0fb-bab926fc35e1" name="Metric">
-                  <elementDefinition Id="41892086-70ae-459b-852f-937205424145" />
-                </enumerationLiteral>
-              </ownedLiterals>
-            </enumeration>
           </packageHasNamedElement>
           <packageHasNamedElement>
             <class Id="7ac08d91-6c4e-4b13-9844-ae121120f834" name="PluginManager" isAbstract="false" isLeaf="false" isActiveClass="false">
@@ -378,19 +318,24 @@ als eigene Plugins oder Optionen?!</body>
                         <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
                         <elementDefinition Id="9f9e5c5b-9c57-49c0-acd5-571b4a6ea0d6" />
                       </interfaceRealization>
+                      <interfaceRealization Id="1ba8ce85-3e69-4a3e-92a2-df6ea09c9f0f">
+                        <interfaceMoniker Id="26bd56d7-39c1-4575-8547-dd35a8f10cd5" LastKnownName="IFilter (AForge" />
+                        <elementDefinition Id="0aecc959-a690-4fe1-8eaa-b1fbd207d90d" />
+                      </interfaceRealization>
                     </suppliersInternal>
                     <ownedOperationsInternal>
-                      <operation Id="7dec67c3-247d-4865-a682-f372ca8ba929" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="38be4c0b-2b3f-443a-909c-3a601a2fff21" />
+                      <operation Id="c0128371-71d1-4d93-8457-ba890b0c55df" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="403876ac-114b-484e-a4ad-6c914a48508c" />
+                      </operation>
+                      <operation Id="2067dd6f-2115-491f-a1f9-381c988dca7b" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="14eeb7c2-6a0e-4333-adec-fc597f64fcb1" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="f6f8458e-7a86-4301-9f7b-dc304334f437" name="Video original" direction="In" isUnique="false">
-                              <elementDefinition Id="8e38ffc4-48ca-43c0-b0be-32495ad5c777" />
-                            </parameter>
-                          </operationHasOwnedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="67a1c0a4-5545-47af-9c98-ae423d717b3b" name="OptFilter options" direction="In" isUnique="false">
-                              <elementDefinition Id="6fe56d1b-9049-4b1f-b6ed-725f0168473d" />
+                            <parameter Id="8e6f482d-3ddc-4052-ade3-22f92f629048" direction="Return" isUnique="false">
+                              <elementDefinition Id="f95c5f1e-5f46-4601-a596-fda97e366529" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
+                              </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -406,19 +351,24 @@ als eigene Plugins oder Optionen?!</body>
                         <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
                         <elementDefinition Id="a24c8593-0088-43be-9c17-064220c802a4" />
                       </interfaceRealization>
+                      <interfaceRealization Id="18534b3d-6c19-4d4a-8570-3ed2875eb190">
+                        <interfaceMoniker Id="26bd56d7-39c1-4575-8547-dd35a8f10cd5" LastKnownName="IFilter (AForge" />
+                        <elementDefinition Id="d09a3486-cf99-4a3c-b408-f6116f27927a" />
+                      </interfaceRealization>
                     </suppliersInternal>
                     <ownedOperationsInternal>
-                      <operation Id="1aaf0b80-ef52-4b1f-b8db-dfb6f7713be4" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="bf09bcf8-d38e-4ab9-bda5-34c7da66eb98" />
+                      <operation Id="5a28dbee-b142-469d-a49f-226c3a8b09e0" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="8069a8a7-d9cd-4db7-bad0-bc0fbe2a34b2" />
+                      </operation>
+                      <operation Id="6b1dedca-1e1a-4f32-9af3-67d57b34b71c" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="50fb4685-88b3-4032-9e4c-d707fdb95a4c" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="a6d4f957-ecd0-4de7-9552-4eefc643ed6c" name="Video original" direction="In" isUnique="false">
-                              <elementDefinition Id="b5fbeaac-b361-4485-8cca-48f476c34a02" />
-                            </parameter>
-                          </operationHasOwnedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="b578e195-291a-439d-aad9-6361ee1cadc4" name="OptFilter options" direction="In" isUnique="false">
-                              <elementDefinition Id="eca1fd65-48af-4bc5-b4f5-8a13f2708056" />
+                            <parameter Id="f13e2d24-06f4-41ba-8eec-5bef200239df" direction="Return" isUnique="false">
+                              <elementDefinition Id="9e2ac0a9-8833-47cc-a4a9-d21a71e14576" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
+                              </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -434,19 +384,24 @@ als eigene Plugins oder Optionen?!</body>
                         <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
                         <elementDefinition Id="fc362997-9750-4b97-a10a-5e3d753bdd65" />
                       </interfaceRealization>
+                      <interfaceRealization Id="c8bb31bc-8b72-4c5c-a65f-0ea1a4d5d0b9">
+                        <interfaceMoniker Id="26bd56d7-39c1-4575-8547-dd35a8f10cd5" LastKnownName="IFilter (AForge" />
+                        <elementDefinition Id="264d65ed-04c2-41d8-b9e1-6d120d6c6d9c" />
+                      </interfaceRealization>
                     </suppliersInternal>
                     <ownedOperationsInternal>
-                      <operation Id="01a8d311-1006-4daa-9b72-79a3d81e6634" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="9cba79a4-ce0c-45bb-8a6c-5c23c7b05aa2" />
+                      <operation Id="ec5a49f0-4ea1-495d-bf07-356416297e77" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="5c6cd9ef-81bc-4c01-b1af-1428726bac9d" />
+                      </operation>
+                      <operation Id="d59a05be-1202-4ce5-bdcb-83919ff75c7a" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="ac73baa3-9e86-40bd-8c74-8b168efb5ee2" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="74aabf63-3569-4546-a24b-44e56a1853a1" name="Video original" direction="In" isUnique="false">
-                              <elementDefinition Id="f1a92e7d-6621-45f3-9de8-109852a4032d" />
-                            </parameter>
-                          </operationHasOwnedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="dd5ed249-36ea-4f1e-b696-5340a34c1e6d" name="OptFilter options" direction="In" isUnique="false">
-                              <elementDefinition Id="0725510e-9323-472a-9d11-9adc575490b5" />
+                            <parameter Id="16216603-c61d-4617-826f-4f62e25b6399" direction="Return" isUnique="false">
+                              <elementDefinition Id="4c209017-0e06-4b69-b8e8-51e2c89d2f98" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
+                              </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -462,25 +417,35 @@ als eigene Plugins oder Optionen?!</body>
                         <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
                         <elementDefinition Id="3bfcf237-dc15-447f-9bd4-82abad2562c7" />
                       </interfaceRealization>
+                      <interfaceRealization Id="c4500adb-94ab-4814-84bc-1adb558a41b6">
+                        <interfaceMoniker Id="26bd56d7-39c1-4575-8547-dd35a8f10cd5" LastKnownName="IFilter (AForge" />
+                        <elementDefinition Id="f1a54ee0-c536-459d-a746-87174f19e268" />
+                      </interfaceRealization>
                     </suppliersInternal>
                     <ownedOperationsInternal>
-                      <operation Id="8304e785-a22b-4b7c-95a5-ee22230f372a" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="67106ba3-0295-4db5-b227-eef86cbe817e" />
+                      <operation Id="cd264dd7-6d22-4f73-9dc8-35a84ef6f8d0" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="d39c020a-baf2-4133-bf39-b02a3e2663cf" />
+                      </operation>
+                      <operation Id="87e7b8fd-b5df-442d-abb0-3d14b168611c" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="e857cae5-94b3-4d1f-938e-714f77346c52" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="a90ee578-2dad-49d3-acc6-12957d1617a1" name="Video original" direction="In" isUnique="false">
-                              <elementDefinition Id="b9543f1c-1d6a-4909-a6cb-4c5df92b82a1" />
-                            </parameter>
-                          </operationHasOwnedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="bc79a2f0-41cd-4942-9d34-a5d0fe43d289" name="IOptItem options" direction="In" isUnique="false">
-                              <elementDefinition Id="c5f6c730-3aed-43bf-8578-efd7a9791ed2" />
+                            <parameter Id="17852f5c-7a7b-4aa9-9a3d-ae017ed13bb7" direction="Return" isUnique="false">
+                              <elementDefinition Id="589ed3ee-cc27-4358-8b3f-82302124de42" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
+                              </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
                     </ownedOperationsInternal>
                   </class>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <Interface Id="26bd56d7-39c1-4575-8547-dd35a8f10cd5" name="IFilter (AForge" isAbstract="false" isLeaf="false">
+                    <elementDefinition Id="7e2feeb9-352b-47f6-851b-2fedc95241bb" />
+                  </Interface>
                 </packageHasNamedElement>
               </packagedElements>
             </package>
@@ -497,19 +462,50 @@ als eigene Plugins oder Optionen?!</body>
                         <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
                         <elementDefinition Id="32efb96c-02b7-4cac-bd05-60649fb110c7" />
                       </interfaceRealization>
+                      <interfaceRealization Id="ee83db3f-df15-4cd6-b3db-014a81ea148c">
+                        <interfaceMoniker Id="711d2f97-032f-4503-9be4-e673b2a612f0" LastKnownName="IMetric" />
+                        <elementDefinition Id="c2a9444d-4c23-4459-8270-e45d0eade4b4" />
+                      </interfaceRealization>
                     </suppliersInternal>
                     <ownedOperationsInternal>
-                      <operation Id="9cf53047-0e80-4795-baeb-85ce8847d261" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="2ecbcf67-673f-48c2-a016-26c4901ea24a" />
+                      <operation Id="11e5944c-1bf6-460e-853d-adfd0da3507d" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="a1d2c263-92df-4cf3-ba3e-3993322ed431" />
+                      </operation>
+                      <operation Id="499df170-528e-42b5-a427-fbf659436bd0" name="getAnalysisView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="57b27e07-df62-43f9-852b-8aec7accaff1" />
+                      </operation>
+                      <operation Id="d038c121-c7d6-4c5a-8dfe-c959262d7540" name="analyse" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="6778109a-a82e-4b10-8609-226cc7d2bdee" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="fd16b838-be01-405c-b912-0dec6bed9654" name="Video original" direction="In" isUnique="false">
-                              <elementDefinition Id="7ae95130-d822-4c8e-8a32-c5b17b0a8cd4" />
+                            <parameter Id="361f12c8-52e4-47d7-9750-c8ae4938b36f" name="Video ref" direction="In" isUnique="false">
+                              <elementDefinition Id="ab0a26b0-ea0c-4470-badd-4013b2421169" />
                             </parameter>
                           </operationHasOwnedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="eacb27c0-998a-4d93-b7bb-0556af25cb45" name="OptFilter options" direction="In" isUnique="false">
-                              <elementDefinition Id="4858d5ad-883e-4053-869e-a0d21037c897" />
+                            <parameter Id="37b89300-d483-456a-a372-ff6c4da0c03a" name="Video proc" direction="In" isUnique="false">
+                              <elementDefinition Id="e1ce7696-15cd-4561-938b-61516c5f0785" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="643c36e3-e2a1-415d-b795-07d69ee542ed" direction="Return" isUnique="false">
+                              <elementDefinition Id="18e7fc61-d20d-4df6-a6f5-a813b7041e62" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="0395787b-2d68-4818-a21c-8f6b591700ad" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="ca13b08f-3444-4e04-be5f-1eb45c741db4" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="3515c58b-54eb-4462-af6d-09bd0e1c3c09" direction="Return" isUnique="false">
+                              <elementDefinition Id="339fd551-fd12-41d6-9d1e-35274d4da109" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
+                              </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -525,19 +521,50 @@ als eigene Plugins oder Optionen?!</body>
                         <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
                         <elementDefinition Id="4cbbc2b1-ce10-4a77-a94c-641536831af0" />
                       </interfaceRealization>
+                      <interfaceRealization Id="332c26c2-eb20-441b-88a7-fe8d5b565711">
+                        <interfaceMoniker Id="711d2f97-032f-4503-9be4-e673b2a612f0" LastKnownName="IMetric" />
+                        <elementDefinition Id="b4932214-f645-4a9e-88a8-03982c975ba9" />
+                      </interfaceRealization>
                     </suppliersInternal>
                     <ownedOperationsInternal>
-                      <operation Id="afd5f6c8-c3fd-4d1d-9b80-b78abd61189d" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="b0d84573-1f93-40b9-8414-46a46e62d72c" />
+                      <operation Id="4eaa5adf-6eda-436d-ac8b-adc1cb9258a4" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="25db52c0-62fe-4c97-b095-b4ff5ee1454f" />
+                      </operation>
+                      <operation Id="c46b3cf5-cc24-4f16-a863-10745aa4c50d" name="getAnalysisView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="48edbeb0-d004-44ff-95b4-094fb2019b5d" />
+                      </operation>
+                      <operation Id="1260c643-3eca-48a0-81b9-c6e9944dbd15" name="analyse" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="8c70c185-3d73-44a7-ba13-9a39774e93b2" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="d30d36d5-d48d-4eb9-bad4-f3b9dc1051ec" name="Video original" direction="In" isUnique="false">
-                              <elementDefinition Id="656989ca-ee61-4d95-b5c4-190969f9166d" />
+                            <parameter Id="56245e5e-d7a9-4451-a5d5-b91391dc4b03" name="Video ref" direction="In" isUnique="false">
+                              <elementDefinition Id="28891e98-11dd-4a11-8ee7-5dd7d9656453" />
                             </parameter>
                           </operationHasOwnedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="c2ee0ec2-0132-494f-bc98-c0200ac7d423" name="OptFilter options" direction="In" isUnique="false">
-                              <elementDefinition Id="932ea678-c155-4f55-9a8e-ea87af075f0e" />
+                            <parameter Id="e94eb328-4125-471f-8fdd-ea0b11a7dc8c" name="Video proc" direction="In" isUnique="false">
+                              <elementDefinition Id="9b50f3b3-e530-4744-8573-e0b7079da226" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="1bf24996-4f4b-4a2e-87c6-653e97092c00" direction="Return" isUnique="false">
+                              <elementDefinition Id="9ed028a5-1262-444a-970d-1b0bd5db83c4" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="9784b886-fea1-40ad-a7cb-25b1584fd49e" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="808f67cc-64fe-486b-ad87-f7e0a3e0b282" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="d2969014-6cc5-4d02-a257-f5171df2fa13" direction="Return" isUnique="false">
+                              <elementDefinition Id="87888d17-3061-408e-a3d6-0ac37a8a0b9f" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
+                              </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -553,19 +580,50 @@ als eigene Plugins oder Optionen?!</body>
                         <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
                         <elementDefinition Id="0c5aa2c1-2ac9-416e-92bc-cab0df07c045" />
                       </interfaceRealization>
+                      <interfaceRealization Id="bc70d1ae-5a1f-4e69-9e2f-5acc3888d08a">
+                        <interfaceMoniker Id="711d2f97-032f-4503-9be4-e673b2a612f0" LastKnownName="IMetric" />
+                        <elementDefinition Id="16bd272b-04fe-47e3-83d8-4e63daab37e1" />
+                      </interfaceRealization>
                     </suppliersInternal>
                     <ownedOperationsInternal>
-                      <operation Id="7a278977-13aa-4eaa-b700-255705251f83" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="eaa17caa-c31c-4930-9e92-c8f90ef72aeb" />
+                      <operation Id="62a7ec45-b533-4cc9-b055-e63561ca15d9" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="84d513fc-d1ab-4994-a257-46e64d9df996" />
+                      </operation>
+                      <operation Id="f8177887-2272-4e33-b437-6a278681b918" name="getAnalysisView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="18b7efa5-c976-4f60-bca8-d05b6ccf64e6" />
+                      </operation>
+                      <operation Id="c0c770aa-476d-4aff-bcdc-3269df9758de" name="analyse" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="0d91ce25-7a5d-49ca-ae5e-815b31f33273" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="0ca50db1-c288-428a-b50b-9b4e8ba4fe5b" name="Video original" direction="In" isUnique="false">
-                              <elementDefinition Id="a1f1d465-9f0b-46a6-a521-4f8c14de4614" />
+                            <parameter Id="4bdace45-64c1-45c0-b9fb-984993f043ad" name="Video ref" direction="In" isUnique="false">
+                              <elementDefinition Id="eb0ae730-b689-449b-9a52-f1c04e4f702b" />
                             </parameter>
                           </operationHasOwnedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="451352d8-c381-41f7-b2f3-eca7f094d12c" name="OptFilter options" direction="In" isUnique="false">
-                              <elementDefinition Id="165da219-6a8f-40b8-aee7-d08b950ae921" />
+                            <parameter Id="5045bf34-e144-445a-9362-bfe2c688935c" name="Video proc" direction="In" isUnique="false">
+                              <elementDefinition Id="a8ca0c47-8dc3-4b91-9f77-cfe9cafb5b9b" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="228ce11a-fcfd-4927-836a-97342c1bc53a" direction="Return" isUnique="false">
+                              <elementDefinition Id="6452826e-e53e-4c3f-9ed7-2bf4a3d9aede" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="75a909e0-8d99-42dc-9a6a-f3d27270d3df" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="9984d8fd-cad0-40f7-9de0-baa62e30dc14" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="f87040f5-8cb7-49f3-b0b7-03c2a3a17cde" direction="Return" isUnique="false">
+                              <elementDefinition Id="8c664e16-16cc-42c2-b2c0-9eb0583e2b62" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
+                              </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -581,25 +639,89 @@ als eigene Plugins oder Optionen?!</body>
                         <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
                         <elementDefinition Id="6aafb8fe-30d3-4093-899e-fb1165924ed8" />
                       </interfaceRealization>
+                      <interfaceRealization Id="a9352b4c-23cf-417f-85c0-38f4304b16ba">
+                        <interfaceMoniker Id="711d2f97-032f-4503-9be4-e673b2a612f0" LastKnownName="IMetric" />
+                        <elementDefinition Id="4082f9bf-cfee-4d5d-9fd8-cac56f00cabf" />
+                      </interfaceRealization>
                     </suppliersInternal>
                     <ownedOperationsInternal>
-                      <operation Id="cfb709bc-e5c4-4d8d-8a19-71670f612d01" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="06f1ffca-51a5-418e-a029-af7323d86ad5" />
+                      <operation Id="b10c0f8a-185a-4ac0-ba34-773e7dd2cd37" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="6a923f42-86c0-46c4-967d-63dce9dd7983" />
+                      </operation>
+                      <operation Id="e3161b63-6163-47f0-9fe1-547cf5935d4a" name="getAnalysisView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="3a780595-9b41-41ec-83c6-53edd4dec170" />
+                      </operation>
+                      <operation Id="cf67b0a6-e451-4cd1-b257-438c9c83503a" name="analyse" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="30a3999d-7e6d-41a6-9b5a-c7504bb8eebc" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="00356fdc-914d-4ada-af65-59ecc8af2e9f" name="Video original" direction="In" isUnique="false">
-                              <elementDefinition Id="374af914-e19b-4270-b07e-796c9e3ff1c0" />
+                            <parameter Id="4c6ffeb0-632a-4836-a9bc-88ddd4496f8d" name="Video ref" direction="In" isUnique="false">
+                              <elementDefinition Id="014aeafa-2381-4bc7-bce7-3cf73aa2c6fa" />
                             </parameter>
                           </operationHasOwnedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="04d4b19d-9a45-4e94-b5d6-69ffaf20fb1f" name="OptFilter options" direction="In" isUnique="false">
-                              <elementDefinition Id="d4eebf85-60c4-4028-8d30-91b3212ace22" />
+                            <parameter Id="b5f30f59-d875-41c9-b58b-9ec04e20d4cf" name="Video proc" direction="In" isUnique="false">
+                              <elementDefinition Id="0847bc2c-5510-4ba8-9c3f-9165e4c1f3e1" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="ce88574c-2453-498e-a96c-7f12ae5ae318" direction="Return" isUnique="false">
+                              <elementDefinition Id="39c6a741-770d-45ea-af4d-2e643840a16a" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="df75b9ec-5c65-4001-b7e8-ca88c741f483" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="75a01e14-2b56-4eca-b249-56634852299a" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="b8c096a4-081f-4fdd-8d54-7f8fead09ce7" direction="Return" isUnique="false">
+                              <elementDefinition Id="9b526e0e-9c19-4918-aad8-7e4b4e6a0591" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
+                              </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
                     </ownedOperationsInternal>
                   </class>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <Interface Id="711d2f97-032f-4503-9be4-e673b2a612f0" name="IMetric" isAbstract="false" isLeaf="false">
+                    <elementDefinition Id="0773b2ac-82ae-494d-9544-831b930a24af" />
+                    <ownedOperations>
+                      <operation Id="d49b9aae-a10f-44d5-977d-67c0432012b9" name="getAnalysisView" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="79354657-2d0d-4fde-95e3-2e87ca080b8e" />
+                      </operation>
+                      <operation Id="00e85209-9eac-4233-8570-cc6e6782d249" name="analyse" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="02277374-fb86-475c-9132-86ba281bf780" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="b819259a-b932-47f1-a99b-06a276143b21" name="Video ref" direction="In" isUnique="false">
+                              <elementDefinition Id="cdb04cc8-4794-427d-b24e-778209076176" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="e73fdd68-1fd5-49be-af20-224d858b46df" name="Video proc" direction="In" isUnique="false">
+                              <elementDefinition Id="088ec359-a663-455c-a876-a1d131284a34" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="44fb5aa0-3bd8-4df1-9143-f35d1628362e" direction="Return" isUnique="false">
+                              <elementDefinition Id="36118197-7a00-46d1-87dc-df631c710797" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                    </ownedOperations>
+                  </Interface>
                 </packageHasNamedElement>
               </packagedElements>
             </package>
@@ -608,21 +730,21 @@ als eigene Plugins oder Optionen?!</body>
       </package>
     </logicalClassDesignerModelHasPackages>
     <logicalClassDesignerModelHasTypes>
-      <class Id="8d7f9c60-8203-4c5e-9a40-e1cd74ee5d5b" name="SmartTree" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="8d7f9c60-8203-4c5e-9a40-e1cd74ee5d5b" name="SmartNode" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="3474e193-7fb3-4f5b-ac1a-af314ea870b8" />
         <targetEnds>
-          <association Id="010c6d58-8ece-40e4-95e2-b0c248d72fe9" isDerived="false" sourceEndRoleName="SmartTree" targetEndRoleName="Video" isLeaf="false" isAbstract="false">
+          <association Id="010c6d58-8ece-40e4-95e2-b0c248d72fe9" isDerived="false" sourceEndRoleName="SmartNode" targetEndRoleName="Video" isLeaf="false" isAbstract="false">
             <classMoniker Id="38a54136-16fc-4cb3-8c73-847db24dd69c" LastKnownName="Video" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="23066074-146f-4a7f-9663-a549ae8cc541" name="SmartTree" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                <memberEnd Id="23066074-146f-4a7f-9663-a549ae8cc541" name="SmartNode" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
                   <lowerValueInternal>
-                    <literalString Id="16f458a0-5506-4b52-b032-aa599fd979e4" name="Lower" value="*">
+                    <literalString Id="16f458a0-5506-4b52-b032-aa599fd979e4" name="Lower" value="1">
                       <elementDefinition Id="fae4a53a-f4b0-4cf6-b8f2-bf35d8cca6f9" />
                     </literalString>
                   </lowerValueInternal>
                   <upperValueInternal>
-                    <literalString Id="84135fb7-dea3-4902-a700-b678a3f6eef0" name="Upper" value="*">
+                    <literalString Id="84135fb7-dea3-4902-a700-b678a3f6eef0" name="Upper" value="1">
                       <elementDefinition Id="8d8a9a16-2359-4507-b8f6-2028b636935c" />
                     </literalString>
                   </upperValueInternal>
@@ -632,12 +754,12 @@ als eigene Plugins oder Optionen?!</body>
               <associationHasOwnedEnds>
                 <memberEnd Id="c89ed4c2-2d8a-4acf-9ae5-bd1cb9167f68" name="Video" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <lowerValueInternal>
-                    <literalString Id="07a869d5-8370-4910-8fa8-3cc394e846da" name="Lower" value="*">
+                    <literalString Id="07a869d5-8370-4910-8fa8-3cc394e846da" name="Lower" value="1">
                       <elementDefinition Id="ab3d8ddf-b837-48f8-98e4-5f963315ab35" />
                     </literalString>
                   </lowerValueInternal>
                   <upperValueInternal>
-                    <literalString Id="0cd2ed3b-f3c1-4b0f-aaf4-2e7907d5e8c5" name="Upper" value="*">
+                    <literalString Id="0cd2ed3b-f3c1-4b0f-aaf4-2e7907d5e8c5" name="Upper" value="1">
                       <elementDefinition Id="0217adbc-71fa-44e1-ae00-eaa0f03c7c7d" />
                     </literalString>
                   </upperValueInternal>
@@ -647,7 +769,59 @@ als eigene Plugins oder Optionen?!</body>
             </relationshipOwnedElementsInternal>
             <elementDefinition Id="87373e56-89b0-4c42-b891-6ad94387fccb" />
           </association>
+          <association Id="7f3dd426-9c0a-44db-86bd-70abd1d20a8b" isDerived="false" sourceEndRoleName="Parent" targetEndRoleName="Child" isLeaf="false" isAbstract="false">
+            <classMoniker Id="8d7f9c60-8203-4c5e-9a40-e1cd74ee5d5b" LastKnownName="SmartNode" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="01adb028-4efb-4284-8b64-38a9b80ca55a" name="Parent" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="44d21700-7509-4b2a-8f22-3bbf67014e59" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="3d28ba9e-9adb-4dcb-808d-b544ac0b42c9" name="Child" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="17bb6f90-b0ed-412b-8949-935c696c1e97" name="Lower" value="*">
+                      <elementDefinition Id="a9eb06bf-00f8-47dd-b11f-e2a02d798a73" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="060e76cb-93a2-4754-b8bd-b3bf314f12c5" name="Upper" value="*">
+                      <elementDefinition Id="74383caf-d355-433d-967d-4c1efaf57c2d" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="1000adaa-99f6-4ab8-bf6b-6535c11e2f7b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="d83fd6aa-4e1f-4d52-82b9-7b0d1cd2334c" />
+          </association>
         </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="274f1bf8-6333-4dd2-89ba-9bca76de30fb" name="name" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="a3c9823a-0c97-4a55-9531-a6561c16d9cc" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="260126e3-706a-4e1e-9857-7e0abf769932" LastKnownName="string" />
+            </type_NamedElement>
+          </property>
+          <property Id="f93aeb0e-8b4d-4c5c-8d91-7c713e04f8c7" name="filteredBy" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="f078797c-5d20-42dd-a195-a122919f71ed" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="260126e3-706a-4e1e-9857-7e0abf769932" LastKnownName="string" />
+            </type_NamedElement>
+          </property>
+          <property Id="a872dbb6-da49-4476-a299-1349dca6e17a" name="filepath" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="4024e92b-c7e3-40ba-aa9e-d9d5d423b59c" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="7dceb24e-eaec-41d7-accc-436bfce1e848" LastKnownName="Path" />
+            </type_NamedElement>
+          </property>
+          <property Id="85d2dab5-e501-4fc7-80ab-359fe6a97b3a" name="isAnalysis" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="44a29a12-b02c-4490-84a8-92f224fcf758" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="91d4af49-bf8c-49c0-9a60-8fd5f9e8d413" LastKnownName="bool" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasPackages>
@@ -656,6 +830,11 @@ als eigene Plugins oder Optionen?!</body>
           <comment Id="94bfd747-13d1-4fca-a12d-92c15a4b367b">
             <elementDefinition Id="20cc8599-0403-4160-a8b2-a570c7cc7e69" />
             <body>AvalonDock?</body>
+          </comment>
+          <comment Id="ee6c8dfb-2559-45bb-8635-eae3266f1ca3">
+            <elementDefinition Id="2606ddc3-c2eb-4f29-add3-230c80f0167f" />
+            <body>- Sprache
+- Plugin aktivieren/deaktivieren</body>
           </comment>
         </ownedCommentsInternal>
         <elementDefinition Id="6e6a291f-a8c1-4de3-9f6f-fdbc82f50202" />
@@ -680,14 +859,97 @@ als eigene Plugins oder Optionen?!</body>
               </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="c0a0b5ff-16a6-4b1f-bc08-582bffb36f52" name="VideoSourcePlayer (Aforge)" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="2f9ad65b-5145-4406-8c1d-97cdb21e2167" />
+              <targetEnds>
+                <association Id="496acbfa-0240-40f7-938a-188680df866d" isDerived="false" sourceEndRoleName="Player" targetEndRoleName="VideoSource" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="db5d5b93-e21b-4279-af00-18a70a0363f8" LastKnownName="IVideoSource (Aforge)" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="5ebd9cad-789a-4700-8411-70e144e304a6" name="Player" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="633e0f47-4281-4038-a854-a9b9355ae5f3" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="41bdcf9b-1fd6-498f-9367-655100b5b0a8" name="VideoSource" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="c7b3ce3f-3159-4860-b305-88a50998e2aa" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="1d719e3f-e696-4d50-8ea6-6566f7c8c90f" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="7b4b364a-41fe-4fb8-acb8-e80e0b29786a" name="SmartTree" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="1ae561e3-a7c6-4910-84e8-bb87f37008ee" />
+              <suppliersInternal>
+                <dependency Id="bd052909-3acb-466c-ba89-7bc599adfe69">
+                  <classMoniker Id="8d7f9c60-8203-4c5e-9a40-e1cd74ee5d5b" LastKnownName="SmartNode" />
+                  <elementDefinition Id="793924e1-c8c8-4b34-8932-71604ce4a32d" />
+                </dependency>
+              </suppliersInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="92976668-b3d6-4c6d-b83f-3d901abc023a" name="OptionsDialog" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="e0da7ff5-a8f9-4bd4-9bce-a8e6984efe8e" />
+            </class>
+          </packageHasNamedElement>
         </packagedElements>
       </package>
     </logicalClassDesignerModelHasPackages>
+    <packageHasNamedElement>
+      <referencedType Id="7dceb24e-eaec-41d7-accc-436bfce1e848" name="Path" isAbstract="false" isLeaf="false" cachedFullName="Path">
+        <elementDefinition Id="30839053-727c-4be6-9c79-7eb4b33fcc56" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="91d4af49-bf8c-49c0-9a60-8fd5f9e8d413" name="bool" isAbstract="false" isLeaf="false" cachedFullName="bool">
+        <elementDefinition Id="e157fd9f-982f-4e74-838b-bf46b83e3250" />
+      </referencedType>
+    </packageHasNamedElement>
     <logicalClassDesignerModelHasTypes>
-      <class Id="0c17cde6-4818-4950-af3d-3601d1de4180" name="History" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="14f98dd7-a014-46b7-b803-399e5104a556" />
+      <class Id="405f81c0-1bf1-4969-ab1a-eb0763ae711a" name="Programm" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="3ce5c7cb-04a9-43f7-bdb2-5c9ea57226de" />
+        <ownedAttributesInternal>
+          <property Id="cf322ff0-bb7c-46e3-aa02-3c450771e32f" name="language" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="c4accdab-907e-4960-99f2-edb2f9284656" />
+          </property>
+        </ownedAttributesInternal>
       </class>
     </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="e3847a94-676f-415d-b54e-d81e63784a5e" name="Video" isAbstract="false" isLeaf="false" cachedFullName="Video">
+        <elementDefinition Id="b3924bdf-c590-44e4-86c9-5791005131f6" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="cefd7adc-a4c7-4a94-b547-46cf48b06160" name="Analysis" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="28ed2506-f12f-4665-92ea-3f578c3cdcb4" />
+        <generalsInternal>
+          <generalization Id="9b6fb7fa-920e-4465-b8eb-cf00d048de58" isSubstitutable="false">
+            <classMoniker Id="8d7f9c60-8203-4c5e-9a40-e1cd74ee5d5b" LastKnownName="SmartNode" />
+            <elementDefinition Id="8db50acf-a73c-4ea9-8569-0bfc2a37e6d8" />
+          </generalization>
+        </generalsInternal>
+        <ownedAttributesInternal>
+          <property Id="6d8d95cf-ee7f-4198-8eca-9449b7c9e8d8" name="description" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="b87da2e5-46c0-4e9b-8bbf-4132287a52b1" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="260126e3-706a-4e1e-9857-7e0abf769932" LastKnownName="string" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" name="int" isAbstract="false" isLeaf="false" cachedFullName="int">
+        <elementDefinition Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4" />
+      </referencedType>
+    </packageHasNamedElement>
   </packagedElements>
   <package Id="111c9f5b-9d27-4ac1-a666-70e16e6552a4" name="Entwurf">
     <elementDefinition Id="46634d97-dc6c-4362-9484-7c7ecb77101f" />

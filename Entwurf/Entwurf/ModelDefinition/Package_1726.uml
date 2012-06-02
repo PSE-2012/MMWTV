@@ -19,11 +19,34 @@
               LastKnownName="IPlugin"
               LastKnownLocation="Package_1716.uml" />
           </interfaceRealization>
+          <interfaceRealization
+            Id="c2a9444d-4c23-4459-8270-e45d0eade4b4">
+            <interfaceMoniker
+              Id="0773b2ac-82ae-494d-9544-831b930a24af"
+              LastKnownName="IMetric"
+              LastKnownLocation="Package_1726.uml" />
+          </interfaceRealization>
         </suppliersInternal>
         <ownedOperationsInternal>
           <operation
-            Id="2ecbcf67-673f-48c2-a016-26c4901ea24a"
-            name="process"
+            Id="a1d2c263-92df-4cf3-ba3e-3993322ed431"
+            name="getOptionsView"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="57b27e07-df62-43f9-852b-8aec7accaff1"
+            name="getAnalysisView"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="6778109a-a82e-4b10-8609-226cc7d2bdee"
+            name="analyse"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -32,17 +55,54 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="7ae95130-d822-4c8e-8a32-c5b17b0a8cd4"
-                  name="Video original"
+                  Id="ab0a26b0-ea0c-4470-badd-4013b2421169"
+                  name="Video ref"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="4858d5ad-883e-4053-869e-a0d21037c897"
-                  name="OptFilter options"
+                  Id="e1ce7696-15cd-4561-938b-61516c5f0785"
+                  name="Video proc"
                   direction="In"
                   isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="18e7fc61-d20d-4df6-a6f5-a813b7041e62"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="b3924bdf-c590-44e4-86c9-5791005131f6"
+                      LastKnownName="Video"
+                      LastKnownLocation="Package_1726.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="ca13b08f-3444-4e04-be5f-1eb45c741db4"
+            name="getProgress"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="339fd551-fd12-41d6-9d1e-35274d4da109"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4"
+                      LastKnownName="int"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
@@ -64,11 +124,34 @@
               LastKnownName="IPlugin"
               LastKnownLocation="Package_1716.uml" />
           </interfaceRealization>
+          <interfaceRealization
+            Id="b4932214-f645-4a9e-88a8-03982c975ba9">
+            <interfaceMoniker
+              Id="0773b2ac-82ae-494d-9544-831b930a24af"
+              LastKnownName="IMetric"
+              LastKnownLocation="Package_1726.uml" />
+          </interfaceRealization>
         </suppliersInternal>
         <ownedOperationsInternal>
           <operation
-            Id="b0d84573-1f93-40b9-8414-46a46e62d72c"
-            name="process"
+            Id="25db52c0-62fe-4c97-b095-b4ff5ee1454f"
+            name="getOptionsView"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="48edbeb0-d004-44ff-95b4-094fb2019b5d"
+            name="getAnalysisView"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="8c70c185-3d73-44a7-ba13-9a39774e93b2"
+            name="analyse"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -77,17 +160,54 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="656989ca-ee61-4d95-b5c4-190969f9166d"
-                  name="Video original"
+                  Id="28891e98-11dd-4a11-8ee7-5dd7d9656453"
+                  name="Video ref"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="932ea678-c155-4f55-9a8e-ea87af075f0e"
-                  name="OptFilter options"
+                  Id="9b50f3b3-e530-4744-8573-e0b7079da226"
+                  name="Video proc"
                   direction="In"
                   isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="9ed028a5-1262-444a-970d-1b0bd5db83c4"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="b3924bdf-c590-44e4-86c9-5791005131f6"
+                      LastKnownName="Video"
+                      LastKnownLocation="Package_1726.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="808f67cc-64fe-486b-ad87-f7e0a3e0b282"
+            name="getProgress"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="87888d17-3061-408e-a3d6-0ac37a8a0b9f"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4"
+                      LastKnownName="int"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
@@ -109,11 +229,34 @@
               LastKnownName="IPlugin"
               LastKnownLocation="Package_1716.uml" />
           </interfaceRealization>
+          <interfaceRealization
+            Id="16bd272b-04fe-47e3-83d8-4e63daab37e1">
+            <interfaceMoniker
+              Id="0773b2ac-82ae-494d-9544-831b930a24af"
+              LastKnownName="IMetric"
+              LastKnownLocation="Package_1726.uml" />
+          </interfaceRealization>
         </suppliersInternal>
         <ownedOperationsInternal>
           <operation
-            Id="eaa17caa-c31c-4930-9e92-c8f90ef72aeb"
-            name="process"
+            Id="84d513fc-d1ab-4994-a257-46e64d9df996"
+            name="getOptionsView"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="18b7efa5-c976-4f60-bca8-d05b6ccf64e6"
+            name="getAnalysisView"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="0d91ce25-7a5d-49ca-ae5e-815b31f33273"
+            name="analyse"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -122,17 +265,54 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="a1f1d465-9f0b-46a6-a521-4f8c14de4614"
-                  name="Video original"
+                  Id="eb0ae730-b689-449b-9a52-f1c04e4f702b"
+                  name="Video ref"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="165da219-6a8f-40b8-aee7-d08b950ae921"
-                  name="OptFilter options"
+                  Id="a8ca0c47-8dc3-4b91-9f77-cfe9cafb5b9b"
+                  name="Video proc"
                   direction="In"
                   isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6452826e-e53e-4c3f-9ed7-2bf4a3d9aede"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="b3924bdf-c590-44e4-86c9-5791005131f6"
+                      LastKnownName="Video"
+                      LastKnownLocation="Package_1726.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="9984d8fd-cad0-40f7-9de0-baa62e30dc14"
+            name="getProgress"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="8c664e16-16cc-42c2-b2c0-9eb0583e2b62"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4"
+                      LastKnownName="int"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
@@ -154,11 +334,34 @@
               LastKnownName="IPlugin"
               LastKnownLocation="Package_1716.uml" />
           </interfaceRealization>
+          <interfaceRealization
+            Id="4082f9bf-cfee-4d5d-9fd8-cac56f00cabf">
+            <interfaceMoniker
+              Id="0773b2ac-82ae-494d-9544-831b930a24af"
+              LastKnownName="IMetric"
+              LastKnownLocation="Package_1726.uml" />
+          </interfaceRealization>
         </suppliersInternal>
         <ownedOperationsInternal>
           <operation
-            Id="06f1ffca-51a5-418e-a029-af7323d86ad5"
-            name="process"
+            Id="6a923f42-86c0-46c4-967d-63dce9dd7983"
+            name="getOptionsView"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="3a780595-9b41-41ec-83c6-53edd4dec170"
+            name="getAnalysisView"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="30a3999d-7e6d-41a6-9b5a-c7504bb8eebc"
+            name="analyse"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -167,22 +370,128 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="374af914-e19b-4270-b07e-796c9e3ff1c0"
-                  name="Video original"
+                  Id="014aeafa-2381-4bc7-bce7-3cf73aa2c6fa"
+                  name="Video ref"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="d4eebf85-60c4-4028-8d30-91b3212ace22"
-                  name="OptFilter options"
+                  Id="0847bc2c-5510-4ba8-9c3f-9165e4c1f3e1"
+                  name="Video proc"
                   direction="In"
                   isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="39c6a741-770d-45ea-af4d-2e643840a16a"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="b3924bdf-c590-44e4-86c9-5791005131f6"
+                      LastKnownName="Video"
+                      LastKnownLocation="Package_1726.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="75a01e14-2b56-4eca-b249-56634852299a"
+            name="getProgress"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="9b526e0e-9c19-4918-aad8-7e4b4e6a0591"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4"
+                      LastKnownName="int"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
         </ownedOperationsInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="0773b2ac-82ae-494d-9544-831b930a24af"
+        name="IMetric"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedOperations>
+          <operation
+            Id="79354657-2d0d-4fde-95e3-2e87ca080b8e"
+            name="getAnalysisView"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="02277374-fb86-475c-9132-86ba281bf780"
+            name="analyse"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="cdb04cc8-4794-427d-b24e-778209076176"
+                  name="Video ref"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="088ec359-a663-455c-a876-a1d131284a34"
+                  name="Video proc"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="36118197-7a00-46d1-87dc-df631c710797"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="b3924bdf-c590-44e4-86c9-5791005131f6"
+                      LastKnownName="Video"
+                      LastKnownLocation="Package_1726.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="dabf490d-aa93-440f-ae9a-84f7a9a17a1d"
+        name="Class1"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="b3924bdf-c590-44e4-86c9-5791005131f6"
+        name="Video" />
     </packageHasNamedElement>
   </packagedElements>
 </package>

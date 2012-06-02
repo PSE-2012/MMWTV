@@ -10,7 +10,9 @@
 - Filter auf Video/Frame
 - Video zurückgeben oder direkt verändern?
 
-- Video class von aforge</body>
+- Video class von aforge
+
+Arbeiten auf RGB - oder yuv?</body>
     </comment>
     <comment
       Id="75b85c47-b3e4-4b11-8fe4-4bba8818fc65">
@@ -51,6 +53,15 @@ als eigene Plugins oder Optionen?!</body>
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="1a17ff48-6381-4ceb-a684-1bf5146b2ae3">
+            <interfaceMoniker
+              Id="8028688e-c9dc-41d2-9069-564ff03ef8f9"
+              LastKnownName="IVideoSource (Aforge)"
+              LastKnownLocation="Entwurf.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
         <targetEnds>
           <association
             Id="f370d887-286b-4494-a3d3-77e420c6404a"
@@ -127,12 +138,12 @@ als eigene Plugins oder Optionen?!</body>
             Id="5ce900d8-f285-4062-8c32-bb4d4e822f24"
             isDerived="false"
             sourceEndRoleName="Project"
-            targetEndRoleName="SmartTree"
+            targetEndRoleName="Resources"
             isLeaf="false"
             isAbstract="false">
             <classMoniker
               Id="3474e193-7fb3-4f5b-ac1a-af314ea870b8"
-              LastKnownName="SmartTree"
+              LastKnownName="SmartNode"
               LastKnownLocation="Entwurf.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
@@ -151,7 +162,7 @@ als eigene Plugins oder Optionen?!</body>
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="47610f20-b698-4bed-9435-cc354c810071"
-                  name="SmartTree"
+                  name="Resources"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -497,8 +508,16 @@ als eigene Plugins oder Optionen?!</body>
         </suppliersInternal>
         <ownedOperationsInternal>
           <operation
-            Id="464eabac-c837-4afc-9c99-8048302e6b67"
-            name="process"
+            Id="1522a035-3585-4b11-abed-4a41a1f2a45f"
+            name="getOptionsView"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="71817e6e-ea8d-46a0-bd3e-dffd4d511eca"
+            name="getProgress"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -507,16 +526,16 @@ als eigene Plugins oder Optionen?!</body>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="c958ac55-11fd-4fe4-b768-e9ad714df108"
-                  name="Video original"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="8e64d60a-d23d-4d21-99a6-800008c65bc3"
-                  direction="In"
-                  isUnique="false" />
+                  Id="2744315a-330a-4848-9d48-70d60154ac83"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4"
+                      LastKnownName="int"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
@@ -640,71 +659,11 @@ als eigene Plugins oder Optionen?!</body>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <class
-        Id="2f9ad65b-5145-4406-8c1d-97cdb21e2167"
-        name="VideoSourcePlayer (Aforge)"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <targetEnds>
-          <association
-            Id="1d719e3f-e696-4d50-8ea6-6566f7c8c90f"
-            isDerived="false"
-            sourceEndRoleName="Player"
-            targetEndRoleName="VideoSource"
-            isLeaf="false"
-            isAbstract="false">
-            <interfaceMoniker
-              Id="8028688e-c9dc-41d2-9069-564ff03ef8f9"
-              LastKnownName="IVideoSource (Aforge)"
-              LastKnownLocation="Entwurf.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="633e0f47-4281-4038-a854-a9b9355ae5f3"
-                  name="Player"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="c7b3ce3f-3159-4860-b305-88a50998e2aa"
-                  name="VideoSource"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
-      </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <Interface
         Id="8028688e-c9dc-41d2-9069-564ff03ef8f9"
         name="IVideoSource (Aforge)"
         isAbstract="false"
-        isLeaf="false">
-        <suppliersInternal>
-          <dependency
-            Id="2b414eb8-30a6-41a5-b9d5-3b8b96514b14">
-            <classMoniker
-              Id="304d0f67-d422-4401-a11a-1b88ff5037ea"
-              LastKnownName="Video"
-              LastKnownLocation="Entwurf.uml" />
-          </dependency>
-        </suppliersInternal>
-      </Interface>
+        isLeaf="false" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <undefinedType
@@ -740,7 +699,7 @@ als eigene Plugins oder Optionen?!</body>
     <packageHasNamedElement>
       <class
         Id="3474e193-7fb3-4f5b-ac1a-af314ea870b8"
-        name="SmartTree"
+        name="SmartNode"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -748,7 +707,7 @@ als eigene Plugins oder Optionen?!</body>
           <association
             Id="87373e56-89b0-4c42-b891-6ad94387fccb"
             isDerived="false"
-            sourceEndRoleName="SmartTree"
+            sourceEndRoleName="SmartNode"
             targetEndRoleName="Video"
             isLeaf="false"
             isAbstract="false">
@@ -760,7 +719,7 @@ als eigene Plugins oder Optionen?!</body>
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="498e77fa-88a2-4df0-955d-0dd99594f8d0"
-                  name="SmartTree"
+                  name="SmartNode"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -773,13 +732,13 @@ als eigene Plugins oder Optionen?!</body>
                     <literalString
                       Id="fae4a53a-f4b0-4cf6-b8f2-bf35d8cca6f9"
                       name="Lower"
-                      value="*" />
+                      value="1" />
                   </lowerValueInternal>
                   <upperValueInternal>
                     <literalString
                       Id="8d8a9a16-2359-4507-b8f6-2028b636935c"
                       name="Upper"
-                      value="*" />
+                      value="1" />
                   </upperValueInternal>
                 </memberEnd>
               </associationHasOwnedEnds>
@@ -798,11 +757,63 @@ als eigene Plugins oder Optionen?!</body>
                     <literalString
                       Id="ab3d8ddf-b837-48f8-98e4-5f963315ab35"
                       name="Lower"
-                      value="*" />
+                      value="1" />
                   </lowerValueInternal>
                   <upperValueInternal>
                     <literalString
                       Id="0217adbc-71fa-44e1-ae00-eaa0f03c7c7d"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="d83fd6aa-4e1f-4d52-82b9-7b0d1cd2334c"
+            isDerived="false"
+            sourceEndRoleName="Parent"
+            targetEndRoleName="Child"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="3474e193-7fb3-4f5b-ac1a-af314ea870b8"
+              LastKnownName="SmartNode"
+              LastKnownLocation="Entwurf.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="44d21700-7509-4b2a-8f22-3bbf67014e59"
+                  name="Parent"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Shared"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1000adaa-99f6-4ab8-bf6b-6535c11e2f7b"
+                  name="Child"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="a9eb06bf-00f8-47dd-b11f-e2a02d798a73"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="74383caf-d355-433d-967d-4c1efaf57c2d"
                       name="Upper"
                       value="*" />
                   </upperValueInternal>
@@ -811,6 +822,80 @@ als eigene Plugins oder Optionen?!</body>
             </relationshipOwnedElementsInternal>
           </association>
         </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="a3c9823a-0c97-4a55-9531-a6561c16d9cc"
+            name="name"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="71a35fde-c6e5-4115-8b6c-669417907e6a"
+                LastKnownName="string"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="f078797c-5d20-42dd-a195-a122919f71ed"
+            name="filteredBy"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="71a35fde-c6e5-4115-8b6c-669417907e6a"
+                LastKnownName="string"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="4024e92b-c7e3-40ba-aa9e-d9d5d423b59c"
+            name="filepath"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="30839053-727c-4be6-9c79-7eb4b33fcc56"
+                LastKnownName="Path"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="44a29a12-b02c-4490-84a8-92f224fcf758"
+            name="isAnalysis"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="e157fd9f-982f-4e74-838b-bf46b83e3250"
+                LastKnownName="bool"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -822,10 +907,101 @@ als eigene Plugins oder Optionen?!</body>
     <packageHasNamedElement>
       <class
         Id="14f98dd7-a014-46b7-b803-399e5104a556"
-        name="History"
+        name="Info"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="0ac90207-ed68-4c07-b920-d9a33169509a"
+        name="IList&lt;T&gt;"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="3f43cc0b-c977-4bb8-a674-8e900d69a74a"
+        name="File" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="30839053-727c-4be6-9c79-7eb4b33fcc56"
+        name="Path" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="c435ec0e-9089-4303-b786-efc3d17f8251"
+        name="SNodeType" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="0f2bfa55-de89-4ec2-8ea0-f2cc0d882394"
+        name="Analysis"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="3ce5c7cb-04a9-43f7-bdb2-5c9ea57226de"
+        name="Programm"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="c4accdab-907e-4960-99f2-edb2f9284656"
+            name="language"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="28ed2506-f12f-4665-92ea-3f578c3cdcb4"
+        name="Analysis"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="8db50acf-a73c-4ea9-8569-0bfc2a37e6d8"
+            isSubstitutable="false">
+            <classMoniker
+              Id="3474e193-7fb3-4f5b-ac1a-af314ea870b8"
+              LastKnownName="SmartNode"
+              LastKnownLocation="Entwurf.uml" />
+          </generalization>
+        </generalsInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="b87da2e5-46c0-4e9b-8bbf-4132287a52b1"
+            name="description"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="71a35fde-c6e5-4115-8b6c-669417907e6a"
+                LastKnownName="string"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType

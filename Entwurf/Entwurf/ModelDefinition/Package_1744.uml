@@ -3,6 +3,13 @@
   dslVersion="1.0.0.0"
   Id="6e6a291f-a8c1-4de3-9f6f-fdbc82f50202"
   name="View" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <ownedCommentsInternal>
+    <comment
+      Id="2606ddc3-c2eb-4f29-add3-230c80f0167f">
+      <body>- Sprache
+- Plugin aktivieren/deaktivieren</body>
+    </comment>
+  </ownedCommentsInternal>
   <packagedElements>
     <packageHasNamedElement>
       <class
@@ -88,6 +95,82 @@
       <class
         Id="c89405c0-6d25-4568-85ab-42eda236fc27"
         name="Treeview"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="2f9ad65b-5145-4406-8c1d-97cdb21e2167"
+        name="VideoSourcePlayer (Aforge)"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="1d719e3f-e696-4d50-8ea6-6566f7c8c90f"
+            isDerived="false"
+            sourceEndRoleName="Player"
+            targetEndRoleName="VideoSource"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="8028688e-c9dc-41d2-9069-564ff03ef8f9"
+              LastKnownName="IVideoSource (Aforge)"
+              LastKnownLocation="Entwurf.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="633e0f47-4281-4038-a854-a9b9355ae5f3"
+                  name="Player"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c7b3ce3f-3159-4860-b305-88a50998e2aa"
+                  name="VideoSource"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="1ae561e3-a7c6-4910-84e8-bb87f37008ee"
+        name="SmartTree"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <dependency
+            Id="793924e1-c8c8-4b34-8932-71604ce4a32d">
+            <classMoniker
+              Id="3474e193-7fb3-4f5b-ac1a-af314ea870b8"
+              LastKnownName="SmartNode"
+              LastKnownLocation="Entwurf.uml" />
+          </dependency>
+        </suppliersInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="e0da7ff5-a8f9-4bd4-9bce-a8e6984efe8e"
+        name="OptionsDialog"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false" />
