@@ -132,7 +132,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <TabControl DockPanel.Dock="Left" TabStripPlacement="Top" Margin="10,10,5,5" Width="180">
+        <TabControl DockPanel.Dock="Left" TabStripPlacement="Top" Margin="10,10,5,5">
                 <TabItem Header="SmartTree" Height="30" >
                 <Grid>
                     <Grid.RowDefinitions>
@@ -144,14 +144,14 @@
                     </Grid.RowDefinitions>
                     <TreeView Name="treeView1" Grid.RowSpan="4">
                     <TreeViewItem Header="foremen.yuv">
-                        <TreeViewItem Header="Gaussian Blurr">
-                            <TreeViewItem Header="processed" />
+                        <TreeViewItem Header="foremanRauschenWeich.yuv">
+                            <TreeViewItem Header="foremanRauschenWeichEncoded.yuv" />
                         </TreeViewItem>
-                        <TreeViewItem Header="sharpen">
+                        <!--<TreeViewItem Header="sharpen">
                             <TreeViewItem Header="posterize">
                                 <TreeViewItem Header="Processed"/>
                             </TreeViewItem>
-                        </TreeViewItem>
+                        </TreeViewItem>-->
                     </TreeViewItem>
                 </TreeView>
                     <WrapPanel Grid.Row="4" Orientation="Vertical">
