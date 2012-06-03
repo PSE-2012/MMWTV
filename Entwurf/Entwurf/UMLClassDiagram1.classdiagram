@@ -176,11 +176,6 @@ pflichtenheft?
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="73fa0552-63fb-4d97-9a62-797ef9b51c66" name="IPlugin[]" isAbstract="false" isLeaf="false" cachedFullName="IPlugin[]">
-        <elementDefinition Id="9d6c8666-913a-47c0-a07b-b7587a9d06da" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="35d5d424-8a22-4f7f-b7cc-785eeb3820f2" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
         <elementDefinition Id="71a35fde-c6e5-4115-8b6c-669417907e6a" />
       </referencedType>
@@ -191,7 +186,32 @@ pflichtenheft?
           <comment Id="5e129a28-b56c-468b-aa9d-cf81f02d8798">
             <elementDefinition Id="49be46a6-31dc-4561-b817-08090cb8f6e3" />
             <body>Einstellungen abspeichern?
-</body>
+
+
+eventuell für jeden Filter eine Methode, die das entsprechende TValue in unserem Dictionary ändert? z.b. changeMatrix(int[][]) für PF_Convolution (auf diese Weise könnte man auch eigene Filter erstellen). für einen anderen Filter würde man nicht ein int[][], sondern z.b. ein int oder ein int[3] speichern und es ist schon möglich, solche Werte als Object im Dictionary zu speichern. dann wäre aber später ein type cast notwendig, um die Werte wieder aufzurufen. mir fällt gerade nix einfacheres ein</body>
+          </comment>
+          <comment Id="1621abb8-64d4-4dbd-a798-a785c028a3e1">
+            <elementDefinition Id="0f6c2277-76d3-4ff3-98b7-c47cabd4909a" />
+            <body>maybe use IEnumerable&lt;Lazy&lt;IPlugin, IPluginData&gt;&gt; instead of IList&lt;IPlugin&gt; ?  (lazy loading)</body>
+          </comment>
+          <comment Id="990fabc4-1f54-4b34-92f4-ce68e533999a">
+            <elementDefinition Id="75b85c47-b3e4-4b11-8fe4-4bba8818fc65" />
+            <body>Scharfzeichner
+Weichzeichner
+ 
+Sobel Filter 
+
+als eigene Plugins oder Optionen?!
+
+ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrofilter gespeichert werden</body>
+          </comment>
+          <comment Id="0e9272a1-357d-40f4-bc12-0380472bd97e">
+            <elementDefinition Id="cc303a60-d7dc-4605-bdef-88daeb6ffc88" />
+            <body>gibt es auch andere Programmkomponente ausser Filter und Metriken, die wir sinnvoll als Plugins einbinden können?</body>
+          </comment>
+          <comment Id="ef3ef38f-cb67-4775-9d76-81924a995254">
+            <elementDefinition Id="9196383b-6baa-4d67-83f8-a0e01643fb72" />
+            <body>laden von Plugins: ich würde sagen die ganze Geschichte mit Catalog, Composition usw. geschieht innerhalb der getPlugins Methode</body>
           </comment>
         </ownedCommentsInternal>
         <elementDefinition Id="949e2f81-31a6-44da-8ab2-0d3248139e17" />
@@ -288,16 +308,16 @@ pflichtenheft?
                   <elementDefinition Id="26c70777-3f3f-47b1-96b6-f083ffe4da40" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="baeef6c0-97a7-4c72-9d59-0315a0b9afe1" name="OptType type" direction="In" isUnique="false">
-                        <elementDefinition Id="2dbe0472-7fbb-4aa9-aa02-f6c6d73796bc" />
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
                       <parameter Id="fedbf0a0-ab24-46bb-a91c-bab033f99a3c" direction="Return" isUnique="false">
                         <elementDefinition Id="1fa883fa-0df2-4dde-8d2c-6fc8f5c566c3" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="73fa0552-63fb-4d97-9a62-797ef9b51c66" LastKnownName="IPlugin[]" />
+                          <referencedTypeMoniker Id="f41e356e-2991-4426-8fff-4dbf40e878a5" LastKnownName="IList&lt;IPlugin&gt;" />
                         </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="03b01ee9-0c08-456c-93ad-dc81e085df04" name="OptType type" direction="In" isUnique="false">
+                        <elementDefinition Id="a1f107df-f72b-42bf-a7c4-d3f53c85ed97" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -307,17 +327,6 @@ pflichtenheft?
           </packageHasNamedElement>
           <packageHasNamedElement>
             <package Id="b8b0bb77-7906-406c-940f-931e486c9ce3" name="Filter">
-              <ownedCommentsInternal>
-                <comment Id="990fabc4-1f54-4b34-92f4-ce68e533999a">
-                  <elementDefinition Id="75b85c47-b3e4-4b11-8fe4-4bba8818fc65" />
-                  <body>Scharfzeichner
-Weichzeichner
- 
-Sobel Filter
-
-als eigene Plugins oder Optionen?!</body>
-                </comment>
-              </ownedCommentsInternal>
               <elementDefinition Id="44a6866d-d8d6-4a85-8ce6-5bf7a8df0640" />
               <packagedElements>
                 <packageHasNamedElement>
@@ -349,6 +358,47 @@ als eigene Plugins oder Optionen?!</body>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
+                      </operation>
+                      <operation Id="518bcb3b-5a0f-4c8a-a669-685b76b8c33b" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="04f6d904-abef-4caa-b83a-8e14f7e1d234" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="c17e635e-f69f-44e0-a832-4556d6d0af8e" name="Video ref" direction="In" isUnique="false">
+                              <elementDefinition Id="3976aa37-032c-4752-9440-4d4b5ddf516b" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="93927b24-30c7-4e8f-a2bb-509eea28d3d6" direction="Return" isUnique="false">
+                              <elementDefinition Id="c2fd5bf1-c5be-4f3e-8ca4-f6cab5910dfe" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="7dfbcba2-7d2b-441a-a69c-00f97d622d00" name="changeMatrix" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="f397012d-b986-4562-bdcd-1b1eb6780590" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="258c7e81-0b9f-4b8b-9be9-fa2636d58525" name="int[][]" direction="In" isUnique="false">
+                              <elementDefinition Id="e7217189-81b3-41a1-b7d0-7c9eced6f828" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="506efde8-deca-4781-9d18-8d9ee1d99a16" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="41d64373-f4fb-409d-92ed-87932f371d59" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="842f5dfc-905f-49b3-a830-0b2f4f9f5c9d" name="IFilter[]" direction="In" isUnique="false">
+                              <elementDefinition Id="f0a6eb9f-5380-46b9-894b-435e80795ea6" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="ad1e0fb3-f348-4939-806b-22a644326686" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="f29d990b-0c84-4060-a884-c4206c1977b4" />
                       </operation>
                     </ownedOperationsInternal>
                   </class>
@@ -383,6 +433,37 @@ als eigene Plugins oder Optionen?!</body>
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
+                      <operation Id="c369c40d-3bcc-4a03-86ee-54ed71d4e057" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="d2c16a17-1938-4ecc-804f-9f2b16f5f3fd" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="5dd0b0bb-2fe0-4991-853b-65952658fa45" name="Video ref" direction="In" isUnique="false">
+                              <elementDefinition Id="f37dc3a6-0f69-4e1f-998e-09c38157f891" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="f8e07156-e031-4f72-b59f-989d39df86d6" direction="Return" isUnique="false">
+                              <elementDefinition Id="9a913458-5d9f-425b-a043-40bdbd131c83" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="18f10319-5d6d-4085-bfda-4d8670363e4e" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="7344b5a7-f2b5-4427-9be6-a2cf30eb0423" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="7ff07db3-bdad-4b1e-a6ee-400017e953b1" name="IFilter[]" direction="In" isUnique="false">
+                              <elementDefinition Id="45a72766-6477-4e8f-a927-14af9b54f27c" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="ca56954e-6bd9-4b67-97ab-51bf1687d940" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="1276ff80-df39-4f97-baf9-ceffe4905e96" />
+                      </operation>
                     </ownedOperationsInternal>
                   </class>
                 </packageHasNamedElement>
@@ -415,6 +496,37 @@ als eigene Plugins oder Optionen?!</body>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
+                      </operation>
+                      <operation Id="456602c1-3205-4ac8-9aac-5ae2e85951e7" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="219a8a6e-0a2d-4f10-8fc8-b7e3e7c6f9e0" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="297b674e-6ac2-4d76-bc65-ea4c24b426d0" name="Video ref" direction="In" isUnique="false">
+                              <elementDefinition Id="b986eb99-9fcc-4efa-8734-283273a8fdf4" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="e8b9bb41-6c68-4a3f-8278-1f44fbb24f5b" direction="Return" isUnique="false">
+                              <elementDefinition Id="188b5f2b-6ecb-42c4-b7cf-4ad4b309382f" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="a69dc872-74fa-4f4f-bb02-978b4f6b6a8c" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="1d0ba0ef-7ac4-4859-9179-a2a1dc21de7d" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="36961e77-0f9a-44a2-b87b-1797b8fcb3d4" name="IFilter[]" direction="In" isUnique="false">
+                              <elementDefinition Id="479491a3-b451-4b86-9575-9b12245301ec" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="8e9994b8-95fb-43e1-be7f-c8ad3bfcda65" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="eee5e06d-1140-4187-a559-bfe4428a06d3" />
                       </operation>
                     </ownedOperationsInternal>
                   </class>
@@ -449,12 +561,76 @@ als eigene Plugins oder Optionen?!</body>
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
+                      <operation Id="1e00e613-e231-4dec-87c1-f6309ddeefc9" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="b796a598-6710-4ea2-93e4-b6c707062de5" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="54502cad-a95b-4400-8104-c7cab23d9411" name="Video ref" direction="In" isUnique="false">
+                              <elementDefinition Id="317cc2ff-0eb2-44b7-9f67-5b15e79fbc3e" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="a88d14bb-3068-42ca-b803-cff1a9c4578b" direction="Return" isUnique="false">
+                              <elementDefinition Id="df2e9a9e-5461-41b2-9072-9617801d041d" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="910fa1ee-cdc3-40f0-95de-8157d7724ec0" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="5d307a47-1762-4f49-a9d6-4607f36e80eb" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="d524aec1-0e2c-4009-b623-0ed9d29fa5df" name="IFilter[]" direction="In" isUnique="false">
+                              <elementDefinition Id="f521161a-83c0-4184-b84d-c1580074d6cf" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="d517dee4-9933-4bb3-b1e1-5cc28339eeeb" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="6338719c-0f5b-466e-a946-eca17bbb3ae3" />
+                      </operation>
                     </ownedOperationsInternal>
                   </class>
                 </packageHasNamedElement>
                 <packageHasNamedElement>
                   <Interface Id="26bd56d7-39c1-4575-8547-dd35a8f10cd5" name="IFilter (AForge" isAbstract="false" isLeaf="false">
                     <elementDefinition Id="7e2feeb9-352b-47f6-851b-2fedc95241bb" />
+                    <ownedOperations>
+                      <operation Id="1445c7e8-b02c-4daa-bbff-bc984eae5885" name="process" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="8b4798fe-7e60-48fe-832f-9f162e85e1d5" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="86908018-1907-49bd-a720-cfd544bca915" name="Video ref" direction="In" isUnique="false">
+                              <elementDefinition Id="f9243678-546d-47dc-8286-d1af4180a4f1" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="e9da0b71-a918-407c-8459-de6b8668369c" direction="Return" isUnique="false">
+                              <elementDefinition Id="27740e8e-91c6-44c2-bbf3-503c85c90e7b" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="a3c3420d-c77d-4bff-ab77-dd4bde0196c0" name="createMacro" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="043c0199-4739-451a-8456-292fa50a2388" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="a105d53c-8744-412f-a116-185df5b3019a" name="IFilter[]" direction="In" isUnique="false">
+                              <elementDefinition Id="cfad196f-2fb2-47e1-b590-4aa0cc18eb2e" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="15c68b78-2f57-4b8e-8b84-5ac660ba9a44" name="createMacro" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="4b6f0879-3777-4aa7-b00f-28447c854959" />
+                      </operation>
+                    </ownedOperations>
                   </Interface>
                 </packageHasNamedElement>
               </packagedElements>
@@ -967,6 +1143,11 @@ als eigene Plugins oder Optionen?!</body>
     <packageHasNamedElement>
       <referencedType Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" name="int" isAbstract="false" isLeaf="false" cachedFullName="int">
         <elementDefinition Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="f41e356e-2991-4426-8fff-4dbf40e878a5" name="IList&lt;IPlugin&gt;" isAbstract="false" isLeaf="false" cachedFullName="IList&lt;IPlugin&gt;">
+        <elementDefinition Id="42e7b93a-5fbc-4a91-a2a5-ffeb9ac357ed" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>
