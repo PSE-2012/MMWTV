@@ -102,34 +102,6 @@ namespace oqat.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap foreman_analysis_controls {
-            get {
-                object obj = ResourceManager.GetObject("foreman_analysis_controls", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap foreman_both_controls {
-            get {
-                object obj = ResourceManager.GetObject("foreman_both_controls", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap foreman_processed_controls {
-            get {
-                object obj = ResourceManager.GetObject("foreman_processed_controls", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap foreman_src_controls {
-            get {
-                object obj = ResourceManager.GetObject("foreman_src_controls", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap options {
             get {
                 object obj = ResourceManager.GetObject("options", resourceCulture);
@@ -144,23 +116,9 @@ namespace oqat.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap redo {
-            get {
-                object obj = ResourceManager.GetObject("redo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap save {
             get {
                 object obj = ResourceManager.GetObject("save", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap undo {
-            get {
-                object obj = ResourceManager.GetObject("undo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -5,22 +5,19 @@
         <!--Background="dimgray"-->
    
         <DockPanel>
-            <Menu DockPanel.Dock="Top" Name="mnuMenu">
-                <MenuItem Header="_Datei">
-                    <MenuItem Header="_Neu" />
-                    <MenuItem Header="_Öffnen" />
+            <Menu DockPanel.Dock="Top" Uid="MainMenu">
+                <MenuItem Uid="MainMenu_Project">
+                    <MenuItem Uid="MainMenu_Project_new" />
+                    <MenuItem Uid="MainMenu_Project_open" />
                     <Separator />
-                    <MenuItem Header="_Speichern" />
-                    <MenuItem Header="Speichern _unter ..." />
+                    <MenuItem Uid="MainMenu_Project_save" />
                     <Separator />
-                    <MenuItem Header="_Senden an">
-                        <MenuItem Header="_Mail" />
-                        <MenuItem Header="_Desktop" />
-                    </MenuItem>
-                    <MenuItem Header="_Beenden" />
+                    <MenuItem Uid="_Beenden" />
                 </MenuItem>
                 <MenuItem Header="_Bearbeiten" />
+            <MenuItem Name="Options"></MenuItem>
                 <MenuItem Header="_Hilfe" />
+                
             </Menu>
 
         <ToolBar DockPanel.Dock="Top" Height="40">
@@ -39,9 +36,6 @@
                 <Button>
                     <Image Source="Resources\Images\add.png" />
                 </Button>
-                <!--<Button>
-                <Image Source="Resources\Images\apply.png" />
-            </Button>-->
                 <Separator />
                 <Button>
                     <Image Source="Resources\Images\batch.png" />
@@ -51,15 +45,7 @@
                     <Image Source="Resources\Images\play.png" />
                 </Button>
                 <Separator/>
-                <Button>
-                    <Image Source="Resources\Images\undo.png" />
-                </Button>
-                <Separator/>
-                <Button>
-                    <Image Source="Resources\Images\redo.png" />
-                </Button>
 
-                <Separator/>
 
                 <Button>
                     <Image Source="Resources\Images\options.png" />
