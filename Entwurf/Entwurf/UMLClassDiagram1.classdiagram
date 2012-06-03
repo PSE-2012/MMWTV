@@ -11,6 +11,14 @@
 
 Arbeiten auf RGB - oder yuv?</body>
     </comment>
+    <comment Id="a3781b3a-08b1-445c-b28f-7ab4333fa3eb">
+      <elementDefinition Id="77deabec-74f3-42a7-97a7-5f388e5634a2" />
+      <body>exports ?
+View ?
+plugins?
+pflichtenheft?
+9:15</body>
+    </comment>
   </ownedCommentsInternal>
   <packagedElements>
     <logicalClassDesignerModelHasTypes>
@@ -843,18 +851,24 @@ als eigene Plugins oder Optionen?!</body>
             <class Id="e603ea7e-e02c-4e3d-bdd7-81ba29ba3cbd" name="MainWindow" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="c0b1d067-72aa-4b71-8d5c-77a30228042f" />
               <ownedOperationsInternal>
-                <operation Id="67ecde4a-4c4e-4699-9c7c-98d5ee78403c" name="populatePluginList" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="67ecde4a-4c4e-4699-9c7c-98d5ee78403c" name="decoratePluginList" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <elementDefinition Id="61eda94f-3b80-4d83-a23e-d171fe3416a6" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="a3098a5e-d5d4-4ef3-a110-e401c55edc55" name="OptType type" direction="In" isUnique="false">
-                        <elementDefinition Id="3b6b869d-71b6-49c9-accb-3ed38690fb32" />
+                      <parameter Id="7f3d40e0-3961-4ac4-84fb-85bfa6d8e5e8" name="OptType type" direction="In" isUnique="false">
+                        <elementDefinition Id="9d98a06c-389e-4c78-a459-be57129e596b" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
                 <operation Id="f4ca93ae-0baf-4a52-aa39-b05816847a06" name="initPluginOptions" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <elementDefinition Id="79d9c322-029e-4e4a-8384-2a4bb0ecc251" />
+                </operation>
+                <operation Id="5ba7294a-f842-46f6-bd54-11bc790dfce2" name="initSmartTree" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="53e57cec-c432-4858-ba22-85842cc6d41f" />
+                </operation>
+                <operation Id="e288195b-ffbf-4de3-957d-f4c0a28bd429" name="initFileExplorer" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="db2a6ada-ca06-4ac4-a47e-c23c92c4f49f" />
                 </operation>
               </ownedOperationsInternal>
             </class>
@@ -912,11 +926,14 @@ als eigene Plugins oder Optionen?!</body>
       </referencedType>
     </packageHasNamedElement>
     <logicalClassDesignerModelHasTypes>
-      <class Id="405f81c0-1bf1-4969-ab1a-eb0763ae711a" name="Programm" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="405f81c0-1bf1-4969-ab1a-eb0763ae711a" name="App" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="3ce5c7cb-04a9-43f7-bdb2-5c9ea57226de" />
         <ownedAttributesInternal>
           <property Id="cf322ff0-bb7c-46e3-aa02-3c450771e32f" name="language" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="c4accdab-907e-4960-99f2-edb2f9284656" />
+          </property>
+          <property Id="6047be5d-e32c-4099-b087-6a442a55a49d" name="lastUsedProjects" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="3eb4e39d-e859-4de4-bd5d-f92d46d15ae3" />
           </property>
         </ownedAttributesInternal>
       </class>
