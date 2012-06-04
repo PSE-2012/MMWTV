@@ -18,13 +18,19 @@ Arbeiten auf RGB - oder yuv?</body>
       Id="75b85c47-b3e4-4b11-8fe4-4bba8818fc65">
       <body>Scharfzeichner
 Weichzeichner
-...
-als eigene Plugins oder Optionen?!</body>
+ 
+Sobel Filter 
+
+als eigene Plugins oder Optionen?!
+
+ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrofilter gespeichert werden</body>
     </comment>
     <comment
       Id="49be46a6-31dc-4561-b817-08090cb8f6e3">
       <body>Einstellungen abspeichern?
-</body>
+
+
+eventuell für jeden Filter eine Methode, die das entsprechende TValue in unserem Dictionary ändert? z.b. changeMatrix(int[][]) für PF_Convolution (auf diese Weise könnte man auch eigene Filter erstellen). für einen anderen Filter würde man nicht ein int[][], sondern z.b. ein int oder ein int[3] speichern und es ist schon möglich, solche Werte als Object im Dictionary zu speichern. dann wäre aber später ein type cast notwendig, um die Werte wieder aufzurufen. mir fällt gerade nix einfacheres ein</body>
     </comment>
     <comment
       Id="20cc8599-0403-4160-a8b2-a570c7cc7e69">
@@ -37,6 +43,10 @@ View ?
 plugins?
 pflichtenheft?
 9:15</body>
+    </comment>
+    <comment
+      Id="9196383b-6baa-4d67-83f8-a0e01643fb72">
+      <body>laden von Plugins: ich würde sagen die ganze Geschichte mit Catalog, Composition usw. geschieht innerhalb der getPlugins Methode</body>
     </comment>
   </ownedCommentsInternal>
   <profileInstances>

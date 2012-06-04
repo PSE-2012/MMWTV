@@ -3,6 +3,16 @@
   dslVersion="1.0.0.0"
   Id="949e2f81-31a6-44da-8ab2-0d3248139e17"
   name="Plugins" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <ownedCommentsInternal>
+    <comment
+      Id="0f6c2277-76d3-4ff3-98b7-c47cabd4909a">
+      <body>maybe use IEnumerable&lt;Lazy&lt;IPlugin, IPluginData&gt;&gt; instead of IList&lt;IPlugin&gt; ?  (lazy loading)</body>
+    </comment>
+    <comment
+      Id="cc303a60-d7dc-4605-bdef-88daeb6ffc88">
+      <body>gibt es auch andere Programmkomponente ausser Filter und Metriken, die wir sinnvoll als Plugins einbinden können?</body>
+    </comment>
+  </ownedCommentsInternal>
   <packagedElements>
     <packageHasNamedElement>
       <Interface
@@ -257,23 +267,23 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="2dbe0472-7fbb-4aa9-aa02-f6c6d73796bc"
-                  name="OptType type"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
                   Id="1fa883fa-0df2-4dde-8d2c-6fc8f5c566c3"
                   direction="Return"
                   isUnique="false">
                   <type_NamedElement>
                     <undefinedTypeMoniker
-                      Id="9d6c8666-913a-47c0-a07b-b7587a9d06da"
-                      LastKnownName="IPlugin[]"
-                      LastKnownLocation="Entwurf.uml" />
+                      Id="42e7b93a-5fbc-4a91-a2a5-ffeb9ac357ed"
+                      LastKnownName="IList&lt;IPlugin&gt;"
+                      LastKnownLocation="Package_1716.uml" />
                   </type_NamedElement>
                 </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="a1f107df-f72b-42bf-a7c4-d3f53c85ed97"
+                  name="OptType type"
+                  direction="In"
+                  isUnique="false" />
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
@@ -296,6 +306,11 @@
       <undefinedType
         Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4"
         name="int" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="42e7b93a-5fbc-4a91-a2a5-ffeb9ac357ed"
+        name="IList&lt;IPlugin&gt;" />
     </packageHasNamedElement>
   </packagedElements>
 </package>
