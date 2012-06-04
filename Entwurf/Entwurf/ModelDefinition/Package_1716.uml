@@ -8,10 +8,6 @@
       Id="0f6c2277-76d3-4ff3-98b7-c47cabd4909a">
       <body>maybe use IEnumerable&lt;Lazy&lt;IPlugin, IPluginData&gt;&gt; instead of IList&lt;IPlugin&gt; ?  (lazy loading)</body>
     </comment>
-    <comment
-      Id="cc303a60-d7dc-4605-bdef-88daeb6ffc88">
-      <body>gibt es auch andere Programmkomponente ausser Filter und Metriken, die wir sinnvoll als Plugins einbinden können?</body>
-    </comment>
   </ownedCommentsInternal>
   <packagedElements>
     <packageHasNamedElement>
@@ -20,15 +16,6 @@
         name="IPlugin"
         isAbstract="false"
         isLeaf="false">
-        <suppliersInternal>
-          <dependency
-            Id="93860a24-e75a-4a66-95e8-803cacd7b9d2">
-            <interfaceMoniker
-              Id="85f9ae5d-9c57-434b-9111-dd0129dfdb94"
-              LastKnownName="IOptItem"
-              LastKnownLocation="Package_1716.uml" />
-          </dependency>
-        </suppliersInternal>
         <targetEnds>
           <association
             Id="be1f6074-d440-4ecb-872d-7192a4199b07"
@@ -121,6 +108,58 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="798fe575-e06c-45f4-80e7-d5065bb3cb6b"
+            isDerived="false"
+            sourceEndRoleName="IPlugin"
+            targetEndRoleName="IOptItem"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="85f9ae5d-9c57-434b-9111-dd0129dfdb94"
+              LastKnownName="IOptItem"
+              LastKnownLocation="Package_1716.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="76a0c80b-be2d-4743-aa4a-9100cdfb4181"
+                  name="IPlugin"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Shared"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="6ec35900-f849-47f3-860b-0e740fcf8425"
+                  name="IOptItem"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="07d51fed-86e7-4213-b113-68c35c823187"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="b8ccf5b2-0119-451c-8b54-fe388222de2f"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
         <ownedAttributes>
           <property
@@ -169,6 +208,30 @@
                     <undefinedTypeMoniker
                       Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4"
                       LastKnownName="int"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="896e883d-ab78-4c1a-9ef8-f2b66ed09421"
+            name="getMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d55417b2-9555-41e5-a76d-4471470c9766"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac"
+                      LastKnownName="Memento"
                       LastKnownLocation="Package_1716.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -255,6 +318,27 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="f1720bdd-b0e3-46ba-b06c-601fbe2c4040"
+            name="pluginManager"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <classMoniker
+                Id="098e1cff-1f94-4e98-b536-357697aba00e"
+                LastKnownName="PluginManager"
+                LastKnownLocation="Package_1716.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation
             Id="26c70777-3f3f-47b1-96b6-f083ffe4da40"
@@ -287,6 +371,39 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="e47a1b75-eb01-4f1c-a05e-70e76dd3cd25"
+            name="getPluginManager"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="111da6fe-1795-4651-9b2f-e8e850915e22"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="76093259-f87e-4758-b967-52f8df700aca"
+                      LastKnownName="static PluginManager"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="350f9f12-83c9-451a-8ec9-5c3569cdd6a4"
+            name="PluginManager"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -311,6 +428,16 @@
       <undefinedType
         Id="42e7b93a-5fbc-4a91-a2a5-ffeb9ac357ed"
         name="IList&lt;IPlugin&gt;" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="76093259-f87e-4758-b967-52f8df700aca"
+        name="static PluginManager" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac"
+        name="Memento" />
     </packageHasNamedElement>
   </packagedElements>
 </package>
