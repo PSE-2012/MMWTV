@@ -160,6 +160,45 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="01e89a67-5db6-4728-a724-5d4799906ac5"
+            isDerived="false"
+            sourceEndRoleName="IPlugin"
+            targetEndRoleName="Caretaker"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="e8cabedf-842d-4658-9a9d-42d185a4063b"
+              LastKnownName="Caretaker"
+              LastKnownLocation="Package_0837.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="33ba7b51-084e-4784-a49b-f733814545ed"
+                  name="IPlugin"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="7dd65b86-889e-429c-b69b-573f914a4289"
+                  name="Caretaker"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
         <ownedAttributes>
           <property
@@ -235,6 +274,24 @@
                       LastKnownLocation="Package_1716.uml" />
                   </type_NamedElement>
                 </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="378b8fbf-4093-49cc-9f3d-6066c067d043"
+            name="setMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e08be42b-cbb3-4be6-af6e-48145233ac78"
+                  name="Memento memento"
+                  direction="In"
+                  isUnique="false" />
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
@@ -416,7 +473,7 @@
     <packageHasNamedElement>
       <packageMoniker
         Id="09bf7c41-c947-4dff-88f0-b12661c26ffe"
-        LastKnownName="Metrics"
+        LastKnownName="Metric"
         LastKnownLocation="Package_1726.uml" />
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -438,6 +495,12 @@
       <undefinedType
         Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac"
         name="Memento" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="f7dce97e-789e-49a9-a202-8082a523e9d2"
+        LastKnownName="Presntation"
+        LastKnownLocation="Package_1345.uml" />
     </packageHasNamedElement>
   </packagedElements>
 </package>

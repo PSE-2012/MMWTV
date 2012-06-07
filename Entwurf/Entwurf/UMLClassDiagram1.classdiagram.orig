@@ -54,6 +54,127 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
         <elementDefinition Id="949e2f81-31a6-44da-8ab2-0d3248139e17" />
         <packagedElements>
           <packageHasNamedElement>
+            <Interface Id="e3521520-3473-4d91-90f8-bd845bdb6425" name="IPlugin" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b" />
+              <targetEnds>
+                <association Id="26b27dc6-d079-4068-8eb8-8c84b32045b7" isDerived="false" sourceEndRoleName="IPlugin" targetEndRoleName="PluginManager" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="7ac08d91-6c4e-4b13-9844-ae121120f834" LastKnownName="PluginManager" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="8a11dc8d-be37-4bb4-be5f-9042e7c16562" name="IPlugin" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                        <lowerValueInternal>
+                          <literalString Id="8a465cbf-0a8c-468e-8fae-c7e54de84fe4" name="Lower" value="*">
+                            <elementDefinition Id="095928c0-c576-4c6c-b1ee-1a9c14a7fe57" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="5e6f3892-71dc-44e4-93bd-b55959be2b86" name="Upper" value="*">
+                            <elementDefinition Id="c281d75a-1770-4b6e-b0aa-e533c5b6c4ab" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="45150593-078e-48b1-a60d-715ce3ddb217" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="d9e8c3e1-081a-4fbe-a8bc-a377658f9088" name="PluginManager" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="454c2b46-89ec-485f-9548-b810799df7d6" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="8472ab76-ea9b-41ae-bf98-d5542795c1b1" />
+                </association>
+              </targetEnds>
+              <ownedAttributes>
+                <property Id="766f9acb-f2f7-45c9-98ea-ca21087f4218" name="name" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="cc6d2652-6406-4c6c-bb82-3bd8c190910a" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="260126e3-706a-4e1e-9857-7e0abf769932" LastKnownName="string" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributes>
+              <ownedOperations>
+                <operation Id="cf56e095-66af-49fa-8ea3-22c93c295063" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="111958b5-b532-4ee4-9aa3-e08fbaecd1c7" />
+                </operation>
+                <operation Id="8e9cb273-54a5-4b92-a5ef-5e700a29db65" name="getProgress" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="76e10b94-8a00-4c5d-89fd-3b0a61027949" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="fe3cdf16-e731-4df8-8020-bd2a80ac4c98" direction="Return" isUnique="false">
+                        <elementDefinition Id="bdc8f131-6eac-4c3d-83d5-6c0614b8bb8e" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="02d5d69b-889d-4e92-8992-9ea8e7aab8c2" name="getMemento" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="896e883d-ab78-4c1a-9ef8-f2b66ed09421" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="9ab55bdc-f4d8-469d-afea-9df93c0c5913" direction="Return" isUnique="false">
+                        <elementDefinition Id="d55417b2-9555-41e5-a76d-4471470c9766" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+              </ownedOperations>
+            </Interface>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="7ac08d91-6c4e-4b13-9844-ae121120f834" name="PluginManager" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="098e1cff-1f94-4e98-b536-357697aba00e" />
+              <ownedAttributesInternal>
+                <property Id="3b6bf749-f15d-4f99-a6ba-f1df1532da59" name="pluginManager" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f1720bdd-b0e3-46ba-b06c-601fbe2c4040" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="782e506e-6658-4f94-a0fa-28663e488725" LastKnownName="PluginManager" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributesInternal>
+              <ownedOperationsInternal>
+                <operation Id="5301bb37-ff74-478e-a238-1563a9fba465" name="getPlugins" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="26c70777-3f3f-47b1-96b6-f083ffe4da40" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="fedbf0a0-ab24-46bb-a91c-bab033f99a3c" direction="Return" isUnique="false">
+                        <elementDefinition Id="1fa883fa-0df2-4dde-8d2c-6fc8f5c566c3" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="f41e356e-2991-4426-8fff-4dbf40e878a5" LastKnownName="IList&lt;IPlugin&gt;" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="03b01ee9-0c08-456c-93ad-dc81e085df04" name="OptType type" direction="In" isUnique="false">
+                        <elementDefinition Id="a1f107df-f72b-42bf-a7c4-d3f53c85ed97" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="480fe2dd-731c-4eea-8349-453115f93028" name="getPluginManager" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="e47a1b75-eb01-4f1c-a05e-70e76dd3cd25" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="ad3129bf-c197-4436-ab32-2af46ab25e6d" direction="Return" isUnique="false">
+                        <elementDefinition Id="111da6fe-1795-4651-9b2f-e8e850915e22" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="e2ba6919-4b83-4f12-96f9-a58a508eb17b" LastKnownName="static PluginManager" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="0764a712-cbb5-4b14-aa48-aaf8e82d238b" name="PluginManager" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="350f9f12-83c9-451a-8ec9-5c3569cdd6a4" />
+                </operation>
+              </ownedOperationsInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
             <package Id="b8b0bb77-7906-406c-940f-931e486c9ce3" name="Filter">
               <elementDefinition Id="44a6866d-d8d6-4a85-8ce6-5bf7a8df0640" />
               <packagedElements>
@@ -141,16 +262,6 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="80a80069-4eb8-405c-ac14-265e33f3221b" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="765cc32a-04f0-4cc4-a96e-0dbc8eff7e99" />
-                        <ownedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="d6ca401c-67c4-42bc-b0ce-b384a131322f" name="Memento memento" direction="In" isUnique="false">
-                              <elementDefinition Id="462ea8b2-2992-4da8-ae28-48392737816b" />
-                            </parameter>
-                          </operationHasOwnedParameters>
-                        </ownedParameters>
-                      </operation>
                     </ownedOperationsInternal>
                   </class>
                 </packageHasNamedElement>
@@ -224,16 +335,6 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                               <type_NamedElement>
                                 <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
                               </type_NamedElement>
-                            </parameter>
-                          </operationHasOwnedParameters>
-                        </ownedParameters>
-                      </operation>
-                      <operation Id="bd0b05ba-7e1f-466b-aa2f-ee0cc159cf21" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="c3909185-1df8-4d19-8a8d-b3918799b5d0" />
-                        <ownedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="8b05ffc4-8c6c-47ce-aa86-b83e5df0f564" name="Memento memento" direction="In" isUnique="false">
-                              <elementDefinition Id="285e58dd-626e-420f-8e51-a168e18a21e9" />
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -315,12 +416,79 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="a11729dd-5ed7-4219-8ffa-45be329b6371" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="97b94b91-25a2-4983-bb77-1c64b6beb016" />
+                    </ownedOperationsInternal>
+                  </class>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <class Id="28e4cfe7-0574-49d9-bd97-68cf0816c6b7" name="PF_Macro" isAbstract="false" isLeaf="false" isActiveClass="false">
+                    <elementDefinition Id="72baf6af-6f28-4735-8b36-f9cdfd01aac8" />
+                    <suppliersInternal>
+                      <interfaceRealization Id="ba2722d7-eead-464b-8bd1-ca8ab01f99d2">
+                        <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
+                        <elementDefinition Id="3bfcf237-dc15-447f-9bd4-82abad2562c7" />
+                      </interfaceRealization>
+                      <interfaceRealization Id="c4500adb-94ab-4814-84bc-1adb558a41b6">
+                        <interfaceMoniker Id="26bd56d7-39c1-4575-8547-dd35a8f10cd5" LastKnownName="IFilter (AForge" />
+                        <elementDefinition Id="f1a54ee0-c536-459d-a746-87174f19e268" />
+                      </interfaceRealization>
+                    </suppliersInternal>
+                    <ownedOperationsInternal>
+                      <operation Id="cd264dd7-6d22-4f73-9dc8-35a84ef6f8d0" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="d39c020a-baf2-4133-bf39-b02a3e2663cf" />
+                      </operation>
+                      <operation Id="87e7b8fd-b5df-442d-abb0-3d14b168611c" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="e857cae5-94b3-4d1f-938e-714f77346c52" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="9c59e8db-79ab-4b91-aef3-4f82a9c9cd6c" name="Memento memento" direction="In" isUnique="false">
-                              <elementDefinition Id="6fac7c48-2713-400c-bf16-35537ad6cf31" />
+                            <parameter Id="17852f5c-7a7b-4aa9-9a3d-ae017ed13bb7" direction="Return" isUnique="false">
+                              <elementDefinition Id="589ed3ee-cc27-4358-8b3f-82302124de42" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="1e00e613-e231-4dec-87c1-f6309ddeefc9" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="b796a598-6710-4ea2-93e4-b6c707062de5" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="54502cad-a95b-4400-8104-c7cab23d9411" name="Video ref" direction="In" isUnique="false">
+                              <elementDefinition Id="317cc2ff-0eb2-44b7-9f67-5b15e79fbc3e" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="a88d14bb-3068-42ca-b803-cff1a9c4578b" direction="Return" isUnique="false">
+                              <elementDefinition Id="df2e9a9e-5461-41b2-9072-9617801d041d" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="910fa1ee-cdc3-40f0-95de-8157d7724ec0" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="5d307a47-1762-4f49-a9d6-4607f36e80eb" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="d524aec1-0e2c-4009-b623-0ed9d29fa5df" name="IFilter[]" direction="In" isUnique="false">
+                              <elementDefinition Id="f521161a-83c0-4184-b84d-c1580074d6cf" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="d517dee4-9933-4bb3-b1e1-5cc28339eeeb" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="6338719c-0f5b-466e-a946-eca17bbb3ae3" />
+                      </operation>
+                      <operation Id="2069ac7d-aa6e-448f-bb79-68bb31258691" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="3a5ff09a-3fff-4b56-8103-6c69ac17c38f" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="17e318be-1646-4614-b653-1ca79021d2d7" direction="Return" isUnique="false">
+                              <elementDefinition Id="b71fd58c-5033-4548-9b3a-be17bdefd8ec" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
+                              </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -370,7 +538,7 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
             </package>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <package Id="9762ba55-a43a-4e68-b8a7-5513b1ceaf5f" name="Metric">
+            <package Id="9762ba55-a43a-4e68-b8a7-5513b1ceaf5f" name="Metrics">
               <elementDefinition Id="09bf7c41-c947-4dff-88f0-b12661c26ffe" />
               <packagedElements>
                 <packageHasNamedElement>
@@ -438,16 +606,6 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                               <type_NamedElement>
                                 <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
                               </type_NamedElement>
-                            </parameter>
-                          </operationHasOwnedParameters>
-                        </ownedParameters>
-                      </operation>
-                      <operation Id="3ae41180-498c-4012-964f-55cb6b7c014d" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="56102fa4-f5d2-4ce9-ab59-88112cedcbbf" />
-                        <ownedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="38b366fd-54a0-4b25-ab56-cf28ec82cc90" name="Memento memento" direction="In" isUnique="false">
-                              <elementDefinition Id="d091aaf5-b13f-4659-9414-5c55f672929a" />
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -524,16 +682,6 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="b25d8a24-0581-45a9-a137-e331ccf62bfc" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="4764592c-e8db-40df-b725-126cdad6c38a" />
-                        <ownedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="35657e04-8379-43f5-b55b-fc76e67eeab1" name="Memento memento" direction="In" isUnique="false">
-                              <elementDefinition Id="6a363369-5049-45fb-bac1-76cde09e7d68" />
-                            </parameter>
-                          </operationHasOwnedParameters>
-                        </ownedParameters>
-                      </operation>
                     </ownedOperationsInternal>
                   </class>
                 </packageHasNamedElement>
@@ -602,16 +750,6 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                               <type_NamedElement>
                                 <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
                               </type_NamedElement>
-                            </parameter>
-                          </operationHasOwnedParameters>
-                        </ownedParameters>
-                      </operation>
-                      <operation Id="ebf917ea-04b5-4424-ab19-edde7239f467" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="1906a893-0c5b-4d1d-8b79-fe8a71a9ff1b" />
-                        <ownedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="e2198669-3a66-46a9-aa3b-522ccf31c53f" name="Memento memento" direction="In" isUnique="false">
-                              <elementDefinition Id="9f312535-a3a3-4934-85ee-9cbff8c52fe9" />
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -688,16 +826,6 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="729a5725-5548-4b77-887c-da00b3ecc604" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="99467a1c-bdb9-49df-9939-40b2ad2ce70f" />
-                        <ownedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="df20bcfc-4025-415d-8f7b-8eacae992211" name="Memento memento" direction="In" isUnique="false">
-                              <elementDefinition Id="f24b6cf1-1a8d-4e3c-8ea9-13b15c13b5ab" />
-                            </parameter>
-                          </operationHasOwnedParameters>
-                        </ownedParameters>
-                      </operation>
                     </ownedOperationsInternal>
                   </class>
                 </packageHasNamedElement>
@@ -733,36 +861,6 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                       </operation>
                     </ownedOperations>
                   </Interface>
-                </packageHasNamedElement>
-              </packagedElements>
-            </package>
-          </packageHasNamedElement>
-          <packageHasNamedElement>
-            <package Id="00f280d0-adca-4327-8096-fa0596c2bfae" name="Presntation">
-              <elementDefinition Id="f7dce97e-789e-49a9-a202-8082a523e9d2" />
-              <packagedElements>
-                <packageHasNamedElement>
-                  <class Id="c0a0b5ff-16a6-4b1f-bc08-582bffb36f52" name="VideoSourcePlayer (Aforge)" isAbstract="false" isLeaf="false" isActiveClass="false">
-                    <elementDefinition Id="2f9ad65b-5145-4406-8c1d-97cdb21e2167" />
-                    <targetEnds>
-                      <association Id="496acbfa-0240-40f7-938a-188680df866d" isDerived="false" sourceEndRoleName="Player" targetEndRoleName="VideoSource" isLeaf="false" isAbstract="false">
-                        <interfaceMoniker Id="db5d5b93-e21b-4279-af00-18a70a0363f8" LastKnownName="IVideoSource (Aforge)" />
-                        <relationshipOwnedElementsInternal>
-                          <associationHasOwnedEnds>
-                            <memberEnd Id="5ebd9cad-789a-4700-8411-70e144e304a6" name="Player" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                              <elementDefinition Id="633e0f47-4281-4038-a854-a9b9355ae5f3" />
-                            </memberEnd>
-                          </associationHasOwnedEnds>
-                          <associationHasOwnedEnds>
-                            <memberEnd Id="41bdcf9b-1fd6-498f-9367-655100b5b0a8" name="VideoSource" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                              <elementDefinition Id="c7b3ce3f-3159-4860-b305-88a50998e2aa" />
-                            </memberEnd>
-                          </associationHasOwnedEnds>
-                        </relationshipOwnedElementsInternal>
-                        <elementDefinition Id="1d719e3f-e696-4d50-8ea6-6566f7c8c90f" />
-                      </association>
-                    </targetEnds>
-                  </class>
                 </packageHasNamedElement>
               </packagedElements>
             </package>
@@ -812,6 +910,29 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
+            <class Id="c0a0b5ff-16a6-4b1f-bc08-582bffb36f52" name="VideoSourcePlayer (Aforge)" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="2f9ad65b-5145-4406-8c1d-97cdb21e2167" />
+              <targetEnds>
+                <association Id="496acbfa-0240-40f7-938a-188680df866d" isDerived="false" sourceEndRoleName="Player" targetEndRoleName="VideoSource" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="db5d5b93-e21b-4279-af00-18a70a0363f8" LastKnownName="IVideoSource (Aforge)" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="5ebd9cad-789a-4700-8411-70e144e304a6" name="Player" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="633e0f47-4281-4038-a854-a9b9355ae5f3" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="41bdcf9b-1fd6-498f-9367-655100b5b0a8" name="VideoSource" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="c7b3ce3f-3159-4860-b305-88a50998e2aa" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="1d719e3f-e696-4d50-8ea6-6566f7c8c90f" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
             <class Id="7b4b364a-41fe-4fb8-acb8-e80e0b29786a" name="SmartTree" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="1ae561e3-a7c6-4910-84e8-bb87f37008ee" />
               <suppliersInternal>
@@ -825,16 +946,6 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
           <packageHasNamedElement>
             <class Id="92976668-b3d6-4c6d-b83f-3d901abc023a" name="OptionsDialog" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="e0da7ff5-a8f9-4bd4-9bce-a8e6984efe8e" />
-            </class>
-          </packageHasNamedElement>
-          <packageHasNamedElement>
-            <class Id="3cef3eec-3341-4774-a809-6cd6b245a618" name="FilterList" isAbstract="false" isLeaf="false" isActiveClass="false">
-              <elementDefinition Id="ac222856-fc2e-4d6c-ac61-dbcb5b67875f" />
-            </class>
-          </packageHasNamedElement>
-          <packageHasNamedElement>
-            <class Id="913337ec-8217-42b4-bfbc-25805866ac30" name="VM_MacroFilter" isAbstract="false" isLeaf="false" isActiveClass="false">
-              <elementDefinition Id="7f91175c-9ec0-41c9-85ab-493baec887f2" />
             </class>
           </packageHasNamedElement>
         </packagedElements>
@@ -858,6 +969,11 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
     <packageHasNamedElement>
       <referencedType Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" name="int" isAbstract="false" isLeaf="false" cachedFullName="int">
         <elementDefinition Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="f41e356e-2991-4426-8fff-4dbf40e878a5" name="IList&lt;IPlugin&gt;" isAbstract="false" isLeaf="false" cachedFullName="IList&lt;IPlugin&gt;">
+        <elementDefinition Id="42e7b93a-5fbc-4a91-a2a5-ffeb9ac357ed" />
       </referencedType>
     </packageHasNamedElement>
     <logicalClassDesignerModelHasPackages>
@@ -1102,20 +1218,6 @@ Arbeiten auf RGB - oder yuv?</body>
           <packageHasNamedElement>
             <class Id="78327b95-9972-4f77-9b91-266572870d62" name="Memento" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="5f72653d-e210-4613-8274-bbc5b084d411" />
-              <ownedAttributesInternal>
-                <property Id="eb03baa1-5ade-454f-9514-ef4b14417af9" name="IDOrigin" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="3efe066c-a25b-48c6-b406-ddc77ae0743e" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="ec85f4b4-d1f8-4ba9-af77-ef8ee1420f12" LastKnownName="MementoOrigin" />
-                  </type_NamedElement>
-                </property>
-                <property Id="2116ba9e-e0c8-4170-83ce-dbf3bb9a16cc" name="name" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="7ebc7e98-60c8-4390-8697-33c7b4c82f27" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="025ca4e1-efc9-4c29-9f2c-65c5686258c0" LastKnownName="String" />
-                  </type_NamedElement>
-                </property>
-              </ownedAttributesInternal>
               <ownedOperationsInternal>
                 <operation Id="59cc1462-efca-4d91-8450-e4723e6595c8" name="Memento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <elementDefinition Id="90862670-ceb2-42da-bc79-e9bc9c73ac4b" />
@@ -1162,11 +1264,6 @@ Arbeiten auf RGB - oder yuv?</body>
                 </association>
               </targetEnds>
             </class>
-          </packageHasNamedElement>
-          <packageHasNamedElement>
-            <enumeration Id="3e41a4ec-8866-4766-8a34-7d16aafaeeb1" name="MementoOrigin" isAbstract="false" isLeaf="false">
-              <elementDefinition Id="8c3e7b33-53d5-453b-9233-8077043e4564" />
-            </enumeration>
           </packageHasNamedElement>
         </packagedElements>
       </package>
@@ -1898,309 +1995,110 @@ Arbeiten auf RGB - oder yuv?</body>
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" name="Memento" isAbstract="false" isLeaf="false" cachedFullName="Memento">
-        <elementDefinition Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac" />
+<<<<<<< HEAD
+      <referencedType Id="e2ba6919-4b83-4f12-96f9-a58a508eb17b" name="static PluginManager" isAbstract="false" isLeaf="false" cachedFullName="static PluginManager">
+        <elementDefinition Id="76093259-f87e-4758-b967-52f8df700aca" />
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <Interface Id="e3521520-3473-4d91-90f8-bd845bdb6425" name="IPlugin" isAbstract="false" isLeaf="false">
-        <elementDefinition Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b" />
-        <targetEnds>
-          <association Id="b7edbf03-aeb1-4b56-bcf5-5d2f003756ca" isDerived="false" sourceEndRoleName="IPlugin" targetEndRoleName="Caretaker" isLeaf="false" isAbstract="false">
-            <classMoniker Id="b735b1cb-bee7-43da-9dc2-b2fe01174979" LastKnownName="Caretaker" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="7911f6ef-163b-412a-946e-9d0ac9c59e12" name="IPlugin" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="33ba7b51-084e-4784-a49b-f733814545ed" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="5a204228-c98a-4265-85fa-0455396f2d4b" name="Caretaker" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="7dd65b86-889e-429c-b69b-573f914a4289" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="01e89a67-5db6-4728-a724-5d4799906ac5" />
-          </association>
-        </targetEnds>
-        <ownedAttributes>
-          <property Id="766f9acb-f2f7-45c9-98ea-ca21087f4218" name="name" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="cc6d2652-6406-4c6c-bb82-3bd8c190910a" />
-            <type_NamedElement>
-              <referencedTypeMoniker Id="260126e3-706a-4e1e-9857-7e0abf769932" LastKnownName="string" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributes>
-        <ownedOperations>
-          <operation Id="cf56e095-66af-49fa-8ea3-22c93c295063" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="111958b5-b532-4ee4-9aa3-e08fbaecd1c7" />
-          </operation>
-          <operation Id="8e9cb273-54a5-4b92-a5ef-5e700a29db65" name="getProgress" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="76e10b94-8a00-4c5d-89fd-3b0a61027949" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="fe3cdf16-e731-4df8-8020-bd2a80ac4c98" direction="Return" isUnique="false">
-                  <elementDefinition Id="bdc8f131-6eac-4c3d-83d5-6c0614b8bb8e" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="02d5d69b-889d-4e92-8992-9ea8e7aab8c2" name="getMemento" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="896e883d-ab78-4c1a-9ef8-f2b66ed09421" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="9ab55bdc-f4d8-469d-afea-9df93c0c5913" direction="Return" isUnique="false">
-                  <elementDefinition Id="d55417b2-9555-41e5-a76d-4471470c9766" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="4c42d1bf-b0fd-49d9-ac33-e0268f19e132" name="setMemento" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="378b8fbf-4093-49cc-9f3d-6066c067d043" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="e0d081e6-00d5-4a85-a55b-d59caa08f609" name="Memento memento" direction="In" isUnique="false">
-                  <elementDefinition Id="e08be42b-cbb3-4be6-af6e-48145233ac78" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperations>
-      </Interface>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="65c1534a-83b9-4689-8c14-e72d2f50db77" name="PluginManager" isAbstract="false" isLeaf="false" cachedFullName="Entwurf::Plugins::PluginManager">
+      <referencedType Id="782e506e-6658-4f94-a0fa-28663e488725" name="PluginManager" isAbstract="false" isLeaf="false" cachedFullName="Entwurf::Plugins::PluginManager">
         <elementDefinition Id="098e1cff-1f94-4e98-b536-357697aba00e" />
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="395d006c-5cb2-4771-958b-07a9dc5044cd" name="IList&lt;IPlugin&gt;" isAbstract="false" isLeaf="false" cachedFullName="IList&lt;IPlugin&gt;">
-        <elementDefinition Id="42e7b93a-5fbc-4a91-a2a5-ffeb9ac357ed" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="dff0e4e0-ca5a-4a96-8a46-0d619d6e8aeb" name="static PluginManager" isAbstract="false" isLeaf="false" cachedFullName="static PluginManager">
-        <elementDefinition Id="76093259-f87e-4758-b967-52f8df700aca" />
-      </referencedType>
-    </packageHasNamedElement>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="47b250de-eb42-4d90-9dd8-b485e894131c" name="PluginManager" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="6db04741-d888-48d7-8113-ee867bd11d05" />
-        <targetEnds>
-          <association Id="8ced1575-5102-4709-b207-315f3b9010ac" isDerived="false" sourceEndRoleName="PluginManager" targetEndRoleName="IPlugin" isLeaf="false" isAbstract="false">
-            <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="11308f04-e961-4c36-8017-c3f8e07e3cd5" name="PluginManager" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="e69683da-ba68-4af4-9a86-4c4db3b3591a" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="779ab402-c242-456e-af9c-81378e709fd6" name="IPlugin" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <lowerValueInternal>
-                    <literalString Id="13435f6d-2d2b-4564-89d0-dc6f87b2df3b" name="Lower" value="*">
-                      <elementDefinition Id="ed8f96e9-bd3b-4d00-ba85-48a12c2294b1" />
-                    </literalString>
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString Id="b82c1800-5464-4ce7-b086-d8e0a6abc11c" name="Upper" value="*">
-                      <elementDefinition Id="7c0d23ba-5842-44c0-a876-423ab814206c" />
-                    </literalString>
-                  </upperValueInternal>
-                  <elementDefinition Id="2e8e2097-ed62-477f-a45c-2d5825a87b9e" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="7708bba9-afb1-47f7-b2d8-ae67cba91b0f" />
-          </association>
-        </targetEnds>
-        <ownedAttributesInternal>
-          <property Id="39fa681c-efbe-487e-8284-82b9067eff70" name="pluginManager" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="9b00b867-75f4-4e47-99de-0dd42fc6f236" />
-            <type_NamedElement>
-              <referencedTypeMoniker Id="65c1534a-83b9-4689-8c14-e72d2f50db77" LastKnownName="PluginManager" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation Id="b5ce477b-2aed-4e38-a1ce-02effeffa3c0" name="getPlugins" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="36783bd2-c017-47ad-a51c-69555d8f6e8c" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="388aefab-da44-49dd-ba49-5450234dd18f" direction="Return" isUnique="false">
-                  <elementDefinition Id="ee92689c-34db-438e-84f1-e11fdcb76db5" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="395d006c-5cb2-4771-958b-07a9dc5044cd" LastKnownName="IList&lt;IPlugin&gt;" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="e866f974-cc01-43e2-bf3f-449fdf4da745" name="OptType type" direction="In" isUnique="false">
-                  <elementDefinition Id="0dece1aa-ec6c-40a2-b5d6-de33fe0bc6ac" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="4ac467fa-28ab-425b-8d58-abe3129d1e1c" name="getPluginManager" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="e6f2efab-ab60-4493-9663-ce5e0e52daa3" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="513fca76-49bf-49eb-b2cc-adecd2147c4c" direction="Return" isUnique="false">
-                  <elementDefinition Id="2b20566e-d30c-476d-b981-4cd32bdb035f" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="dff0e4e0-ca5a-4a96-8a46-0d619d6e8aeb" LastKnownName="static PluginManager" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="cc115d56-ecbe-4a3a-8277-f17831da9bb2" name="PluginManager" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="ca627e34-b181-407d-a6a5-81f4faa113f2" />
-          </operation>
-          <operation Id="e1cbe600-4fa6-48d2-b6f9-cc5e7e565525" name="getFilterOptions" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="90834f7e-e48a-4808-8f71-40a8fe9da962" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="3dd94a9a-1e01-4e22-846d-28ff5ff53336" direction="Return" isUnique="false">
-                  <elementDefinition Id="0e218760-a3b7-4dcb-b016-f13ea183c71d" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="a9a2f999-ab06-466e-b160-bf17d60422b2" name="getMetricOptions" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="3df49f7f-8eef-4ca3-9843-2df658d462f2" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="a978b6cc-fdba-4fc2-81fb-b89c1cc2f70a" direction="Return" isUnique="false">
-                  <elementDefinition Id="83c9e555-fac8-4c76-8958-d97c12ac4c7c" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <packageHasNamedElement>
-      <referencedType Id="ec85f4b4-d1f8-4ba9-af77-ef8ee1420f12" name="MementoOrigin" isAbstract="false" isLeaf="false" cachedFullName="Entwurf::Model::MementoOrigin">
-        <elementDefinition Id="8c3e7b33-53d5-453b-9233-8077043e4564" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="025ca4e1-efc9-4c29-9f2c-65c5686258c0" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
-        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="d67bcb19-8baf-4e57-b1fc-e276b3f649da" name="int" isAbstract="false" isLeaf="false" cachedFullName="int">
-        <elementDefinition Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="fa7d2eb1-1f7c-469d-b892-f13ec4282ed1" name="Video" isAbstract="false" isLeaf="false" cachedFullName="Video">
-        <elementDefinition Id="b3924bdf-c590-44e4-86c9-5791005131f6" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="34f91362-8b5a-46b7-b00b-da38dc148315" name="Memento" isAbstract="false" isLeaf="false" cachedFullName="Memento">
+      <referencedType Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" name="Memento" isAbstract="false" isLeaf="false" cachedFullName="Memento">
         <elementDefinition Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac" />
       </referencedType>
     </packageHasNamedElement>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="d358ed11-4779-460a-aacf-58a4d03a1920" name="PF_Macro" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="050bf430-8d69-43f2-909a-3953180c9937" />
-        <suppliersInternal>
-          <interfaceRealization Id="21b50f8e-c7dd-4b3e-b16f-9b95ab1ed6d3">
-            <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
-            <elementDefinition Id="6c5af21a-ca3d-4cbe-a0b1-1c55b5fb9651" />
-          </interfaceRealization>
-          <interfaceRealization Id="74f58162-05a9-44dc-9879-c312864574b8">
-            <interfaceMoniker Id="26bd56d7-39c1-4575-8547-dd35a8f10cd5" LastKnownName="IFilter (AForge" />
-            <elementDefinition Id="88de0f11-dc63-41a3-b1ee-13bc06801012" />
-          </interfaceRealization>
-        </suppliersInternal>
-        <ownedOperationsInternal>
-          <operation Id="f1b96262-8d56-4787-aba2-269c36038933" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="93fffc80-faf8-4f21-9a05-8dc4efd65f72" />
-          </operation>
-          <operation Id="9cc3e069-b227-4030-bef3-d9fd12cd4eef" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="6cd32c7f-bbd2-464f-8411-9990071a0eb1" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="8afe7bfe-b0f9-4804-97ff-5fe7d2d08776" direction="Return" isUnique="false">
-                  <elementDefinition Id="806e6994-d0f0-45d1-b061-217b57f3b9e1" />
+=======
+      <referencedType Id="fdc3b93f-7740-4bb4-8504-8df512294c74" name="Path" isAbstract="false" isLeaf="false" cachedFullName="Path">
+        <elementDefinition Id="30839053-727c-4be6-9c79-7eb4b33fcc56" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="fd1f45fa-66d6-498f-8eb6-cd217de45f2b" name="Export">
+        <elementDefinition Id="ff466718-e58d-45f5-89bc-825b36bf3967" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <Interface Id="4527128d-54bc-46a5-95e5-7b97ab7dd955" name="IExport" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="265d6bcf-1473-4c5d-81bd-77db7728962a" />
+              <targetEnds>
+                <association Id="4d96830e-218a-435b-8a35-c2870c6152e4" isDerived="false" sourceEndRoleName="IExport" targetEndRoleName="Project" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="18decd08-48a2-4fdd-b56a-1bbb42e071b3" LastKnownName="Project" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="6da1baa5-33c5-42a9-b43d-dd29189c3f72" name="IExport" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="0f4e130f-b069-41d5-8194-9bb8f9f8bc75" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="c6f6ce28-f5ec-440e-a678-a54f933beb28" name="Project" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="db6a3d4b-0f18-4efc-9a51-e827e4cf5bb1" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="5326f95c-b064-4a9f-bd77-17329ca4a1a9" />
+                </association>
+              </targetEnds>
+              <ownedAttributes>
+                <property Id="4fdcd345-2480-48a4-9e26-aa6b8ee61b5b" name="exportPath" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="44158b26-1aeb-46e6-a2fd-69d409c76db8" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="d67bcb19-8baf-4e57-b1fc-e276b3f649da" LastKnownName="int" />
+                    <referencedTypeMoniker Id="fdc3b93f-7740-4bb4-8504-8df512294c74" LastKnownName="Path" />
                   </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="143eb80a-2bb0-4894-a058-69014fd5c5d6" name="process" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="117a5f4c-f0f2-4638-a18f-e4d41728470e" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="f92a3083-e4c1-4566-9a0d-cc756321f449" name="Video ref" direction="In" isUnique="false">
-                  <elementDefinition Id="7a3702e7-f607-472c-9752-702ec76dda44" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="594bb544-97c3-46fa-b0d4-3124c05d2009" direction="Return" isUnique="false">
-                  <elementDefinition Id="f75b7911-b8eb-4d1a-8a93-a5a398e36098" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="fa7d2eb1-1f7c-469d-b892-f13ec4282ed1" LastKnownName="Video" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="c1d14128-6fb3-4b4d-8059-bcf6b45a5be2" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="99ed9b86-5765-4ea7-99a7-470d298954ae" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="25abbfa3-fda0-43e3-bd39-12ce8c9fed98" name="Memento[] memento" direction="In" isUnique="false">
-                  <elementDefinition Id="e16b7f62-2a64-4f52-b31c-b062136d3e98" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="9506aa1f-d739-498b-beb1-749fe3fd7ef9" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="ddbe7d2a-bca5-437b-9ea3-77e7033099b9" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="70d091cf-f7db-483f-ac6d-0f891e7d44c6" direction="Return" isUnique="false">
-                  <elementDefinition Id="75d77ac5-6cb2-4cf8-a154-f739a13dd2b4" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="34f91362-8b5a-46b7-b00b-da38dc148315" LastKnownName="Memento" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="7083364e-0062-4707-8cc0-08dbcbcb2325" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="c98452cb-c131-4a36-9230-bb8656ae80f6" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="6a00afe6-0e81-430f-8434-72986af4770c" name="Memento memento" direction="In" isUnique="false">
-                  <elementDefinition Id="5d6cd2a9-6e35-4d9b-9740-a8dab70c508a" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
+                </property>
+              </ownedAttributes>
+            </Interface>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="784c0931-153f-41c0-9351-ef986fdf03ba" name="ExportasCSV" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="3b5b8ac4-21c4-470b-94f2-6d04bce2a5dd" />
+              <suppliersInternal>
+                <interfaceRealization Id="d9c4ad38-0721-415a-a06b-f6219fba48df">
+                  <interfaceMoniker Id="4527128d-54bc-46a5-95e5-7b97ab7dd955" LastKnownName="IExport" />
+                  <elementDefinition Id="b26142a6-2202-46c5-b197-f5bc9a2a4402" />
+                </interfaceRealization>
+              </suppliersInternal>
+              <ownedOperationsInternal>
+                <operation Id="18bdf536-1d9d-4d11-9ae4-263a74b281f4" name="writeResultintoCSV" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="c368036d-cb43-4a6e-89e9-0eba1f00bcf6" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="92f16f43-d650-49b5-bf76-ccbc6d2c18f5" name="String result" direction="In" isUnique="false">
+                        <elementDefinition Id="9943f3cc-887b-45f5-b1ac-5ad78bbd923e" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+              </ownedOperationsInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="1d947a70-0b40-4853-9f29-37f721af0dcf" name="ExportasFolder" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="a184195b-b5f2-408a-96f5-c069cec8db42" />
+              <suppliersInternal>
+                <interfaceRealization Id="32e3333b-94f7-40ae-963c-f40d5b860941">
+                  <interfaceMoniker Id="4527128d-54bc-46a5-95e5-7b97ab7dd955" LastKnownName="IExport" />
+                  <elementDefinition Id="d5596680-6c0a-403c-a01d-a5b5ab7fb190" />
+                </interfaceRealization>
+              </suppliersInternal>
+              <ownedOperationsInternal>
+                <operation Id="7a5bc7f6-ca21-4180-9156-4996ecff449c" name="copyProject" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="14951b2c-cb39-418f-83db-21398d9bc621" />
+                </operation>
+                <operation Id="c66baf69-b277-4d62-ad4e-93f57e56890c" name="copyVideo" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="dd68b183-e1a1-4aaf-b952-f7a8055809b7" />
+                </operation>
+                <operation Id="ad9c165d-226b-44c3-bf13-539f293961f1" name="createFolder" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="0c7bbb85-1959-4f49-b2ee-07549800d215" />
+                </operation>
+              </ownedOperationsInternal>
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+>>>>>>> def41b6040a2a6f66e2c32b3f738aa0d7c4004b0
   </packagedElements>
   <package Id="111c9f5b-9d27-4ac1-a666-70e16e6552a4" name="Entwurf">
     <elementDefinition Id="46634d97-dc6c-4362-9484-7c7ecb77101f" />

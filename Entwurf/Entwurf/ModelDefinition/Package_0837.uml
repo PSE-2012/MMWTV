@@ -570,6 +570,44 @@
             </relationshipOwnedElementsInternal>
           </association>
         </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="3efe066c-a25b-48c6-b406-ddc77ae0743e"
+            name="IDOrigin"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <enumerationMoniker
+                Id="8c3e7b33-53d5-453b-9233-8077043e4564"
+                LastKnownName="MementoOrigin"
+                LastKnownLocation="Package_0837.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="7ebc7e98-60c8-4390-8697-33c7b4c82f27"
+            name="name"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation
             Id="90862670-ceb2-42da-bc79-e9bc9c73ac4b"
@@ -653,6 +691,217 @@
             </relationshipOwnedElementsInternal>
           </association>
         </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="8c3e7b33-53d5-453b-9233-8077043e4564"
+        name="MementoOrigin"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="72baf6af-6f28-4735-8b36-f9cdfd01aac8"
+        name="PF_Macro"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="3bfcf237-dc15-447f-9bd4-82abad2562c7">
+            <interfaceMoniker
+              Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
+              LastKnownName="IPlugin"
+              LastKnownLocation="Package_1716.uml" />
+          </interfaceRealization>
+          <interfaceRealization
+            Id="f1a54ee0-c536-459d-a746-87174f19e268">
+            <interfaceMoniker
+              Id="7e2feeb9-352b-47f6-851b-2fedc95241bb"
+              LastKnownName="IFilter (AForge"
+              LastKnownLocation="Package_1725.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="8881d73a-ead9-4697-8ddd-a5b9aff885b4"
+            isDerived="false"
+            sourceEndRoleName="MakroFilter"
+            targetEndRoleName="FilterPlugin"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="a66186b0-aa2e-4561-9a4d-3397c362aa67"
+              LastKnownName="FilterPlugin"
+              LastKnownLocation="Entwurf.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="57c3accb-c2f7-4d6c-ae69-fe4c740ffbb2"
+                  name="MakroFilter"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="e3e763ab-cd8d-41e1-958f-5287d27cc6ff"
+                  name="FilterPlugin"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="0a477bfe-0ebd-4436-8bf9-3cc2ad87e65b"
+                      name="Lower"
+                      value="1,*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="07489e86-0580-4904-b346-08865aab7844"
+                      name="Upper"
+                      value="1,*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedOperationsInternal>
+          <operation
+            Id="d39c020a-baf2-4133-bf39-b02a3e2663cf"
+            name="getOptionsView"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="e857cae5-94b3-4d1f-938e-714f77346c52"
+            name="getProgress"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="589ed3ee-cc27-4358-8b3f-82302124de42"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4"
+                      LastKnownName="int"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="b796a598-6710-4ea2-93e4-b6c707062de5"
+            name="process"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="317cc2ff-0eb2-44b7-9f67-5b15e79fbc3e"
+                  name="Video ref"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="df2e9a9e-5461-41b2-9072-9617801d041d"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="b3924bdf-c590-44e4-86c9-5791005131f6"
+                      LastKnownName="Video"
+                      LastKnownLocation="Package_1726.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="5d307a47-1762-4f49-a9d6-4607f36e80eb"
+            name="createMacro"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e7ff84b9-1786-4a3d-8f21-276634e57b71"
+                  name="Memento memento"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="3a5ff09a-3fff-4b56-8103-6c69ac17c38f"
+            name="getMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b71fd58c-5033-4548-9b3a-be17bdefd8ec"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac"
+                      LastKnownName="Memento"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="eb803c40-ea69-46d6-9638-e10d61e8a006"
+            name="setMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="dafc6873-410f-4328-ba5f-e5c2f36888b0"
+                  name="Memento memento"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
   </packagedElements>
