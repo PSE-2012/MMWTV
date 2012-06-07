@@ -2,7 +2,7 @@
 <package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="f7dce97e-789e-49a9-a202-8082a523e9d2"
-  name="Presntation" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  name="Presentation" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
   <packagedElements>
     <packageHasNamedElement>
       <class
@@ -15,7 +15,7 @@
     <packageHasNamedElement>
       <class
         Id="2f9ad65b-5145-4406-8c1d-97cdb21e2167"
-        name="VideoSourcePlayer (Aforge)"
+        name="PP_VideoSourcePlayer (Aforge)"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -59,7 +59,148 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="a15f978d-759f-466a-806b-d10f1c8c79db"
+            isDerived="false"
+            sourceEndRoleName="PP_VideoSourcePlayer (Aforge)"
+            targetEndRoleName="VM_Presentation"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="a1510184-3c46-4f83-9f52-a3ec30e8173f"
+              LastKnownName="VM_Presentation"
+              LastKnownLocation="Package_1345.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="051b80d0-8d97-4d30-82ee-557960bafa45"
+                  name="PP_VideoSourcePlayer (Aforge)"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="6890feec-9176-400f-bce9-e55de9a8800a"
+                  name="VM_Presentation"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="4b52d577-16ad-4bcb-a521-b8aa725a0950"
+        name="PP_Statistics"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="d9ce06e5-f25b-4236-bd74-ba31542c444c"
+            isDerived="false"
+            sourceEndRoleName="PP_Statistics"
+            targetEndRoleName="VM_Presentation"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="a1510184-3c46-4f83-9f52-a3ec30e8173f"
+              LastKnownName="VM_Presentation"
+              LastKnownLocation="Package_1345.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="bc985cb7-e568-4ee0-a9eb-ca7e3d757e04"
+                  name="PP_Statistics"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="62f67b78-9c47-42dc-92fa-9d1cef554c78"
+                  name="VM_Presentation"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="a1510184-3c46-4f83-9f52-a3ec30e8173f"
+        name="VM_Presentation"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="d1961f4c-f0dc-4a03-a7ec-d0fbec34ce39">
+            <interfaceMoniker
+              Id="7db69199-6379-4a43-9294-060c6de31642"
+              LastKnownName="IPresentation"
+              LastKnownLocation="Entwurf.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="b97ca386-728d-4e92-9329-9644c7732628"
+            name="getOptionsView"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="79028f28-343a-487a-9749-b37bc50fdd61"
+            name="getProgress"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="42c127e7-acd2-4ec5-801f-8322b8705e00"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4"
+                      LastKnownName="int"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
   </packagedElements>

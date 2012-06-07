@@ -15,24 +15,6 @@
 Arbeiten auf RGB - oder yuv?</body>
     </comment>
     <comment
-      Id="75b85c47-b3e4-4b11-8fe4-4bba8818fc65">
-      <body>Scharfzeichner
-Weichzeichner
- 
-Sobel Filter 
-
-als eigene Plugins oder Optionen?!
-
-ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrofilter gespeichert werden</body>
-    </comment>
-    <comment
-      Id="49be46a6-31dc-4561-b817-08090cb8f6e3">
-      <body>Einstellungen abspeichern?
-
-
-eventuell für jeden Filter eine Methode, die das entsprechende TValue in unserem Dictionary ändert? z.b. changeMatrix(int[][]) für PF_Convolution (auf diese Weise könnte man auch eigene Filter erstellen). für einen anderen Filter würde man nicht ein int[][], sondern z.b. ein int oder ein int[3] speichern und es ist schon möglich, solche Werte als Object im Dictionary zu speichern. dann wäre aber später ein type cast notwendig, um die Werte wieder aufzurufen. mir fällt gerade nix einfacheres ein</body>
-    </comment>
-    <comment
       Id="20cc8599-0403-4160-a8b2-a570c7cc7e69">
       <body>AvalonDock?</body>
     </comment>
@@ -363,48 +345,6 @@ eventuell für jeden Filter eine Methode, die das entsprechende TValue in unsere
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation
-            Id="58af3b05-52f8-406b-a7e5-eb1c2c75845e"
-            name="getMemento"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="9203873b-4288-4282-9eca-5d91145f3406"
-                  direction="Return"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac"
-                      LastKnownName="Memento"
-                      LastKnownLocation="Package_1716.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="3f19869d-9e82-4013-99d3-f30b79af1b5a"
-            name="setMemento"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="551f1e40-5175-4361-a042-a0d7187950ec"
-                  name="Memento memento"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -624,6 +564,45 @@ eventuell für jeden Filter eine Methode, die das entsprechende TValue in unsere
                       value="*" />
                   </upperValueInternal>
                 </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="259933ad-3135-4496-9b6a-eef82e232d4c"
+            isDerived="false"
+            sourceEndRoleName="PluginManager"
+            targetEndRoleName="Caretaker"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="e8cabedf-842d-4658-9a9d-42d185a4063b"
+              LastKnownName="Caretaker"
+              LastKnownLocation="Package_0837.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="21cb4033-461e-4aeb-ac31-b58d505a3974"
+                  name="PluginManager"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="a82a3849-911a-4785-b55f-4a742c2f8a9e"
+                  name="Caretaker"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
@@ -861,25 +840,7 @@ eventuell für jeden Filter eine Methode, die das entsprechende TValue in unsere
             </ownedParameters>
           </operation>
           <operation
-            Id="99ed9b86-5765-4ea7-99a7-470d298954ae"
-            name="createMacro"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="e16b7f62-2a64-4f52-b31c-b062136d3e98"
-                  name="Memento[] memento"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="ddbe7d2a-bca5-437b-9ea3-77e7033099b9"
+            Id="be1fe111-0e03-44d4-9195-03f813a40ace"
             name="getMemento"
             isLeaf="false"
             isStatic="false"
@@ -889,21 +850,21 @@ eventuell für jeden Filter eine Methode, die das entsprechende TValue in unsere
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="75d77ac5-6cb2-4cf8-a154-f739a13dd2b4"
+                  Id="6afa92b6-4ff4-47e6-b796-67cc62005d1f"
                   direction="Return"
                   isUnique="false">
                   <type_NamedElement>
                     <undefinedTypeMoniker
-                      Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac"
-                      LastKnownName="Memento"
-                      LastKnownLocation="Package_1716.uml" />
+                      Id="46a8353f-56fd-41e8-95a4-0fe8c578675f"
+                      LastKnownName="memento"
+                      LastKnownLocation="Entwurf.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
           <operation
-            Id="c98452cb-c131-4a36-9230-bb8656ae80f6"
+            Id="0f6c6630-f21e-49b8-8335-6492183af0d3"
             name="setMemento"
             isLeaf="false"
             isStatic="false"
@@ -913,7 +874,7 @@ eventuell für jeden Filter eine Methode, die das entsprechende TValue in unsere
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="5d6cd2a9-6e35-4d9b-9740-a8dab70c508a"
+                  Id="42435ecd-dc78-4740-bfd0-1e5a2ac98323"
                   name="Memento memento"
                   direction="In"
                   isUnique="false" />
@@ -922,6 +883,88 @@ eventuell für jeden Filter eine Methode, die das entsprechende TValue in unsere
           </operation>
         </ownedOperationsInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="864be040-edb7-4e72-b405-40fed8516434"
+        name="IMemorizable"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedOperations>
+          <operation
+            Id="49784c1f-c7a9-44fc-aebf-621f521ea392"
+            name="getMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d24d4abe-9d0f-4d9c-90eb-b29b31107fd9"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="46a8353f-56fd-41e8-95a4-0fe8c578675f"
+                      LastKnownName="memento"
+                      LastKnownLocation="Entwurf.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="f9121059-9798-462e-872a-9032e0295491"
+            name="setMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f5499717-237b-494d-972f-59809e00135b"
+                  name="Memento memento"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="46a8353f-56fd-41e8-95a4-0fe8c578675f"
+        name="memento" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="7a539d02-30f2-440c-949c-0aac72ef7206"
+        name="Interface1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="7db69199-6379-4a43-9294-060c6de31642"
+        name="IPresentation"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="db6972bc-e8bc-47fc-a6ca-2c13c921bb45"
+            isSubstitutable="false">
+            <interfaceMoniker
+              Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
+              LastKnownName="IPlugin"
+              LastKnownLocation="Package_1716.uml" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType

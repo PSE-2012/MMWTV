@@ -24,27 +24,9 @@
     <logicalClassDesignerModelHasPackages>
       <package Id="dc5a86a9-b5c2-4679-98c2-1b6b27ddf3bb" name="Plugins">
         <ownedCommentsInternal>
-          <comment Id="5e129a28-b56c-468b-aa9d-cf81f02d8798">
-            <elementDefinition Id="49be46a6-31dc-4561-b817-08090cb8f6e3" />
-            <body>Einstellungen abspeichern?
-
-
-eventuell für jeden Filter eine Methode, die das entsprechende TValue in unserem Dictionary ändert? z.b. changeMatrix(int[][]) für PF_Convolution (auf diese Weise könnte man auch eigene Filter erstellen). für einen anderen Filter würde man nicht ein int[][], sondern z.b. ein int oder ein int[3] speichern und es ist schon möglich, solche Werte als Object im Dictionary zu speichern. dann wäre aber später ein type cast notwendig, um die Werte wieder aufzurufen. mir fällt gerade nix einfacheres ein</body>
-          </comment>
           <comment Id="1621abb8-64d4-4dbd-a798-a785c028a3e1">
             <elementDefinition Id="0f6c2277-76d3-4ff3-98b7-c47cabd4909a" />
             <body>maybe use IEnumerable&lt;Lazy&lt;IPlugin, IPluginData&gt;&gt; instead of IList&lt;IPlugin&gt; ?  (lazy loading)</body>
-          </comment>
-          <comment Id="990fabc4-1f54-4b34-92f4-ce68e533999a">
-            <elementDefinition Id="75b85c47-b3e4-4b11-8fe4-4bba8818fc65" />
-            <body>Scharfzeichner
-Weichzeichner
- 
-Sobel Filter 
-
-als eigene Plugins oder Optionen?!
-
-ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrofilter gespeichert werden</body>
           </comment>
           <comment Id="ef3ef38f-cb67-4775-9d76-81924a995254">
             <elementDefinition Id="9196383b-6baa-4d67-83f8-a0e01643fb72" />
@@ -105,48 +87,25 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="7dfbcba2-7d2b-441a-a69c-00f97d622d00" name="changeMatrix" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="f397012d-b986-4562-bdcd-1b1eb6780590" />
+                      <operation Id="12bc75da-34d7-44a8-a76d-b3e3d3679014" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="47298d15-9bfe-4ec8-addc-43dac3641c88" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="258c7e81-0b9f-4b8b-9be9-fa2636d58525" name="int[][]" direction="In" isUnique="false">
-                              <elementDefinition Id="e7217189-81b3-41a1-b7d0-7c9eced6f828" />
-                            </parameter>
-                          </operationHasOwnedParameters>
-                        </ownedParameters>
-                      </operation>
-                      <operation Id="506efde8-deca-4781-9d18-8d9ee1d99a16" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="41d64373-f4fb-409d-92ed-87932f371d59" />
-                        <ownedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="842f5dfc-905f-49b3-a830-0b2f4f9f5c9d" name="IFilter[]" direction="In" isUnique="false">
-                              <elementDefinition Id="f0a6eb9f-5380-46b9-894b-435e80795ea6" />
-                            </parameter>
-                          </operationHasOwnedParameters>
-                        </ownedParameters>
-                      </operation>
-                      <operation Id="ad1e0fb3-f348-4939-806b-22a644326686" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="f29d990b-0c84-4060-a884-c4206c1977b4" />
-                      </operation>
-                      <operation Id="cb0c256b-3e4b-446e-881c-0e2c75ad2f24" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="882963a6-7bff-47e0-a9f4-8f47db28e6e3" />
-                        <ownedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="5f530b0b-88ac-4bda-bc04-dfa165888d88" direction="Return" isUnique="false">
-                              <elementDefinition Id="8ce29ab8-5f9e-4251-89d1-b576a33f5c2e" />
+                            <parameter Id="a9880eb8-64d0-4a67-a278-86bcbc6baed9" direction="Return" isUnique="false">
+                              <elementDefinition Id="4d98ee43-f0c4-46c5-9649-ee2882ef90ce" />
                               <type_NamedElement>
-                                <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
+                                <referencedTypeMoniker Id="3d2ed92b-9c0d-4c14-ae47-9166a0c37276" LastKnownName="memento" />
                               </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="80a80069-4eb8-405c-ac14-265e33f3221b" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="765cc32a-04f0-4cc4-a96e-0dbc8eff7e99" />
+                      <operation Id="81685198-0972-4da7-b20a-60e35ae666ef" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="23d89a52-22d0-4aa2-865a-60977128a88b" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="d6ca401c-67c4-42bc-b0ce-b384a131322f" name="Memento memento" direction="In" isUnique="false">
-                              <elementDefinition Id="462ea8b2-2992-4da8-ae28-48392737816b" />
+                            <parameter Id="165400f6-0f7e-43dc-8b69-0b250a21b05d" name="Memento memento" direction="In" isUnique="false">
+                              <elementDefinition Id="26134fc4-0b9b-4366-a540-a9dca7a8ff33" />
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -202,38 +161,25 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="18f10319-5d6d-4085-bfda-4d8670363e4e" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="7344b5a7-f2b5-4427-9be6-a2cf30eb0423" />
+                      <operation Id="75974b45-9836-4891-bc03-bdb33b06ddf8" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="7d0e323f-f7b2-46f8-ac82-8c41e58730b0" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="7ff07db3-bdad-4b1e-a6ee-400017e953b1" name="IFilter[]" direction="In" isUnique="false">
-                              <elementDefinition Id="45a72766-6477-4e8f-a927-14af9b54f27c" />
-                            </parameter>
-                          </operationHasOwnedParameters>
-                        </ownedParameters>
-                      </operation>
-                      <operation Id="ca56954e-6bd9-4b67-97ab-51bf1687d940" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="1276ff80-df39-4f97-baf9-ceffe4905e96" />
-                      </operation>
-                      <operation Id="3ef0fce2-3464-43cb-8fd1-7e8992884c56" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="f7fa9c86-05b8-4fbb-8b3c-8c144a55d60c" />
-                        <ownedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="c0c8b662-6852-4a75-87e5-35ef8a260b74" direction="Return" isUnique="false">
-                              <elementDefinition Id="42c1cd50-815d-44b8-a2e5-c60ed0576d0c" />
+                            <parameter Id="f12d9fc7-fb46-4496-a5bb-ee1d8c932820" direction="Return" isUnique="false">
+                              <elementDefinition Id="5fd88767-f5d7-4b29-b8a8-7ce7668f3b24" />
                               <type_NamedElement>
-                                <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
+                                <referencedTypeMoniker Id="3d2ed92b-9c0d-4c14-ae47-9166a0c37276" LastKnownName="memento" />
                               </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="bd0b05ba-7e1f-466b-aa2f-ee0cc159cf21" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="c3909185-1df8-4d19-8a8d-b3918799b5d0" />
+                      <operation Id="a12661e5-b329-4a62-83ad-38abaa234841" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="22439f19-16ba-4585-a14e-67c3d7a6f10f" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="8b05ffc4-8c6c-47ce-aa86-b83e5df0f564" name="Memento memento" direction="In" isUnique="false">
-                              <elementDefinition Id="285e58dd-626e-420f-8e51-a168e18a21e9" />
+                            <parameter Id="7ab4ccc8-1b13-41dd-8626-eafe795fd3d1" name="Memento memento" direction="In" isUnique="false">
+                              <elementDefinition Id="0a3863c2-afd5-4e98-9adc-c580dc3c54b4" />
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -289,38 +235,25 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="a69dc872-74fa-4f4f-bb02-978b4f6b6a8c" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="1d0ba0ef-7ac4-4859-9179-a2a1dc21de7d" />
+                      <operation Id="aa4be53b-6cd7-43d1-8a04-859739c21fa6" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="c066c58b-4c43-4976-af39-ec9276212283" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="36961e77-0f9a-44a2-b87b-1797b8fcb3d4" name="IFilter[]" direction="In" isUnique="false">
-                              <elementDefinition Id="479491a3-b451-4b86-9575-9b12245301ec" />
-                            </parameter>
-                          </operationHasOwnedParameters>
-                        </ownedParameters>
-                      </operation>
-                      <operation Id="8e9994b8-95fb-43e1-be7f-c8ad3bfcda65" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="eee5e06d-1140-4187-a559-bfe4428a06d3" />
-                      </operation>
-                      <operation Id="81240127-7f77-4433-adba-d4a3c8154164" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="6ecbfdbb-3a50-4661-968b-c68b87de06a5" />
-                        <ownedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="533da107-ef2a-4f7d-93db-ca7479f6920f" direction="Return" isUnique="false">
-                              <elementDefinition Id="a1fbb367-4f29-4273-9c66-b375db86544f" />
+                            <parameter Id="656bbbed-c72d-4053-9420-06dada9fc07b" direction="Return" isUnique="false">
+                              <elementDefinition Id="3d0d3ec9-71bc-4f09-bbae-a47952b917b4" />
                               <type_NamedElement>
-                                <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
+                                <referencedTypeMoniker Id="3d2ed92b-9c0d-4c14-ae47-9166a0c37276" LastKnownName="memento" />
                               </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="a11729dd-5ed7-4219-8ffa-45be329b6371" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="97b94b91-25a2-4983-bb77-1c64b6beb016" />
+                      <operation Id="29417fc3-56b1-4948-b060-3493279fceb0" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="74a8f606-d78d-4237-a9f3-024449ee72b6" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="9c59e8db-79ab-4b91-aef3-4f82a9c9cd6c" name="Memento memento" direction="In" isUnique="false">
-                              <elementDefinition Id="6fac7c48-2713-400c-bf16-35537ad6cf31" />
+                            <parameter Id="1caeeadf-582c-4903-bfd4-596676efa272" name="Memento memento" direction="In" isUnique="false">
+                              <elementDefinition Id="059d8f4e-f605-4962-b5f8-e510d0b43ba3" />
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -331,6 +264,12 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                 <packageHasNamedElement>
                   <Interface Id="26bd56d7-39c1-4575-8547-dd35a8f10cd5" name="IFilter (AForge" isAbstract="false" isLeaf="false">
                     <elementDefinition Id="7e2feeb9-352b-47f6-851b-2fedc95241bb" />
+                    <generalsInternal>
+                      <generalization Id="c73aa7f4-d3d3-497e-9883-d2042c5f80a8" isSubstitutable="false">
+                        <interfaceMoniker Id="c428c257-de66-4ac1-a5e9-f34d9886c147" LastKnownName="IMemorizable" />
+                        <elementDefinition Id="de7025ad-6743-40db-b2b0-9ae3db821275" />
+                      </generalization>
+                    </generalsInternal>
                     <ownedOperations>
                       <operation Id="1445c7e8-b02c-4daa-bbff-bc984eae5885" name="process" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                         <elementDefinition Id="8b4798fe-7e60-48fe-832f-9f162e85e1d5" />
@@ -349,19 +288,6 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
-                      </operation>
-                      <operation Id="a3c3420d-c77d-4bff-ab77-dd4bde0196c0" name="createMacro" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="043c0199-4739-451a-8456-292fa50a2388" />
-                        <ownedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="a105d53c-8744-412f-a116-185df5b3019a" name="IFilter[]" direction="In" isUnique="false">
-                              <elementDefinition Id="cfad196f-2fb2-47e1-b590-4aa0cc18eb2e" />
-                            </parameter>
-                          </operationHasOwnedParameters>
-                        </ownedParameters>
-                      </operation>
-                      <operation Id="15c68b78-2f57-4b8e-8b84-5ac660ba9a44" name="createMacro" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="4b6f0879-3777-4aa7-b00f-28447c854959" />
                       </operation>
                     </ownedOperations>
                   </Interface>
@@ -406,14 +332,6 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                               <elementDefinition Id="e1ce7696-15cd-4561-938b-61516c5f0785" />
                             </parameter>
                           </operationHasOwnedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="643c36e3-e2a1-415d-b795-07d69ee542ed" direction="Return" isUnique="false">
-                              <elementDefinition Id="18e7fc61-d20d-4df6-a6f5-a813b7041e62" />
-                              <type_NamedElement>
-                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
-                              </type_NamedElement>
-                            </parameter>
-                          </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
                       <operation Id="0395787b-2d68-4818-a21c-8f6b591700ad" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
@@ -429,25 +347,25 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="b5042d16-5ffa-48bc-95cc-6c3fddafa448" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="dfdd91e2-7e48-49e3-807d-146ca4f154ee" />
+                      <operation Id="aefc09bf-9cba-41ea-a14d-e4a9eacbdb7e" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="9bf0c415-77ad-44b4-968e-a1866985db75" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="fe236d37-4921-405c-9342-18214bc7b11f" direction="Return" isUnique="false">
-                              <elementDefinition Id="12b9e691-e497-4c29-8f0b-f3c9680c4c02" />
+                            <parameter Id="699155c0-b521-4d3d-a2f1-f252388038ab" direction="Return" isUnique="false">
+                              <elementDefinition Id="7fb12484-9de1-403c-a474-519cbc3f4dfd" />
                               <type_NamedElement>
-                                <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
+                                <referencedTypeMoniker Id="3d2ed92b-9c0d-4c14-ae47-9166a0c37276" LastKnownName="memento" />
                               </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="3ae41180-498c-4012-964f-55cb6b7c014d" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="56102fa4-f5d2-4ce9-ab59-88112cedcbbf" />
+                      <operation Id="ddc832c3-387d-41bd-a2e6-642d356fe893" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="4af0c025-fcb0-48e5-9901-42650e6f859f" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="38b366fd-54a0-4b25-ab56-cf28ec82cc90" name="Memento memento" direction="In" isUnique="false">
-                              <elementDefinition Id="d091aaf5-b13f-4659-9414-5c55f672929a" />
+                            <parameter Id="ce958e74-696d-40e6-99c5-2406f4291bc8" name="Memento memento" direction="In" isUnique="false">
+                              <elementDefinition Id="eaae1e93-949c-48d3-b48c-b5491d2a92fb" />
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -488,14 +406,6 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                               <elementDefinition Id="9b50f3b3-e530-4744-8573-e0b7079da226" />
                             </parameter>
                           </operationHasOwnedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="1bf24996-4f4b-4a2e-87c6-653e97092c00" direction="Return" isUnique="false">
-                              <elementDefinition Id="9ed028a5-1262-444a-970d-1b0bd5db83c4" />
-                              <type_NamedElement>
-                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
-                              </type_NamedElement>
-                            </parameter>
-                          </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
                       <operation Id="9784b886-fea1-40ad-a7cb-25b1584fd49e" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
@@ -511,25 +421,25 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="622add57-9e5e-42a0-a1db-9564b9fa2947" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="2f7dd519-d4a4-4e4f-92c1-de659bce84f2" />
+                      <operation Id="c157ee30-993a-4e9f-b3dd-e5d58ffbe252" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="840cf314-ed61-4859-a351-786fd9e8e8df" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="4f70ddbb-777b-495c-9080-48a3b147ec73" direction="Return" isUnique="false">
-                              <elementDefinition Id="437552b4-c2df-4c21-9c08-a3b9acb18f56" />
+                            <parameter Id="e3c54056-5ccf-4234-aa0e-0a47c0b1d754" direction="Return" isUnique="false">
+                              <elementDefinition Id="621a6412-a30b-4440-b81d-b88e1379d8cf" />
                               <type_NamedElement>
-                                <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
+                                <referencedTypeMoniker Id="3d2ed92b-9c0d-4c14-ae47-9166a0c37276" LastKnownName="memento" />
                               </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="b25d8a24-0581-45a9-a137-e331ccf62bfc" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="4764592c-e8db-40df-b725-126cdad6c38a" />
+                      <operation Id="5f20e497-8bbb-46c2-a449-bf4b9666d6fc" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="b3fc94cc-6f03-48d0-b51a-44772f7c00e5" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="35657e04-8379-43f5-b55b-fc76e67eeab1" name="Memento memento" direction="In" isUnique="false">
-                              <elementDefinition Id="6a363369-5049-45fb-bac1-76cde09e7d68" />
+                            <parameter Id="cda17438-e1cd-4229-9990-390cd59149b1" name="Memento memento" direction="In" isUnique="false">
+                              <elementDefinition Id="dd488746-f5f5-4b9b-a5a4-a219c9bab597" />
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -570,14 +480,6 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                               <elementDefinition Id="a8ca0c47-8dc3-4b91-9f77-cfe9cafb5b9b" />
                             </parameter>
                           </operationHasOwnedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="228ce11a-fcfd-4927-836a-97342c1bc53a" direction="Return" isUnique="false">
-                              <elementDefinition Id="6452826e-e53e-4c3f-9ed7-2bf4a3d9aede" />
-                              <type_NamedElement>
-                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
-                              </type_NamedElement>
-                            </parameter>
-                          </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
                       <operation Id="75a909e0-8d99-42dc-9a6a-f3d27270d3df" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
@@ -593,25 +495,25 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="e4689e40-eb00-44b3-96a0-9743d02814f6" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="5a946f2c-8927-4fa9-88db-fc4aa6cb8133" />
+                      <operation Id="f79b541e-b3c5-460b-9ea2-21d2755f3099" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="6be76525-697f-4fbb-88bb-6574d6c6580d" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="27d2ed04-36fb-4e03-8e0a-d29d6d816797" direction="Return" isUnique="false">
-                              <elementDefinition Id="4151e44f-7818-4d22-8ddf-a081e47cc8bc" />
+                            <parameter Id="4c17a0f1-b2f9-417e-b627-c14f9c5b61bd" direction="Return" isUnique="false">
+                              <elementDefinition Id="3aa8a19a-a7e7-4e5c-8e0b-6db8d953cc9d" />
                               <type_NamedElement>
-                                <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
+                                <referencedTypeMoniker Id="3d2ed92b-9c0d-4c14-ae47-9166a0c37276" LastKnownName="memento" />
                               </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="ebf917ea-04b5-4424-ab19-edde7239f467" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="1906a893-0c5b-4d1d-8b79-fe8a71a9ff1b" />
+                      <operation Id="47fa76f6-09e6-4662-828a-288e4721d445" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="ea519f04-c449-42aa-97a6-53b2c039e5f6" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="e2198669-3a66-46a9-aa3b-522ccf31c53f" name="Memento memento" direction="In" isUnique="false">
-                              <elementDefinition Id="9f312535-a3a3-4934-85ee-9cbff8c52fe9" />
+                            <parameter Id="7486e7ca-5a8a-4585-b8ee-e66c8fa56ce1" name="Memento memento" direction="In" isUnique="false">
+                              <elementDefinition Id="daa043eb-bcf8-4f38-8d05-22e381399f79" />
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -652,14 +554,6 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                               <elementDefinition Id="0847bc2c-5510-4ba8-9c3f-9165e4c1f3e1" />
                             </parameter>
                           </operationHasOwnedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="ce88574c-2453-498e-a96c-7f12ae5ae318" direction="Return" isUnique="false">
-                              <elementDefinition Id="39c6a741-770d-45ea-af4d-2e643840a16a" />
-                              <type_NamedElement>
-                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
-                              </type_NamedElement>
-                            </parameter>
-                          </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
                       <operation Id="df75b9ec-5c65-4001-b7e8-ca88c741f483" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
@@ -675,25 +569,25 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="5e0f25b7-1d3e-4755-ac5f-c1de9bca6945" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="fca1719b-aca9-4664-aa6b-fcbb8ecbaf20" />
+                      <operation Id="315e46af-9b5d-4c25-97d3-7c4a5076d07c" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="a349dd0d-3771-4f9b-8421-bcc33047a46d" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="7d0490f6-50b2-4a1e-ba91-9c20abcdbb03" direction="Return" isUnique="false">
-                              <elementDefinition Id="1023df4b-f864-4eda-ad13-74dee1ffe718" />
+                            <parameter Id="6ff4d3ac-4834-4bc2-a0d7-84e6c4030f4f" direction="Return" isUnique="false">
+                              <elementDefinition Id="9a3ae664-773b-40a8-ada8-ec7b6f999ad5" />
                               <type_NamedElement>
-                                <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
+                                <referencedTypeMoniker Id="3d2ed92b-9c0d-4c14-ae47-9166a0c37276" LastKnownName="memento" />
                               </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="729a5725-5548-4b77-887c-da00b3ecc604" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <elementDefinition Id="99467a1c-bdb9-49df-9939-40b2ad2ce70f" />
+                      <operation Id="275b7e4b-24e5-4d08-8804-17da3da7b44c" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="5bd053f2-5c22-45c4-9b21-601116e32845" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="df20bcfc-4025-415d-8f7b-8eacae992211" name="Memento memento" direction="In" isUnique="false">
-                              <elementDefinition Id="f24b6cf1-1a8d-4e3c-8ea9-13b15c13b5ab" />
+                            <parameter Id="b344ee91-c00e-442b-bae0-dda46db54487" name="Memento memento" direction="In" isUnique="false">
+                              <elementDefinition Id="db0b7b53-a3b0-43bb-b046-e830a02adcc0" />
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -704,6 +598,12 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                 <packageHasNamedElement>
                   <Interface Id="711d2f97-032f-4503-9be4-e673b2a612f0" name="IMetric" isAbstract="false" isLeaf="false">
                     <elementDefinition Id="0773b2ac-82ae-494d-9544-831b930a24af" />
+                    <generalsInternal>
+                      <generalization Id="caa79e11-8dfc-49a6-98d0-f360a07c5f7d" isSubstitutable="false">
+                        <interfaceMoniker Id="c428c257-de66-4ac1-a5e9-f34d9886c147" LastKnownName="IMemorizable" />
+                        <elementDefinition Id="bfc774d7-14cb-440e-8344-cbd839cd9995" />
+                      </generalization>
+                    </generalsInternal>
                     <ownedOperations>
                       <operation Id="d49b9aae-a10f-44d5-977d-67c0432012b9" name="getAnalysisView" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                         <elementDefinition Id="79354657-2d0d-4fde-95e3-2e87ca080b8e" />
@@ -712,21 +612,13 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                         <elementDefinition Id="02277374-fb86-475c-9132-86ba281bf780" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="b819259a-b932-47f1-a99b-06a276143b21" name="Video ref" direction="In" isUnique="false">
-                              <elementDefinition Id="cdb04cc8-4794-427d-b24e-778209076176" />
+                            <parameter Id="c6c2e2a3-d4c4-470e-956c-d2352877acb5" name="Video ref" direction="In" isUnique="false">
+                              <elementDefinition Id="16924749-9a14-4a3c-9e74-70ca3aef89f3" />
                             </parameter>
                           </operationHasOwnedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="e73fdd68-1fd5-49be-af20-224d858b46df" name="Video proc" direction="In" isUnique="false">
-                              <elementDefinition Id="088ec359-a663-455c-a876-a1d131284a34" />
-                            </parameter>
-                          </operationHasOwnedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="44fb5aa0-3bd8-4df1-9143-f35d1628362e" direction="Return" isUnique="false">
-                              <elementDefinition Id="36118197-7a00-46d1-87dc-df631c710797" />
-                              <type_NamedElement>
-                                <referencedTypeMoniker Id="e3847a94-676f-415d-b54e-d81e63784a5e" LastKnownName="Video" />
-                              </type_NamedElement>
+                            <parameter Id="9d25244d-6ed6-4773-af78-4692c207f943" name="Video proc" direction="In" isUnique="false">
+                              <elementDefinition Id="ebefe4bd-77c1-4351-b1ea-c114a59919bf" />
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -738,11 +630,11 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
             </package>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <package Id="00f280d0-adca-4327-8096-fa0596c2bfae" name="Presntation">
+            <package Id="00f280d0-adca-4327-8096-fa0596c2bfae" name="Presentation">
               <elementDefinition Id="f7dce97e-789e-49a9-a202-8082a523e9d2" />
               <packagedElements>
                 <packageHasNamedElement>
-                  <class Id="c0a0b5ff-16a6-4b1f-bc08-582bffb36f52" name="VideoSourcePlayer (Aforge)" isAbstract="false" isLeaf="false" isActiveClass="false">
+                  <class Id="c0a0b5ff-16a6-4b1f-bc08-582bffb36f52" name="PP_VideoSourcePlayer (Aforge)" isAbstract="false" isLeaf="false" isActiveClass="false">
                     <elementDefinition Id="2f9ad65b-5145-4406-8c1d-97cdb21e2167" />
                     <targetEnds>
                       <association Id="496acbfa-0240-40f7-938a-188680df866d" isDerived="false" sourceEndRoleName="Player" targetEndRoleName="VideoSource" isLeaf="false" isAbstract="false">
@@ -761,7 +653,75 @@ ich würde sagen Optionen für den entsprechenden Filtertyp, die dann als Macrof
                         </relationshipOwnedElementsInternal>
                         <elementDefinition Id="1d719e3f-e696-4d50-8ea6-6566f7c8c90f" />
                       </association>
+                      <association Id="1be7cb3e-624b-4e0b-90fc-ea407d355066" isDerived="false" sourceEndRoleName="PP_VideoSourcePlayer (Aforge)" targetEndRoleName="VM_Presentation" isLeaf="false" isAbstract="false">
+                        <classMoniker Id="67185ce4-6280-4912-a6f1-fac94972449c" LastKnownName="VM_Presentation" />
+                        <relationshipOwnedElementsInternal>
+                          <associationHasOwnedEnds>
+                            <memberEnd Id="5a949ff9-35cb-41bc-91f3-b72767b1591a" name="PP_VideoSourcePlayer (Aforge)" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                              <elementDefinition Id="051b80d0-8d97-4d30-82ee-557960bafa45" />
+                            </memberEnd>
+                          </associationHasOwnedEnds>
+                          <associationHasOwnedEnds>
+                            <memberEnd Id="8ef83335-046f-43b3-9202-381c880cf094" name="VM_Presentation" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                              <elementDefinition Id="6890feec-9176-400f-bce9-e55de9a8800a" />
+                            </memberEnd>
+                          </associationHasOwnedEnds>
+                        </relationshipOwnedElementsInternal>
+                        <elementDefinition Id="a15f978d-759f-466a-806b-d10f1c8c79db" />
+                      </association>
                     </targetEnds>
+                  </class>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <class Id="eb4bf576-3401-44e2-b5af-31b48c64b548" name="PP_Statistics" isAbstract="false" isLeaf="false" isActiveClass="false">
+                    <elementDefinition Id="4b52d577-16ad-4bcb-a521-b8aa725a0950" />
+                    <targetEnds>
+                      <association Id="353a8c6a-fc8e-44cc-b623-43ab225121d7" isDerived="false" sourceEndRoleName="PP_Statistics" targetEndRoleName="VM_Presentation" isLeaf="false" isAbstract="false">
+                        <classMoniker Id="67185ce4-6280-4912-a6f1-fac94972449c" LastKnownName="VM_Presentation" />
+                        <relationshipOwnedElementsInternal>
+                          <associationHasOwnedEnds>
+                            <memberEnd Id="f3d48b26-35b3-4ec5-ad62-db627ddcbc09" name="PP_Statistics" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                              <elementDefinition Id="bc985cb7-e568-4ee0-a9eb-ca7e3d757e04" />
+                            </memberEnd>
+                          </associationHasOwnedEnds>
+                          <associationHasOwnedEnds>
+                            <memberEnd Id="fd1e9339-b9c9-4e42-8f2f-ab57f06ea037" name="VM_Presentation" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                              <elementDefinition Id="62f67b78-9c47-42dc-92fa-9d1cef554c78" />
+                            </memberEnd>
+                          </associationHasOwnedEnds>
+                        </relationshipOwnedElementsInternal>
+                        <elementDefinition Id="d9ce06e5-f25b-4236-bd74-ba31542c444c" />
+                      </association>
+                    </targetEnds>
+                  </class>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <class Id="67185ce4-6280-4912-a6f1-fac94972449c" name="VM_Presentation" isAbstract="false" isLeaf="false" isActiveClass="false">
+                    <elementDefinition Id="a1510184-3c46-4f83-9f52-a3ec30e8173f" />
+                    <suppliersInternal>
+                      <interfaceRealization Id="9e2c14b5-5400-481e-a9ad-92a64dda132c">
+                        <interfaceMoniker Id="32ef9c27-2b7e-4b6e-ab19-1207564a4fe9" LastKnownName="IPresentation" />
+                        <elementDefinition Id="d1961f4c-f0dc-4a03-a7ec-d0fbec34ce39" />
+                      </interfaceRealization>
+                    </suppliersInternal>
+                    <ownedOperationsInternal>
+                      <operation Id="b9db3b8c-7daa-459f-98d5-2840b40817c7" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="b97ca386-728d-4e92-9329-9644c7732628" />
+                      </operation>
+                      <operation Id="6a10985b-ed5b-41ae-b153-c5303e65ff63" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="79028f28-343a-487a-9749-b37bc50fdd61" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="71fdb240-7364-4954-8443-e97ed447e0b6" direction="Return" isUnique="false">
+                              <elementDefinition Id="42c127e7-acd2-4ec5-801f-8322b8705e00" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                    </ownedOperationsInternal>
                   </class>
                 </packageHasNamedElement>
               </packagedElements>
@@ -1056,11 +1016,6 @@ Arbeiten auf RGB - oder yuv?</body>
             <class Id="58286b1f-6f3c-4f3c-b21c-2152e2bc5e13" name="Bitmap" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="d89671a9-f407-4f4b-bca4-d8d7e39c954f" />
             </class>
-          </packageHasNamedElement>
-          <packageHasNamedElement>
-            <Interface Id="db5d5b93-e21b-4279-af00-18a70a0363f8" name="IVideoSource (Aforge)" isAbstract="false" isLeaf="false">
-              <elementDefinition Id="8028688e-c9dc-41d2-9069-564ff03ef8f9" />
-            </Interface>
           </packageHasNamedElement>
           <packageHasNamedElement>
             <class Id="5c4ad86d-0e16-40b8-83bb-55abd03bbb86" name="VideoWriter" isAbstract="false" isLeaf="false" isActiveClass="false">
@@ -1905,24 +1860,6 @@ Arbeiten auf RGB - oder yuv?</body>
     <packageHasNamedElement>
       <Interface Id="e3521520-3473-4d91-90f8-bd845bdb6425" name="IPlugin" isAbstract="false" isLeaf="false">
         <elementDefinition Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b" />
-        <targetEnds>
-          <association Id="b7edbf03-aeb1-4b56-bcf5-5d2f003756ca" isDerived="false" sourceEndRoleName="IPlugin" targetEndRoleName="Caretaker" isLeaf="false" isAbstract="false">
-            <classMoniker Id="b735b1cb-bee7-43da-9dc2-b2fe01174979" LastKnownName="Caretaker" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="7911f6ef-163b-412a-946e-9d0ac9c59e12" name="IPlugin" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="33ba7b51-084e-4784-a49b-f733814545ed" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="5a204228-c98a-4265-85fa-0455396f2d4b" name="Caretaker" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="7dd65b86-889e-429c-b69b-573f914a4289" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="01e89a67-5db6-4728-a724-5d4799906ac5" />
-          </association>
-        </targetEnds>
         <ownedAttributes>
           <property Id="766f9acb-f2f7-45c9-98ea-ca21087f4218" name="name" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="cc6d2652-6406-4c6c-bb82-3bd8c190910a" />
@@ -1944,29 +1881,6 @@ Arbeiten auf RGB - oder yuv?</body>
                   <type_NamedElement>
                     <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
                   </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="02d5d69b-889d-4e92-8992-9ea8e7aab8c2" name="getMemento" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="896e883d-ab78-4c1a-9ef8-f2b66ed09421" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="9ab55bdc-f4d8-469d-afea-9df93c0c5913" direction="Return" isUnique="false">
-                  <elementDefinition Id="d55417b2-9555-41e5-a76d-4471470c9766" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="e09c4135-0c89-4aeb-8f2f-20c92e6a8faf" LastKnownName="Memento" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="4c42d1bf-b0fd-49d9-ac33-e0268f19e132" name="setMemento" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="378b8fbf-4093-49cc-9f3d-6066c067d043" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="e0d081e6-00d5-4a85-a55b-d59caa08f609" name="Memento memento" direction="In" isUnique="false">
-                  <elementDefinition Id="e08be42b-cbb3-4be6-af6e-48145233ac78" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
@@ -2018,6 +1932,22 @@ Arbeiten auf RGB - oder yuv?</body>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
             <elementDefinition Id="7708bba9-afb1-47f7-b2d8-ae67cba91b0f" />
+          </association>
+          <association Id="57b5a08a-d445-477e-95bf-708d57feca20" isDerived="false" sourceEndRoleName="PluginManager" targetEndRoleName="Caretaker" isLeaf="false" isAbstract="false">
+            <classMoniker Id="b735b1cb-bee7-43da-9dc2-b2fe01174979" LastKnownName="Caretaker" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="53a43832-bdd8-48f7-aa94-3bad3c446f36" name="PluginManager" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="21cb4033-461e-4aeb-ac31-b58d505a3974" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="05153c5e-6e25-4731-ac0f-350b165c0ca8" name="Caretaker" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="a82a3849-911a-4785-b55f-4a742c2f8a9e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="259933ad-3135-4496-9b6a-eef82e232d4c" />
           </association>
         </targetEnds>
         <ownedAttributesInternal>
@@ -2112,11 +2042,6 @@ Arbeiten auf RGB - oder yuv?</body>
         <elementDefinition Id="b3924bdf-c590-44e4-86c9-5791005131f6" />
       </referencedType>
     </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="34f91362-8b5a-46b7-b00b-da38dc148315" name="Memento" isAbstract="false" isLeaf="false" cachedFullName="Memento">
-        <elementDefinition Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac" />
-      </referencedType>
-    </packageHasNamedElement>
     <logicalClassDesignerModelHasTypes>
       <class Id="d358ed11-4779-460a-aacf-58a4d03a1920" name="PF_Macro" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="050bf430-8d69-43f2-909a-3953180c9937" />
@@ -2165,35 +2090,25 @@ Arbeiten auf RGB - oder yuv?</body>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="c1d14128-6fb3-4b4d-8059-bcf6b45a5be2" name="createMacro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="99ed9b86-5765-4ea7-99a7-470d298954ae" />
+          <operation Id="55cc9591-4ce1-40da-a18b-65c4c8d34449" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="be1fe111-0e03-44d4-9195-03f813a40ace" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="25abbfa3-fda0-43e3-bd39-12ce8c9fed98" name="Memento[] memento" direction="In" isUnique="false">
-                  <elementDefinition Id="e16b7f62-2a64-4f52-b31c-b062136d3e98" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="9506aa1f-d739-498b-beb1-749fe3fd7ef9" name="getMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="ddbe7d2a-bca5-437b-9ea3-77e7033099b9" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="70d091cf-f7db-483f-ac6d-0f891e7d44c6" direction="Return" isUnique="false">
-                  <elementDefinition Id="75d77ac5-6cb2-4cf8-a154-f739a13dd2b4" />
+                <parameter Id="a9b5cbb1-77dc-4e95-9cfb-ccec04e71413" direction="Return" isUnique="false">
+                  <elementDefinition Id="6afa92b6-4ff4-47e6-b796-67cc62005d1f" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="34f91362-8b5a-46b7-b00b-da38dc148315" LastKnownName="Memento" />
+                    <referencedTypeMoniker Id="3d2ed92b-9c0d-4c14-ae47-9166a0c37276" LastKnownName="memento" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="7083364e-0062-4707-8cc0-08dbcbcb2325" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="c98452cb-c131-4a36-9230-bb8656ae80f6" />
+          <operation Id="c20a9763-a9c0-4fa2-aa94-d16a204004eb" name="setMemento" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="0f6c6630-f21e-49b8-8335-6492183af0d3" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="6a00afe6-0e81-430f-8434-72986af4770c" name="Memento memento" direction="In" isUnique="false">
-                  <elementDefinition Id="5d6cd2a9-6e35-4d9b-9740-a8dab70c508a" />
+                <parameter Id="3795d227-8e37-4cd9-b012-c52ce15c355b" name="Memento memento" direction="In" isUnique="false">
+                  <elementDefinition Id="42435ecd-dc78-4740-bfd0-1e5a2ac98323" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
@@ -2201,6 +2116,57 @@ Arbeiten auf RGB - oder yuv?</body>
         </ownedOperationsInternal>
       </class>
     </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="c428c257-de66-4ac1-a5e9-f34d9886c147" name="IMemorizable" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="864be040-edb7-4e72-b405-40fed8516434" />
+        <ownedOperations>
+          <operation Id="7846eaeb-12f3-4c6d-b183-8d3ee4845931" name="getMemento" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="49784c1f-c7a9-44fc-aebf-621f521ea392" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="6bc4ccfa-df9b-49f2-909a-110f92828c2c" direction="Return" isUnique="false">
+                  <elementDefinition Id="d24d4abe-9d0f-4d9c-90eb-b29b31107fd9" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="3d2ed92b-9c0d-4c14-ae47-9166a0c37276" LastKnownName="memento" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="07a10c5f-837a-4409-b4c3-5b69fffccd99" name="setMemento" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="f9121059-9798-462e-872a-9032e0295491" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="da3d9d3d-3b6c-4e86-95c0-a1c549fdc181" name="Memento memento" direction="In" isUnique="false">
+                  <elementDefinition Id="f5499717-237b-494d-972f-59809e00135b" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="3d2ed92b-9c0d-4c14-ae47-9166a0c37276" name="memento" isAbstract="false" isLeaf="false" cachedFullName="memento">
+        <elementDefinition Id="46a8353f-56fd-41e8-95a4-0fe8c578675f" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="32ef9c27-2b7e-4b6e-ab19-1207564a4fe9" name="IPresentation" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="7db69199-6379-4a43-9294-060c6de31642" />
+        <generalsInternal>
+          <generalization Id="613936ec-c83e-408d-903a-9b738c7857f7" isSubstitutable="false">
+            <interfaceMoniker Id="e3521520-3473-4d91-90f8-bd845bdb6425" LastKnownName="IPlugin" />
+            <elementDefinition Id="db6972bc-e8bc-47fc-a6ca-2c13c921bb45" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <Interface Id="db5d5b93-e21b-4279-af00-18a70a0363f8" name="IVideoSource (Aforge)" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="8028688e-c9dc-41d2-9069-564ff03ef8f9" />
+      </Interface>
+    </packageHasNamedElement>
   </packagedElements>
   <package Id="111c9f5b-9d27-4ac1-a666-70e16e6552a4" name="Entwurf">
     <elementDefinition Id="46634d97-dc6c-4362-9484-7c7ecb77101f" />
