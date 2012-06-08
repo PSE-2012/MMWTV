@@ -50,6 +50,15 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="b5e078f7-a913-48e4-a0df-fd12b7ae1f72">
+            <interfaceMoniker
+              Id="7db69199-6379-4a43-9294-060c6de31642"
+              LastKnownName="IPresentation"
+              LastKnownLocation="Entwurf.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
         <targetEnds>
           <association
             Id="5ce900d8-f285-4062-8c32-bb4d4e822f24"
@@ -153,6 +162,40 @@
             aggregation="None"
             isComposite="false" />
         </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="c292c1d1-94e8-49a6-baa5-b86d432ce02f"
+            name="getOptionsView"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="81802748-4bbd-4f52-b59f-d73fcc03f4af"
+            name="getProgress"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ae5cd544-4fb7-4bf3-a9ca-1bf4695b78f9"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4"
+                      LastKnownName="int"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>

@@ -1068,6 +1068,12 @@ Arbeiten auf RGB - oder yuv?</body>
           <packageHasNamedElement>
             <class Id="18decd08-48a2-4fdd-b56a-1bbb42e071b3" name="Project" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="5671e4d3-210a-4b44-bc75-5e6c72af03c0" />
+              <suppliersInternal>
+                <interfaceRealization Id="83ec2df4-6ed4-4f08-b2a3-b0b7e0632b84">
+                  <interfaceMoniker Id="32ef9c27-2b7e-4b6e-ab19-1207564a4fe9" LastKnownName="IPresentation" />
+                  <elementDefinition Id="b5e078f7-a913-48e4-a0df-fd12b7ae1f72" />
+                </interfaceRealization>
+              </suppliersInternal>
               <targetEnds>
                 <association Id="c22d7ec7-a187-48a0-8970-ca4e97cb4492" isDerived="false" sourceEndRoleName="Project" targetEndRoleName="Resources" isLeaf="false" isAbstract="false">
                   <classMoniker Id="8d7f9c60-8203-4c5e-9a40-e1cd74ee5d5b" LastKnownName="SmartNode" />
@@ -1106,6 +1112,24 @@ Arbeiten auf RGB - oder yuv?</body>
                   <elementDefinition Id="aaea6183-346a-4283-a5bd-c1f16fbbd02a" />
                 </property>
               </ownedAttributesInternal>
+              <ownedOperationsInternal>
+                <operation Id="51ef1391-feb7-42cf-8dc4-0d3b1f46072e" name="getOptionsView" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="c292c1d1-94e8-49a6-baa5-b86d432ce02f" />
+                </operation>
+                <operation Id="edce727d-2750-4381-9681-df5e10333633" name="getProgress" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="81802748-4bbd-4f52-b59f-d73fcc03f4af" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="ed346d0f-101f-4007-9895-3b73a42e2132" direction="Return" isUnique="false">
+                        <elementDefinition Id="ae5cd544-4fb7-4bf3-a9ca-1bf4695b78f9" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="ae496bb8-8f3d-45c2-8896-cc468756cd82" LastKnownName="int" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+              </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
