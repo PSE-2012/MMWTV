@@ -1,0 +1,630 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="650446ff-c005-44cb-90f0-dae57d36bfd7"
+  name="ObjectModel"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="3a243853-8b5c-4586-a1b8-1b936c4f4561"
+      handle="viewcode://./CodeSchema_Namespace?Namespace=System.Collections.ObjectModel"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="1da2071e-8658-4966-87df-ff722c35de65"
+        name="Collection"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="9556fd3a-df9d-4c4a-9678-941b7fca5e14"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1)"
+            tag="ViewCode" />
+        </referencesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="47d6b9c0-0380-46c9-a918-9b22650318e2">
+            <interfaceMoniker
+              Id="4aaac4fd-37e7-4bfa-8aa2-fbbdd5883093"
+              LastKnownName="ICollection"
+              LastKnownLocation="Package_0922.uml" />
+          </interfaceRealization>
+          <interfaceRealization
+            Id="9def9651-38ef-4592-b607-88dc688dfebf">
+            <interfaceMoniker
+              Id="a3695749-5334-464b-8bfc-dc6b4b93f735"
+              LastKnownName="IEnumerable"
+              LastKnownLocation="Package_0922.uml" />
+          </interfaceRealization>
+          <interfaceRealization
+            Id="21f2551a-7c32-4c6b-bf31-7deed3c47000">
+            <interfaceMoniker
+              Id="6fea8ac1-d5a7-47c2-8d39-7125e5563d1b"
+              LastKnownName="IList"
+              LastKnownLocation="Package_0922.uml" />
+          </interfaceRealization>
+          <interfaceRealization
+            Id="f8202e1c-f7d7-4926-ac5e-16f4b5233d2c">
+            <interfaceMoniker
+              Id="e258b5a3-784d-4b95-bd03-3b01ef384f72"
+              LastKnownName="ICollection"
+              LastKnownLocation="Package1_0922.uml" />
+          </interfaceRealization>
+          <interfaceRealization
+            Id="7c49242f-d2e9-4f29-930a-9ef280c927aa">
+            <interfaceMoniker
+              Id="ec7561e8-f6f0-456a-a31b-374e919a5501"
+              LastKnownName="IEnumerable"
+              LastKnownLocation="Package1_0922.uml" />
+          </interfaceRealization>
+          <interfaceRealization
+            Id="daebb89f-7354-488d-a3b5-e77ad82213a1">
+            <interfaceMoniker
+              Id="49bfc6b1-15cb-47c3-ae91-71a1103e430f"
+              LastKnownName="IList"
+              LastKnownLocation="Package1_0922.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedRedefinableTemplateSignatureInternal>
+          <redefinableTemplateSignature
+            Id="c386921f-43f6-4a74-9167-8ffdd09f8149"
+            parameters=""
+            name="RedefinableTemplateSignature1"
+            isLeaf="false">
+            <ownedParameters>
+              <classifierTemplateParameter
+                Id="ebdd8b1b-49a9-4602-87cc-f5e37c1bc12a">
+                <referencesInternal>
+                  <reference
+                    Id="ce644476-6586-4f8a-9663-747ffaaec96f"
+                    handle="viewcode://./CodeSchema_GenericParameter?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) ParameterIdentifier=T"
+                    tag="ViewCode" />
+                </referencesInternal>
+                <ownedParameterableElement>
+                  <class
+                    Id="9f29a67d-b7e3-4ba1-b19a-3d5c539d4ee9"
+                    name="T"
+                    isAbstract="false"
+                    isLeaf="false"
+                    isActiveClass="false" />
+                </ownedParameterableElement>
+              </classifierTemplateParameter>
+            </ownedParameters>
+          </redefinableTemplateSignature>
+        </ownedRedefinableTemplateSignatureInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="fc899005-d2ac-4037-91fb-7b68a17db78f"
+            name="Count"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="31090e0f-e723-41fc-bd69-6a9c097a3589"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=Count"
+                tag="ViewCode" />
+            </referencesInternal>
+          </property>
+          <property
+            Id="1c1024a3-b62c-475f-95a9-747fa1db9262"
+            name="Item"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="bf85bc2b-c099-4a0e-b2c4-9344f859c48a"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=Item"
+                tag="ViewCode" />
+            </referencesInternal>
+          </property>
+          <property
+            Id="613dfd36-546b-47a7-84a7-121dd06880a8"
+            name="Items"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="8cdb19cb-63b6-48f4-8903-2e722dd916a8"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=Items"
+                tag="ViewCode" />
+            </referencesInternal>
+          </property>
+          <property
+            Id="601537b0-bc26-4e35-aa06-08dcf913916a"
+            name="System.Collections.Generic.ICollection&lt;T&gt;.IsReadOnly"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="1fd55026-3564-4eca-8863-efbf3c488160"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=System.Collections.Generic.ICollection&lt;T&gt;.IsReadOnly"
+                tag="ViewCode" />
+            </referencesInternal>
+          </property>
+          <property
+            Id="136d7b11-d854-4175-8767-9a64cb25cb8d"
+            name="System.Collections.ICollection.IsSynchronized"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="fdd1d96f-8d76-4981-b828-cd2b52a64973"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=System.Collections.ICollection.IsSynchronized"
+                tag="ViewCode" />
+            </referencesInternal>
+          </property>
+          <property
+            Id="026acd58-386e-47b4-95b5-9c220621168e"
+            name="System.Collections.ICollection.SyncRoot"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="90a7cdfa-a4f9-44d3-ae93-9e4834842830"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=System.Collections.ICollection.SyncRoot"
+                tag="ViewCode" />
+            </referencesInternal>
+          </property>
+          <property
+            Id="2b6e348d-3574-49b7-93b0-a6e7c42c24ad"
+            name="System.Collections.IList.IsFixedSize"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="043adc6d-0cae-4b0a-be03-e4fd0b8c5500"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=System.Collections.IList.IsFixedSize"
+                tag="ViewCode" />
+            </referencesInternal>
+          </property>
+          <property
+            Id="ef4384d1-7260-42c4-b3f2-84cbd109703a"
+            name="System.Collections.IList.IsReadOnly"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="73b28587-5961-49b0-b4cc-00e16baa94d2"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=System.Collections.IList.IsReadOnly"
+                tag="ViewCode" />
+            </referencesInternal>
+          </property>
+          <property
+            Id="4d5146e8-304c-4db5-addf-5dce41640de6"
+            name="System.Collections.IList.Item"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="9f5393ab-a62f-4081-a14e-95dd17aa01cb"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=System.Collections.IList.Item"
+                tag="ViewCode" />
+            </referencesInternal>
+          </property>
+          <property
+            Id="3d10b5be-fb7f-44bb-99af-fb73c673fdc5"
+            name="_syncRoot"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="e07fdabf-7609-4221-8364-2f232cf86855"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=_syncRoot"
+                tag="ViewCode" />
+            </referencesInternal>
+          </property>
+          <property
+            Id="17c9ea17-e76f-41c3-9444-7a5d99fde7d9"
+            name="items"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="9fbbf55e-5c93-4992-a617-83d914c85cb4"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=items"
+                tag="ViewCode" />
+            </referencesInternal>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="bb1c4e96-62d5-46ad-96f0-14115394bdde"
+            name="Add"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="620af7b2-75e2-492a-8b46-050b471bd3f6"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=T)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="5720d2bc-267b-465d-957a-2a1819fcf37a"
+            name="Contains"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="3bf8c28a-c316-4295-8ba7-090af78d9153"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=Contains OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=T)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="5508e1f9-9dd0-4d93-8112-31609fd996ec"
+            name="CopyTo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="4d404a6e-7582-4768-9e43-51cb3ae88db0"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=CopyTo OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=T ArrayRank=1 ParentType=T)),(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Int32)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="ad486e5b-35e1-4543-b3e9-6c8fb25c4cbb"
+            name="IndexOf"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="a08fd210-371c-43d9-8c6f-bfd797830999"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=IndexOf OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=T)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="df37eda6-7258-4513-baa8-4c75bac6643f"
+            name="Insert"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="6beedffd-0fa3-4dd1-81b3-2bd39962a807"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=Insert OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Int32),(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=T)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="c1772572-721e-4022-ab67-5b4328365c97"
+            name="InsertItem"
+            visibility="Protected"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="b3ddda9c-8a2d-4aa2-8e06-6a3e8fcea4a1"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=InsertItem OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Int32),(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=T)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="c2084833-7d9e-449f-8e58-36850a156273"
+            name="IsCompatibleObject"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="b307962d-c3c1-4f9b-b879-ff0c48c49c1a"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=IsCompatibleObject OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Object)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="e65b9e1e-fc95-46e3-aef4-986cd1dff6fb"
+            name="Remove"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="2c77cfa7-8a8b-4f69-90af-24642755652f"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=Remove OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=T)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="3faffeb3-09c7-44bc-9856-1d90aaaaee22"
+            name="RemoveAt"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="60ef2842-cd00-4394-95d0-44fc19971d64"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=RemoveAt OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Int32)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="01a0a3d7-a3b7-4cff-8b69-b7b1f905b3dc"
+            name="RemoveItem"
+            visibility="Protected"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="5b062be1-f392-45ac-aed6-1302122553c1"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=RemoveItem OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Int32)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="5cce6e84-c773-41f4-9c50-7d370de6d883"
+            name="SetItem"
+            visibility="Protected"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="696c9e49-d864-427c-8180-f0a1f4677591"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=SetItem OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Int32),(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=T)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="901c14ed-2495-4be6-9a1a-5891e44a65b3"
+            name="System.Collections.ICollection.CopyTo"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="108bee1f-c43b-41cf-9a11-de581213293e"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=System.Collections.ICollection.CopyTo OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Array),(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Int32)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="6ca20b5a-79af-4911-a0fa-c0076dd8fce1"
+            name="System.Collections.IList.Add"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="71166c0e-609a-4c83-9f29-6c86dd3ecca6"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=System.Collections.IList.Add OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Object)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="2641e083-8009-4a46-b021-5585d75591ab"
+            name="System.Collections.IList.Contains"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="83474b1f-35c6-4aa2-92f5-ab502030460d"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=System.Collections.IList.Contains OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Object)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="815bbdb2-97d2-4771-ab5a-b4702a5d3d08"
+            name="System.Collections.IList.IndexOf"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="11edd3dc-48c6-4983-a9ff-3c271603cbf6"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=System.Collections.IList.IndexOf OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Object)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="e0d7c9ba-718c-471a-ae23-a774acee6c5b"
+            name="System.Collections.IList.Insert"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="758271ec-932c-4fda-8ecf-e27eb565faa5"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=System.Collections.IList.Insert OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Int32),(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Object)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="47f53125-73f3-4152-81f6-f2c46dfafa7f"
+            name="System.Collections.IList.Remove"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="eb573680-6b45-4591-8ddb-3b9c5cc8321d"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=(Name=System.Collections.IList.Remove OverloadingParameters=[(Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System Type=Object)])"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="ba732144-398a-4a5c-aae7-8c98f25ae709"
+            name="Clear"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="59968e85-4216-4b27-93e9-88aed9952f72"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=Clear"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="3d62c228-a78f-4412-81ac-a72148964f32"
+            name="ClearItems"
+            visibility="Protected"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="0a782790-82fb-4252-8974-670b24d060ee"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=ClearItems"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="d3351cf5-4b4a-4db2-887e-0d93646a1ee7"
+            name="GetEnumerator"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="b11b8907-82c5-4a8a-8813-316412d33d04"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=GetEnumerator"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+          <operation
+            Id="c9e33af2-06cb-46a2-be72-a64037dfa2b9"
+            name="System.Collections.IEnumerable.GetEnumerator"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="53db3c91-d7a9-4652-986f-401c0eeb6b27"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///C:/WINDOWS/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll Namespace=System.Collections.ObjectModel Type=(Name=Collection GenericParameterCount=1) Member=System.Collections.IEnumerable.GetEnumerator"
+                tag="ViewCode" />
+            </referencesInternal>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>
