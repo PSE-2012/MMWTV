@@ -1,6 +1,8 @@
 ﻿<Window x:Class="oqat.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wfi="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+        xmlns:aforge="clr-namespace:AForge.Controls;assembly=AForge.Controls"   
         Title="Objective Quality Assessment Toolkit" Height="768" Width="1024">
         <!--Background="dimgray"-->
    
@@ -22,7 +24,7 @@
 
         <ToolBar DockPanel.Dock="Top" Height="40">
                 <Button>
-                    <Image Source="Resources\Images\fileOpen.png"/>
+                    <Image Source="Resources\Images\fileOpen.png" />
                 </Button>
                 <Separator />
                 <Button>
@@ -66,17 +68,7 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <TreeView Name="treeView3" Grid.RowSpan="4">
-                    <TreeViewItem Header="Faltungsfilter">
-                        <TreeViewItem Header="weichzeichner" />
-                        <TreeViewItem Header="scharfzeichner" />
-                        <TreeViewItem Header="Sobel-Filter" />
-                    </TreeViewItem>
-                    <TreeViewItem Header="Rauschgenerator">
-                        <TreeViewItem Header="Chrominanzrauschen" />
-                        <TreeViewItem Header="Luminanzrauschen"/>
-                        </TreeViewItem>
-                </TreeView>
+                    <TreeView Name="treeView3" Grid.RowSpan="4"></TreeView>
                 <WrapPanel Grid.Row="4" Orientation="Vertical">
                         <Label Margin="4,0,0,0">
                             Name:
@@ -84,7 +76,7 @@
                         <TextBox Margin="4,0,0,0">
                             foreman_blurr
                         </TextBox>
-                        <Button VerticalAlignment="Bottom">
+                        <Button VerticalAlignment="Bottom" Click="Button_Click_1">
                             Anwenden
                         </Button>
                     </WrapPanel>
@@ -99,18 +91,8 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <TreeView Name="treeView4" Grid.RowSpan="4">
-                        <TreeViewItem Header="MSE"/>
-                        <TreeViewItem Header="SNR"/>
-                        <TreeViewItem Header="PSNR"/>
-                    </TreeView>
+                    <TreeView Name="treeView4" Grid.RowSpan="4"></TreeView>
                     <WrapPanel Grid.Row="4" Orientation="Vertical">
-                        <Label Margin="4,0,0,0">
-                            Name:
-                        </Label>
-                        <TextBox Margin="4,0,0,0">
-                            h264_foreman_blur_analysis
-                        </TextBox>
                         <Button VerticalAlignment="Bottom">
                             Anwenden
                         </Button>
@@ -118,7 +100,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <TabControl DockPanel.Dock="Left" TabStripPlacement="Top" Margin="10,10,5,5">
+        <TabControl x:Name="ProjectExplorer" DockPanel.Dock="Left" TabStripPlacement="Top" Margin="10,10,5,5">
                 <TabItem Header="SmartTree" Height="30" >
                 <Grid>
                     <Grid.RowDefinitions>
@@ -128,47 +110,12 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <TreeView Name="treeView1" Grid.RowSpan="4">
-                    <TreeViewItem Header="foremen.yuv">
-                        <TreeViewItem Header="foremanRauschenWeich.yuv">
-                            <TreeViewItem Header="foremanRauschenWeichEncoded.yuv" />
-                        </TreeViewItem>
-                        <!--<TreeViewItem Header="sharpen">
-                            <TreeViewItem Header="posterize">
-                                <TreeViewItem Header="Processed"/>
-                            </TreeViewItem>
-                        </TreeViewItem>-->
-                    </TreeViewItem>
-                </TreeView>
-                    <WrapPanel Grid.Row="4" Orientation="Vertical">
-                    <Label VerticalAlignment="Top">
-                        Name = foreman.yuv
-                    </Label>
-                        <Label VerticalAlignment="Top">
-                            Size = 312 MB
-                        </Label>
-                        <Label VerticalAlignment="Top">
-                            Resolution = 640 x 480
-                        </Label>
-                    </WrapPanel>
+                    <TreeView Name="treeView1" Grid.RowSpan="4"></TreeView>
+                    <WrapPanel Grid.Row="4" Orientation="Vertical"></WrapPanel>
                 </Grid>
             </TabItem>
                 <TabItem Header="Dateiexplorer">
-                    <TreeView Name="treeView2">
-                        <TreeViewItem Header="Asien">
-                            <TreeViewItem Header="China" />
-                            <TreeViewItem Header="Vietnam" />
-                            <TreeViewItem Header="Philippinen" />
-                        </TreeViewItem>
-                        <TreeViewItem Header="Europa">
-                            <TreeViewItem Header="Deutschland">
-                                <TreeViewItem Header="NRW" />
-                                <TreeViewItem Header="Hessen" />
-                            </TreeViewItem>
-                            <TreeViewItem Header="Italien" />
-                            <TreeViewItem Header="Österreich" />
-                        </TreeViewItem>
-                    </TreeView>
+                    <TreeView Name="treeView2"></TreeView>
                 </TabItem>
             </TabControl>
         <!--<TabControl DockPanel.Dock="Bottom" Height="130" Margin="5">
@@ -198,24 +145,19 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    
-                    <Image Grid.Column="0" Grid.ColumnSpan="6" 
-                           Grid.Row="0" Grid.RowSpan="5" Source="Resources\foreman_analysis_controls.gif" Margin="10" HorizontalAlignment="Left"/>
-                    <WrapPanel Grid.Row="5" Grid.ColumnSpan="5" Orientation="Vertical">
-                        <Label>
-                            Interpretation:
-                        </Label>
-                        <TextBlock>
-                            Hier kann der Benutzer seine Interpretation der Analyseergebnisse
-                            <LineBreak/>
-                            hinschreiben. Diese Informatin wird dann im Projekt aufbewahrt <LineBreak/>
-                            und der Nutzer kann später darauf zurückgreifen
-                        </TextBlock>
-                    
-                        <WrapPanel>
-                            <Button Width="100" Margin="0,0,150,0">Daten speichern</Button>
-                            <Button Width="100" >Daten verwerfen</Button>
-                        </WrapPanel>
+                    <wfi:WindowsFormsHost Grid.RowSpan="5" Grid.ColumnSpan="5">
+                        <aforge:VideoSourcePlayer x:Name="sourcePlayer" AutoSizeControl="True" BackColor="ControlDarkDark"
+                                                  ForeColor="White" ></aforge:VideoSourcePlayer>
+                    </wfi:WindowsFormsHost>
+                     <WrapPanel Grid.Row="5" Grid.ColumnSpan="5" Orientation="Vertical">
+                        <!--<ListView x:Name="DropList"
+                                  PreviewMouseLeftButtonDown="List_PreviewMouseLeftButtonDown"
+                                  PreviewMouseMove="List_MouseMove"
+                                  Drop="DropList_Drop"
+                                  DragEnter="DropList_DragEnter"
+                                  AllowDrop="True"/>-->
+
+                        <Button Width="100" Click="Button_Click">Daten verwerfen</Button>
                     </WrapPanel>
                 </Grid>
             </TabItem>

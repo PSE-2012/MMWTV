@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+  dslVersion="1.0.0.0"
+  Id="b2fb903a-68ad-4ad8-aa6b-a1f66477caed"
+  name="PSNR" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="9465ad83-550c-4f71-9c01-cc72e1fbc0d0"
+        name="PM_PSNR"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="5a4c010a-76b6-4682-b4d8-f4f86710a0d8"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="abc2a464-4fc7-4147-a407-75414d1a2e10">
+                <propertyInstance
+                  Id="28a6a17c-08a0-4fb1-9036-b09da732c125"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="1238e918-70b3-4e80-81bc-1006e9ccad10">
+                <propertyInstance
+                  Id="4e81ee1a-6150-44c2-be4b-08ef63f76cd5"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b9cc7019-b330-4e69-9cc8-99fe256609d7">
+                <propertyInstance
+                  Id="77ae9ce8-1360-4b31-bd24-6b1af5897e8f"
+                  name="IsStatic"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3c528600-7a1f-439e-bb82-806ce2a670ac">
+                <propertyInstance
+                  Id="5294472b-ff70-4b3e-ae99-df952d8bcae2"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9ee32d6d-ecec-4260-a727-ea0bdbd94484">
+                <propertyInstance
+                  Id="34b78b6f-b6ee-40fc-b47c-65651d43b6de"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="6aafb8fe-30d3-4093-899e-fb1165924ed8">
+            <interfaceMoniker
+              Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
+              LastKnownName="IPlugin"
+              LastKnownLocation="Package_1716.uml" />
+          </interfaceRealization>
+          <interfaceRealization
+            Id="4082f9bf-cfee-4d5d-9fd8-cac56f00cabf">
+            <interfaceMoniker
+              Id="0773b2ac-82ae-494d-9544-831b930a24af"
+              LastKnownName="IMetric"
+              LastKnownLocation="Package_1726.uml" />
+          </interfaceRealization>
+          <interfaceRealization
+            Id="67131773-9a61-4b1f-bfaf-1ce5c014beb6">
+            <interfaceMoniker
+              Id="fb1430de-28e1-48fc-8471-2a1efda4734c"
+              LastKnownName="IMetricOqat"
+              LastKnownLocation="Package_0504.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="d3f1ad43-e96f-4598-a154-f2aecd5e0b85"
+            name="analyse"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b7f9e2ea-0fc6-49bf-8bf6-8ca6e2162fd0"
+                  name="Bitmap frame"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4adf8adf-cc88-43ce-9bae-372b38d0d874"
+                  name="Bitmap frame"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4d8d7520-7982-4981-b1d9-0c539435201e"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="ef321348-7c36-40b8-aaa1-f6ae3a1eede5"
+                      LastKnownName="Bitmap"
+                      LastKnownLocation="Entwurf.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="046a01a5-ee18-4795-92e9-4a7722c96a43"
+            name="setPropertiesParentControll"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="75445f87-26dd-4a2c-84de-b50edcb1422e"
+                  name="Control parent"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="31257d1a-9b34-4d24-bd1c-f8c0f5f72da1"
+            name="getMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f00a2d29-e101-4c3a-b2fa-6e13fdd76757"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac"
+                      LastKnownName="Memento"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="c4d91f77-e42c-474c-b4bc-fbbbaa5bbf19"
+            name="setMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2c4296f4-ddd2-484b-85dd-039f92124892"
+                  name="Memento memento"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="ce1fbead-cc15-4da1-a0f0-0f4a63eb9f43"
+        name="VM_Properties_PSNR"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

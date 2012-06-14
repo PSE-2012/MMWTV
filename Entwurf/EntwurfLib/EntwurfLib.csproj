@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FF240639-6B6F-463B-B620-95DDBACFA742}</ProjectGuid>
+    <ProjectGuid>{8FFDCEE2-3610-4E8B-8E68-F8E27D290C32}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EntwurfLib</RootNamespace>
@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge.Imaging, Version=2.2.4.0, Culture=neutral, PublicKeyToken=ba8ddea9676ca48b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\AForge.NET\Framework\Release\AForge.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video, Version=2.2.4.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\AForge.NET\Framework\Release\AForge.Video.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,8 +48,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneratedCode\IMemorizable.cs" />
+    <Compile Include="GeneratedCode\IPresentation.cs" />
+    <Compile Include="GeneratedCode\IVideoWriter.cs" />
+    <Compile Include="GeneratedCode\Model\Analysis.cs" />
+    <Compile Include="GeneratedCode\Model\IVideoInfo.cs" />
+    <Compile Include="GeneratedCode\Model\Memento.cs" />
+    <Compile Include="GeneratedCode\Model\Project.cs" />
     <Compile Include="GeneratedCode\Model\SmartNode.cs" />
+    <Compile Include="GeneratedCode\Model\Video.cs" />
+    <Compile Include="GeneratedCode\PF_Macro.cs" />
+    <Compile Include="GeneratedCode\PluginManager.cs" />
+    <Compile Include="GeneratedCode\Plugins\Filter\IFilterOqat.cs" />
+    <Compile Include="GeneratedCode\Plugins\Filter\PF_Color.cs" />
+    <Compile Include="GeneratedCode\Plugins\Filter\PF_Convolution.cs" />
+    <Compile Include="GeneratedCode\Plugins\Filter\PF_NoiseGen.cs" />
+    <Compile Include="GeneratedCode\Plugins\IPlugin.cs" />
+    <Compile Include="GeneratedCode\Plugins\Metric\IMetric.cs" />
+    <Compile Include="GeneratedCode\Plugins\Metric\PM_MSE.cs" />
+    <Compile Include="GeneratedCode\Plugins\Metric\PM_PSNR.cs" />
+    <Compile Include="GeneratedCode\Plugins\Metric\PM_SNR.cs" />
+    <Compile Include="GeneratedCode\Plugins\Metric\PM_SSIM.cs" />
+    <Compile Include="GeneratedCode\Plugins\Presentation\PP_Statistics.cs" />
+    <Compile Include="GeneratedCode\Plugins\Presentation\PP_VideoSourcePlayer.cs" />
+    <Compile Include="GeneratedCode\Plugins\Presentation\VM_Presentation.cs" />
+    <Compile Include="GeneratedCode\VideoWriterYUV.cs" />
+    <Compile Include="GeneratedCode\ViewModel\App.cs" />
+    <Compile Include="GeneratedCode\ViewModel\FilterList.cs" />
+    <Compile Include="GeneratedCode\ViewModel\MainWindow.cs" />
+    <Compile Include="GeneratedCode\ViewModel\OptionsDialog.cs" />
+    <Compile Include="GeneratedCode\ViewModel\SmartTree.cs" />
+    <Compile Include="GeneratedCode\ViewModel\VM_MacroFilter.cs" />
+    <Compile Include="GeneratedCode\View\MainWindow.cs" />
+    <Compile Include="GeneratedCode\YUVVideoSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram3.cd" />
+    <None Include="ClassDiagram4.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

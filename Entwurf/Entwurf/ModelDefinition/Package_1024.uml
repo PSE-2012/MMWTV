@@ -1,0 +1,991 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+  dslVersion="1.0.0.0"
+  Id="e88e6faa-feab-4a49-9167-7cd5e153ae7c"
+  name="Video"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="dac29335-0fea-4879-b474-29dc46177a05"
+      handle="viewcode://./CodeSchema_Namespace?Namespace=AForge.Video"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="6dabf346-0863-448d-bb8e-75193dbde50d"
+        name="NewFrameEventHandler"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="39ed2567-5562-48ee-9645-204abce53029"
+            handle="viewcode://./CodeSchema_Delegate?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=NewFrameEventHandler"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="bed3b0d4-ca6a-41b8-a9c4-10eb48c98bbd"
+            name="delegate"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e5f92964-a468-48c7-88d4-ad5df6468173">
+                <propertyInstance
+                  Id="bd1f951d-6cac-47d2-9884-e280bd7ecdc3"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9a74490b-4b03-4d01-a6ea-ad416618930e">
+                <propertyInstance
+                  Id="6b2b670f-5096-4998-9ec4-25219a15c313"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9c953fbd-e0ae-45d8-97ca-4bceda8ab89a">
+                <propertyInstance
+                  Id="55a02c12-850d-481a-9ccb-c55d84eed1c7"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="6a086913-a391-4c29-9dbd-b79bacf26874"
+        name="PlayingFinishedEventHandler"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="4355e795-9290-45fd-8121-398991d7834f"
+            handle="viewcode://./CodeSchema_Delegate?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=PlayingFinishedEventHandler"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="2f881da2-77e7-4949-b7db-146ca0a64b11"
+            name="delegate"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="281858e5-7528-44e4-bc3e-199258b6d0ad">
+                <propertyInstance
+                  Id="a8038d70-052f-4708-8eb7-1f78252bd69e"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="252b30c8-171c-4d88-8509-27f2fc789038">
+                <propertyInstance
+                  Id="505719f7-64e6-459f-b0ab-7eaf3f74344c"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="89ce225e-e320-40cb-849a-bf51740a43fe">
+                <propertyInstance
+                  Id="6efd5e0a-5b9e-4b9d-87dd-c9af6d43e071"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="546b43b2-8aea-4e28-979f-932dd80c456b"
+        name="VideoSourceErrorEventHandler"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="b12d2088-a299-45db-a612-2cd81588c8f4"
+            handle="viewcode://./CodeSchema_Delegate?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=VideoSourceErrorEventHandler"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="be420c91-6bda-47ee-b930-84bccda061d7"
+            name="delegate"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5e40c516-f437-45d0-875c-ad7fdba1830d">
+                <propertyInstance
+                  Id="a0a8a292-842c-43ac-ad55-40529a480934"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="00904850-610c-437e-8d37-5c46ed5acbb8">
+                <propertyInstance
+                  Id="1d8568a8-f736-40a3-9a88-04404b44832d"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="feda8ae0-b2c1-41e3-a952-b7cd4e402453">
+                <propertyInstance
+                  Id="e927d071-1e04-48ca-bbfe-54316b8dd561"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="a45e6792-515a-43bd-bec7-f1f109ebd780"
+        name="IVideoSource"
+        isAbstract="true"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="6783533c-3ed6-4eb7-ad35-3de46b1b5a17"
+            handle="viewcode://./CodeSchema_Interface?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=IVideoSource"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="4aafe905-d76a-4dbe-a1d0-0e9d200f1e17"
+            name="interface"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="04db7b79-1710-4d0d-aa32-5636398cf988">
+                <propertyInstance
+                  Id="edbe3117-ec43-447e-8b49-40d55e59dc4b"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="14f8b9f9-9487-448f-ad93-e42851fc222a">
+                <propertyInstance
+                  Id="ae8cf246-32ac-4de3-89d6-58c0d85b6c8f"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3ae20c60-6c41-4457-a157-ec19cd82b177">
+                <propertyInstance
+                  Id="59cb769a-332b-4dc6-8910-979155b0721f"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="59bbbc92-43ec-4c12-9109-4b88eb3cfa1d">
+                <propertyInstance
+                  Id="cdf7351e-5402-4609-836b-8937aede430d"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <targetEnds>
+          <association
+            Id="0acc444e-a9e1-4299-ac47-b6799f7c9d15"
+            isDerived="false"
+            sourceEndRoleName="IVideoSource"
+            targetEndRoleName="BytesReceived"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="91ea62e5-3014-471f-b32b-178beb9a069d"
+              LastKnownName="Int64"
+              LastKnownLocation="Package1_0919.uml" />
+            <description>Property BytesReceived references type Int64.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="9f2be2bd-059b-4580-99b2-b22ef03b49cd"
+                  name="IVideoSource"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="f5c2215e-cec4-43ef-b5b9-b626fc560a7e"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="ae064022-d4bf-4e5e-a5f6-e53caf695915"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1cb5992a-dcce-45f1-b6f0-48b5d72fee3a"
+                  name="BytesReceived"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="da712cc4-ab73-4ec2-bd94-8f3a20601fcd"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="abbffb75-8d53-4cb8-a39a-9a886dfe7344"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributes>
+          <property
+            Id="b0b63213-74e9-46a2-bb29-96291089dcca"
+            name="BytesReceived"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="true"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="82f5df44-dfc4-4689-ab62-d1b1b2b25dcd"
+                handle="viewcode://./CodeSchema_Property?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=IVideoSource Member=BytesReceived"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="eafbc49f-e102-4dce-bbef-cdefb6f77f17"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="21cb431b-68ce-4b70-9e17-11e4fce13382">
+                    <propertyInstance
+                      Id="d0dd973e-a365-44fa-9b61-49310ba2872c"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bf67a585-00fa-4b97-a49a-a7a757ad69b1">
+                    <propertyInstance
+                      Id="4d136e18-e2ac-4008-bc1e-e4a4597c8bac"
+                      name="Get"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="21347f52-0566-44b9-a0ea-ca649060483f">
+                    <propertyInstance
+                      Id="61768255-b777-4fc0-8322-d03800c0897f"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="23c4ae06-f183-47da-b450-5776f838f1ae">
+                    <propertyInstance
+                      Id="78eda6dc-356b-4084-8157-4143b2f1b201"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="80bfcf2e-3c51-4691-b62e-6b215bda5d5f">
+                    <propertyInstance
+                      Id="38f473ba-cf6a-46b4-8a9a-39d56e497438"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5bc3bd95-2ae7-4cd4-b5a6-9d3e40d6dd9f">
+                    <propertyInstance
+                      Id="f967f576-4c67-46b6-815c-3dd3e5e122b9"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="91ea62e5-3014-471f-b32b-178beb9a069d"
+                LastKnownName="Int64"
+                LastKnownLocation="Package1_0919.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="eb2773d4-bc25-478a-8baa-c7a3a4bc3353"
+            name="FramesReceived"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="true"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="2b8d569c-5dab-4684-aef8-63a13ecc3eec"
+                handle="viewcode://./CodeSchema_Property?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=IVideoSource Member=FramesReceived"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="d6561c99-5493-412f-ac23-2007d39f22b9"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f8eee80e-f213-4f01-887b-163add695ae1">
+                    <propertyInstance
+                      Id="a178fecc-8286-43ca-aa5b-dd6b42fc19e0"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="deaa5880-36a3-4289-b41e-104b4552409d">
+                    <propertyInstance
+                      Id="4798bea0-f648-44c5-bf56-9b664ce6b6e4"
+                      name="Get"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b1b65081-f2a5-4502-b13d-25d1a81c4764">
+                    <propertyInstance
+                      Id="80dd06cb-1f68-4f77-83e3-948aeb059e93"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ea5aecb3-f177-443f-ac07-31c76d159cb2">
+                    <propertyInstance
+                      Id="da3fc26d-94a8-41ef-9e1d-11aa3890d8f6"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ccfe29a3-7db0-462a-ae9d-574afa73d101">
+                    <propertyInstance
+                      Id="e41348d7-ef01-42f6-8adc-ea6bce3ef9c6"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4f723e1f-4427-4423-b41a-dbbba50ad23d">
+                    <propertyInstance
+                      Id="2bc523dd-0df3-4f4a-919b-0fd5fd8455a4"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="220a3521-e091-4221-bae9-3ef9018e845c"
+                LastKnownName="Integer"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="6badefe2-715b-4eee-bcc9-45a81a2656ae"
+            name="IsRunning"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="true"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="e4277893-a915-4d12-96d0-38f751e834d8"
+                handle="viewcode://./CodeSchema_Property?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=IVideoSource Member=IsRunning"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="9f9ba2a9-1482-47ba-88ee-eda1461cc94e"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="55c09b7c-f414-4323-9f1a-50769afa12c5">
+                    <propertyInstance
+                      Id="b2486d52-19a3-45ea-8e6e-4c6d359885c1"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b180e4c4-936f-46c4-8b06-39e00bbd76df">
+                    <propertyInstance
+                      Id="4cae42db-647a-45a8-baf3-fd2bd78eef75"
+                      name="Get"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="895f9310-c099-4c68-9b00-c4605d9c6829">
+                    <propertyInstance
+                      Id="f29b5dc5-76e8-4ec9-9c96-3a82591f8ce6"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4b706977-7adb-413d-8106-736fc8368a79">
+                    <propertyInstance
+                      Id="544e23eb-252a-48d1-baeb-29701fc8c5c6"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d48f7ec1-b258-430e-9189-4e10c7729971">
+                    <propertyInstance
+                      Id="992a6ae8-b093-47f7-9200-92db0c70f7e0"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b28bc17f-4a43-4316-b8c9-cc47ccb6b115">
+                    <propertyInstance
+                      Id="3dc68fec-3739-447d-91e2-544c86752cb6"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                LastKnownName="Boolean"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="d87bba31-5efc-43ac-9865-08974e267049"
+            name="Source"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="true"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="847b0811-1d82-438e-8a33-f2f5985b71da"
+                handle="viewcode://./CodeSchema_Property?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=IVideoSource Member=Source"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="57d9003a-f962-4bfb-8314-733988a14e07"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0f2f2ff5-df80-4ec9-b84b-e0ab35d91dae">
+                    <propertyInstance
+                      Id="90d3835c-cd29-48b8-94c3-f5f5279cb5e5"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ed5c1dcc-87a8-4457-91c1-9090da1936c7">
+                    <propertyInstance
+                      Id="e77012c6-d2c9-4c32-a344-27f0e5aab303"
+                      name="Get"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1c031932-7644-4601-b4f2-9b6d32e2beb2">
+                    <propertyInstance
+                      Id="3b86487e-b7bd-40e6-9423-6d5b3c5afb88"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="accce1f9-4991-47a1-8fd8-1683d6f247f0">
+                    <propertyInstance
+                      Id="41ae1f8f-4920-497b-9fdb-b69486a6cf07"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4b7e9fb5-ae53-4bef-9476-a6f055a25a11">
+                    <propertyInstance
+                      Id="d73cd05f-7df8-42a2-84c0-7bc5abd6e9cf"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1c67ee68-fba5-45b3-a16c-3c4858ecc01b">
+                    <propertyInstance
+                      Id="c647c727-a799-419b-a35a-0af4dbe131eb"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="1676417e-d4cc-43b4-90ab-b7134b69f0c4"
+            name="NewFrame"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="d6c47949-a7a2-43bb-8d0d-962e4383f3f9"
+                handle="viewcode://./CodeSchema_Event?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=IVideoSource Member=NewFrame"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="4c5c599a-1868-4c4a-b00d-7383fa4cc133"
+                name="event"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7a7bfc69-c252-490d-b772-bf199d963773">
+                    <propertyInstance
+                      Id="6f885145-18f9-45c1-8418-6009e427ac7f"
+                      name="Add"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="37406a22-db75-4d67-a23b-ced1e3841fa8">
+                    <propertyInstance
+                      Id="da8c49f4-4670-450e-8781-4b1cd017cf2a"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2474c6c8-e503-44b5-80f4-0206e5ae3573">
+                    <propertyInstance
+                      Id="b442b34d-6325-4193-9369-0f69251d25ef"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="acdeb155-8646-40f2-96db-b28b34e1ec1e">
+                    <propertyInstance
+                      Id="8255d3a5-867f-49c4-9e7b-de1ee0ad1bf9"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="34e02df3-94de-4abd-a13c-45e457751586">
+                    <propertyInstance
+                      Id="2757e251-b9ab-4bd1-88af-09bb78a41d3a"
+                      name="Remove"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="6dabf346-0863-448d-bb8e-75193dbde50d"
+                LastKnownName="NewFrameEventHandler"
+                LastKnownLocation="Package_1024.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="502da165-35bc-46ca-820f-36f407260e3f"
+            name="PlayingFinished"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="ef9029cc-da71-42f1-9b55-48b818563f46"
+                handle="viewcode://./CodeSchema_Event?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=IVideoSource Member=PlayingFinished"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="1914728c-0067-4dde-90ca-be01b1c5aa26"
+                name="event"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fe556136-d621-41b1-aeb5-51d894480e6f">
+                    <propertyInstance
+                      Id="334dc20f-1041-41c3-8f64-c8170c24736b"
+                      name="Add"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3c4aa4e1-1065-4d2d-ad04-4bc9341c40c5">
+                    <propertyInstance
+                      Id="b1f88408-7e7e-4758-a59a-986506946c24"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7b388e12-95fb-4ea4-ad9c-1e7d546bbc91">
+                    <propertyInstance
+                      Id="ef43b2b1-0d90-4c23-9987-f98e84854097"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="06b51c63-2711-415d-af8b-946824ae1bf6">
+                    <propertyInstance
+                      Id="fd520a42-758b-4e33-a425-8401314c8311"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2680a5d6-c1a6-47e5-b18e-a6da3ff26c2c">
+                    <propertyInstance
+                      Id="19f97675-7166-445b-a36d-d5e1d5948d58"
+                      name="Remove"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="6a086913-a391-4c29-9dbd-b79bacf26874"
+                LastKnownName="PlayingFinishedEventHandler"
+                LastKnownLocation="Package_1024.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="e0ad394b-bef3-4690-bb64-3e1bc9757553"
+            name="VideoSourceError"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="98cda578-d7b3-4c56-aca4-9deffdf32ef0"
+                handle="viewcode://./CodeSchema_Event?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=IVideoSource Member=VideoSourceError"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="cfa8f82b-a23f-4102-9cbd-a9fa88967d8d"
+                name="event"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="921e2fd2-6f90-40f7-b36f-b0314709a263">
+                    <propertyInstance
+                      Id="515b68cf-89e7-49b3-9738-e3b992de07a7"
+                      name="Add"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="25fd7b56-6738-475c-acb2-fd4351d9a016">
+                    <propertyInstance
+                      Id="2c2af044-842b-4e89-92ce-46117049b2dc"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0d6aaa2a-85e6-4d22-a3d9-e285f00ae750">
+                    <propertyInstance
+                      Id="b1f89f25-b24a-4bb7-9749-d366daa49897"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="729a120c-de15-4f1a-93c2-6205229ade9f">
+                    <propertyInstance
+                      Id="6ef1e750-33cf-4a53-af3c-ecc1b38db0b1"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="34d0e684-24de-466b-bb84-9d32a4d6dbf3">
+                    <propertyInstance
+                      Id="23e9ea15-5651-4eff-831a-245dc7f94529"
+                      name="Remove"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="546b43b2-8aea-4e28-979f-932dd80c456b"
+                LastKnownName="VideoSourceErrorEventHandler"
+                LastKnownLocation="Package_1024.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributes>
+        <ownedOperations>
+          <operation
+            Id="e6856cb8-57ec-434d-9c22-daf83aa4f2ea"
+            name="SignalToStop"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="24a99552-0f98-4c7f-a110-8da89a5f6533"
+                handle="viewcode://./CodeSchema_Method?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=IVideoSource Member=SignalToStop"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="a9895ce4-d7c6-4dd0-9886-7f8b58307039"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4a123145-1613-421e-abec-0cb3de8fbeb4">
+                    <propertyInstance
+                      Id="6e886ee5-50f7-45c1-8b1a-7b0ed4b03aba"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c2a95eb2-b20f-40bf-a2a3-7bdd1b70d023">
+                    <propertyInstance
+                      Id="27ff40b2-6d4f-4f0f-b1ad-2954f88345ba"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="aa9ecb10-c45c-4ec2-b181-bc1079a3d914">
+                    <propertyInstance
+                      Id="2cb9b419-5e85-4dc3-8da5-7325d030f9fb"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2437c023-d7c8-4551-bf2b-2413d52580d5">
+                    <propertyInstance
+                      Id="56f39f52-a27f-4b55-ad2b-bf562a69058c"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1208d2b2-1d0e-4264-b65e-eb3b455c7fcf">
+                    <propertyInstance
+                      Id="00fbe09c-6c51-42c1-8a8f-c517111923f0"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+          <operation
+            Id="27dfa265-e5e3-4f80-ac36-b66e1923cc8f"
+            name="Start"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="0b53b34a-e100-431a-b737-df48b6ac0f34"
+                handle="viewcode://./CodeSchema_Method?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=IVideoSource Member=Start"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="74e586f7-0853-41bf-804b-6fdbffd96a3c"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="514edf8a-746e-4c10-aca4-4b1de918db1a">
+                    <propertyInstance
+                      Id="4a07ecdd-a989-42be-a3a7-970a177a573c"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dc330487-575d-4cf7-8e0d-b08526dff5ee">
+                    <propertyInstance
+                      Id="ce5231e5-afeb-46c8-bb7a-e75c5be321e5"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2d7f2bee-d8ed-45d6-929d-74b14a6ff5ed">
+                    <propertyInstance
+                      Id="2c7e5d9e-a0a3-41fb-8803-b0a9881d30a9"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a035fa7f-776f-4615-bf46-3bf056c982cc">
+                    <propertyInstance
+                      Id="44d932e7-624f-4bdc-a9a1-8c5233e74fb7"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="be867c6f-0106-4819-a4d7-e4e338471996">
+                    <propertyInstance
+                      Id="88305d65-829d-4d3f-8df8-45b850f835ee"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+          <operation
+            Id="89d0a201-fe27-4013-a3c5-479e64914970"
+            name="Stop"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="db218955-c2df-4de2-9ed0-7d9cb56a3609"
+                handle="viewcode://./CodeSchema_Method?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=IVideoSource Member=Stop"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="9c9751e8-871d-4a41-808e-e75e5340550b"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3afaa5b5-0c6c-409d-93a6-0120310ad558">
+                    <propertyInstance
+                      Id="a7c40f36-a04b-4695-928e-4e2118c2811e"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="39a9eef2-b038-48a4-9d8f-7b488c54e38c">
+                    <propertyInstance
+                      Id="4fb50f62-d4a9-4ad2-bf77-83539e3a7a11"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2375ac3f-bd39-4e48-8f45-dd8f45c3d7ff">
+                    <propertyInstance
+                      Id="16f83065-3ae9-4435-8f34-e78e45f9355c"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8274a675-8434-4b3a-ad49-676d692ff8d8">
+                    <propertyInstance
+                      Id="560cc3f8-ef0e-447a-9f0e-673f6850f769"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="344613f2-792e-4bd6-9b75-5d1e5ba7dd01">
+                    <propertyInstance
+                      Id="f74da2ed-803d-4968-a101-ac9fb51aa55d"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+          <operation
+            Id="52a36fc4-0d34-4f2e-ad84-ecee96efcf1e"
+            name="WaitForStop"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="bdfc9d6b-f159-48b1-9c2e-60fc04bed9b1"
+                handle="viewcode://./CodeSchema_Method?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Video.dll&quot; Namespace=AForge.Video Type=IVideoSource Member=WaitForStop"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="14b14fc9-e6e0-4ad2-9d0d-b1b97fc6778e"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ec71f4b2-2363-47f9-8a43-39d9a0adc3d1">
+                    <propertyInstance
+                      Id="6a687cf3-d64f-433f-9fef-8e7ad9cf18bd"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="14179c1d-a5c7-47fe-b3a2-4b708f8a95c7">
+                    <propertyInstance
+                      Id="0f4f8ad4-e83e-4cd4-b34b-a79d7454da35"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fbfc81f9-3a4b-4891-9b2f-68700c78e88a">
+                    <propertyInstance
+                      Id="bae8f2e8-abe7-4824-9fcf-2a0506078f45"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="caae845c-ba13-4b66-bc47-d08e6d88f035">
+                    <propertyInstance
+                      Id="0480b03e-5c98-4a14-9543-8de6e4fd4e1c"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="43e413fa-66f6-4027-a703-a82c5e5f7b45">
+                    <propertyInstance
+                      Id="e11432aa-b1af-4b72-bc70-ee7d76e4260b"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

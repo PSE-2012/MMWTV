@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
+
 namespace oqat
 {
     /// <summary>
@@ -12,5 +13,8 @@ namespace oqat
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+        }
     }
 }

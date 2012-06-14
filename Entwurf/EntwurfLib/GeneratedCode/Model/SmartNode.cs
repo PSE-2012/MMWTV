@@ -11,7 +11,7 @@ namespace Model
 	using System.Linq;
 	using System.Text;
 
-	public class SmartNode : List<SmartNode>
+	public class SmartNode
 	{
 		public virtual string name
 		{
@@ -20,12 +20,6 @@ namespace Model
 		}
 
 		public virtual string filteredBy
-		{
-			get;
-			set;
-		}
-
-		public virtual Path filepath
 		{
 			get;
 			set;
@@ -47,6 +41,11 @@ namespace Model
 		{
 			get;
 			set;
+		}
+
+		public virtual void + SmartNode(S()
+		{
+			throw new System.NotImplementedException();
 		}
 
 	}
