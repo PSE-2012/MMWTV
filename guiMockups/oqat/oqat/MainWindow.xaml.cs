@@ -20,6 +20,9 @@ using AForge.Video;
 using System.IO;
 using AForge.Video.FFMPEG;
 using System.Threading;
+using OxyPlot;
+
+using System.ComponentModel.Composition;
 namespace oqat
 {
     /// <summary>
@@ -302,12 +305,36 @@ return true;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+
+
+            var temp = new PlotModel("Square wave");
+            var ls = new LineSeries("sin(x)+sin(3x)/3+sin(5x)/5+...");
+            int n = 10;
+            for (double x = -10; x < 10; x += 0.0001)
+            {
+                double y = 0;
+                for (int i = 0; i < n; i++)
+                {
+                    int j = i * 2 + 1;
+                    y += Math.Sin(j * x) / j;
+                }
+                ls.Points.Add(new DataPoint(x, y));
+            }
+            temp.Series.Add(ls);
+            temp.Axes.Add(new LinearAxis(AxisPosition.Left, -4, 4));
+            temp.Axes.Add(new LinearAxis(AxisPosition.Bottom));
+            myModel.Model = temp;         // this is raising the INotifyPropertyChanged event
+
+
+
+
 //            VideoFileReader reader = new VideoFileReader();
 //            reader.Open("C:\\Users\\Public\\Videos\\Sample Videos\\7_cif.yuv");
 //            Console.WriteLine( "width:  " + reader.Width );
 //Console.WriteLine( "height: " + reader.Height );
 //Console.WriteLine( "fps:    " + reader.FrameRate );
 //Console.WriteLine( "codec:  " + reader.CodecName );
+
             if (sourcePlayer.VideoSource != null)
             {
                 sourcePlayer.SignalToStop();
@@ -417,5 +444,10 @@ return true;
         //}
 
 
+        private CompositionTarget
+        private void loadPlugins()
+        {
+            
+        }
     }
 }
