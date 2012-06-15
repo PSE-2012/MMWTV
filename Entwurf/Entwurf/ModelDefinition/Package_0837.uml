@@ -398,29 +398,158 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="7f06960a-ec4a-4a07-ba01-c7795c1bb9be"
+                  Id="19fbe56f-e2b9-47ba-adb2-9dea4061801b"
                   name="string name"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="e974409d-58bf-41b8-92b0-436e17c336ae"
+                  Id="500f2846-468a-4939-ba0f-eaf8aa6e6096"
                   name="Path path"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="4798502a-9657-4604-bdf1-7d54add560b8"
-                  name="List&lt;Video&gt; vid"
+                  Id="d75d2229-f43d-484f-88b8-9004b6fb023c"
+                  name="List&lt;Video&gt; vidList"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="4cb5bb05-c407-4be6-8931-406702c7b2ef"
+                  Id="c619097c-ff0e-46f1-b7d4-1e1238d32e9b"
                   name="string description"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="3fd65fa2-1ee9-443b-b67a-b2943de1102b"
+            name="Project"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2d7b81e6-6b9a-43da-8c0a-1e833e8d592a"
+                  name="Path path"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="626afa7e-299d-4fcc-86eb-2eecf0ba832b"
+            name="Project1"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f2d44551-ade5-4bcb-8c27-34b24b4230f0"
+                  name="string name"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7cec4bf7-0624-49f1-a29c-9c3d8901ac58"
+                  name="Path path"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2db829a2-ec67-436b-9943-8a239bf43e2b"
+                  name="string description"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="581a4dbc-ce9b-4f84-acee-9ea83629942b"
+            name="forcedVidRm"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4f90b608-6c2d-41a3-b2fa-be07733e9435"
+                  name="Path vidPath"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="5e236335-87ed-4335-a033-7c1ca498b7a9"
+            name="smoothVidRm"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="37642325-51c2-4b22-981a-079098044232"
+                  name="Path vidPath"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="7bc96e81-f407-4ec6-8b69-8a55822e0739"
+            name="addVid"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="154fdbc2-b392-4fc2-9e58-e1de646b47b1"
+                  name="Path vidPath"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="d10ac5c2-68eb-4b41-89c8-303248ff846a"
+            name="addVid"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="5926757c-37b6-46e6-aa4a-fb99abaa8fba"
+                  name="Path vidPathChild"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7322b1cf-0d5b-40c0-86aa-2711e65ef838"
+                  name="Path vidPathFather"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
@@ -2572,6 +2701,34 @@
             </relationshipOwnedElementsInternal>
           </association>
         </targetEnds>
+        <ownedOperationsInternal>
+          <operation
+            Id="037cb2af-3d2a-46fb-b638-14c7517d6d0d"
+            name="SmartNode"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d8f03a39-6aa9-4a76-95c6-5d8b5e2f250d"
+                  name="Path vidPath"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="8c21edf1-fbd8-4f6c-bdaf-25d1d0899b4f"
+            name="SmartNode"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>

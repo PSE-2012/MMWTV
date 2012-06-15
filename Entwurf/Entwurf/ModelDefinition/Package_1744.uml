@@ -54,6 +54,20 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="41a667a1-9732-49d2-881d-3608aa7a6072"
+            name="onBuildProjectView(object sender, eventArgs e)"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation
             Id="61eda94f-3b80-4d83-a23e-d171fe3416a6"
@@ -628,6 +642,25 @@
                 LastKnownLocation="Package_1744.uml" />
             </type_NamedElement>
           </property>
+          <property
+            Id="100b49e4-ba1c-447a-a117-47837ca13307"
+            name="buildProjectView"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="c857ad8a-29c4-4eaa-96f6-f99e3ea54f61"
+                LastKnownName="event"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
         </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation
@@ -743,8 +776,15 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="5a57158a-5865-490d-91d1-8ed63fce7cb3"
+                  Id="4f231802-c7df-4627-badc-d873363bfe43"
                   name="Control parent"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4fe1731c-b942-44fb-bf2e-2f55a0dc1544"
+                  name="del onBuildProjectView"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
@@ -3022,6 +3062,51 @@
           </operation>
         </ownedOperationsInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="401365fe-a305-43d7-bae5-e750139230d2"
+        name="projectEventArgs"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="f28e9d1a-5508-4ca9-884c-505f20895e75"
+            isSubstitutable="false">
+            <classMoniker
+              Id="48044e67-3b29-4b96-88b5-dbfc1bcbdef0"
+              LastKnownName="EventArgs"
+              LastKnownLocation="Package1_0919.uml" />
+          </generalization>
+        </generalsInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="4c1ca56a-4791-4689-8bdc-445988958a6a"
+            name="project"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="8d63b9a1-9686-444e-a180-196722a525cd"
+                LastKnownName="Project"
+                LastKnownLocation="Package_1744.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="8d63b9a1-9686-444e-a180-196722a525cd"
+        name="Project" />
     </packageHasNamedElement>
   </packagedElements>
 </package>
