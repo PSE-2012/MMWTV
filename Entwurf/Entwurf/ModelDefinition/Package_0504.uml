@@ -230,6 +230,26 @@
               LastKnownLocation="Package_0504.uml" />
           </generalization>
         </generalsInternal>
+        <ownedOperations>
+          <operation
+            Id="20a62f8e-83b7-48ab-8936-d1c12da1e83b"
+            name="setVideo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3dd5acf4-ef94-4c60-8aa1-d52a16799579"
+                  name="Video vid"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
       </Interface>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -505,7 +525,7 @@
         <ownedOperations>
           <operation
             Id="5a315d7d-cbf9-4627-8255-b6c19730b649"
-            name="setPropertiesParentControll"
+            name="setParentControll"
             isLeaf="false"
             isStatic="false"
             isAbstract="true"
@@ -557,7 +577,7 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="dd560bc8-890a-44f7-a645-81f9e170af8a"
+                  Id="1a914c97-4d84-4a3e-b191-ee31dc44ec65"
                   name="Control parent"
                   direction="In"
                   isUnique="false" />

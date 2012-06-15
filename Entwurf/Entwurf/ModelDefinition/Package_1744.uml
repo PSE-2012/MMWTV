@@ -2936,14 +2936,21 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="ba43e6d5-108b-4b29-b873-036ff6cef137"
-                  name="EventType eType"
+                  Id="2921e954-0d55-4720-8acc-d5ea6e57a4ad"
+                  name="EventType e"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="e3d99a90-7783-4bab-8c94-cf6222360417"
+                  Id="bdac99e3-11d1-476e-aa85-fad4f1a70f79"
+                  name="Type"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="cb796db1-3a4f-492d-9abf-ffce516611e4"
                   name="event e"
                   direction="In"
                   isUnique="false" />
@@ -3211,6 +3218,35 @@
       <undefinedType
         Id="34307929-a624-423e-bdac-579a75d70c1f"
         name="Event" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="9707d1dd-7af8-4459-be08-d8adc83425b0"
+        name="VM_Presentation"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedOperationsInternal>
+          <operation
+            Id="107cf231-9947-4315-be89-60baca511b82"
+            name="onVideoPlay"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="bf3d61ed-b828-4f9f-bdf7-f6814728fda4"
+                  name="Video video"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
     </packageHasNamedElement>
   </packagedElements>
 </package>

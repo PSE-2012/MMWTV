@@ -15,7 +15,7 @@
     <packageHasNamedElement>
       <class
         Id="4b52d577-16ad-4bcb-a521-b8aa725a0950"
-        name="Statistics"
+        name="PP_VideoDiagram"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -62,12 +62,142 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="01965574-6783-452d-a8d1-f9c1e1942b71">
+            <interfaceMoniker
+              Id="7db69199-6379-4a43-9294-060c6de31642"
+              LastKnownName="IPresentation"
+              LastKnownLocation="Package_0504.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="1a1f258f-abce-4131-b927-de0aba1aeff1"
+            isDerived="false"
+            sourceEndRoleName="PP_VideoDiagram"
+            targetEndRoleName="VideoSourcePlayer"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="e4bb9101-7440-4885-8a9b-fd77a062ed9e"
+              LastKnownName="VideoSourcePlayer"
+              LastKnownLocation="Package_0411.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="4ef00917-c807-4c3e-a2c4-1e8d1c5a2442"
+                  name="PP_VideoDiagram"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="da2359a5-2df3-4884-a5e3-fcdffb6da706"
+                  name="VideoSourcePlayer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedOperationsInternal>
+          <operation
+            Id="6fa65003-ce60-4b7d-9b54-fb3986e2fc8c"
+            name="setVideo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="95190268-4a3a-44ba-b169-56c57412bf29"
+                  name="Video vid"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="6d2b46a0-617c-4231-851d-678db86995e8"
+            name="setParentControll"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="65f880a8-0337-474d-8c2e-5dd839b12d8d"
+                  name="Control parent"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="7cc8767c-5f2a-4a7c-a306-82f674bdfca6"
+            name="getMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="98806128-8684-45b9-9930-ad3f55c2d105"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac"
+                      LastKnownName="Memento"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="a0ae6499-45a1-4c65-8f1a-f4beed235548"
+            name="setMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="44ccb39d-8ab7-4fea-beb1-b9111d17f97d"
+                  name="Memento memento"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
         Id="a1510184-3c46-4f83-9f52-a3ec30e8173f"
-        name="PP_Presentation"
+        name="PP_VideoPlay"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -123,10 +253,90 @@
               LastKnownLocation="Package_0504.uml" />
           </interfaceRealization>
         </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="7414b5af-3c5c-427f-a6ac-03810c8ba89a"
+            isDerived="false"
+            sourceEndRoleName="PP_VideoPlay"
+            targetEndRoleName="PlayerControl"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="2f9ad65b-5145-4406-8c1d-97cdb21e2167"
+              LastKnownName="PlayerControl"
+              LastKnownLocation="Package_1345.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="4c634c07-2eb1-4911-aee6-659199960b12"
+                  name="PP_VideoPlay"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="a9a9042a-5b14-4134-ad09-e83a2a44090e"
+                  name="PlayerControl"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="31f6f90d-d06a-480d-9651-e124cd6b3e65"
+            isDerived="false"
+            sourceEndRoleName="PP_VideoPlay"
+            targetEndRoleName="VideoSourcePlayer"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="e4bb9101-7440-4885-8a9b-fd77a062ed9e"
+              LastKnownName="VideoSourcePlayer"
+              LastKnownLocation="Package_0411.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="cd4aea89-3ef6-4042-9ed2-a537d6fa6af6"
+                  name="PP_VideoPlay"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="35aca87c-fac1-4204-990d-bb1af9919c40"
+                  name="VideoSourcePlayer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
         <ownedOperationsInternal>
           <operation
             Id="3f7cbda6-9e4c-45b9-ae50-274fd85e3b56"
-            name="setPropertiesParentControll"
+            name="setParentControll"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -179,6 +389,24 @@
                 <parameter
                   Id="5cab27a1-15c7-451c-bb46-96566331be09"
                   name="Memento memento"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="f410203b-53cb-4dfe-8e85-fb3c83198222"
+            name="setVideo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="652c101f-fe8e-4245-b3a4-25c2d1981ec9"
+                  name="Video vid"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
@@ -293,7 +521,7 @@
     <packageHasNamedElement>
       <class
         Id="39c5b244-0abd-4965-a4f8-e2abeb5f085b"
-        name="YUVVideoSource"
+        name="VideoSource"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -480,6 +708,12 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="ddd47fe7-9443-4d14-aea2-45ca6bd2b12e"
+        LastKnownName="VideoPlay"
+        LastKnownLocation="Package1_1345.uml" />
     </packageHasNamedElement>
   </packagedElements>
 </package>
