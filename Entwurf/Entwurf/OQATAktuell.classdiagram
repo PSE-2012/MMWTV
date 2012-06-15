@@ -1598,6 +1598,21 @@
                 <property Id="1c9d01b2-8ecc-40c3-ae30-b9ea679ca258" name="onBuildProjectView(object sender, eventArgs e)" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="41a667a1-9732-49d2-881d-3608aa7a6072" />
                 </property>
+                <property Id="f0ecdd7b-3270-4e9d-acb8-e72e4b81979b" name="vM_Welcome" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="3c4e8b68-f7c8-448f-bf9a-44d2de70452c" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="a3d2075d-e91c-4237-8ac6-d71b21a4e3d4" LastKnownName="VM_Welcome" />
+                  </type_NamedElement>
+                </property>
+                <property Id="564d773f-7c7c-48cb-b8c5-00b9990324bd" name="vM_PluginList" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="32483649-63f3-4c70-a2bf-f3f499ec3ed2" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="b1fec095-ecaa-4aa3-b620-b0940ebbef75" LastKnownName="VM_PluginList" />
+                  </type_NamedElement>
+                </property>
+                <property Id="990794a9-984e-4766-bb06-15bd60c398fc" name="vM_ProjectExplorer" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="dd6dd16d-45ea-4293-93fa-bc117fe11324" />
+                </property>
               </ownedAttributesInternal>
               <ownedOperationsInternal>
                 <operation Id="67ecde4a-4c4e-4699-9c7c-98d5ee78403c" name="initPluginLists" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
@@ -1725,6 +1740,9 @@
                 </operation>
                 <operation Id="db926111-e5c9-4b58-8d07-fa37b439871e" name="initMenu" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <elementDefinition Id="90539f4a-bc22-45a3-ae60-603fb5090a6d" />
+                </operation>
+                <operation Id="4e0fa480-e931-4e44-803c-fe32b139ad15" name="initPresentation" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="02effd67-0d30-4dab-a967-0f5fdf1cdf45" />
                 </operation>
               </ownedOperationsInternal>
             </class>
@@ -7767,6 +7785,16 @@ auf keine (uns bekannte) sinnvolle Weise ins Klassendiagramm integrieren...
     <packageHasNamedElement>
       <referencedType Id="af3d40dd-973d-4826-8ad0-1bbe6e20ac83" name="Project" isAbstract="false" isLeaf="false" cachedFullName="Project">
         <elementDefinition Id="8d63b9a1-9686-444e-a180-196722a525cd" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="a3d2075d-e91c-4237-8ac6-d71b21a4e3d4" name="VM_Welcome" isAbstract="false" isLeaf="false" cachedFullName="Entwurf::ViewModel::VM_Welcome">
+        <elementDefinition Id="49e1b914-1155-4db4-bdf0-4d6a089b323c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="b1fec095-ecaa-4aa3-b620-b0940ebbef75" name="VM_PluginList" isAbstract="false" isLeaf="false" cachedFullName="VM_PluginList">
+        <elementDefinition Id="62ed8638-0cdf-41d7-83a0-e19db1a717e7" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>
