@@ -1595,9 +1595,6 @@
               </appliedStereotypesInternal>
               <elementDefinition Id="c0b1d067-72aa-4b71-8d5c-77a30228042f" />
               <ownedAttributesInternal>
-                <property Id="1c9d01b2-8ecc-40c3-ae30-b9ea679ca258" name="onBuildProjectView(object sender, eventArgs e)" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="41a667a1-9732-49d2-881d-3608aa7a6072" />
-                </property>
                 <property Id="f0ecdd7b-3270-4e9d-acb8-e72e4b81979b" name="vM_Welcome" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="3c4e8b68-f7c8-448f-bf9a-44d2de70452c" />
                   <type_NamedElement>
@@ -1743,6 +1740,21 @@
                 </operation>
                 <operation Id="4e0fa480-e931-4e44-803c-fe32b139ad15" name="initPresentation" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <elementDefinition Id="02effd67-0d30-4dab-a967-0f5fdf1cdf45" />
+                </operation>
+                <operation Id="87bfb498-1028-4e08-95a1-6e076e3c7ae5" name="onBuildProjectView" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="1c9d32fe-1a43-4068-8056-f8bdec0f3869" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="216395a7-9ebd-4223-a203-ada9b43e7e54" name="object sender" direction="In" isUnique="false">
+                        <elementDefinition Id="0f9acf92-1eb0-4fa0-8a4b-d13f54b26d03" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="3efdebd2-f087-44df-a030-eb0d52dcfadb" name="eventArgs e" direction="In" isUnique="false">
+                        <elementDefinition Id="6643941c-600c-4958-b89d-b7483e5f693e" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
                 </operation>
               </ownedOperationsInternal>
             </class>
@@ -2144,6 +2156,14 @@
           <packageHasNamedElement>
             <class Id="b71292ea-7a2b-4e9a-99ab-f961c35a5fed" name="VM_ProjectOpenDialog" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="97d994bb-4ef0-47f7-bc15-5fba49bbb488" />
+              <ownedAttributesInternal>
+                <property Id="2a518dbc-09ae-45aa-a4d9-a0ae725aadd6" name="projectBuild" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="2bcd5193-2ddc-429e-9253-fef2389a3e35" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="68453a7d-f7aa-4533-8b6e-3cc32f406807" LastKnownName="Event" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributesInternal>
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
@@ -3465,22 +3485,22 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
-                <operation Id="1701a190-6f40-4c37-9903-d71e3f70ecea" name="Project1" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="1701a190-6f40-4c37-9903-d71e3f70ecea" name="Project" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <elementDefinition Id="626afa7e-299d-4fcc-86eb-2eecf0ba832b" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="d1ebcc4d-bc68-48f0-9544-b00036a7f791" name="string name" direction="In" isUnique="false">
-                        <elementDefinition Id="f2d44551-ade5-4bcb-8c27-34b24b4230f0" />
+                      <parameter Id="1db94bd4-f183-4556-b81c-a36ee2564045" name="string name" direction="In" isUnique="false">
+                        <elementDefinition Id="16653ff2-8dad-451b-8a26-e1fc54fa79f0" />
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="e5a748eb-baa0-4bff-9c4b-3375044b340b" name="Path path" direction="In" isUnique="false">
-                        <elementDefinition Id="7cec4bf7-0624-49f1-a29c-9c3d8901ac58" />
+                      <parameter Id="a09e07cd-6a4f-4832-b29d-d959486ba58d" name="Path path" direction="In" isUnique="false">
+                        <elementDefinition Id="73e7a8bd-8a2b-43a2-8670-8f3586429357" />
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="619134b9-5860-44bd-875f-94609bb9a77c" name="string description" direction="In" isUnique="false">
-                        <elementDefinition Id="2db829a2-ec67-436b-9943-8a239bf43e2b" />
+                      <parameter Id="02530d3d-273f-449a-857e-4d14354d8b90" name="string description" direction="In" isUnique="false">
+                        <elementDefinition Id="41248e27-8ccf-4bda-980f-b45e8d9b792f" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -7819,6 +7839,11 @@ auf keine (uns bekannte) sinnvolle Weise ins Klassendiagramm integrieren...
     <packageHasNamedElement>
       <referencedType Id="3264777e-7669-4c6a-85a8-ce5ec05499ed" name="Path" isAbstract="false" isLeaf="false" cachedFullName="Path">
         <elementDefinition Id="30839053-727c-4be6-9c79-7eb4b33fcc56" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="68453a7d-f7aa-4533-8b6e-3cc32f406807" name="Event" isAbstract="false" isLeaf="false" cachedFullName="Event">
+        <elementDefinition Id="34307929-a624-423e-bdac-579a75d70c1f" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>
