@@ -1,8 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="a06056a9-f59b-41ac-ba69-6c784bc76689"
   name="OqatInterface" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <ownedCommentsInternal>
+    <comment
+      Id="688d8959-237c-4012-b791-b8b829e77e5b">
+      <body>vlcht wäre es praktisches das Teil als Klasse zu implementieren</body>
+      <annotatedElements>
+        <interfaceMoniker
+          Id="450d2280-e54f-41da-9796-7a41be397510"
+          LastKnownName="IVideoInfo"
+          LastKnownLocation="Package_0504.uml" />
+      </annotatedElements>
+    </comment>
+    <comment
+      Id="59519655-0880-4fba-bc4d-f87d2561517f">
+      <body>Ein handler MUSS das event VidObjectDone oder so auslösen </body>
+      <annotatedElements>
+        <interfaceMoniker
+          Id="293a19b1-7e34-4b70-978a-9702218440ad"
+          LastKnownName="IVideoHandler"
+          LastKnownLocation="Package_0504.uml" />
+      </annotatedElements>
+    </comment>
+  </ownedCommentsInternal>
   <packagedElements>
     <packageHasNamedElement>
       <Interface
@@ -577,8 +599,8 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="1a914c97-4d84-4a3e-b191-ee31dc44ec65"
-                  name="Control parent"
+                  Id="ebd6a6ef-8b4b-4b6b-868b-e61a993b6ba5"
+                  name="IAddChild parent"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
@@ -620,6 +642,24 @@
                 Id="450d2280-e54f-41da-9796-7a41be397510"
                 LastKnownName="IVideoInfo"
                 LastKnownLocation="Package_0504.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="d51261ac-2692-4882-b6c2-092af997b091"
+            name="videoConstructionDone"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="c857ad8a-29c4-4eaa-96f6-f99e3ea54f61"
+                LastKnownName="event"
+                LastKnownLocation="Entwurf.uml" />
             </type_NamedElement>
           </property>
         </ownedAttributes>
@@ -788,6 +828,26 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
+        <ownedAttributes>
+          <property
+            Id="315c6d63-b609-4719-9c63-0e6b8d155f35"
+            name="videoCodecName"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributes>
       </Interface>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -1843,6 +1903,41 @@
           </generalization>
         </generalsInternal>
       </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="77e8bf9f-404c-4a13-96f9-d062dc8e5817"
+        name="EventType"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedLiterals>
+          <enumerationLiteral
+            Id="e5750c58-e022-4fea-8300-b2f30da4a835"
+            name="videoClick" />
+          <enumerationLiteral
+            Id="cf7f7144-722b-4a9c-a30f-e0a8c8331aa2"
+            name="videoLoad" />
+          <enumerationLiteral
+            Id="822d84d2-94b3-480b-bdd3-dbcef974a232"
+            name="newMementoCreated" />
+          <enumerationLiteral
+            Id="e7d5c16b-a78d-4b07-a0f2-8abde97843c5"
+            name="fileSelected" />
+        </ownedLiterals>
+      </enumeration>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="a1a70186-c115-4291-bf6b-449cf5f28106"
+        name="VideoCodecName"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedLiterals>
+          <enumerationLiteral
+            Id="879ba58a-eb86-4f61-987b-a9e1f4b864ec"
+            name="YUV420" />
+        </ownedLiterals>
+      </enumeration>
     </packageHasNamedElement>
   </packagedElements>
 </package>

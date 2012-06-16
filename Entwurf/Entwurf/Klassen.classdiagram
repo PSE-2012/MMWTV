@@ -1353,6 +1353,15 @@
           </packageHasNamedElement>
           <packageHasNamedElement>
             <package Id="253e168e-8bd8-4364-b3b1-3d851ced863d" name="YuvVideoHandler">
+              <ownedCommentsInternal>
+                <comment Id="bbaa8e3d-0700-4698-b440-4f51747fa557">
+                  <elementDefinition Id="b8f55fdc-8e06-4664-9bcd-3e7f60d7c5e7" />
+                  <body>an dieser stelle brauchen wir eine properties view für den VideoImportDialog und eine (oder de gleiche aber mit anderen parametern) die die infos in der smartlist darstellt</body>
+                  <annotatedElements>
+                    <classMoniker Id="7c4b419e-e3a2-4a23-ab66-0481c882ed12" LastKnownName="YuvVideoInfo" />
+                  </annotatedElements>
+                </comment>
+              </ownedCommentsInternal>
               <elementDefinition Id="79b457b0-3897-4475-b8a4-cc200dcfde49" />
               <packagedElements>
                 <packageHasNamedElement>
@@ -1521,6 +1530,23 @@
     </packageHasNamedElement>
     <logicalClassDesignerModelHasPackages>
       <package Id="fb4c3264-a113-44db-a7f2-5ef533d62f60" name="Model">
+        <ownedCommentsInternal>
+          <comment Id="824c06dc-008d-4623-85b8-41ff9720ef31">
+            <elementDefinition Id="01d9e9c6-fc2f-45a4-aed2-bc5dcc7eba2a" />
+            <body>check if vidName.mem exists:
+true -&gt; Caretaker-&gt;loadPath-&gt;getMemento -&gt;getState-&gt;.getCodecName -&gt; check if Such VidHandler is installed -&gt; addVideo to SmartTree</body>
+            <annotatedElements>
+              <classMoniker Id="18decd08-48a2-4fdd-b56a-1bbb42e071b3" LastKnownName="Project" />
+            </annotatedElements>
+          </comment>
+          <comment Id="7860bbb9-35be-439c-8294-1654c70a7fef">
+            <elementDefinition Id="56557195-855e-4f3b-b503-cb833ee42af8" />
+            <body>Pathbasierte add methoden sollten raus, schließlich sind wir im model -&gt; pathbasiert kann es sowieso nur ein handler machen</body>
+            <annotatedElements>
+              <classMoniker Id="18decd08-48a2-4fdd-b56a-1bbb42e071b3" LastKnownName="Project" />
+            </annotatedElements>
+          </comment>
+        </ownedCommentsInternal>
         <elementDefinition Id="606438c6-613a-4ed2-b8af-87ce2985d9b7" />
         <packagedElements>
           <packageHasNamedElement>
@@ -1777,13 +1803,26 @@
                   <elementDefinition Id="d10ac5c2-68eb-4b41-89c8-303248ff846a" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="698b6da8-2832-4492-a801-f62a9dacd07a" name="Path vidPathChild" direction="In" isUnique="false">
-                        <elementDefinition Id="5926757c-37b6-46e6-aa4a-fb99abaa8fba" />
+                      <parameter Id="c3e3b580-b2b4-43ba-87bd-6bc704ef3d07" name="Path vidPath" direction="In" isUnique="false">
+                        <elementDefinition Id="7faca8d9-f561-4074-864b-0f359a071f02" />
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="c72d3186-20f0-48cd-b17a-fd90b8b168ec" name="Path vidPathFather" direction="In" isUnique="false">
-                        <elementDefinition Id="7322b1cf-0d5b-40c0-86aa-2711e65ef838" />
+                      <parameter Id="aae5be0d-c4a4-48e0-bcc4-0b46ae8b6f14" name="Path vidPathFather" direction="In" isUnique="false">
+                        <elementDefinition Id="b5d2f88b-868e-411a-bbd0-5efe38af3eaa" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="4180f2f7-13c8-4248-939f-7454e7e63237" name="Operation1" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="3c627bad-9198-41bd-a08b-6f55b7e8e6e5" />
+                </operation>
+                <operation Id="369a25be-5acd-4ce6-93f1-b86796bcd6f7" name="addVid" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="f948dd59-cea0-4d3f-a0d8-b0208773654e" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="a760a445-cc6f-47a7-b5bd-e3521a25b9f4" name="Video vid" direction="In" isUnique="false">
+                        <elementDefinition Id="7f98a9cb-ea2f-4041-bca5-9e0e9a0f5425" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -3808,6 +3847,22 @@ auf keine (uns bekannte) sinnvolle Weise ins Klassendiagramm integrieren...
     </packageHasNamedElement>
     <logicalClassDesignerModelHasPackages>
       <package Id="2a668370-e26f-4bf8-97e9-467ea68afd78" name="OqatInterface">
+        <ownedCommentsInternal>
+          <comment Id="93b860a8-442e-40c9-b30d-1d386f8049a9">
+            <elementDefinition Id="688d8959-237c-4012-b791-b8b829e77e5b" />
+            <body>vlcht wäre es praktisches das Teil als Klasse zu implementieren</body>
+            <annotatedElements>
+              <interfaceMoniker Id="ac70e668-6168-4802-86bb-7f4a7f691167" LastKnownName="IVideoInfo" />
+            </annotatedElements>
+          </comment>
+          <comment Id="f3f1b76b-4327-46b7-8144-4cf8720558a4">
+            <elementDefinition Id="59519655-0880-4fba-bc4d-f87d2561517f" />
+            <body>Ein handler MUSS das event VidObjectDone oder so auslösen </body>
+            <annotatedElements>
+              <interfaceMoniker Id="1497ed33-7b4e-4a76-b93a-881285b19da0" LastKnownName="IVideoHandler" />
+            </annotatedElements>
+          </comment>
+        </ownedCommentsInternal>
         <elementDefinition Id="a06056a9-f59b-41ac-ba69-6c784bc76689" />
         <packagedElements>
           <packageHasNamedElement>
@@ -4237,8 +4292,8 @@ auf keine (uns bekannte) sinnvolle Weise ins Klassendiagramm integrieren...
                   <elementDefinition Id="5a315d7d-cbf9-4627-8255-b6c19730b649" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="bbb2be93-377e-4f75-bcfb-08933f8d3181" name="Control parent" direction="In" isUnique="false">
-                        <elementDefinition Id="1a914c97-4d84-4a3e-b191-ee31dc44ec65" />
+                      <parameter Id="fd135f40-01cd-4c76-b2f7-6a941b1e6ac1" name="IAddChild parent" direction="In" isUnique="false">
+                        <elementDefinition Id="ebd6a6ef-8b4b-4b6b-868b-e61a993b6ba5" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -4260,6 +4315,12 @@ auf keine (uns bekannte) sinnvolle Weise ins Klassendiagramm integrieren...
                   <elementDefinition Id="c44c52fc-6628-4c2c-b7ae-b151d5dbbf22" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="2c102094-91ca-467a-90d1-4e819a420956" LastKnownName="IVideoInfo" />
+                  </type_NamedElement>
+                </property>
+                <property Id="47f0a197-34e9-475d-9f75-f549ccd34920" name="videoConstructionDone" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="d51261ac-2692-4882-b6c2-092af997b091" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="949d536a-f422-406f-a08b-6e7db7517feb" LastKnownName="event" />
                   </type_NamedElement>
                 </property>
               </ownedAttributes>
@@ -4372,6 +4433,14 @@ auf keine (uns bekannte) sinnvolle Weise ins Klassendiagramm integrieren...
                 </stereotypeInstance>
               </appliedStereotypesInternal>
               <elementDefinition Id="450d2280-e54f-41da-9796-7a41be397510" />
+              <ownedAttributes>
+                <property Id="3850b91b-cd8a-4063-8f5a-bbf2b76312b1" name="videoCodecName" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="315c6d63-b609-4719-9c63-0e6b8d155f35" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="f2a55282-ccfb-4ad9-9a7f-b3873ec44d53" LastKnownName="String" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributes>
             </Interface>
           </packageHasNamedElement>
           <packageHasNamedElement>
@@ -4488,6 +4557,25 @@ auf keine (uns bekannte) sinnvolle Weise ins Klassendiagramm integrieren...
                 </generalization>
               </generalsInternal>
             </Interface>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <enumeration Id="f3790d30-4b4e-4941-b498-9ca29ece7c9b" name="EventType" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="77e8bf9f-404c-4a13-96f9-d062dc8e5817" />
+              <ownedLiterals>
+                <enumerationLiteral Id="f06aacc6-079a-4b28-af2b-adcc8001475b" name="videoClick">
+                  <elementDefinition Id="e5750c58-e022-4fea-8300-b2f30da4a835" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="d3f382d8-e99b-4cfc-b7b1-e9c7d4a2e87f" name="videoLoad">
+                  <elementDefinition Id="cf7f7144-722b-4a9c-a30f-e0a8c8331aa2" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="2f036db9-a739-4b25-8ae1-2ea078faf4ea" name="newMementoCreated">
+                  <elementDefinition Id="822d84d2-94b3-480b-bdd3-dbcef974a232" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="224dfb0f-f854-4f77-86e1-04da96f1cb25" name="fileSelected">
+                  <elementDefinition Id="e7d5c16b-a78d-4b07-a0f2-8abde97843c5" />
+                </enumerationLiteral>
+              </ownedLiterals>
+            </enumeration>
           </packageHasNamedElement>
         </packagedElements>
       </package>
@@ -6453,8 +6541,29 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                     <referencedTypeMoniker Id="bc627f89-354b-46e8-aea2-937ba0aec387" LastKnownName="Project" />
                   </type_NamedElement>
                 </property>
-                <property Id="034500e7-2b60-4611-8cf4-22c13196edcd" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="7a066bd2-4d18-4911-b5f9-a84857d9cf07" />
+                <property Id="d7c6a93a-e545-4ffa-a5e2-a3f774768a03" name="videoClick" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="4cec964b-b1d4-4695-90de-8d510391d134" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="949d536a-f422-406f-a08b-6e7db7517feb" LastKnownName="event" />
+                  </type_NamedElement>
+                </property>
+                <property Id="853d76b2-1225-471b-b343-5b905f7c7cde" name="videoLoad" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="76d659da-4c5e-4eed-8c5f-999fa1476ac3" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="949d536a-f422-406f-a08b-6e7db7517feb" LastKnownName="event" />
+                  </type_NamedElement>
+                </property>
+                <property Id="637d98e9-59f0-4f99-95e6-72576c0e374b" name="pluginManager" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="1ea7e0e0-691f-4eb7-85b2-18aa9df50a11" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="c8377a5b-318a-4faa-8799-46269c1e15c5" LastKnownName="PluginManager" />
+                  </type_NamedElement>
+                </property>
+                <property Id="5ef91a7d-75e0-4977-b951-911fbe2fe043" name="fileSelect" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="8cd9cc99-eb4f-4299-b9ca-9b6aaa654e73" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="949d536a-f422-406f-a08b-6e7db7517feb" LastKnownName="event" />
+                  </type_NamedElement>
                 </property>
               </ownedAttributesInternal>
               <ownedOperationsInternal>
@@ -6569,6 +6678,12 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                   <elementDefinition Id="ab6fe19f-538e-4d04-b472-3737c422efbe" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="fbde1bf0-e49e-4768-9372-1ec6e957ed58" LastKnownName="del" />
+                  </type_NamedElement>
+                </property>
+                <property Id="f2d9f211-8cef-469e-aba6-614584915824" name="entryClick" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="243f2762-3375-4f2e-a58c-9bc06934a4c6" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="949d536a-f422-406f-a08b-6e7db7517feb" LastKnownName="event" />
                   </type_NamedElement>
                 </property>
               </ownedAttributesInternal>
@@ -6824,12 +6939,20 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                 <enumerationLiteral Id="6c3dedce-0ce6-40d9-8f71-c8361b9a69ce" name="OqatSystem">
                   <elementDefinition Id="927a966e-a6dc-4ca1-8c98-0e83fa806b31" />
                 </enumerationLiteral>
+                <enumerationLiteral Id="23ccb758-9c08-4ef2-b8b0-5ca4a92d9e0c" name="VideoHandler">
+                  <elementDefinition Id="55ae7c19-64dd-44f2-b1d0-416edfff3442" />
+                </enumerationLiteral>
               </ownedLiterals>
             </enumeration>
           </packageHasNamedElement>
           <packageHasNamedElement>
             <class Id="21ac5ce6-3c0d-42d8-91d4-6631a6c1d470" name="VM_VidImportOptionsDialog" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="9a6261a5-957b-4435-8f4a-5e662e9067ce" />
+              <ownedAttributesInternal>
+                <property Id="68d2c8f2-7154-4f18-9004-1cffb39e4720" name="Video" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="40025c26-2138-4e94-bbcb-1b91a7e2a2c0" />
+                </property>
+              </ownedAttributesInternal>
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
@@ -7948,6 +8071,29 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="af781a1c-3693-479b-8b94-78c48ecb5399" name="getPluginKey" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="195355fa-c395-4f81-92bc-ca46397cb3df" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="3ff51f90-d5ad-49a6-ad03-4b55a96626d9" name="PluginType type" direction="In" isUnique="false">
+                        <elementDefinition Id="8cce0488-3c0a-4740-ad78-6c1bf83c0d54" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="0b8196fc-56ec-4e73-b62f-cb9a17f800c6" name="PluginName name" direction="In" isUnique="false">
+                        <elementDefinition Id="0a1281a7-b1b5-4cfd-bb39-9904d25afc51" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="c02c5903-5c3d-45c9-80c1-ebec3e113d9d" direction="Return" isUnique="false">
+                        <elementDefinition Id="a95f14fc-4fd7-4cdf-bbd2-d485ced5acab" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="9ddddd1d-b63a-4521-b570-6cc7f0722a5f" LastKnownName="string" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
               </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
@@ -8015,6 +8161,11 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
         </packagedElements>
       </package>
     </logicalClassDesignerModelHasPackages>
+    <packageHasNamedElement>
+      <referencedType Id="c8377a5b-318a-4faa-8799-46269c1e15c5" name="PluginManager" isAbstract="false" isLeaf="false" cachedFullName="Entwurf::ViewModel::PluginManager">
+        <elementDefinition Id="04906960-a374-4205-a86d-03107335b095" />
+      </referencedType>
+    </packageHasNamedElement>
   </packagedElements>
   <package Id="111c9f5b-9d27-4ac1-a666-70e16e6552a4" name="Entwurf">
     <elementDefinition Id="46634d97-dc6c-4362-9484-7c7ecb77101f" />

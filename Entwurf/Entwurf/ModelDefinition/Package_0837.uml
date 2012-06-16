@@ -3,6 +3,29 @@
   dslVersion="1.0.0.0"
   Id="606438c6-613a-4ed2-b8af-87ce2985d9b7"
   name="Model" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <ownedCommentsInternal>
+    <comment
+      Id="01d9e9c6-fc2f-45a4-aed2-bc5dcc7eba2a">
+      <body>check if vidName.mem exists:
+true -&gt; Caretaker-&gt;loadPath-&gt;getMemento -&gt;getState-&gt;.getCodecName -&gt; check if Such VidHandler is installed -&gt; addVideo to SmartTree</body>
+      <annotatedElements>
+        <classMoniker
+          Id="5671e4d3-210a-4b44-bc75-5e6c72af03c0"
+          LastKnownName="Project"
+          LastKnownLocation="Package_0837.uml" />
+      </annotatedElements>
+    </comment>
+    <comment
+      Id="56557195-855e-4f3b-b503-cb833ee42af8">
+      <body>Pathbasierte add methoden sollten raus, schließlich sind wir im model -&gt; pathbasiert kann es sowieso nur ein handler machen</body>
+      <annotatedElements>
+        <classMoniker
+          Id="5671e4d3-210a-4b44-bc75-5e6c72af03c0"
+          LastKnownName="Project"
+          LastKnownLocation="Package_0837.uml" />
+      </annotatedElements>
+    </comment>
+  </ownedCommentsInternal>
   <packagedElements>
     <packageHasNamedElement>
       <class
@@ -541,15 +564,41 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="5926757c-37b6-46e6-aa4a-fb99abaa8fba"
-                  name="Path vidPathChild"
+                  Id="7faca8d9-f561-4074-864b-0f359a071f02"
+                  name="Path vidPath"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="7322b1cf-0d5b-40c0-86aa-2711e65ef838"
+                  Id="b5d2f88b-868e-411a-bbd0-5efe38af3eaa"
                   name="Path vidPathFather"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="3c627bad-9198-41bd-a08b-6f55b7e8e6e5"
+            name="Operation1"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="f948dd59-cea0-4d3f-a0d8-b0208773654e"
+            name="addVid"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7f98a9cb-ea2f-4041-bca5-9e0e9a0f5425"
+                  name="Video vid"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>

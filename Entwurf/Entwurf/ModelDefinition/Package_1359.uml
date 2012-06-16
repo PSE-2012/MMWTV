@@ -517,7 +517,8 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
             </type_NamedElement>
           </property>
           <property
-            Id="7a066bd2-4d18-4911-b5f9-a84857d9cf07"
+            Id="4cec964b-b1d4-4695-90de-8d510391d134"
+            name="videoClick"
             visibility="Private"
             isLeaf="false"
             isStatic="false"
@@ -526,7 +527,71 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
             isDerived="false"
             isDerivedUnion="false"
             aggregation="None"
-            isComposite="false" />
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="c857ad8a-29c4-4eaa-96f6-f99e3ea54f61"
+                LastKnownName="event"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="76d659da-4c5e-4eed-8c5f-999fa1476ac3"
+            name="videoLoad"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="c857ad8a-29c4-4eaa-96f6-f99e3ea54f61"
+                LastKnownName="event"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="1ea7e0e0-691f-4eb7-85b2-18aa9df50a11"
+            name="pluginManager"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <classMoniker
+                Id="04906960-a374-4205-a86d-03107335b095"
+                LastKnownName="PluginManager"
+                LastKnownLocation="Package_1359.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="8cd9cc99-eb4f-4299-b9ca-9b6aaa654e73"
+            name="fileSelect"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="c857ad8a-29c4-4eaa-96f6-f99e3ea54f61"
+                LastKnownName="event"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
         </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation
@@ -776,6 +841,25 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
               <undefinedTypeMoniker
                 Id="75350fb0-5809-4d1f-91cc-2dd3e036c04b"
                 LastKnownName="del"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="243f2762-3375-4f2e-a58c-9bc06934a4c6"
+            name="entryClick"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="c857ad8a-29c4-4eaa-96f6-f99e3ea54f61"
+                LastKnownName="event"
                 LastKnownLocation="Entwurf.uml" />
             </type_NamedElement>
           </property>
@@ -1200,6 +1284,9 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
           <enumerationLiteral
             Id="927a966e-a6dc-4ca1-8c98-0e83fa806b31"
             name="OqatSystem" />
+          <enumerationLiteral
+            Id="55ae7c19-64dd-44f2-b1d0-416edfff3442"
+            name="VideoHandler" />
         </ownedLiterals>
       </enumeration>
     </packageHasNamedElement>
@@ -1209,7 +1296,22 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
         name="VM_VidImportOptionsDialog"
         isAbstract="false"
         isLeaf="false"
-        isActiveClass="false" />
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="40025c26-2138-4e94-bbcb-1b91a7e2a2c0"
+            name="Video"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
@@ -2731,6 +2833,44 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="195355fa-c395-4f81-92bc-ca46397cb3df"
+            name="getPluginKey"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="8cce0488-3c0a-4740-ad78-6c1bf83c0d54"
+                  name="PluginType type"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="0a1281a7-b1b5-4cfd-bb39-9904d25afc51"
+                  name="PluginName name"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="a95f14fc-4fd7-4cdf-bbd2-d485ced5acab"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="71a35fde-c6e5-4115-8b6c-669417907e6a"
+                      LastKnownName="string"
+                      LastKnownLocation="Entwurf.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -2861,6 +3001,11 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
           </operation>
         </ownedOperationsInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="174260e5-fb0d-44a2-8627-96fb7486c154"
+        name="Dictionary&lt;String&gt;&lt;Object&gt;" />
     </packageHasNamedElement>
   </packagedElements>
 </package>
