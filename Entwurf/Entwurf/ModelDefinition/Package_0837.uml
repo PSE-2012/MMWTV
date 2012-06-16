@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="606438c6-613a-4ed2-b8af-87ce2985d9b7"
   name="Model" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -961,15 +961,6 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
-        <suppliersInternal>
-          <interfaceRealization
-            Id="1a17ff48-6381-4ceb-a684-1bf5146b2ae3">
-            <interfaceMoniker
-              Id="8028688e-c9dc-41d2-9069-564ff03ef8f9"
-              LastKnownName="IVideoSource"
-              LastKnownLocation="Package_0855.uml" />
-          </interfaceRealization>
-        </suppliersInternal>
         <targetEnds>
           <association
             Id="f370d887-286b-4494-a3d3-77e420c6404a"
@@ -2231,60 +2222,6 @@
               LastKnownLocation="Package_1725.uml" />
           </interfaceRealization>
         </suppliersInternal>
-        <targetEnds>
-          <association
-            Id="8881d73a-ead9-4697-8ddd-a5b9aff885b4"
-            isDerived="false"
-            sourceEndRoleName="MakroFilter"
-            targetEndRoleName="FilterPlugin"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="a66186b0-aa2e-4561-9a4d-3397c362aa67"
-              LastKnownName="FilterPlugin"
-              LastKnownLocation="Entwurf.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="57c3accb-c2f7-4d6c-ae69-fe4c740ffbb2"
-                  name="MakroFilter"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="e3e763ab-cd8d-41e1-958f-5287d27cc6ff"
-                  name="FilterPlugin"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="0a477bfe-0ebd-4436-8bf9-3cc2ad87e65b"
-                      name="Lower"
-                      value="1,*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="07489e86-0580-4904-b346-08865aab7844"
-                      name="Upper"
-                      value="1,*" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
         <ownedOperationsInternal>
           <operation
             Id="d39c020a-baf2-4133-bf39-b02a3e2663cf"

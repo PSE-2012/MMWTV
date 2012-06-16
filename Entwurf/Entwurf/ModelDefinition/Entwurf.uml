@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="46634d97-dc6c-4362-9484-7c7ecb77101f"
   name="Entwurf" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
   <ownedCommentsInternal>
     <comment
-      Id="76b756ef-2775-4bdf-89a0-339c1fd40f58">
+      Id="4be627a9-39fc-441f-8f22-79c9d90f8631">
       <body>externes...</body>
     </comment>
     <comment
-      Id="4be627a9-39fc-441f-8f22-79c9d90f8631">
+      Id="8d007ad9-41b2-427f-b2d1-06e934a818ad">
       <body>externes...</body>
     </comment>
   </ownedCommentsInternal>
@@ -129,282 +129,6 @@
   </profileInstances>
   <packagedElements>
     <packageHasNamedElement>
-      <class
-        Id="5c602c40-006e-4848-bcdc-5dbb9a1a369b"
-        name="FilterList"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <targetEnds>
-          <association
-            Id="9239a59e-bad5-48bb-bbb4-5e03086dd939"
-            isDerived="false"
-            sourceEndRoleName="FilterList"
-            targetEndRoleName="Filter"
-            isLeaf="false"
-            isAbstract="false">
-            <interfaceMoniker
-              Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
-              LastKnownName="IPlugin"
-              LastKnownLocation="Package_1716.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="e793f38d-6bfb-4235-84cb-7e896bc761d3"
-                  name="FilterList"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="Shared"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="d9aaa776-36dc-4aab-8ebc-ff4b7221583d"
-                  name="Filter"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="f13399fa-346a-4dd8-a142-fdedc68e9e67"
-                      name="Lower"
-                      value="*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="f674eea2-cba4-4126-9c62-23824fc79478"
-                      name="Upper"
-                      value="*" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
-        <ownedAttributesInternal>
-          <property
-            Id="02023d5e-d9fd-4dd5-a36d-8094c27a0af7"
-            name="aktivierteFilter"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false" />
-        </ownedAttributesInternal>
-      </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <class
-        Id="c5b8f830-7649-4882-ba6c-049643069510"
-        name="Options"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <targetEnds>
-          <association
-            Id="16bc511c-ea69-4977-8d88-a6a05203ca40"
-            isDerived="false"
-            sourceEndRoleName="Options"
-            targetEndRoleName="OptionsFilter"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="b543bf77-443b-4bf8-88bf-feea131d6f6b"
-              LastKnownName="OptFilter"
-              LastKnownLocation="Entwurf.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="fc0fefcb-8465-4aa3-9889-6025357fd856"
-                  name="Options"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="Shared"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="641f403f-696c-41c1-ae4e-6f064a5a306e"
-                  name="OptionsFilter"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="a996faae-c52d-4828-b86a-089bc6d63a39"
-                      name="Lower"
-                      value="*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="0887b4e6-a0e0-4c18-9f9d-5ee191194515"
-                      name="Upper"
-                      value="*" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
-        <ownedAttributesInternal>
-          <property
-            Id="0afed8d2-ccf5-4971-9c74-be566192fb46"
-            name="OptFilterColl"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false" />
-          <property
-            Id="8e4852fb-08ff-4a0b-836e-e2fce5642022"
-            name="OptCore"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false" />
-          <property
-            Id="7359421f-741e-4d2e-ab60-c6d93892cf76"
-            name="OptMetrikColl"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false" />
-        </ownedAttributesInternal>
-      </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <class
-        Id="c70428bf-c504-436d-9acd-1edc8c151769"
-        name="MetriList"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <class
-        Id="a66186b0-aa2e-4561-9a4d-3397c362aa67"
-        name="FilterPlugin"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <suppliersInternal>
-          <interfaceRealization
-            Id="9d6c1e31-fe6b-4b6c-8291-4cd28e645d1b">
-            <interfaceMoniker
-              Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
-              LastKnownName="IPlugin"
-              LastKnownLocation="Package_1716.uml" />
-          </interfaceRealization>
-        </suppliersInternal>
-        <ownedOperationsInternal>
-          <operation
-            Id="1522a035-3585-4b11-abed-4a41a1f2a45f"
-            name="getOptionsView"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false" />
-          <operation
-            Id="71817e6e-ea8d-46a0-bd3e-dffd4d511eca"
-            name="getProgress"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="2744315a-330a-4848-9d48-70d60154ac83"
-                  direction="Return"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="956a8394-a6a9-4e5d-b471-7f2637eca1f4"
-                      LastKnownName="int"
-                      LastKnownLocation="Package_1716.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <class
-        Id="b543bf77-443b-4bf8-88bf-feea131d6f6b"
-        name="OptFilter"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <suppliersInternal>
-          <dependency
-            Id="372adcab-b416-40e7-bef9-ebcea5abded4">
-            <interfaceMoniker
-              Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
-              LastKnownName="IPlugin"
-              LastKnownLocation="Package_1716.uml" />
-          </dependency>
-        </suppliersInternal>
-        <ownedAttributesInternal>
-          <property
-            Id="437fecfb-ab22-4928-af76-7ebbaa58623c"
-            name="active"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false" />
-          <property
-            Id="d0782269-2a4f-4550-8e62-d817269b0cb0"
-            name="name"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false" />
-        </ownedAttributesInternal>
-      </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <undefinedType
         Id="23450f33-e5d8-4022-bb50-d9f35a09bf64"
         name="name" />
@@ -474,20 +198,6 @@
         name="SNodeType" />
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <class
-        Id="0f2bfa55-de89-4ec2-8ea0-f2cc0d882394"
-        name="Analysis"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <packageMoniker
-        Id="1a7128e9-6ee9-4ac2-8265-59289c94f388"
-        LastKnownName="oqat"
-        LastKnownLocation="Package_0919.uml" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <packageMoniker
         Id="1ff6466d-c0e5-4e5d-8c85-9975031b4c67"
         LastKnownName="System"
@@ -509,12 +219,6 @@
       <undefinedType
         Id="46a8353f-56fd-41e8-95a4-0fe8c578675f"
         name="memento" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <packageMoniker
-        Id="930254ac-11cf-4d8a-9fe3-6fc29ee37967"
-        LastKnownName="Aforge"
-        LastKnownLocation="Package_0855.uml" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <packageMoniker
@@ -4260,14 +3964,7 @@
             isDerived="false"
             isDerivedUnion="false"
             aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <classMoniker
-                Id="5c602c40-006e-4848-bcdc-5dbb9a1a369b"
-                LastKnownName="FilterList"
-                LastKnownLocation="Entwurf.uml" />
-            </type_NamedElement>
-          </property>
+            isComposite="false" />
         </ownedAttributesInternal>
       </interaction>
     </packageHasNamedElement>
@@ -4355,12 +4052,702 @@
         </ownedCommentsInternal>
         <fragments>
           <messageOccurrenceSpecification
-            Id="806a366d-3365-4148-a208-9f852bc46fea"
-            name="MessageOccurrenceSpecification37">
+            Id="f2748a3d-dd16-470d-8c13-691a13bed9b0"
+            name="MessageOccurrenceSpecification94">
+            <covered>
+              <lifelineMoniker
+                Id="0b2da0b1-1451-4e6f-834b-8fc436195702"
+                LastKnownName="vM_ProjectExplorer : VM_ProjectExplorer"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="2336bdf1-e63a-4848-b0a8-be774783e194"
+            name="MessageOccurrenceSpecification93">
             <covered>
               <lifelineMoniker
                 Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
                 LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="290e1d2d-c03e-4d0b-ae79-569c62964f50"
+            name="MessageOccurrenceSpecification72">
+            <covered>
+              <lifelineMoniker
+                Id="8152a117-3cbe-41c7-9b8e-58b00f37b408"
+                LastKnownName="caretaker : Caretaker"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f554b22d-0314-4aed-bdde-924b24c829a0"
+            name="MessageOccurrenceSpecification61">
+            <covered>
+              <lifelineMoniker
+                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
+                LastKnownName="pluginManager : PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="460b3d17-a2a8-4ab7-825b-072fabaee53d"
+            name="MessageOccurrenceSpecification62">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="4ff4b214-f2ad-42f7-8966-ad553a4dc3ae"
+            name="MessageOccurrenceSpecification95">
+            <covered>
+              <lifelineMoniker
+                Id="0b2da0b1-1451-4e6f-834b-8fc436195702"
+                LastKnownName="vM_ProjectExplorer : VM_ProjectExplorer"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="073f6e5b-adea-43e2-a9ce-e0e14f823e86"
+            name="MessageOccurrenceSpecification92">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="e4bc8ca2-bfcb-4165-9aa1-cc9f88bfaa18"
+            name="MessageOccurrenceSpecification91">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f0ba91ec-b4fe-4c02-8695-ab361ec3324c"
+            name="MessageOccurrenceSpecification58">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="760dccba-1b86-48f5-9d58-646d952beaac"
+            name="MessageOccurrenceSpecification71">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="0be42801-4128-49bd-afbd-c04f2ef23c7a"
+            name="MessageOccurrenceSpecification73">
+            <covered>
+              <lifelineMoniker
+                Id="8152a117-3cbe-41c7-9b8e-58b00f37b408"
+                LastKnownName="caretaker : Caretaker"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="c5339019-a12a-4d3c-99ad-ecf77ab0f40a"
+            name="MessageOccurrenceSpecification74">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="d03cc6e9-fa19-4ef6-8f15-fb0fdd7e7dc9"
+            name="MessageOccurrenceSpecification60">
+            <covered>
+              <lifelineMoniker
+                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
+                LastKnownName="pluginManager : PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="3bc7f509-6ac6-49a2-886e-e767427b325c"
+            name="MessageOccurrenceSpecification51">
+            <covered>
+              <lifelineMoniker
+                Id="f29b17d2-a1b7-4aad-bd83-fb0710e5bad8"
+                LastKnownName="pP_Presentation : PP_Presentation"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="05a9c78a-4e6c-4080-bbc1-b1146957cf80"
+            name="MessageOccurrenceSpecification5">
+            <covered>
+              <lifelineMoniker
+                Id="713aac81-2414-41fa-9bd8-eb55cee198d7"
+                LastKnownName="vM_ProjectOpenDialog : VM_ProjectOpenDialog"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="ff5514a1-9b43-481d-ae8f-f64c7eaf6bf9"
+            name="MessageOccurrenceSpecification6">
+            <covered>
+              <lifelineMoniker
+                Id="01643d09-a0fa-4576-8803-338182ac500e"
+                LastKnownName="vM_Menu : VM_Menu"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="24af8fd8-cc0a-4475-b647-d594969c9c25"
+            name="MessageOccurrenceSpecification49">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f744fe54-3964-467f-a2e1-c518dfe2e171"
+            name="MessageOccurrenceSpecification50">
+            <covered>
+              <lifelineMoniker
+                Id="f29b17d2-a1b7-4aad-bd83-fb0710e5bad8"
+                LastKnownName="pP_Presentation : PP_Presentation"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="ea3860bd-1139-456d-ac32-ab3e0da5198b"
+            name="MessageOccurrenceSpecification52">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="be661aab-c324-433f-8aa8-16d42e933857"
+            name="MessageOccurrenceSpecification56">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="14fd73a7-a477-4159-8aed-702534999831"
+            name="MessageOccurrenceSpecification96">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="caef92d8-acf4-410a-bb14-dae4a66061a1"
+            name="MessageOccurrenceSpecification59">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="8f1c9fcf-4132-412f-9a03-21a692b419b0"
+            name="MessageOccurrenceSpecification53">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f12dc026-fbb4-4496-b074-1ea77c62ec08"
+            name="MessageOccurrenceSpecification54">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="a8879dc1-9064-4cd1-8cdf-621dffb7f01e"
+            name="MessageOccurrenceSpecification55">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="e1373ed7-326d-4b27-89eb-3000824bfeb5"
+            name="MessageOccurrenceSpecification82">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="8a7930f8-838f-4796-abb0-a084902768d2"
+            name="MessageOccurrenceSpecification81">
+            <covered>
+              <lifelineMoniker
+                Id="8152a117-3cbe-41c7-9b8e-58b00f37b408"
+                LastKnownName="caretaker : Caretaker"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="2b758edd-1e6d-4799-a27b-9601e060ac54"
+            name="MessageOccurrenceSpecification70">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="57656f21-6220-4d47-9a4a-b2b87f219999"
+            name="MessageOccurrenceSpecification69">
+            <covered>
+              <lifelineMoniker
+                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
+                LastKnownName="pluginManager : PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="32cc6484-bfb8-4c3b-b478-b8be4a78cbde"
+            name="MessageOccurrenceSpecification80">
+            <covered>
+              <lifelineMoniker
+                Id="8152a117-3cbe-41c7-9b8e-58b00f37b408"
+                LastKnownName="caretaker : Caretaker"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="d1f7cc59-ab14-48e7-b0fc-271a0cdee4f5"
+            name="MessageOccurrenceSpecification79">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="c00c38be-1a38-49ae-a40e-d5dcaa4ba68e"
+            name="MessageOccurrenceSpecification84">
+            <covered>
+              <lifelineMoniker
+                Id="2c71a427-1a29-4000-9c0e-eaae78ea3f48"
+                LastKnownName="firstPluginMemento : Memento"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="065181ea-8429-444c-a7b3-2f46345fdc94"
+            name="MessageOccurrenceSpecification86">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="fcf474e3-47a2-4265-8a28-474cda6d1f5e"
+            name="MessageOccurrenceSpecification85">
+            <covered>
+              <lifelineMoniker
+                Id="2c71a427-1a29-4000-9c0e-eaae78ea3f48"
+                LastKnownName="firstPluginMemento : Memento"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="4b8c4031-ee93-4d58-a568-2d4104b52d9b"
+            name="MessageOccurrenceSpecification68">
+            <covered>
+              <lifelineMoniker
+                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
+                LastKnownName="pluginManager : PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="b8b25dab-8df2-404b-9446-10ba20ec8f2e"
+            name="MessageOccurrenceSpecification67">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="0f5a7085-1695-4e33-9179-5324b0296be5"
+            name="MessageOccurrenceSpecification83">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="23632f2b-c567-443e-a881-947cf2989b6a"
+            name="MessageOccurrenceSpecification87">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="fed286ba-8e85-4994-8036-048f49a77632"
+            name="MessageOccurrenceSpecification66">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f1f9b490-2102-4255-85ba-dbaafae28771"
+            name="MessageOccurrenceSpecification57">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="16df3d61-319d-4296-b2e8-95ada76cd707"
+            name="MessageOccurrenceSpecification89">
+            <covered>
+              <lifelineMoniker
+                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
+                LastKnownName="pluginManager : PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="76d64156-2318-490a-8fc5-8e9f59b82ec4"
+            name="MessageOccurrenceSpecification63">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="3c188d13-92ac-4bbd-8210-cc008b1ac391"
+            name="MessageOccurrenceSpecification64">
+            <covered>
+              <lifelineMoniker
+                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
+                LastKnownName="pluginManager : PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="905f8f0c-4ab8-423f-913a-bdf46102fe07"
+            name="MessageOccurrenceSpecification65">
+            <covered>
+              <lifelineMoniker
+                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
+                LastKnownName="pluginManager : PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="72e7905d-31e5-440a-9eb6-435390ede281"
+            name="MessageOccurrenceSpecification77">
+            <covered>
+              <lifelineMoniker
+                Id="8152a117-3cbe-41c7-9b8e-58b00f37b408"
+                LastKnownName="caretaker : Caretaker"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="7957a1e1-6c72-46b2-a928-56a0a988a359"
+            name="MessageOccurrenceSpecification78">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="594ebed2-4d5e-4d6b-b043-0b289977064a"
+            name="MessageOccurrenceSpecification88">
+            <covered>
+              <lifelineMoniker
+                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
+                LastKnownName="pluginManager : PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f0e3ef85-a78d-4e1b-8049-b243db187fa7"
+            name="MessageOccurrenceSpecification90">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f356bd4a-7a7d-47ea-9b3d-9596ad401d02"
+            name="MessageOccurrenceSpecification75">
+            <covered>
+              <lifelineMoniker
+                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
+                LastKnownName="vM_PluginLists : VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="38849bf3-caab-487b-8eba-08f51381e16f"
+            name="MessageOccurrenceSpecification76">
+            <covered>
+              <lifelineMoniker
+                Id="8152a117-3cbe-41c7-9b8e-58b00f37b408"
+                LastKnownName="caretaker : Caretaker"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="40be8dc7-ba5c-4297-b120-045594963265"
+            name="MessageOccurrenceSpecification45">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="ad6c9397-31fb-4a47-a9ac-84e827f020da"
+            name="MessageOccurrenceSpecification46">
+            <covered>
+              <lifelineMoniker
+                Id="f29b17d2-a1b7-4aad-bd83-fb0710e5bad8"
+                LastKnownName="pP_Presentation : PP_Presentation"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="47395052-985a-4eba-a32a-2574eb73113b"
+            name="MessageOccurrenceSpecification15">
+            <covered>
+              <lifelineMoniker
+                Id="8c25cedc-4145-4636-b2f8-8684c807fdea"
+                LastKnownName="smartTree : SmartNode"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="d09dd2d0-ba3e-48da-b7b1-ab817dcac47e"
+            name="MessageOccurrenceSpecification9">
+            <covered>
+              <lifelineMoniker
+                Id="713aac81-2414-41fa-9bd8-eb55cee198d7"
+                LastKnownName="vM_ProjectOpenDialog : VM_ProjectOpenDialog"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="6cd3533f-6100-453e-ad82-3f6459acbeb6"
+            name="MessageOccurrenceSpecification40">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f8efe760-d965-4791-b3f3-c006997c6229"
+            name="MessageOccurrenceSpecification35">
+            <covered>
+              <lifelineMoniker
+                Id="713aac81-2414-41fa-9bd8-eb55cee198d7"
+                LastKnownName="vM_ProjectOpenDialog : VM_ProjectOpenDialog"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="98f8f65f-fb2d-4061-967c-a2a83ca76dba"
+            name="MessageOccurrenceSpecification11">
+            <covered>
+              <lifelineMoniker
+                Id="716675d1-7262-4b3c-b39c-325ba29fa10a"
+                LastKnownName="project : Project"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="3e9c1633-44bf-40ab-8d3c-c54a8e87d624"
+            name="MessageOccurrenceSpecification12">
+            <covered>
+              <lifelineMoniker
+                Id="713aac81-2414-41fa-9bd8-eb55cee198d7"
+                LastKnownName="vM_ProjectOpenDialog : VM_ProjectOpenDialog"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="e9575ec8-c4a9-4c15-9f94-35fbdeffcff2"
+            name="MessageOccurrenceSpecification13">
+            <covered>
+              <lifelineMoniker
+                Id="716675d1-7262-4b3c-b39c-325ba29fa10a"
+                LastKnownName="project : Project"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="55f326b5-7608-409c-b6a7-986a2cb15c0c"
+            name="MessageOccurrenceSpecification14">
+            <covered>
+              <lifelineMoniker
+                Id="8c25cedc-4145-4636-b2f8-8684c807fdea"
+                LastKnownName="smartTree : SmartNode"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="7dbe134a-e8ab-4475-a72d-2af19fbe6c82"
+            name="MessageOccurrenceSpecification41">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f619861e-2f00-40fa-9d1b-40377d76c4bd"
+            name="MessageOccurrenceSpecification42">
+            <covered>
+              <lifelineMoniker
+                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
+                LastKnownName="pluginManager : PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="bc98d95d-7d17-443c-93eb-5f85f55d9ba7"
+            name="MessageOccurrenceSpecification10">
+            <covered>
+              <lifelineMoniker
+                Id="716675d1-7262-4b3c-b39c-325ba29fa10a"
+                LastKnownName="project : Project"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="2dc0330f-ce47-459b-9a0d-ae44353282be"
+            name="MessageOccurrenceSpecification16">
+            <covered>
+              <lifelineMoniker
+                Id="716675d1-7262-4b3c-b39c-325ba29fa10a"
+                LastKnownName="project : Project"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="848aa159-50a8-4b47-9581-e59e8b48b739"
+            name="MessageOccurrenceSpecification44">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="fd735a0e-6d27-4981-bb37-2c2a31fab569"
+            name="MessageOccurrenceSpecification43">
+            <covered>
+              <lifelineMoniker
+                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
+                LastKnownName="pluginManager : PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="5ce4cf0f-366f-4ce3-9367-db4eafe50945"
+            name="MessageOccurrenceSpecification48">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="05900eea-e9a0-4ab2-9de3-8d02f5729f26"
+            name="MessageOccurrenceSpecification39">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="d68a5aa8-6290-49e6-b42a-fb6211728ed7"
+            name="MessageOccurrenceSpecification38">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="329c65fa-0707-4f7d-b894-69db73229e35"
+            name="MessageOccurrenceSpecification36">
+            <covered>
+              <lifelineMoniker
+                Id="713aac81-2414-41fa-9bd8-eb55cee198d7"
+                LastKnownName="vM_ProjectOpenDialog : VM_ProjectOpenDialog"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -4371,6 +4758,56 @@
               <lifelineMoniker
                 Id="01643d09-a0fa-4576-8803-338182ac500e"
                 LastKnownName="vM_Menu : VM_Menu"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="0cb76a68-95fb-497b-ab25-2b2580fb09a1"
+            name="MessageOccurrenceSpecification4">
+            <covered>
+              <lifelineMoniker
+                Id="713aac81-2414-41fa-9bd8-eb55cee198d7"
+                LastKnownName="vM_ProjectOpenDialog : VM_ProjectOpenDialog"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="45c56317-b189-4265-963b-a887a61d5d04"
+            name="MessageOccurrenceSpecification22">
+            <covered>
+              <lifelineMoniker
+                Id="01643d09-a0fa-4576-8803-338182ac500e"
+                LastKnownName="vM_Menu : VM_Menu"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="806a366d-3365-4148-a208-9f852bc46fea"
+            name="MessageOccurrenceSpecification37">
+            <covered>
+              <lifelineMoniker
+                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
+                LastKnownName="vM_Oqat : VM_Oqat"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="cae4d439-36b4-4948-9dc0-8c9ccca11875"
+            name="MessageOccurrenceSpecification3">
+            <covered>
+              <lifelineMoniker
+                Id="01643d09-a0fa-4576-8803-338182ac500e"
+                LastKnownName="vM_Menu : VM_Menu"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="71bd3ec4-7110-4c87-a030-749f586c20aa"
+            name="MessageOccurrenceSpecification47">
+            <covered>
+              <lifelineMoniker
+                Id="f29b17d2-a1b7-4aad-bd83-fb0710e5bad8"
+                LastKnownName="pP_Presentation : PP_Presentation"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -4475,24 +4912,6 @@
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="d3938392-cd19-45a6-a1aa-13259652065d"
-            name="ExecutionOccurrenceSpecification29">
-            <event>
-              <executionOccurrenceSpecificationReferencesEvent>
-                <executionEventMoniker
-                  Id="eabfb99e-fa24-4b56-9969-eba6c5b4acaf"
-                  LastKnownName="ExecutionEvent"
-                  LastKnownLocation="Entwurf.uml" />
-              </executionOccurrenceSpecificationReferencesEvent>
-            </event>
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </executionOccurrenceSpecification>
-          <executionOccurrenceSpecification
             Id="ee754776-832e-4e26-bf52-513ae0745c41"
             name="ExecutionOccurrenceSpecification15">
             <event>
@@ -4510,26 +4929,24 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="d68a5aa8-6290-49e6-b42a-fb6211728ed7"
-            name="MessageOccurrenceSpecification38">
+          <executionOccurrenceSpecification
+            Id="d3938392-cd19-45a6-a1aa-13259652065d"
+            name="ExecutionOccurrenceSpecification29">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="eabfb99e-fa24-4b56-9969-eba6c5b4acaf"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Entwurf.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
             <covered>
               <lifelineMoniker
                 Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
                 LastKnownName="vM_Oqat : VM_Oqat"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="45c56317-b189-4265-963b-a887a61d5d04"
-            name="MessageOccurrenceSpecification22">
-            <covered>
-              <lifelineMoniker
-                Id="01643d09-a0fa-4576-8803-338182ac500e"
-                LastKnownName="vM_Menu : VM_Menu"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
+          </executionOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="5e741fa7-525c-4934-ae5e-a1854deeb55f"
             name="BehaviorExecutionSpecification2">
@@ -4600,36 +5017,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="05900eea-e9a0-4ab2-9de3-8d02f5729f26"
-            name="MessageOccurrenceSpecification39">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="cae4d439-36b4-4948-9dc0-8c9ccca11875"
-            name="MessageOccurrenceSpecification3">
-            <covered>
-              <lifelineMoniker
-                Id="01643d09-a0fa-4576-8803-338182ac500e"
-                LastKnownName="vM_Menu : VM_Menu"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="0cb76a68-95fb-497b-ab25-2b2580fb09a1"
-            name="MessageOccurrenceSpecification4">
-            <covered>
-              <lifelineMoniker
-                Id="713aac81-2414-41fa-9bd8-eb55cee198d7"
-                LastKnownName="vM_ProjectOpenDialog : VM_ProjectOpenDialog"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="61204047-5d84-4901-a345-6d3f60af22dd"
             name="BehaviorExecutionSpecification16">
@@ -4700,16 +5087,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="6cd3533f-6100-453e-ad82-3f6459acbeb6"
-            name="MessageOccurrenceSpecification40">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="7771a363-c8ae-4335-94da-e120489fef93"
             name="BehaviorExecutionSpecification4">
@@ -4768,26 +5145,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="d09dd2d0-ba3e-48da-b7b1-ab817dcac47e"
-            name="MessageOccurrenceSpecification9">
-            <covered>
-              <lifelineMoniker
-                Id="713aac81-2414-41fa-9bd8-eb55cee198d7"
-                LastKnownName="vM_ProjectOpenDialog : VM_ProjectOpenDialog"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="bc98d95d-7d17-443c-93eb-5f85f55d9ba7"
-            name="MessageOccurrenceSpecification10">
-            <covered>
-              <lifelineMoniker
-                Id="716675d1-7262-4b3c-b39c-325ba29fa10a"
-                LastKnownName="project : Project"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="8ea8e835-14a2-452d-8269-2e2983200544"
             name="BehaviorExecutionSpecification17">
@@ -4838,26 +5195,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="7dbe134a-e8ab-4475-a72d-2af19fbe6c82"
-            name="MessageOccurrenceSpecification41">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f619861e-2f00-40fa-9d1b-40377d76c4bd"
-            name="MessageOccurrenceSpecification42">
-            <covered>
-              <lifelineMoniker
-                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
-                LastKnownName="pluginManager : PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="ef0c9707-cc9a-4d39-af1a-e6a3b51b260e"
             name="BehaviorExecutionSpecification5">
@@ -4908,46 +5245,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="e9575ec8-c4a9-4c15-9f94-35fbdeffcff2"
-            name="MessageOccurrenceSpecification13">
-            <covered>
-              <lifelineMoniker
-                Id="716675d1-7262-4b3c-b39c-325ba29fa10a"
-                LastKnownName="project : Project"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="55f326b5-7608-409c-b6a7-986a2cb15c0c"
-            name="MessageOccurrenceSpecification14">
-            <covered>
-              <lifelineMoniker
-                Id="8c25cedc-4145-4636-b2f8-8684c807fdea"
-                LastKnownName="smartTree : SmartNode"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="848aa159-50a8-4b47-9581-e59e8b48b739"
-            name="MessageOccurrenceSpecification44">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="fd735a0e-6d27-4981-bb37-2c2a31fab569"
-            name="MessageOccurrenceSpecification43">
-            <covered>
-              <lifelineMoniker
-                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
-                LastKnownName="pluginManager : PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="a951fcbc-ee70-4b7b-9791-45ae72fb4c90"
             name="ExecutionOccurrenceSpecification34">
@@ -4966,26 +5263,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="2dc0330f-ce47-459b-9a0d-ae44353282be"
-            name="MessageOccurrenceSpecification16">
-            <covered>
-              <lifelineMoniker
-                Id="716675d1-7262-4b3c-b39c-325ba29fa10a"
-                LastKnownName="project : Project"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="47395052-985a-4eba-a32a-2574eb73113b"
-            name="MessageOccurrenceSpecification15">
-            <covered>
-              <lifelineMoniker
-                Id="8c25cedc-4145-4636-b2f8-8684c807fdea"
-                LastKnownName="smartTree : SmartNode"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="04e990da-058b-4390-9a88-d1d547367062"
             name="ExecutionOccurrenceSpecification10">
@@ -5054,46 +5331,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="40be8dc7-ba5c-4297-b120-045594963265"
-            name="MessageOccurrenceSpecification45">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="ad6c9397-31fb-4a47-a9ac-84e827f020da"
-            name="MessageOccurrenceSpecification46">
-            <covered>
-              <lifelineMoniker
-                Id="f29b17d2-a1b7-4aad-bd83-fb0710e5bad8"
-                LastKnownName="pP_Presentation : PP_Presentation"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="98f8f65f-fb2d-4061-967c-a2a83ca76dba"
-            name="MessageOccurrenceSpecification11">
-            <covered>
-              <lifelineMoniker
-                Id="716675d1-7262-4b3c-b39c-325ba29fa10a"
-                LastKnownName="project : Project"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="3e9c1633-44bf-40ab-8d3c-c54a8e87d624"
-            name="MessageOccurrenceSpecification12">
-            <covered>
-              <lifelineMoniker
-                Id="713aac81-2414-41fa-9bd8-eb55cee198d7"
-                LastKnownName="vM_ProjectOpenDialog : VM_ProjectOpenDialog"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="e897111f-ab60-4d72-94ca-3bd586910053"
             name="ExecutionOccurrenceSpecification8">
@@ -5112,36 +5349,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f8efe760-d965-4791-b3f3-c006997c6229"
-            name="MessageOccurrenceSpecification35">
-            <covered>
-              <lifelineMoniker
-                Id="713aac81-2414-41fa-9bd8-eb55cee198d7"
-                LastKnownName="vM_ProjectOpenDialog : VM_ProjectOpenDialog"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="71bd3ec4-7110-4c87-a030-749f586c20aa"
-            name="MessageOccurrenceSpecification47">
-            <covered>
-              <lifelineMoniker
-                Id="f29b17d2-a1b7-4aad-bd83-fb0710e5bad8"
-                LastKnownName="pP_Presentation : PP_Presentation"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="5ce4cf0f-366f-4ce3-9367-db4eafe50945"
-            name="MessageOccurrenceSpecification48">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="ef013570-b368-4c4b-be57-ffec25d71c93"
             name="ExecutionOccurrenceSpecification36">
@@ -5206,16 +5413,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="329c65fa-0707-4f7d-b894-69db73229e35"
-            name="MessageOccurrenceSpecification36">
-            <covered>
-              <lifelineMoniker
-                Id="713aac81-2414-41fa-9bd8-eb55cee198d7"
-                LastKnownName="vM_ProjectOpenDialog : VM_ProjectOpenDialog"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="520cfc1f-17f5-4d01-a3be-b428d9dfd5fb"
             name="BehaviorExecutionSpecification19">
@@ -5266,26 +5463,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="24af8fd8-cc0a-4475-b647-d594969c9c25"
-            name="MessageOccurrenceSpecification49">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f744fe54-3964-467f-a2e1-c518dfe2e171"
-            name="MessageOccurrenceSpecification50">
-            <covered>
-              <lifelineMoniker
-                Id="f29b17d2-a1b7-4aad-bd83-fb0710e5bad8"
-                LastKnownName="pP_Presentation : PP_Presentation"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="dc1ad3a3-431b-4135-ac33-b1fc8caf325d"
             name="ExecutionOccurrenceSpecification28">
@@ -5304,26 +5481,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="ea3860bd-1139-456d-ac32-ab3e0da5198b"
-            name="MessageOccurrenceSpecification52">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="3bc7f509-6ac6-49a2-886e-e767427b325c"
-            name="MessageOccurrenceSpecification51">
-            <covered>
-              <lifelineMoniker
-                Id="f29b17d2-a1b7-4aad-bd83-fb0710e5bad8"
-                LastKnownName="pP_Presentation : PP_Presentation"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="2f71ecd5-f633-4b20-bdf7-a472f82fef1b"
             name="ExecutionOccurrenceSpecification38">
@@ -5342,26 +5499,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="05a9c78a-4e6c-4080-bbc1-b1146957cf80"
-            name="MessageOccurrenceSpecification5">
-            <covered>
-              <lifelineMoniker
-                Id="713aac81-2414-41fa-9bd8-eb55cee198d7"
-                LastKnownName="vM_ProjectOpenDialog : VM_ProjectOpenDialog"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="ff5514a1-9b43-481d-ae8f-f64c7eaf6bf9"
-            name="MessageOccurrenceSpecification6">
-            <covered>
-              <lifelineMoniker
-                Id="01643d09-a0fa-4576-8803-338182ac500e"
-                LastKnownName="vM_Menu : VM_Menu"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="bdace279-7140-4fec-b99d-daf559160628"
             name="ExecutionOccurrenceSpecification4">
@@ -5416,16 +5553,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="8f1c9fcf-4132-412f-9a03-21a692b419b0"
-            name="MessageOccurrenceSpecification53">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="d7ec44ad-7ff9-4f2b-b231-73614d7c3eb8"
             name="BehaviorExecutionSpecification20">
@@ -5480,16 +5607,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f12dc026-fbb4-4496-b074-1ea77c62ec08"
-            name="MessageOccurrenceSpecification54">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="5869d520-0614-4dc8-84f3-7061f8d4e00c"
             name="BehaviorExecutionSpecification21">
@@ -5604,26 +5721,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="a8879dc1-9064-4cd1-8cdf-621dffb7f01e"
-            name="MessageOccurrenceSpecification55">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="be661aab-c324-433f-8aa8-16d42e933857"
-            name="MessageOccurrenceSpecification56">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="2a9d6148-c128-4e6b-9667-f78ef8ecc5f6"
             name="BehaviorExecutionSpecification22">
@@ -5674,46 +5771,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="caef92d8-acf4-410a-bb14-dae4a66061a1"
-            name="MessageOccurrenceSpecification59">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="d03cc6e9-fa19-4ef6-8f15-fb0fdd7e7dc9"
-            name="MessageOccurrenceSpecification60">
-            <covered>
-              <lifelineMoniker
-                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
-                LastKnownName="pluginManager : PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f554b22d-0314-4aed-bdde-924b24c829a0"
-            name="MessageOccurrenceSpecification61">
-            <covered>
-              <lifelineMoniker
-                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
-                LastKnownName="pluginManager : PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="460b3d17-a2a8-4ab7-825b-072fabaee53d"
-            name="MessageOccurrenceSpecification62">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="37601aeb-8ef7-439c-916d-a0251be533e6"
             name="ExecutionOccurrenceSpecification44">
@@ -5782,46 +5839,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="290e1d2d-c03e-4d0b-ae79-569c62964f50"
-            name="MessageOccurrenceSpecification72">
-            <covered>
-              <lifelineMoniker
-                Id="8152a117-3cbe-41c7-9b8e-58b00f37b408"
-                LastKnownName="caretaker : Caretaker"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="760dccba-1b86-48f5-9d58-646d952beaac"
-            name="MessageOccurrenceSpecification71">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="0be42801-4128-49bd-afbd-c04f2ef23c7a"
-            name="MessageOccurrenceSpecification73">
-            <covered>
-              <lifelineMoniker
-                Id="8152a117-3cbe-41c7-9b8e-58b00f37b408"
-                LastKnownName="caretaker : Caretaker"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="c5339019-a12a-4d3c-99ad-ecf77ab0f40a"
-            name="MessageOccurrenceSpecification74">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="117b8218-b7fe-45ab-ac57-1c0c79f7fb6f"
             name="ExecutionOccurrenceSpecification50">
@@ -5890,46 +5907,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="76d64156-2318-490a-8fc5-8e9f59b82ec4"
-            name="MessageOccurrenceSpecification63">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="3c188d13-92ac-4bbd-8210-cc008b1ac391"
-            name="MessageOccurrenceSpecification64">
-            <covered>
-              <lifelineMoniker
-                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
-                LastKnownName="pluginManager : PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="905f8f0c-4ab8-423f-913a-bdf46102fe07"
-            name="MessageOccurrenceSpecification65">
-            <covered>
-              <lifelineMoniker
-                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
-                LastKnownName="pluginManager : PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="fed286ba-8e85-4994-8036-048f49a77632"
-            name="MessageOccurrenceSpecification66">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="131762eb-7ec1-4823-907f-d99dd676c72f"
             name="ExecutionOccurrenceSpecification46">
@@ -5998,46 +5975,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f356bd4a-7a7d-47ea-9b3d-9596ad401d02"
-            name="MessageOccurrenceSpecification75">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="38849bf3-caab-487b-8eba-08f51381e16f"
-            name="MessageOccurrenceSpecification76">
-            <covered>
-              <lifelineMoniker
-                Id="8152a117-3cbe-41c7-9b8e-58b00f37b408"
-                LastKnownName="caretaker : Caretaker"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="72e7905d-31e5-440a-9eb6-435390ede281"
-            name="MessageOccurrenceSpecification77">
-            <covered>
-              <lifelineMoniker
-                Id="8152a117-3cbe-41c7-9b8e-58b00f37b408"
-                LastKnownName="caretaker : Caretaker"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="7957a1e1-6c72-46b2-a928-56a0a988a359"
-            name="MessageOccurrenceSpecification78">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="a531c298-fc0a-4ff0-8bcf-3d23a5fbbb73"
             name="ExecutionOccurrenceSpecification52">
@@ -6106,46 +6043,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="32cc6484-bfb8-4c3b-b478-b8be4a78cbde"
-            name="MessageOccurrenceSpecification80">
-            <covered>
-              <lifelineMoniker
-                Id="8152a117-3cbe-41c7-9b8e-58b00f37b408"
-                LastKnownName="caretaker : Caretaker"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="d1f7cc59-ab14-48e7-b0fc-271a0cdee4f5"
-            name="MessageOccurrenceSpecification79">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="e1373ed7-326d-4b27-89eb-3000824bfeb5"
-            name="MessageOccurrenceSpecification82">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="8a7930f8-838f-4796-abb0-a084902768d2"
-            name="MessageOccurrenceSpecification81">
-            <covered>
-              <lifelineMoniker
-                Id="8152a117-3cbe-41c7-9b8e-58b00f37b408"
-                LastKnownName="caretaker : Caretaker"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="4b7281b0-bac4-4347-a1ed-7eec00304c79"
             name="ExecutionOccurrenceSpecification54">
@@ -6214,46 +6111,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="0f5a7085-1695-4e33-9179-5324b0296be5"
-            name="MessageOccurrenceSpecification83">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="c00c38be-1a38-49ae-a40e-d5dcaa4ba68e"
-            name="MessageOccurrenceSpecification84">
-            <covered>
-              <lifelineMoniker
-                Id="2c71a427-1a29-4000-9c0e-eaae78ea3f48"
-                LastKnownName="firstPluginMemento : Memento"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="065181ea-8429-444c-a7b3-2f46345fdc94"
-            name="MessageOccurrenceSpecification86">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="fcf474e3-47a2-4265-8a28-474cda6d1f5e"
-            name="MessageOccurrenceSpecification85">
-            <covered>
-              <lifelineMoniker
-                Id="2c71a427-1a29-4000-9c0e-eaae78ea3f48"
-                LastKnownName="firstPluginMemento : Memento"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="a406d64a-b31b-4669-94e0-2c86df53a24a"
             name="ExecutionOccurrenceSpecification56">
@@ -6322,46 +6179,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="b8b25dab-8df2-404b-9446-10ba20ec8f2e"
-            name="MessageOccurrenceSpecification67">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="4b8c4031-ee93-4d58-a568-2d4104b52d9b"
-            name="MessageOccurrenceSpecification68">
-            <covered>
-              <lifelineMoniker
-                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
-                LastKnownName="pluginManager : PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="2b758edd-1e6d-4799-a27b-9601e060ac54"
-            name="MessageOccurrenceSpecification70">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="57656f21-6220-4d47-9a4a-b2b87f219999"
-            name="MessageOccurrenceSpecification69">
-            <covered>
-              <lifelineMoniker
-                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
-                LastKnownName="pluginManager : PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="9306e3f5-ba90-4bd1-81c3-705ab8922575"
             name="ExecutionOccurrenceSpecification48">
@@ -6430,46 +6247,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="23632f2b-c567-443e-a881-947cf2989b6a"
-            name="MessageOccurrenceSpecification87">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="594ebed2-4d5e-4d6b-b043-0b289977064a"
-            name="MessageOccurrenceSpecification88">
-            <covered>
-              <lifelineMoniker
-                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
-                LastKnownName="pluginManager : PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f0e3ef85-a78d-4e1b-8049-b243db187fa7"
-            name="MessageOccurrenceSpecification90">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="16df3d61-319d-4296-b2e8-95ada76cd707"
-            name="MessageOccurrenceSpecification89">
-            <covered>
-              <lifelineMoniker
-                Id="2623dc81-17e8-473d-806a-15af1d5261f9"
-                LastKnownName="pluginManager : PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="a22b5aa8-4f61-444c-9d54-81a0c13b1897"
             name="ExecutionOccurrenceSpecification58">
@@ -6488,26 +6265,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f1f9b490-2102-4255-85ba-dbaafae28771"
-            name="MessageOccurrenceSpecification57">
-            <covered>
-              <lifelineMoniker
-                Id="04b07a04-2625-4fed-b8dd-ba3006e7bcee"
-                LastKnownName="vM_PluginLists : VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f0ba91ec-b4fe-4c02-8695-ab361ec3324c"
-            name="MessageOccurrenceSpecification58">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="4721c094-bc1f-433c-8e7c-f550ea778b78"
             name="ExecutionOccurrenceSpecification42">
@@ -6544,16 +6301,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="e4bc8ca2-bfcb-4165-9aa1-cc9f88bfaa18"
-            name="MessageOccurrenceSpecification91">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="b2518cb9-b329-48e9-a161-dd07e2581c43"
             name="BehaviorExecutionSpecification30">
@@ -6608,16 +6355,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="073f6e5b-adea-43e2-a9ce-e0e14f823e86"
-            name="MessageOccurrenceSpecification92">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="e1a6314f-d079-4421-ad5b-e0ab1c5ec12c"
             name="BehaviorExecutionSpecification31">
@@ -6668,46 +6405,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="2336bdf1-e63a-4848-b0a8-be774783e194"
-            name="MessageOccurrenceSpecification93">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f2748a3d-dd16-470d-8c13-691a13bed9b0"
-            name="MessageOccurrenceSpecification94">
-            <covered>
-              <lifelineMoniker
-                Id="0b2da0b1-1451-4e6f-834b-8fc436195702"
-                LastKnownName="vM_ProjectExplorer : VM_ProjectExplorer"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="4ff4b214-f2ad-42f7-8966-ad553a4dc3ae"
-            name="MessageOccurrenceSpecification95">
-            <covered>
-              <lifelineMoniker
-                Id="0b2da0b1-1451-4e6f-834b-8fc436195702"
-                LastKnownName="vM_ProjectExplorer : VM_ProjectExplorer"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="14fd73a7-a477-4159-8aed-702534999831"
-            name="MessageOccurrenceSpecification96">
-            <covered>
-              <lifelineMoniker
-                Id="1dd61dd3-d32b-40e3-a855-f0a675c3c896"
-                LastKnownName="vM_Oqat : VM_Oqat"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="5eecb7c9-f6c6-4f9e-b3cf-0687c75a94dc"
             name="ExecutionOccurrenceSpecification62">
@@ -9386,8 +9083,8 @@
             aggregation="None"
             isComposite="false">
             <type_NamedElement>
-              <classMoniker
-                Id="77cc9647-95c2-44d2-ad8f-7ab1deee6b54"
+              <undefinedTypeMoniker
+                Id="987915a7-619e-4b2a-90ba-058c2e10c567"
                 LastKnownName="VideoSourcePlayer"
                 LastKnownLocation="Entwurf.uml" />
             </type_NamedElement>
@@ -10208,1433 +9905,6 @@
       </Interface>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <class
-        Id="77cc9647-95c2-44d2-ad8f-7ab1deee6b54"
-        name="VideoSourcePlayer"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <referencesInternal>
-          <reference
-            Id="01bd235b-b45f-4009-a4c0-644a33c5f16e"
-            handle="viewcode://./CodeSchema_Class?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer"
-            tag="ViewCode" />
-        </referencesInternal>
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="06976784-3a90-483b-bc12-3018b03d7da1"
-            name="class"
-            profile="CSharpProfile">
-            <propertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="5b329f62-c412-49f0-b443-1e8ace6f7ea9">
-                <propertyInstance
-                  Id="aeca93a9-5fd6-4b2a-91d8-f1290dce7648"
-                  name="ClrAttributes" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="120df9a6-fc24-482d-a6ac-21e82996aa68">
-                <propertyInstance
-                  Id="81ae5ecb-8da7-405f-8ba6-8d14eb5edf9d"
-                  name="IsPartial"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="aff8026f-f379-4e17-b9f4-3390371b5000">
-                <propertyInstance
-                  Id="cfcafa33-1372-4236-bd9a-b2e5815933cc"
-                  name="IsStatic"
-                  value="False" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="627a056d-acc3-4908-abdc-8f43adb1cdb8">
-                <propertyInstance
-                  Id="8fd0e344-0f09-4948-bbcc-55124029d0c3"
-                  name="IsUnsafe"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="2ba9a67c-e9d5-41c3-b2ce-686e69e1a945">
-                <propertyInstance
-                  Id="541c888e-ef62-4a4c-a1cb-b1c371d10f65"
-                  name="PackageVisibility"
-                  value="internal" />
-              </stereotypeInstanceHasPropertyInstances>
-            </propertyInstances>
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
-        <targetEnds>
-          <association
-            Id="8b280b1e-1275-4d6f-87e1-76e0fe71c924"
-            isDerived="false"
-            sourceEndRoleName="VideoSourcePlayer"
-            targetEndRoleName="VideoSource"
-            isLeaf="false"
-            isAbstract="false">
-            <interfaceMoniker
-              Id="4471ef9e-c7ec-49c5-bd46-271c969b1cc2"
-              LastKnownName="IVideoSource"
-              LastKnownLocation="Entwurf.uml" />
-            <description>Property VideoSource references type IVideoSource.</description>
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="4be5d362-266b-4a26-b4d2-a852a3425589"
-                  name="VideoSourcePlayer"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="c2cfd3a9-ed14-43e8-ad82-39486f1e85ab"
-                      name="Lower"
-                      value="*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="913752b7-a4bd-4552-a45b-12281988f47a"
-                      name="Upper"
-                      value="*" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="02eb0366-64b9-4d0a-8cd2-0105f80ff019"
-                  name="VideoSource"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="a7242220-c404-4f99-aced-87fe66aa30ac"
-                      name="Lower"
-                      value="1" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="5537bb9a-4050-471f-a935-32199f36a9d3"
-                      name="Upper"
-                      value="1" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
-        <ownedAttributesInternal>
-          <property
-            Id="bdbd6d9b-dccd-4d14-8060-04676143c4d6"
-            name="AutoSizeControl"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="true"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="13f5d252-455d-4f40-a68b-f5242e684a98"
-                handle="viewcode://./CodeSchema_Property?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer Member=AutoSizeControl"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="caa5f2ca-4e2e-4188-8392-d7c63744c574"
-                name="property"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="53481581-e05a-41fa-a5ea-73d1ce405196">
-                    <propertyInstance
-                      Id="be149587-0fbb-4e92-997a-00205e9808e9"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="50a00597-222f-4ffd-829f-7bbb50586fd6">
-                    <propertyInstance
-                      Id="ff8770db-5dd1-4319-83e1-4e82a307acd8"
-                      name="Get"
-                      value="none" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ccf9b3a3-8592-401d-ba95-f0235ec773ab">
-                    <propertyInstance
-                      Id="1d2d713b-0187-43e3-8eb8-d808700b3373"
-                      name="HasBody"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7a1b06e4-9bf2-4b88-85a0-4f12095093bb">
-                    <propertyInstance
-                      Id="cf708d36-1d61-48b2-9a98-00f00943a23f"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7aa065a7-938a-4cb2-9460-255914a88775">
-                    <propertyInstance
-                      Id="fbe23060-fa48-48f5-996d-afd76e6aa2f6"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="1b27fa1a-4c13-455c-a7d1-d5f03dadf3ec">
-                    <propertyInstance
-                      Id="a42abac4-33cf-4e23-93c5-e3d9c4074964"
-                      name="Set"
-                      value="none" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <primitiveTypeMoniker
-                Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
-                LastKnownName="Boolean"
-                LastKnownLocation="Entwurf.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="103fd8b1-ac7d-4dd9-a80b-f391c588482c"
-            name="BorderColor"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="true"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="7f515ed0-b8b2-467c-a64b-6f6b63f7e5cd"
-                handle="viewcode://./CodeSchema_Property?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer Member=BorderColor"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="7d6a0102-27b2-4c95-811d-bdfa3a98550d"
-                name="property"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="54766cbb-06fb-4471-a36b-7edd038d201c">
-                    <propertyInstance
-                      Id="3432f1d1-f358-4302-8be1-73a27709b7e0"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="97b7d1af-b8d7-47a0-afb4-d926f9ecfc5b">
-                    <propertyInstance
-                      Id="4f6fbfb4-e207-4b49-a246-0ec3198b0f00"
-                      name="Get"
-                      value="none" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="749f4840-20dd-4117-bf2c-2c52349d8340">
-                    <propertyInstance
-                      Id="253b7291-25ed-43d4-9340-c3ff0d847e8c"
-                      name="HasBody"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0f0fa88b-cfe0-45e8-83bb-39a7d324e522">
-                    <propertyInstance
-                      Id="f6842a38-6445-4969-93ff-8ee1b1e57edc"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="4702aa84-7179-42a7-89f5-76af17aaa0f4">
-                    <propertyInstance
-                      Id="f74e5873-7631-4b7f-9140-2dbee499ff34"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="2fc8ab4f-a259-488d-8546-70c19b13e90d">
-                    <propertyInstance
-                      Id="46cf21ee-25f4-456c-a2f4-e8deeb603d01"
-                      name="Set"
-                      value="none" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <classMoniker
-                Id="132f5e42-36a6-4b9b-b088-3568dab27021"
-                LastKnownName="Color"
-                LastKnownLocation="Package3_1023.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="717b8bab-9c15-4e94-9b0a-d6560e45703d"
-            name="IsRunning"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="true"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="87ca27a4-51ea-4c61-b310-8c6d21c7cfb8"
-                handle="viewcode://./CodeSchema_Property?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer Member=IsRunning"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="9a67921f-3128-4235-9db3-590801d817ec"
-                name="property"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="04bffd2b-a55a-4a3d-9782-8ba41537bc25">
-                    <propertyInstance
-                      Id="b6117d31-78d7-4ec5-afcf-a5082f2d06ab"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="a24ac24b-2826-41cf-bd1d-a2df031680f4">
-                    <propertyInstance
-                      Id="0aab3ce4-fd61-4fc2-972f-c94ba65dbc91"
-                      name="Get"
-                      value="none" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="9caad9a7-c773-4d4f-9852-fe2d87594661">
-                    <propertyInstance
-                      Id="cfabce12-8ac0-48dd-9a56-219181f226b3"
-                      name="HasBody"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="60a6c4b3-04c3-4de2-80f1-5d0e91010961">
-                    <propertyInstance
-                      Id="ef27e472-80d3-4c27-88f4-0e8695b4c13f"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="a10ee0c8-2b2f-4727-83c5-225c4ca63bc7">
-                    <propertyInstance
-                      Id="c2c614ac-6598-4a5f-b902-bb75cb5d9c5e"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d62090c1-7093-43cf-9c4d-3418d4dd16e1">
-                    <propertyInstance
-                      Id="e28dd533-add2-444a-94b8-747eb62c54f9"
-                      name="Set"
-                      value="none" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <primitiveTypeMoniker
-                Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
-                LastKnownName="Boolean"
-                LastKnownLocation="Entwurf.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="7f9eb2a9-ad3f-4a3b-a776-83096ab6bb7b"
-            name="VideoSource"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="true"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="2487ae00-8108-49af-9599-da8dc6b7b22f"
-                handle="viewcode://./CodeSchema_Property?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer Member=VideoSource"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="6157b276-6f1d-4d0c-a29a-e1a52f3411e9"
-                name="property"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="36128a80-2816-45ea-8a95-e2684133491c">
-                    <propertyInstance
-                      Id="a01c1359-ea7f-4e6c-befc-a4649dcbee40"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="52277c49-a5aa-4e32-a7f2-cb2f9073ee70">
-                    <propertyInstance
-                      Id="d3c3a5bc-65d8-40ba-8631-7f9cfc52322a"
-                      name="Get"
-                      value="none" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="21888488-333a-4e3c-876f-d93b40840a20">
-                    <propertyInstance
-                      Id="3688e39e-f1d0-4f7b-abab-ce4c79041739"
-                      name="HasBody"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ada223bf-08fe-44f2-be36-2fc2927dc512">
-                    <propertyInstance
-                      Id="2ccbafcb-6a54-41da-8e11-2c3da3c0fe3a"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ead92f92-0960-4282-833c-bc7c06a23ea2">
-                    <propertyInstance
-                      Id="000a1837-44b1-4651-8b17-c94376281929"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="421791d7-16eb-4071-a9b5-28e9d7440084">
-                    <propertyInstance
-                      Id="a49063e4-072e-44d1-9e68-566a6f59db07"
-                      name="Set"
-                      value="none" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <interfaceMoniker
-                Id="a45e6792-515a-43bd-bec7-f1f109ebd780"
-                LastKnownName="IVideoSource"
-                LastKnownLocation="Package_1024.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="515aec0b-caba-4b2d-85e7-364887e166a3"
-            name="NewFrame"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="9216b825-f2ca-480d-b24e-70a362b0b79c"
-                handle="viewcode://./CodeSchema_Event?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer Member=NewFrame"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="36a43ef2-359f-4ffd-b57c-246bade6dbc2"
-                name="event"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="a7826406-a96d-4399-ac5c-4bda573842ae">
-                    <propertyInstance
-                      Id="c6fd6c10-92d2-4443-9eb9-59f4b225ede0"
-                      name="Add"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="4ea5f165-b595-4d5f-8fca-a738d4174221">
-                    <propertyInstance
-                      Id="614ab310-54d9-413d-abe5-95f71455a967"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ad178201-0d0c-466a-9b0d-54409a9c59f6">
-                    <propertyInstance
-                      Id="380562b1-3430-4f4f-ac0b-311c9cb14e49"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="3344d5fb-0848-4240-b0a1-3ab223745749">
-                    <propertyInstance
-                      Id="715e3c93-4696-48b3-92c2-22a2f5d7dc52"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0e1df8b4-3d51-44e7-b0e2-328da2d261b3">
-                    <propertyInstance
-                      Id="40eca2b4-9542-4758-bcbd-54735176aa64"
-                      name="Remove"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <classMoniker
-                Id="bd2b6990-dad0-492d-9c06-470afa86cfe4"
-                LastKnownName="NewFrameHandler"
-                LastKnownLocation="Package_0411.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="f2961a9f-973c-403d-ab49-81081905b90d"
-            name="PlayingFinished"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="0bafcc4a-fbe4-4563-b37d-d36ac9714761"
-                handle="viewcode://./CodeSchema_Event?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer Member=PlayingFinished"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="1b9bc0fa-5d3c-49c7-810f-272dbbe3f47b"
-                name="event"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="03e30653-abab-4e7d-aaa7-8a71bfc42cf6">
-                    <propertyInstance
-                      Id="a56afbff-8465-4f8f-b636-90b9b24855f3"
-                      name="Add"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f7532c61-29e6-48b5-8b1a-5208d27c1743">
-                    <propertyInstance
-                      Id="6660c644-f1a4-44d3-ade2-0d419225f9be"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b956944c-9e37-4202-956d-195e918de3b7">
-                    <propertyInstance
-                      Id="ecd502c7-6e12-4285-bfd7-8134a22b707c"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="a61234a5-3df0-4273-8548-450225d2187a">
-                    <propertyInstance
-                      Id="d31bb732-b7c8-48ee-86bc-2937fc216583"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="2044a440-6ec6-47f5-8ec1-1c5f7c68e711">
-                    <propertyInstance
-                      Id="16915ff3-51b1-450e-b68f-b1d799c56bc3"
-                      name="Remove"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <classMoniker
-                Id="6a086913-a391-4c29-9dbd-b79bacf26874"
-                LastKnownName="PlayingFinishedEventHandler"
-                LastKnownLocation="Package_1024.uml" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation
-            Id="f9b70fea-c4ac-467b-b7e1-8574800f9dcc"
-            name="Dispose"
-            visibility="Protected"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="71ba82ee-677f-4053-9679-c95ed462a0f1"
-                handle="viewcode://./CodeSchema_Method?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer Member=(Name=Dispose OverloadingParameters=[(Assembly=&quot;file:///C:/Program Files (x86)/Reference Assemblies/Microsoft/Framework/.NETFramework/v4.0/Profile/Client/mscorlib.dll&quot; Namespace=System Type=Boolean)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="c7e9e960-a560-4344-9f6a-03538ac058bb"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5bc683cc-4f0e-40d5-ba04-024c6102eda9">
-                    <propertyInstance
-                      Id="0a56c262-368d-46e3-9a23-0c27a63228b8"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="de052241-d8e4-45ef-8b34-5cc67c48265f">
-                    <propertyInstance
-                      Id="15a0fa09-0e00-45ee-b154-1ba97b345700"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="749474e7-4dbe-4aac-b88e-0a4faada3024">
-                    <propertyInstance
-                      Id="984f2b47-cd29-4639-822d-ae9c1701de31"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="74a30d40-8d5d-45da-94b6-2a9c800ea080">
-                    <propertyInstance
-                      Id="f42a3581-82b5-41bf-88f8-85c8cc51f0b7"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="538ec6dd-7ecb-4885-976e-87fca1aa62ea">
-                    <propertyInstance
-                      Id="95ea51cd-326e-47e6-83d3-0b25e64d55cf"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="17b7b18b-4f3a-421c-a42c-66df5a302c0e"
-                  name="disposing"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="283670e4-c0bb-4c39-aa65-7af6714fc896"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer Member=(Name=Dispose OverloadingParameters=[(Assembly=&quot;file:///C:/Program Files (x86)/Reference Assemblies/Microsoft/Framework/.NETFramework/v4.0/Profile/Client/mscorlib.dll&quot; Namespace=System Type=Boolean)]) ParameterIdentifier=disposing"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
-                      LastKnownName="Boolean"
-                      LastKnownLocation="Entwurf.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="214ba2e2-e23d-4b6b-9196-db194f5e880d"
-            name="VideoSourcePlayer"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="fc490fa5-9918-4a6f-8369-097535eca332"
-                handle="viewcode://./CodeSchema_Method?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer Member=.ctor"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="c2280ee8-5b84-47ed-bf55-976548ac3452"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="77cfd6eb-06ac-464f-b07e-775228f70d46">
-                    <propertyInstance
-                      Id="da576d5e-b1de-4d1b-83b5-9dea8ce783ff"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="15d1bcd2-90c5-474e-9b2f-3c2e1c54a41f">
-                    <propertyInstance
-                      Id="6eab2d82-fd15-41e7-9fdb-f065745ee7ca"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7cb301cf-9636-434b-9896-0ce932c10f28">
-                    <propertyInstance
-                      Id="988cc89f-38de-4fb0-940e-936e87c4bf6f"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="9ceeacb7-dcce-42d9-9d97-bb98b087b6ef">
-                    <propertyInstance
-                      Id="32ebea8a-5706-4725-8981-8846856f39ea"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="9547ebed-96db-47fe-97f8-8933b467c667">
-                    <propertyInstance
-                      Id="456aefe2-44d0-45f0-89bc-dbed0393beac"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-          </operation>
-          <operation
-            Id="64e7806d-32bf-483c-b752-2de337e2fa7a"
-            name="GetCurrentVideoFrame"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="57355ec5-9a63-4054-a570-70ca5ae4a76f"
-                handle="viewcode://./CodeSchema_Method?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer Member=GetCurrentVideoFrame"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="0abddaf7-46f5-44b9-af48-a3914cbee8eb"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="27995f01-e8b6-4ee7-9eb4-82931a167467">
-                    <propertyInstance
-                      Id="18925256-3b12-41f3-9a74-0d28417611a2"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5f0e0a05-92f2-4da4-9e4e-00d18b2aa07c">
-                    <propertyInstance
-                      Id="576ab303-811c-497d-9790-11b8a2893d34"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0fa25353-407d-4456-a28b-9d963a743edf">
-                    <propertyInstance
-                      Id="13c4edc6-51b1-492b-8cad-2a28fb3b37e0"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="a76c8f74-415c-46ce-b930-76246f456d64">
-                    <propertyInstance
-                      Id="2df50e47-5f5a-4a37-a0e7-c5c01370b69a"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="df21a0eb-8231-4cd8-91ec-a53b6b6dcc13">
-                    <propertyInstance
-                      Id="99febeb9-5fc5-4ddb-a9d5-95f67550760e"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="477cc29a-6e34-4df4-9562-27000c136eef"
-                  direction="Return">
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="7f4aeec8-62ca-4515-9159-48c40a503811"
-                      LastKnownName="Bitmap"
-                      LastKnownLocation="Package3_1023.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="e80d3f88-6ad0-4bb3-95c3-3f972fdbe4b9"
-            name="SignalToStop"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="fd63a767-0e94-409e-b2ce-0c90d758f05b"
-                handle="viewcode://./CodeSchema_Method?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer Member=SignalToStop"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="db3f09bb-6a52-4817-90d0-18bedbd71a65"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="c884faea-486b-44e7-a9ff-9604e659343f">
-                    <propertyInstance
-                      Id="61531549-f79f-41e4-ba46-627e236190ce"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="823615c4-2931-4a4f-920b-96d687cd1a10">
-                    <propertyInstance
-                      Id="c352e5e9-b326-4bb2-aea2-37f9a0735eaa"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="a52ac0ea-2736-4d92-842f-17ac612b9088">
-                    <propertyInstance
-                      Id="367d0deb-ecd7-4894-98ec-b957af2c7371"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0f84a3d6-a8da-4f69-8280-3f7eb5725d3a">
-                    <propertyInstance
-                      Id="a3cc9f89-939e-4be3-9ae9-ee8a7bdd426e"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="4b986797-9bc6-41c6-9f84-47a41d971a13">
-                    <propertyInstance
-                      Id="36bb356e-db2f-451b-b65b-50d13abb68d7"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-          </operation>
-          <operation
-            Id="afbb0e72-acb0-42ba-b2dd-1980861795b6"
-            name="Start"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="8478ef52-3c04-4caf-b4d9-2049ea6f8968"
-                handle="viewcode://./CodeSchema_Method?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer Member=Start"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="15fac397-38b8-4e99-b08f-778ecbfde4d4"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="2c18833b-5ad5-4a46-a89f-4be24197cba4">
-                    <propertyInstance
-                      Id="ef7b6bcd-0c6d-4e11-8b8f-7ec8ba8bd236"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d07785ac-146c-4e23-874c-0ef9659b74c8">
-                    <propertyInstance
-                      Id="11ad368f-c060-4790-91ed-bf306c5141ae"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="681b35a1-a5f6-4a07-9244-fb99a5b12a15">
-                    <propertyInstance
-                      Id="c2a1a89b-8f7b-4dbc-8cdb-f8e9b8a4e498"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="6cba3673-0a4d-48de-a88c-63f9f7e55f8a">
-                    <propertyInstance
-                      Id="13b790d3-b676-49d6-a603-115b441e87c7"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7c60a58e-4953-46ae-a7d1-073df078dd63">
-                    <propertyInstance
-                      Id="c0ab6784-d4c8-4daf-825e-cbfff422df02"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-          </operation>
-          <operation
-            Id="d440c9c5-6352-4a6d-961f-2e5d75c468fa"
-            name="Stop"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="3e8578e5-d00d-48a5-afc4-5ea5b14044a9"
-                handle="viewcode://./CodeSchema_Method?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer Member=Stop"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="54da5e3f-4ed0-4356-8510-f8c27e74ffc4"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="01db6377-4d46-4132-896e-354a007b4354">
-                    <propertyInstance
-                      Id="c9db53a2-521f-46fd-93f4-3e966edfefa3"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="e3a42ac3-65cc-441d-afa7-698d2f1ba9a0">
-                    <propertyInstance
-                      Id="6fb4e89e-6529-4d86-b437-67f3b2e36353"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="62b8cdec-ead4-469b-8a79-20f615e769cf">
-                    <propertyInstance
-                      Id="dc26892c-a487-49d9-adef-9aef129a493a"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="c0b8add5-22d5-4535-a797-27329d1926f6">
-                    <propertyInstance
-                      Id="0fcca1fb-49e5-48a4-b894-d0a9c2b52d9b"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="6ec9ba74-5746-43a2-b47c-129fb168f7ca">
-                    <propertyInstance
-                      Id="8dc1f089-974c-4d2e-a1fe-038632fe13ef"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-          </operation>
-          <operation
-            Id="e560d45e-1dbd-4e1c-a3ca-8f05ce903157"
-            name="WaitForStop"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="c945eeb1-285e-4fde-8713-52b25558d636"
-                handle="viewcode://./CodeSchema_Method?Assembly=&quot;file:///C:/Program Files (x86)/AForge.NET/Framework/Release/AForge.Controls.dll&quot; Namespace=AForge.Controls Type=VideoSourcePlayer Member=WaitForStop"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="56fc76cf-9b7d-4983-a25e-2fd064e99b2a"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b2f375f5-83f3-4797-814c-9a54e8759b71">
-                    <propertyInstance
-                      Id="fa2ce06c-02c3-4537-a5e7-8391d240e3e6"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="8a357a74-3ec0-429e-9d3d-0a7c816d04cd">
-                    <propertyInstance
-                      Id="942e8ef4-9b63-4180-b568-5ebb7c0d6e2e"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b322984b-6362-4743-8a33-403615365564">
-                    <propertyInstance
-                      Id="8200cda7-a1fd-4a7c-a841-d5db26aec55c"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d9bb12d2-0100-44f0-83bc-898ce3d7f850">
-                    <propertyInstance
-                      Id="041e3953-480b-4703-b679-db16149ce4c0"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="1a3db957-df3a-4bbd-8b63-dcbab4760d14">
-                    <propertyInstance
-                      Id="961c31f5-d228-470b-8b33-34abc4ff9e33"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <class
-        Id="dda11c09-bc29-44c7-af23-a770ac8c170f"
-        name="EventArgs"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <referencesInternal>
-          <reference
-            Id="5d1c76c1-f961-4e34-b0c9-79fc498e3b2a"
-            handle="viewcode://./CodeSchema_Class?Assembly=&quot;file:///C:/Program Files (x86)/Reference Assemblies/Microsoft/Framework/.NETFramework/v4.0/Profile/Client/mscorlib.dll&quot; Namespace=System Type=EventArgs"
-            tag="ViewCode" />
-        </referencesInternal>
-        <ownedAttributesInternal>
-          <property
-            Id="1fdd2056-4e14-4866-93fd-5245cf6a5e80"
-            name="Empty"
-            isLeaf="false"
-            isStatic="true"
-            isReadOnly="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="a39dff93-f514-4755-8957-f53e529742d0"
-                handle="viewcode://./CodeSchema_Field?Assembly=&quot;file:///C:/Program Files (x86)/Reference Assemblies/Microsoft/Framework/.NETFramework/v4.0/Profile/Client/mscorlib.dll&quot; Namespace=System Type=EventArgs Member=Empty"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="1bc04480-fc59-4c75-8780-065a076a5b0a"
-                name="field"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="6edb6c20-35fd-4293-b21a-a28935076b4d">
-                    <propertyInstance
-                      Id="64f6d6cb-e13d-4be1-b818-90b039b3ebb0"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="a6a4f622-8f18-43f7-b2e9-56e487657949">
-                    <propertyInstance
-                      Id="2bda3e43-b819-49c0-bf9b-efd097ea2534"
-                      name="IsConst"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b6ea55fc-1299-4389-9cc1-b502b85ff7e5">
-                    <propertyInstance
-                      Id="603f43b3-e626-4b92-8f2f-2069df6b7923"
-                      name="IsNullable"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0ba57a31-7ac0-4e3d-99ea-603818e9194b">
-                    <propertyInstance
-                      Id="aff2a5aa-173c-4cef-b3a1-1a49202fb936"
-                      name="IsVolatile"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7c1f352b-89dc-40ea-a57b-fe166afc44a4">
-                    <propertyInstance
-                      Id="124ebc03-bb02-40f9-827b-1158cac6e0a2"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <classMoniker
-                Id="48044e67-3b29-4b96-88b5-dbfc1bcbdef0"
-                LastKnownName="EventArgs"
-                LastKnownLocation="Package1_0919.uml" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation
-            Id="6c639c9f-4381-43e7-b625-0564f00d6a0a"
-            name="EventArgs"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="37c52598-56a2-4c9c-92cf-9a463c810838"
-                handle="viewcode://./CodeSchema_Method?Assembly=&quot;file:///C:/Program Files (x86)/Reference Assemblies/Microsoft/Framework/.NETFramework/v4.0/Profile/Client/mscorlib.dll&quot; Namespace=System Type=EventArgs Member=.ctor"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="cb0a494b-6d10-45cd-bc30-73dd8a2ff01e"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5cf79d83-7cd7-4c42-a5c5-e86d93c7d256">
-                    <propertyInstance
-                      Id="1b5c70fe-3215-491c-9169-33ae6e0196e3"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="1b8e66e8-c9ba-4413-8e52-622a275e5ab1">
-                    <propertyInstance
-                      Id="91692fba-f0c9-4997-94bb-18d6c421c9f7"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="fce781db-9904-42ad-9b97-97c7f3d80263">
-                    <propertyInstance
-                      Id="f7a10692-9d33-44c6-8142-e5f525c8ba10"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b5a0a3bb-e053-4ab0-99b3-7df9cbfda127">
-                    <propertyInstance
-                      Id="a68ec449-141e-4f9b-9a17-2d8828a12419"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="2e5234bf-0758-4f76-bd09-bea536f947e9">
-                    <propertyInstance
-                      Id="3d0bb1b3-c314-4d93-9708-e1eea524174d"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <class
-        Id="eaba48fb-fad6-4334-93fe-afc441d5782b"
-        name="Video"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="1a07aed7-0de4-4055-b878-6b3d98fd0c42"
-            name="class"
-            profile="CSharpProfile">
-            <propertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="42fb2c56-0ba3-43f5-aea5-6bc05f1b0cd8">
-                <propertyInstance
-                  Id="df5cf5a2-eb76-4804-acef-4b693f3e2ea0"
-                  name="ClrAttributes" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="01720cda-99ef-4844-abe4-38b2e7344a0b">
-                <propertyInstance
-                  Id="2513a4cb-ee9a-4897-9ac9-a944d76fd740"
-                  name="IsPartial"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="0f779c69-f0ed-4ffb-ac59-c3376b5ae5ed">
-                <propertyInstance
-                  Id="bb87d9b1-32e1-4ada-9d6a-673779edf8fc"
-                  name="IsStatic"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="c40fb19e-df57-4693-9b56-b279f8c9c806">
-                <propertyInstance
-                  Id="bdf55b45-a5d0-46a2-b74b-45d81a9594de"
-                  name="IsUnsafe"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="5f0b72d1-67e6-4402-9a0d-37f69574d282">
-                <propertyInstance
-                  Id="2bf2322f-acfe-40b5-aed9-7234574df7cc"
-                  name="PackageVisibility"
-                  value="internal" />
-              </stereotypeInstanceHasPropertyInstances>
-            </propertyInstances>
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
-        <ownedAttributesInternal>
-          <property
-            Id="5c736975-f2cb-45ea-b52e-c453f22acc53"
-            name="vidInfo"
-            visibility="Private"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="78342585-dd66-4585-babd-90669053f2a8"
-                name="property"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d3df809e-1a79-4aeb-bad8-2842edf0f7f2">
-                    <propertyInstance
-                      Id="5c3b4bcd-ac9f-4843-8f84-2942d9cbd2b0"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="6959b7e1-043f-4134-853b-dfc2770fb0c9">
-                    <propertyInstance
-                      Id="0c712631-a8b5-46df-8cfd-ba85f0f3e4ce"
-                      name="Get"
-                      value="none" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="89030e38-e615-49f5-b033-ed541ab6076d">
-                    <propertyInstance
-                      Id="a60b2df0-16fd-4fb5-8016-1f7f7103f74f"
-                      name="HasBody"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="c41ce12e-3018-45b6-8e1a-400cabb2124a">
-                    <propertyInstance
-                      Id="475cd611-4bf8-4199-bea6-7ffa5ba9041c"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="783523a6-457e-42b6-b3b2-35ef94e2648a">
-                    <propertyInstance
-                      Id="8362c7ad-6025-4970-b44b-3c89ce4ac5ea"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="c440a1fc-5a1b-4b6d-a098-4de9c4ba0d77">
-                    <propertyInstance
-                      Id="5130b2dd-1479-4d3d-86c4-0dfea1e57d71"
-                      name="Set"
-                      value="none" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <interfaceMoniker
-                Id="efcb3379-942c-462e-af67-58dbec034896"
-                LastKnownName="IVideoInfo"
-                LastKnownLocation="Package_0837.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="c4144ce8-0f3c-4512-a6ac-f3ad0c27a145"
-            name="isAnalysis"
-            visibility="Private"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="92cf1e97-ff2a-4c53-965c-9ea37e8a86a6"
-                name="property"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f3679b38-aa87-4155-b384-3aa618fde126">
-                    <propertyInstance
-                      Id="8628196f-ce6b-4eb9-8a1e-2ce9d28a4605"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="eba33f88-5585-4b5b-a32c-a46d5fc615b4">
-                    <propertyInstance
-                      Id="b6de8570-204c-457b-97c4-6482cff32eb3"
-                      name="Get"
-                      value="none" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="78c434ed-4d24-4f07-bee4-46224417699e">
-                    <propertyInstance
-                      Id="c5e50b08-d610-4fda-8d75-b3ca04fe10df"
-                      name="HasBody"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="474aa1f3-d55b-432c-aaab-d1d61a9542ee">
-                    <propertyInstance
-                      Id="ef8754da-70c9-4302-9d6b-fb430fd2bd56"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b6b0e4c0-c234-4efa-9d0f-ed57b7822c41">
-                    <propertyInstance
-                      Id="2ac28d24-d387-4eea-aaf5-8fc6e4d0f17b"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0a88ea53-2ad3-4c92-9c5f-41cc7e394a0c">
-                    <propertyInstance
-                      Id="e9917c41-da5e-4a37-8425-76f3f753b603"
-                      name="Set"
-                      value="none" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="e157fd9f-982f-4e74-838b-bf46b83e3250"
-                LastKnownName="bool"
-                LastKnownLocation="Entwurf.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="f63e12c1-45d5-4fe1-bc1c-a115404a23c8"
-            name="vidPath"
-            visibility="Private"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="30839053-727c-4be6-9c79-7eb4b33fcc56"
-                LastKnownName="Path"
-                LastKnownLocation="Entwurf.uml" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation
-            Id="095ea420-58db-4c48-83e9-9c8882840074"
-            name="Video"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="bd9e4e32-a861-425c-8154-36bc2f1177e6"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f522ca85-788c-42b0-b2ca-c008443cc062">
-                    <propertyInstance
-                      Id="c9219eb0-8935-4d7c-9608-412478b9d3a2"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ee6bc1a6-b186-4038-8f9e-6c2ee2f6594f">
-                    <propertyInstance
-                      Id="bae50bdb-9a78-4fe2-a4fa-d051032a4613"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5d549241-3ae0-44f5-9e2f-77e2282326ce">
-                    <propertyInstance
-                      Id="70c94013-65a4-4e55-bcfd-8f3e1145480f"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7e5ff0ce-46b8-4949-86ec-43c49d3e6344">
-                    <propertyInstance
-                      Id="c88ba03d-911d-4ef4-98fe-4ee28f7a0103"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b507b417-a2c7-4243-a92e-9d1e1c196eca">
-                    <propertyInstance
-                      Id="a9bc5dad-5eba-45b9-bf63-d2e2fc732f7e"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="1ca43782-0e8b-453d-a9e3-f20c75d966f8"
-                  name="bool isAnalysis"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="7032639a-af47-48cf-8024-893b1e1b5aec"
-                  name="Path vidPath"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="e01dffaf-4a12-4556-92d4-2afe692ee4c0"
-                  name="IVideoInfo vidInfo"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <undefinedType
         Id="fb5387fa-8047-4793-a11f-b414052e0228"
         name="IVideoHandler" />
@@ -11908,6 +10178,37 @@
       <executionEvent
         Id="3834c52b-b1b4-467e-9cdf-4a72acab7be4"
         name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="ce547f6d-a72b-4e4b-82b0-1ff7c8189064"
+        name="Entwurf::T" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="e9162dd5-fea1-461b-af3e-82464a787457"
+        name="Button" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="75350fb0-5809-4d1f-91cc-2dd3e036c04b"
+        name="del" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="fa2b54fc-5206-48c0-98e6-8bcef40f8c80"
+        name="List&lt;String&gt;" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="618a2819-6d4c-47e4-bdee-b5d21b55b1a6"
+        LastKnownName="ViewModel"
+        LastKnownLocation="Package_1359.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="987915a7-619e-4b2a-90ba-058c2e10c567"
+        name="VideoSourcePlayer" />
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType
