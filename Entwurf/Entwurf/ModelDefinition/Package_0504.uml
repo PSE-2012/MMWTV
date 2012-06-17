@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
   dslVersion="1.0.0.0"
   Id="a06056a9-f59b-41ac-ba69-6c784bc76689"
   name="OqatInterface" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -1790,30 +1790,30 @@ wie realisiert man sowas im Diagramm ?</body>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="f68a30b6-408f-47f4-b2c0-d5164bce7c7d"
-                  name="Bitmap frame"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="3b7a84d5-f94b-4cc8-b987-3f8775c5a1f5"
-                  name="Bitmap frame"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
                   Id="5bb50c2d-34c6-4a54-a5b2-19d176e390fc"
                   direction="Return"
                   isUnique="false">
                   <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="ef321348-7c36-40b8-aaa1-f6ae3a1eede5"
-                      LastKnownName="Bitmap"
-                      LastKnownLocation="Entwurf.uml" />
+                    <interfaceMoniker
+                      Id="2e12fe09-280c-4509-bff4-fa12a9946bb4"
+                      LastKnownName="IAnalysisInfo"
+                      LastKnownLocation="Package_0504.uml" />
                   </type_NamedElement>
                 </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e09cd380-13fa-4392-bcff-7319887561ae"
+                  name="Bitmap frame"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b301ca92-65e3-4e6a-a8d7-c4c05052ff3a"
+                  name="Bitmap frame"
+                  direction="In"
+                  isUnique="false" />
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
@@ -1908,6 +1908,32 @@ wie realisiert man sowas im Diagramm ?</body>
               LastKnownLocation="Package_0504.uml" />
           </generalization>
         </generalsInternal>
+        <ownedOperations>
+          <operation
+            Id="2076f2ab-3480-47b6-920d-6807e6e47c86"
+            name="addPlugin"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="b3c15c6a-028a-4929-8430-01a3c1605ae6"
+            name="removePlugin"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="b355ba36-0522-4ebd-9c6b-3fae1f5c3d1f"
+            name="movePlugin"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperations>
       </Interface>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -1942,6 +1968,165 @@ wie realisiert man sowas im Diagramm ?</body>
           <enumerationLiteral
             Id="879ba58a-eb86-4f61-987b-a9e1f4b864ec"
             name="YUV420" />
+        </ownedLiterals>
+      </enumeration>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="cb6eaee3-194d-4fa1-bd08-60b40523b6e1"
+        name="AnalyseInfo" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="f75e5bee-8e5b-49eb-a584-282aec835d38"
+        name="IAnalyseInfo" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="2e12fe09-280c-4509-bff4-fa12a9946bb4"
+        name="IAnalysisInfo"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedAttributes>
+          <property
+            Id="020cbaf5-6e72-40ad-a840-7bf4b920df90"
+            name="frame"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="ef321348-7c36-40b8-aaa1-f6ae3a1eede5"
+                LastKnownName="Bitmap"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="c62b0f7c-b911-4329-9c88-2c4f6f09f7df"
+            name="values"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="e452e004-5484-4372-a36c-67d5dfd197ae"
+                LastKnownName="float[]"
+                LastKnownLocation="Package_0504.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="52ea87ef-1a8b-47aa-b7a0-61701bbaadcd"
+            name="customInfo"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="9ec42d85-3784-4fda-a45a-4aec1133f74d"
+                LastKnownName="object"
+                LastKnownLocation="Package_0504.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributes>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="e452e004-5484-4372-a36c-67d5dfd197ae"
+        name="float[]" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="9ec42d85-3784-4fda-a45a-4aec1133f74d"
+        name="object" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="0233056d-8f52-41ee-ab34-5e239e1b4e1e"
+        name="AnalysisInfo"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="e9052d96-d469-49dc-a874-a75ff4a61334"
+            name="frame"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="ef321348-7c36-40b8-aaa1-f6ae3a1eede5"
+                LastKnownName="Bitmap"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="d537fa99-1ebc-4c26-80f0-322c51134b6d"
+            name="values"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="e452e004-5484-4372-a36c-67d5dfd197ae"
+                LastKnownName="float[]"
+                LastKnownLocation="Package_0504.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="fd4cfa66-1043-4042-9faf-a6a9a6e657c0"
+        name="PluginType"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedLiterals>
+          <enumerationLiteral
+            Id="ce2fc29b-3850-4ec6-9dda-41f8e71a783d"
+            name="Filter" />
+          <enumerationLiteral
+            Id="24111e21-e29d-4d2c-ba87-e11dda2077d1"
+            name="Metric" />
+          <enumerationLiteral
+            Id="f85fd6f1-8542-408e-9d42-6fc477c9868d"
+            name="OqatPresentation" />
+          <enumerationLiteral
+            Id="927a966e-a6dc-4ca1-8c98-0e83fa806b31"
+            name="OqatSystem" />
+          <enumerationLiteral
+            Id="55ae7c19-64dd-44f2-b1d0-416edfff3442"
+            name="VideoHandler" />
+          <enumerationLiteral
+            Id="b8599da1-7615-4226-aa38-2dec58c7c60d"
+            name="Macro" />
         </ownedLiterals>
       </enumeration>
     </packageHasNamedElement>
