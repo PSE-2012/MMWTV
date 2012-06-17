@@ -47,7 +47,7 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
       <annotatedElements>
         <classMoniker
           Id="a3f1ef0f-f646-419c-871f-0091894cb51c"
-          LastKnownName="MementoCreatedEventArgs"
+          LastKnownName="MementoEventArgs"
           LastKnownLocation="Package_1359.uml" />
       </annotatedElements>
     </comment>
@@ -171,6 +171,44 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                 Id="6db04741-d888-48d7-8113-ee867bd11d05"
                 LastKnownName="PluginManager"
                 LastKnownLocation="Package_1744.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="f660d220-f768-4f34-84ec-79dce34d17c3"
+            name="currentView"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <enumerationMoniker
+                Id="c69b4984-bc4a-43f2-a57b-56d758c5d362"
+                LastKnownName="ViewType"
+                LastKnownLocation="Package_1359.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="5aad3bf4-06bb-4917-bfa3-1580cfb1c83c"
+            name="onToggleView"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="2e175063-4eed-4fe6-9889-d5f4af1e6583"
+                LastKnownName="delegate"
+                LastKnownLocation="Package_1359.uml" />
             </type_NamedElement>
           </property>
         </ownedAttributesInternal>
@@ -381,6 +419,32 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                 <parameter
                   Id="1c1fc2c9-a27e-4ae7-a7de-32c189d838fe"
                   name="eventArgs e"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="18b5128b-b841-415c-9e8f-5c3d01f73674"
+            name="onToggleView"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1de4205a-e337-4232-9040-599b7a5743e4"
+                  name="object sender"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="09aa44c9-8306-49a6-8d04-41796206576e"
+                  name="EventArgs e"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
@@ -897,6 +961,32 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                 <parameter
                   Id="aecbabae-2d52-4118-ac7d-081441af2f38"
                   name="Control parent"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="ee9ac975-a5a6-492f-98c3-9b7f6b4a94a3"
+            name="onMacroFilterEntryClicked"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6510fab6-454c-45b2-8d34-c85c13f38949"
+                  name="object sender"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="364fd2da-6685-4f3f-81d8-23450482f2bf"
+                  name="MementoEventArgs e"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
@@ -2911,7 +3001,7 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
     <packageHasNamedElement>
       <class
         Id="a3f1ef0f-f646-419c-871f-0091894cb51c"
-        name="MementoCreatedEventArgs"
+        name="MementoEventArgs"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -2974,10 +3064,65 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="8a6c5bbb-bd27-4079-9994-ff5dafcab33d"
+            isDerived="false"
+            sourceEndRoleName="VM_Presentation"
+            targetEndRoleName="VideoSourcePlayer"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="e4bb9101-7440-4885-8a9b-fd77a062ed9e"
+              LastKnownName="VideoSourcePlayer"
+              LastKnownLocation="Package_0411.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b12af781-14cc-4ba4-b731-c7604cc2a615"
+                  name="VM_Presentation"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b98127f0-de9e-4f08-a179-469ff0f520d5"
+                  name="VideoSourcePlayer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="3291d397-4544-4d05-9863-f2294fbbd067"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="5532feb8-99bf-4383-a84e-b84436c7d770"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
         <ownedOperationsInternal>
           <operation
             Id="aa8aa29e-b8cc-4ec0-bc55-91d016e6e429"
-            name="onVideoPlay"
+            name="onVideoLoad"
+            visibility="Private"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -2986,13 +3131,54 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="55a9bd95-6c23-4e7d-9a85-95f0249ef007"
-                  name="Video video"
+                  Id="821a86cd-5238-4f27-b253-c94dc3057341"
+                  name="Object sender"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f49d9df8-1ac1-48a3-8085-657bce28db97"
+                  name="EventArgs e)"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="27706841-fb35-46d8-a409-46b9084532c6"
+            name="onToggleView"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ca76de3d-d584-45b0-bbf6-76b4c1bf8a20"
+                  name="object sender"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="5b98eddd-4eb1-4947-878b-cebeec9dad66"
+                  name="EventArgs e"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="e822f046-3fee-4d8a-929d-9fde0eefc96f"
+            name="VM_Presentation"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -3012,7 +3198,177 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
         name="VM_Macro"
         isAbstract="false"
         isLeaf="false"
-        isActiveClass="false" />
+        isActiveClass="false">
+        <ownedOperationsInternal>
+          <operation
+            Id="9b7eb443-cde3-4f19-beeb-09838ccb0a14"
+            name="VM_Macro"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="942d8a51-3d32-47ad-86cd-ea2dc34bd027"
+            name="onToggleView"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="8079fd2c-f2dd-401e-b61d-decbd5b100d0"
+                  name="object sender"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7421fc3f-dc53-4ca7-a548-b68b22eca2b9"
+                  name="EventArgs e"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="f9696a14-6139-4199-8b97-239eee84d9fc"
+            name="onStartProcess"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="38061ca7-59be-4348-95fe-f21e05ed21a2"
+                  name="object sender"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="db3646bc-9454-4e03-a0c9-1d0c9d34909e"
+                  name="EventArgs e)"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="513267f7-5c74-484a-90ad-4b5e19f98681"
+            name="onEntrySelect"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="11c6033a-9038-428f-a6dd-2b51f77da9bd"
+                  name="object sender"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="016e77a3-b637-4474-a6b4-1288a95cdcd1"
+                  name="MementoEventArgs e"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="a5fe5e7e-2a62-4806-b798-96712680249f"
+            name="onMacroSave"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="fd4eba33-3ff4-4788-8505-be6bb8eafdd3"
+                  name="object sender"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e67eabb4-63c0-4519-b55e-f114b8f4fbed"
+                  name="EventArgs e"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="c69b4984-bc4a-43f2-a57b-56d758c5d362"
+        name="ViewType"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedLiterals>
+          <enumerationLiteral
+            Id="6f5e7867-f623-42c4-b61c-5e79064476b8"
+            name="Welcome" />
+          <enumerationLiteral
+            Id="90cbf579-63fb-4645-b4ab-76d8aaeb4760"
+            name="FilterView" />
+          <enumerationLiteral
+            Id="f7d83e3a-77ee-4bb5-933b-d60ae5f58e1f"
+            name="MetricView" />
+          <enumerationLiteral
+            Id="661eebf8-3429-4042-a1b5-4d33898e8efb"
+            name="AnalyzeView" />
+        </ownedLiterals>
+      </enumeration>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="581aeeb0-8157-47e3-8e4a-181d594871fc"
+        name="EntrySelectedEventArgs"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="cb48f37c-9a1f-4bc5-a47d-65c3729d12ee"
+            isSubstitutable="false">
+            <classMoniker
+              Id="48044e67-3b29-4b96-88b5-dbfc1bcbdef0"
+              LastKnownName="EventArgs"
+              LastKnownLocation="Package1_0919.uml" />
+          </generalization>
+        </generalsInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="02497299-3fad-4fab-962f-c23814007912"
+            name="mem"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
     </packageHasNamedElement>
   </packagedElements>
 </package>

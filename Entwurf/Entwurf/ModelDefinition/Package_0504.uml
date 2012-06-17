@@ -260,8 +260,8 @@ wie realisiert man sowas im Diagramm ?</body>
         </generalsInternal>
         <ownedOperations>
           <operation
-            Id="20a62f8e-83b7-48ab-8936-d1c12da1e83b"
-            name="setVideo"
+            Id="27d27f51-0538-4230-8ed5-69c49187ee2c"
+            name="loadVideo"
             isLeaf="false"
             isStatic="false"
             isAbstract="true"
@@ -270,13 +270,21 @@ wie realisiert man sowas im Diagramm ?</body>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="3dd5acf4-ef94-4c60-8aa1-d52a16799579"
+                  Id="7ca2e542-03fb-4216-b335-bad9bacdbdf7"
                   name="Video vid"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="4f35a955-e9ec-4167-aeb3-056da2808982"
+            name="unloadVideo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
         </ownedOperations>
       </Interface>
     </packageHasNamedElement>
@@ -1959,7 +1967,7 @@ wie realisiert man sowas im Diagramm ?</body>
         <ownedAttributes>
           <property
             Id="a4f4380f-ac6c-4f85-adcd-80d70df3070b"
-            name="MacroFilterEntrySelected"
+            name="MacroFilterEntryClicked"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -2210,10 +2218,10 @@ wie realisiert man sowas im Diagramm ?</body>
             name="Metric" />
           <enumerationLiteral
             Id="f85fd6f1-8542-408e-9d42-6fc477c9868d"
-            name="OqatPresentation" />
+            name="System" />
           <enumerationLiteral
             Id="927a966e-a6dc-4ca1-8c98-0e83fa806b31"
-            name="OqatSystem" />
+            name="Presentation" />
           <enumerationLiteral
             Id="55ae7c19-64dd-44f2-b1d0-416edfff3442"
             name="VideoHandler" />

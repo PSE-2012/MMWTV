@@ -15,7 +15,7 @@
     <packageHasNamedElement>
       <class
         Id="4b52d577-16ad-4bcb-a521-b8aa725a0950"
-        name="PP_VideoDiagram"
+        name="PP_Diagram"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -71,66 +71,7 @@
               LastKnownLocation="Package_0504.uml" />
           </interfaceRealization>
         </suppliersInternal>
-        <targetEnds>
-          <association
-            Id="1a1f258f-abce-4131-b927-de0aba1aeff1"
-            isDerived="false"
-            sourceEndRoleName="PP_VideoDiagram"
-            targetEndRoleName="VideoSourcePlayer"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="e4bb9101-7440-4885-8a9b-fd77a062ed9e"
-              LastKnownName="VideoSourcePlayer"
-              LastKnownLocation="Package_0411.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="4ef00917-c807-4c3e-a2c4-1e8d1c5a2442"
-                  name="PP_VideoDiagram"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="da2359a5-2df3-4884-a5e3-fcdffb6da706"
-                  name="VideoSourcePlayer"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
         <ownedOperationsInternal>
-          <operation
-            Id="6fa65003-ce60-4b7d-9b54-fb3986e2fc8c"
-            name="setVideo"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="95190268-4a3a-44ba-b169-56c57412bf29"
-                  name="Video vid"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
           <operation
             Id="6d2b46a0-617c-4231-851d-678db86995e8"
             name="setParentControll"
@@ -239,6 +180,32 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="8bcecbef-c69b-4d88-b269-4489768cacd4"
+            name="loadVideo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e3fc1abb-db4f-40cf-a2b8-f759b56fa05c"
+                  name="Video vid"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="a14a5f2c-5848-4273-89fd-e46023c51e26"
+            name="unloadVideo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -443,24 +410,6 @@
             </ownedParameters>
           </operation>
           <operation
-            Id="f410203b-53cb-4dfe-8e85-fb3c83198222"
-            name="setVideo"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="652c101f-fe8e-4245-b3a4-25c2d1981ec9"
-                  name="Video vid"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
             Id="7c6e64ce-6ec4-44ba-b731-af8581025f6a"
             name="getEventHandles"
             isLeaf="false"
@@ -508,6 +457,32 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="4fba6059-5bcf-4c59-ba04-73b8b87c1dc3"
+            name="loadVideo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f71e99f9-7ffd-40af-90ea-d11d4e3e1d0d"
+                  name="Video vid"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="1dead2d0-8928-4508-9442-48d2315810c3"
+            name="unloadVideo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -775,6 +750,214 @@
         Id="657d2dad-43ca-4c0b-8bfd-21833b7c1cd8"
         LastKnownName="Macro"
         LastKnownLocation="Package_0538.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="18593d12-213f-421b-8355-27f14323b3e4"
+        name="PP_Player"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="95390fda-0011-427b-8f9d-00efe873bc71">
+            <interfaceMoniker
+              Id="7db69199-6379-4a43-9294-060c6de31642"
+              LastKnownName="IPresentation"
+              LastKnownLocation="Package_0504.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="17aaf98b-52ad-4ec2-8998-8d2f9c9f8c5c"
+            isDerived="false"
+            sourceEndRoleName="PP_Player"
+            targetEndRoleName="VideoSourcePlayer"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="e4bb9101-7440-4885-8a9b-fd77a062ed9e"
+              LastKnownName="VideoSourcePlayer"
+              LastKnownLocation="Package_0411.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="45074751-a655-43e1-8995-eb3374583b43"
+                  name="PP_Player"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="ab12228a-1df8-4dcf-8fa2-1cee29ea98bd"
+                  name="VideoSourcePlayer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="21a6415f-6d8e-41b1-8e99-39dc46643a40"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="4f937188-bc8a-4af7-b4ff-94d1faed8092"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedOperationsInternal>
+          <operation
+            Id="bf627726-6e91-40e6-99e4-6dc2b0b2601f"
+            name="setParentControll"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3e240fd7-2d43-437e-8937-a22933e83cb7"
+                  name="IAddChild parent"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="81e144ab-9c0b-4f43-97c5-7ec1369c308c"
+            name="getEventHandles"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="59300103-8aa5-433c-b13e-a2b3615f017f"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="52a5c565-bfdc-44da-b1fb-5bbe38031a00"
+                      LastKnownName="Dictionary&lt;EventType&gt;&lt;List&lt;delegate&gt;&gt;"
+                      LastKnownLocation="Package_0504.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="42d13d00-edbf-446c-b365-84406d2f9f32"
+            name="getEvents"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6ca5699d-870a-4e8b-bc4d-c4dabeee312b"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="aa457347-3cec-44ce-802f-db406f7f4d6c"
+                      LastKnownName="Dictionary&lt;EventType&gt;&lt;List&lt;event&gt;&gt;"
+                      LastKnownLocation="Package_0504.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="e0180ebb-078f-42db-85cc-aade47da4d35"
+            name="getMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e62fc832-0618-49da-af43-8d538f32fd6e"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac"
+                      LastKnownName="Memento"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="3b2d4f97-2493-4538-818c-efe6689b78d6"
+            name="setMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4dde7cd0-bb28-4cef-8030-4edf2a67a51e"
+                  name="Memento memento"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="cef2f573-376f-4dfc-b5b7-f4d83352c70b"
+            name="loadVideo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2cfba597-5b01-4223-98e3-562f74879e40"
+                  name="Video vid"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="278f2ce4-b389-4fc1-ad82-c2e319ad5c25"
+            name="unloadVideo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
+      </class>
     </packageHasNamedElement>
   </packagedElements>
 </package>
