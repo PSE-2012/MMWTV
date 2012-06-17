@@ -1444,7 +1444,7 @@
                                   <parameter Id="a373cda5-4a82-42de-9991-8164fdea0e7d" direction="Return" isUnique="false">
                                     <elementDefinition Id="4c2f7293-3034-447e-a93f-1644d7584a95" />
                                     <type_NamedElement>
-                                      <referencedTypeMoniker Id="450d6899-ecc2-4b54-b8a7-8093da40be91" LastKnownName="List&lt;string[2] &gt;" />
+                                      <referencedTypeMoniker Id="1c1216ea-a975-441e-ae9b-6f6257eec9ca" LastKnownName="List&lt;MacroEntry&gt;" />
                                     </type_NamedElement>
                                   </parameter>
                                 </operationHasOwnedParameters>
@@ -1973,6 +1973,24 @@
                         </type_NamedElement>
                       </property>
                     </ownedAttributesInternal>
+                  </class>
+                </packageHasNamedElement>
+              </packagedElements>
+            </package>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <package Id="cb1d4fd1-7530-4d95-8caa-647ed70686b5" name="CES_MotionVector">
+              <elementDefinition Id="c66e0a4d-8c03-4bb9-a738-82c1f9d9a06c" />
+              <packagedElements>
+                <packageHasNamedElement>
+                  <class Id="f34ae999-2243-40d8-961f-21da1a4c880a" name="PP_MotionVektor" isAbstract="false" isLeaf="false" isActiveClass="false">
+                    <elementDefinition Id="c89f585b-0ea2-4e05-ad57-6b3cef385197" />
+                    <generalsInternal>
+                      <generalization Id="adb4f8f8-9a86-435c-a7c3-7a43f3c88252" isSubstitutable="false">
+                        <classMoniker Id="a79b081f-272b-40c3-a0e4-f472222b31eb" LastKnownName="PP_Player" />
+                        <elementDefinition Id="db584fe1-381c-4f9c-8698-3df0ca01143d" />
+                      </generalization>
+                    </generalsInternal>
                   </class>
                 </packageHasNamedElement>
               </packagedElements>
@@ -4314,13 +4332,6 @@ auf keine (uns bekannte) sinnvolle Weise ins Klassendiagramm integrieren...
               <interfaceMoniker Id="ac70e668-6168-4802-86bb-7f4a7f691167" LastKnownName="IVideoInfo" />
             </annotatedElements>
           </comment>
-          <comment Id="f3f1b76b-4327-46b7-8144-4cf8720558a4">
-            <elementDefinition Id="59519655-0880-4fba-bc4d-f87d2561517f" />
-            <body>Ein handler MUSS das event VidObjectDone oder so auslösen </body>
-            <annotatedElements>
-              <interfaceMoniker Id="1497ed33-7b4e-4a76-b93a-881285b19da0" LastKnownName="IVideoHandler" />
-            </annotatedElements>
-          </comment>
           <comment Id="18ffa853-3ac6-4027-8042-16f789378e5a">
             <elementDefinition Id="23badbd5-ccc0-4f86-8cd7-b531d8709c1c" />
             <body>wenn ein Plugin Properties anbieten will MUSS es einen Event newMementoCreated auslösen sobald der SaveAndAdd Button geklickt wurde.
@@ -4934,6 +4945,30 @@ wie realisiert man sowas im Diagramm ?</body>
                     <referencedTypeMoniker Id="f2a55282-ccfb-4ad9-9a7f-b3873ec44d53" LastKnownName="String" />
                   </type_NamedElement>
                 </property>
+                <property Id="7765dbaa-bb99-4bc6-ad6f-626b99fb7904" name="frameMetricValue" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="83f87d62-a415-4da8-b7e5-f372134ffab8" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="715ffb01-3202-44a6-9981-fd1550880b1c" LastKnownName="float []" />
+                  </type_NamedElement>
+                </property>
+                <property Id="c2156cbc-1156-46c3-b9c2-a36bdcefe681" name="filteredBy" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="c0806606-40ba-408e-9080-7042694217ad" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="45825665-d9f7-4f0b-b92d-1fffc2438f82" LastKnownName="List&lt;MacroEntrys&gt;" />
+                  </type_NamedElement>
+                </property>
+                <property Id="6370fc2f-4cc8-4392-a649-2c98e07fa9a3" name="macroName" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="195fc90b-666c-400e-8918-0e6d0c536e0a" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="9ddddd1d-b63a-4521-b570-6cc7f0722a5f" LastKnownName="string" />
+                  </type_NamedElement>
+                </property>
+                <property Id="b3ece567-3f48-4033-b194-57c52f8196bf" name="extraRessource" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="302cc155-74c9-4a32-8b4e-68e1e442839c" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="6ce6d2fb-3e86-4fb4-9664-323d51f30728" LastKnownName="List&lt;Path&gt;" />
+                  </type_NamedElement>
+                </property>
               </ownedAttributes>
             </Interface>
           </packageHasNamedElement>
@@ -5063,13 +5098,13 @@ wie realisiert man sowas im Diagramm ?</body>
                   <elementDefinition Id="e3e85198-ba52-4543-9f0b-2d46d22c0c8a" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="2ca16dd2-8849-4f5b-900d-9be1a4bc2692" name="List&lt;string[2]&gt; plugMemList" direction="In" isUnique="false">
-                        <elementDefinition Id="dd530559-d54c-4b95-b171-8d73dcd31e6b" />
+                      <parameter Id="ae6488ed-2fd7-401d-8de7-06124ff9a0ee" name="List&lt;MacroEntry&gt; macroEntrys" direction="In" isUnique="false">
+                        <elementDefinition Id="ea847cc6-8750-4dc9-aa64-685ec2342f05" />
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="1bb401ae-dc8e-47ef-beef-a06451808ae6" name="string mementoName" direction="In" isUnique="false">
-                        <elementDefinition Id="8f4f35d3-76a2-428b-86aa-c3ef407289c8" />
+                      <parameter Id="7bfe9d19-bf27-4acb-a1d1-1b4dc384b4f5" name="string mementoName" direction="In" isUnique="false">
+                        <elementDefinition Id="138b0f0a-1ff5-4d3f-a368-fd50cc1e83bb" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -5081,7 +5116,7 @@ wie realisiert man sowas im Diagramm ?</body>
                       <parameter Id="ff8cd13b-f42a-49a2-b0a9-4d43e902641a" direction="Return" isUnique="false">
                         <elementDefinition Id="77dc4e01-094a-47e4-bc2d-ee87080968bf" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="450d6899-ecc2-4b54-b8a7-8093da40be91" LastKnownName="List&lt;string[2] &gt;" />
+                          <referencedTypeMoniker Id="1c1216ea-a975-441e-ae9b-6f6257eec9ca" LastKnownName="List&lt;MacroEntry&gt;" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -5267,13 +5302,67 @@ wie realisiert man sowas im Diagramm ?</body>
                       <parameter Id="50d52a3d-143c-4ef1-afd5-f3c11edb01d0" direction="Return" isUnique="false">
                         <elementDefinition Id="b417d7ba-c770-4270-a0ee-ab726554528a" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="450d6899-ecc2-4b54-b8a7-8093da40be91" LastKnownName="List&lt;string[2] &gt;" />
+                          <referencedTypeMoniker Id="1c1216ea-a975-441e-ae9b-6f6257eec9ca" LastKnownName="List&lt;MacroEntry&gt;" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
               </ownedOperationsInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <enumeration Id="0538f5f8-2e47-43bc-a308-8af98fc29b7d" name="PresentationPluginType" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="245c9432-624c-4933-9fda-6d28a8cbbd40" />
+              <ownedLiterals>
+                <enumerationLiteral Id="fbb1ff27-2aaf-4869-b9e3-ba132e0a227b" name="Player">
+                  <elementDefinition Id="14d8e508-8af2-40e1-995f-5dab75d39516" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="1639ba80-e063-401b-919c-963eda0c3788" name="DAT">
+                  <elementDefinition Id="299e31c9-dd32-45ea-bf4b-d47f4b066ce2" />
+                </enumerationLiteral>
+              </ownedLiterals>
+            </enumeration>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="11b16b8f-d949-4782-8987-43d6005e6c0f" name="MacroEntry" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="16fbd592-206e-44bc-8c6e-f579df7b3baf" />
+              <ownedAttributesInternal>
+                <property Id="12e5351a-2ed4-40cf-a95f-20e9b138fb28" name="pluginName" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="7f990dfd-9dec-43fc-8dfe-8afd703ec514" name="Lower" value="1">
+                      <elementDefinition Id="f1f96420-d0ed-4a05-8e06-b2b3879cf909" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="d8ea6103-fac6-46ff-bdb3-91fd0dbd2a0e" name="Upper" value="1">
+                      <elementDefinition Id="1631c52e-65fd-4c96-916f-066660af4cd8" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="7573e2ab-6f39-48c9-83aa-5980bc92d814" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="c004047b-4203-4203-b96d-37e3236b1dfc" LastKnownName="string" />
+                  </type_NamedElement>
+                </property>
+                <property Id="a58895c6-74fd-4a97-80d3-f05dce48c944" name="mementoName" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="336f962f-f97e-4ab7-84bd-c8e0b5f3cd82" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="9ddddd1d-b63a-4521-b570-6cc7f0722a5f" LastKnownName="string" />
+                  </type_NamedElement>
+                </property>
+                <property Id="146f90f1-d2e9-4b66-af76-30eb38cc6e40" name="startFrameRel" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="652f67dc-2058-4b61-9f60-8743ecb56569" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="8e91bde1-9c44-4f3b-8f6e-a3758c09cdd0" LastKnownName="double" />
+                  </type_NamedElement>
+                </property>
+                <property Id="da70d48f-5fe5-4926-b052-cb563f41298d" name="endFrameRel" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="48460ab7-0c52-4fbc-ab8a-e7119cbc42d3" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="7b594aeb-86d5-4fbe-8f2c-f2821e4d7c40" LastKnownName="double" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributesInternal>
             </class>
           </packageHasNamedElement>
         </packagedElements>
@@ -9067,11 +9156,6 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="450d6899-ecc2-4b54-b8a7-8093da40be91" name="List&lt;string[2] &gt;" isAbstract="false" isLeaf="false" cachedFullName="List&lt;string[2] &gt;">
-        <elementDefinition Id="cff65700-3394-4b07-8674-d5b93db1c0a0" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="e1c08dc4-9430-48c8-a4d5-d4eb03b6b23b" name="ViewType" isAbstract="false" isLeaf="false" cachedFullName="Entwurf::ViewModel::ViewType">
         <elementDefinition Id="c69b4984-bc4a-43f2-a57b-56d758c5d362" />
       </referencedType>
@@ -9079,6 +9163,41 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
     <packageHasNamedElement>
       <referencedType Id="ced6e8eb-3b96-4734-83b9-57a0c175308c" name="event" isAbstract="false" isLeaf="false" cachedFullName="event">
         <elementDefinition Id="c857ad8a-29c4-4eaa-96f6-f99e3ea54f61" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="715ffb01-3202-44a6-9981-fd1550880b1c" name="float []" isAbstract="false" isLeaf="false" cachedFullName="float []">
+        <elementDefinition Id="1898f72f-e4b8-490b-a43c-b684bc10f9c3" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="1c1216ea-a975-441e-ae9b-6f6257eec9ca" name="List&lt;MacroEntry&gt;" isAbstract="false" isLeaf="false" cachedFullName="List&lt;MacroEntry&gt;">
+        <elementDefinition Id="3618ff66-de06-4d25-bf12-9830d3af75b3" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="45825665-d9f7-4f0b-b92d-1fffc2438f82" name="List&lt;MacroEntrys&gt;" isAbstract="false" isLeaf="false" cachedFullName="List&lt;MacroEntrys&gt;">
+        <elementDefinition Id="5f96bc4b-1281-434c-ad21-f3806d073d46" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="c004047b-4203-4203-b96d-37e3236b1dfc" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
+        <elementDefinition Id="71a35fde-c6e5-4115-8b6c-669417907e6a" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="8e91bde1-9c44-4f3b-8f6e-a3758c09cdd0" name="double" isAbstract="false" isLeaf="false" cachedFullName="double">
+        <elementDefinition Id="7f31e06a-2b32-4f1e-94ab-8b8bebaf6fef" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="7b594aeb-86d5-4fbe-8f2c-f2821e4d7c40" name="double" isAbstract="false" isLeaf="false" cachedFullName="double">
+        <elementDefinition Id="7f31e06a-2b32-4f1e-94ab-8b8bebaf6fef" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="6ce6d2fb-3e86-4fb4-9664-323d51f30728" name="List&lt;Path&gt;" isAbstract="false" isLeaf="false" cachedFullName="List&lt;Path&gt;">
+        <elementDefinition Id="bb9edbee-310f-48db-8eca-d8211105e7fd" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

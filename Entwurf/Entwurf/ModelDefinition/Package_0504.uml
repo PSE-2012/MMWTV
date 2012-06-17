@@ -15,16 +15,6 @@
       </annotatedElements>
     </comment>
     <comment
-      Id="59519655-0880-4fba-bc4d-f87d2561517f">
-      <body>Ein handler MUSS das event VidObjectDone oder so auslösen </body>
-      <annotatedElements>
-        <interfaceMoniker
-          Id="293a19b1-7e34-4b70-978a-9702218440ad"
-          LastKnownName="IVideoHandler"
-          LastKnownLocation="Package_0504.uml" />
-      </annotatedElements>
-    </comment>
-    <comment
       Id="23badbd5-ccc0-4f86-8cd7-b531d8709c1c">
       <body>wenn ein Plugin Properties anbieten will MUSS es einen Event newMementoCreated auslösen sobald der SaveAndAdd Button geklickt wurde.
 
@@ -907,6 +897,78 @@ wie realisiert man sowas im Diagramm ?</body>
                 Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
                 LastKnownName="String"
                 LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="83f87d62-a415-4da8-b7e5-f372134ffab8"
+            name="frameMetricValue"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="1898f72f-e4b8-490b-a43c-b684bc10f9c3"
+                LastKnownName="float []"
+                LastKnownLocation="Package_0504.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="c0806606-40ba-408e-9080-7042694217ad"
+            name="filteredBy"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="5f96bc4b-1281-434c-ad21-f3806d073d46"
+                LastKnownName="List&lt;MacroEntrys&gt;"
+                LastKnownLocation="Package_0504.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="195fc90b-666c-400e-8918-0e6d0c536e0a"
+            name="macroName"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="71a35fde-c6e5-4115-8b6c-669417907e6a"
+                LastKnownName="string"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="302cc155-74c9-4a32-8b4e-68e1e442839c"
+            name="extraRessource"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="bb9edbee-310f-48db-8eca-d8211105e7fd"
+                LastKnownName="List&lt;Path&gt;"
+                LastKnownLocation="Package_1744.uml" />
             </type_NamedElement>
           </property>
         </ownedAttributes>
@@ -1996,14 +2058,14 @@ wie realisiert man sowas im Diagramm ?</body>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="dd530559-d54c-4b95-b171-8d73dcd31e6b"
-                  name="List&lt;string[2]&gt; plugMemList"
+                  Id="ea847cc6-8750-4dc9-aa64-685ec2342f05"
+                  name="List&lt;MacroEntry&gt; macroEntrys"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="8f4f35d3-76a2-428b-86aa-c3ef407289c8"
+                  Id="138b0f0a-1ff5-4d3f-a368-fd50cc1e83bb"
                   name="string mementoName"
                   direction="In"
                   isUnique="false" />
@@ -2026,8 +2088,8 @@ wie realisiert man sowas im Diagramm ?</body>
                   isUnique="false">
                   <type_NamedElement>
                     <undefinedTypeMoniker
-                      Id="cff65700-3394-4b07-8674-d5b93db1c0a0"
-                      LastKnownName="List&lt;string[2] &gt;"
+                      Id="3618ff66-de06-4d25-bf12-9830d3af75b3"
+                      LastKnownName="List&lt;MacroEntry&gt;"
                       LastKnownLocation="Package_0504.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -2462,8 +2524,8 @@ wie realisiert man sowas im Diagramm ?</body>
                   isUnique="false">
                   <type_NamedElement>
                     <undefinedTypeMoniker
-                      Id="cff65700-3394-4b07-8674-d5b93db1c0a0"
-                      LastKnownName="List&lt;string[2] &gt;"
+                      Id="3618ff66-de06-4d25-bf12-9830d3af75b3"
+                      LastKnownName="List&lt;MacroEntry&gt;"
                       LastKnownLocation="Package_0504.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -2472,6 +2534,141 @@ wie realisiert man sowas im Diagramm ?</body>
           </operation>
         </ownedOperationsInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="245c9432-624c-4933-9fda-6d28a8cbbd40"
+        name="PresentationPluginType"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedLiterals>
+          <enumerationLiteral
+            Id="14d8e508-8af2-40e1-995f-5dab75d39516"
+            name="Player" />
+          <enumerationLiteral
+            Id="299e31c9-dd32-45ea-bf4b-d47f4b066ce2"
+            name="DAT" />
+        </ownedLiterals>
+      </enumeration>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="1898f72f-e4b8-490b-a43c-b684bc10f9c3"
+        name="float []" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="16fbd592-206e-44bc-8c6e-f579df7b3baf"
+        name="MacroEntry"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="7573e2ab-6f39-48c9-83aa-5980bc92d814"
+            name="pluginName"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <lowerValueInternal>
+              <literalString
+                Id="f1f96420-d0ed-4a05-8e06-b2b3879cf909"
+                name="Lower"
+                value="1" />
+            </lowerValueInternal>
+            <upperValueInternal>
+              <literalString
+                Id="1631c52e-65fd-4c96-916f-066660af4cd8"
+                name="Upper"
+                value="1" />
+            </upperValueInternal>
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="71a35fde-c6e5-4115-8b6c-669417907e6a"
+                LastKnownName="string"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="336f962f-f97e-4ab7-84bd-c8e0b5f3cd82"
+            name="mementoName"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="71a35fde-c6e5-4115-8b6c-669417907e6a"
+                LastKnownName="string"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="652f67dc-2058-4b61-9f60-8743ecb56569"
+            name="startFrameRel"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="7f31e06a-2b32-4f1e-94ab-8b8bebaf6fef"
+                LastKnownName="double"
+                LastKnownLocation="Package_0504.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="48460ab7-0c52-4fbc-ab8a-e7119cbc42d3"
+            name="endFrameRel"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="7f31e06a-2b32-4f1e-94ab-8b8bebaf6fef"
+                LastKnownName="double"
+                LastKnownLocation="Package_0504.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="7f31e06a-2b32-4f1e-94ab-8b8bebaf6fef"
+        name="double" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="3618ff66-de06-4d25-bf12-9830d3af75b3"
+        name="List&lt;MacroEntry&gt;" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="5f96bc4b-1281-434c-ad21-f3806d073d46"
+        name="List&lt;MacroEntrys&gt;" />
     </packageHasNamedElement>
   </packagedElements>
 </package>
