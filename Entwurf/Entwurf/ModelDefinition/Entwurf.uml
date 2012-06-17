@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
   dslVersion="1.0.0.0"
   Id="46634d97-dc6c-4362-9484-7c7ecb77101f"
   name="Entwurf" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -13919,8 +13919,361 @@
             Id="dd500d76-aabb-4c77-92e2-260a3ddeed3e">
             <body>speichert unseren macrofilter</body>
           </comment>
+          <comment
+            Id="d8704445-31bc-471d-952e-bb86f00e6d4b">
+            <body>HUMBUG</body>
+            <annotatedElements>
+              <lifelineMoniker
+                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
+                LastKnownName="VM_PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </annotatedElements>
+          </comment>
+          <comment
+            Id="f2d4a36f-4fe8-4ad7-9a29-9173fc415aff">
+            <body>Leute, im großen und ganzen würde ich sagen ihr habt die Architektur und allgemein wie events funktionieren noch nicht ganz verstanden. 
+
+Z.b. das ominöse entrySelect() wird natürlich nicht vom PluginManager sondern von der RuntimeMachine ausgelöst (bei z.b. ein  Doppelklick auf einen Eintrag).
+
+und auch macht es wenig sinn auf einem delegate (von dem wir nicht wissen woher es stammt übrigens..) eine Methode des pluginmanagers aufzurufen.
+
+Das ist das Vorgehen in Sachen events:
+
+1: Jemand der einen Event auslösen möchte (freiwillig) übergibt dieses an den PluginManager
+  pluginManager.addEvent(EventType.entrySelect, entrySelect) 
+
+wobei das Erste Argument ein Schlüssel ist, so dass der PluginManager ihn mit einem delegate matchen kann
+2: Jemand WEIß, dass es einen Event vom Typ X gibt und möchte bei solchen einem Event geweckt und mit argumenten versorgt werden.
+ pluginManager.addEventHandler(EventType.entrySelect, onEntrySelect)
+
+
+
+
+und ganz allgemein kann ich nicht nachvollziehen wie es funktionieren soll, 
+wenn es denn funktioniert (sobald man die formallen fehler rausnimmt) erhellt mich, denn es sieht ziehmlich kurz aus und je kürzer (aber funktionsfähig) desto besser</body>
+          </comment>
         </ownedCommentsInternal>
         <fragments>
+          <messageOccurrenceSpecification
+            Id="257d9ced-8217-43d2-a3d6-9c73870cab3a"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
+                LastKnownName="VM_PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="75c728e1-2c1f-4ed6-9163-f1b15b756f62"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="a40fdf23-b53e-4757-8057-831f286427fc"
+                LastKnownName="Macro"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="4ac76398-62db-4475-814e-01c6d980ecf5"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
+                LastKnownName="VM_PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f046f761-6fc1-4b43-92fa-d3eac348c5bb"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="a40fdf23-b53e-4757-8057-831f286427fc"
+                LastKnownName="Macro"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="11758af7-1f30-476f-8038-ca06a92241bd"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
+                LastKnownName="VM_PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="a9aa8768-5845-4ce6-8759-ba078173ff17"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="a40fdf23-b53e-4757-8057-831f286427fc"
+                LastKnownName="Macro"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="ee02b45d-e47e-4949-b4a7-647ce7be9a34"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="a40fdf23-b53e-4757-8057-831f286427fc"
+                LastKnownName="Macro"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="5dac6c49-eba9-47fb-9db3-65843a281ae0"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
+                LastKnownName="VM_PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="e7c1ca36-4301-434d-8db4-06ddf768b558"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
+                LastKnownName="VM_PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f79057ca-83ea-498e-87c0-86ec82bac0d3"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="692d8860-7c4b-43b5-a3c5-ddca651e7cc1"
+                LastKnownName="Blur : Memento"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="421674c2-26a5-4926-a071-caac1fd548ec"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="692d8860-7c4b-43b5-a3c5-ddca651e7cc1"
+                LastKnownName="Blur : Memento"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="543533e5-0363-48ff-bd5c-d721166f8194"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="4a3466cf-5465-40b9-933b-c44f8752b317"
+                LastKnownName="Caretaker : Caretaker"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="64da10c0-40a5-4647-9722-ca4b0069c7d8"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
+                LastKnownName="VM_PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="127e95e3-c459-4079-a0a6-ced7d76b9fb6"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="4a3466cf-5465-40b9-933b-c44f8752b317"
+                LastKnownName="Caretaker : Caretaker"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="e4abb436-cb3a-4ef2-81d6-fed843e9b789"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="4a3466cf-5465-40b9-933b-c44f8752b317"
+                LastKnownName="Caretaker : Caretaker"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="9d59dbfb-9b36-4697-937c-bfaf23bdb419"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="a40fdf23-b53e-4757-8057-831f286427fc"
+                LastKnownName="Macro"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="838f6baa-bca8-4483-8ca3-52cedd365fbd"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="a1036c48-d40f-4891-a5fc-0b6e5989fa0d"
+                LastKnownName="VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="add62d33-b940-448e-940d-fd4d16b29e84"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
+                LastKnownName="VM_PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="6dfe7b77-31af-4b8e-bf62-dcac64c21fa8"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="a40fdf23-b53e-4757-8057-831f286427fc"
+                LastKnownName="Macro"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="27d27cc9-9e97-44eb-8633-aab138f8e721"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="745ebf5f-23b4-4d04-a550-3be469718740"
+                LastKnownName="handler : Delegate"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="42a84207-7f6a-4a35-8b72-e084e5388fb9"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
+                LastKnownName="VM_PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="3fe3cfe3-09a3-4ea0-a118-6ad5d408e866"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="4a3466cf-5465-40b9-933b-c44f8752b317"
+                LastKnownName="Caretaker : Caretaker"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="b1c80b60-c4f5-4a3a-900a-577280921051"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
+                LastKnownName="VM_PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="8a1b0e81-c5e5-43ae-9ef9-7e7fae4ed17c"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="a1036c48-d40f-4891-a5fc-0b6e5989fa0d"
+                LastKnownName="VM_PluginLists"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="86b50acd-f127-4d8e-8475-40ed5f1fda19"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
+                LastKnownName="VM_PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="72aae4dd-eea2-4d20-9170-3305b44eef47"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="745ebf5f-23b4-4d04-a550-3be469718740"
+                LastKnownName="handler : Delegate"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="ba78fbd9-c793-4897-9b25-36b4074a238d"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="a40fdf23-b53e-4757-8057-831f286427fc"
+                LastKnownName="Macro"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="84c85529-35c1-40cf-95f3-c3ee5e14fd88"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="745ebf5f-23b4-4d04-a550-3be469718740"
+                LastKnownName="handler : Delegate"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="cf400c71-74bb-4d85-8613-7cf8fe6d995b"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
+                LastKnownName="VM_PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="6c121642-0f08-496d-9b9c-e8dcc13bc6d9"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="a40fdf23-b53e-4757-8057-831f286427fc"
+                LastKnownName="Macro"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="fd9fd375-6fec-44fe-84e5-9a5cff4ff8c1"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
+                LastKnownName="VM_PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="c033ae0e-6755-4aaa-b97d-16121a365d03"
+            name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker
+                Id="745ebf5f-23b4-4d04-a550-3be469718740"
+                LastKnownName="handler : Delegate"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="a931d2e2-f5b2-4732-8a72-5fcdac6c805c"
             name="BehaviorExecutionSpecification">
@@ -13971,46 +14324,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="8a1b0e81-c5e5-43ae-9ef9-7e7fae4ed17c"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="a1036c48-d40f-4891-a5fc-0b6e5989fa0d"
-                LastKnownName="VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="b1c80b60-c4f5-4a3a-900a-577280921051"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
-                LastKnownName="VM_PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="add62d33-b940-448e-940d-fd4d16b29e84"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
-                LastKnownName="VM_PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="838f6baa-bca8-4483-8ca3-52cedd365fbd"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="a1036c48-d40f-4891-a5fc-0b6e5989fa0d"
-                LastKnownName="VM_PluginLists"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="8239e90e-c6c5-4f8f-9eb2-79d1cf446f41"
             name="ExecutionOccurrenceSpecification">
@@ -14079,46 +14392,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="cf400c71-74bb-4d85-8613-7cf8fe6d995b"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
-                LastKnownName="VM_PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="c033ae0e-6755-4aaa-b97d-16121a365d03"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="745ebf5f-23b4-4d04-a550-3be469718740"
-                LastKnownName="handler : Delegate"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="fd9fd375-6fec-44fe-84e5-9a5cff4ff8c1"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
-                LastKnownName="VM_PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="72aae4dd-eea2-4d20-9170-3305b44eef47"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="745ebf5f-23b4-4d04-a550-3be469718740"
-                LastKnownName="handler : Delegate"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="8a261ed4-f96f-4388-85de-26b9bb190ddd"
             name="ExecutionOccurrenceSpecification">
@@ -14207,26 +14480,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="a9aa8768-5845-4ce6-8759-ba078173ff17"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="a40fdf23-b53e-4757-8057-831f286427fc"
-                LastKnownName="Macro"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="11758af7-1f30-476f-8038-ca06a92241bd"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
-                LastKnownName="VM_PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="fc49b1f9-e881-4fb4-8f40-0defc865d017"
             name="BehaviorExecutionSpecification">
@@ -14285,26 +14538,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="75c728e1-2c1f-4ed6-9163-f1b15b756f62"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="a40fdf23-b53e-4757-8057-831f286427fc"
-                LastKnownName="Macro"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="257d9ced-8217-43d2-a3d6-9c73870cab3a"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
-                LastKnownName="VM_PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="54c9a36e-11f2-4596-83f5-aacac15b4f5e"
             name="BehaviorExecutionSpecification">
@@ -14363,26 +14596,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="127e95e3-c459-4079-a0a6-ced7d76b9fb6"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="4a3466cf-5465-40b9-933b-c44f8752b317"
-                LastKnownName="Caretaker : Caretaker"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="64da10c0-40a5-4647-9722-ca4b0069c7d8"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
-                LastKnownName="VM_PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="151f3f13-58ed-496d-b2d9-5d84f314ff44"
             name="BehaviorExecutionSpecification">
@@ -14433,46 +14646,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f79057ca-83ea-498e-87c0-86ec82bac0d3"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="692d8860-7c4b-43b5-a3c5-ddca651e7cc1"
-                LastKnownName="Blur : Memento"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="3fe3cfe3-09a3-4ea0-a118-6ad5d408e866"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="4a3466cf-5465-40b9-933b-c44f8752b317"
-                LastKnownName="Caretaker : Caretaker"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="543533e5-0363-48ff-bd5c-d721166f8194"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="4a3466cf-5465-40b9-933b-c44f8752b317"
-                LastKnownName="Caretaker : Caretaker"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="421674c2-26a5-4926-a071-caac1fd548ec"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="692d8860-7c4b-43b5-a3c5-ddca651e7cc1"
-                LastKnownName="Blur : Memento"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="7c68ae2e-4b56-4424-8ed5-e2e4bcc171f4"
             name="ExecutionOccurrenceSpecification">
@@ -14491,26 +14664,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="e7c1ca36-4301-434d-8db4-06ddf768b558"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
-                LastKnownName="VM_PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="e4abb436-cb3a-4ef2-81d6-fed843e9b789"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="4a3466cf-5465-40b9-933b-c44f8752b317"
-                LastKnownName="Caretaker : Caretaker"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="85bbae64-84b2-4700-aa91-d3bce78902f4"
             name="ExecutionOccurrenceSpecification">
@@ -14529,26 +14682,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="9d59dbfb-9b36-4697-937c-bfaf23bdb419"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="a40fdf23-b53e-4757-8057-831f286427fc"
-                LastKnownName="Macro"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="4ac76398-62db-4475-814e-01c6d980ecf5"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
-                LastKnownName="VM_PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="ac7745ce-133d-4cef-9037-312139bffbdb"
             name="ExecutionOccurrenceSpecification">
@@ -14567,16 +14700,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f046f761-6fc1-4b43-92fa-d3eac348c5bb"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="a40fdf23-b53e-4757-8057-831f286427fc"
-                LastKnownName="Macro"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="b08ff064-0748-4db1-8bb4-f496adb97f91"
             name="BehaviorExecutionSpecification">
@@ -14623,16 +14746,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="ee02b45d-e47e-4949-b4a7-647ce7be9a34"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="a40fdf23-b53e-4757-8057-831f286427fc"
-                LastKnownName="Macro"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="944ffcf2-2184-4664-9b7b-72bbd5c2c606"
             name="ExecutionOccurrenceSpecification">
@@ -14651,26 +14764,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="5dac6c49-eba9-47fb-9db3-65843a281ae0"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
-                LastKnownName="VM_PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="ba78fbd9-c793-4897-9b25-36b4074a238d"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="a40fdf23-b53e-4757-8057-831f286427fc"
-                LastKnownName="Macro"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="3750ec98-6b61-456a-bea6-281e3adc57e4"
             name="ExecutionOccurrenceSpecification">
@@ -14739,36 +14832,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="84c85529-35c1-40cf-95f3-c3ee5e14fd88"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="745ebf5f-23b4-4d04-a550-3be469718740"
-                LastKnownName="handler : Delegate"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="86b50acd-f127-4d8e-8475-40ed5f1fda19"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
-                LastKnownName="VM_PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="6c121642-0f08-496d-9b9c-e8dcc13bc6d9"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="a40fdf23-b53e-4757-8057-831f286427fc"
-                LastKnownName="Macro"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="b979bdd7-b93f-421c-a5c6-0a91042e5536"
             name="BehaviorExecutionSpecification">
@@ -14815,36 +14878,6 @@
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="6dfe7b77-31af-4b8e-bf62-dcac64c21fa8"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="a40fdf23-b53e-4757-8057-831f286427fc"
-                LastKnownName="Macro"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="27d27cc9-9e97-44eb-8633-aab138f8e721"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="745ebf5f-23b4-4d04-a550-3be469718740"
-                LastKnownName="handler : Delegate"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="42a84207-7f6a-4a35-8b72-e084e5388fb9"
-            name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker
-                Id="257c6c22-e66c-40b6-8376-286d8b6abd8b"
-                LastKnownName="VM_PluginManager"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="0bef849c-33b4-489a-846b-d0e23b5bda2f"
             name="ExecutionOccurrenceSpecification">
@@ -25852,7 +25885,11 @@
           </comment>
           <comment
             Id="2233b790-fddc-4de5-8b51-f1b5cee4af64">
-            <body>Erstellen neuer PluginInstanz?!</body>
+            <body>Erstellen neuer PluginInstanz?!
+
+
+Artur: Funktioniert nicht ;-) (habs zumindest nicht gesehen wie es gehen soll..),
+außer du würdest alle Plugins neu einlese..</body>
             <annotatedElements>
               <behaviorExecutionSpecificationMoniker
                 Id="34e61734-829b-41a9-96e6-f5aa97285f35"
@@ -25864,6 +25901,55 @@
             Id="642ba24b-e72c-442e-a9cf-3704393453d3">
             <body>slider anpassen
 </body>
+          </comment>
+          <comment
+            Id="fbac8ae4-015f-4beb-a53e-f41af909f40e">
+            <body>ich hab es schon in euren letzten sequenceDiagram erwähnt, ein Event ist KEIT methodenaufruf. Ein event wird direkt von der RuntimeMachine aufgerufen.
+
+Und nebenbei: Ein delegate muss natürlich einer bestimmten definition entsprechen:
+void onEvent(Object sender, EventArgs e)
+</body>
+          </comment>
+          <comment
+            Id="455755c7-f4b2-453e-8b35-4168ac4af7e5">
+            <body>achja ? Und woher weiß Presentationo wie das VideoDiagram plugin heißt ?
+Für solche Fälle gibt es die PluginTypes.</body>
+            <annotatedElements>
+              <behaviorExecutionSpecificationMoniker
+                Id="95b287b0-bc45-4e20-9686-daa8b6aee6cd"
+                LastKnownName="BehaviorExecutionSpecification12"
+                LastKnownLocation="Entwurf.uml" />
+            </annotatedElements>
+          </comment>
+          <comment
+            Id="2597f1aa-86ab-449a-8905-0cfbcb706d36">
+            <body>ERNSTHAFT ??
+Haben wir heute den Tag:
+"Scheiß auf Schnittstellen, ohne ist es viel häßliger!" ?</body>
+            <annotatedElements>
+              <behaviorExecutionSpecificationMoniker
+                Id="8a70afff-1e8b-47b1-b0e1-8e24d3f2e610"
+                LastKnownName="BehaviorExecutionSpecification6"
+                LastKnownLocation="Entwurf.uml" />
+            </annotatedElements>
+          </comment>
+          <comment
+            Id="2c1eae83-0a62-471d-a680-9b558caf0f27">
+            <body>hier wird wohl der häßligster nebeneffekt von OQAT eingebaut.Dadurch dass man zur Berechnung eines simplen Diagramms das GESAMTE Video ein zweites mal (nach dem analysevorgang) Pixel für Pixel durchläuft werden aus 10 min 20 min</body>
+            <annotatedElements>
+              <behaviorExecutionSpecificationMoniker
+                Id="f7bd18c1-8de8-4373-bf91-ed8bce29096d"
+                LastKnownName="BehaviorExecutionSpecification13"
+                LastKnownLocation="Entwurf.uml" />
+            </annotatedElements>
+          </comment>
+          <comment
+            Id="9b0499f0-a71b-4884-84c3-da3eb8270900">
+            <body>Damit würden wahrscheinlich Diagramme funktionieren aber was ist mit dem Rest ?
+Das vidSelect event, das ihr zum start  der DiagrammRoutine missbraucht wird ausgelöst wenn man ein Video aus der SmartList in den Player verfrachten will (ohne Filter oder Analyse). Und das ist nur ein Bsp, allgemein ist das Zusammenspiel zwischen Diagramm und allem anderen nicht ersichtlich -&gt; dahier schließe ich, dass es in dieser Form noch nicht Funktionsfähig ist.
+
+
+Und noch was, ihr habt aus dem PresentationPlugin ein PresentationVM und DREI Plugins gemacht... ist es wirklich einfacher geworden ?</body>
           </comment>
         </ownedCommentsInternal>
         <fragments>
@@ -26008,16 +26094,6 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="10df3bb9-4008-4838-b4fb-17594f914a40"
-            name="MessageOccurrenceSpecification41">
-            <covered>
-              <lifelineMoniker
-                Id="881f93a7-4966-4108-af4f-511be0200969"
-                LastKnownName="vM_Presentation : VM_Presentation"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="29de755a-c5dc-4297-977a-312b2375eefd"
             name="MessageOccurrenceSpecification42">
             <covered>
@@ -26028,8 +26104,8 @@
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="6a7239ff-4afa-426e-95e3-f202b0472e1c"
-            name="MessageOccurrenceSpecification44">
+            Id="10df3bb9-4008-4838-b4fb-17594f914a40"
+            name="MessageOccurrenceSpecification41">
             <covered>
               <lifelineMoniker
                 Id="881f93a7-4966-4108-af4f-511be0200969"
@@ -26044,6 +26120,16 @@
               <lifelineMoniker
                 Id="8cede861-1c86-4d83-8da2-64ffb668d350"
                 LastKnownName="pluginManager : PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="6a7239ff-4afa-426e-95e3-f202b0472e1c"
+            name="MessageOccurrenceSpecification44">
+            <covered>
+              <lifelineMoniker
+                Id="881f93a7-4966-4108-af4f-511be0200969"
+                LastKnownName="vM_Presentation : VM_Presentation"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -26116,22 +26202,22 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="9c3f7cf1-3b4b-4500-9020-0ff440fee63d"
-            name="MessageOccurrenceSpecification6">
-            <covered>
-              <lifelineMoniker
-                Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
-                LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="aed3c3ab-7705-4817-88c9-4b2485b5e743"
             name="MessageOccurrenceSpecification5">
             <covered>
               <lifelineMoniker
                 Id="881f93a7-4966-4108-af4f-511be0200969"
                 LastKnownName="vM_Presentation : VM_Presentation"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="9c3f7cf1-3b4b-4500-9020-0ff440fee63d"
+            name="MessageOccurrenceSpecification6">
+            <covered>
+              <lifelineMoniker
+                Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
+                LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -26260,22 +26346,22 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="f012f8cd-1515-422e-b09c-e88dee0065c3"
-            name="MessageOccurrenceSpecification14">
-            <covered>
-              <lifelineMoniker
-                Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
-                LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="49d375f6-8e0c-45b4-88a1-044c3a7b610c"
             name="MessageOccurrenceSpecification13">
             <covered>
               <lifelineMoniker
                 Id="881f93a7-4966-4108-af4f-511be0200969"
                 LastKnownName="vM_Presentation : VM_Presentation"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f012f8cd-1515-422e-b09c-e88dee0065c3"
+            name="MessageOccurrenceSpecification14">
+            <covered>
+              <lifelineMoniker
+                Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
+                LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -26416,22 +26502,22 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="f6d35145-f1a7-4493-a141-60c73571c73b"
-            name="MessageOccurrenceSpecification29">
-            <covered>
-              <lifelineMoniker
-                Id="ee6a3687-6e55-4107-b392-e9b5c7cceb60"
-                LastKnownName="video : Video"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="76d0eddb-0789-4aa5-8f46-a450082e354f"
             name="MessageOccurrenceSpecification30">
             <covered>
               <lifelineMoniker
                 Id="8cede861-1c86-4d83-8da2-64ffb668d350"
                 LastKnownName="pluginManager : PluginManager"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f6d35145-f1a7-4493-a141-60c73571c73b"
+            name="MessageOccurrenceSpecification29">
+            <covered>
+              <lifelineMoniker
+                Id="ee6a3687-6e55-4107-b392-e9b5c7cceb60"
+                LastKnownName="video : Video"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -26582,22 +26668,22 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="f7134d2e-c088-4b0c-bf54-7af9820d2d23"
-            name="MessageOccurrenceSpecification20">
-            <covered>
-              <lifelineMoniker
-                Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
-                LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="b8835c31-fbd0-486c-8f19-2e96abd25118"
             name="MessageOccurrenceSpecification19">
             <covered>
               <lifelineMoniker
                 Id="ee6a3687-6e55-4107-b392-e9b5c7cceb60"
                 LastKnownName="video : Video"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f7134d2e-c088-4b0c-bf54-7af9820d2d23"
+            name="MessageOccurrenceSpecification20">
+            <covered>
+              <lifelineMoniker
+                Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
+                LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -26670,22 +26756,22 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="601e319c-279e-4ca0-bdaf-28e5630be63c"
-            name="MessageOccurrenceSpecification25">
-            <covered>
-              <lifelineMoniker
-                Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
-                LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="003cf6a4-fd9f-4d16-b5bc-f6c8d4698750"
             name="MessageOccurrenceSpecification26">
             <covered>
               <lifelineMoniker
                 Id="dd8b19c6-91fc-493e-9414-d32fabd8238b"
                 LastKnownName="videoSourcePlayer : Entwurf::VideoSourcePlayer"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="601e319c-279e-4ca0-bdaf-28e5630be63c"
+            name="MessageOccurrenceSpecification25">
+            <covered>
+              <lifelineMoniker
+                Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
+                LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -26896,22 +26982,22 @@
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="40f45406-d462-4438-ab93-eb86e2e2e75a"
-            name="MessageOccurrenceSpecification54">
-            <covered>
-              <lifelineMoniker
-                Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
-                LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="c8d62bdc-f34c-4a5e-a7ea-1a5a75499630"
             name="MessageOccurrenceSpecification53">
             <covered>
               <lifelineMoniker
                 Id="2a12af5a-00a0-4ae1-9469-bf09d620d8f7"
                 LastKnownName="Plotmodel"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="40f45406-d462-4438-ab93-eb86e2e2e75a"
+            name="MessageOccurrenceSpecification54">
+            <covered>
+              <lifelineMoniker
+                Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
+                LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -27092,22 +27178,22 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="5758fd16-2928-400d-aa1c-a9005a15cd23"
-            name="MessageOccurrenceSpecification64">
-            <covered>
-              <lifelineMoniker
-                Id="b5c593de-b458-44b1-856d-7aedf4d7c907"
-                LastKnownName="Series"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="3eba739e-8bd9-4344-a757-82d7133e2a9c"
             name="MessageOccurrenceSpecification63">
             <covered>
               <lifelineMoniker
                 Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
                 LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="5758fd16-2928-400d-aa1c-a9005a15cd23"
+            name="MessageOccurrenceSpecification64">
+            <covered>
+              <lifelineMoniker
+                Id="b5c593de-b458-44b1-856d-7aedf4d7c907"
+                LastKnownName="Series"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -27346,22 +27432,22 @@
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="2e20f26e-9f17-4f58-b7dc-03330fa911cb"
-            name="MessageOccurrenceSpecification80">
-            <covered>
-              <lifelineMoniker
-                Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
-                LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="6f6520f7-e356-4abb-8a09-a6d699dffc5f"
             name="MessageOccurrenceSpecification79">
             <covered>
               <lifelineMoniker
                 Id="154bbcdb-c6ad-4de2-9763-b3893ed2db17"
                 LastKnownName="videoControls : VideoControls"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="2e20f26e-9f17-4f58-b7dc-03330fa911cb"
+            name="MessageOccurrenceSpecification80">
+            <covered>
+              <lifelineMoniker
+                Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
+                LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -27384,22 +27470,22 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="01fcb8de-3ce6-41f1-8aa9-4e01eb2913be"
-            name="MessageOccurrenceSpecification15">
-            <covered>
-              <lifelineMoniker
-                Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
-                LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="c86263b6-d6e3-4473-851f-30112905cacb"
             name="MessageOccurrenceSpecification16">
             <covered>
               <lifelineMoniker
                 Id="881f93a7-4966-4108-af4f-511be0200969"
                 LastKnownName="vM_Presentation : VM_Presentation"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="01fcb8de-3ce6-41f1-8aa9-4e01eb2913be"
+            name="MessageOccurrenceSpecification15">
+            <covered>
+              <lifelineMoniker
+                Id="d064dbda-2e29-4d29-ae25-33ed13ae2530"
+                LastKnownName="pP_VideoDiagram : PP_VideoDiagram"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -27556,22 +27642,22 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="8da23758-0194-4f6a-a3d1-352015c6cc06"
-            name="MessageOccurrenceSpecification95">
-            <covered>
-              <lifelineMoniker
-                Id="154bbcdb-c6ad-4de2-9763-b3893ed2db17"
-                LastKnownName="videoControls : VideoControls"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="21fc7d93-4d94-43a3-8265-1f0a29c7d651"
             name="MessageOccurrenceSpecification96">
             <covered>
               <lifelineMoniker
                 Id="88f3ab04-95c1-4a80-bd4e-d9749593414b"
                 LastKnownName="videoHandler : PS_YuvVideoHandler"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="8da23758-0194-4f6a-a3d1-352015c6cc06"
+            name="MessageOccurrenceSpecification95">
+            <covered>
+              <lifelineMoniker
+                Id="154bbcdb-c6ad-4de2-9763-b3893ed2db17"
+                LastKnownName="videoControls : VideoControls"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -27658,22 +27744,22 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="219915b8-30ab-4126-b9cb-d0f104e8d1f2"
-            name="MessageOccurrenceSpecification99">
-            <covered>
-              <lifelineMoniker
-                Id="88f3ab04-95c1-4a80-bd4e-d9749593414b"
-                LastKnownName="videoHandler : PS_YuvVideoHandler"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="3a532ae4-c956-4829-94e2-53342bed08cb"
             name="MessageOccurrenceSpecification100">
             <covered>
               <lifelineMoniker
                 Id="154bbcdb-c6ad-4de2-9763-b3893ed2db17"
                 LastKnownName="videoControls : VideoControls"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="219915b8-30ab-4126-b9cb-d0f104e8d1f2"
+            name="MessageOccurrenceSpecification99">
+            <covered>
+              <lifelineMoniker
+                Id="88f3ab04-95c1-4a80-bd4e-d9749593414b"
+                LastKnownName="videoHandler : PS_YuvVideoHandler"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="0d4350a2-e44c-487e-a617-ee14a53dafc1" name="Klassen" linkedPackageId="111c9f5b-9d27-4ac1-a666-70e16e6552a4" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="0d4350a2-e44c-487e-a617-ee14a53dafc1" name="Klassen" linkedPackageId="111c9f5b-9d27-4ac1-a666-70e16e6552a4" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <appliedStereotypesInternal>
     <stereotypeInstance Id="f17bf987-07fe-4ab1-96cc-11b6a06bba01" name="namespace" profile="CSharpProfile">
       <elementDefinition Id="006db7ae-cbd6-498f-93d1-003d834af18e" />
@@ -1545,6 +1545,12 @@ true -&gt; Caretaker-&gt;loadPath-&gt;getMemento -&gt;getState-&gt;.getCodecName
             <annotatedElements>
               <classMoniker Id="18decd08-48a2-4fdd-b56a-1bbb42e071b3" LastKnownName="Project" />
             </annotatedElements>
+          </comment>
+          <comment Id="7c00e330-86ee-42ce-a65f-043342e53670">
+            <elementDefinition Id="f9d8ad2e-eea7-4d5d-9a49-f3bd4aa024eb" />
+            <body>vlcht noch ne remove(string namePlugin) methode falls ein ganzes plugin gelöscht wird ?
+
+Oder man gibt einen leeren zweiten Schlüssel</body>
           </comment>
         </ownedCommentsInternal>
         <elementDefinition Id="606438c6-613a-4ed2-b8af-87ce2985d9b7" />
@@ -3861,6 +3867,12 @@ auf keine (uns bekannte) sinnvolle Weise ins Klassendiagramm integrieren...
             <annotatedElements>
               <interfaceMoniker Id="1497ed33-7b4e-4a76-b93a-881285b19da0" LastKnownName="IVideoHandler" />
             </annotatedElements>
+          </comment>
+          <comment Id="18ffa853-3ac6-4027-8042-16f789378e5a">
+            <elementDefinition Id="23badbd5-ccc0-4f86-8cd7-b531d8709c1c" />
+            <body>wenn ein Plugin Properties anbieten will MUSS es einen Event newMementoCreated auslösen sobald der SaveAndAdd Button geklickt wurde.
+
+wie realisiert man sowas im Diagramm ?</body>
           </comment>
         </ownedCommentsInternal>
         <elementDefinition Id="a06056a9-f59b-41ac-ba69-6c784bc76689" />
