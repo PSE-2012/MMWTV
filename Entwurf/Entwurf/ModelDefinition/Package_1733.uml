@@ -1,59 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
-  Id="b00ef4b6-352b-4916-91d8-bd9df8c217c9"
-  name="Invert" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  Id="52deb5a0-344d-468b-9076-1a56e2cfb002"
+  name="MacroFilter" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
   <packagedElements>
     <packageHasNamedElement>
       <class
-        Id="8b25f64e-12a8-4fb2-abe1-9173f8a96a43"
-        name="PF_Invert"
+        Id="7747a5a7-c0d3-4528-b57f-e04c45186c3d"
+        name="PF_MacroFilter"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="3a2fc8b1-530c-49a5-b36f-4ffb2d3e7ec5"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e5e9197b-acbd-4d4d-bd53-168fb1684d5b">
+                <propertyInstance
+                  Id="62ada861-5875-445a-a544-c9826dccebc7"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="78e34361-58ec-4ed0-b28a-11ac032782ee">
+                <propertyInstance
+                  Id="73afd70f-b55f-4184-854a-4ae915f684c0"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7e8fe42d-6c23-41ad-b01c-77246fd88f16">
+                <propertyInstance
+                  Id="50ffe4cb-2ad4-4457-88b4-f33b9a6eb77d"
+                  name="IsStatic"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7507dab3-fb9e-476d-9193-970e81af8f16">
+                <propertyInstance
+                  Id="9d7ccd2b-8add-48bd-9ad0-31949088a874"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="762cd743-6415-49bb-8163-ca85231c77b4">
+                <propertyInstance
+                  Id="36ab5294-6250-4878-8196-ca4dddf6e3d3"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
         <suppliersInternal>
           <interfaceRealization
-            Id="80106a3d-887c-4eb8-911e-8bebdb88d0bb">
+            Id="315dc244-08fb-4e63-abb8-9b5975b03ff2">
             <interfaceMoniker
               Id="be2ad4f8-088c-4bee-b67f-a63a002624e4"
               LastKnownName="IFilterOqat"
               LastKnownLocation="Package_0504.uml" />
           </interfaceRealization>
         </suppliersInternal>
+        <generalsInternal>
+          <generalization
+            Id="893ec5e1-26d8-4092-a0eb-e9ee30f03b0e"
+            isSubstitutable="false">
+            <classMoniker
+              Id="212b3891-d976-4ee2-b981-f906ab9e9152"
+              LastKnownName="Macro"
+              LastKnownLocation="Package_0504.uml" />
+          </generalization>
+        </generalsInternal>
         <ownedOperationsInternal>
           <operation
-            Id="aa047ff5-8480-4c52-b377-8803e77024a8"
-            name="process"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="3e6237f9-7318-486a-b9cf-542592a7b9e2"
-                  name="Bitmap frame"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="c385e6db-9d3e-40f1-baa9-2ed9c31b67e1"
-                  direction="Return"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="ef321348-7c36-40b8-aaa1-f6ae3a1eede5"
-                      LastKnownName="Bitmap"
-                      LastKnownLocation="Entwurf.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="6d6557fb-a687-4eaa-b246-07ddd936bf91"
+            Id="ea56c4b4-6d40-4679-bc41-dc458877fd79"
             name="setParentControll"
             isLeaf="false"
             isStatic="false"
@@ -63,7 +85,7 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="b3fc973c-8d23-4a55-8778-a6d0c285b455"
+                  Id="3f676d87-e243-4fd5-ac02-472e049fa8a5"
                   name="Control parent"
                   direction="In"
                   isUnique="false" />
@@ -71,7 +93,7 @@
             </ownedParameters>
           </operation>
           <operation
-            Id="c07c7516-2dd4-4526-b8ae-7801c2ce372b"
+            Id="2f77d866-b5aa-4719-b58f-1a938544da62"
             name="getMemento"
             isLeaf="false"
             isStatic="false"
@@ -81,7 +103,7 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="c67d0a2b-4b82-495a-94dc-23d60ad6eb48"
+                  Id="94ef85a1-a020-4906-a801-12219de2cc79"
                   direction="Return"
                   isUnique="false">
                   <type_NamedElement>
@@ -95,7 +117,7 @@
             </ownedParameters>
           </operation>
           <operation
-            Id="21e7b8c6-1ee6-4e23-8455-f500a644ccc3"
+            Id="24f0b190-6c55-49cc-843e-7fe8584d4871"
             name="setMemento"
             isLeaf="false"
             isStatic="false"
@@ -105,7 +127,7 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="ef8cf6bb-f662-4731-b2a4-6d68d848046e"
+                  Id="2d8c400b-ad90-4cbc-9df4-077a14f73f69"
                   name="Memento memento"
                   direction="In"
                   isUnique="false" />
@@ -113,7 +135,38 @@
             </ownedParameters>
           </operation>
           <operation
-            Id="bc085c7b-87cf-4ad6-adaf-f1e319c87c26"
+            Id="dadd1ccb-40a0-4a93-92e0-8ab889b65c00"
+            name="process"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3addacce-fc7c-4044-9008-fd5f6901b76d"
+                  name="Bitmap frame"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4c4e3556-283b-485f-bc5d-786b2b6bb658"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="ef321348-7c36-40b8-aaa1-f6ae3a1eede5"
+                      LastKnownName="Bitmap"
+                      LastKnownLocation="Entwurf.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="7c294d4d-817b-4519-ab6b-283a8752a2b0"
             name="getEventHandles"
             isLeaf="false"
             isStatic="false"
@@ -123,7 +176,7 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="aa8c6714-db61-4626-98cd-b513c232457f"
+                  Id="0a3fb581-53a6-4616-b342-22b7638e2c9a"
                   direction="Return"
                   isUnique="false">
                   <type_NamedElement>
@@ -137,7 +190,7 @@
             </ownedParameters>
           </operation>
           <operation
-            Id="5b1e393c-3030-416d-a0db-585193faf1ab"
+            Id="cfe3cf96-b635-45c9-b2bf-5414e0890786"
             name="getEvents"
             isLeaf="false"
             isStatic="false"
@@ -147,7 +200,7 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="4b3f2200-f8bd-4c2b-be36-913237b8842c"
+                  Id="ae4b7226-c3a2-41d0-98f0-27544c724742"
                   direction="Return"
                   isUnique="false">
                   <type_NamedElement>
@@ -162,14 +215,6 @@
           </operation>
         </ownedOperationsInternal>
       </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <class
-        Id="c9cded43-dbcc-4ed4-8cd7-6b329a2a141e"
-        name="VM_Properties_Invert"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false" />
     </packageHasNamedElement>
   </packagedElements>
 </package>

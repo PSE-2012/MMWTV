@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="a06056a9-f59b-41ac-ba69-6c784bc76689"
   name="OqatInterface" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -609,6 +609,54 @@ wie realisiert man sowas im Diagramm ?</body>
                   name="IAddChild parent"
                   direction="In"
                   isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="ad11bd70-3ed1-4d85-8594-5519712d4e56"
+            name="getEventHandles"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e8f847e1-dc22-48ca-8862-577a0ba49665"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="52a5c565-bfdc-44da-b1fb-5bbe38031a00"
+                      LastKnownName="Dictionary&lt;EventType&gt;&lt;List&lt;delegate&gt;&gt;"
+                      LastKnownLocation="Package_0504.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="6bfe85ac-5e70-468e-8c23-15b76cb2723d"
+            name="getEvents"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b04a166d-2fde-45e8-81d7-f64600c8ad98"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="aa457347-3cec-44ce-802f-db406f7f4d6c"
+                      LastKnownName="Dictionary&lt;EventType&gt;&lt;List&lt;event&gt;&gt;"
+                      LastKnownLocation="Package_0504.uml" />
+                  </type_NamedElement>
+                </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
@@ -1908,31 +1956,76 @@ wie realisiert man sowas im Diagramm ?</body>
               LastKnownLocation="Package_0504.uml" />
           </generalization>
         </generalsInternal>
+        <ownedAttributes>
+          <property
+            Id="a4f4380f-ac6c-4f85-adcd-80d70df3070b"
+            name="MacroFilterEntrySelected"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="c857ad8a-29c4-4eaa-96f6-f99e3ea54f61"
+                LastKnownName="event"
+                LastKnownLocation="Entwurf.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributes>
         <ownedOperations>
           <operation
-            Id="2076f2ab-3480-47b6-920d-6807e6e47c86"
-            name="addPlugin"
+            Id="e3e85198-ba52-4543-9f0b-2d46d22c0c8a"
+            name="createNewMemento"
             isLeaf="false"
             isStatic="false"
             isAbstract="true"
             concurrency="Sequential"
-            isQuery="false" />
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="dd530559-d54c-4b95-b171-8d73dcd31e6b"
+                  name="List&lt;string[2]&gt; plugMemList"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="8f4f35d3-76a2-428b-86aa-c3ef407289c8"
+                  name="string mementoName"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
           <operation
-            Id="b3c15c6a-028a-4929-8430-01a3c1605ae6"
-            name="removePlugin"
+            Id="36e72278-2bc9-47dc-8666-79c74d319554"
+            name="getPluginMementoList"
             isLeaf="false"
             isStatic="false"
             isAbstract="true"
             concurrency="Sequential"
-            isQuery="false" />
-          <operation
-            Id="b355ba36-0522-4ebd-9c6b-3fae1f5c3d1f"
-            name="movePlugin"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="true"
-            concurrency="Sequential"
-            isQuery="false" />
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="77dc4e01-094a-47e4-bc2d-ee87080968bf"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="cff65700-3394-4b07-8674-d5b93db1c0a0"
+                      LastKnownName="List&lt;string[2] &gt;"
+                      LastKnownLocation="Package_0504.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperations>
       </Interface>
     </packageHasNamedElement>
@@ -2129,6 +2222,248 @@ wie realisiert man sowas im Diagramm ?</body>
             name="Macro" />
         </ownedLiterals>
       </enumeration>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="52a5c565-bfdc-44da-b1fb-5bbe38031a00"
+        name="Dictionary&lt;EventType&gt;&lt;List&lt;delegate&gt;&gt;" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="aa457347-3cec-44ce-802f-db406f7f4d6c"
+        name="Dictionary&lt;EventType&gt;&lt;List&lt;event&gt;&gt;" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="cff65700-3394-4b07-8674-d5b93db1c0a0"
+        name="List&lt;string[2] &gt;" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="0aace058-5e75-4a24-ae89-f89d3111bc9e"
+        name="List&lt;string[4] &gt;" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="212b3891-d976-4ee2-b981-f906ab9e9152"
+        name="Macro"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="351cae8c-0b72-4856-9d7c-548119ba02f9">
+            <interfaceMoniker
+              Id="6f095cfe-7cb9-4b90-8976-8c3d0562522f"
+              LastKnownName="IMacro"
+              LastKnownLocation="Package_0504.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="3e1da9d8-9de9-4421-830b-c28ac98ba675"
+            name="pluginList"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="fffc6be9-5965-4484-aa37-1a1175caf04c"
+                LastKnownName="List&lt;string[2]&gt;"
+                LastKnownLocation="Package_0538.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="073f7cba-aa69-45de-aaac-76520f038944"
+            name="setParentControll"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f513d8d2-fdfd-407c-ba58-a11b30e9bf70"
+                  name="IAddChild parent"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="96238f5f-23c6-4a92-9c75-35a95ef8ce18"
+            name="getMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="8054acc8-0418-4d70-82f2-2454672ed6bc"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac"
+                      LastKnownName="Memento"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="6fc55c7b-2f4e-4bea-ac61-b82c9b0f2c87"
+            name="setMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="41a1429f-c9bb-49bc-948e-a085f0bead18"
+                  name="Memento memento"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="76dc4586-1fe3-4ff2-a94f-aa48f30951b5"
+            name="onPluginlistEntrySelect"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="eeeddcdf-2639-4042-84e1-ea3ce70f9682"
+                  name="object sender"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="bc72b7d9-462e-44c2-875c-7b1f4fd90ba4"
+                  name="EventArgs e"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="132c69e8-52b8-49f5-a388-08c649b56b30"
+            name="createNewMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3233e2e0-d6f0-485d-9c81-304ce1b900d3"
+                  name="List&lt;string"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="cd8c9d7c-ca90-471d-acc7-6e2556ba7398"
+                  name="string mementoName"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="bf302504-1bf4-46dc-be9b-1df3ec0262a8"
+            name="getEventHandles"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="cb734a93-0b5a-4596-b9bc-b6a2f6119cc0"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="52a5c565-bfdc-44da-b1fb-5bbe38031a00"
+                      LastKnownName="Dictionary&lt;EventType&gt;&lt;List&lt;delegate&gt;&gt;"
+                      LastKnownLocation="Package_0504.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="7db9f737-9f53-4722-8e7e-c71849f27ed6"
+            name="getEvents"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4921ede6-d079-42cc-a1ea-a80486e8baf2"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="aa457347-3cec-44ce-802f-db406f7f4d6c"
+                      LastKnownName="Dictionary&lt;EventType&gt;&lt;List&lt;event&gt;&gt;"
+                      LastKnownLocation="Package_0504.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="b42ec75c-3668-45e0-8ed3-66971547d86a"
+            name="getPluginMementoList"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b417d7ba-c770-4270-a0ee-ab726554528a"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="cff65700-3394-4b07-8674-d5b93db1c0a0"
+                      LastKnownName="List&lt;string[2] &gt;"
+                      LastKnownLocation="Package_0504.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
     </packageHasNamedElement>
   </packagedElements>
 </package>

@@ -1,86 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
-  Id="89eff262-ca4e-49e0-b730-8d1652d5e493"
-  name="SNR" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  Id="cf5970f5-d196-42a2-87b6-8915aec0b4b7"
+  name="MacroMetric" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
   <packagedElements>
     <packageHasNamedElement>
       <class
-        Id="513df48e-1848-444f-9cdc-406e518b4c50"
-        name="PM_SNR"
+        Id="4cc43d4e-0563-4ac9-b4b3-76df0d2a17d7"
+        name="PF_MacroMetric"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="33bc50a7-54a6-4dc0-878d-784709264d45"
-            name="class"
-            profile="CSharpProfile">
-            <propertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="c6334afa-9c3c-4033-96f8-ce94e0a5afc3">
-                <propertyInstance
-                  Id="13869907-ac9e-43ea-b2b9-ac93eaeee6de"
-                  name="ClrAttributes" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="cb7bc0b0-3706-4228-a0e0-4ea106ac29c8">
-                <propertyInstance
-                  Id="a236d6e5-8cef-4f50-a5fb-7117093321dd"
-                  name="IsPartial"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="f5f4b686-cb01-415f-a2c3-7d94f02bc161">
-                <propertyInstance
-                  Id="b810b6a5-cb3b-4a9e-8119-ba0c80cc9df8"
-                  name="IsStatic"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="0f013d8d-1ae8-4e21-8e72-ab255439a985">
-                <propertyInstance
-                  Id="8a7a53a4-4d82-4a25-9a53-8546f5fafb90"
-                  name="IsUnsafe"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="32721a4e-261d-464a-99bf-ce1668645022">
-                <propertyInstance
-                  Id="c857925a-6c73-4094-81df-8e0f1430fb30"
-                  name="PackageVisibility"
-                  value="internal" />
-              </stereotypeInstanceHasPropertyInstances>
-            </propertyInstances>
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <suppliersInternal>
           <interfaceRealization
-            Id="4cbbc2b1-ce10-4a77-a94c-641536831af0">
+            Id="eb81258b-ac29-43d2-a078-e167ee7668e9">
             <interfaceMoniker
-              Id="a767cd15-c3cc-44c3-8fcc-b8aae25c951b"
-              LastKnownName="IPlugin"
-              LastKnownLocation="Package_1716.uml" />
+              Id="6f095cfe-7cb9-4b90-8976-8c3d0562522f"
+              LastKnownName="IMacro"
+              LastKnownLocation="Package_0504.uml" />
           </interfaceRealization>
           <interfaceRealization
-            Id="b4932214-f645-4a9e-88a8-03982c975ba9">
-            <interfaceMoniker
-              Id="0773b2ac-82ae-494d-9544-831b930a24af"
-              LastKnownName="IMetric"
-              LastKnownLocation="Package_1726.uml" />
-          </interfaceRealization>
-          <interfaceRealization
-            Id="da136236-a2a3-42c7-b233-fd712348b7de">
+            Id="b6b7e6e3-fd31-4332-b875-ece5b8303179">
             <interfaceMoniker
               Id="fb1430de-28e1-48fc-8471-2a1efda4734c"
               LastKnownName="IMetricOqat"
               LastKnownLocation="Package_0504.uml" />
           </interfaceRealization>
         </suppliersInternal>
+        <generalsInternal>
+          <generalization
+            Id="cb03f1d4-a0e0-4644-8304-5faf52d234ef"
+            isSubstitutable="false">
+            <classMoniker
+              Id="212b3891-d976-4ee2-b981-f906ab9e9152"
+              LastKnownName="Macro"
+              LastKnownLocation="Package_0504.uml" />
+          </generalization>
+        </generalsInternal>
         <ownedOperationsInternal>
           <operation
-            Id="19513a7b-38d3-4f5f-b7cb-3baa695f1424"
-            name="analyse"
+            Id="9d0a78f7-5722-460d-a5b6-38c302926726"
+            name="createNewMemento"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -89,27 +49,38 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="7c254efd-e63e-46e0-b750-36fdd1259918"
-                  name="Bitmap frame"
+                  Id="1e99a2cb-dbd2-497e-8928-e31aad0dc10a"
+                  name="List&lt;string[2]&gt; plugMemList"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="617553b9-12e3-4665-be7c-7b0d58aff135"
-                  name="Bitmap frame"
+                  Id="e2f17f05-dc6e-434f-b080-41f1158796a4"
+                  name="string mementoName"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="4cd92947-12f8-4e79-a1e9-5855c74fbca4"
+            name="getPluginMementoList"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="f4ddeefc-b005-4e99-860c-760c7f39a4db"
+                  Id="4c2f7293-3034-447e-a93f-1644d7584a95"
                   direction="Return"
                   isUnique="false">
                   <type_NamedElement>
-                    <interfaceMoniker
-                      Id="2e12fe09-280c-4509-bff4-fa12a9946bb4"
-                      LastKnownName="IAnalysisInfo"
+                    <undefinedTypeMoniker
+                      Id="cff65700-3394-4b07-8674-d5b93db1c0a0"
+                      LastKnownName="List&lt;string[2] &gt;"
                       LastKnownLocation="Package_0504.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -117,7 +88,7 @@
             </ownedParameters>
           </operation>
           <operation
-            Id="a1079680-10ac-4486-a011-ee31b103025e"
+            Id="1c71ab4e-9e26-4689-9118-4440033740f6"
             name="setParentControll"
             isLeaf="false"
             isStatic="false"
@@ -127,57 +98,15 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="edc6a21e-d8e9-4f2a-9638-681f6a468b99"
-                  name="Control parent"
+                  Id="eaf3cfa5-109d-4c1c-9ee8-efea389ade0a"
+                  name="IAddChild parent"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
           <operation
-            Id="b3c63a0b-b08d-4165-8cb4-09f083e6809c"
-            name="getMemento"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="f0b69661-597a-4504-8cb3-c9fd021c735b"
-                  direction="Return"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac"
-                      LastKnownName="Memento"
-                      LastKnownLocation="Package_1716.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="9e141e35-1b53-4922-a4af-afdd0828bffc"
-            name="setMemento"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="b61d79cb-88c8-43f0-bdd4-b0eb64e9f39c"
-                  name="Memento memento"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="3988146e-d185-44f7-8f08-89e914fc9c13"
+            Id="b27dcab0-f6d7-45f2-b2cd-a5e9dcd3a01a"
             name="getEventHandles"
             isLeaf="false"
             isStatic="false"
@@ -187,7 +116,7 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="8d4c523d-bc2a-40f0-a2c3-53ac36466fd2"
+                  Id="8af99305-b33e-4de1-a574-699a96dfe70c"
                   direction="Return"
                   isUnique="false">
                   <type_NamedElement>
@@ -201,7 +130,7 @@
             </ownedParameters>
           </operation>
           <operation
-            Id="e78564c4-2515-4ae6-bf45-4d7fb96df5e1"
+            Id="85cfc84d-c4a6-4ced-bab2-6ba97f406883"
             name="getEvents"
             isLeaf="false"
             isStatic="false"
@@ -211,7 +140,7 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="e9e68307-990a-4ba1-8d19-d3f4e07b4263"
+                  Id="7822ac47-29c4-4265-b7ec-b4931e09db2f"
                   direction="Return"
                   isUnique="false">
                   <type_NamedElement>
@@ -224,16 +153,88 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="576ec3ad-d5fa-46a7-8dbc-23be8f4be174"
+            name="getMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1f5195cb-2e94-4362-94f1-9b5437d3078d"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="bb4ef878-265d-4a2d-850c-d5e0eac57cac"
+                      LastKnownName="Memento"
+                      LastKnownLocation="Package_1716.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="3ac8270d-2bf5-43b8-ac6a-b4062b4756e4"
+            name="setMemento"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f7db7e3a-5320-450b-983d-97e852b4f072"
+                  name="Memento memento"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="148ffaa4-0c1b-49b5-95af-79171e4f0190"
+            name="analyse"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7a8ced73-1472-41d8-86ff-bf8508525cf5"
+                  name="Bitmap frame"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="29f78253-dd76-4b62-b748-d36aea2119d4"
+                  name="Bitmap frame"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="66130196-59b7-4b09-bd2a-d6e14a31db58"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="2e12fe09-280c-4509-bff4-fa12a9946bb4"
+                      LastKnownName="IAnalysisInfo"
+                      LastKnownLocation="Package_0504.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <class
-        Id="15cd9a0f-3ae4-4e55-a1ab-2a1598d537f3"
-        name="VM_Properties_SNR"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false" />
     </packageHasNamedElement>
   </packagedElements>
 </package>
