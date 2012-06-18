@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{18058A21-279D-4478-808C-D07256DA6534}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EntwurfLib</RootNamespace>
+    <AssemblyName>EntwurfLib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AForge\Controls\VideoSourcePlayer.cs" />
+    <Compile Include="AForge\Video\IVideoSource.cs" />
+    <Compile Include="Model\AForge\Controls\VideoSourcePlayer.cs" />
+    <Compile Include="Model\AForge\Video\IVideoSource.cs" />
+    <Compile Include="Model\Caretaker.cs" />
+    <Compile Include="Model\Memento.cs" />
+    <Compile Include="Model\OqatProperties.cs" />
+    <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\Video.cs" />
+    <Compile Include="OqatInterface\AnalysisInfo.cs" />
+    <Compile Include="OqatInterface\EventType.cs" />
+    <Compile Include="OqatInterface\IFilterOqat.cs" />
+    <Compile Include="OqatInterface\IMacro.cs" />
+    <Compile Include="OqatInterface\IMemorizable.cs" />
+    <Compile Include="OqatInterface\IMetricOqat.cs" />
+    <Compile Include="OqatInterface\IPlugin.cs" />
+    <Compile Include="OqatInterface\IPresentation.cs" />
+    <Compile Include="OqatInterface\IVideoHandler.cs" />
+    <Compile Include="OqatInterface\IVideoInfo.cs" />
+    <Compile Include="OqatInterface\Macro.cs" />
+    <Compile Include="OqatInterface\MacroEntry.cs" />
+    <Compile Include="OqatInterface\PluginType.cs" />
+    <Compile Include="OqatInterface\PresentationPluginType.cs" />
+    <Compile Include="Plugins\CES_MotionVector\PP_MotionVektor.cs" />
+    <Compile Include="Plugins\Filter\Convolution\PF_Convolution.cs" />
+    <Compile Include="Plugins\Filter\Convolution\VM_PF_Convolution.cs" />
+    <Compile Include="Plugins\Filter\Greyscale\PF_Greyscale.cs" />
+    <Compile Include="Plugins\Filter\Greyscale\VM_Properties_Greyscale.cs" />
+    <Compile Include="Plugins\Filter\Invert\PF_Invert.cs" />
+    <Compile Include="Plugins\Filter\Invert\VM_Properties_Invert.cs" />
+    <Compile Include="Plugins\Filter\MacroFilter\PF_MacroFilter.cs" />
+    <Compile Include="Plugins\Filter\NoiseGenerator\PF_NoiseGenerator.cs" />
+    <Compile Include="Plugins\Filter\NoiseGenerator\VM_Properties_NoiseGenerator.cs" />
+    <Compile Include="Plugins\Filter\RelativeColor\PF_RelativeColor.cs" />
+    <Compile Include="Plugins\Filter\RelativeColor\VM_Properties_RelativeColor.cs" />
+    <Compile Include="Plugins\Metric\MacroMetric\PF_MacroMetric.cs" />
+    <Compile Include="Plugins\Metric\MSE\PM_MSE.cs" />
+    <Compile Include="Plugins\Metric\MSE\VM_Properties_MSE.cs" />
+    <Compile Include="Plugins\Metric\PSNR\PM_PSNR.cs" />
+    <Compile Include="Plugins\Metric\PSNR\VM_Properties_PSNR.cs" />
+    <Compile Include="Plugins\Metric\SNR\PM_SNR.cs" />
+    <Compile Include="Plugins\Metric\SNR\VM_Properties_SNR.cs" />
+    <Compile Include="Plugins\Metric\SSIM\PM_SSIM.cs" />
+    <Compile Include="Plugins\Metric\SSIM\VM_Properties_SSIM.cs" />
+    <Compile Include="Plugins\OqatPresentation\PP_Diagram.cs" />
+    <Compile Include="Plugins\OqatPresentation\PP_Player.cs" />
+    <Compile Include="Plugins\YuvVideoHandler\PS_YuvVideoHandler.cs" />
+    <Compile Include="Plugins\YuvVideoHandler\VM_Properties_YuvVideoHandler.cs" />
+    <Compile Include="Plugins\YuvVideoHandler\YuvVideoInfo.cs" />
+    <Compile Include="System\Collections\ObjectModel\Collection_T.cs" />
+    <Compile Include="System\EventArgs.cs" />
+    <Compile Include="ViewModel\MementoEventArgs.cs" />
+    <Compile Include="ViewModel\OqatApp.cs" />
+    <Compile Include="ViewModel\PluginManager.cs" />
+    <Compile Include="ViewModel\projectEventArgs.cs" />
+    <Compile Include="ViewModel\ViewType.cs" />
+    <Compile Include="ViewModel\VM_Macro.cs" />
+    <Compile Include="ViewModel\VM_Menu.cs" />
+    <Compile Include="ViewModel\VM_OptionsDialog.cs" />
+    <Compile Include="ViewModel\VM_Oqat.cs" />
+    <Compile Include="ViewModel\VM_PluginLists.cs" />
+    <Compile Include="ViewModel\VM_Presentation.cs" />
+    <Compile Include="ViewModel\VM_ProjectExplorer.cs" />
+    <Compile Include="ViewModel\VM_ProjectOpenDialog.cs" />
+    <Compile Include="ViewModel\VM_VidImportOptionsDialog.cs" />
+    <Compile Include="ViewModel\VM_Welcome.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sequenceMethods\OqatInitialization.cs" />
+    <Compile Include="sequenceMethods\ProjectInitialization.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
