@@ -4630,8 +4630,8 @@
                         <elementDefinition Id="6d2b46a0-617c-4231-851d-678db86995e8" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="7550e0b3-7313-4eb3-8ab1-b2424bc33b24" name="Control parent" direction="In" isUnique="false">
-                              <elementDefinition Id="65f880a8-0337-474d-8c2e-5dd839b12d8d" />
+                            <parameter Id="8fd2c4fd-c0d0-4386-b927-6b3f14b4382e" name="IAddChild parent" direction="In" isUnique="false">
+                              <elementDefinition Id="3201046f-fc1e-4734-95d1-35a1e79bff23" />
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -4972,6 +4972,16 @@
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
+                      <operation Id="59f714d6-ec72-4c77-b513-1656e3ca76d5" name="createDataSeries" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="8b7efd8b-69e4-49ef-85a2-859e9665b1fd" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="ce3560c0-89c5-440d-8eba-e6add7b836d5" name="float[]" direction="In" isUnique="false">
+                              <elementDefinition Id="4bedcaa8-a6de-490d-bee2-9ee2c06d1198" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
                     </ownedOperationsInternal>
                   </class>
                 </packageHasNamedElement>
@@ -5047,6 +5057,22 @@
                           </associationHasOwnedEnds>
                         </relationshipOwnedElementsInternal>
                         <elementDefinition Id="17aaf98b-52ad-4ec2-8998-8d2f9c9f8c5c" />
+                      </association>
+                      <association Id="9766d694-4f8b-410d-910a-64b0cf0b7556" isDerived="false" sourceEndRoleName="PP_Player" targetEndRoleName="VideoSource" isLeaf="false" isAbstract="false">
+                        <classMoniker Id="631fbcea-b730-4156-a095-1f970be17515" LastKnownName="VideoSource" />
+                        <relationshipOwnedElementsInternal>
+                          <associationHasOwnedEnds>
+                            <memberEnd Id="4ccf45c8-9442-49b4-baee-af05184dcd1e" name="PP_Player" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                              <elementDefinition Id="f5aef929-9237-4fa8-8501-d141dd684845" />
+                            </memberEnd>
+                          </associationHasOwnedEnds>
+                          <associationHasOwnedEnds>
+                            <memberEnd Id="40584073-0371-4455-9102-673c699d9026" name="VideoSource" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                              <elementDefinition Id="9b8d2f62-c42d-4cd1-91c8-ca02daf24cff" />
+                            </memberEnd>
+                          </associationHasOwnedEnds>
+                        </relationshipOwnedElementsInternal>
+                        <elementDefinition Id="43c5649d-115a-4e33-a8b3-cfa95299d288" />
                       </association>
                     </targetEnds>
                     <ownedOperationsInternal>
@@ -5432,6 +5458,31 @@
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
+                      </operation>
+                    </ownedOperationsInternal>
+                  </class>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <class Id="631fbcea-b730-4156-a095-1f970be17515" name="VideoSource" isAbstract="false" isLeaf="false" isActiveClass="false">
+                    <elementDefinition Id="d499c0d1-99f1-43c2-8e0a-9750b3eac665" />
+                    <suppliersInternal>
+                      <interfaceRealization Id="b85ad57c-1aba-4df8-9046-fe2decf737e2">
+                        <interfaceMoniker Id="36dffb7b-62cd-4d2b-86a0-d227ee5728bc" LastKnownName="IVideoSource" />
+                        <elementDefinition Id="d77ac84a-1ab3-43de-ba47-c0c93046cfc4" />
+                      </interfaceRealization>
+                    </suppliersInternal>
+                    <ownedOperationsInternal>
+                      <operation Id="edc972d9-7586-4b92-9abd-8e915319b999" name="SignalToStop" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="c6b179de-cc41-4a32-a6e0-25bfd68169de" />
+                      </operation>
+                      <operation Id="333dd400-88cc-4f02-8104-6f49682d55f2" name="Start" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="aa00bff0-32f5-4dff-af03-1fca4a834004" />
+                      </operation>
+                      <operation Id="d90fd6dc-bf6f-40d4-80c5-b40da9918967" name="Stop" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="663b5076-0758-4944-865c-136ecb02fecd" />
+                      </operation>
+                      <operation Id="71f3951c-2f57-48b8-9be4-11e0e65334b1" name="WaitForStop" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="d53446a8-12b4-46ec-97dd-1a7c50de0076" />
                       </operation>
                     </ownedOperationsInternal>
                   </class>
@@ -6212,7 +6263,7 @@
               <elementDefinition Id="c66e0a4d-8c03-4bb9-a738-82c1f9d9a06c" />
               <packagedElements>
                 <packageHasNamedElement>
-                  <class Id="f34ae999-2243-40d8-961f-21da1a4c880a" name="PP_MotionVektor" isAbstract="false" isLeaf="false" isActiveClass="false">
+                  <class Id="f34ae999-2243-40d8-961f-21da1a4c880a" name="PP_DatPlayer" isAbstract="false" isLeaf="false" isActiveClass="false">
                     <appliedStereotypesInternal>
                       <stereotypeInstance Id="53d30a4a-8633-425c-8fd1-35763ea85dcf" name="class" profile="CSharpProfile">
                         <elementDefinition Id="5b4975ce-264c-4e3e-a00d-64d26b8b9def" />
@@ -7002,10 +7053,10 @@ Oder man gibt einen leeren zweiten Schlüssel</body>
                   </appliedStereotypesInternal>
                   <elementDefinition Id="a455f53f-ec10-4297-b83d-4478b2fe608b" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="74a9696c-c9bd-4bee-b88f-796b9797fc6a" LastKnownName="float []" />
+                    <referencedTypeMoniker Id="7f7134ac-4e28-4751-96bc-0bdf97b21bff" LastKnownName="float[][]" />
                   </type_NamedElement>
                 </property>
-                <property Id="7bd73219-8754-4d22-b88a-78e5c79d64a4" name="filteredBy" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <property Id="7bd73219-8754-4d22-b88a-78e5c79d64a4" name="processedBy" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <appliedStereotypesInternal>
                     <stereotypeInstance Id="898d5205-543a-488f-88bc-ee7088a9c3cc" name="property" profile="CSharpProfile">
                       <elementDefinition Id="ceb4ecda-a0aa-4b72-bf2b-7e52102977b5" />
@@ -7051,10 +7102,10 @@ Oder man gibt einen leeren zweiten Schlüssel</body>
                   </appliedStereotypesInternal>
                   <elementDefinition Id="6778ed20-f3c5-41e0-95f8-3a0005fa2cda" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="576e0f92-bdf2-4e2b-8f05-156759d12f86" LastKnownName="List&lt;MacroEntrys&gt;" />
+                    <referencedTypeMoniker Id="c19003ea-11c9-4cc6-8956-dd9a14ce4827" LastKnownName="List&lt;MacroEntrys&gt;" />
                   </type_NamedElement>
                 </property>
-                <property Id="bfec94bf-fd75-40d3-acf9-63a1b0f0a5e0" name="extraRessource" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <property Id="bfec94bf-fd75-40d3-acf9-63a1b0f0a5e0" name="extraRessources" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <appliedStereotypesInternal>
                     <stereotypeInstance Id="257e810e-33d0-4f36-9b13-c2a1ccb306cf" name="property" profile="CSharpProfile">
                       <elementDefinition Id="ac0f6bc9-2e5d-4eec-8137-be7ff69b5991" />
@@ -7100,7 +7151,7 @@ Oder man gibt einen leeren zweiten Schlüssel</body>
                   </appliedStereotypesInternal>
                   <elementDefinition Id="421d59b6-c7c7-4cd1-9f51-26f3edf65f46" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="cb17ab82-5128-4ca5-9f75-160dff14a96f" LastKnownName="Path" />
+                    <referencedTypeMoniker Id="2343dc5a-17e2-43a7-a663-03556d4e9112" LastKnownName="Dictionary&lt;PresentationPluginType, List&lt;Path&gt;&gt;" />
                   </type_NamedElement>
                 </property>
               </ownedAttributesInternal>
@@ -10001,6 +10052,14 @@ wie realisiert man sowas im Diagramm ?</body>
                   <elementDefinition Id="b031c842-b815-4228-912d-94bda9c24e68" />
                 </generalization>
               </generalsInternal>
+              <ownedAttributes>
+                <property Id="f5596d50-ca87-4fe8-bc62-0884a681e1ab" name="presentationType" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f1cff6dc-9740-4994-a928-5230193c40b4" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="411b2379-eba4-4c41-b5f0-c0bfd539dfd8" LastKnownName="PresentationPluginType" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributes>
               <ownedOperations>
                 <operation Id="db828d98-f271-4e5f-979a-75a2bcb552ff" name="loadVideo" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                   <appliedStereotypesInternal>
@@ -12468,6 +12527,22 @@ wie realisiert man sowas im Diagramm ?</body>
               </ownedAttributesInternal>
             </class>
           </packageHasNamedElement>
+          <packageHasNamedElement>
+            <enumeration Id="ca5a5bf1-3a45-44ed-b2a2-f6e8e42b249b" name="PresentationPluginType" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="adbddba6-3fe3-4a35-a431-f7d914848505" />
+              <ownedLiterals>
+                <enumerationLiteral Id="082a7767-99f0-47d9-8c6e-9d7382317daa" name="Player">
+                  <elementDefinition Id="18570c4b-7d86-4db5-95e7-b4085f483dc9" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="5ed7c993-8dfb-4fd3-a1ba-16b7874980be" name="Diagram">
+                  <elementDefinition Id="a2379355-752c-489a-a908-c516288ad6cd" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="050ecbee-e529-4b5d-a0ef-03f94a0f5e62" name="Custom">
+                  <elementDefinition Id="b5fbf8da-b4c1-4174-9c1d-3ceb673ce89d" />
+                </enumerationLiteral>
+              </ownedLiterals>
+            </enumeration>
+          </packageHasNamedElement>
         </packagedElements>
       </package>
     </logicalClassDesignerModelHasPackages>
@@ -14028,16 +14103,6 @@ wie realisiert man sowas im Diagramm ?</body>
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="3cc042d8-5818-4059-b415-f53fbbe707dd" name="Caretaker" isAbstract="false" isLeaf="false" cachedFullName="Caretaker">
-        <elementDefinition Id="f76f36b0-6add-4db5-a42a-3bd114e224f0" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="7ffc767d-525c-4504-a311-3696d1f7bb26" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
-        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="5ff57a4b-aeb9-44f8-88b5-cf677a73bf2a" name="PluginManager" isAbstract="false" isLeaf="false" cachedFullName="Entwurf::Plugins::PluginManager">
         <elementDefinition Id="098e1cff-1f94-4e98-b536-357697aba00e" />
       </referencedType>
@@ -14085,24 +14150,6 @@ wie realisiert man sowas im Diagramm ?</body>
     <logicalClassDesignerModelHasPackages>
       <package Id="4e0fc064-aea3-4b0a-b8d6-0ebade9fc5ed" name="ViewModel">
         <ownedCommentsInternal>
-          <comment Id="fb5a5cc8-c584-407b-b5b9-42d77726bea6">
-            <elementDefinition Id="722f1ff6-fb8e-4194-98fa-0c39fb1ca5e6" />
-            <body>Falls es nur einen Plugin geben soll, z.b. Presentation.. 
-Wie soll man nach dem Plugin fragen ?
-
-Ich denke wir können getPlugin mit dem PluginType als argument aufrufen und dann eine ensprechende Sonderbehandlung beachten
-</body>
-            <annotatedElements>
-              <classMoniker Id="8584bfae-dddf-4842-9e26-83071bfe2a13" LastKnownName="PluginManager" />
-            </annotatedElements>
-          </comment>
-          <comment Id="614ecbd3-01d6-4592-8a24-ea97dd6a57ba">
-            <elementDefinition Id="9de5e58b-9d7b-473c-b38f-33aaaadd43ff" />
-            <body>implementierungsdetail: keine Collection sondern readOnlyCollection zurückgeben ( bei der getPluginKeys) zurückgeben -&gt; ist schöner</body>
-            <annotatedElements>
-              <classMoniker Id="8584bfae-dddf-4842-9e26-83071bfe2a13" LastKnownName="PluginManager" />
-            </annotatedElements>
-          </comment>
           <comment Id="8009db03-1fd1-4afc-9c5d-0a11a8372384">
             <elementDefinition Id="15dc8848-970f-4858-a138-5c273a0a1922" />
             <body>zu welcher view Tatsächlich getoggelt  wird hängt davon ab was im argument des events übergeben wird (Filter, Metrik, AnalyseErgebniss)
@@ -16074,6 +16121,9 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                     </stereotypeInstance>
                   </appliedStereotypesInternal>
                   <elementDefinition Id="d5c35ed9-45a5-4640-93a7-65e3ebbc34ad" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="3699b7db-517c-47bb-8376-4c2cda2e18a5" LastKnownName="TreeView" />
+                  </type_NamedElement>
                 </property>
                 <property Id="21a11346-5598-4d72-89e8-e84fca47acd9" name="buildProjectView" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <appliedStereotypesInternal>
@@ -17044,103 +17094,8 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                     </stereotypeInstance>
                   </appliedStereotypesInternal>
                   <elementDefinition Id="fbeb5e4e-551b-442b-9d57-7d21e004079c" />
-                </property>
-                <property Id="afa34df7-b0af-4e1d-b9b1-6abd67ce9c33" name="caretaker" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <appliedStereotypesInternal>
-                    <stereotypeInstance Id="0e626d1e-0731-4a97-81a2-bbb812838602" name="property" profile="CSharpProfile">
-                      <elementDefinition Id="d7ae41cb-6e2e-4649-ada5-3071a023501c" />
-                      <propertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="5f34f6d0-87b5-49ee-ae39-d89b79aa0abe">
-                          <propertyInstance Id="c79aa680-eb37-4f4c-bc92-51f9da8c132e" name="ClrAttributes">
-                            <elementDefinition Id="54b6e9ae-fa8e-4995-8702-324716498239" />
-                          </propertyInstance>
-                          <elementDefinition Id="334810df-d925-46c7-8ef5-9040456917e6" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="27643bca-4600-4306-91b2-ddd235c12946">
-                          <propertyInstance Id="739e910b-35b6-497a-bba3-f6e4cb56d306" name="Get" value="none">
-                            <elementDefinition Id="20752a77-6735-4524-ad7b-83bc328e661a" />
-                          </propertyInstance>
-                          <elementDefinition Id="deb4545d-1b2b-4116-9e37-946bd8dcc642" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="020bc333-eeea-48cc-a91c-4bc41eb18669">
-                          <propertyInstance Id="c4662663-1bf5-4f77-a5c7-17a5d11f2bb1" name="HasBody" value="false">
-                            <elementDefinition Id="46a7d153-281e-455c-9e84-3f0cdbcacf5f" />
-                          </propertyInstance>
-                          <elementDefinition Id="86d02aa7-6032-4065-85c1-8af04bc0706c" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="5c645392-b43c-4922-bae2-f467f8ff16fc">
-                          <propertyInstance Id="d1ab9854-dbbf-4344-9b88-040adbd433ad" name="IsUnsafe" value="false">
-                            <elementDefinition Id="eb54eb0e-b958-46d5-849c-ab1811113c24" />
-                          </propertyInstance>
-                          <elementDefinition Id="d28f80ee-ddd4-4801-b227-8379e3e345ef" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="6beafd61-4a78-47a5-b3cf-07d4426bfc04">
-                          <propertyInstance Id="11f725d1-d25f-4699-898b-56af5536c6c4" name="PackageVisibility" value="internal">
-                            <elementDefinition Id="e9ca6773-c138-45b6-8755-38246a28112b" />
-                          </propertyInstance>
-                          <elementDefinition Id="5944a146-0d95-46be-a58f-083eda800661" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="90a175d5-10a3-4598-a301-c4b97e937fda">
-                          <propertyInstance Id="b43be6ca-30a9-4377-8eaf-7520d848fc90" name="Set" value="none">
-                            <elementDefinition Id="9d5b84ce-3fbd-41b5-bbb4-33b911b19c04" />
-                          </propertyInstance>
-                          <elementDefinition Id="6a48d1e0-7b14-4585-99d8-0b71411142f7" />
-                        </stereotypeInstanceHasPropertyInstances>
-                      </propertyInstances>
-                    </stereotypeInstance>
-                  </appliedStereotypesInternal>
-                  <elementDefinition Id="827246a1-5bad-4eaf-bc5e-5475c9f855fb" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="3cc042d8-5818-4059-b415-f53fbbe707dd" LastKnownName="Caretaker" />
-                  </type_NamedElement>
-                </property>
-                <property Id="a69e078a-ca33-4c4e-9504-badcc461e562" name="name" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <appliedStereotypesInternal>
-                    <stereotypeInstance Id="9aac026c-3eff-460e-bebb-0458c9e235e0" name="property" profile="CSharpProfile">
-                      <elementDefinition Id="fdf4ae6c-7e52-4045-9a26-a141772933cf" />
-                      <propertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="5c1f031b-446e-400d-b089-f00b7a4682d9">
-                          <propertyInstance Id="688f8651-3d5f-45fe-ace8-f959386419e8" name="ClrAttributes">
-                            <elementDefinition Id="93f60b23-6687-493c-aed9-ab3bdf58af01" />
-                          </propertyInstance>
-                          <elementDefinition Id="b5e58fdd-b9f1-467d-aef7-8868c7bd7a1d" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="374ec91d-40bc-48f3-817f-46ef2208a212">
-                          <propertyInstance Id="94e34984-a45c-48e3-86c3-7c48d10e4da9" name="Get" value="none">
-                            <elementDefinition Id="bbe41bea-e22b-4a45-9024-1a3a4e375c43" />
-                          </propertyInstance>
-                          <elementDefinition Id="4ada4056-d8e4-42a2-bef0-3de1c3474c34" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="57989af5-f06b-49ed-9368-77caa9a04dfc">
-                          <propertyInstance Id="8c479855-1af1-4d03-a613-53e790137415" name="HasBody" value="false">
-                            <elementDefinition Id="cf37a81c-d70c-4adf-b662-1a9e2af23e8f" />
-                          </propertyInstance>
-                          <elementDefinition Id="c6e221f5-85ad-416c-81d3-6733e763d622" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="d0c7f03b-11f9-415d-9813-93716e487558">
-                          <propertyInstance Id="18f742cd-3ff4-45e5-b15e-1842961a7420" name="IsUnsafe" value="false">
-                            <elementDefinition Id="18ca0a57-cc19-4b71-9cb4-ecd279f5f2b0" />
-                          </propertyInstance>
-                          <elementDefinition Id="84fe0554-7401-4337-8550-2bd53a8a57b8" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="65292b66-79b6-4cde-bc12-3382dc3e572f">
-                          <propertyInstance Id="a549f197-365e-44d4-9c1d-efca82f4c801" name="PackageVisibility" value="internal">
-                            <elementDefinition Id="c31e8e22-93af-47c3-be58-5bb74cc94346" />
-                          </propertyInstance>
-                          <elementDefinition Id="23309301-634e-4cc3-a52d-7f48d0e42d01" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="dc901579-2cfa-431d-8fcd-ad3e338450d8">
-                          <propertyInstance Id="d73d3896-40c2-4b07-9a75-097c7af5acfa" name="Set" value="none">
-                            <elementDefinition Id="b8d92937-e7c5-4952-a9dd-5a6a709c45b9" />
-                          </propertyInstance>
-                          <elementDefinition Id="b88da326-df16-4c6f-acf4-3b11402d1a93" />
-                        </stereotypeInstanceHasPropertyInstances>
-                      </propertyInstances>
-                    </stereotypeInstance>
-                  </appliedStereotypesInternal>
-                  <elementDefinition Id="7a28a519-bb43-423f-89ff-1d11abf2a238" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="7ffc767d-525c-4504-a311-3696d1f7bb26" LastKnownName="String" />
+                    <referencedTypeMoniker Id="0fb48fcc-daee-43c5-9156-006dcb8881b1" LastKnownName="Memento[]" />
                   </type_NamedElement>
                 </property>
                 <property Id="d115d727-33be-4e96-818f-3f375c5b38a2" name="selectProject" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -18411,7 +18366,7 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                 </association>
               </targetEnds>
               <ownedAttributesInternal>
-                <property Id="9b817554-8998-4107-a2ed-74e9a673cdd6" name="currentView" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <property Id="9b817554-8998-4107-a2ed-74e9a673cdd6" name="currentViewType" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <appliedStereotypesInternal>
                     <stereotypeInstance Id="25c29626-f348-44c0-bf93-90c837aafc44" name="property" profile="CSharpProfile">
                       <elementDefinition Id="baf74374-becd-4362-af16-20aae57e626b" />
@@ -18457,7 +18412,7 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                   </appliedStereotypesInternal>
                   <elementDefinition Id="6406494e-2975-46dd-ae5d-059ec71cff04" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="e1c08dc4-9430-48c8-a4d5-d4eb03b6b23b" LastKnownName="ViewType" />
+                    <referencedTypeMoniker Id="91338dec-a601-4443-b2d3-11fa394ab324" LastKnownName="ViewType" />
                   </type_NamedElement>
                 </property>
                 <property Id="dda1fcfd-a97a-4b8e-8edd-9e77aac02546" name="flushPresentationPlugins" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -18507,6 +18462,40 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                   <elementDefinition Id="b3cef299-aa5a-479f-86e6-490507f05f1b" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="949d536a-f422-406f-a08b-6e7db7517feb" LastKnownName="event" />
+                  </type_NamedElement>
+                </property>
+                <property Id="fc505861-f9f1-44b6-93bb-9389739ef7a0" name="currentPlayer" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="bcb26c97-5b66-4e9e-b49c-d40443586bf1" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="050fee8c-7e4b-45cd-beb8-57f4d93deea8" LastKnownName="IPresentation" />
+                  </type_NamedElement>
+                </property>
+                <property Id="876b5a30-e862-4b2e-915d-416ad3d0ed28" name="currentDiagram" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="a3d6ccfa-b05b-4237-b82b-00e2eb3871f7" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="050fee8c-7e4b-45cd-beb8-57f4d93deea8" LastKnownName="IPresentation" />
+                  </type_NamedElement>
+                </property>
+                <property Id="bc5305a6-2072-4f50-b5ca-35aa0ccd59d8" name="currentCustoms" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="70256cee-d80a-4d8e-8cf6-39322f816ced" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="51f04698-8bef-4a70-8522-ea5fe3afddcf" LastKnownName="List&lt;IPresentation&gt;" />
+                  </type_NamedElement>
+                </property>
+                <property Id="91e7f4b1-18c2-4368-aad9-a6d033932f4f" name="currentVideo" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="ba296e81-4f9e-4996-9aa6-0e4493809cd1" name="Lower" value="1">
+                      <elementDefinition Id="60c16e2d-c8ca-4494-8243-09a65beeb69b" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="de76e94e-a9a2-4335-a246-0004e58dccd6" name="Upper" value="1">
+                      <elementDefinition Id="bd7cde4c-92e5-4998-bd3d-fe29ea95581f" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="1c233e65-30e2-4bb1-892a-4d78ca29ad3d" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="ab01f687-3d35-4798-adba-474746ac4a28" LastKnownName="Video" />
                   </type_NamedElement>
                 </property>
               </ownedAttributesInternal>
@@ -18694,6 +18683,9 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                     </stereotypeInstance>
                   </appliedStereotypesInternal>
                   <elementDefinition Id="b4e4c682-1af9-49df-90b7-5bdcf8fed946" />
+                </operation>
+                <operation Id="4aec6c94-8b11-4da2-950b-92174736ae35" name="showExtraRessourceList" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="f95fd8e1-5dbe-412d-933b-52faa4cee363" />
                 </operation>
               </ownedOperationsInternal>
             </class>
@@ -19180,7 +19172,7 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                 </generalization>
               </generalsInternal>
               <ownedAttributesInternal>
-                <property Id="5426f933-69ab-46e4-b00e-f183f9a40f39" name="video" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <property Id="5426f933-69ab-46e4-b00e-f183f9a40f39" name="video" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <appliedStereotypesInternal>
                     <stereotypeInstance Id="b830e77d-dd67-4ddb-a2da-dcb7b4955428" name="property" profile="CSharpProfile">
                       <elementDefinition Id="f30785e3-bd40-4484-b19e-07a1d12cf11a" />
@@ -19226,7 +19218,32 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
                   </appliedStereotypesInternal>
                   <elementDefinition Id="d9842256-46f1-4845-8479-7bc21768a2fd" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="5c6fa482-dd54-423d-a5ec-5a708c95281a" LastKnownName="Video" />
+                    <referencedTypeMoniker Id="f2210518-c49f-4f48-8add-66dc72f7a6ca" LastKnownName="Video" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributesInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="35ebbf52-9702-4c1e-bf05-81c1030b2959" name="ExtraResourceEventArgs" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="b10b09b2-af1b-4c67-a2e9-236ecae48257" />
+              <generalsInternal>
+                <generalization Id="6cf70a18-f32c-4f79-b64f-9b943b182ae0" isSubstitutable="false">
+                  <classMoniker Id="a7a6948b-721f-4c96-b953-6dbf8e5e5027" LastKnownName="EventArgs" />
+                  <elementDefinition Id="b108ebf9-8605-4e25-b863-4abbccf010df" />
+                </generalization>
+              </generalsInternal>
+              <ownedAttributesInternal>
+                <property Id="4f4bbd74-d1eb-4a03-9743-0a3d97c9e467" name="resourcepath" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="d4e7fc19-f672-4f21-b9db-3f77ebac4fe0" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="7dceb24e-eaec-41d7-accc-436bfce1e848" LastKnownName="Path" />
+                  </type_NamedElement>
+                </property>
+                <property Id="d66710b2-c687-44eb-b3a7-6490269fdd70" name="resourcetype" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="5dda4dea-9d4d-41df-988d-9576d6e45265" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="fd116183-0ad1-4eab-b706-052835145ebc" LastKnownName="PresentationPluginType" />
                   </type_NamedElement>
                 </property>
               </ownedAttributesInternal>
@@ -19291,16 +19308,6 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="74a9696c-c9bd-4bee-b88f-796b9797fc6a" name="float []" isAbstract="false" isLeaf="false" cachedFullName="float []">
-        <elementDefinition Id="1898f72f-e4b8-490b-a43c-b684bc10f9c3" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="576e0f92-bdf2-4e2b-8f05-156759d12f86" name="List&lt;MacroEntrys&gt;" isAbstract="false" isLeaf="false" cachedFullName="List&lt;MacroEntrys&gt;">
-        <elementDefinition Id="5f96bc4b-1281-434c-ad21-f3806d073d46" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="5c6fa482-dd54-423d-a5ec-5a708c95281a" name="Video" isAbstract="false" isLeaf="false" cachedFullName="Video">
         <elementDefinition Id="b3924bdf-c590-44e4-86c9-5791005131f6" />
       </referencedType>
@@ -19308,11 +19315,6 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
     <packageHasNamedElement>
       <referencedType Id="5bce3103-c0ff-46ca-b8cd-0f0065e9d2bd" name="Project" isAbstract="false" isLeaf="false" cachedFullName="Project">
         <elementDefinition Id="58c7c6e6-eed7-43e6-ab8b-a582c865fd33" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="cb17ab82-5128-4ca5-9f75-160dff14a96f" name="Path" isAbstract="false" isLeaf="false" cachedFullName="Path">
-        <elementDefinition Id="30839053-727c-4be6-9c79-7eb4b33fcc56" />
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -19353,6 +19355,61 @@ Dieses ereignis sollte von Presentation abgefangen werden</body>
     <packageHasNamedElement>
       <referencedType Id="79d03cb5-7f53-453d-a3ff-ca12b8d7756b" name="Dictionary&lt;string, List&lt;Memento&gt;&gt;" isAbstract="false" isLeaf="false" cachedFullName="Dictionary&lt;string, List&lt;Memento&gt;&gt;">
         <elementDefinition Id="5d24f12b-9810-4b50-b98f-52bcdf36ea0b" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="050fee8c-7e4b-45cd-beb8-57f4d93deea8" name="IPresentation" isAbstract="false" isLeaf="false" cachedFullName="IPresentation">
+        <elementDefinition Id="ff0c9e99-732d-4945-8dfb-03417c937154" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="51f04698-8bef-4a70-8522-ea5fe3afddcf" name="List&lt;IPresentation&gt;" isAbstract="false" isLeaf="false" cachedFullName="List&lt;IPresentation&gt;">
+        <elementDefinition Id="276009b5-a44e-4c1b-b8e5-32b562dc970c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="91338dec-a601-4443-b2d3-11fa394ab324" name="ViewType" isAbstract="false" isLeaf="false" cachedFullName="Entwurf::ViewModel::ViewType">
+        <elementDefinition Id="c69b4984-bc4a-43f2-a57b-56d758c5d362" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="7f7134ac-4e28-4751-96bc-0bdf97b21bff" name="float[][]" isAbstract="false" isLeaf="false" cachedFullName="float[][]">
+        <elementDefinition Id="4acc415d-c152-4685-9a0f-ab8150f76d7c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="3699b7db-517c-47bb-8376-4c2cda2e18a5" name="TreeView" isAbstract="false" isLeaf="false" cachedFullName="TreeView">
+        <elementDefinition Id="df97afd6-144d-4a78-b414-2fb92d077148" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="2343dc5a-17e2-43a7-a663-03556d4e9112" name="Dictionary&lt;PresentationPluginType, List&lt;Path&gt;&gt;" isAbstract="false" isLeaf="false" cachedFullName="Dictionary&lt;PresentationPluginType, List&lt;Path&gt;&gt;">
+        <elementDefinition Id="affee223-76de-4074-84ac-2eb70055e128" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="fd116183-0ad1-4eab-b706-052835145ebc" name="PresentationPluginType" isAbstract="false" isLeaf="false" cachedFullName="PresentationPluginType">
+        <elementDefinition Id="adbf4300-8411-4732-9303-5708a83e0b55" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="411b2379-eba4-4c41-b5f0-c0bfd539dfd8" name="PresentationPluginType" isAbstract="false" isLeaf="false" cachedFullName="Entwurf::OqatInterface::PresentationPluginType">
+        <elementDefinition Id="245c9432-624c-4933-9fda-6d28a8cbbd40" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="f2210518-c49f-4f48-8add-66dc72f7a6ca" name="Video" isAbstract="false" isLeaf="false" cachedFullName="Video">
+        <elementDefinition Id="b3924bdf-c590-44e4-86c9-5791005131f6" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="c19003ea-11c9-4cc6-8956-dd9a14ce4827" name="List&lt;MacroEntrys&gt;" isAbstract="false" isLeaf="false" cachedFullName="List&lt;MacroEntrys&gt;">
+        <elementDefinition Id="5f96bc4b-1281-434c-ad21-f3806d073d46" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="ab01f687-3d35-4798-adba-474746ac4a28" name="Video" isAbstract="false" isLeaf="false" cachedFullName="Video">
+        <elementDefinition Id="b3924bdf-c590-44e4-86c9-5791005131f6" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

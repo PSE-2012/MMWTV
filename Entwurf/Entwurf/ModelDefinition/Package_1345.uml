@@ -126,8 +126,8 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="65f880a8-0337-474d-8c2e-5dd839b12d8d"
-                  name="Control parent"
+                  Id="3201046f-fc1e-4734-95d1-35a1e79bff23"
+                  name="IAddChild parent"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
@@ -571,6 +571,25 @@
                 <parameter
                   Id="be453120-9a83-4371-8be7-1944bf2cf999"
                   name="EventArgs e"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="8b7efd8b-69e4-49ef-85a2-859e9665b1fd"
+            name="createDataSeries"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4bedcaa8-a6de-490d-bee2-9ee2c06d1198"
+                  name="float[]"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
@@ -1258,6 +1277,45 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="43c5649d-115a-4e33-a8b3-cfa95299d288"
+            isDerived="false"
+            sourceEndRoleName="PP_Player"
+            targetEndRoleName="VideoSource"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="d499c0d1-99f1-43c2-8e0a-9750b3eac665"
+              LastKnownName="VideoSource"
+              LastKnownLocation="Package_1345.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f5aef929-9237-4fa8-8501-d141dd684845"
+                  name="PP_Player"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="9b8d2f62-c42d-4cd1-91c8-ca02daf24cff"
+                  name="VideoSource"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
         <ownedOperationsInternal>
           <operation
@@ -1765,6 +1823,127 @@
             </ownedParameters>
           </operation>
         </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="d499c0d1-99f1-43c2-8e0a-9750b3eac665"
+        name="VideoSource"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="d77ac84a-1ab3-43de-ba47-c0c93046cfc4">
+            <interfaceMoniker
+              Id="a45e6792-515a-43bd-bec7-f1f109ebd780"
+              LastKnownName="IVideoSource"
+              LastKnownLocation="Package_1024.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="c6b179de-cc41-4a32-a6e0-25bfd68169de"
+            name="SignalToStop"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="aa00bff0-32f5-4dff-af03-1fca4a834004"
+            name="Start"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="663b5076-0758-4944-865c-136ecb02fecd"
+            name="Stop"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="d53446a8-12b4-46ec-97dd-1a7c50de0076"
+            name="WaitForStop"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="2892b106-388b-48c2-bfb4-b35ac269023e"
+        LastKnownName="PP_Player"
+        LastKnownLocation="Package_1257.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="9cdff657-049b-460b-87d3-6a8653466da6"
+        name="PP_DualPlayer"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="c960382f-c0cd-4fb4-bd5b-a70683f0cbbf"
+            isDerived="false"
+            sourceEndRoleName="PP_DualPlayer"
+            targetEndRoleName="PP_Player"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="18593d12-213f-421b-8355-27f14323b3e4"
+              LastKnownName="PP_Player"
+              LastKnownLocation="Package_1345.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="a4f30539-dd3f-4213-8d12-446f92befb8c"
+                  name="PP_DualPlayer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="131699d3-9479-4140-86d9-537233651826"
+                  name="PP_Player"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="ace49d04-1968-43de-aa9b-d07470fc389e"
+                      name="Lower"
+                      value="2" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="cda0cd9c-5d85-478b-81af-50a2d5562fa7"
+                      name="Upper"
+                      value="2" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
       </class>
     </packageHasNamedElement>
   </packagedElements>
