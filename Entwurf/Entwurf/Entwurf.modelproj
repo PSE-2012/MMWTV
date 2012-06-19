@@ -17,6 +17,13 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" />
   <ItemGroup>
+    <Content Include="MacroMetric.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="MacroMetric.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>MacroMetric.sequencediagram</DependentUpon>
+    </Content>
     <Content Include="ModelDefinition\Package10_0641.uml">
       <SubType>Content</SubType>
     </Content>
