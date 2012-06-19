@@ -654,6 +654,13 @@
               LastKnownName="IFilterOqat"
               LastKnownLocation="Package_1444.uml" />
           </interfaceRealization>
+          <interfaceRealization
+            Id="bd6a7446-b494-4bef-ae3a-9d68bad6503e">
+            <interfaceMoniker
+              Id="293a19b1-7e34-4b70-978a-9702218440ad"
+              LastKnownName="IVideoHandler"
+              LastKnownLocation="Package_1444.uml" />
+          </interfaceRealization>
         </suppliersInternal>
         <generalsInternal>
           <generalization
@@ -1064,6 +1071,133 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="a0956a6a-7dbc-49b2-8b0b-f489ec52bd79"
+            name="getFrame"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="18a7e52d-be28-42f1-ab08-54ff544fb35e"
+                  name="int frameNm"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="5aef253c-4d7c-48d7-8adf-da4db37f3b50"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="ef321348-7c36-40b8-aaa1-f6ae3a1eede5"
+                      LastKnownName="Bitmap"
+                      LastKnownLocation="Entwurf.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="cf19c514-1dfe-4e8e-9255-f4b3a05a565c"
+            name="getFrames"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="578bf82f-346d-48ba-8f62-4f3cc3f62706"
+                  name="int frameNm"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d60e6257-8e9d-4f80-b98e-85a17bb247c0"
+                  name="int offset"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ab3d9d0f-21e3-4414-bf61-07fcfa660f86"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="792c8256-b368-42bd-9094-c5ff18cf3291"
+                      LastKnownName="Bitmap[]"
+                      LastKnownLocation="Package_0837.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="50e27a52-faec-459b-9ce2-02702769e623"
+            name="writeFrame"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d29deb14-31f7-44d6-91f9-9d53df620b87"
+                  name="int frameNum"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2f2f79a7-0222-4391-93d0-2422df1f8194"
+                  name="Bitmap frame"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="131784d1-3e08-42ec-bea6-5e05bd3c5073"
+            name="writeFrames"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="456a7768-d683-4ad9-b42e-a3e6f8032304"
+                  name="int frameNum"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b080a246-20c4-42c6-81df-ab0878a811f2"
+                  name="Bitmap[] frames"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="0aa8d68f-a30b-44fc-8c1b-359b410fefa5"
+            name="fetchPlugins"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -1118,13 +1252,6 @@
           </stereotypeInstance>
         </appliedStereotypesInternal>
         <suppliersInternal>
-          <interfaceRealization
-            Id="eb81258b-ac29-43d2-a078-e167ee7668e9">
-            <interfaceMoniker
-              Id="6f095cfe-7cb9-4b90-8976-8c3d0562522f"
-              LastKnownName="IMacro"
-              LastKnownLocation="Package_1444.uml" />
-          </interfaceRealization>
           <interfaceRealization
             Id="b6b7e6e3-fd31-4332-b875-ece5b8303179">
             <interfaceMoniker
@@ -2288,6 +2415,24 @@
                 Id="b3924bdf-c590-44e4-86c9-5791005131f6"
                 LastKnownName="Video"
                 LastKnownLocation="Package_1726.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="9c850d34-6d29-466e-8cce-82a21f78e924"
+            name="previewLoad"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="c857ad8a-29c4-4eaa-96f6-f99e3ea54f61"
+                LastKnownName="event"
+                LastKnownLocation="Entwurf.uml" />
             </type_NamedElement>
           </property>
         </ownedAttributesInternal>

@@ -16549,7 +16549,7 @@
                     <referencedTypeMoniker Id="949d536a-f422-406f-a08b-6e7db7517feb" LastKnownName="event" />
                   </type_NamedElement>
                 </property>
-                <property Id="fc505861-f9f1-44b6-93bb-9389739ef7a0" name="currentPlayer" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <property Id="fc505861-f9f1-44b6-93bb-9389739ef7a0" name="currentPlayerRef" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <appliedStereotypesInternal>
                     <stereotypeInstance Id="b79ecb89-24d7-4635-a37b-3ece4c7b6b54" name="property" profile="CSharpProfile">
                       <elementDefinition Id="5724a37f-1226-411b-9c83-acf488442faa" />
@@ -16595,7 +16595,7 @@
                   </appliedStereotypesInternal>
                   <elementDefinition Id="bcb26c97-5b66-4e9e-b49c-d40443586bf1" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="050fee8c-7e4b-45cd-beb8-57f4d93deea8" LastKnownName="IPresentation" />
+                    <referencedTypeMoniker Id="c2e88604-3295-4f4e-8f0f-6b5f03f71217" LastKnownName="IPresentation" />
                   </type_NamedElement>
                 </property>
                 <property Id="876b5a30-e862-4b2e-915d-416ad3d0ed28" name="currentDiagram" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -16753,6 +16753,12 @@
                   <elementDefinition Id="1c233e65-30e2-4bb1-892a-4d78ca29ad3d" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="ab01f687-3d35-4798-adba-474746ac4a28" LastKnownName="Video" />
+                  </type_NamedElement>
+                </property>
+                <property Id="bb8f371c-0f2d-4e48-a9c6-96b95e129616" name="currentPlayerProc" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="78f558b4-9330-4484-b430-5d955f7b19dd" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="050fee8c-7e4b-45cd-beb8-57f4d93deea8" LastKnownName="IPresentation" />
                   </type_NamedElement>
                 </property>
               </ownedAttributesInternal>
@@ -17625,6 +17631,10 @@
                         <interfaceMoniker Id="6714472f-9bf3-456d-85e3-a657c5e7117f" LastKnownName="IFilterOqat" />
                         <elementDefinition Id="315dc244-08fb-4e63-abb8-9b5975b03ff2" />
                       </interfaceRealization>
+                      <interfaceRealization Id="b0c46c8d-36ae-4e87-8b5b-e1f203da9b71">
+                        <interfaceMoniker Id="1497ed33-7b4e-4a76-b93a-881285b19da0" LastKnownName="IVideoHandler" />
+                        <elementDefinition Id="bd6a7446-b494-4bef-ae3a-9d68bad6503e" />
+                      </interfaceRealization>
                     </suppliersInternal>
                     <generalsInternal>
                       <generalization Id="154965a0-1b3e-46d8-95b3-15822bf11a4d" isSubstitutable="false">
@@ -17934,6 +17944,80 @@
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
+                      <operation Id="6687d314-8bdf-4ee9-b38c-6a56fc8f44b2" name="getFrame" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="a0956a6a-7dbc-49b2-8b0b-f489ec52bd79" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="99da8a65-d79b-4078-9578-51599447b9b6" name="int frameNm" direction="In" isUnique="false">
+                              <elementDefinition Id="18a7e52d-be28-42f1-ab08-54ff544fb35e" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="85fe25f4-84ca-4296-ac48-b7efa154be16" direction="Return" isUnique="false">
+                              <elementDefinition Id="5aef253c-4d7c-48d7-8adf-da4db37f3b50" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="19c0ac8b-99ac-4def-8eac-d8ceda6c6616" LastKnownName="Bitmap" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="d3e1d6f9-09b6-43dc-81d5-99375f004551" name="getFrames" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="cf19c514-1dfe-4e8e-9255-f4b3a05a565c" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="d43c7b1e-0ce5-4f9a-b7f5-d2f0ade3b50c" name="int frameNm" direction="In" isUnique="false">
+                              <elementDefinition Id="578bf82f-346d-48ba-8f62-4f3cc3f62706" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="9d955c9d-83c7-4530-9cee-c278c9ad8d72" name="int offset" direction="In" isUnique="false">
+                              <elementDefinition Id="d60e6257-8e9d-4f80-b98e-85a17bb247c0" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="d86ecc5e-8fa2-495c-a5cb-da7098aba5bf" direction="Return" isUnique="false">
+                              <elementDefinition Id="ab3d9d0f-21e3-4414-bf61-07fcfa660f86" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="8c265f87-1157-44b2-8ce7-b7d309ff1a54" LastKnownName="Bitmap[]" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="64425661-6e8f-45f4-8914-044bdbc01968" name="writeFrame" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="50e27a52-faec-459b-9ce2-02702769e623" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="45708932-20f2-4c13-a6dd-55257c927b3a" name="int frameNum" direction="In" isUnique="false">
+                              <elementDefinition Id="d29deb14-31f7-44d6-91f9-9d53df620b87" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="655ae207-375b-4a6e-a85e-67180558aa89" name="Bitmap frame" direction="In" isUnique="false">
+                              <elementDefinition Id="2f2f79a7-0222-4391-93d0-2422df1f8194" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="e94b48e0-6b05-4db0-81aa-be9ea57b50b0" name="writeFrames" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="131784d1-3e08-42ec-bea6-5e05bd3c5073" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="5715b4fa-5d4b-4683-81b6-ad9ddf51331f" name="int frameNum" direction="In" isUnique="false">
+                              <elementDefinition Id="456a7768-d683-4ad9-b42e-a3e6f8032304" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="83f1fab1-624b-4727-a60e-c0c7b292ad63" name="Bitmap[] frames" direction="In" isUnique="false">
+                              <elementDefinition Id="b080a246-20c4-42c6-81df-ab0878a811f2" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="17ae0785-a4ce-467d-bab9-7538a3c6ce14" name="fetchPlugins" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="0aa8d68f-a30b-44fc-8c1b-359b410fefa5" />
+                      </operation>
                     </ownedOperationsInternal>
                   </class>
                 </packageHasNamedElement>
@@ -17978,10 +18062,6 @@
                     </appliedStereotypesInternal>
                     <elementDefinition Id="4cc43d4e-0563-4ac9-b4b3-76df0d2a17d7" />
                     <suppliersInternal>
-                      <interfaceRealization Id="46f808f7-3afb-4f0d-bf94-829e3430b706">
-                        <interfaceMoniker Id="d673b2c9-6df4-4da9-9707-c8bbcc9f2857" LastKnownName="IMacro" />
-                        <elementDefinition Id="eb81258b-ac29-43d2-a078-e167ee7668e9" />
-                      </interfaceRealization>
                       <interfaceRealization Id="2198b445-da54-4296-bb66-e489720e9b33">
                         <interfaceMoniker Id="9c82af58-af92-40b1-95e0-496707d9ac46" LastKnownName="IMetricOqat" />
                         <elementDefinition Id="b6b7e6e3-fd31-4332-b875-ece5b8303179" />
@@ -18844,6 +18924,12 @@
                           <referencedTypeMoniker Id="5c6fa482-dd54-423d-a5ec-5a708c95281a" LastKnownName="Video" />
                         </type_NamedElement>
                       </property>
+                      <property Id="03c4f22f-ab80-4f84-8c4b-4327e04e714d" name="previewLoad" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="9c850d34-6d29-466e-8cce-82a21f78e924" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="c9032ff2-d516-4d5f-8710-000c3ef4acc4" LastKnownName="event" />
+                        </type_NamedElement>
+                      </property>
                     </ownedAttributesInternal>
                     <ownedOperationsInternal>
                       <operation Id="b7d22bb1-2e52-4dc2-92e6-9befe137ff0b" name="VM_Macro" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
@@ -19568,6 +19654,16 @@
     <packageHasNamedElement>
       <referencedType Id="eb5c9189-1d35-4144-824f-a82d0428e068" name="Dictionary&lt;EventType,List&lt;eventHandler&gt;&gt;" isAbstract="false" isLeaf="false" cachedFullName="Dictionary&lt;EventType,List&lt;eventHandler&gt;&gt;">
         <elementDefinition Id="f6e733dd-ea67-4759-af75-35e9da49eb2c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="c9032ff2-d516-4d5f-8710-000c3ef4acc4" name="event" isAbstract="false" isLeaf="false" cachedFullName="event">
+        <elementDefinition Id="c857ad8a-29c4-4eaa-96f6-f99e3ea54f61" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="c2e88604-3295-4f4e-8f0f-6b5f03f71217" name="IPresentation" isAbstract="false" isLeaf="false" cachedFullName="IPresentation">
+        <elementDefinition Id="ff0c9e99-732d-4945-8dfb-03417c937154" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>
