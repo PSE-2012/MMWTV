@@ -6,7 +6,7 @@
 //------------------------------------------------------------------------------
 namespace Plugins.Filter.MacroFilter
 {
-	using OqatInterface;
+	using OqatPublicRessources;
 	using Plugins;
 	using System;
 	using System.Collections.Generic;

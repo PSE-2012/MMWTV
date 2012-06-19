@@ -14,19 +14,7 @@ namespace ViewModel
 
 	public class VM_Welcome
 	{
-		public virtual object lastUsedProjects
-		{
-			get;
-			set;
-		}
-
-		public virtual Caretaker caretaker
-		{
-			get;
-			set;
-		}
-
-		public virtual string name
+		public virtual Memento[] lastUsedProjects
 		{
 			get;
 			set;

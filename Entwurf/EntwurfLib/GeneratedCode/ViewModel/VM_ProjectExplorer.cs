@@ -25,7 +25,7 @@ namespace ViewModel
 			set;
 		}
 
-		private object fileExplorer
+		private TreeView fileExplorer
 		{
 			get;
 			set;
@@ -50,12 +50,6 @@ namespace ViewModel
 		}
 
 		private PluginManager pluginManager
-		{
-			get;
-			set;
-		}
-
-		private event fileSelect
 		{
 			get;
 			set;

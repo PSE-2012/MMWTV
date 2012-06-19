@@ -7,6 +7,7 @@
 namespace ViewModel
 {
 	using AForge.Controls;
+	using Plugins.Metric;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -14,13 +15,37 @@ namespace ViewModel
 
 	public class VM_Presentation
 	{
-		private ViewType currentView
+		private ViewType currentViewType
 		{
 			get;
 			set;
 		}
 
 		private event flushPresentationPlugins
+		{
+			get;
+			set;
+		}
+
+		private IPresentation currentPlayer
+		{
+			get;
+			set;
+		}
+
+		private IPresentation currentDiagram
+		{
+			get;
+			set;
+		}
+
+		private List<IPresentation> currentCustoms
+		{
+			get;
+			set;
+		}
+
+		public virtual Video currentVideo
 		{
 			get;
 			set;
@@ -47,6 +72,11 @@ namespace ViewModel
 		}
 
 		private void resetPanel()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		private void showExtraRessourceList()
 		{
 			throw new System.NotImplementedException();
 		}

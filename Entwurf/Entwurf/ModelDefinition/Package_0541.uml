@@ -3,18 +3,6 @@
   dslVersion="1.0.0.0"
   Id="79b457b0-3897-4475-b8a4-cc200dcfde49"
   name="YuvVideoHandler" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
-  <ownedCommentsInternal>
-    <comment
-      Id="b8f55fdc-8e06-4664-9bcd-3e7f60d7c5e7">
-      <body>an dieser stelle brauchen wir eine properties view für den VideoImportDialog und eine (oder de gleiche aber mit anderen parametern) die die infos in der smartlist darstellt</body>
-      <annotatedElements>
-        <classMoniker
-          Id="d34c05a0-e4e0-421e-947f-02ccbcb953e0"
-          LastKnownName="YuvVideoInfo"
-          LastKnownLocation="Package_0541.uml" />
-      </annotatedElements>
-    </comment>
-  </ownedCommentsInternal>
   <packagedElements>
     <packageHasNamedElement>
       <class
@@ -72,7 +60,7 @@
             <interfaceMoniker
               Id="293a19b1-7e34-4b70-978a-9702218440ad"
               LastKnownName="IVideoHandler"
-              LastKnownLocation="Package_0504.uml" />
+              LastKnownLocation="Package_1444.uml" />
           </interfaceRealization>
         </suppliersInternal>
         <ownedOperationsInternal>
@@ -558,7 +546,7 @@
           </operation>
           <operation
             Id="164f94d4-7567-4c80-a5b0-d8668ed63f80"
-            name="getEventHandles"
+            name="getEventHandlers"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -615,75 +603,8 @@
                   isUnique="false">
                   <type_NamedElement>
                     <undefinedTypeMoniker
-                      Id="71937475-19f9-47ac-a4b4-838720c33987"
-                      LastKnownName="Dictionary&lt;EventType,List&lt;delegate&gt;&gt;"
-                      LastKnownLocation="Package_0504.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="f8946ec7-2855-436f-b191-bd2a00f7848f"
-            name="getEvents"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="b464e769-81dd-4558-a2d3-c97fb171ced5"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="884d832f-d40a-432a-bc5b-f4ad8047600a">
-                    <propertyInstance
-                      Id="cb1f0574-cb49-40f0-9757-79fd4afdd643"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="9014f25c-92ba-48c7-b742-3ca5f79e85da">
-                    <propertyInstance
-                      Id="49e0d9ee-c5fc-4b8c-a7c3-3c12a15b7fbe"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5140e562-cff6-42ed-adbe-788863f2ab0d">
-                    <propertyInstance
-                      Id="ca5eda43-37f0-4b3b-8e5e-d2ff0bbaf7d7"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0517b55e-6def-43cb-b21d-fedb7bddf3a1">
-                    <propertyInstance
-                      Id="1c0d1b09-f266-4f73-b0c4-e68ea37d9bbb"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="03794e97-b2fb-4337-97e2-399513cb1239">
-                    <propertyInstance
-                      Id="41311169-987d-44e4-bcce-5b0226d281a5"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="5bd99d2f-95c0-49e5-85e6-b0f7a6b15518"
-                  direction="Return"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="286a04f7-9836-4cb7-b070-26d0f672a8fa"
-                      LastKnownName="Dictionary&lt;EventType,List&lt;event&gt;&gt;"
+                      Id="f6e733dd-ea67-4759-af75-35e9da49eb2c"
+                      LastKnownName="Dictionary&lt;EventType,List&lt;eventHandler&gt;&gt;"
                       LastKnownLocation="Package_0504.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -801,7 +722,7 @@
             <interfaceMoniker
               Id="450d2280-e54f-41da-9796-7a41be397510"
               LastKnownName="IVideoInfo"
-              LastKnownLocation="Package_0504.uml" />
+              LastKnownLocation="Package_1438.uml" />
           </interfaceRealization>
         </suppliersInternal>
         <ownedAttributesInternal>

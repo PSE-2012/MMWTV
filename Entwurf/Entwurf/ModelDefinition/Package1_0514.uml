@@ -74,7 +74,7 @@
             <interfaceMoniker
               Id="fb1430de-28e1-48fc-8471-2a1efda4734c"
               LastKnownName="IMetricOqat"
-              LastKnownLocation="Package_0504.uml" />
+              LastKnownLocation="Package_1444.uml" />
           </interfaceRealization>
         </suppliersInternal>
         <ownedOperationsInternal>
@@ -150,10 +150,10 @@
                   direction="Return"
                   isUnique="false">
                   <type_NamedElement>
-                    <interfaceMoniker
-                      Id="2e12fe09-280c-4509-bff4-fa12a9946bb4"
-                      LastKnownName="IAnalysisInfo"
-                      LastKnownLocation="Package_0504.uml" />
+                    <classMoniker
+                      Id="0233056d-8f52-41ee-ab34-5e239e1b4e1e"
+                      LastKnownName="AnalysisInfo"
+                      LastKnownLocation="Package_1444.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -350,7 +350,7 @@
           </operation>
           <operation
             Id="27a4e748-21db-48f9-aa62-6bb9e9763202"
-            name="getEventHandles"
+            name="getEventHandlers"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -407,75 +407,8 @@
                   isUnique="false">
                   <type_NamedElement>
                     <undefinedTypeMoniker
-                      Id="71937475-19f9-47ac-a4b4-838720c33987"
-                      LastKnownName="Dictionary&lt;EventType,List&lt;delegate&gt;&gt;"
-                      LastKnownLocation="Package_0504.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="4d5afdaf-ff6d-4965-871b-fbd2e1816a66"
-            name="getEvents"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="f10f6213-1cb8-4134-9397-5e56afbfdd1a"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="23e18281-6260-4613-a27b-f6a377afc1c7">
-                    <propertyInstance
-                      Id="dd4fd31a-f2ea-4632-961c-edeb1dc86be9"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5f9aaa26-c336-4901-82be-041a36b2e73a">
-                    <propertyInstance
-                      Id="1fbaa2b4-d850-4bf8-af45-e66f5cf67d9b"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="fb9d49ea-4596-41b3-8779-ca242c5e4adc">
-                    <propertyInstance
-                      Id="2abe35e3-90ab-4629-b008-e680f7a739e3"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="1de80776-7036-4d61-82d3-dcb091ce7c4f">
-                    <propertyInstance
-                      Id="c3d763d9-61c0-4c34-8f38-9ed7bc9270e4"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="9050a367-256e-4185-9e50-2cd22de3b471">
-                    <propertyInstance
-                      Id="f14870fc-09f3-414d-9437-355b10dcf81e"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="f0492b7c-077f-4430-9a5f-795eebafbbaa"
-                  direction="Return"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="286a04f7-9836-4cb7-b070-26d0f672a8fa"
-                      LastKnownName="Dictionary&lt;EventType,List&lt;event&gt;&gt;"
+                      Id="f6e733dd-ea67-4759-af75-35e9da49eb2c"
+                      LastKnownName="Dictionary&lt;EventType,List&lt;eventHandler&gt;&gt;"
                       LastKnownLocation="Package_0504.uml" />
                   </type_NamedElement>
                 </parameter>

@@ -6,7 +6,7 @@
 //------------------------------------------------------------------------------
 namespace Plugins.Filter.Convolution
 {
-	using OqatInterface;
+	using OqatPublicRessources;
 	using Plugins;
 	using System;
 	using System.Collections.Generic;
@@ -35,12 +35,12 @@ namespace Plugins.Filter.Convolution
 			throw new System.NotImplementedException();
 		}
 
-		public virtual Dictionary<EventType><List<delegate>> getEventHandles()
+		public virtual Dictionary<EventType,List<delegate>> getEventHandles()
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public virtual Dictionary<EventType><List<event>> getEvents()
+		public virtual Dictionary<EventType,List<event>> getEvents()
 		{
 			throw new System.NotImplementedException();
 		}

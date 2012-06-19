@@ -13,14 +13,10 @@ namespace ViewModel
 	using System.Linq;
 	using System.Text;
 
-	/// <remarks>
-	/// Falls es nur einen Plugin geben soll, z.b. Presentation.. 
-	/// Wie soll man nach dem Plugin fragen ?
-	/// 
-	/// Ich denke wir können getPlugin mit dem PluginType als argument aufrufen und dann eine ensprechende Sonderbehandlung beachten
-	/// 
-	/// </remarks>
-	/// <remarks>implementierungsdetail: keine Collection sondern readOnlyCollection zurückgeben ( bei der getPluginKeys) zurückgeben -> ist schöner</remarks>
+    using OqatPublicRessources.Model;
+    using OqatPublicRessources.Plugin;
+    using System.IO;
+
 	public class PluginManager
 	{
 		private PluginManager pluginManager
@@ -47,7 +43,9 @@ namespace ViewModel
 			set;
 		}
 
-		private Dictionary<EventType><event> eventTable
+        public delegate void eventHandler(object sender, EventArgs e);
+
+		private Dictionary<EventType, List<event eventHandler as>> eventTable
 		{
 			get;
 			set;

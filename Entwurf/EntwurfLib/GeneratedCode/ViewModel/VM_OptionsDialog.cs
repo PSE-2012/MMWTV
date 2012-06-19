@@ -13,7 +13,7 @@ namespace ViewModel
 
 	public class VM_OptionsDialog
 	{
-		public virtual object optionsTree
+		public virtual TreeView optionsTree
 		{
 			get;
 			set;

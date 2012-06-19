@@ -6,7 +6,7 @@
 //------------------------------------------------------------------------------
 namespace Plugins.Filter.NoiseGenerator
 {
-	using OqatInterface;
+	using OqatPublicRessources;
 	using Plugins;
 	using Plugins.Filter;
 	using System;
@@ -36,12 +36,12 @@ namespace Plugins.Filter.NoiseGenerator
 			throw new System.NotImplementedException();
 		}
 
-		public virtual Dictionary<EventType><List<delegate>> getEventHandles()
+		public virtual Dictionary<EventType,List<delegate>> getEventHandles()
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public virtual Dictionary<EventType><List<event>> getEvents()
+		public virtual Dictionary<EventType,List<event>> getEvents()
 		{
 			throw new System.NotImplementedException();
 		}
