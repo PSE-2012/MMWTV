@@ -16,7 +16,7 @@ using System.Windows.Controls;
 			set;
 		}
 
-		public virtual void VM_OptionsDialog()
+		public VM_OptionsDialog()
 		{
 			throw new System.NotImplementedException();
 		}

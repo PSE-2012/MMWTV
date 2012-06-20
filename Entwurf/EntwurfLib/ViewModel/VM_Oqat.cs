@@ -52,8 +52,7 @@ namespace Oqat.ViewModel
 			set;
 		}
 
-		private delegate void onToggleView(object sender, ViewTypeEventArgs e);
-
+		
 
 		private void initPluginLists()
 		{

@@ -30,6 +30,18 @@ namespace YuvVideoHandler
 			set;
 		}
 
-	}
+
+        public string videoCodecName
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+    }
 }
 

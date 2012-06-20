@@ -3,7 +3,6 @@
 //------------------------------------------------------------------------------
 namespace Oqat.PublicRessources.Model
 {
-	using Plugins.Metric;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;

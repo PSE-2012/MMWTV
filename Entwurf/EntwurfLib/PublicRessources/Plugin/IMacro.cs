@@ -9,7 +9,6 @@ namespace Oqat.PublicRessources.Plugin
 
 	public interface IMacro
 	{
-        public delegate void macroEntryClickedHandler(object sender, EventArgs e);
 
         void createNewMemento(List<MacroEntry> macroEntrys, string mementoName);
 

@@ -2,7 +2,7 @@
 //------------------------------------------------------------------------------
 namespace Oqat.PublicRessources.Model
 {
-	using OqatPublicRessources;
+
 	using Plugins;
 	using System;
 	using System.Collections.Generic;
@@ -25,7 +25,7 @@ using Oqat.PublicRessources.Plugin;
 			set;
 		}
 
-		private Path vidPath
+		private string vidPath
 		{
 			get;
 			set;
@@ -52,7 +52,7 @@ using Oqat.PublicRessources.Plugin;
         private delegate void videoObjectCreatedEventHandler(Object sender, VideoEventArgs e);
 		private event videoObjectCreatedEventHandler videoObjectCreated;
 
-		public Video(bool isAnalysis,  Path vidPath, IVideoInfo vidInfo)
+		public Video(bool isAnalysis,  string vidPath, IVideoInfo vidInfo)
 		{
 		}
 

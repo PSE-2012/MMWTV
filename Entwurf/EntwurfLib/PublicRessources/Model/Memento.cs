@@ -22,7 +22,7 @@ namespace Oqat.PublicRessources.Model
 			set;
 		}
 
-		public virtual Path mementoPath
+		public virtual string mementoPath
 		{
 			get;
 			set;
@@ -33,7 +33,7 @@ namespace Oqat.PublicRessources.Model
 		{
 		}
 
-		public Memento(string nameMemento, object state, Path mementoPath)
+		public Memento(string nameMemento, object state, string mementoPath)
 		{
 		}
 

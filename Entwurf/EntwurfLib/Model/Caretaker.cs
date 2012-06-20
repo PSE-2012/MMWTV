@@ -43,7 +43,7 @@ namespace Oqat.Model
 		{
 		}
 
-		public virtual void fromDisk(Path mementoDir)
+		public virtual void fromDisk(string mementoDir)
 		{
 			throw new System.NotImplementedException();
 		}

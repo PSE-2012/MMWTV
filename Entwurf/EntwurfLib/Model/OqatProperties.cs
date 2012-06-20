@@ -16,7 +16,7 @@ namespace Oqat.Model
 			set;
 		}
 
-		private Path pluginFolder
+		private string pluginFolder
 		{
 			get;
 			set;

@@ -2,7 +2,6 @@
 //------------------------------------------------------------------------------
 namespace Oqat.PublicRessources.Plugin
 {
-	using Plugins.Metric;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;

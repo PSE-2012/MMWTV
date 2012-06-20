@@ -30,6 +30,32 @@ namespace PP_Presentation
 			throw new System.NotImplementedException();
 		}
 
-	}
+
+        public long BytesReceived
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public int FramesReceived
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool IsRunning
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public event NewFrameEventHandler NewFrame;
+
+        public event PlayingFinishedEventHandler PlayingFinished;
+
+        public string Source
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public event VideoSourceErrorEventHandler VideoSourceError;
+    }
 }
 

@@ -51,12 +51,6 @@ namespace Oqat.ViewModel
 
 
 
-		private delegate void onNewMementoCreated(Object sender, MementoEventArgs e);
-        private delegate void onMacroFilterEntrySelected(Object sender, EventArgs e);
-        private delegate void onEntryClicked(Object sender, MementoEventArgs e);
-        private delegate void onEntrySelected(Object sender, MementoEventArgs e);
-        private delegate void onToggleView(Object sender, ViewTypeEventArgs e);
-
 
 		public VM_PluginLists(Panel parent)
 		{

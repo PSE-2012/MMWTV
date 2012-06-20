@@ -3,7 +3,6 @@
 //------------------------------------------------------------------------------
 namespace Oqat.ViewModel
 {
-	using Plugins.Metric;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -51,8 +50,6 @@ namespace Oqat.ViewModel
             get;
         }
 
-        private delegate void onToggleView(object sender, ViewTypeEventArgs e);
-        private delegate void onVideoLoad(object sender, VideoEventArgs e);
 
 
 		private void onVideoLoad(object sender, VideoEventArgs e)

@@ -3,7 +3,6 @@
 namespace Oqat.ViewModel
 {
 	using Oqat.Model;
-	using Plugins;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -33,15 +32,14 @@ namespace Oqat.ViewModel
 			set;
 		}
 
-		private Path pluginPath
+		private string pluginPath
 		{
 			get;
 			set;
 		}
 
-        private delegate void eventHandler(object sender, EventArgs e)
 
-		private Dictionary<EventType, eventHandler> handlerTable
+		private Dictionary<EventType, Delegate > handlerTable
 		{
 			get;
 			set;
@@ -80,13 +78,13 @@ namespace Oqat.ViewModel
 			throw new System.NotImplementedException();
 		}
 
-		public virtual void addEventHandler(EventType eType, eventHandler handler)
+		public virtual void addEventHandler(EventType eType, Delegate handler)
 		{
 			throw new System.NotImplementedException();
 		}
 
 
-		public virtual void rmEventHandler(EventType eType, eventHandler handler)
+		public virtual void rmEventHandler(EventType eType, Delegate handler)
 		{
 			throw new System.NotImplementedException();
 		}

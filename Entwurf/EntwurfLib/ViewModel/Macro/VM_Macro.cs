@@ -42,8 +42,6 @@ namespace Oqat.ViewModel.Macro
 			set;
 		}
 
-        private delegate void onPreviewLoad(object sender, EventArgs e);
-
 		public VM_Macro()
 		{
 		}

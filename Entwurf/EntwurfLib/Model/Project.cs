@@ -2,8 +2,6 @@
 //------------------------------------------------------------------------------
 namespace Oqat.Model
 {
-	using OqatPublicRessources;
-	using Plugins;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -28,27 +26,23 @@ namespace Oqat.Model
 			set;
 		}
 
-		private Path path_Project
+		private string path_Project
 		{
 			get;
 			set;
 		}
 
-		public virtual SmartNode smartTree
-		{
-			get;
-			set;
-		}
+        private SmartNode smartTree;
 
-		public Project(string name, Path path, List<Video> vidList, string description)
+		public Project(string name, string path, List<Video> vidList, string description)
 		{
 		}
 
-		public Project(Path path)
+		public Project(string path)
 		{
 		}
 
-		public Project(string name, Path path, string description)
+		public Project(string name, string path, string description)
 		{
 		}
 

@@ -18,7 +18,7 @@ namespace Oqat.Model
         public SmartNode()
         {
         }
-        public SmartNode(Path vidPath)
+        public SmartNode(string vidPath)
         {
         }
     }

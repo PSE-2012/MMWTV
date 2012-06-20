@@ -48,7 +48,7 @@ namespace Oqat.ViewModel
 		{
 		}
 
-        private void onVideoClick(object sender, VideoEventArgs e);
+        private void onVideoClick(object sender, VideoEventArgs e) { }
 
 	}
 }

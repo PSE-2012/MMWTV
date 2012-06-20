@@ -2,13 +2,13 @@
 //------------------------------------------------------------------------------
 namespace Oqat.PublicRessources.Plugin
 {
-	using Model;
-	using System;
+    using System;
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Text;
 
     using System.Drawing;
+    using Oqat.PublicRessources.Model;
 
 	public interface IVideoHandler  : IPlugin
 	{

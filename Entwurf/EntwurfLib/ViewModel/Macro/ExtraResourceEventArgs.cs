@@ -12,7 +12,7 @@ namespace Oqat.Macro.ViewModel
 
 	public class ExtraResourceEventArgs : EventArgs
 	{
-		public virtual Path resourcepath
+		public virtual string resourcepath
 		{
 			get;
 			set;
