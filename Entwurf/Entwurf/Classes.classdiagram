@@ -4694,8 +4694,8 @@
                               <elementDefinition Id="9508da8d-9e17-43cb-bb76-ce4e5866c7f5" />
                               <ownedParameters>
                                 <operationHasOwnedParameters>
-                                  <parameter Id="38ab66ad-0939-417f-8683-066e21acb4bf" name="Control parent" direction="In" isUnique="false">
-                                    <elementDefinition Id="448e3956-01dd-414d-9861-e3e484580d67" />
+                                  <parameter Id="c44f9531-a6e8-4e96-9f6a-8cb8305cc29e" name="Panel parent" direction="In" isUnique="false">
+                                    <elementDefinition Id="586f8308-0d36-4eec-ae33-08f16badb749" />
                                   </parameter>
                                 </operationHasOwnedParameters>
                               </ownedParameters>
@@ -4842,6 +4842,24 @@
                                     <elementDefinition Id="2b516a82-e2ac-4cbf-afec-c213496a3830" />
                                     <type_NamedElement>
                                       <referencedTypeMoniker Id="425d6228-0d0e-4550-9733-c3cf2117749b" LastKnownName="Dictionary&lt;EventType,List&lt;Delegate&gt;&gt;" />
+                                    </type_NamedElement>
+                                  </parameter>
+                                </operationHasOwnedParameters>
+                              </ownedParameters>
+                            </operation>
+                            <operation Id="9e2b04a3-df63-4495-ab4e-71873ec9bbfb" name="getVideoInfo" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                              <elementDefinition Id="0e7d6db5-3cb5-4283-b99a-f63b142fd06e" />
+                              <ownedParameters>
+                                <operationHasOwnedParameters>
+                                  <parameter Id="41ecc691-f56f-48fd-8696-5bb25b53e3fb" name="string path" direction="In" isUnique="false">
+                                    <elementDefinition Id="f5b938b5-35bc-4884-9e67-82b29fb04d99" />
+                                  </parameter>
+                                </operationHasOwnedParameters>
+                                <operationHasOwnedParameters>
+                                  <parameter Id="fee03acf-1b40-4651-817a-288b8c8dd20f" direction="Return" isUnique="false">
+                                    <elementDefinition Id="3387fb09-6f1c-4f2b-a1d0-f6460912801f" />
+                                    <type_NamedElement>
+                                      <referencedTypeMoniker Id="b33f370a-af22-46bb-8d37-f2a4e52830ae" LastKnownName="IVideoInfo" />
                                     </type_NamedElement>
                                   </parameter>
                                 </operationHasOwnedParameters>
@@ -10220,6 +10238,24 @@
                           <operationHasOwnedParameters>
                             <parameter Id="a1b3bc0f-c80f-4154-8782-4a20d61d34eb" name="Bitmap[] frames" direction="In" isUnique="false">
                               <elementDefinition Id="abeff305-a4ee-4823-b013-90cb6adb51b9" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="ce05dde4-743d-4e5e-94ec-83ce3bfdde5d" name="getVideoInfo" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="cc2fd123-5f0b-4a63-8799-3c3054fb6805" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="7b747fc3-3524-4e84-a866-50e757579f3c" name="string path" direction="In" isUnique="false">
+                              <elementDefinition Id="616cc65e-e20c-4bad-a3e6-28a312dd208c" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="c82246d4-9317-4134-a5ec-b0583e0d1b77" direction="Return" isUnique="false">
+                              <elementDefinition Id="3afdaf71-9acf-41a9-9a6b-32d570a320eb" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="b33f370a-af22-46bb-8d37-f2a4e52830ae" LastKnownName="IVideoInfo" />
+                              </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -15982,8 +16018,13 @@
                   <elementDefinition Id="2172e54d-3b54-4bf1-8953-f1b15cda2b03" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="21831d20-0bc8-48b0-89bc-358b1ceba11b" name="EventType eType" direction="In" isUnique="false">
-                        <elementDefinition Id="e6a2ae23-7930-4e8b-b4dd-4ae8e052304d" />
+                      <parameter Id="344be72d-592d-46fe-8d72-72cb1213b765" name="EventType eType" direction="In" isUnique="false">
+                        <elementDefinition Id="f7db6fb9-c7e7-4941-9f65-10f2683d56e9" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="831c4e15-d42e-498c-bf7c-487996fcdb0b" name="EventArgs e" direction="In" isUnique="false">
+                        <elementDefinition Id="71c855c8-77fe-4cc8-85e8-92520bfc982f" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -17392,6 +17433,24 @@
                           <operationHasOwnedParameters>
                             <parameter Id="83f1fab1-624b-4727-a60e-c0c7b292ad63" name="Bitmap[] frames" direction="In" isUnique="false">
                               <elementDefinition Id="b080a246-20c4-42c6-81df-ab0878a811f2" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                        </ownedParameters>
+                      </operation>
+                      <operation Id="0b4de91f-81a1-414f-9683-75727bb37dcb" name="getVideoInfo" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="0c9dbd96-c7ea-4e79-90e5-7f8c02e8cf77" />
+                        <ownedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="b51efe5b-c22b-4a54-ab91-d1c18b183e37" name="string path" direction="In" isUnique="false">
+                              <elementDefinition Id="15ece6e5-6b9d-4605-afb1-46a4ad66c045" />
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="d1a82186-7082-4a24-8dc8-e57f4ef038b3" direction="Return" isUnique="false">
+                              <elementDefinition Id="a48a7560-b386-407a-ae3a-5584e95ed3c9" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="b33f370a-af22-46bb-8d37-f2a4e52830ae" LastKnownName="IVideoInfo" />
+                              </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                         </ownedParameters>
@@ -18945,6 +19004,11 @@
     <packageHasNamedElement>
       <referencedType Id="425d6228-0d0e-4550-9733-c3cf2117749b" name="Dictionary&lt;EventType,List&lt;Delegate&gt;&gt;" isAbstract="false" isLeaf="false" cachedFullName="Dictionary&lt;EventType,List&lt;Delegate&gt;&gt;">
         <elementDefinition Id="1926b680-e0a7-43ed-b87d-174b99f5c85b" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="b33f370a-af22-46bb-8d37-f2a4e52830ae" name="IVideoInfo" isAbstract="false" isLeaf="false" cachedFullName="IVideoInfo">
+        <elementDefinition Id="ef11efad-4f3d-4ad5-b3a1-d9a4b8b938c0" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

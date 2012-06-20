@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="79b457b0-3897-4475-b8a4-cc200dcfde49"
   name="YuvVideoHandler" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -409,8 +409,8 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="448e3956-01dd-414d-9861-e3e484580d67"
-                  name="Control parent"
+                  Id="586f8308-0d36-4eec-ae33-08f16badb749"
+                  name="Panel parent"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
@@ -605,6 +605,37 @@
                     <undefinedTypeMoniker
                       Id="1926b680-e0a7-43ed-b87d-174b99f5c85b"
                       LastKnownName="Dictionary&lt;EventType,List&lt;Delegate&gt;&gt;"
+                      LastKnownLocation="Package_1444.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="0e7d6db5-3cb5-4283-b99a-f63b142fd06e"
+            name="getVideoInfo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f5b938b5-35bc-4884-9e67-82b29fb04d99"
+                  name="string path"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3387fb09-6f1c-4f2b-a1d0-f6460912801f"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="ef11efad-4f3d-4ad5-b3a1-d9a4b8b938c0"
+                      LastKnownName="IVideoInfo"
                       LastKnownLocation="Package_1444.uml" />
                   </type_NamedElement>
                 </parameter>
