@@ -924,6 +924,21 @@
           <enumerationLiteral
             Id="31a6a63b-2812-4b9a-b047-135ef0d53f7b"
             name="vidObjectCreated" />
+          <enumerationLiteral
+            Id="1e99ae6b-7d8d-4585-ac57-66a283c18f60"
+            name="projectCreated" />
+          <enumerationLiteral
+            Id="b8b33229-b8a3-4983-86e1-00759c8ff128"
+            name="buildProjectView" />
+          <enumerationLiteral
+            Id="11feb667-5b1f-48b2-99c7-f41ae76cd684"
+            name="entryClick" />
+          <enumerationLiteral
+            Id="b1f6d750-45ec-47f4-a553-f2d83af2b618"
+            name="entrySelect" />
+          <enumerationLiteral
+            Id="da2b28e0-cafa-4b90-aa62-29aa70065acc"
+            name="flushPresentationPlugins" />
         </ownedLiterals>
       </enumeration>
     </packageHasNamedElement>
@@ -1386,16 +1401,6 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
-        <generalsInternal>
-          <generalization
-            Id="552e1e11-a223-42da-b3d1-5c08fd4dad4f"
-            isSubstitutable="false">
-            <interfaceMoniker
-              Id="1788cb1f-d5e6-4816-8b73-9a3e7cb4c571"
-              LastKnownName="IPlugin"
-              LastKnownLocation="Package_1444.uml" />
-          </generalization>
-        </generalsInternal>
         <ownedAttributes>
           <property
             Id="a4f4380f-ac6c-4f85-adcd-80d70df3070b"
@@ -1620,6 +1625,82 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="3d8f9f23-095f-4b95-98b9-e9ab5957dd56"
+            name="fetchPlugins"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="93372030-0bf4-4360-9f39-83518cf67eba"
+            name="onPluginlistEntrySelect"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="9268835f-e048-4c6e-9440-5d719d27ef60"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1b0d737e-4a42-42fc-ac46-1a7a7e2302e5">
+                    <propertyInstance
+                      Id="4dccfbc0-6b46-4f4b-8dec-4b1dc2b445af"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dbfedbac-3402-4546-938c-0906ec225908">
+                    <propertyInstance
+                      Id="12e9db2a-25f9-4a13-8bf0-c1d94e262a77"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fd1a5f99-2277-4e75-9c76-44703fd9ce09">
+                    <propertyInstance
+                      Id="3a4ae77e-a64c-402b-80a4-d6a9460677d3"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4316a73a-2abf-4a2a-b425-7ae1e354b128">
+                    <propertyInstance
+                      Id="c1814cd2-97be-4fcf-9807-0bf73dde87e6"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c243570c-233e-49a8-bdfe-aa997612d8aa">
+                    <propertyInstance
+                      Id="e895f818-9ac0-47bc-8527-af5fd4060734"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="0becda13-3d3b-414c-893c-2cea04bc197b"
+                  name="object sender"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1a33a0aa-2dcb-4223-b5a3-a9579ca4e263"
+                  name="EventArgs e"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperations>
       </Interface>
     </packageHasNamedElement>
@@ -1812,24 +1893,6 @@
                 LastKnownLocation="Package_0504.uml" />
             </type_NamedElement>
           </property>
-          <property
-            Id="0eda1786-09df-4f4a-a8aa-d52c5940f85c"
-            name="void EventHandler(object sender, EventArgs e)"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="2e175063-4eed-4fe6-9889-d5f4af1e6583"
-                LastKnownName="delegate"
-                LastKnownLocation="Package_1359.uml" />
-            </type_NamedElement>
-          </property>
         </ownedAttributes>
         <ownedOperations>
           <operation
@@ -1886,8 +1949,8 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="ebd6a6ef-8b4b-4b6b-868b-e61a993b6ba5"
-                  name="IAddChild parent"
+                  Id="9cf840d5-35a0-4981-a337-51324a1aade5"
+                  name="Panel parent"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
@@ -1952,9 +2015,9 @@
                   isUnique="false">
                   <type_NamedElement>
                     <undefinedTypeMoniker
-                      Id="f6e733dd-ea67-4759-af75-35e9da49eb2c"
-                      LastKnownName="Dictionary&lt;EventType,List&lt;eventHandler&gt;&gt;"
-                      LastKnownLocation="Package_0504.uml" />
+                      Id="1926b680-e0a7-43ed-b87d-174b99f5c85b"
+                      LastKnownName="Dictionary&lt;EventType,List&lt;Delegate&gt;&gt;"
+                      LastKnownLocation="Package_1444.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -2570,6 +2633,11 @@
           </property>
         </ownedAttributesInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="1926b680-e0a7-43ed-b87d-174b99f5c85b"
+        name="Dictionary&lt;EventType,List&lt;Delegate&gt;&gt;" />
     </packageHasNamedElement>
   </packagedElements>
 </package>
