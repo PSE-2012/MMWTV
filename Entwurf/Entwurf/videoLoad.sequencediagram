@@ -78,29 +78,40 @@
         <ownedCommentsInternal>
           <comment Id="ae4c628b-2998-4938-bb98-4223e413a32a">
             <elementDefinition Id="7b72431d-7211-483f-975c-e60736938add" />
-            <body>e = VideoEventArgs</body>
-          </comment>
-          <comment Id="8c6ac80a-d010-4de7-af72-9879c4945dd0">
-            <elementDefinition Id="696bc855-f59e-4409-86ae-8a991907ea96" />
-            <body>check if video.isAnalysis == true. If true:
-raise toggleView event with ViewType.Analysis
+            <body>e = VideoEventArgs
 
-
-Assert: isAnalysis == true</body>
+Abhängig von e wird ggf. erst zur passenden Ansicht gewechselt</body>
           </comment>
           <comment Id="8228e4d8-9236-4f40-881e-f24f874bd757">
             <elementDefinition Id="26a41373-2645-442c-bdd2-b8d7f81a6a2b" />
-            <body>The FlushPresent. event would be caught by all registered PresentationPlugins</body>
+            <body>wird von allen PresentationPlugins abgefangen und laufende Videos werden entladen</body>
             <annotatedElements>
               <behaviorExecutionSpecificationMoniker Id="e2c80323-23b8-425a-aed5-a846f0b59818" LastKnownName="BehaviorExecutionSpecification2" />
+              <behaviorExecutionSpecificationMoniker Id="e1f736d3-2729-4b78-becc-2ca5fda592e5" LastKnownName="BehaviorExecutionSpecification3" />
+              <behaviorExecutionSpecificationMoniker Id="07f4b201-8032-40bb-8e24-4aa76ecb9ee3" LastKnownName="BehaviorExecutionSpecification20" />
             </annotatedElements>
           </comment>
           <comment Id="9f9f0aed-59fc-4cf6-9b92-39904f7219b7">
             <elementDefinition Id="5ac76462-8b93-4cf2-84a0-bcc5de262b38" />
-            <body>Bind currentPosition of Player with selected Point of Diagram</body>
+            <body>DataBinding der currentPosition des Players und des ausgewählten Punkts des Diagramms, sodass sich diese gegenseitig updaten</body>
             <annotatedElements>
               <behaviorExecutionSpecificationMoniker Id="b0f7b7e6-b9ee-4362-87a9-e3ff1e1cba20" LastKnownName="BehaviorExecutionSpecification1" />
             </annotatedElements>
+          </comment>
+          <comment Id="2fe26743-a482-4e31-9123-bddf343e3a3c">
+            <elementDefinition Id="7bb1d4ef-79aa-4b5f-9a2a-a3fe69a88f96" />
+            <body>sucht ob für die Einträge in video.extraRessources kompatible Plugins vorhanden sind und listet diese in einer View auf</body>
+            <annotatedElements>
+              <behaviorExecutionSpecificationMoniker Id="86fe93b7-111e-4bdd-ad0b-31a50dd5eed9" LastKnownName="BehaviorExecutionSpecification7" />
+            </annotatedElements>
+          </comment>
+          <comment Id="b25e2790-2e5d-4927-8167-fd6560f35fb2">
+            <elementDefinition Id="adae1a8d-0de2-469d-b66d-72473525d81e" />
+            <body>Video in den Player laden</body>
+          </comment>
+          <comment Id="5b3e4e2b-4008-40fc-8e5e-2531476cce9f">
+            <elementDefinition Id="d0bc7ecf-2b2f-4d03-8230-e03052da0c82" />
+            <body>Diagramm-Daten des Videos in Diagramm laden</body>
           </comment>
         </ownedCommentsInternal>
         <elementDefinition Id="0d1110ef-eeb1-4627-ae4a-92d480336ef1" />
@@ -193,6 +204,41 @@ Assert: isAnalysis == true</body>
           <lostFoundTarget Id="deaf98fa-1c93-4573-ac22-6eea6ecccc63" name="LostFoundTarget2">
             <elementDefinition Id="460ba247-1de9-4566-9ab7-bcd2c17a515c" />
           </lostFoundTarget>
+          <behaviorExecutionSpecification Id="07f4b201-8032-40bb-8e24-4aa76ecb9ee3" name="BehaviorExecutionSpecification20">
+            <elementDefinition Id="f3e69e5a-5f27-469a-9b4a-c70974c16811" />
+            <coveredLifelines>
+              <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="de197720-747f-4860-8e21-a63ad3a4f460" LastKnownName="ExecutionOccurrenceSpecification40" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="46c81006-e985-4941-964b-21881214f1a3" LastKnownName="ExecutionOccurrenceSpecification39" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="002fe4ac-75ac-45b1-b0e6-a1db9d2a6e4f" LastKnownName="MessageOccurrenceSpecification63" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="46c81006-e985-4941-964b-21881214f1a3" name="ExecutionOccurrenceSpecification39">
+            <elementDefinition Id="6ee24ca7-28e7-4e9a-ad19-65628547d54b" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="1f17e8f7-b200-4828-8eb9-e0ba72f85cba" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="002fe4ac-75ac-45b1-b0e6-a1db9d2a6e4f" name="MessageOccurrenceSpecification63">
+            <elementDefinition Id="0a6ea129-9402-44e6-b44b-3fc7970eb535" />
+            <covered>
+              <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <lostFoundTarget Id="52de4c04-f125-4623-9940-a4fb0c5d1040" name="LostFoundTarget3">
+            <elementDefinition Id="c6b77320-067c-4abc-8fe8-20519b5d9315" />
+          </lostFoundTarget>
           <behaviorExecutionSpecification Id="e2c80323-23b8-425a-aed5-a846f0b59818" name="BehaviorExecutionSpecification2">
             <elementDefinition Id="fa17a6f7-b47f-49cb-8ab5-a2b21d0eade7" />
             <coveredLifelines>
@@ -236,6 +282,17 @@ Assert: isAnalysis == true</body>
               <lifelineMoniker Id="cfe933e3-a1a9-41ec-b628-63098cec89b0" LastKnownName="currentPlayer Ref : PP_Player" />
             </covered>
           </executionOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="de197720-747f-4860-8e21-a63ad3a4f460" name="ExecutionOccurrenceSpecification40">
+            <elementDefinition Id="c9affc20-981d-409f-9a8c-e1bc3d097efd" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="4b431fe9-e45f-427a-b79a-d2e4e42b892f" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
+            </covered>
+          </executionOccurrenceSpecification>
           <executionOccurrenceSpecification Id="ce3435f2-d98e-4850-a78a-a1a2ae4e5d66" name="ExecutionOccurrenceSpecification4">
             <elementDefinition Id="c26e71a1-62ce-4e9e-9129-67d6adc38674" />
             <event>
@@ -274,28 +331,28 @@ Assert: isAnalysis == true</body>
               <lifelineMoniker Id="8ab1a4e7-1e6b-4f34-bc22-7b0d50d78f46" LastKnownName="pluginManager : PluginManager" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="2830a89a-0470-49a2-ba80-9f4af0c01cdc" name="MessageOccurrenceSpecification12">
-            <elementDefinition Id="fb79adbe-bc5f-4cdd-8f20-f3cb0dd88198" />
-            <covered>
-              <lifelineMoniker Id="8ab1a4e7-1e6b-4f34-bc22-7b0d50d78f46" LastKnownName="pluginManager : PluginManager" />
-            </covered>
-          </messageOccurrenceSpecification>
           <messageOccurrenceSpecification Id="34cde4d7-4653-43cf-809e-a18cd9de6d4c" name="MessageOccurrenceSpecification11">
             <elementDefinition Id="3e245897-9d39-4c46-99e6-c0a18a669a0a" />
             <covered>
               <lifelineMoniker Id="2c4ffa1d-68ec-41cb-a3e0-4ff87b49d502" LastKnownName="vM_Presentation : VM_Presentation" />
             </covered>
           </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="5dcff7a5-ad1c-4c7f-b1a3-840956c2cd24" name="MessageOccurrenceSpecification14">
-            <elementDefinition Id="a7a6b842-5462-4280-9f97-2bf731d02c0e" />
+          <messageOccurrenceSpecification Id="2830a89a-0470-49a2-ba80-9f4af0c01cdc" name="MessageOccurrenceSpecification12">
+            <elementDefinition Id="fb79adbe-bc5f-4cdd-8f20-f3cb0dd88198" />
             <covered>
-              <lifelineMoniker Id="2c4ffa1d-68ec-41cb-a3e0-4ff87b49d502" LastKnownName="vM_Presentation : VM_Presentation" />
+              <lifelineMoniker Id="8ab1a4e7-1e6b-4f34-bc22-7b0d50d78f46" LastKnownName="pluginManager : PluginManager" />
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification Id="7addf506-863e-4095-a9a7-70ad06a4fa6b" name="MessageOccurrenceSpecification13">
             <elementDefinition Id="5f7bf754-bdc4-4be4-a746-cf0344aad1bf" />
             <covered>
               <lifelineMoniker Id="8ab1a4e7-1e6b-4f34-bc22-7b0d50d78f46" LastKnownName="pluginManager : PluginManager" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="5dcff7a5-ad1c-4c7f-b1a3-840956c2cd24" name="MessageOccurrenceSpecification14">
+            <elementDefinition Id="a7a6b842-5462-4280-9f97-2bf731d02c0e" />
+            <covered>
+              <lifelineMoniker Id="2c4ffa1d-68ec-41cb-a3e0-4ff87b49d502" LastKnownName="vM_Presentation : VM_Presentation" />
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification Id="2128a13c-9a91-4042-ba07-7e40059bca7c" name="ExecutionOccurrenceSpecification12">
@@ -328,8 +385,6 @@ Assert: isAnalysis == true</body>
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker Id="b71d9286-ba5c-4ec6-8639-6a0f7df6f783" LastKnownName="MessageOccurrenceSpecification16" />
-              <messageOccurrenceSpecificationMoniker Id="d312f319-ff51-44f8-89eb-18571a93f068" LastKnownName="MessageOccurrenceSpecification7" />
-              <messageOccurrenceSpecificationMoniker Id="1a96f0bc-334a-4737-bbdd-1022b3a738bf" LastKnownName="MessageOccurrenceSpecification10" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification Id="822f94d4-5286-4623-80ad-f4c71e62a030" name="ExecutionOccurrenceSpecification13">
@@ -349,68 +404,6 @@ Assert: isAnalysis == true</body>
               <lifelineMoniker Id="2c4ffa1d-68ec-41cb-a3e0-4ff87b49d502" LastKnownName="vM_Presentation : VM_Presentation" />
             </covered>
           </messageOccurrenceSpecification>
-          <behaviorExecutionSpecification Id="544ea1de-7b44-4318-beed-140d9a0db85c" name="BehaviorExecutionSpecification5">
-            <elementDefinition Id="e880680d-9512-4b70-8ff5-765cc43679b0" />
-            <coveredLifelines>
-              <lifelineMoniker Id="8ab1a4e7-1e6b-4f34-bc22-7b0d50d78f46" LastKnownName="pluginManager : PluginManager" />
-            </coveredLifelines>
-            <finish>
-              <executionOccurrenceSpecificationMoniker Id="91ba1b3b-5d45-4d5f-b0f3-4e0102ff02fe" LastKnownName="ExecutionOccurrenceSpecification10" />
-            </finish>
-            <start>
-              <executionOccurrenceSpecificationMoniker Id="02cfbcc7-ae2f-446e-8ccf-6da354966443" LastKnownName="ExecutionOccurrenceSpecification9" />
-            </start>
-            <nestedOccurrences>
-              <messageOccurrenceSpecificationMoniker Id="9bc3e742-5811-46ac-ba7b-9d8175c412b3" LastKnownName="MessageOccurrenceSpecification8" />
-              <messageOccurrenceSpecificationMoniker Id="22a32446-194e-4ed5-8589-01af9f16610c" LastKnownName="MessageOccurrenceSpecification9" />
-            </nestedOccurrences>
-          </behaviorExecutionSpecification>
-          <executionOccurrenceSpecification Id="02cfbcc7-ae2f-446e-8ccf-6da354966443" name="ExecutionOccurrenceSpecification9">
-            <elementDefinition Id="1e407341-10ca-4835-9453-0125d377904a" />
-            <event>
-              <executionOccurrenceSpecificationReferencesEvent>
-                <executionEventMoniker Id="026da83b-d764-4523-9d7f-095acf794ba3" LastKnownName="ExecutionEvent" />
-              </executionOccurrenceSpecificationReferencesEvent>
-            </event>
-            <covered>
-              <lifelineMoniker Id="8ab1a4e7-1e6b-4f34-bc22-7b0d50d78f46" LastKnownName="pluginManager : PluginManager" />
-            </covered>
-          </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="9bc3e742-5811-46ac-ba7b-9d8175c412b3" name="MessageOccurrenceSpecification8">
-            <elementDefinition Id="1c144fc2-6932-4233-9be5-b218610a1835" />
-            <covered>
-              <lifelineMoniker Id="8ab1a4e7-1e6b-4f34-bc22-7b0d50d78f46" LastKnownName="pluginManager : PluginManager" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="d312f319-ff51-44f8-89eb-18571a93f068" name="MessageOccurrenceSpecification7">
-            <elementDefinition Id="e7c87063-ee4f-48cf-8f76-baa42b55eeb1" />
-            <covered>
-              <lifelineMoniker Id="2c4ffa1d-68ec-41cb-a3e0-4ff87b49d502" LastKnownName="vM_Presentation : VM_Presentation" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="1a96f0bc-334a-4737-bbdd-1022b3a738bf" name="MessageOccurrenceSpecification10">
-            <elementDefinition Id="e4a92d64-7b71-454b-9633-30b8f5ddafec" />
-            <covered>
-              <lifelineMoniker Id="2c4ffa1d-68ec-41cb-a3e0-4ff87b49d502" LastKnownName="vM_Presentation : VM_Presentation" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="22a32446-194e-4ed5-8589-01af9f16610c" name="MessageOccurrenceSpecification9">
-            <elementDefinition Id="f08afdf7-6d02-4b98-9171-510095881b06" />
-            <covered>
-              <lifelineMoniker Id="8ab1a4e7-1e6b-4f34-bc22-7b0d50d78f46" LastKnownName="pluginManager : PluginManager" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <executionOccurrenceSpecification Id="91ba1b3b-5d45-4d5f-b0f3-4e0102ff02fe" name="ExecutionOccurrenceSpecification10">
-            <elementDefinition Id="5eda338a-c847-4af0-9a69-3af0d48784f5" />
-            <event>
-              <executionOccurrenceSpecificationReferencesEvent>
-                <executionEventMoniker Id="488362c8-a70e-4221-a8c5-e78339329bc7" LastKnownName="ExecutionEvent" />
-              </executionOccurrenceSpecificationReferencesEvent>
-            </event>
-            <covered>
-              <lifelineMoniker Id="8ab1a4e7-1e6b-4f34-bc22-7b0d50d78f46" LastKnownName="pluginManager : PluginManager" />
-            </covered>
-          </executionOccurrenceSpecification>
           <executionOccurrenceSpecification Id="9f4d62e8-bbd5-42f7-b00b-6643a36209dd" name="ExecutionOccurrenceSpecification14">
             <elementDefinition Id="5533841a-6e3d-42cd-95b1-aaac368a132f" />
             <event>
@@ -506,16 +499,16 @@ Assert: isAnalysis == true</body>
               <lifelineMoniker Id="bd61644b-e1eb-4d7e-84c9-c8b308220d31" LastKnownName="video : Video" />
             </covered>
           </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="68a9a6ba-4530-4b1d-af9a-52dddb75fdfe" name="MessageOccurrenceSpecification24">
-            <elementDefinition Id="140527b8-32d6-43f1-b654-928beb5d3bcf" />
-            <covered>
-              <lifelineMoniker Id="cfe933e3-a1a9-41ec-b628-63098cec89b0" LastKnownName="currentPlayer Ref : PP_Player" />
-            </covered>
-          </messageOccurrenceSpecification>
           <messageOccurrenceSpecification Id="79eafae7-f400-470c-8aa7-073fad2bd144" name="MessageOccurrenceSpecification23">
             <elementDefinition Id="3999bdd7-a95f-4702-96b7-533e8bcfea1a" />
             <covered>
               <lifelineMoniker Id="bd61644b-e1eb-4d7e-84c9-c8b308220d31" LastKnownName="video : Video" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="68a9a6ba-4530-4b1d-af9a-52dddb75fdfe" name="MessageOccurrenceSpecification24">
+            <elementDefinition Id="140527b8-32d6-43f1-b654-928beb5d3bcf" />
+            <covered>
+              <lifelineMoniker Id="cfe933e3-a1a9-41ec-b628-63098cec89b0" LastKnownName="currentPlayer Ref : PP_Player" />
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification Id="6bad4172-29fb-4121-8361-77c06b04c800" name="ExecutionOccurrenceSpecification18">
@@ -556,28 +549,28 @@ Assert: isAnalysis == true</body>
               <lifelineMoniker Id="55c4f555-98a1-48fc-8679-431e40e0076d" LastKnownName="videoSource : VideoSource" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="ddc0a167-bffe-4c2a-8575-1dfed21259a7" name="MessageOccurrenceSpecification26">
-            <elementDefinition Id="0b0af5b7-a4de-4a61-8ef2-fc5b81ff16fa" />
-            <covered>
-              <lifelineMoniker Id="55c4f555-98a1-48fc-8679-431e40e0076d" LastKnownName="videoSource : VideoSource" />
-            </covered>
-          </messageOccurrenceSpecification>
           <messageOccurrenceSpecification Id="00e4c7d8-767c-4096-b867-eff23b3200b4" name="MessageOccurrenceSpecification25">
             <elementDefinition Id="a8b0c538-a600-4d23-ab66-2c184a3ec89f" />
             <covered>
               <lifelineMoniker Id="cfe933e3-a1a9-41ec-b628-63098cec89b0" LastKnownName="currentPlayer Ref : PP_Player" />
             </covered>
           </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="e7723e05-1b2f-4443-af7c-dab9a765a87f" name="MessageOccurrenceSpecification28">
-            <elementDefinition Id="368d3cb3-a4dc-4583-b590-c8af457422b5" />
+          <messageOccurrenceSpecification Id="ddc0a167-bffe-4c2a-8575-1dfed21259a7" name="MessageOccurrenceSpecification26">
+            <elementDefinition Id="0b0af5b7-a4de-4a61-8ef2-fc5b81ff16fa" />
             <covered>
-              <lifelineMoniker Id="cfe933e3-a1a9-41ec-b628-63098cec89b0" LastKnownName="currentPlayer Ref : PP_Player" />
+              <lifelineMoniker Id="55c4f555-98a1-48fc-8679-431e40e0076d" LastKnownName="videoSource : VideoSource" />
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification Id="559e9cdb-5cd8-42ca-bc93-ff4c27aa759d" name="MessageOccurrenceSpecification27">
             <elementDefinition Id="6bae93ad-5bf7-4975-af1d-d0656e431036" />
             <covered>
               <lifelineMoniker Id="55c4f555-98a1-48fc-8679-431e40e0076d" LastKnownName="videoSource : VideoSource" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="e7723e05-1b2f-4443-af7c-dab9a765a87f" name="MessageOccurrenceSpecification28">
+            <elementDefinition Id="368d3cb3-a4dc-4583-b590-c8af457422b5" />
+            <covered>
+              <lifelineMoniker Id="cfe933e3-a1a9-41ec-b628-63098cec89b0" LastKnownName="currentPlayer Ref : PP_Player" />
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification Id="46554597-de9f-46ad-acff-80332155c2a5" name="ExecutionOccurrenceSpecification20">
@@ -618,16 +611,16 @@ Assert: isAnalysis == true</body>
               <lifelineMoniker Id="8f3418b9-0eb3-4a3c-93fc-14d7950ae83a" LastKnownName="videoSourcePlayer : VideoSourcePlayer" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="7a70d446-1c93-4597-a9dc-fd01e4bd0d51" name="MessageOccurrenceSpecification34">
-            <elementDefinition Id="7afddd7f-1169-4ed5-8f0e-d36f2da2c2d4" />
-            <covered>
-              <lifelineMoniker Id="8f3418b9-0eb3-4a3c-93fc-14d7950ae83a" LastKnownName="videoSourcePlayer : VideoSourcePlayer" />
-            </covered>
-          </messageOccurrenceSpecification>
           <messageOccurrenceSpecification Id="e698010a-4794-4568-8533-2451c36b62da" name="MessageOccurrenceSpecification33">
             <elementDefinition Id="083b16e4-e6ec-4198-b06b-4523e46d5ea0" />
             <covered>
               <lifelineMoniker Id="cfe933e3-a1a9-41ec-b628-63098cec89b0" LastKnownName="currentPlayer Ref : PP_Player" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="7a70d446-1c93-4597-a9dc-fd01e4bd0d51" name="MessageOccurrenceSpecification34">
+            <elementDefinition Id="7afddd7f-1169-4ed5-8f0e-d36f2da2c2d4" />
+            <covered>
+              <lifelineMoniker Id="8f3418b9-0eb3-4a3c-93fc-14d7950ae83a" LastKnownName="videoSourcePlayer : VideoSourcePlayer" />
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification Id="fed68307-ab0f-433c-aea8-539319283b76" name="MessageOccurrenceSpecification35">
@@ -653,16 +646,16 @@ Assert: isAnalysis == true</body>
               <lifelineMoniker Id="8f3418b9-0eb3-4a3c-93fc-14d7950ae83a" LastKnownName="videoSourcePlayer : VideoSourcePlayer" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="f601c840-ca9d-4374-a1d8-bbab1456d6ae" name="MessageOccurrenceSpecification20">
-            <elementDefinition Id="0d8e880b-0cfc-4d63-9187-4eb6ccf8a7d4" />
-            <covered>
-              <lifelineMoniker Id="2c4ffa1d-68ec-41cb-a3e0-4ff87b49d502" LastKnownName="vM_Presentation : VM_Presentation" />
-            </covered>
-          </messageOccurrenceSpecification>
           <messageOccurrenceSpecification Id="af01eb1a-16ba-4c87-b304-8774fc7ea736" name="MessageOccurrenceSpecification19">
             <elementDefinition Id="bc1ff76d-a087-49b1-821f-a141b1acf6b6" />
             <covered>
               <lifelineMoniker Id="cfe933e3-a1a9-41ec-b628-63098cec89b0" LastKnownName="currentPlayer Ref : PP_Player" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="f601c840-ca9d-4374-a1d8-bbab1456d6ae" name="MessageOccurrenceSpecification20">
+            <elementDefinition Id="0d8e880b-0cfc-4d63-9187-4eb6ccf8a7d4" />
+            <covered>
+              <lifelineMoniker Id="2c4ffa1d-68ec-41cb-a3e0-4ff87b49d502" LastKnownName="vM_Presentation : VM_Presentation" />
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification Id="b59a51ee-4953-430f-97b5-7ca02fe3172a" name="ExecutionOccurrenceSpecification16">
@@ -712,16 +705,16 @@ Assert: isAnalysis == true</body>
               <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="3afb210f-6e56-46eb-bf09-3216b340edfd" name="MessageOccurrenceSpecification38">
-            <elementDefinition Id="fcf3bb83-f513-49a4-993b-82a23164d086" />
-            <covered>
-              <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
-            </covered>
-          </messageOccurrenceSpecification>
           <messageOccurrenceSpecification Id="12d512a2-ce8d-4db8-96bd-8b1845de34c3" name="MessageOccurrenceSpecification37">
             <elementDefinition Id="bec9c939-c4bd-48a7-b664-4b7b71816bd7" />
             <covered>
               <lifelineMoniker Id="2c4ffa1d-68ec-41cb-a3e0-4ff87b49d502" LastKnownName="vM_Presentation : VM_Presentation" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="3afb210f-6e56-46eb-bf09-3216b340edfd" name="MessageOccurrenceSpecification38">
+            <elementDefinition Id="fcf3bb83-f513-49a4-993b-82a23164d086" />
+            <covered>
+              <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
             </covered>
           </messageOccurrenceSpecification>
           <behaviorExecutionSpecification Id="fed63d24-ad6a-4203-89a4-83766df5e998" name="BehaviorExecutionSpecification15">
@@ -763,16 +756,16 @@ Assert: isAnalysis == true</body>
               <lifelineMoniker Id="0a40b3aa-62af-4c4b-a973-81adc7d33c30" LastKnownName="plot : OxyPlot::PlotModel" />
             </covered>
           </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="68f6e456-8a05-48ef-ae1c-b93c9f6791e8" name="MessageOccurrenceSpecification48">
-            <elementDefinition Id="e614387a-e795-469a-98ec-7dcdf5b9d659" />
-            <covered>
-              <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
-            </covered>
-          </messageOccurrenceSpecification>
           <messageOccurrenceSpecification Id="ae746241-7f42-492c-b13c-1e6af54eecee" name="MessageOccurrenceSpecification47">
             <elementDefinition Id="12b0f5fb-8c23-4d05-aa08-e30fa14875cb" />
             <covered>
               <lifelineMoniker Id="0a40b3aa-62af-4c4b-a973-81adc7d33c30" LastKnownName="plot : OxyPlot::PlotModel" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="68f6e456-8a05-48ef-ae1c-b93c9f6791e8" name="MessageOccurrenceSpecification48">
+            <elementDefinition Id="e614387a-e795-469a-98ec-7dcdf5b9d659" />
+            <covered>
+              <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification Id="3609a0c0-fe34-4aef-b331-be38d6e40e05" name="ExecutionOccurrenceSpecification30">
@@ -816,7 +809,7 @@ Assert: isAnalysis == true</body>
                           <lifelineMoniker Id="e420a052-826e-4afb-87e0-7123c4fddd4c" LastKnownName="dataseries : OxyPlot::Series" />
                         </coveredLifelines>
                         <guard>
-                          <interactionConstraint Id="c19a24ee-2d6f-4598-b12d-4a296fa35a1c">
+                          <interactionConstraint Id="c19a24ee-2d6f-4598-b12d-4a296fa35a1c" guardText="für jeden Punkt aus dem Datensatz">
                             <elementDefinition Id="8d3ad3ee-6b8b-4f95-960d-ea2c5ca5ef75" />
                             <maxInt>
                               <literalString Id="7ba06ecf-e98e-4f73-a12f-3b29e287f5b1" name="LiteralString1">
@@ -841,7 +834,7 @@ Assert: isAnalysis == true</body>
                   </combinedFragment>
                 </fragments>
                 <guard>
-                  <interactionConstraint Id="65108580-ecf1-4189-8d67-8875d20adac7">
+                  <interactionConstraint Id="65108580-ecf1-4189-8d67-8875d20adac7" guardText="für jeden Datensatz aus video.frameMetricValues">
                     <elementDefinition Id="691680f9-809c-44a3-be63-e669cc5aede6" />
                     <maxInt>
                       <literalString Id="d2b4a129-b8d4-48ae-9051-1d78cc9f672d" name="LiteralString1">
@@ -872,16 +865,16 @@ Assert: isAnalysis == true</body>
               <lifelineMoniker Id="0a40b3aa-62af-4c4b-a973-81adc7d33c30" LastKnownName="plot : OxyPlot::PlotModel" />
             </covered>
           </operandOccurrenceSpecification>
-          <operandOccurrenceSpecification Id="bd42b080-7642-4225-a6d0-1f49eab41b59" name="OperandOccurrenceSpecification13">
-            <elementDefinition Id="92f1f461-ba4e-4acc-a9cd-98a8e78a5019" />
-            <covered>
-              <lifelineMoniker Id="e420a052-826e-4afb-87e0-7123c4fddd4c" LastKnownName="dataseries : OxyPlot::Series" />
-            </covered>
-          </operandOccurrenceSpecification>
           <operandOccurrenceSpecification Id="31840b3e-0a69-4bee-84c3-24129fb585ec" name="OperandOccurrenceSpecification11">
             <elementDefinition Id="25aa7803-1026-4379-a668-36284d06a96a" />
             <covered>
               <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <operandOccurrenceSpecification Id="bd42b080-7642-4225-a6d0-1f49eab41b59" name="OperandOccurrenceSpecification13">
+            <elementDefinition Id="92f1f461-ba4e-4acc-a9cd-98a8e78a5019" />
+            <covered>
+              <lifelineMoniker Id="e420a052-826e-4afb-87e0-7123c4fddd4c" LastKnownName="dataseries : OxyPlot::Series" />
             </covered>
           </operandOccurrenceSpecification>
           <messageOccurrenceSpecification Id="289025ee-c781-4e18-95ba-0152284c3016" name="MessageOccurrenceSpecification49">
@@ -990,16 +983,16 @@ Assert: isAnalysis == true</body>
               <lifelineMoniker Id="e420a052-826e-4afb-87e0-7123c4fddd4c" LastKnownName="dataseries : OxyPlot::Series" />
             </covered>
           </executionOccurrenceSpecification>
-          <operandOccurrenceSpecification Id="3383c336-bbd4-4c81-b0a7-5756fa698ee9" name="OperandOccurrenceSpecification7">
-            <elementDefinition Id="a0a1d40f-067c-467f-a594-7f19b8c66c35" />
-            <covered>
-              <lifelineMoniker Id="e420a052-826e-4afb-87e0-7123c4fddd4c" LastKnownName="dataseries : OxyPlot::Series" />
-            </covered>
-          </operandOccurrenceSpecification>
           <operandOccurrenceSpecification Id="54ebc986-c7a7-4fff-b58a-902f2b0f2525" name="OperandOccurrenceSpecification9">
             <elementDefinition Id="6e51c7b1-ef53-4e11-b224-ce76e16f44db" />
             <covered>
               <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <operandOccurrenceSpecification Id="3383c336-bbd4-4c81-b0a7-5756fa698ee9" name="OperandOccurrenceSpecification7">
+            <elementDefinition Id="a0a1d40f-067c-467f-a594-7f19b8c66c35" />
+            <covered>
+              <lifelineMoniker Id="e420a052-826e-4afb-87e0-7123c4fddd4c" LastKnownName="dataseries : OxyPlot::Series" />
             </covered>
           </operandOccurrenceSpecification>
           <behaviorExecutionSpecification Id="63a86722-0da0-44f3-b7c7-132a4179f639" name="BehaviorExecutionSpecification19">
@@ -1064,16 +1057,16 @@ Assert: isAnalysis == true</body>
               <lifelineMoniker Id="e420a052-826e-4afb-87e0-7123c4fddd4c" LastKnownName="dataseries : OxyPlot::Series" />
             </covered>
           </executionOccurrenceSpecification>
-          <operandOccurrenceSpecification Id="76a05c53-5917-4b17-8677-83396d673e09" name="OperandOccurrenceSpecification10">
-            <elementDefinition Id="4bb9b661-f046-42d3-929b-1d8039b34405" />
-            <covered>
-              <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
-            </covered>
-          </operandOccurrenceSpecification>
           <operandOccurrenceSpecification Id="c077707e-518d-421d-881c-15d466e77c90" name="OperandOccurrenceSpecification8">
             <elementDefinition Id="ae87c3c5-8c54-4144-9462-812f1ce1a7ba" />
             <covered>
               <lifelineMoniker Id="e420a052-826e-4afb-87e0-7123c4fddd4c" LastKnownName="dataseries : OxyPlot::Series" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <operandOccurrenceSpecification Id="76a05c53-5917-4b17-8677-83396d673e09" name="OperandOccurrenceSpecification10">
+            <elementDefinition Id="4bb9b661-f046-42d3-929b-1d8039b34405" />
+            <covered>
+              <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
             </covered>
           </operandOccurrenceSpecification>
           <executionOccurrenceSpecification Id="02506da6-5a84-4c0f-b13c-d727d183e733" name="ExecutionOccurrenceSpecification32">
@@ -1126,16 +1119,16 @@ Assert: isAnalysis == true</body>
               <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
             </covered>
           </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="8f2b9129-1af6-4857-af1b-ccdaa3c8b1a4" name="MessageOccurrenceSpecification53">
-            <elementDefinition Id="97714735-878e-4c95-bf61-8ed7d6d059f0" />
-            <covered>
-              <lifelineMoniker Id="0a40b3aa-62af-4c4b-a973-81adc7d33c30" LastKnownName="plot : OxyPlot::PlotModel" />
-            </covered>
-          </messageOccurrenceSpecification>
           <messageOccurrenceSpecification Id="7c5943c2-3b37-43df-9ab5-88b75bc576a4" name="MessageOccurrenceSpecification54">
             <elementDefinition Id="02825bc2-83ca-4fe6-bf04-8e7698d0a6ff" />
             <covered>
               <lifelineMoniker Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" LastKnownName="currentDiagram : PP_Diagram" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="8f2b9129-1af6-4857-af1b-ccdaa3c8b1a4" name="MessageOccurrenceSpecification53">
+            <elementDefinition Id="97714735-878e-4c95-bf61-8ed7d6d059f0" />
+            <covered>
+              <lifelineMoniker Id="0a40b3aa-62af-4c4b-a973-81adc7d33c30" LastKnownName="plot : OxyPlot::PlotModel" />
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification Id="b4740c2e-0b55-4019-9028-d638afa066b1" name="ExecutionOccurrenceSpecification34">
@@ -1213,13 +1206,6 @@ Assert: isAnalysis == true</body>
               <executionOccurrenceSpecificationMoniker Id="d3774d20-7717-4653-8587-99bd61deeeda" LastKnownName="ExecutionOccurrenceSpecification2" />
             </topLevelOccurrences>
           </lifeline>
-          <lifeline Id="bd61644b-e1eb-4d7e-84c9-c8b308220d31" name="video : Video" isActor="false" lifelineDisplayName="video : Video">
-            <elementDefinition Id="f00586ba-3679-4788-a95b-81a3687eeb2d" />
-            <topLevelOccurrences>
-              <executionOccurrenceSpecificationMoniker Id="161d8945-9f27-40a0-ae6b-0295c8ad4549" LastKnownName="ExecutionOccurrenceSpecification17" />
-              <executionOccurrenceSpecificationMoniker Id="6bad4172-29fb-4121-8361-77c06b04c800" LastKnownName="ExecutionOccurrenceSpecification18" />
-            </topLevelOccurrences>
-          </lifeline>
           <lifeline Id="8ab1a4e7-1e6b-4f34-bc22-7b0d50d78f46" name="pluginManager : PluginManager" isActor="false" lifelineDisplayName="pluginManager : PluginManager">
             <elementDefinition Id="c9d3c316-6d4a-4650-a341-027e5379fec9" />
             <represents>
@@ -1228,8 +1214,13 @@ Assert: isAnalysis == true</body>
             <topLevelOccurrences>
               <executionOccurrenceSpecificationMoniker Id="270debc4-aff9-4115-af78-c1e32388f02b" LastKnownName="ExecutionOccurrenceSpecification11" />
               <executionOccurrenceSpecificationMoniker Id="2128a13c-9a91-4042-ba07-7e40059bca7c" LastKnownName="ExecutionOccurrenceSpecification12" />
-              <executionOccurrenceSpecificationMoniker Id="02cfbcc7-ae2f-446e-8ccf-6da354966443" LastKnownName="ExecutionOccurrenceSpecification9" />
-              <executionOccurrenceSpecificationMoniker Id="91ba1b3b-5d45-4d5f-b0f3-4e0102ff02fe" LastKnownName="ExecutionOccurrenceSpecification10" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline Id="bd61644b-e1eb-4d7e-84c9-c8b308220d31" name="video : Video" isActor="false" lifelineDisplayName="video : Video">
+            <elementDefinition Id="f00586ba-3679-4788-a95b-81a3687eeb2d" />
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker Id="161d8945-9f27-40a0-ae6b-0295c8ad4549" LastKnownName="ExecutionOccurrenceSpecification17" />
+              <executionOccurrenceSpecificationMoniker Id="6bad4172-29fb-4121-8361-77c06b04c800" LastKnownName="ExecutionOccurrenceSpecification18" />
             </topLevelOccurrences>
           </lifeline>
           <lifeline Id="cfe933e3-a1a9-41ec-b628-63098cec89b0" name="currentPlayer Ref : PP_Player" isActor="false" lifelineDisplayName="currentPlayer Ref : PP_Player">
@@ -1258,6 +1249,8 @@ Assert: isAnalysis == true</body>
           <lifeline Id="b3b82db0-86b9-4917-af54-c0d0beb4c9f2" name="currentDiagram : PP_Diagram" isActor="false" lifelineDisplayName="currentDiagram : PP_Diagram">
             <elementDefinition Id="16b4b009-83d3-4490-8f54-037c7109ff90" />
             <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker Id="46c81006-e985-4941-964b-21881214f1a3" LastKnownName="ExecutionOccurrenceSpecification39" />
+              <executionOccurrenceSpecificationMoniker Id="de197720-747f-4860-8e21-a63ad3a4f460" LastKnownName="ExecutionOccurrenceSpecification40" />
               <executionOccurrenceSpecificationMoniker Id="64782160-a1f4-4068-9251-ba616ec814d4" LastKnownName="ExecutionOccurrenceSpecification25" />
               <executionOccurrenceSpecificationMoniker Id="681a3cc7-cbb8-40d8-8793-1a7febe2f357" LastKnownName="ExecutionOccurrenceSpecification26" />
             </topLevelOccurrences>
@@ -1340,24 +1333,6 @@ Assert: isAnalysis == true</body>
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker Id="b71d9286-ba5c-4ec6-8639-6a0f7df6f783" LastKnownName="MessageOccurrenceSpecification16" />
-            </receiveEvent>
-          </message>
-          <message Id="87f26a9c-5d3f-4214-9130-506b5cbd0306" name="getPluginNames(PluginType.Presentation)" messageKind="Complete" messageSort="SynchCall" createSelfMessage="false">
-            <elementDefinition Id="332331bf-a706-42be-ab49-cad8e1f42e42" />
-            <sendEvent>
-              <messageOccurrenceSpecificationMoniker Id="d312f319-ff51-44f8-89eb-18571a93f068" LastKnownName="MessageOccurrenceSpecification7" />
-            </sendEvent>
-            <receiveEvent>
-              <messageOccurrenceSpecificationMoniker Id="9bc3e742-5811-46ac-ba7b-9d8175c412b3" LastKnownName="MessageOccurrenceSpecification8" />
-            </receiveEvent>
-          </message>
-          <message Id="73fbcff7-2c53-4870-87e5-abfb12f2f781" name="&lt;&lt;List&lt;string&gt; pluginNames&gt;&gt;" messageKind="Complete" messageSort="Reply" createSelfMessage="false">
-            <elementDefinition Id="b4145826-3f26-458f-8470-bd75005af3ea" />
-            <sendEvent>
-              <messageOccurrenceSpecificationMoniker Id="22a32446-194e-4ed5-8589-01af9f16610c" LastKnownName="MessageOccurrenceSpecification9" />
-            </sendEvent>
-            <receiveEvent>
-              <messageOccurrenceSpecificationMoniker Id="1a96f0bc-334a-4737-bbdd-1022b3a738bf" LastKnownName="MessageOccurrenceSpecification10" />
             </receiveEvent>
           </message>
           <message Id="3993fa93-244f-4c11-9f04-7a04a1028b4a" name="setVideo(e.Video)" messageKind="Complete" messageSort="SynchCall" createSelfMessage="false">
@@ -1531,6 +1506,15 @@ Assert: isAnalysis == true</body>
               <messageOccurrenceSpecificationMoniker Id="7c5943c2-3b37-43df-9ab5-88b75bc576a4" LastKnownName="MessageOccurrenceSpecification54" />
             </receiveEvent>
           </message>
+          <message Id="27bfce33-bf8b-4fd7-a0c8-a4f060b30389" name="onFlushPresentationPlugins(object sender, EventArgs e)" messageKind="Found" messageSort="AsynchCall" createSelfMessage="false">
+            <elementDefinition Id="1d467a09-0625-4257-b6c6-162487e9877e" />
+            <sendEvent>
+              <lostFoundTargetMoniker Id="52de4c04-f125-4623-9940-a4fb0c5d1040" LastKnownName="LostFoundTarget3" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="002fe4ac-75ac-45b1-b0e6-a1db9d2a6e4f" LastKnownName="MessageOccurrenceSpecification63" />
+            </receiveEvent>
+          </message>
         </messages>
         <ownedAttributesInternal>
           <property Id="f4315596-bb6c-4d40-878f-156f7e5fbe6a" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -1606,16 +1590,6 @@ Assert: isAnalysis == true</body>
     <packageHasNamedElement>
       <executionEvent Id="ea68fe30-52d3-43b3-9af4-8140199f3fe6" name="ExecutionEvent">
         <elementDefinition Id="4ac647bc-d4e9-4979-8197-dfec828eff20" />
-      </executionEvent>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent Id="026da83b-d764-4523-9d7f-095acf794ba3" name="ExecutionEvent">
-        <elementDefinition Id="d760ec6e-2739-4147-8f0e-a0a0d85e8afc" />
-      </executionEvent>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent Id="488362c8-a70e-4221-a8c5-e78339329bc7" name="ExecutionEvent">
-        <elementDefinition Id="49d7bd99-9bcc-412e-b98e-4dc2ebbd215b" />
       </executionEvent>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -1716,6 +1690,16 @@ Assert: isAnalysis == true</body>
     <packageHasNamedElement>
       <executionEvent Id="df75bcfc-dae2-4eeb-8625-cefcf8ff12c8" name="ExecutionEvent">
         <elementDefinition Id="71073d3c-8ff5-4ff5-88c9-a857288d32ca" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="1f17e8f7-b200-4828-8eb9-e0ba72f85cba" name="ExecutionEvent">
+        <elementDefinition Id="25475070-62b2-4d6b-bf20-df625edee043" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="4b431fe9-e45f-427a-b79a-d2e4e42b892f" name="ExecutionEvent">
+        <elementDefinition Id="f73d7cfb-821c-4198-8de7-3d78f23fb75a" />
       </executionEvent>
     </packageHasNamedElement>
   </packagedElements>
