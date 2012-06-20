@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="618a2819-6d4c-47e4-bdee-b5d21b55b1a6"
   name="ViewModel" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -2261,7 +2261,7 @@
         <ownedOperationsInternal>
           <operation
             Id="6485c42e-524e-41e3-9870-91de9b765944"
-            name="VM_PluginListsPanel parent)"
+            name="VM_PluginListsPanel"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -2310,6 +2310,15 @@
                 </propertyInstances>
               </stereotypeInstance>
             </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1859774a-b0f8-4c5e-91f1-e33034e3b486"
+                  name="Panel parent"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
           </operation>
           <operation
             Id="ee9ac975-a5a6-492f-98c3-9b7f6b4a94a3"
@@ -2479,6 +2488,25 @@
                 <parameter
                   Id="5f3c6635-2553-426a-bcf0-bdcfb8332c32"
                   name="EventArgs e"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="56338fbc-f0be-473a-aa2e-c00a77258a09"
+            name="fillPluginList"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="54ae7d20-80b2-4269-86e2-d24c41a50bf5"
+                  name="PluginType type"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
@@ -3437,8 +3465,8 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="d9fe2afa-3c66-4fc8-9122-09e7c96e7ed6"
-                  name="Control parent"
+                  Id="a359df2c-28a3-40f0-b0e9-7e371bc336d0"
+                  name="Panel parent"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
@@ -4505,8 +4533,15 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="e6a2ae23-7930-4e8b-b4dd-4ae8e052304d"
+                  Id="f7db6fb9-c7e7-4941-9f65-10f2683d56e9"
                   name="EventType eType"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="71c855c8-77fe-4cc8-85e8-92520bfc982f"
+                  name="EventArgs e"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
