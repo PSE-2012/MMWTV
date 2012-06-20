@@ -1,24 +1,292 @@
 \chapter{Gesamtentwurf}
 
 \section{Model}
-%\begin{figure}[h]
-%\includegraphics[scale=1]{bilder/.png}
-%\label{}
-%\caption{Bildname}}
-%\end{figure}
+
+\subsection{Private Klassen}
+\begin{figure}[h]
+\noindent\includegraphics[width=\linewidth,height=\textheight,
+keepaspectratio]{bilder/Modell1.png}
+\label{Private Model}
+\caption{Model}
+\end{figure}
+
+\class{Project}{class}
+Alle für das Projekt relevanten Daten befinden sich hier. Dies beinhaltet einen Pfad,  einen Namen und eine Beschreibung. IMemorizable wird implementiert.
 
 
+\class{OqatProperties}{class}
+Dies sind die globalen Einstellungen der Anwendung: Sprache sowie Pfad zum Pluginverzeichnis.
+
+
+\class{Caretaker}{class}
+Der Caretaker ist zuständig für das Laden und Speichern von Mementos von und auf die Festplatte.
+Er stellt Methoden bereit, damit andere Klassen Zugriff auf ihre Mementos haben und wird als Singelton realliesiert. Der Caretaker verwaltet eine Tabelle von Strings und dazu gehörigen Listen von Mementos. 
+
+
+\class{SmartNode}{class}
+Videos eines Projektes werden durch die SmartNode in einer Baumstruktur zusammengestellt, um sie dann dem SmartTree der View zur Verfügung zu stellen. Eine SmartNode kann mehrere Kinder-SmartNodes haben.
+
+\pagebreak
+\subsection{Oqat Public Ressources}
+\begin{figure}[h]
+\noindent\includegraphics[width=\linewidth,height=\textheight,
+keepaspectratio]{bilder/Modell2.png}
+\label{}
+\caption{Public Model}
+\end{figure}
+
+
+
+\class{Video}{class}
+Implementiert IMemorizable. Im Video werden ein Pfad zu einer Videodatei, ein Videoinfo-Objekt sowie mögliche Extraressourcen gelegt. Falls es sich um ein Analysevideo handelt, werden zusätzlich entsprechende Daten hier abgelegt.
+
+
+\class{VideoEventArgs}{class}
+Enthält ein Video und ein Boolean, der TRUE ist, falls es sich um ein Referenzvideo handelt. Wird von Events als Argument benutzt.
+
+
+\class{Memento}{class}
+Ein Memento speichert den Zustand eines Objektes im Arbeitsspeicher. Es werden ein Name und gegebenenfalls auch ein Pfad zum Speichern auf die Festplatte bereitgestellt.
+
+
+\class{MementoEventArgs}{class}
+Enthält zwei Strings: Name eines Mementos und Referenz zu einem Plugin. Wird von Events als Argument benutzt.
+
+
+\class{IMemorizable}{class}
+Es wird ermöglicht, den Zustand einer Klasse als Memento zu speichern und vorherige Zustände zu laden.
+
+
+\class{IvideoInfo}{class}
+Falls ein Videoformat Voreinstellungen braucht bietet IVideoInfo die Möglichkeit diese abzulegen.
+
+\pagebreak
 \section{View}
-%\begin{figure}[h]
-%\includegraphics[scale=1]{bilder/.png}
-%\label{}
-%\caption{Bildname}}
-%\end{figure}
 
 
+
+\pagebreak
 \section{ViewModel}
-%\begin{figure}[h]
-%\includegraphics[scale=1]{bilder/.png}
-%\label{}
-%\caption{Bildname}}
-%\end{figure}
+
+\subsection{Oqat Organisation}
+\begin{figure}[h]
+\noindent\includegraphics[width=\linewidth,height=\textheight,
+keepaspectratio]{bilder/VM.png}
+\label{}
+\caption{Oquat Organisation}
+\end{figure}
+
+Alle sichtbaren VM implementieren eine Methode onToggleView, die für den Ansichtswechsel zuständig ist und eventgesteuert funktioniert.
+
+\class{OqatApp}{class}
+Die Klasse wird beim starten des Programms als erstes angesprochen und initialisiert die Anwendung und den Pluginmanager.
+
+
+\class{VM Oqat}{class}
+Diese initialisiert die ViewModel Komponenten. Dazu gehören Willkommensbildschirm, das Projekt, Menü, Presentation und die Pluginlisten. Die Klasse stellt auch eine Delegatemethode zur Ansichtswechsel bereit.
+
+
+\class{VM Menu}{class}
+Dieses ViewModel ist für die Verwaltung der Menüleiste und der Menüitems zuständig.
+
+
+\class{VM Pluginlists}{class}
+Die Pluginlist verwaltet die hinzugefügten Metriken und Filter, sowie die anderen Plugins. Er kann die Events entryClick und entrySelect abfangen. Bei entryClick wird ein Filter oder eine Metrik vom Container ausgewählt und die zugehörigen Einstellungen angezeigt. Bei entrySelect wird der ausgewählte Filter oder Metrik zu einer Makrowarteschlange hinzugefügt. VM Pluginlists stellt eine Delegatemethode bereit, die neuerstellte Mementos nach dem Abfangen des jeweiligen Events zu dem jeweiligen Plugincontainer hinzufügt.
+
+
+\class{VM Welcome}{class}
+Ist der Willkommensbildschirm, der beim Programmstart die zuletzt benutzten Projekte anzeigt.
+
+
+\class{VM OptionsDialog}{class}
+Optionsfenster für allgemeine Einstellungen von Oqat.
+
+
+\class{VM Presentation}{class}
+Der zentrale Visualisierungsbereich wird hiermit verwaltet. Dazu nutzt es die Presentationplugins und bietet die Möglichkeit, den angezeigten Bereich in den Originalzustand zu versetzen.
+
+\class{VM ProjectExplorer}
+Besteht aus einem SmartTree und einem Dateiexplorer, um diese in der GUI bereitzustellen. Er kann durch den Dateiexplorer Events zum Auswählen und Laden von Videodateien ins Projekt abfangen.
+
+
+\class{ViewTypeEventArgs}{class}
+Enthält ein Objekt vom Typ ViewType. Wird von Events als Argument benutzt.
+
+
+\class{projectEventArgs}{class}
+Enthält ein Objekt vom Typ Projekt. Wird von Events als Argument benutzt.
+
+
+\class{ViewType}{Enumeration}
+In dieser Enum sind die verschiedenen Typen von Ansichten aufgelistet.
+
+
+\pagebreak
+\subsection{Macro}
+\begin{figure}[h]
+\noindent\includegraphics[width=\linewidth,height=\textheight,
+keepaspectratio]{bilder/Macro.png}
+\label{}
+\caption{Macro}
+\end{figure}
+
+
+\class{VM Macro}{class}
+Legt fest, was bei einem Macro-bezogenen Event passiert. VM Macro kann Events vom Typ onEntrySelect, onMacroSave, onStartProcess und onToggleView abfangen. OnEntrySelect dient zur Auswahl von Filtern oder Metriken, die zum Macro zugefügt werden. OnMacroSave dient zum Speichern des Macrofilters. OnStartProcess startet den Macrofilter oder –analysevorgang. VM Macro enthält als Attribute ein Objekt vom Typ Macro, ein Objekt vom Typ Viewtype sowie Referenzen zu Videoobjekten.
+
+
+\class{Macro}{class}
+Enthält eine Liste von MacroEntry-Objekten und implementiert IMacro.
+
+
+\class{PF MacroMetric}{class}
+Erbt von Macro, implementiert IMacro und IMetricOqat. Diese Klasse bietet Methoden zur Analyse von Frames bzw. Videos an. Die Liste von MacroEntry-Objekten enthält in diesem Fall Referenzen zu Metriken, die durch diese Methoden angewandt werden können.
+
+
+\class{PF MacroFilter}{class}
+Erbt von Macro, implementiert IFilterOqat. Die Liste von MacroEntry-Objekten enthält in diesem Fall Referenzen zu Filtern, die von einem MacroFilter durch die jeweiligen Methoden der Klasse PF MacroFilter auf Bilder bzw. ganze Videos angewandt werden können.
+
+
+\class{ExtraResourcesEventArgs}{class}
+Enthält Pfad zu Extraressourcen sowie deren Typ. Wird von Events als Argument benutzt.
+
+\pagebreak
+\section{Plugins}
+\subsection{Präsentation}
+\begin{figure}[h]
+\noindent\includegraphics[width=\linewidth,height=\textheight,
+keepaspectratio]{bilder/oqatpresentation.png}
+\label{}
+\caption{Presentation}
+\end{figure}
+
+\class{PP Player}{class}
+Stellt einen Container dem VideoSourcePlayer zur Verfügung. Lädt und entfernt die Videos, die von dem VideoSourcePlayer gezeigt werden sollen.
+
+
+\class{PP Diagramm}{class}
+Stellt Oxyplot einen Container zum Zeichnen von Diagrammen zur Verfügung. Lädt und entfernt Videos, deren Attributen dann im Diagramm dargestellt werden können.
+
+
+\class{VideoSource}{class}
+Implementiert IVideoSource von AForge. Implementiert Methoden zum Abspielen eines Videos.
+
+
+\class{PP DatPlayer}{class}
+Erbt von PP Player und bietet dem VideoSourcePlayer die Möglichkeit, MotionVektoren als Overlays darstellen.
+
+
+\pagebreak
+\subsection{VideoHandler}
+\begin{figure}[h]
+\noindent\includegraphics[width=\linewidth,height=\textheight,
+keepaspectratio]{bilder/YuvvideoHandler.png}
+\label{}
+\caption{VideoHandler}
+\end{figure}
+
+\class{PS YuvVideoHandler}{class}
+Erbt von IVideoHandler. Der YuvVideoHandler holt sich die Frames von einem YUV-Video bzw. schreibt sie wieder in das Video.
+
+\class{YuvVideoInfo}{class}
+Enthält Informationen, die benötigt werden, um ein YUV-Video abzuspielen: Anzahl Bilder und Auflösung.
+
+\class{VM Properties YuvVideoHandler}{class}
+
+\pagebreak
+\subsection{Filter}
+Die Plugins vom Typ Filter enthalten die jeweilige Arithmetik für den jeweiligen Filter. Spezielle Filter wie z.B. Blur werden als Memento abgelegt. Die dazugehörige VM kontrolliert das Einstellungsfenster der Mementos. Es wird IFilterOqat  implementiert.
+\begin{figure}[h]
+\noindent\includegraphics[width=\linewidth,height=\textheight,
+keepaspectratio]{bilder/filter.png}
+\label{}
+\caption{Filter}
+\end{figure}
+
+
+\pagebreak
+\subsection{Metric}
+Die Plugins vom Typ Metric enthalten die jeweilige Arithmetik für die jeweilige Metrik. Es wird IMetricOqat implementiert.
+\begin{figure}[h]
+\noindent\includegraphics[width=\linewidth,height=\textheight,
+keepaspectratio]{bilder/metrik.png}
+\label{}
+\caption{Metric}
+\end{figure}
+
+\pagebreak
+\subsection{Oqat Public Ressources}
+\begin{figure}[h]
+\noindent\includegraphics[width=\linewidth,height=\textheight,
+keepaspectratio]{bilder/publicPlugins.png}
+\label{}
+\caption{Public Plugins}
+\end{figure}
+
+\class{IPlugin}{Interface}
+Jede Klasse, die ein Plugin ist, muss dieses Interface Implementieren. Namenattribut, Plugintypattribut und Methoden zur Verwaltung von Events (mittels Tabellen von EventTypen und den zugehörigen Delegatemethoden bzw. Eventobjekten) werden dann von Iplugin geerbt. IPlugin implementiert IMemorizable.
+
+
+\class{IPresentation}{Interface}
+Implementiert das IPlugin Interface. Plugins vom Typ Presentation müssen dieses Interface implementieren. IPresentation bietet Methoden, um ein Video zu laden oder entfernen, und legt fest, was beim Entladen von Presentationplugins passiert.
+
+
+\class{IMetricOqat}{Interface}
+Implementiert das IPlugin Interface. Metriken müssen dieses Interface umsetzen. Es bietet eine Methode an, die für zwei Bitmap-Objekte ein IAnalysisInfo-Objekt zurückgibt.
+
+
+\class{IFilterOqat}{Interface}
+Implementiert das IPlugin Interface. Filterplugins müssen dieses Interface umsetzten. Es bietet eine Methode zur Bearbeitung von Bildern an, die ein Bitmap annimmt und wieder ein Bitmap zurückgibt.
+
+
+\class{IVideoHandler}{Interface}
+Implementiert das IPlugin Interface. Das Interface stellt Methoden zur Verfügung, die mit Frames in einem Video umgehen, indem man den Methoden eine Framenummer übergibt. Es bietet eine Methode an, mit der man sich einen bestimmten Frame holen kann, sowie eine Methode, an die man eine Framenummer und ein Offset übergibt und sich somit einen Array von Frames (Bitmaps) aus einem Video holt. Analog funktionieren die Methoden zum überschreiben von Frames.
+
+
+\class{IMacro}{class}
+Implementiert das IPlugin Interface. Ein Objekt vom Typ Macro muss dieses Interface implementieren. Es verwaltet eine Liste von Objekten vom Typ MacroEntry und bietet eine Methode, die aus so einer Liste und einem beliebigen Namen ein Memento-Objekt erstellen kann.
+
+
+\class{MacroEntryFilter}{class}
+
+
+
+\class{MacroEntry}{class}
+
+
+
+\class{AnalysisInfo}{class}
+Eine Metrik schreibt ihre Ergebnisse zuerst in ein AnalysisInfo-Objekt, damit dann später in das neue Video die Daten eingetragen werden können.
+
+
+\class{PluginType}{Enumeration}
+Typen von Plugins
+
+
+\class{PresentationPluginType}{Enumeration}
+Typen von Presentationplugins
+
+
+\class{EventType}{Enumeration}
+Typen von Events
+
+
+\pagebreak
+\subsection{Externe Klassen}
+\begin{figure}[h]
+\includegraphics[scale=1]{bilder/rest.png}
+\label{}
+\caption{Public Plugins}
+\end{figure}
+\class{SystemCollection}{Klasse}
+
+
+\class{System EventArgs}{Klasse}
+
+
+\class{VideoSourcePlayer}{Klasse}
+Der bereitgestellte Videoplayer von aForge.
+
+
+\class{IVideoSource}{Interface}
+Videoobjekte de vom aForge Player wiedergegeben werden sollen müssen dieses Interface implementieren.
