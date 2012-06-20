@@ -10486,12 +10486,6 @@
             Id="eda05d88-f669-41c4-9e2c-b2d356dea102">
             <body>Video-Datei wurde über ProjectExplorer auf der Festplatte ausgewählt.
 vidImportOptionsDialog erfragt nötige Angaben</body>
-            <annotatedElements>
-              <behaviorExecutionSpecificationMoniker
-                Id="83a3de47-d1c9-4371-9ccc-8842243a001d"
-                LastKnownName="BehaviorExecutionSpecification37"
-                LastKnownLocation="Entwurf.uml" />
-            </annotatedElements>
           </comment>
           <comment
             Id="5e4ae850-c84d-4ee0-b7b7-84985e09e5c9">
@@ -10506,10 +10500,10 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
           </comment>
           <comment
             Id="26441e57-ebfc-4306-b0c9-9caa5306f1ab">
-            <body>Der passende VideoHandler darf eine View einblenden, um nötige Angaben zu erfragen</body>
+            <body>Der passende VideoHandler darf eine View einblenden, um nötige Angaben zu erfragen (z.B. Auflösung)</body>
             <annotatedElements>
               <behaviorExecutionSpecificationMoniker
-                Id="18501299-8235-4812-891a-11200b1683bc"
+                Id="677fa5be-dc6e-43fc-b165-f3b773bce6ba"
                 LastKnownName="BehaviorExecutionSpecification50"
                 LastKnownLocation="Entwurf.uml" />
             </annotatedElements>
@@ -10519,7 +10513,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             <body>enthält das erstellte Video</body>
             <annotatedElements>
               <behaviorExecutionSpecificationMoniker
-                Id="59160557-037d-4e40-b985-661cac2d0bfe"
+                Id="cbd51495-f4bc-4d1f-8aa2-110faf54b5f4"
                 LastKnownName="BehaviorExecutionSpecification54"
                 LastKnownLocation="Entwurf.uml" />
             </annotatedElements>
@@ -10533,10 +10527,94 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
                 LastKnownLocation="Entwurf.uml" />
             </annotatedElements>
           </comment>
+          <comment
+            Id="b206725d-825b-40f1-81bc-984fec20ce07">
+            <body>ggf. werden weitere Details - insbesondere ExtraResources wie MotionVector-Dateien zu video hinzugefügt</body>
+            <annotatedElements>
+              <behaviorExecutionSpecificationMoniker
+                Id="ab6817e5-677f-49d2-9213-2017bb8d77ca"
+                LastKnownName="BehaviorExecutionSpecification51"
+                LastKnownLocation="Entwurf.uml" />
+            </annotatedElements>
+          </comment>
         </ownedCommentsInternal>
         <fragments>
+          <messageOccurrenceSpecification
+            Id="49eb4491-ac3a-4a5f-8eb6-3e6c9155a2a0"
+            name="MessageOccurrenceSpecification177">
+            <covered>
+              <lifelineMoniker
+                Id="76f4d3bc-da7d-4134-af72-48443c32ee7f"
+                LastKnownName="vM_ProjectExplorer : VM_ProjectExplorer"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
-            Id="83a3de47-d1c9-4371-9ccc-8842243a001d"
+            Id="8dbce473-8a3e-441c-ac20-460a44e02b81"
+            name="BehaviorExecutionSpecification55">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="76f4d3bc-da7d-4134-af72-48443c32ee7f"
+                LastKnownName="vM_ProjectExplorer : VM_ProjectExplorer"
+                LastKnownLocation="Entwurf.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="8d74b445-b279-4ba6-988b-85d73af85513"
+                LastKnownName="ExecutionOccurrenceSpecification110"
+                LastKnownLocation="Entwurf.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="937a6b8a-7742-47c6-884a-c45f0a3dfe98"
+                LastKnownName="ExecutionOccurrenceSpecification109"
+                LastKnownLocation="Entwurf.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="62e17681-3697-46dd-9655-bbd26b0302fa"
+                LastKnownName="MessageOccurrenceSpecification178"
+                LastKnownLocation="Entwurf.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="19d8af89-d4a4-41a9-be1f-091b6d36d4d7"
+                LastKnownName="MessageOccurrenceSpecification115"
+                LastKnownLocation="Entwurf.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="0eeba573-806b-462f-b2a1-695a1ad8d136"
+                LastKnownName="MessageOccurrenceSpecification118"
+                LastKnownLocation="Entwurf.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="937a6b8a-7742-47c6-884a-c45f0a3dfe98"
+            name="ExecutionOccurrenceSpecification109">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="63e81867-8015-4bbd-9b0c-0d9b3580a77f"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Entwurf.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="76f4d3bc-da7d-4134-af72-48443c32ee7f"
+                LastKnownName="vM_ProjectExplorer : VM_ProjectExplorer"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="62e17681-3697-46dd-9655-bbd26b0302fa"
+            name="MessageOccurrenceSpecification178">
+            <covered>
+              <lifelineMoniker
+                Id="76f4d3bc-da7d-4134-af72-48443c32ee7f"
+                LastKnownName="vM_ProjectExplorer : VM_ProjectExplorer"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="31d3cffc-bc1a-4e71-8e58-67f6cc1f74a4"
             name="BehaviorExecutionSpecification37">
             <coveredLifelines>
               <lifelineMoniker
@@ -10546,70 +10624,70 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </coveredLifelines>
             <finish>
               <executionOccurrenceSpecificationMoniker
-                Id="38866658-17f4-462b-afc0-8186b5fe93f4"
+                Id="b918969f-c097-4149-8754-989fbc68cfa3"
                 LastKnownName="ExecutionOccurrenceSpecification74"
                 LastKnownLocation="Entwurf.uml" />
             </finish>
             <start>
               <executionOccurrenceSpecificationMoniker
-                Id="bf842049-41cb-4ef4-accc-7a7f7339c4e2"
+                Id="7eef6e32-f4c1-476b-b51f-a0a825eb1746"
                 LastKnownName="ExecutionOccurrenceSpecification73"
                 LastKnownLocation="Entwurf.uml" />
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="7d43a466-a41f-492c-ac5b-5bfc420fe51b"
+                Id="daeec465-3306-4919-a379-76dd3c032dab"
                 LastKnownName="MessageOccurrenceSpecification116"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="f9336022-adf4-4d3c-9684-fb802b8f1b80"
+                Id="6cf6216e-96fd-4562-b006-9f7223fd4e8e"
                 LastKnownName="MessageOccurrenceSpecification153"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="d34ba288-a8cb-44a8-8f59-6cd0f4f41843"
+                Id="e1a65df0-3c66-44d8-8f23-5308d0693ab7"
                 LastKnownName="MessageOccurrenceSpecification156"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="e902cd37-a8e3-4fd7-8ccd-27474ca05bc9"
+                Id="50202d8f-8bc1-4e25-b8ea-e58979c8b394"
                 LastKnownName="MessageOccurrenceSpecification137"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="20015ace-02d8-4ac8-99ea-8b2040aeefdc"
+                Id="3de75abb-aeae-4e6a-996d-c298c45f8a1d"
                 LastKnownName="MessageOccurrenceSpecification140"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="3eb32025-6817-4cb3-84ea-7c7acbdadd52"
+                Id="5e8c6a35-e534-47e3-8281-fe081c8abb53"
                 LastKnownName="MessageOccurrenceSpecification161"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="4cf1d1ab-e008-4884-8546-bed6a011f139"
+                Id="f2ce63ea-2520-45b2-bf92-8cc72581717b"
                 LastKnownName="MessageOccurrenceSpecification164"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="809bfd90-f703-4e67-b619-0913bed1788d"
+                Id="6b2bb141-5565-43aa-aee3-26159aa4d7ef"
                 LastKnownName="MessageOccurrenceSpecification165"
                 LastKnownLocation="Entwurf.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="ee983402-b2ba-417f-b913-a546ead4debb"
+                Id="21e443ea-144d-4dd1-9210-f45411d31abb"
                 LastKnownName="ExecutionOccurrenceSpecification101"
                 LastKnownLocation="Entwurf.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="8d8f1674-efa1-4f9c-8cde-2d0e51a8b4ab"
+                Id="81885295-4330-4720-93c1-3a3f5a2cec17"
                 LastKnownName="ExecutionOccurrenceSpecification102"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="0ab90ac3-0d22-47ec-b547-919e16a9ba0f"
+                Id="a0ad8e7d-da4e-415a-9e73-cee4a593800a"
                 LastKnownName="MessageOccurrenceSpecification117"
                 LastKnownLocation="Entwurf.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="bf842049-41cb-4ef4-accc-7a7f7339c4e2"
+            Id="7eef6e32-f4c1-476b-b51f-a0a825eb1746"
             name="ExecutionOccurrenceSpecification73">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="9e6c7178-63dc-457f-a58c-c55aee704857"
+                  Id="b03ba486-bfd9-4d0f-955b-1acc88a15cf2"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -10622,17 +10700,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="86375818-841d-4208-957d-de7b3f5cc19d"
-            name="MessageOccurrenceSpecification115">
-            <covered>
-              <lifelineMoniker
-                Id="76f4d3bc-da7d-4134-af72-48443c32ee7f"
-                LastKnownName="vM_ProjectExplorer : VM_ProjectExplorer"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="7d43a466-a41f-492c-ac5b-5bfc420fe51b"
+            Id="daeec465-3306-4919-a379-76dd3c032dab"
             name="MessageOccurrenceSpecification116">
             <covered>
               <lifelineMoniker
@@ -10641,8 +10709,18 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="19d8af89-d4a4-41a9-be1f-091b6d36d4d7"
+            name="MessageOccurrenceSpecification115">
+            <covered>
+              <lifelineMoniker
+                Id="76f4d3bc-da7d-4134-af72-48443c32ee7f"
+                LastKnownName="vM_ProjectExplorer : VM_ProjectExplorer"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
-            Id="e1d03b20-8f05-46b9-a752-0dcbbc2e1feb"
+            Id="fb40d163-13e9-4363-9c78-3d12b2513afe"
             name="BehaviorExecutionSpecification48">
             <coveredLifelines>
               <lifelineMoniker
@@ -10652,34 +10730,34 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </coveredLifelines>
             <finish>
               <executionOccurrenceSpecificationMoniker
-                Id="11a3cc38-00dd-4035-9c63-87fd40d919e8"
+                Id="6017d814-2196-470d-b64e-da8591f64da9"
                 LastKnownName="ExecutionOccurrenceSpecification96"
                 LastKnownLocation="Entwurf.uml" />
             </finish>
             <start>
               <executionOccurrenceSpecificationMoniker
-                Id="d729a9db-30d9-499e-956e-7d5d84e2b8e8"
+                Id="6ef9e9ca-e193-423c-b4b2-587b71fbb391"
                 LastKnownName="ExecutionOccurrenceSpecification95"
                 LastKnownLocation="Entwurf.uml" />
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="ebcc6eb4-a95a-4ddb-ae1f-f9e1bfb4323d"
+                Id="4fc20f34-8e79-4d09-87aa-e288ebada7b3"
                 LastKnownName="MessageOccurrenceSpecification154"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="66d00144-6e44-4df5-adc9-9651eb6beb5f"
+                Id="fe482f40-574e-4452-a589-0a3b9f509ce0"
                 LastKnownName="MessageOccurrenceSpecification155"
                 LastKnownLocation="Entwurf.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="d729a9db-30d9-499e-956e-7d5d84e2b8e8"
+            Id="6ef9e9ca-e193-423c-b4b2-587b71fbb391"
             name="ExecutionOccurrenceSpecification95">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="b1fcd606-e118-47f2-9ab1-2da7cae86cee"
+                  Id="3217197f-199d-4d1f-be2b-67dd01dcc61a"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -10692,17 +10770,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="f9336022-adf4-4d3c-9684-fb802b8f1b80"
-            name="MessageOccurrenceSpecification153">
-            <covered>
-              <lifelineMoniker
-                Id="fc376793-2b3f-4163-8efd-5b9f10d53d22"
-                LastKnownName="vM_VidImportOptionsDialog : VM_VidImportOptionsDialog"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="ebcc6eb4-a95a-4ddb-ae1f-f9e1bfb4323d"
+            Id="4fc20f34-8e79-4d09-87aa-e288ebada7b3"
             name="MessageOccurrenceSpecification154">
             <covered>
               <lifelineMoniker
@@ -10712,7 +10780,17 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="66d00144-6e44-4df5-adc9-9651eb6beb5f"
+            Id="6cf6216e-96fd-4562-b006-9f7223fd4e8e"
+            name="MessageOccurrenceSpecification153">
+            <covered>
+              <lifelineMoniker
+                Id="fc376793-2b3f-4163-8efd-5b9f10d53d22"
+                LastKnownName="vM_VidImportOptionsDialog : VM_VidImportOptionsDialog"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="fe482f40-574e-4452-a589-0a3b9f509ce0"
             name="MessageOccurrenceSpecification155">
             <covered>
               <lifelineMoniker
@@ -10722,7 +10800,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="d34ba288-a8cb-44a8-8f59-6cd0f4f41843"
+            Id="e1a65df0-3c66-44d8-8f23-5308d0693ab7"
             name="MessageOccurrenceSpecification156">
             <covered>
               <lifelineMoniker
@@ -10732,12 +10810,12 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="11a3cc38-00dd-4035-9c63-87fd40d919e8"
+            Id="6017d814-2196-470d-b64e-da8591f64da9"
             name="ExecutionOccurrenceSpecification96">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="6f102fbc-12e6-4bca-afca-e30ecd9661c8"
+                  Id="117c834b-d0c8-4fe8-ac3a-e4bd60c9b56d"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -10750,7 +10828,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <behaviorExecutionSpecification
-            Id="4e23a1b6-2f7f-4ffc-8ef2-0268607b4b78"
+            Id="ec76e983-e8bc-4051-9252-bdbfcd4a16eb"
             name="BehaviorExecutionSpecification43">
             <coveredLifelines>
               <lifelineMoniker
@@ -10760,34 +10838,34 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </coveredLifelines>
             <finish>
               <executionOccurrenceSpecificationMoniker
-                Id="97778918-248f-432a-a6be-e5931907acb5"
+                Id="1b4281bf-20d0-467f-8e1b-a431d97051f9"
                 LastKnownName="ExecutionOccurrenceSpecification86"
                 LastKnownLocation="Entwurf.uml" />
             </finish>
             <start>
               <executionOccurrenceSpecificationMoniker
-                Id="bb85d719-bf99-4f6d-a8a2-2d226c3155b8"
+                Id="3627c2d9-ba14-4cbd-addc-a0d7d65104a2"
                 LastKnownName="ExecutionOccurrenceSpecification85"
                 LastKnownLocation="Entwurf.uml" />
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="ea75e662-c6fd-4678-97d7-644268332847"
+                Id="b9efb451-3f56-41d5-b53d-d3e78b59c361"
                 LastKnownName="MessageOccurrenceSpecification138"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="190bdc0b-41fb-4474-8f85-4327eb306df2"
+                Id="9f1a9fd1-d490-4ea8-b397-5ad1c8352f51"
                 LastKnownName="MessageOccurrenceSpecification139"
                 LastKnownLocation="Entwurf.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="bb85d719-bf99-4f6d-a8a2-2d226c3155b8"
+            Id="3627c2d9-ba14-4cbd-addc-a0d7d65104a2"
             name="ExecutionOccurrenceSpecification85">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="488b9133-20de-4425-918d-42b01dfee3ee"
+                  Id="cbd5af41-29df-45a7-8c12-1f6cfeb42fba"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -10800,17 +10878,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="e902cd37-a8e3-4fd7-8ccd-27474ca05bc9"
-            name="MessageOccurrenceSpecification137">
-            <covered>
-              <lifelineMoniker
-                Id="fc376793-2b3f-4163-8efd-5b9f10d53d22"
-                LastKnownName="vM_VidImportOptionsDialog : VM_VidImportOptionsDialog"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="ea75e662-c6fd-4678-97d7-644268332847"
+            Id="b9efb451-3f56-41d5-b53d-d3e78b59c361"
             name="MessageOccurrenceSpecification138">
             <covered>
               <lifelineMoniker
@@ -10820,7 +10888,17 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="20015ace-02d8-4ac8-99ea-8b2040aeefdc"
+            Id="50202d8f-8bc1-4e25-b8ea-e58979c8b394"
+            name="MessageOccurrenceSpecification137">
+            <covered>
+              <lifelineMoniker
+                Id="fc376793-2b3f-4163-8efd-5b9f10d53d22"
+                LastKnownName="vM_VidImportOptionsDialog : VM_VidImportOptionsDialog"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="3de75abb-aeae-4e6a-996d-c298c45f8a1d"
             name="MessageOccurrenceSpecification140">
             <covered>
               <lifelineMoniker
@@ -10830,7 +10908,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="190bdc0b-41fb-4474-8f85-4327eb306df2"
+            Id="9f1a9fd1-d490-4ea8-b397-5ad1c8352f51"
             name="MessageOccurrenceSpecification139">
             <covered>
               <lifelineMoniker
@@ -10840,12 +10918,12 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="97778918-248f-432a-a6be-e5931907acb5"
+            Id="1b4281bf-20d0-467f-8e1b-a431d97051f9"
             name="ExecutionOccurrenceSpecification86">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="5c6cda61-e273-4eb6-89ce-c3a97f57268b"
+                  Id="baef6a00-d777-4a15-a5e0-7a074fe9c764"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -10858,7 +10936,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <behaviorExecutionSpecification
-            Id="18501299-8235-4812-891a-11200b1683bc"
+            Id="677fa5be-dc6e-43fc-b165-f3b773bce6ba"
             name="BehaviorExecutionSpecification50">
             <coveredLifelines>
               <lifelineMoniker
@@ -10868,34 +10946,34 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </coveredLifelines>
             <finish>
               <executionOccurrenceSpecificationMoniker
-                Id="72b257c0-496f-4e04-8373-92433497587e"
+                Id="b21b7928-6fc8-42d5-89d8-648387b69a67"
                 LastKnownName="ExecutionOccurrenceSpecification100"
                 LastKnownLocation="Entwurf.uml" />
             </finish>
             <start>
               <executionOccurrenceSpecificationMoniker
-                Id="5eafff76-e793-4647-adcf-1a842dd2b2b7"
+                Id="353fa72c-add9-4014-91aa-35745cf7d791"
                 LastKnownName="ExecutionOccurrenceSpecification99"
                 LastKnownLocation="Entwurf.uml" />
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="0f6507db-29eb-4cc7-914b-9b949157926b"
+                Id="81c10ac1-a02f-4c57-8a0f-a1866c9205fc"
                 LastKnownName="MessageOccurrenceSpecification162"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="afc73085-f579-42d3-a759-71c9ed117af8"
+                Id="77ca6487-01cb-4e7e-a3e9-a5f23720244c"
                 LastKnownName="MessageOccurrenceSpecification163"
                 LastKnownLocation="Entwurf.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="5eafff76-e793-4647-adcf-1a842dd2b2b7"
+            Id="353fa72c-add9-4014-91aa-35745cf7d791"
             name="ExecutionOccurrenceSpecification99">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="06eb6919-05cc-4aff-a40e-6959ff4415f1"
+                  Id="738e223a-8b6c-4a1f-b6fc-834fbe818ce0"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -10908,7 +10986,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="0f6507db-29eb-4cc7-914b-9b949157926b"
+            Id="81c10ac1-a02f-4c57-8a0f-a1866c9205fc"
             name="MessageOccurrenceSpecification162">
             <covered>
               <lifelineMoniker
@@ -10918,7 +10996,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="3eb32025-6817-4cb3-84ea-7c7acbdadd52"
+            Id="5e8c6a35-e534-47e3-8281-fe081c8abb53"
             name="MessageOccurrenceSpecification161">
             <covered>
               <lifelineMoniker
@@ -10928,7 +11006,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="4cf1d1ab-e008-4884-8546-bed6a011f139"
+            Id="f2ce63ea-2520-45b2-bf92-8cc72581717b"
             name="MessageOccurrenceSpecification164">
             <covered>
               <lifelineMoniker
@@ -10938,7 +11016,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="afc73085-f579-42d3-a759-71c9ed117af8"
+            Id="77ca6487-01cb-4e7e-a3e9-a5f23720244c"
             name="MessageOccurrenceSpecification163">
             <covered>
               <lifelineMoniker
@@ -10948,12 +11026,12 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="72b257c0-496f-4e04-8373-92433497587e"
+            Id="b21b7928-6fc8-42d5-89d8-648387b69a67"
             name="ExecutionOccurrenceSpecification100">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="d9596099-8669-4bf8-ad74-b4cd09a1907a"
+                  Id="5269e8bf-282e-4779-bbd0-f850b5a166e8"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -10966,7 +11044,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="809bfd90-f703-4e67-b619-0913bed1788d"
+            Id="6b2bb141-5565-43aa-aee3-26159aa4d7ef"
             name="MessageOccurrenceSpecification165">
             <covered>
               <lifelineMoniker
@@ -10976,7 +11054,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
-            Id="5e9c4170-e022-481a-b3d1-e8ee147903f8"
+            Id="ab6817e5-677f-49d2-9213-2017bb8d77ca"
             name="BehaviorExecutionSpecification51">
             <coveredLifelines>
               <lifelineMoniker
@@ -10986,58 +11064,58 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </coveredLifelines>
             <finish>
               <executionOccurrenceSpecificationMoniker
-                Id="8d8f1674-efa1-4f9c-8cde-2d0e51a8b4ab"
+                Id="81885295-4330-4720-93c1-3a3f5a2cec17"
                 LastKnownName="ExecutionOccurrenceSpecification102"
                 LastKnownLocation="Entwurf.uml" />
             </finish>
             <start>
               <executionOccurrenceSpecificationMoniker
-                Id="ee983402-b2ba-417f-b913-a546ead4debb"
+                Id="21e443ea-144d-4dd1-9210-f45411d31abb"
                 LastKnownName="ExecutionOccurrenceSpecification101"
                 LastKnownLocation="Entwurf.uml" />
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="3287d74e-98d5-4177-8955-54e4efe12953"
+                Id="31b0cae3-ec57-4dd0-9b4e-7ca098d1bf18"
                 LastKnownName="MessageOccurrenceSpecification166"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="1f893166-e1de-467d-808a-d10f3cd88997"
+                Id="4f5e7f90-583c-4a4b-afc1-b8a8a11a529c"
                 LastKnownName="MessageOccurrenceSpecification123"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="5885cfb7-1ded-4463-85ac-800ffef8a387"
+                Id="e5e3d37c-cf39-4ed7-b90b-b8a52ce66955"
                 LastKnownName="MessageOccurrenceSpecification126"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="7f4309c7-754b-464d-b91a-9a7e6653967d"
+                Id="8a70ffd1-1501-4207-938f-bf6ff0be4d15"
                 LastKnownName="MessageOccurrenceSpecification167"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="d5b68c04-961a-43a6-ac62-443a5aacd11d"
+                Id="99800bd4-859e-49e6-9ab9-be35db3813ef"
                 LastKnownName="MessageOccurrenceSpecification170"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="8c3cd3ca-e221-4547-8307-a7b5b63fd871"
+                Id="6435b7d1-68a6-47f6-bf14-78a056e9156c"
                 LastKnownName="MessageOccurrenceSpecification173"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="276127c8-f219-4ed2-b328-f979d6f844bb"
+                Id="a41fca21-de4a-4bcc-a446-92a88a252221"
                 LastKnownName="MessageOccurrenceSpecification176"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="8ac4539a-cf0c-4de0-aa64-ebbc8beecb36"
+                Id="2bc0f5eb-9bc6-403e-8477-148aa5dee0c0"
                 LastKnownName="MessageOccurrenceSpecification171"
                 LastKnownLocation="Entwurf.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="ee983402-b2ba-417f-b913-a546ead4debb"
+            Id="21e443ea-144d-4dd1-9210-f45411d31abb"
             name="ExecutionOccurrenceSpecification101">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="e81e045c-94b9-4669-ba23-e4b17edf1349"
+                  Id="1847cc7a-7f4f-477b-a08a-f70c05e95825"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -11050,7 +11128,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="3287d74e-98d5-4177-8955-54e4efe12953"
+            Id="31b0cae3-ec57-4dd0-9b4e-7ca098d1bf18"
             name="MessageOccurrenceSpecification166">
             <covered>
               <lifelineMoniker
@@ -11060,7 +11138,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
-            Id="44c627cc-8f19-479b-b4ac-90ccd4e6e097"
+            Id="f415da81-8727-4302-9abd-398cab8c3348"
             name="BehaviorExecutionSpecification39">
             <coveredLifelines>
               <lifelineMoniker
@@ -11070,42 +11148,42 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </coveredLifelines>
             <finish>
               <executionOccurrenceSpecificationMoniker
-                Id="f5306548-7423-48c2-a4f6-66d95e068706"
+                Id="e4f83f11-0171-4fc2-8563-416fefd126f1"
                 LastKnownName="ExecutionOccurrenceSpecification78"
                 LastKnownLocation="Entwurf.uml" />
             </finish>
             <start>
               <executionOccurrenceSpecificationMoniker
-                Id="335693f8-8a82-43c7-ae8a-08bdea532794"
+                Id="1f3e2703-80f6-4d4e-b2a2-49b776904ebb"
                 LastKnownName="ExecutionOccurrenceSpecification77"
                 LastKnownLocation="Entwurf.uml" />
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="5e741c6e-2193-41e4-ad68-c834ff58802b"
+                Id="650b1472-e8b4-4a66-ab74-1c0a0b9fb05f"
                 LastKnownName="MessageOccurrenceSpecification124"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="6637a9c3-4fb9-4db2-854b-075169c49898"
+                Id="6925ed73-976b-487e-a105-f01add8f8899"
                 LastKnownName="MessageOccurrenceSpecification129"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="19b87eb0-6871-4329-a776-fa620acc935c"
+                Id="e179828d-e1a8-4602-bc14-6263ceaa33dd"
                 LastKnownName="MessageOccurrenceSpecification132"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="5702ef5a-790a-4ed7-8058-e72e3bbaa5a3"
+                Id="4e9926e2-e891-4e8e-9481-705976732f32"
                 LastKnownName="MessageOccurrenceSpecification125"
                 LastKnownLocation="Entwurf.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="335693f8-8a82-43c7-ae8a-08bdea532794"
+            Id="1f3e2703-80f6-4d4e-b2a2-49b776904ebb"
             name="ExecutionOccurrenceSpecification77">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="39fbf54b-142c-4180-99da-8403fda040a3"
+                  Id="54e8bda4-6bc2-4a53-8dcd-91008a69dcd7"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -11118,7 +11196,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="1f893166-e1de-467d-808a-d10f3cd88997"
+            Id="4f5e7f90-583c-4a4b-afc1-b8a8a11a529c"
             name="MessageOccurrenceSpecification123">
             <covered>
               <lifelineMoniker
@@ -11128,7 +11206,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="5e741c6e-2193-41e4-ad68-c834ff58802b"
+            Id="650b1472-e8b4-4a66-ab74-1c0a0b9fb05f"
             name="MessageOccurrenceSpecification124">
             <covered>
               <lifelineMoniker
@@ -11138,7 +11216,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
-            Id="8e6c8666-1733-4b83-a286-c9bba180f231"
+            Id="0899a6a3-3328-4324-8f33-04fec02e7d25"
             name="BehaviorExecutionSpecification41">
             <coveredLifelines>
               <lifelineMoniker
@@ -11148,34 +11226,34 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </coveredLifelines>
             <finish>
               <executionOccurrenceSpecificationMoniker
-                Id="6c03c348-1f32-4667-88fd-8bd482da5f7d"
+                Id="3c5f1d16-6238-4f5a-8a84-1a3e6cbfa645"
                 LastKnownName="ExecutionOccurrenceSpecification82"
                 LastKnownLocation="Entwurf.uml" />
             </finish>
             <start>
               <executionOccurrenceSpecificationMoniker
-                Id="156bc772-8b71-4406-8472-dcca7ccea33c"
+                Id="d6d5fc51-6afe-41ea-ab63-de342b1424bd"
                 LastKnownName="ExecutionOccurrenceSpecification81"
                 LastKnownLocation="Entwurf.uml" />
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="89fbb287-b5cf-4b0a-a51e-4d8391fb2fa6"
+                Id="75afffc2-3909-4e28-8077-bd177e4c3c4f"
                 LastKnownName="MessageOccurrenceSpecification130"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="b5db9771-2385-47fc-83e1-27468439cde1"
+                Id="1412c7ef-765c-45d0-9d46-c7ab40dfda99"
                 LastKnownName="MessageOccurrenceSpecification131"
                 LastKnownLocation="Entwurf.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="156bc772-8b71-4406-8472-dcca7ccea33c"
+            Id="d6d5fc51-6afe-41ea-ab63-de342b1424bd"
             name="ExecutionOccurrenceSpecification81">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="fa4d5af5-cb74-47b4-8145-603e0625ee1f"
+                  Id="289f8af5-4522-4486-952d-df36af621ed6"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -11188,17 +11266,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="6637a9c3-4fb9-4db2-854b-075169c49898"
-            name="MessageOccurrenceSpecification129">
-            <covered>
-              <lifelineMoniker
-                Id="f91f6d42-9f78-407a-9599-5d345fa58492"
-                LastKnownName="pS_YuvVideoHandler : PS_YuvVideoHandler"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="89fbb287-b5cf-4b0a-a51e-4d8391fb2fa6"
+            Id="75afffc2-3909-4e28-8077-bd177e4c3c4f"
             name="MessageOccurrenceSpecification130">
             <covered>
               <lifelineMoniker
@@ -11208,17 +11276,17 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="b5db9771-2385-47fc-83e1-27468439cde1"
-            name="MessageOccurrenceSpecification131">
+            Id="6925ed73-976b-487e-a105-f01add8f8899"
+            name="MessageOccurrenceSpecification129">
             <covered>
               <lifelineMoniker
-                Id="16d5bffb-d4af-4505-ba05-f3c0744d924e"
-                LastKnownName="yuvVideoInfo : YuvVideoInfo"
+                Id="f91f6d42-9f78-407a-9599-5d345fa58492"
+                LastKnownName="pS_YuvVideoHandler : PS_YuvVideoHandler"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="19b87eb0-6871-4329-a776-fa620acc935c"
+            Id="e179828d-e1a8-4602-bc14-6263ceaa33dd"
             name="MessageOccurrenceSpecification132">
             <covered>
               <lifelineMoniker
@@ -11227,13 +11295,23 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="1412c7ef-765c-45d0-9d46-c7ab40dfda99"
+            name="MessageOccurrenceSpecification131">
+            <covered>
+              <lifelineMoniker
+                Id="16d5bffb-d4af-4505-ba05-f3c0744d924e"
+                LastKnownName="yuvVideoInfo : YuvVideoInfo"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="6c03c348-1f32-4667-88fd-8bd482da5f7d"
+            Id="3c5f1d16-6238-4f5a-8a84-1a3e6cbfa645"
             name="ExecutionOccurrenceSpecification82">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="dd48cee7-5189-4856-9551-5451af3db1bb"
+                  Id="8b77750d-e0c7-4030-9629-1ee2c3856648"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -11246,7 +11324,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="5702ef5a-790a-4ed7-8058-e72e3bbaa5a3"
+            Id="4e9926e2-e891-4e8e-9481-705976732f32"
             name="MessageOccurrenceSpecification125">
             <covered>
               <lifelineMoniker
@@ -11256,7 +11334,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="5885cfb7-1ded-4463-85ac-800ffef8a387"
+            Id="e5e3d37c-cf39-4ed7-b90b-b8a52ce66955"
             name="MessageOccurrenceSpecification126">
             <covered>
               <lifelineMoniker
@@ -11266,12 +11344,12 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="f5306548-7423-48c2-a4f6-66d95e068706"
+            Id="e4f83f11-0171-4fc2-8563-416fefd126f1"
             name="ExecutionOccurrenceSpecification78">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="2e425994-339d-40b9-a8a6-ca69f3d50a4d"
+                  Id="1f12ec5a-6809-4f32-93a5-592499838185"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -11284,7 +11362,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <behaviorExecutionSpecification
-            Id="381d7fbc-7229-436e-8bc8-10bea42c4f38"
+            Id="0dcbcd8e-3522-4e16-892a-4e57e832856c"
             name="BehaviorExecutionSpecification52">
             <coveredLifelines>
               <lifelineMoniker
@@ -11294,34 +11372,34 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </coveredLifelines>
             <finish>
               <executionOccurrenceSpecificationMoniker
-                Id="21ab0982-adc3-4553-99ba-832b423d6171"
+                Id="39f574d1-8a6d-4a1f-961e-4c59a4aa0db4"
                 LastKnownName="ExecutionOccurrenceSpecification104"
                 LastKnownLocation="Entwurf.uml" />
             </finish>
             <start>
               <executionOccurrenceSpecificationMoniker
-                Id="d96c90bf-2fbb-4b22-a3a8-440077b763c0"
+                Id="9c81f46a-d112-485e-8910-d8f77591765a"
                 LastKnownName="ExecutionOccurrenceSpecification103"
                 LastKnownLocation="Entwurf.uml" />
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="b92bdf2c-10e8-48af-9f51-13691b133584"
+                Id="0d3f1eb7-67f8-4468-9822-ab258fc6a82b"
                 LastKnownName="MessageOccurrenceSpecification168"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="b7547b3d-8982-464e-95f5-f8c0d5945ff1"
+                Id="d25aeb9d-b171-4b56-a4bd-c38e8dd909ba"
                 LastKnownName="MessageOccurrenceSpecification169"
                 LastKnownLocation="Entwurf.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="d96c90bf-2fbb-4b22-a3a8-440077b763c0"
+            Id="9c81f46a-d112-485e-8910-d8f77591765a"
             name="ExecutionOccurrenceSpecification103">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="015d2dc5-baed-48e4-a2d2-a32a62b0580d"
+                  Id="5f35cb88-78f7-4f17-9189-278db0797ba1"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -11334,7 +11412,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="b92bdf2c-10e8-48af-9f51-13691b133584"
+            Id="0d3f1eb7-67f8-4468-9822-ab258fc6a82b"
             name="MessageOccurrenceSpecification168">
             <covered>
               <lifelineMoniker
@@ -11344,7 +11422,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="7f4309c7-754b-464d-b91a-9a7e6653967d"
+            Id="8a70ffd1-1501-4207-938f-bf6ff0be4d15"
             name="MessageOccurrenceSpecification167">
             <covered>
               <lifelineMoniker
@@ -11354,7 +11432,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="b7547b3d-8982-464e-95f5-f8c0d5945ff1"
+            Id="d25aeb9d-b171-4b56-a4bd-c38e8dd909ba"
             name="MessageOccurrenceSpecification169">
             <covered>
               <lifelineMoniker
@@ -11364,7 +11442,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="d5b68c04-961a-43a6-ac62-443a5aacd11d"
+            Id="99800bd4-859e-49e6-9ab9-be35db3813ef"
             name="MessageOccurrenceSpecification170">
             <covered>
               <lifelineMoniker
@@ -11374,12 +11452,12 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="21ab0982-adc3-4553-99ba-832b423d6171"
+            Id="39f574d1-8a6d-4a1f-961e-4c59a4aa0db4"
             name="ExecutionOccurrenceSpecification104">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="c71ad4ab-5fd6-4a28-85d5-031891becd96"
+                  Id="09d20b87-2d61-48a6-bb0a-2a679d4d9946"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -11392,7 +11470,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <behaviorExecutionSpecification
-            Id="59160557-037d-4e40-b985-661cac2d0bfe"
+            Id="cbd51495-f4bc-4d1f-8aa2-110faf54b5f4"
             name="BehaviorExecutionSpecification54">
             <coveredLifelines>
               <lifelineMoniker
@@ -11402,34 +11480,34 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </coveredLifelines>
             <finish>
               <executionOccurrenceSpecificationMoniker
-                Id="da2d8970-058b-46b7-b7ee-24568459877f"
+                Id="8bf4c889-d1dd-4dde-a69f-09dba8236826"
                 LastKnownName="ExecutionOccurrenceSpecification108"
                 LastKnownLocation="Entwurf.uml" />
             </finish>
             <start>
               <executionOccurrenceSpecificationMoniker
-                Id="e095be31-4978-4b0c-ac70-42f2ba284eb8"
+                Id="fcd4d63a-9ad3-4684-83fa-f74b10aa0f89"
                 LastKnownName="ExecutionOccurrenceSpecification107"
                 LastKnownLocation="Entwurf.uml" />
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="8b43c67c-9428-4c91-861d-2164c3ee58d7"
+                Id="43c215c4-f1b5-4fea-be5a-56c474c530fb"
                 LastKnownName="MessageOccurrenceSpecification174"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="dc2c311d-6f2f-4e07-9715-b6daf21c9394"
+                Id="b454a70f-d66e-4aa7-bf59-57e0651c5524"
                 LastKnownName="MessageOccurrenceSpecification175"
                 LastKnownLocation="Entwurf.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="e095be31-4978-4b0c-ac70-42f2ba284eb8"
+            Id="fcd4d63a-9ad3-4684-83fa-f74b10aa0f89"
             name="ExecutionOccurrenceSpecification107">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="6da42976-1f54-4aed-a2af-968cb73c671d"
+                  Id="d7698fdf-5a77-4ea8-adfc-ffb361b09b20"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -11442,7 +11520,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="8b43c67c-9428-4c91-861d-2164c3ee58d7"
+            Id="43c215c4-f1b5-4fea-be5a-56c474c530fb"
             name="MessageOccurrenceSpecification174">
             <covered>
               <lifelineMoniker
@@ -11452,7 +11530,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="8c3cd3ca-e221-4547-8307-a7b5b63fd871"
+            Id="6435b7d1-68a6-47f6-bf14-78a056e9156c"
             name="MessageOccurrenceSpecification173">
             <covered>
               <lifelineMoniker
@@ -11462,17 +11540,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="276127c8-f219-4ed2-b328-f979d6f844bb"
-            name="MessageOccurrenceSpecification176">
-            <covered>
-              <lifelineMoniker
-                Id="fc376793-2b3f-4163-8efd-5b9f10d53d22"
-                LastKnownName="vM_VidImportOptionsDialog : VM_VidImportOptionsDialog"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="dc2c311d-6f2f-4e07-9715-b6daf21c9394"
+            Id="b454a70f-d66e-4aa7-bf59-57e0651c5524"
             name="MessageOccurrenceSpecification175">
             <covered>
               <lifelineMoniker
@@ -11481,13 +11549,23 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="a41fca21-de4a-4bcc-a446-92a88a252221"
+            name="MessageOccurrenceSpecification176">
+            <covered>
+              <lifelineMoniker
+                Id="fc376793-2b3f-4163-8efd-5b9f10d53d22"
+                LastKnownName="vM_VidImportOptionsDialog : VM_VidImportOptionsDialog"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="da2d8970-058b-46b7-b7ee-24568459877f"
+            Id="8bf4c889-d1dd-4dde-a69f-09dba8236826"
             name="ExecutionOccurrenceSpecification108">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="04822c98-772e-4385-96ed-4c194593fdb9"
+                  Id="93841456-ad6c-479b-a66b-439b7c0c17b6"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -11500,7 +11578,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <behaviorExecutionSpecification
-            Id="1d8decea-56c5-4137-a0ba-052262a20991"
+            Id="36f2bf2e-925c-4f34-8e0b-cec44ff7e012"
             name="BehaviorExecutionSpecification53">
             <coveredLifelines>
               <lifelineMoniker
@@ -11510,30 +11588,30 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </coveredLifelines>
             <finish>
               <executionOccurrenceSpecificationMoniker
-                Id="f952f9e3-94d5-4d77-8f42-be70ee9a46d7"
+                Id="22fbbe79-1ac4-498f-9611-5485803f6a1d"
                 LastKnownName="ExecutionOccurrenceSpecification106"
                 LastKnownLocation="Entwurf.uml" />
             </finish>
             <start>
               <executionOccurrenceSpecificationMoniker
-                Id="d7dd2d44-6680-4bfd-a2dd-f76c538a7f7a"
+                Id="b003b37c-c827-4435-9967-242ab503d68d"
                 LastKnownName="ExecutionOccurrenceSpecification105"
                 LastKnownLocation="Entwurf.uml" />
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="a1b210f6-cf71-45f0-a4bd-201cdc66170f"
+                Id="60b8c602-94be-4995-8730-9a6ee0c44b42"
                 LastKnownName="MessageOccurrenceSpecification172"
                 LastKnownLocation="Entwurf.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="d7dd2d44-6680-4bfd-a2dd-f76c538a7f7a"
+            Id="b003b37c-c827-4435-9967-242ab503d68d"
             name="ExecutionOccurrenceSpecification105">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="1a9fad62-7aee-431f-b6d8-a4d26b3dc3cc"
+                  Id="29487ec7-93be-4542-81a4-0cc5fedc7c95"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -11546,17 +11624,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="8ac4539a-cf0c-4de0-aa64-ebbc8beecb36"
-            name="MessageOccurrenceSpecification171">
-            <covered>
-              <lifelineMoniker
-                Id="fc376793-2b3f-4163-8efd-5b9f10d53d22"
-                LastKnownName="vM_VidImportOptionsDialog : VM_VidImportOptionsDialog"
-                LastKnownLocation="Entwurf.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="a1b210f6-cf71-45f0-a4bd-201cdc66170f"
+            Id="60b8c602-94be-4995-8730-9a6ee0c44b42"
             name="MessageOccurrenceSpecification172">
             <covered>
               <lifelineMoniker
@@ -11565,13 +11633,23 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="2bc0f5eb-9bc6-403e-8477-148aa5dee0c0"
+            name="MessageOccurrenceSpecification171">
+            <covered>
+              <lifelineMoniker
+                Id="fc376793-2b3f-4163-8efd-5b9f10d53d22"
+                LastKnownName="vM_VidImportOptionsDialog : VM_VidImportOptionsDialog"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="8d8f1674-efa1-4f9c-8cde-2d0e51a8b4ab"
+            Id="81885295-4330-4720-93c1-3a3f5a2cec17"
             name="ExecutionOccurrenceSpecification102">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="b1f04e22-5399-401f-a15e-789d9dd566b3"
+                  Id="f694f79a-58bc-40a9-8341-21fd720ae8ec"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -11584,12 +11662,12 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="f952f9e3-94d5-4d77-8f42-be70ee9a46d7"
+            Id="22fbbe79-1ac4-498f-9611-5485803f6a1d"
             name="ExecutionOccurrenceSpecification106">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="f41dcbde-8f2a-4800-9a9f-cab3b65981f8"
+                  Id="fa59f817-2d17-4955-9c41-ae942511a367"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -11602,7 +11680,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="896cdf55-f19f-46a4-bc4b-b77254c04aac"
+            Id="0eeba573-806b-462f-b2a1-695a1ad8d136"
             name="MessageOccurrenceSpecification118">
             <covered>
               <lifelineMoniker
@@ -11612,7 +11690,7 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="0ab90ac3-0d22-47ec-b547-919e16a9ba0f"
+            Id="a0ad8e7d-da4e-415a-9e73-cee4a593800a"
             name="MessageOccurrenceSpecification117">
             <covered>
               <lifelineMoniker
@@ -11622,12 +11700,12 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="38866658-17f4-462b-afc0-8186b5fe93f4"
+            Id="b918969f-c097-4149-8754-989fbc68cfa3"
             name="ExecutionOccurrenceSpecification74">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="7e8e3d95-b533-447f-acd9-2870635924a2"
+                  Id="82dd9e99-ebd6-4de4-bb4b-f5553139d040"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Entwurf.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -11636,6 +11714,24 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
               <lifelineMoniker
                 Id="fc376793-2b3f-4163-8efd-5b9f10d53d22"
                 LastKnownName="vM_VidImportOptionsDialog : VM_VidImportOptionsDialog"
+                LastKnownLocation="Entwurf.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="8d74b445-b279-4ba6-988b-85d73af85513"
+            name="ExecutionOccurrenceSpecification110">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="f83a248f-c350-45f0-ae3a-ce8689530cb8"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Entwurf.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="76f4d3bc-da7d-4134-af72-48443c32ee7f"
+                LastKnownName="vM_ProjectExplorer : VM_ProjectExplorer"
                 LastKnownLocation="Entwurf.uml" />
             </covered>
           </executionOccurrenceSpecification>
@@ -11732,12 +11828,16 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             lifelineDisplayName="vM_ProjectExplorer : VM_ProjectExplorer">
             <topLevelOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="86375818-841d-4208-957d-de7b3f5cc19d"
-                LastKnownName="MessageOccurrenceSpecification115"
+                Id="49eb4491-ac3a-4a5f-8eb6-3e6c9155a2a0"
+                LastKnownName="MessageOccurrenceSpecification177"
                 LastKnownLocation="Entwurf.uml" />
-              <messageOccurrenceSpecificationMoniker
-                Id="896cdf55-f19f-46a4-bc4b-b77254c04aac"
-                LastKnownName="MessageOccurrenceSpecification118"
+              <executionOccurrenceSpecificationMoniker
+                Id="937a6b8a-7742-47c6-884a-c45f0a3dfe98"
+                LastKnownName="ExecutionOccurrenceSpecification109"
+                LastKnownLocation="Entwurf.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="8d74b445-b279-4ba6-988b-85d73af85513"
+                LastKnownName="ExecutionOccurrenceSpecification110"
                 LastKnownLocation="Entwurf.uml" />
               <messageOccurrenceSpecificationMoniker
                 Id="757d7775-5844-4c4f-91d1-132b2656c990"
@@ -11776,11 +11876,11 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </represents>
             <topLevelOccurrences>
               <executionOccurrenceSpecificationMoniker
-                Id="bf842049-41cb-4ef4-accc-7a7f7339c4e2"
+                Id="7eef6e32-f4c1-476b-b51f-a0a825eb1746"
                 LastKnownName="ExecutionOccurrenceSpecification73"
                 LastKnownLocation="Entwurf.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="38866658-17f4-462b-afc0-8186b5fe93f4"
+                Id="b918969f-c097-4149-8754-989fbc68cfa3"
                 LastKnownName="ExecutionOccurrenceSpecification74"
                 LastKnownLocation="Entwurf.uml" />
             </topLevelOccurrences>
@@ -11797,11 +11897,11 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </represents>
             <topLevelOccurrences>
               <executionOccurrenceSpecificationMoniker
-                Id="d96c90bf-2fbb-4b22-a3a8-440077b763c0"
+                Id="9c81f46a-d112-485e-8910-d8f77591765a"
                 LastKnownName="ExecutionOccurrenceSpecification103"
                 LastKnownLocation="Entwurf.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="21ab0982-adc3-4553-99ba-832b423d6171"
+                Id="39f574d1-8a6d-4a1f-961e-4c59a4aa0db4"
                 LastKnownName="ExecutionOccurrenceSpecification104"
                 LastKnownLocation="Entwurf.uml" />
             </topLevelOccurrences>
@@ -11813,11 +11913,11 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             lifelineDisplayName="vidEventArgs : VideoEventArgs">
             <topLevelOccurrences>
               <executionOccurrenceSpecificationMoniker
-                Id="e095be31-4978-4b0c-ac70-42f2ba284eb8"
+                Id="fcd4d63a-9ad3-4684-83fa-f74b10aa0f89"
                 LastKnownName="ExecutionOccurrenceSpecification107"
                 LastKnownLocation="Entwurf.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="da2d8970-058b-46b7-b7ee-24568459877f"
+                Id="8bf4c889-d1dd-4dde-a69f-09dba8236826"
                 LastKnownName="ExecutionOccurrenceSpecification108"
                 LastKnownLocation="Entwurf.uml" />
             </topLevelOccurrences>
@@ -11834,27 +11934,27 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </represents>
             <topLevelOccurrences>
               <executionOccurrenceSpecificationMoniker
-                Id="d729a9db-30d9-499e-956e-7d5d84e2b8e8"
+                Id="6ef9e9ca-e193-423c-b4b2-587b71fbb391"
                 LastKnownName="ExecutionOccurrenceSpecification95"
                 LastKnownLocation="Entwurf.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="11a3cc38-00dd-4035-9c63-87fd40d919e8"
+                Id="6017d814-2196-470d-b64e-da8591f64da9"
                 LastKnownName="ExecutionOccurrenceSpecification96"
                 LastKnownLocation="Entwurf.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="bb85d719-bf99-4f6d-a8a2-2d226c3155b8"
+                Id="3627c2d9-ba14-4cbd-addc-a0d7d65104a2"
                 LastKnownName="ExecutionOccurrenceSpecification85"
                 LastKnownLocation="Entwurf.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="97778918-248f-432a-a6be-e5931907acb5"
+                Id="1b4281bf-20d0-467f-8e1b-a431d97051f9"
                 LastKnownName="ExecutionOccurrenceSpecification86"
                 LastKnownLocation="Entwurf.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="d7dd2d44-6680-4bfd-a2dd-f76c538a7f7a"
+                Id="b003b37c-c827-4435-9967-242ab503d68d"
                 LastKnownName="ExecutionOccurrenceSpecification105"
                 LastKnownLocation="Entwurf.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="f952f9e3-94d5-4d77-8f42-be70ee9a46d7"
+                Id="22fbbe79-1ac4-498f-9611-5485803f6a1d"
                 LastKnownName="ExecutionOccurrenceSpecification106"
                 LastKnownLocation="Entwurf.uml" />
             </topLevelOccurrences>
@@ -11871,19 +11971,19 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </represents>
             <topLevelOccurrences>
               <executionOccurrenceSpecificationMoniker
-                Id="5eafff76-e793-4647-adcf-1a842dd2b2b7"
+                Id="353fa72c-add9-4014-91aa-35745cf7d791"
                 LastKnownName="ExecutionOccurrenceSpecification99"
                 LastKnownLocation="Entwurf.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="72b257c0-496f-4e04-8373-92433497587e"
+                Id="b21b7928-6fc8-42d5-89d8-648387b69a67"
                 LastKnownName="ExecutionOccurrenceSpecification100"
                 LastKnownLocation="Entwurf.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="335693f8-8a82-43c7-ae8a-08bdea532794"
+                Id="1f3e2703-80f6-4d4e-b2a2-49b776904ebb"
                 LastKnownName="ExecutionOccurrenceSpecification77"
                 LastKnownLocation="Entwurf.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="f5306548-7423-48c2-a4f6-66d95e068706"
+                Id="e4f83f11-0171-4fc2-8563-416fefd126f1"
                 LastKnownName="ExecutionOccurrenceSpecification78"
                 LastKnownLocation="Entwurf.uml" />
             </topLevelOccurrences>
@@ -11900,93 +12000,17 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </represents>
             <topLevelOccurrences>
               <executionOccurrenceSpecificationMoniker
-                Id="156bc772-8b71-4406-8472-dcca7ccea33c"
+                Id="d6d5fc51-6afe-41ea-ab63-de342b1424bd"
                 LastKnownName="ExecutionOccurrenceSpecification81"
                 LastKnownLocation="Entwurf.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="6c03c348-1f32-4667-88fd-8bd482da5f7d"
+                Id="3c5f1d16-6238-4f5a-8a84-1a3e6cbfa645"
                 LastKnownName="ExecutionOccurrenceSpecification82"
                 LastKnownLocation="Entwurf.uml" />
             </topLevelOccurrences>
           </lifeline>
         </lifelines>
         <messages>
-          <message
-            Id="547b20fc-e988-4547-a84f-4e59218f25f0"
-            name="&lt;&lt;create&gt;&gt;"
-            messageKind="Complete"
-            messageSort="CreateMessage"
-            createSelfMessage="false">
-            <sendEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="86375818-841d-4208-957d-de7b3f5cc19d"
-                LastKnownName="MessageOccurrenceSpecification115"
-                LastKnownLocation="Entwurf.uml" />
-            </sendEvent>
-            <receiveEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="7d43a466-a41f-492c-ac5b-5bfc420fe51b"
-                LastKnownName="MessageOccurrenceSpecification116"
-                LastKnownLocation="Entwurf.uml" />
-            </receiveEvent>
-          </message>
-          <message
-            Id="f28ab851-8a48-4f6a-a615-2d07b8019462"
-            name="&lt;&lt;return&gt;&gt;"
-            messageKind="Complete"
-            messageSort="Reply"
-            createSelfMessage="false">
-            <sendEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="0ab90ac3-0d22-47ec-b547-919e16a9ba0f"
-                LastKnownName="MessageOccurrenceSpecification117"
-                LastKnownLocation="Entwurf.uml" />
-            </sendEvent>
-            <receiveEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="896cdf55-f19f-46a4-bc4b-b77254c04aac"
-                LastKnownName="MessageOccurrenceSpecification118"
-                LastKnownLocation="Entwurf.uml" />
-            </receiveEvent>
-          </message>
-          <message
-            Id="887d5849-0cbe-4215-9784-2fc4cbc360f4"
-            name="getPlugin(fileextension+&quot;VideoHandler&quot;)"
-            messageKind="Complete"
-            messageSort="SynchCall"
-            createSelfMessage="false">
-            <sendEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="e902cd37-a8e3-4fd7-8ccd-27474ca05bc9"
-                LastKnownName="MessageOccurrenceSpecification137"
-                LastKnownLocation="Entwurf.uml" />
-            </sendEvent>
-            <receiveEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="ea75e662-c6fd-4678-97d7-644268332847"
-                LastKnownName="MessageOccurrenceSpecification138"
-                LastKnownLocation="Entwurf.uml" />
-            </receiveEvent>
-          </message>
-          <message
-            Id="42a55f0b-a393-4245-b4a3-907494e55a1b"
-            name="pS_YuvVideoHandler"
-            messageKind="Complete"
-            messageSort="Reply"
-            createSelfMessage="false">
-            <sendEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="190bdc0b-41fb-4474-8f85-4327eb306df2"
-                LastKnownName="MessageOccurrenceSpecification139"
-                LastKnownLocation="Entwurf.uml" />
-            </sendEvent>
-            <receiveEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="20015ace-02d8-4ac8-99ea-8b2040aeefdc"
-                LastKnownName="MessageOccurrenceSpecification140"
-                LastKnownLocation="Entwurf.uml" />
-            </receiveEvent>
-          </message>
           <message
             Id="e4440d91-f36d-4d67-bd2b-4f5e61396e6a"
             name="onVideoObjectCreated(sender, e)"
@@ -12007,268 +12031,363 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
             </receiveEvent>
           </message>
           <message
-            Id="8465ed0b-1418-4851-99d6-12e766941a8c"
+            Id="06d8076d-fbad-4183-baef-b6199023e10e"
+            name="videoImport(path)"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="true">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="49eb4491-ac3a-4a5f-8eb6-3e6c9155a2a0"
+                LastKnownName="MessageOccurrenceSpecification177"
+                LastKnownLocation="Entwurf.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="62e17681-3697-46dd-9655-bbd26b0302fa"
+                LastKnownName="MessageOccurrenceSpecification178"
+                LastKnownLocation="Entwurf.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="e35b78f8-4e7b-46d5-a43e-77ed626177d4"
+            name="&lt;&lt;create&gt;&gt;"
+            messageKind="Complete"
+            messageSort="CreateMessage"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="19d8af89-d4a4-41a9-be1f-091b6d36d4d7"
+                LastKnownName="MessageOccurrenceSpecification115"
+                LastKnownLocation="Entwurf.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="daeec465-3306-4919-a379-76dd3c032dab"
+                LastKnownName="MessageOccurrenceSpecification116"
+                LastKnownLocation="Entwurf.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="8dfffba3-5e24-4b41-8ee4-3ff9777c194d"
             name="getPluginManager()"
             messageKind="Complete"
             messageSort="SynchCall"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="f9336022-adf4-4d3c-9684-fb802b8f1b80"
+                Id="6cf6216e-96fd-4562-b006-9f7223fd4e8e"
                 LastKnownName="MessageOccurrenceSpecification153"
                 LastKnownLocation="Entwurf.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="ebcc6eb4-a95a-4ddb-ae1f-f9e1bfb4323d"
+                Id="4fc20f34-8e79-4d09-87aa-e288ebada7b3"
                 LastKnownName="MessageOccurrenceSpecification154"
                 LastKnownLocation="Entwurf.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="e9d8e3df-6938-46d4-8efb-0aa6897528dd"
+            Id="6b3b5d7c-61ec-46fd-9462-586b7e618c69"
             name="pluginManager"
             messageKind="Complete"
             messageSort="Reply"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="66d00144-6e44-4df5-adc9-9651eb6beb5f"
+                Id="fe482f40-574e-4452-a589-0a3b9f509ce0"
                 LastKnownName="MessageOccurrenceSpecification155"
                 LastKnownLocation="Entwurf.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="d34ba288-a8cb-44a8-8f59-6cd0f4f41843"
+                Id="e1a65df0-3c66-44d8-8f23-5308d0693ab7"
                 LastKnownName="MessageOccurrenceSpecification156"
                 LastKnownLocation="Entwurf.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="08db3bf6-6c67-48c7-bb69-83d4d42e4572"
+            Id="1426d953-9c36-433f-ab7e-ee7c968fdd0d"
+            name="getPlugin(fileextension+&quot;VideoHandler&quot;)"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="50202d8f-8bc1-4e25-b8ea-e58979c8b394"
+                LastKnownName="MessageOccurrenceSpecification137"
+                LastKnownLocation="Entwurf.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="b9efb451-3f56-41d5-b53d-d3e78b59c361"
+                LastKnownName="MessageOccurrenceSpecification138"
+                LastKnownLocation="Entwurf.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="1e80ce5d-c7cc-4d3d-9e89-7195e2942489"
+            name="pS_YuvVideoHandler"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="9f1a9fd1-d490-4ea8-b397-5ad1c8352f51"
+                LastKnownName="MessageOccurrenceSpecification139"
+                LastKnownLocation="Entwurf.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="3de75abb-aeae-4e6a-996d-c298c45f8a1d"
+                LastKnownName="MessageOccurrenceSpecification140"
+                LastKnownLocation="Entwurf.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="8ebc4e0d-36c2-46e3-995d-802f3e98405a"
             name="setParentControl(this.videoInfoPanel)"
             messageKind="Complete"
             messageSort="SynchCall"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="3eb32025-6817-4cb3-84ea-7c7acbdadd52"
+                Id="5e8c6a35-e534-47e3-8281-fe081c8abb53"
                 LastKnownName="MessageOccurrenceSpecification161"
                 LastKnownLocation="Entwurf.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="0f6507db-29eb-4cc7-914b-9b949157926b"
+                Id="81c10ac1-a02f-4c57-8a0f-a1866c9205fc"
                 LastKnownName="MessageOccurrenceSpecification162"
                 LastKnownLocation="Entwurf.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="4b077339-992b-4958-a2bc-fa1838b9e4a0"
+            Id="520195ad-4239-4bdd-aab7-5d91b5bdbbe1"
             name="&lt;&lt;return&gt;&gt;"
             messageKind="Complete"
             messageSort="Reply"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="afc73085-f579-42d3-a759-71c9ed117af8"
+                Id="77ca6487-01cb-4e7e-a3e9-a5f23720244c"
                 LastKnownName="MessageOccurrenceSpecification163"
                 LastKnownLocation="Entwurf.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="4cf1d1ab-e008-4884-8546-bed6a011f139"
+                Id="f2ce63ea-2520-45b2-bf92-8cc72581717b"
                 LastKnownName="MessageOccurrenceSpecification164"
                 LastKnownLocation="Entwurf.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="3022b5be-6ef0-4520-8ec5-7ea1e74c6712"
-            name="ImportButton clicked"
+            Id="5233189e-e9c3-4bd1-994a-82e463279e60"
+            name="ImportButton clicked to close Dialog"
             messageKind="Complete"
             messageSort="SynchCall"
             createSelfMessage="true">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="809bfd90-f703-4e67-b619-0913bed1788d"
+                Id="6b2bb141-5565-43aa-aee3-26159aa4d7ef"
                 LastKnownName="MessageOccurrenceSpecification165"
                 LastKnownLocation="Entwurf.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="3287d74e-98d5-4177-8955-54e4efe12953"
+                Id="31b0cae3-ec57-4dd0-9b4e-7ca098d1bf18"
                 LastKnownName="MessageOccurrenceSpecification166"
                 LastKnownLocation="Entwurf.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="2f8a18ac-0dee-4ea0-8c26-109543f79230"
+            Id="5c310aff-5b27-43a2-b375-fdf3a74ccea0"
             name="getVideoInfo"
             messageKind="Complete"
             messageSort="SynchCall"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="1f893166-e1de-467d-808a-d10f3cd88997"
+                Id="4f5e7f90-583c-4a4b-afc1-b8a8a11a529c"
                 LastKnownName="MessageOccurrenceSpecification123"
                 LastKnownLocation="Entwurf.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="5e741c6e-2193-41e4-ad68-c834ff58802b"
+                Id="650b1472-e8b4-4a66-ab74-1c0a0b9fb05f"
                 LastKnownName="MessageOccurrenceSpecification124"
                 LastKnownLocation="Entwurf.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="db14b6e6-b9b5-432c-96fe-c82e1bbd6d59"
+            Id="736bc428-01e5-4f6d-aace-376d667c0483"
+            name="&lt;&lt;return&gt;&gt;"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="a0ad8e7d-da4e-415a-9e73-cee4a593800a"
+                LastKnownName="MessageOccurrenceSpecification117"
+                LastKnownLocation="Entwurf.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="0eeba573-806b-462f-b2a1-695a1ad8d136"
+                LastKnownName="MessageOccurrenceSpecification118"
+                LastKnownLocation="Entwurf.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="92d0a5cf-3723-49d0-b844-1e26c612c8df"
+            name="&lt;&lt;create&gt;&gt;"
+            messageKind="Complete"
+            messageSort="CreateMessage"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="6925ed73-976b-487e-a105-f01add8f8899"
+                LastKnownName="MessageOccurrenceSpecification129"
+                LastKnownLocation="Entwurf.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="75afffc2-3909-4e28-8077-bd177e4c3c4f"
+                LastKnownName="MessageOccurrenceSpecification130"
+                LastKnownLocation="Entwurf.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="2176caab-8466-4009-9380-12fd0633a773"
+            name="&lt;&lt;return&gt;&gt;"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="1412c7ef-765c-45d0-9d46-c7ab40dfda99"
+                LastKnownName="MessageOccurrenceSpecification131"
+                LastKnownLocation="Entwurf.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="e179828d-e1a8-4602-bc14-6263ceaa33dd"
+                LastKnownName="MessageOccurrenceSpecification132"
+                LastKnownLocation="Entwurf.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="7f693511-4c19-4930-a97e-59edb9fc4556"
             name="yuvVideoInfo"
             messageKind="Complete"
             messageSort="Reply"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="5702ef5a-790a-4ed7-8058-e72e3bbaa5a3"
+                Id="4e9926e2-e891-4e8e-9481-705976732f32"
                 LastKnownName="MessageOccurrenceSpecification125"
                 LastKnownLocation="Entwurf.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="5885cfb7-1ded-4463-85ac-800ffef8a387"
+                Id="e5e3d37c-cf39-4ed7-b90b-b8a52ce66955"
                 LastKnownName="MessageOccurrenceSpecification126"
                 LastKnownLocation="Entwurf.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="cb02eddb-1042-4aea-bd30-a4c26f336bab"
-            name="&lt;&lt;create&gt;&gt;"
-            messageKind="Complete"
-            messageSort="CreateMessage"
-            createSelfMessage="false">
-            <sendEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="6637a9c3-4fb9-4db2-854b-075169c49898"
-                LastKnownName="MessageOccurrenceSpecification129"
-                LastKnownLocation="Entwurf.uml" />
-            </sendEvent>
-            <receiveEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="89fbb287-b5cf-4b0a-a51e-4d8391fb2fa6"
-                LastKnownName="MessageOccurrenceSpecification130"
-                LastKnownLocation="Entwurf.uml" />
-            </receiveEvent>
-          </message>
-          <message
-            Id="58881247-ea2d-420e-8458-4d674130a099"
-            name="&lt;&lt;return&gt;&gt;"
-            messageKind="Complete"
-            messageSort="Reply"
-            createSelfMessage="false">
-            <sendEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="b5db9771-2385-47fc-83e1-27468439cde1"
-                LastKnownName="MessageOccurrenceSpecification131"
-                LastKnownLocation="Entwurf.uml" />
-            </sendEvent>
-            <receiveEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="19b87eb0-6871-4329-a776-fa620acc935c"
-                LastKnownName="MessageOccurrenceSpecification132"
-                LastKnownLocation="Entwurf.uml" />
-            </receiveEvent>
-          </message>
-          <message
-            Id="54819dce-ccd9-4a57-8e21-9d9bd8d84653"
+            Id="5ab5ab10-c5b8-4d7b-b34a-64dbd7555495"
             name="Video(false, path, yuvVideoInfo)"
             messageKind="Complete"
             messageSort="CreateMessage"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="7f4309c7-754b-464d-b91a-9a7e6653967d"
+                Id="8a70ffd1-1501-4207-938f-bf6ff0be4d15"
                 LastKnownName="MessageOccurrenceSpecification167"
                 LastKnownLocation="Entwurf.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="b92bdf2c-10e8-48af-9f51-13691b133584"
+                Id="0d3f1eb7-67f8-4468-9822-ab258fc6a82b"
                 LastKnownName="MessageOccurrenceSpecification168"
                 LastKnownLocation="Entwurf.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="6617d289-fac6-41fb-b06d-47ae548c3ddf"
+            Id="3cdc50d2-cde0-4200-acf5-61b769bd496f"
             name="&lt;&lt;return&gt;&gt;"
             messageKind="Complete"
             messageSort="Reply"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="b7547b3d-8982-464e-95f5-f8c0d5945ff1"
+                Id="d25aeb9d-b171-4b56-a4bd-c38e8dd909ba"
                 LastKnownName="MessageOccurrenceSpecification169"
                 LastKnownLocation="Entwurf.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="d5b68c04-961a-43a6-ac62-443a5aacd11d"
+                Id="99800bd4-859e-49e6-9ab9-be35db3813ef"
                 LastKnownName="MessageOccurrenceSpecification170"
                 LastKnownLocation="Entwurf.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="81c1d765-6a02-4ec0-8975-c4eb078a90c8"
-            name="raiseEvent(EventType.vidObjectCreated, vidEventArgs) "
-            messageKind="Complete"
-            messageSort="AsynchCall"
-            createSelfMessage="false">
-            <sendEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="8ac4539a-cf0c-4de0-aa64-ebbc8beecb36"
-                LastKnownName="MessageOccurrenceSpecification171"
-                LastKnownLocation="Entwurf.uml" />
-            </sendEvent>
-            <receiveEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="a1b210f6-cf71-45f0-a4bd-201cdc66170f"
-                LastKnownName="MessageOccurrenceSpecification172"
-                LastKnownLocation="Entwurf.uml" />
-            </receiveEvent>
-          </message>
-          <message
-            Id="a1cd4fd7-c756-4897-8ed3-0ae66ede44f1"
+            Id="cd14337d-e803-4470-8f5a-0b269e2e21a3"
             name="&lt;&lt;create&gt;&gt;"
             messageKind="Complete"
             messageSort="CreateMessage"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="8c3cd3ca-e221-4547-8307-a7b5b63fd871"
+                Id="6435b7d1-68a6-47f6-bf14-78a056e9156c"
                 LastKnownName="MessageOccurrenceSpecification173"
                 LastKnownLocation="Entwurf.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="8b43c67c-9428-4c91-861d-2164c3ee58d7"
+                Id="43c215c4-f1b5-4fea-be5a-56c474c530fb"
                 LastKnownName="MessageOccurrenceSpecification174"
                 LastKnownLocation="Entwurf.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="771f1ecf-1a4f-47d7-aa25-687b9f9491d1"
+            Id="a88448bb-96d8-48b2-bf1c-485fb59641cd"
             name="&lt;&lt;return&gt;&gt;"
             messageKind="Complete"
             messageSort="Reply"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="dc2c311d-6f2f-4e07-9715-b6daf21c9394"
+                Id="b454a70f-d66e-4aa7-bf59-57e0651c5524"
                 LastKnownName="MessageOccurrenceSpecification175"
                 LastKnownLocation="Entwurf.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="276127c8-f219-4ed2-b328-f979d6f844bb"
+                Id="a41fca21-de4a-4bcc-a446-92a88a252221"
                 LastKnownName="MessageOccurrenceSpecification176"
+                LastKnownLocation="Entwurf.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="6ce31414-5375-434f-8247-7b9849b229dd"
+            name="raiseEvent(EventType.vidObjectCreated, vidEventArgs) "
+            messageKind="Complete"
+            messageSort="AsynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="2bc0f5eb-9bc6-403e-8477-148aa5dee0c0"
+                LastKnownName="MessageOccurrenceSpecification171"
+                LastKnownLocation="Entwurf.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="60b8c602-94be-4995-8730-9a6ee0c44b42"
+                LastKnownName="MessageOccurrenceSpecification172"
                 LastKnownLocation="Entwurf.uml" />
             </receiveEvent>
           </message>
@@ -12415,26 +12534,6 @@ ProjectExplorer fügt einen Eintrag für das neue Video in seine Baumstruktur ei
           </property>
         </ownedAttributesInternal>
       </interaction>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="9e6c7178-63dc-457f-a58c-c55aee704857"
-        name="ExecutionEvent" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="7e8e3d95-b533-447f-acd9-2870635924a2"
-        name="ExecutionEvent" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="488b9133-20de-4425-918d-42b01dfee3ee"
-        name="ExecutionEvent" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="5c6cda61-e273-4eb6-89ce-c3a97f57268b"
-        name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
@@ -42510,16 +42609,6 @@ Nachdem das Video Objekt erstellt wurde wird das videoObjectCreated event ausgel
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="b1fcd606-e118-47f2-9ab1-2da7cae86cee"
-        name="ExecutionEvent" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="6f102fbc-12e6-4bca-afca-e30ecd9661c8"
-        name="ExecutionEvent" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
         Id="484b6403-d266-4a31-afa6-59b78fc907e4"
         name="ExecutionEvent" />
     </packageHasNamedElement>
@@ -42530,72 +42619,112 @@ Nachdem das Video Objekt erstellt wurde wird das videoObjectCreated event ausgel
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="06eb6919-05cc-4aff-a40e-6959ff4415f1"
+        Id="63e81867-8015-4bbd-9b0c-0d9b3580a77f"
         name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="d9596099-8669-4bf8-ad74-b4cd09a1907a"
+        Id="f83a248f-c350-45f0-ae3a-ce8689530cb8"
         name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="e81e045c-94b9-4669-ba23-e4b17edf1349"
+        Id="b03ba486-bfd9-4d0f-955b-1acc88a15cf2"
         name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="b1f04e22-5399-401f-a15e-789d9dd566b3"
+        Id="82dd9e99-ebd6-4de4-bb4b-f5553139d040"
         name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="39fbf54b-142c-4180-99da-8403fda040a3"
+        Id="3217197f-199d-4d1f-be2b-67dd01dcc61a"
         name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="2e425994-339d-40b9-a8a6-ca69f3d50a4d"
+        Id="117c834b-d0c8-4fe8-ac3a-e4bd60c9b56d"
         name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="fa4d5af5-cb74-47b4-8145-603e0625ee1f"
+        Id="738e223a-8b6c-4a1f-b6fc-834fbe818ce0"
         name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="dd48cee7-5189-4856-9551-5451af3db1bb"
+        Id="5269e8bf-282e-4779-bbd0-f850b5a166e8"
         name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="015d2dc5-baed-48e4-a2d2-a32a62b0580d"
+        Id="289f8af5-4522-4486-952d-df36af621ed6"
         name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="c71ad4ab-5fd6-4a28-85d5-031891becd96"
+        Id="8b77750d-e0c7-4030-9629-1ee2c3856648"
         name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="1a9fad62-7aee-431f-b6d8-a4d26b3dc3cc"
+        Id="5f35cb88-78f7-4f17-9189-278db0797ba1"
         name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="f41dcbde-8f2a-4800-9a9f-cab3b65981f8"
+        Id="09d20b87-2d61-48a6-bb0a-2a679d4d9946"
         name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="6da42976-1f54-4aed-a2af-968cb73c671d"
+        Id="cbd5af41-29df-45a7-8c12-1f6cfeb42fba"
         name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
-        Id="04822c98-772e-4385-96ed-4c194593fdb9"
+        Id="baef6a00-d777-4a15-a5e0-7a074fe9c764"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="54e8bda4-6bc2-4a53-8dcd-91008a69dcd7"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="1f12ec5a-6809-4f32-93a5-592499838185"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="1847cc7a-7f4f-477b-a08a-f70c05e95825"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="f694f79a-58bc-40a9-8341-21fd720ae8ec"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="d7698fdf-5a77-4ea8-adfc-ffb361b09b20"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="93841456-ad6c-479b-a66b-439b7c0c17b6"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="29487ec7-93be-4542-81a4-0cc5fedc7c95"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="fa59f817-2d17-4955-9c41-ae942511a367"
         name="ExecutionEvent" />
     </packageHasNamedElement>
   </packagedElements>
