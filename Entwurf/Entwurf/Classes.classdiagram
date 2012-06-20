@@ -14308,7 +14308,7 @@
                 </property>
               </ownedAttributesInternal>
               <ownedOperationsInternal>
-                <operation Id="3252b17e-117a-44e8-a5e8-b925348fd88f" name="VM_PluginListsPanel parent)" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="3252b17e-117a-44e8-a5e8-b925348fd88f" name="VM_PluginListsPanel" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <appliedStereotypesInternal>
                     <stereotypeInstance Id="34f6c0cc-94a5-41d0-a025-186df34855cb" name="method" profile="CSharpProfile">
                       <elementDefinition Id="75c1be84-8f2c-447e-ab35-617fdbb81c81" />
@@ -14347,6 +14347,13 @@
                     </stereotypeInstance>
                   </appliedStereotypesInternal>
                   <elementDefinition Id="6485c42e-524e-41e3-9870-91de9b765944" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="80c84040-f2b4-4a36-9413-09853f6b8a71" name="Panel parent" direction="In" isUnique="false">
+                        <elementDefinition Id="1859774a-b0f8-4c5e-91f1-e33034e3b486" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
                 </operation>
                 <operation Id="f9979954-cf7e-4b4a-8252-251bad833202" name="onMacroFilterEntryClicked" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <appliedStereotypesInternal>
@@ -14456,6 +14463,16 @@
                     <operationHasOwnedParameters>
                       <parameter Id="81c68f56-4bfd-4533-83ed-490ac3cac0a6" name="EventArgs e" direction="In" isUnique="false">
                         <elementDefinition Id="5f3c6635-2553-426a-bcf0-bdcfb8332c32" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="b5b2abd9-486f-42de-8279-b9e07294f435" name="fillPluginList" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="56338fbc-f0be-473a-aa2e-c00a77258a09" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="b0302719-f177-43ad-be99-2c3900db9dae" name="PluginType type" direction="In" isUnique="false">
+                        <elementDefinition Id="54ae7d20-80b2-4269-86e2-d24c41a50bf5" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>

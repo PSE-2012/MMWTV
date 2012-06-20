@@ -2261,7 +2261,7 @@
         <ownedOperationsInternal>
           <operation
             Id="6485c42e-524e-41e3-9870-91de9b765944"
-            name="VM_PluginListsPanel parent)"
+            name="VM_PluginListsPanel"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -2310,6 +2310,15 @@
                 </propertyInstances>
               </stereotypeInstance>
             </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1859774a-b0f8-4c5e-91f1-e33034e3b486"
+                  name="Panel parent"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
           </operation>
           <operation
             Id="ee9ac975-a5a6-492f-98c3-9b7f6b4a94a3"
@@ -2479,6 +2488,25 @@
                 <parameter
                   Id="5f3c6635-2553-426a-bcf0-bdcfb8332c32"
                   name="EventArgs e"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="56338fbc-f0be-473a-aa2e-c00a77258a09"
+            name="fillPluginList"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="54ae7d20-80b2-4269-86e2-d24c41a50bf5"
+                  name="PluginType type"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
