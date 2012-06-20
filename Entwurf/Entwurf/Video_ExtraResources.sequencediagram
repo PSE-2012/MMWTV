@@ -72,39 +72,14 @@
       </propertyInstances>
     </stereotypeInstance>
   </appliedStereotypesInternal>
-  <profileInstances>
-    <packageHasProfileInstances Id="99ef7e9c-380c-4461-a3a1-ea23f2334ac7">
-      <profileInstance Id="6b768aaa-57fa-4bb4-9f50-b925ae1b7123" name="StandardProfileL2">
-        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
-      </profileInstance>
-      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="eec072bf-f8b2-4366-8c93-572c075e0549">
-      <profileInstance Id="82dac501-e504-43a4-bdd1-d0def681e2dd" name="StandardProfileL3">
-        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
-      </profileInstance>
-      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="e4fc4bf5-2b6c-45a5-9425-dcae6d2a9634">
-      <profileInstance Id="abc9b17c-0784-4d78-8480-68f804af1ca5" name="CSharpProfile">
-        <elementDefinition Id="f6156e98-62e9-4597-ad9b-a5ff5c897676" />
-      </profileInstance>
-      <elementDefinition Id="0dd73050-8361-4952-bc19-e0019cd847a9" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="5bc961fa-aeee-4763-9b2a-f0fa11aedbe3">
-      <profileInstance Id="41819196-0ee1-4a22-916a-04ae757ab3b7" name="TextTemplateBindings">
-        <elementDefinition Id="990b6a26-55fe-486d-9206-c682b46cda23" />
-      </profileInstance>
-      <elementDefinition Id="6af6d6bd-f37e-4295-b33d-26c0ae2e8f05" />
-    </packageHasProfileInstances>
-  </profileInstances>
   <packagedElements>
     <packageHasNamedElement>
       <interaction Id="9a063468-3721-4e6b-9291-d61cad4d6cef" name="Video_ExtraResources" collapseFragmentsFlag="false" isActiveClass="false" isAbstract="false" isLeaf="false" isReentrant="false">
         <ownedCommentsInternal>
           <comment Id="aa1389b9-7cab-48ae-a7b3-ad3e11d03b7b">
             <elementDefinition Id="6e88e023-e7b5-42b0-aef6-d7684bf1f18e" />
-            <body>nach videoLoad wählt der Nutzer die .dat (MotionVektoren) ExtraResource aus der Liste aus</body>
+            <body>Szenario:
+Nach videoLoad wählt der Nutzer die .dat (MotionVektoren) ExtraResource aus der Liste aus</body>
           </comment>
           <comment Id="7dcb4eee-0cb0-4bf0-b2cd-df6b11766d41">
             <elementDefinition Id="6dd55407-65ce-478d-b3c8-0157d4e26090" />
@@ -116,6 +91,10 @@
             <annotatedElements>
               <behaviorExecutionSpecificationMoniker Id="df74588c-41c0-44a3-abe9-571079f77900" LastKnownName="BehaviorExecutionSpecification1" />
             </annotatedElements>
+          </comment>
+          <comment Id="fba72e4a-5110-4aea-a4ec-314ff20cc7da">
+            <elementDefinition Id="a71189e5-556f-44d9-ad46-94334b5ceec5" />
+            <body>hier: "DatPlayer"</body>
           </comment>
         </ownedCommentsInternal>
         <elementDefinition Id="6f2520a0-a58b-401e-87e5-e4231fc97221" />
@@ -411,7 +390,7 @@
               <messageOccurrenceSpecificationMoniker Id="40465411-dde5-44ae-956d-aedc5cac4637" LastKnownName="MessageOccurrenceSpecification7" />
             </receiveEvent>
           </message>
-          <message Id="d07c304c-f028-4ae7-ac6a-619b9298e4d4" name="&lt;&lt;IPresentation datPlayer&gt;&gt;" messageKind="Complete" messageSort="Reply" createSelfMessage="false">
+          <message Id="d07c304c-f028-4ae7-ac6a-619b9298e4d4" name="pP_datPlayer" messageKind="Complete" messageSort="Reply" createSelfMessage="false">
             <elementDefinition Id="75e67918-652f-4abd-b0d1-c9f4a51c7199" />
             <sendEvent>
               <messageOccurrenceSpecificationMoniker Id="82852073-0fce-4bfc-aed1-537fe7c89af9" LastKnownName="MessageOccurrenceSpecification8" />
@@ -511,5 +490,31 @@
   </packagedElements>
   <package Id="2a27f8ed-b487-4572-bcf9-7909e1a51d6a" name="Entwurf">
     <elementDefinition Id="46634d97-dc6c-4362-9484-7c7ecb77101f" />
+    <profileInstances>
+      <packageHasProfileInstances Id="99ef7e9c-380c-4461-a3a1-ea23f2334ac7">
+        <profileInstance Id="6b768aaa-57fa-4bb4-9f50-b925ae1b7123" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="eec072bf-f8b2-4366-8c93-572c075e0549">
+        <profileInstance Id="82dac501-e504-43a4-bdd1-d0def681e2dd" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="e4fc4bf5-2b6c-45a5-9425-dcae6d2a9634">
+        <profileInstance Id="abc9b17c-0784-4d78-8480-68f804af1ca5" name="CSharpProfile">
+          <elementDefinition Id="f6156e98-62e9-4597-ad9b-a5ff5c897676" />
+        </profileInstance>
+        <elementDefinition Id="0dd73050-8361-4952-bc19-e0019cd847a9" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="5bc961fa-aeee-4763-9b2a-f0fa11aedbe3">
+        <profileInstance Id="41819196-0ee1-4a22-916a-04ae757ab3b7" name="TextTemplateBindings">
+          <elementDefinition Id="990b6a26-55fe-486d-9206-c682b46cda23" />
+        </profileInstance>
+        <elementDefinition Id="6af6d6bd-f37e-4295-b33d-26c0ae2e8f05" />
+      </packageHasProfileInstances>
+    </profileInstances>
   </package>
 </SequenceDesignerModel>

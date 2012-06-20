@@ -8583,7 +8583,7 @@
                           <referencedTypeMoniker Id="3f840fbb-95e6-4093-95e8-f02e479bb0b7" LastKnownName="List&lt;MacroEntry&gt;" />
                         </type_NamedElement>
                       </property>
-                      <property Id="bfec94bf-fd75-40d3-acf9-63a1b0f0a5e0" name="extraRessources" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                      <property Id="bfec94bf-fd75-40d3-acf9-63a1b0f0a5e0" name="extraResources" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <appliedStereotypesInternal>
                           <stereotypeInstance Id="257e810e-33d0-4f36-9b13-c2a1ccb306cf" name="property" profile="CSharpProfile">
                             <elementDefinition Id="ac0f6bc9-2e5d-4eec-8137-be7ff69b5991" />
@@ -8629,7 +8629,7 @@
                         </appliedStereotypesInternal>
                         <elementDefinition Id="421d59b6-c7c7-4cd1-9f51-26f3edf65f46" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="1beeb6cc-aa35-4ba7-b3dc-66eb4fade080" LastKnownName="Dictionary&lt;PresentationPluginType, List&lt;string&gt;&gt;" />
+                          <referencedTypeMoniker Id="3debb0ae-a8a0-472a-b347-71fb54d18621" LastKnownName="Dictionary&lt;PresentationPluginType, List&lt;string&gt;&gt;" />
                         </type_NamedElement>
                       </property>
                       <property Id="c21009c9-7cac-42dd-a737-fce0ccf2dd82" name="videoObjectCreatedHandler videoObjectCreated" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -9927,6 +9927,9 @@
                       </enumerationLiteral>
                       <enumerationLiteral Id="c8e5b5a1-0da7-458e-bdfa-73b71993722d" name="flushPresentationPlugins">
                         <elementDefinition Id="da2b28e0-cafa-4b90-aa62-29aa70065acc" />
+                      </enumerationLiteral>
+                      <enumerationLiteral Id="f7529d28-37f0-4727-8fbd-cea9ddba82d2" name="extraResourceSelect">
+                        <elementDefinition Id="2515869f-fd0a-4186-bb1e-d5cfd43eb2af" />
                       </enumerationLiteral>
                     </ownedLiterals>
                   </enumeration>
@@ -16724,7 +16727,7 @@
                   </appliedStereotypesInternal>
                   <elementDefinition Id="b4e4c682-1af9-49df-90b7-5bdcf8fed946" />
                 </operation>
-                <operation Id="4aec6c94-8b11-4da2-950b-92174736ae35" name="showExtraRessourceList" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="4aec6c94-8b11-4da2-950b-92174736ae35" name="showExtraResourceList" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <appliedStereotypesInternal>
                     <stereotypeInstance Id="d1f34915-c5d5-45be-ab93-dfb76861e366" name="method" profile="CSharpProfile">
                       <elementDefinition Id="034d44a0-2f60-4654-9f95-254d47fbfc12" />
@@ -16779,17 +16782,17 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
-                <operation Id="9d429933-da95-4384-b0de-f0ae9ac0fa4d" name="onExtraRessourceSelected" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="9d429933-da95-4384-b0de-f0ae9ac0fa4d" name="onExtraResourceSelected" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <elementDefinition Id="4517460b-9ecb-4486-89c1-51c18c0b3e9f" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="7e2ec773-dd97-4a11-9980-52a76e85e21e" name="object sender" direction="In" isUnique="false">
-                        <elementDefinition Id="406d28cf-cd96-40d5-a145-abc05d6d286c" />
+                      <parameter Id="80347dbe-5cfc-4639-9c98-f1ec568c7397" name="object sender" direction="In" isUnique="false">
+                        <elementDefinition Id="b239c574-f612-499c-871c-e94dc098f733" />
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="76ef941b-74e7-4b15-8b3b-35ecdfd9a19b" name="EventArgs e" direction="In" isUnique="false">
-                        <elementDefinition Id="bf61a503-893d-4a0c-9828-65d1002215d6" />
+                      <parameter Id="d58881c5-719b-4f4b-a963-2efdbc1e9f4a" name="EventArgs e" direction="In" isUnique="false">
+                        <elementDefinition Id="f7bcaffd-7ed5-4460-900a-eb3aea594f9e" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -18882,11 +18885,6 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="1beeb6cc-aa35-4ba7-b3dc-66eb4fade080" name="Dictionary&lt;PresentationPluginType, List&lt;string&gt;&gt;" isAbstract="false" isLeaf="false" cachedFullName="Dictionary&lt;PresentationPluginType, List&lt;string&gt;&gt;">
-        <elementDefinition Id="83dcfca5-c511-45b5-8314-2c4cc88a0408" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="3aea80c7-9fc7-418b-aec9-8e614737d929" name="event" isAbstract="false" isLeaf="false" cachedFullName="event">
         <elementDefinition Id="c857ad8a-29c4-4eaa-96f6-f99e3ea54f61" />
       </referencedType>
@@ -19009,6 +19007,11 @@
     <packageHasNamedElement>
       <referencedType Id="79e1680e-8be4-43c5-803c-8eabaea8723e" name="float[][]" isAbstract="false" isLeaf="false" cachedFullName="float[][]">
         <elementDefinition Id="4acc415d-c152-4685-9a0f-ab8150f76d7c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="3debb0ae-a8a0-472a-b347-71fb54d18621" name="Dictionary&lt;PresentationPluginType, List&lt;string&gt;&gt;" isAbstract="false" isLeaf="false" cachedFullName="Dictionary&lt;PresentationPluginType, List&lt;string&gt;&gt;">
+        <elementDefinition Id="83dcfca5-c511-45b5-8314-2c4cc88a0408" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>
