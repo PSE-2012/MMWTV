@@ -83,11 +83,11 @@ Diese initialisiert die ViewModel Komponenten. Dazu gehören Willkommensbildschi
 
 
 \class{VM ProjectExplorer}{Klasse}
-Besteht aus einem SmartTree und einem Dateiexplorer, um diese in der GUI bereitzustellen. Er kann durch den Dateiexplorer Events zum Auswählen und Laden von Videodateien ins Projekt abfangen.
+Besteht aus einem SmartTree und einem Dateiexplorer, um diese in der GUI bereitzustellen. Er kann durch den Dateiexplorer Videos Laden, diese werden im SmartTree angezeigt.
 
 
 \class{PluginManager}{Klasse}
-Der Pluginmanager ist die Schnittstelle zwischen Oqat und den Plugins. Er stellt Methoden zum Abrufen von Plugins und den zugehörigen Mementos. Außerdem werden Events mit deren Handlern bei ihm registriert.  Er ist als Singelton realisiert. Der Pluginmanager enthält einen Pfad zum Pluginordner sowie eine Tabelle, die den Plugintypen die zugehörigen Plugins zusammen mit deren Namen zuordnet.
+Der Pluginmanager ist die Schnittstelle zwischen \projektTitel und den Plugins. Er stellt Methoden zum Abrufen von Plugins und den zugehörigen Mementos. Außerdem werden Events mit deren Handlern bei ihm registriert.  Er ist als Singelton realisiert. Der Pluginmanager enthält einen Pfad zum Pluginordner sowie eine Tabelle, die den Plugintypen die zugehörigen Plugins zusammen mit deren Namen zuordnet.
 
 
 \class{VM Pluginlists}{Klasse}
@@ -110,11 +110,11 @@ Ist der Willkommensbildschirm, der beim Programmstart die zuletzt benutzten Proj
 
 
 \class{VM OptionsDialog}{Klasse}
-Optionsfenster für allgemeine Einstellungen von Oqat.
+Optionsfenster für allgemeine Einstellungen von \projektTitel.
 
 
 \class{VM Presentation}{Klasse}
-Der zentrale Visualisierungsbereich wird hiermit verwaltet. Dazu nutzt es die Presentationplugins und bietet die Möglichkeit, den angezeigten Bereich in den Originalzustand zu versetzen.
+Der zentrale Visualisierungsbereich wird hiermit verwaltet. Dazu nutzt es die Presentationplugins um möglichst treffende Darstellungen zu erreichen.
 
 
 \class{ViewTypeEventArgs}{Klasses}
@@ -231,7 +231,7 @@ keepaspectratio]{bilder/Klassendiagramm/PluginInterfaces.png}
 \end{figure}
 
 \class{IPlugin}{Interface}
-Jede Klasse, die ein Plugin ist, muss dieses Interface Implementieren. Namenattribut, Plugintypattribut und Methoden zur Verwaltung von Events (mittels Tabellen von EventTypen und den zugehörigen Delegatemethoden bzw. Eventobjekten) werden dann von Iplugin geerbt. IPlugin implementiert IMemorizable.
+Jede Klasse, die ein Plugin ist, muss dieses Interface Implementieren. Namenattribut, Plugintypattribut und Methoden zur Verwaltung von Events (mittels Tabellen von EventTypen und den zugehörigen Delegatemethoden) werden dann von IPlugin geerbt. IPlugin implementiert IMemorizable.
 
 
 \class{IPresentation}{Interface}
@@ -285,20 +285,3 @@ Typen von Presentationplugins
 
 \class{EventType}{Enumeration}
 Typen von Events
-
-
-\pagebreak
-\subsection{Externe Klassen}
-
-
-
-\class{System EventArgs}{Klasse}
-Die verwendeten Events nutzen zur Argumentübergabe jeweils eine Klasse die von EventArgs erbt.
-
-
-\class{VideoSourcePlayer}{Klasse}
-Der bereitgestellte Videoplayer von aForge.
-
-
-\class{IVideoSource}{Interface}
-Videoobjekte de vom aForge Player wiedergegeben werden sollen müssen dieses Interface implementieren.

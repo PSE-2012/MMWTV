@@ -1,10 +1,27 @@
 \chapter{Einleitung}
 
-Die Anwendung "Objective Quality Assessment Toolkit", welche im Auftrag des CES hergestellt wird, wird wie im Pflichtenheft angekündigt nach dem "Modell View ViewModell" Entwurfsmuster angefertigt.
-Hierbei ist das Ziel eine durchgehende Trennung der Aufgaben zu erreichen.
+Die Anwendung \emph{Objective Quality Assessment Toolkit} , welche im Auftrag des CES hergestellt wird, wird wie im Pflichtenheft spezifiziert nach dem \emph{Model View ViewModel} Entwurfsmuster angefertigt.
+Hierbei ist das Ziel eine möglichst lose gekoppeltes System der Aufgaben zu erreichen.
 
-Das Subsystem Modell enthält alle statischen Daten, wie Videos und Projekte. Darüber hinaus wird die  Möglichkeit diese auf die Festplatte zu schreiben realisiert. Auserdem werden die Plugins, was Filter, Metriken sowie die Komponenten zum Umgang mit Videos beinhaltet im Modell abgelegt.
+Das ViewModel fungiert unter anderem als koordinationsmodul
+zwischen View und Model, so werden z.b. Databindings welche
+sich nicht deklarativ (zur Entwicklungszeit im XAML-code)
+konstruieren lassen von einem ViewModel einer jeweiligen View
+an ein bestimmtes ModelElement gebunden.
 
-Das ViewModell ist die Schnittstelle zwischen Modell und View. Es ist  dafür zuständig erhaltene Eingaben des Benutzer zu verarbeiten und diese gegebenenfalls an das Modell weiterzureichen. Jeder View-Komponente ist ein ViewModell zugeordnet.
+Das Model übernimmt neben der Datenhaltung und Organisation
+auch das Sichern bzw. Wiederfinden der Daten auf der Festplatte.
+Wobei Daten \projektTitel-Anwendungseinstellungen (Sprache, bestimmte
+Standartpfade), von \projektTitel oder
+aber von einem Plugin von \projektTitel erstellte Videoinformationen.
 
-Die View zeigt den Aktuellen Zustand des Modells an. Da sich die View-komponenten nicht Sinnvoll im Entwurf darstellen lassen, weil sie im XAML Code stehen, wurde auf sie im Klassendiagramm verzichtet.
+Da die View für \projektTitel mit Hilfe von WPF(Win...) entwickelt 
+wird ist die Verwendung von deklarativen Mitteln (XAML) den
+imperativen (C sharp) vorzuziehen. Durch solches vorgehen wird
+codedopplung bei der GUI-Entwicklung vermieden und eine
+gewisse Robustheit erreicht. Ein Nachteil der weitesgehen deklarativen
+Programmierung der View ist der Verlust einer Sinnvollen
+UML-Diagramm-Darstellungen für diese ohne mit der Implementierung 
+der View anzufangen, daher wurde auf das Erstellen einzelner View-Klassen
+verzichtet. Um dennoch eine Vorstellung für die zu entwickelnde GUI 
+zu bekommen, kann das Pflichtenheft zur Rate gezogen werden.
