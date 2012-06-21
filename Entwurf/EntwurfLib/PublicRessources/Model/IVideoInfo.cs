@@ -7,10 +7,10 @@ namespace Oqat.PublicRessources.Model
 	using System.Linq;
 	using System.Text;
 
-	/// <remarks>vlcht wäre es praktisches das Teil als Klasse zu implementieren</remarks>
+    /// <remarks>vlcht wäre es praktisches das Teil als Klasse zu implementieren</remarks>
 	public interface IVideoInfo 
 	{
-		string videoCodecName { get;set; }
+        string videoCodecName { get;set; }
 
 	}
 }
