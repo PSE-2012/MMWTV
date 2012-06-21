@@ -1,12 +1,12 @@
 \chapter{Einleitung}
 
 Die Anwendung \emph{Objective Quality Assessment Toolkit} , welche im Auftrag des CES hergestellt wird, wird wie im Pflichtenheft spezifiziert nach dem \emph{Model View ViewModel} Entwurfsmuster angefertigt.
-Hierbei ist das Ziel eine möglichst lose gekoppeltes System der Aufgaben zu erreichen.
+Hierbei ist das Ziel ein möglichst lose gekoppeltes System der Aufgaben zu erreichen.
 
-Das ViewModel fungiert unter anderem als koordinationsmodul
-zwischen View und Model, so werden z.b. Databindings welche
+Das ViewModel fungiert unter anderem als Koordinationsmodul
+zwischen View und Model, so werden z.b. Databindings, welche
 sich nicht deklarativ (zur Entwicklungszeit im XAML-code)
-konstruieren lassen von einem ViewModel einer jeweiligen View
+konstruieren lassen, von einem ViewModel einer jeweiligen View
 an ein bestimmtes ModelElement gebunden.
 
 Das Model übernimmt neben der Datenhaltung und Organisation
@@ -14,12 +14,13 @@ auch das Sichern bzw. Wiederfinden der Daten auf der Festplatte.
 Wobei Daten \projektTitel-Anwendungseinstellungen (Sprache, bestimmte
 Standartpfade), von \projektTitel oder
 aber von einem Plugin von \projektTitel erstellte Videoinformationen.
+%Johannes: was möchte mir der satz sagen?
 
 Da die View für \projektTitel mit Hilfe von WPF(Win...) entwickelt 
 wird ist die Verwendung von deklarativen Mitteln (XAML) den
-imperativen (C sharp) vorzuziehen. Durch solches vorgehen wird
-codedopplung bei der GUI-Entwicklung vermieden und eine
-gewisse Robustheit erreicht. Ein Nachteil der weites gehenden deklarativen
+imperativen (C sharp) vorzuziehen. Durch solches Vorgehen wird
+Codedopplung bei der GUI-Entwicklung vermieden und eine
+gewisse Robustheit erreicht. Ein Nachteil der weitesgehenden deklarativen
 Programmierung der View ist der Verlust einer Sinnvollen
 UML-Diagramm-Darstellungen für diese ohne mit der Implementierung 
 der View anzufangen, daher wurde auf das Erstellen einzelner View-Klassen

@@ -10,7 +10,7 @@
 \end{figure}
 
 \class{Project}{Klasse}
-Alle für das Projekt relevanten Daten befinden sich hier. Dies beinhaltet einen Pfad,  einen Namen und eine Beschreibung. IMemorizable wird implementiert.
+Alle für das Projekt relevanten Daten befinden sich hier. Dies beinhaltet einen Pfad, einen Namen und eine Beschreibung. IMemorizable wird implementiert.
 
 
 \class{OqatProperties}{Klasse}
@@ -19,7 +19,7 @@ Dies sind die globalen Einstellungen der Anwendung: Sprache sowie Pfad zum Plugi
 
 \class{Caretaker}{Klasse}
 Der Caretaker ist zuständig für das Laden und Speichern von Mementos von und auf die Festplatte.
-Er stellt Methoden bereit, damit andere Klassen Zugriff auf ihre Mementos haben und wird als Singelton realliesiert. Der Caretaker verwaltet eine Tabelle von Strings und dazu gehörigen Listen von Mementos. 
+Er stellt Methoden bereit, damit andere Klassen Zugriff auf ihre Mementos haben und wird als Singelton realliesiert. Der Caretaker verwaltet eine Tabelle von Strings und die dazu gehörigen Listen von Mementos. 
 
 
 \class{SmartNode}{Klasse}
@@ -126,11 +126,11 @@ Enthält ein Objekt vom Typ Projekt. Wird von Events als Argument benutzt.
 In dieser Enum sind die verschiedenen Typen von Ansichten aufgelistet.
 
 \class{VM ProjectOpenDialog}{Klasse}
-
+Steuert das Fenster, dass zum öffnen eines Projektes, verwendet wird.
 
 
 \class{VM VidImportOptionsDialog}{Klasse}
-
+Steuert das Fenster, dass importieren eines Videos, verwendet wird.
 
 \pagebreak
 \subsection{Macro}
@@ -267,12 +267,12 @@ Eine Metrik schreibt ihre Ergebnisse zuerst in ein AnalysisInfo-Objekt, damit da
 
 
 \class{PluginType}{Enumeration}
-Typen von Plugins
+Der Enum enthält die Typen von Plugins.
 
 
 \class{PresentationPluginType}{Enumeration}
-Typen von Presentationplugins
+Der Enum enthält die Typen von Presentationplugins.
 
 
 \class{EventType}{Enumeration}
-Typen von Events
+Der Enum enthält die Typen von Events.
