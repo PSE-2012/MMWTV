@@ -19,11 +19,11 @@ Dies sind die globalen Einstellungen der Anwendung: Sprache sowie Pfad zum Plugi
 
 \class{Caretaker}{Klasse}
 Der Caretaker ist zuständig für das Laden und Speichern von Mementos von und auf die Festplatte.
-Er stellt Methoden bereit, damit andere Klassen Zugriff auf ihre Mementos haben und wird als Singelton realliesiert. Der Caretaker verwaltet eine Tabelle von Strings und die dazu gehörigen Listen von Mementos. 
+Er stellt Methoden bereit, damit andere Klassen Zugriff auf ihre Mementos haben und wird als Singleton realisiert. Der Caretaker verwaltet eine Tabelle von Strings und die dazu gehörigen Listen von Mementos. 
 
 
 \class{SmartNode}{Klasse}
-Videos eines Projektes werden durch die SmartNode in einer Baumstruktur zusammengestellt, um sie dann dem SmartTree der View zur Verfügung zu stellen. Eine SmartNode kann mehrere Kinder-SmartNodes haben.
+Videos eines Projektes werden durch SmartNodes in einer Baumstruktur zusammengestellt, um sie dann dem SmartTree der View zur Verfügung zu stellen. Eine SmartNode kann mehrere Kinder-SmartNodes haben.
 
 \pagebreak
 \subsection{Oqat Public Ressources}
@@ -34,7 +34,7 @@ Videos eines Projektes werden durch die SmartNode in einer Baumstruktur zusammen
 \end{figure}
 
 \class{Video}{Klasse}
-Implementiert IMemorizable. Im Video werden ein Pfad zu einer Videodatei, ein Videoinfo-Objekt sowie mögliche Extraressourcen gelegt. Falls es sich um ein Analysevideo handelt, werden zusätzlich entsprechende Daten hier abgelegt.
+Im Video werden ein Pfad zu einer Videodatei, ein VideoInfo-Objekt sowie mögliche ">Extraressourcen"<, wie eine Datei zugehöriger Motionvektoren, gelegt. Falls es sich um ein Analysevideo handelt, werden zusätzlich entsprechende Analysedaten hier abgelegt. Ein Video kann außerdem auch einen VideoHandler zurück geben, mit dem auf die Video-Datei zugegriffen wird. Implementiert IMemorizable.
 
 
 \class{VideoEventArgs}{Klasse}
@@ -42,7 +42,7 @@ Enthält ein Video und ein Boolean, der wahr ist, falls es sich um ein Referenzv
 
 
 \class{Memento}{Klasse}
-Ein Memento speichert den Zustand eines Objektes. Es werden ein Name und gegebenenfalls auch ein Pfad zum Speichern auf die Festplatte bereitgestellt.
+Ein Memento speichert den Zustand eines Objektes. Es werden ein Name und gegebenenfalls auch ein Pfad zum Speichern auf die Festplatte bereitgestellt. Der Memento-Benutzer legt außerdem seine zu speichernden Daten ab.
 
 
 \class{MementoEventArgs}{Klasse}
@@ -53,7 +53,7 @@ Enthält zwei Strings: Name eines Mementos und Referenz zu einem Plugin. Wird vo
 Es wird ermöglicht, den Zustand einer Klasse als Memento zu speichern und vorherige Zustände zu laden.
 
 
-\class{IvideoInfo}{Interface}
+\class{IVideoInfo}{Interface}
 Falls ein Videoformat Voreinstellungen braucht bietet IVideoInfo die Möglichkeit diese abzulegen.
 
 %\pagebreak
@@ -70,26 +70,26 @@ keepaspectratio]{bilder/Klassendiagramm/VM.png}
 \caption{Oqat Organisation}
 \end{figure}
 
-Alle sichtbaren VM implementieren eine Methode onToggleView, die für den Ansichtswechsel zuständig ist und eventgesteuert funktioniert.
+Alle sichtbaren VM (ViewModel) implementieren eine Methode onToggleView, die für den Ansichtswechsel zuständig ist und eventgesteuert funktioniert.
 
 \class{OqatApp}{Klasse}
 Die Klasse wird beim starten des Programms als erstes angesprochen und initialisiert die Anwendung und den Pluginmanager.
 
 
 \class{VM Oqat}{Klasse}
-Diese initialisiert die ViewModel Komponenten. Dazu gehören Willkommensbildschirm, das Projekt, Menü, Presentation und die Pluginlisten. Die Klasse stellt auch eine Delegatemethode zur Ansichtswechsel bereit.
+Diese initialisiert die ViewModel Komponenten. Dazu gehören Willkommensbildschirm, das Projekt, Menü, Presentation und die Pluginlisten. Die Klasse stellt auch eine Delegate-Methode zum Ansichtswechsel bereit.
 
 
 \class{VM ProjectExplorer}{Klasse}
-Besteht aus einem SmartTree und einem Dateiexplorer, um diese in der GUI bereitzustellen. Er kann durch den Dateiexplorer Videos Laden, diese werden im SmartTree angezeigt.
+Besteht aus einem SmartTree und einem Dateiexplorer, um diese in der GUI bereitzustellen. Er kann durch den Dateiexplorer Videos laden, diese werden im SmartTree angezeigt.
 
 
 \class{PluginManager}{Klasse}
-Der Pluginmanager ist die Schnittstelle zwischen \projektTitel und den Plugins. Er stellt Methoden zum Abrufen von Plugins und den zugehörigen Mementos. Außerdem werden Events mit deren Handlern bei ihm registriert.  Er ist als Singelton realisiert. Der Pluginmanager enthält einen Pfad zum Pluginordner sowie eine Tabelle, die den Plugintypen die zugehörigen Plugins zusammen mit deren Namen zuordnet.
+Der Pluginmanager ist die Schnittstelle zwischen \projektTitel und den Plugins. Er stellt Methoden zum Abrufen von Plugins und den zugehörigen Mementos. Außerdem werden Events mit deren Handlern bei ihm registriert.  Er ist als Singleton realisiert. Der Pluginmanager enthält einen Pfad zum Pluginordner sowie eine Tabelle, die den Plugintypen die zugehörigen Plugins zusammen mit deren Namen zuordnet.
 
 
 \class{VM Pluginlists}{Klasse}
-Die Pluginlist verwaltet die hinzugefügten Metriken und Filter, sowie die anderen Plugins. Er kann die Events entryClick und entrySelect abfangen. Bei entryClick wird ein Filter oder eine Metrik vom Container ausgewählt und die zugehörigen Einstellungen angezeigt. Bei entrySelect wird der ausgewählte Filter oder Metrik zu einer Makrowarteschlange hinzugefügt. VM Pluginlists stellt eine Delegatemethode bereit, die neuerstellte Mementos nach dem Abfangen des jeweiligen Events zu dem jeweiligen Plugincontainer hinzufügt.
+Die Pluginlist verwaltet die hinzugefügten Metriken und Filter, sowie die anderen Plugins. Er kann die Events entryClick und entrySelect abfangen. Bei entryClick wird ein Filter oder eine Metrik vom Container ausgewählt und die zugehörigen Einstellungen angezeigt. Bei entrySelect wird der ausgewählte Filter oder Metrik zu einer Makrowarteschlange hinzugefügt. VM Pluginlists stellt eine Delegatemethode bereit, die neu erstellte Mementos nach dem Abfangen des jeweiligen Events zu dem jeweiligen Plugincontainer hinzufügt.
 
 
 \begin{figure}[H]
@@ -126,11 +126,11 @@ Enthält ein Objekt vom Typ Projekt. Wird von Events als Argument benutzt.
 In dieser Enum sind die verschiedenen Typen von Ansichten aufgelistet.
 
 \class{VM ProjectOpenDialog}{Klasse}
-Steuert das Fenster, dass zum öffnen eines Projektes, verwendet wird.
+Steuert das Fenster, das zum Öffnen eines Projektes verwendet wird.
 
 
 \class{VM VidImportOptionsDialog}{Klasse}
-Steuert das Fenster, dass importieren eines Videos, verwendet wird.
+Steuert das Fenster, das zum Importieren eines Videos verwendet wird.
 
 \pagebreak
 \subsection{Macro}
@@ -178,15 +178,16 @@ Stellt Oxyplot einen Container zum Zeichnen von Diagrammen zur Verfügung. Lädt
 
 
 \class{VideoSource}{Klasse}
+Die VideoSource dient als Adapter zwischen einem VideoHandler, der Videodateien liest und der vom AForge-VideoSourcePlayer benötigten VideoSource.
 Implementiert IVideoSource von AForge. Implementiert Methoden zum Abspielen eines Videos.
 
 
 \class{PP DatPlayer}{Klasse}
-Erbt von PP Player und bietet dem VideoSourcePlayer die Möglichkeit, MotionVektoren als Overlays darstellen.
+Erbt von PP Player und bietet dem VideoSourcePlayer die Möglichkeit, MotionVektoren (Dat-Dateien) als Overlays darstellen.
 
 
 \class{PS YuvVideoHandler}{Klasse}
-Erbt von IVideoHandler. Der YuvVideoHandler holt sich die Frames von einem YUV-Video bzw. schreibt sie wieder in das Video.
+Erbt von IVideoHandler. Der YuvVideoHandler holt sich die Frames von einer YUV-Video-Datei bzw. schreibt sie wieder.
 
 
 \class{YuvVideoInfo}{Klasse}
@@ -223,7 +224,7 @@ keepaspectratio]{bilder/Klassendiagramm/PluginInterfaces.png}
 \end{figure}
 
 \class{IPlugin}{Interface}
-Jede Klasse, die ein Plugin ist, muss dieses Interface Implementieren. Namenattribut, Plugintypattribut und Methoden zur Verwaltung von Events (mittels Tabellen von EventTypen und den zugehörigen Delegatemethoden) werden dann von IPlugin geerbt. IPlugin implementiert IMemorizable.
+Jede Klasse, die ein Plugin ist, muss dieses Interface implementieren. Namenattribut, Plugintypattribut und Methoden zur Verwaltung von Events (mittels Tabellen von EventTypen und den zugehörigen Delegatemethoden) werden dann von IPlugin geerbt. IPlugin implementiert IMemorizable.
 
 
 \class{IPresentation}{Interface}
