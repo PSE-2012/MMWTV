@@ -1,6 +1,4 @@
-﻿//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-namespace Oqat.ViewModel
+﻿namespace Oqat.ViewModel
 {
 	using System;
 	using System.Collections.Generic;
@@ -8,6 +6,10 @@ namespace Oqat.ViewModel
 	using System.Text;
     using System.Windows.Controls;
 
+    /// <summary>
+    /// This class is the ViewModel for the menu bar. Nearly all system or plugin relevant properties
+    /// can be maid here.
+    /// </summary>
 	public class VM_Menu
 	{
 		private MenuItem menuItem_Project
@@ -22,12 +24,18 @@ namespace Oqat.ViewModel
 			set;
 		}
 
+        /// <summary>
+        /// VM_OptionsDialog instance, should be checked on actuality on every invocation.
+        /// </summary>
 		private VM_OptionsDialog vM_optionsDialog
 		{
 			get;
 			set;
 		}
 
+        /// <summary>
+        /// Assistent for creating projects.
+        /// </summary>
 		private VM_ProjectOpenDialog vM_ProjectOpenDialog
 		{
 			get;
@@ -35,12 +43,11 @@ namespace Oqat.ViewModel
 		}
 
 
-        //public VM_Menu(Control parent, del onBuildProjectView)
-        //{
-        //}
-        // lasse den Konstruktoraufruf, es ist zwar weder kompliziert noch besonders hässlich aber
-        // unser Pluginmanager sollte unser einziges EventPass System sein.
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parent">The panel where VM_Menu should display itself. Usually this will be at the top
+        /// of the main window.(</param>
         public VM_Menu(Panel parent) { }
 
 	}

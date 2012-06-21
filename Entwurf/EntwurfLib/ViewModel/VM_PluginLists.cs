@@ -11,8 +11,14 @@ namespace Oqat.ViewModel
 
     using System.Windows.Controls;
     using Oqat.PublicRessources.Model;
+
+    /// <summary>
+    /// This ViewModel is responsible for displaying Filter and Metric plugins so the user can
+    /// invocate (or change Properties, if a particular plugin provides the option)  them with keyboard or mouse.
+    /// </summary>
 	public class VM_PluginLists
 	{
+
 		private TabControl PluginLists
 		{
 			get;
@@ -31,6 +37,10 @@ namespace Oqat.ViewModel
 			set;
 		}
 
+        /// <summary>
+        /// With this button the user can delete a particular memento of a filter / metric
+        /// plugin.
+        /// </summary>
 		private Button delete
 		{
 			get;
