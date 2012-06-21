@@ -25,11 +25,6 @@ namespace PP_Presentation
             }
         }
 
-        public void loadVideo(Oqat.PublicRessources.Model.Video vid)
-        {
-            throw new NotImplementedException();
-        }
-
         public void unloadVideo()
         {
             throw new NotImplementedException();
@@ -85,6 +80,12 @@ namespace PP_Presentation
         }
 
         private void createDataSeries(float[] series) { }
+
+
+        public void loadVideo(object sender, Oqat.PublicRessources.Model.VideoEventArgs vid)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

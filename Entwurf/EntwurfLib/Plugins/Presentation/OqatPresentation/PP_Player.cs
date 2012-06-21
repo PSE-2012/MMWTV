@@ -25,11 +25,6 @@ namespace PP_Presentation
             }
         }
 
-        public void loadVideo(Oqat.PublicRessources.Model.Video vid)
-        {
-            throw new NotImplementedException();
-        }
-
         public void unloadVideo()
         {
             throw new NotImplementedException();
@@ -80,6 +75,12 @@ namespace PP_Presentation
         }
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void loadVideo(object sender, Oqat.PublicRessources.Model.VideoEventArgs vid)
         {
             throw new NotImplementedException();
         }
