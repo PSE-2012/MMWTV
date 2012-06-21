@@ -10,7 +10,13 @@ namespace Oqat.ViewModel.Macro
 	using System.Text;
 
     using System.Drawing;
-	public class PF_MacroMetric : Macro, IMetricOqat
+
+    /// <summary>
+    /// This class is a implementation of IMetricOqat, <see cref="IMetricOqat"/> for further informations.
+    /// Besides this class inherits from the abstract class <see cref="Macro"/> wich in turn
+    /// only implements IMacro, see <see cref="IMacro"/> for further informations.
+    /// </summary>
+	public class PM_MacroMetric : Macro, IMetricOqat
     {
 
         public AnalysisInfo analyse(Bitmap frameRef, Bitmap frameProc)

@@ -9,6 +9,12 @@ namespace Oqat.ViewModel.Macro
     using System.Linq;
     using System.Text;
 
+
+    /// <summary>
+    /// This class is a implementation of IFilterOqat, <see cref="IFilterOqat"/> for further informations.
+    /// Besides this class inherits from the abstract class <see cref="Macro"/> wich in turn
+    /// only implements IMacro, see <see cref="IMacro"/> for further informations.
+    /// </summary>
     public class PF_MacroFilter : Macro, IFilterOqat
     {
 

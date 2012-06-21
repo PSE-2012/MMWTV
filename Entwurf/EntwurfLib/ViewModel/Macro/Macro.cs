@@ -9,6 +9,9 @@ namespace Oqat.ViewModel.Macro
 	using System.Linq;
 	using System.Text;
 
+    /// <summary>
+    /// This class implements the IMacro interface, see <see cref="IMacro"/> for further information
+    /// </summary>
 	public abstract class Macro : IMacro
 	{
 
