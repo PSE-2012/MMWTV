@@ -1,6 +1,4 @@
-﻿//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-namespace Oqat.PublicRessources.Plugin
+﻿namespace Oqat.PublicRessources.Plugin
 {
 	using System;
 	using System.Collections.Generic;

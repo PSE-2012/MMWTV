@@ -7,6 +7,10 @@ namespace Oqat.PublicRessources.Plugin
 	using System.Linq;
 	using System.Text;
 
+    /// <summary>
+    /// This class is used to determine the history of a video object ( e.g. filtered by) and
+    /// by classes inheriting from <see cref="Macro"/> (to reconstruct filter bound to a macro filter)
+    /// </summary>
 	public class MacroEntryFilter : MacroEntry
 	{
 		private double endFrameRelative
