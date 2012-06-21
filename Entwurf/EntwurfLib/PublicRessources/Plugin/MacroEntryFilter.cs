@@ -9,7 +9,7 @@ namespace Oqat.PublicRessources.Plugin
 
     /// <summary>
     /// This class is used to determine the history of a video object ( e.g. filtered by) and
-    /// by classes inheriting from <see cref="Macro"/> (to reconstruct filter bound to a macro filter)
+    /// by classes inheriting from Macro (to reconstruct filter bound to a macro filter)
     /// </summary>
 	public class MacroEntryFilter : MacroEntry
 	{

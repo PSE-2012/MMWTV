@@ -9,7 +9,7 @@
 
     /// <summary>
     /// This interface has to be implemented in order to be recognized
-    /// as a PresentationPlugin ( <see cref="Pluginmanager"/>)
+    /// as a PresentationPlugin ( Pluginmanager)
     /// </summary>
 	public interface IPresentation  : IPlugin
 	{

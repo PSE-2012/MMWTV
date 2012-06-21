@@ -13,11 +13,11 @@ namespace Oqat.PublicRessources.Plugin
 	public enum EventType : int
 	{
         /// <summary>
-        /// Will be raised if a video (<see cref="VM_ProjectExplorer"/>) is clicked on.
+        /// Will be raised if a video (VM_ProjectExplorer) is clicked on.
         /// </summary>
 		videoClick,
         /// <summary>
-        /// Will be raised if a video (<see cref="VM_ProjectExplorer"/>, <see cref="VM_Presentation"/>) was selected
+        /// Will be raised if a video (VM_ProjectExplorer, VM_Presentation) was selected
         /// to load into a player.
         /// </summary>
 		videoLoad,
@@ -27,11 +27,11 @@ namespace Oqat.PublicRessources.Plugin
 		newMementoCreated,
 
         /// <summary>
-        /// Will be raised if the user selects a file out of te FileExplorer (<see cref="ProjectExplorer"/>
+        /// Will be raised if the user selects a file out of te FileExplorer (ProjectExplorer)
         /// </summary>
 		fileSelected,
         /// <summary>
-        /// Weill be raised if a new video object was created ( <see cref="VM_VideoImportDialog"/>.
+        /// Weill be raised if a new video object was created ( VM_VideoImportDialog).
         /// </summary>
 		vidObjectCreated,
 	}

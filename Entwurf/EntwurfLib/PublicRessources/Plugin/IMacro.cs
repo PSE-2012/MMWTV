@@ -22,7 +22,7 @@
 		List<MacroEntry> getPluginMementoList();
 
         /// <summary>
-        /// Loads all plugins from the <see cref="PluginManager"/> contained in the macro entry list.
+        /// Loads all plugins from the PluginManager contained in the macro entry list.
         /// </summary>
         void fetchPlugins();
 

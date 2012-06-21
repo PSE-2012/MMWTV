@@ -11,8 +11,8 @@ namespace Oqat.PublicRessources.Plugin
 
     /// <summary>
     /// If a plugin has properties it wants to be saved it has to
-    /// implement this interface so the <see cref="Pluginmanager"/> 
-    /// can collect and pass them to the <see cref="Caretaker"/>.
+    /// implement this interface so the Pluginmanager 
+    /// can collect and pass them to the Caretaker.
     /// </summary>
 	public interface IMemorizable 
 	{

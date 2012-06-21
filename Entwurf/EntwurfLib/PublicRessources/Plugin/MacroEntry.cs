@@ -7,8 +7,8 @@
 
     /// <summary>
     /// This class represents a particular plugin and its memento wich enables a way to store such
-    /// processing informatin within a <see cref="PF_Macro"/> or <see cref="PM_Metric"/> object.
-    /// See <see cref="MacroEntryMetric"/> and <see cref="MacroEntryFilter"/> for usecases.
+    /// processing informatin within a PF_Macro or PM_Metric object.
+    /// See MacroEntryMetric and MacroEntryFilter for usecases.
     /// </summary>
 	public abstract class MacroEntry
 	{

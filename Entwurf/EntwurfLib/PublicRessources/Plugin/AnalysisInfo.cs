@@ -11,7 +11,7 @@ namespace Oqat.PublicRessources.Plugin
 
     /// <summary>
     /// This class is used to pass results from a <see cref="IMetric"/> plugin 
-    /// to the caller ( usually <see cref="PM_MacroMetric"/>.
+    /// to the caller ( usually PM_MacroMetric/>.
     /// </summary>
 	public class AnalysisInfo
 	{

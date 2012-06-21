@@ -6,7 +6,7 @@
 	using System.Text;
 
     /// <summary>
-    /// This Enum contains different ( to <see cref="VM_Presentation"/> known) plugin types.
+    /// This Enum contains different ( to VM_Presentation known) plugin types.
     /// </summary>
 	public enum PresentationPluginType
 	{
