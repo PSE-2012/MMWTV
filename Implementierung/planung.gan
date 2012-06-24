@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="OQAT Implementierung" company="" webLink="https://github.com/organizations/PSE-2012" view-date="2012-06-20" view-index="0" gantt-divider-location="315" resource-divider-location="300" version="2.0">
+<project name="OQAT Implementierung" company="" webLink="https://github.com/organizations/PSE-2012" view-date="2012-06-25" view-index="0" gantt-divider-location="331" resource-divider-location="300" version="2.0">
     <description/>
-    <view zooming-state="default:3" id="gantt-chart"/>
+    <view zooming-state="default:1" id="gantt-chart"/>
     <view id="resource-table">
         <field id="0" name="Ressource" width="50" order="0"/>
         <field id="1" name="Rolle" width="50" order="1"/>
@@ -70,87 +70,92 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="6" name="Planung" meeting="true" start="2012-06-22" duration="3" complete="2" expand="true">
-            <task id="13" name="Gantt-Diagramm erstellen" color="#8cb6ce" meeting="false" start="2012-06-22" duration="1" complete="5" priority="2" expand="true"/>
-            <task id="58" name="Testfall-Umgebung suchen" meeting="false" start="2012-06-24" duration="1" complete="0" expand="true"/>
+        <task id="6" name="Planung" meeting="true" start="2012-06-22" duration="3" complete="90" expand="true">
+            <depend id="36" type="2" difference="0" hardness="Strong"/>
+            <task id="13" name="Gantt-Diagramm erstellen" color="#8cb6ce" meeting="false" start="2012-06-22" duration="1" complete="80" priority="2" expand="true"/>
         </task>
-        <task id="25" name="PluginManager" meeting="false" start="2012-06-25" duration="3" complete="0" expand="false">
-            <task id="33" name="Plugins laden (MEF)" meeting="false" start="2012-06-25" duration="2" complete="0" expand="true">
+        <task id="25" name="PluginManager" meeting="false" start="2012-06-25" duration="6" complete="0" expand="true">
+            <task id="33" name="Plugins laden (MEF)" color="#00cc00" meeting="false" start="2012-06-25" duration="5" complete="0" expand="true">
                 <notes><![CDATA[zunächst mit Mockups-Plugin
 
 3, 4, 4, 5, 5 > 10]]></notes>
                 <depend id="35" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="35" name="PluginManager" meeting="false" start="2012-06-27" duration="1" complete="0" expand="true">
+            <task id="35" name="PluginManager" color="#00cc00" meeting="false" start="2012-06-30" duration="1" complete="0" expand="true">
                 <notes><![CDATA[1,1,2,2,2 > 2]]></notes>
             </task>
         </task>
-        <task id="26" name="Caretaker" meeting="false" start="2012-06-25" duration="2" complete="0" expand="false">
-            <task id="29" name="Memento" meeting="false" start="2012-06-25" duration="1" complete="0" expand="true">
+        <task id="26" name="Caretaker" meeting="false" start="2012-06-25" duration="5" complete="0" expand="true">
+            <task id="29" name="Memento" color="#ffff00" meeting="false" start="2012-06-25" duration="1" complete="0" expand="true">
                 <notes><![CDATA[1]]></notes>
                 <depend id="27" type="1" difference="0" hardness="Strong"/>
                 <depend id="52" type="2" difference="0" hardness="Strong"/>
                 <depend id="62" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="27" name="Caretaker" meeting="false" start="2012-06-25" duration="1" complete="0" expand="true">
+            <task id="27" name="Caretaker" color="#ffff00" meeting="false" start="2012-06-25" duration="1" complete="0" expand="true">
                 <notes><![CDATA[1, 1, 1, 2, 3 > 2]]></notes>
             </task>
-            <task id="52" name="fromDisk - toDisk" meeting="false" start="2012-06-26" duration="1" complete="0" expand="true">
+            <task id="52" name="fromDisk - toDisk" color="#ffff00" meeting="false" start="2012-06-26" duration="4" complete="0" expand="true">
                 <notes><![CDATA[Serialization
 
 1, 3, 4, 4, 5 > 8]]></notes>
             </task>
         </task>
-        <task id="36" name="Videos" meeting="false" start="2012-06-25" duration="3" complete="0" expand="false">
+        <task id="36" name="Videos" meeting="false" start="2012-06-25" duration="9" complete="0" expand="true">
             <notes><![CDATA[8,8,10,11,12 > 24]]></notes>
-            <task id="41" name="VideoHandler" meeting="false" start="2012-06-25" duration="3" complete="0" expand="true">
-                <task id="66" name="PropertiesView" meeting="false" start="2012-06-25" duration="1" complete="0" expand="true"/>
-                <task id="68" name="read/write yuv-file" meeting="false" start="2012-06-26" duration="2" complete="0" expand="true"/>
+            <task id="41" name="VideoHandler" color="#ff0066" meeting="false" start="2012-06-25" duration="7" complete="0" expand="true">
+                <task id="66" name="PropertiesView" color="#ff0066" meeting="false" start="2012-06-30" duration="2" complete="0" expand="true"/>
+                <task id="68" name="read/write yuv-file" color="#ff0066" meeting="false" start="2012-06-25" duration="5" complete="0" expand="true"/>
             </task>
-            <task id="63" name="VideoInfo" meeting="false" start="2012-06-25" duration="1" complete="0" expand="true"/>
-            <task id="39" name="Video" meeting="false" start="2012-06-25" duration="1" complete="0" expand="true"/>
-            <task id="62" name="Video: getMemento - setMemento" meeting="false" start="2012-06-26" duration="1" complete="0" expand="true"/>
+            <task id="63" name="VideoInfo" color="#ff0066" meeting="false" start="2012-07-01" duration="1" complete="0" expand="true">
+                <depend id="62" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="39" name="Video" color="#ff0066" meeting="false" start="2012-07-02" duration="1" complete="0" expand="true">
+                <depend id="62" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="62" name="Video: getMemento - setMemento" color="#ff0066" meeting="false" start="2012-07-03" duration="1" complete="0" expand="true"/>
         </task>
-        <task id="76" name="PP_Player" meeting="false" start="2012-06-28" duration="2" complete="0" expand="false">
+        <task id="76" name="PP_Player" meeting="false" start="2012-06-25" duration="7" complete="0" expand="true">
             <notes><![CDATA[7,7,8,9 > 16]]></notes>
-            <task id="82" name="VideoSource Objekt" meeting="false" start="2012-06-28" duration="2" complete="0" expand="true">
+            <task id="82" name="VideoSource Objekt" color="#0000cc" meeting="false" start="2012-06-25" duration="2" complete="0" expand="true">
                 <depend id="83" type="1" difference="0" hardness="Strong"/>
             </task>
-            <task id="83" name="AForgePlayer einbinden" meeting="false" start="2012-06-28" duration="2" complete="0" expand="true"/>
-            <task id="81" name="PropertiesView" meeting="false" start="2012-06-29" duration="1" complete="0" expand="true"/>
+            <task id="83" name="AForgePlayer einbinden" color="#0000cc" meeting="false" start="2012-06-25" duration="6" complete="0" expand="true"/>
+            <task id="81" name="PropertiesView" color="#0000cc" meeting="false" start="2012-07-01" duration="1" complete="0" expand="true"/>
         </task>
-        <task id="77" name="PP_Diagramm" meeting="false" start="2012-06-30" duration="2" complete="0" expand="false">
+        <task id="77" name="PP_Diagramm" meeting="false" start="2012-06-25" duration="5" complete="0" expand="true">
             <notes><![CDATA[10]]></notes>
-            <task id="91" name="Oxyplot einbinden" meeting="false" start="2012-06-30" duration="2" complete="0" expand="true">
+            <task id="91" name="Oxyplot einbinden" color="#00cccc" meeting="false" start="2012-06-25" duration="5" complete="0" expand="true">
                 <depend id="90" type="1" difference="0" hardness="Strong"/>
             </task>
-            <task id="90" name="PropertiesView" meeting="false" start="2012-06-30" duration="1" complete="0" expand="true"/>
+            <task id="90" name="PropertiesView" color="#00cccc" meeting="false" start="2012-06-25" duration="1" complete="0" expand="true"/>
         </task>
-        <task id="94" name="Macro" meeting="false" start="2012-06-28" duration="3" complete="0" expand="true">
+        <task id="94" name="Macro" meeting="false" start="2012-06-30" duration="8" complete="0" expand="true">
             <notes><![CDATA[24]]></notes>
-            <task id="97" name="Macro baseclass" meeting="false" start="2012-06-28" duration="2" complete="0" expand="true">
+            <task id="97" name="Macro baseclass" color="#ffff00" meeting="false" start="2012-06-30" duration="3" complete="0" expand="true">
                 <depend id="119" type="2" difference="0" hardness="Strong"/>
+                <depend id="120" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="122" name="MacroEntry" meeting="false" start="2012-06-29" duration="1" complete="0" expand="true"/>
-            <task id="119" name="MacroFilter" meeting="false" start="2012-06-30" duration="1" complete="0" expand="false">
-                <task id="121" name="Filtervorschau" meeting="false" start="2012-06-30" duration="1" complete="0" expand="true"/>
+            <task id="122" name="MacroEntry" color="#ffff00" meeting="false" start="2012-07-01" duration="1" complete="0" expand="true"/>
+            <task id="119" name="MacroFilter" meeting="false" start="2012-07-03" duration="5" complete="0" expand="true">
+                <task id="121" name="Filtervorschau" color="#0000cc" meeting="false" start="2012-07-06" duration="2" complete="0" expand="true"/>
+                <task id="304" name="MacroFilter" color="#0000cc" meeting="false" start="2012-07-03" duration="4" complete="0" expand="true"/>
             </task>
-            <task id="120" name="MacroMetric" meeting="false" start="2012-06-30" duration="1" complete="0" expand="true"/>
+            <task id="120" name="MacroMetric" color="#ffff00" meeting="false" start="2012-07-03" duration="3" complete="0" expand="true"/>
         </task>
-        <task id="98" name="convolution filter" meeting="false" start="2012-06-30" duration="1" complete="0" expand="false">
+        <task id="98" name="convolution filter" meeting="false" start="2012-06-30" duration="3" complete="0" expand="true">
             <notes><![CDATA[5]]></notes>
-            <task id="102" name="PropertiesView" meeting="false" start="2012-06-30" duration="1" complete="0" expand="true"/>
-            <task id="103" name="einzelne Mementos" meeting="false" start="2012-06-30" duration="1" complete="0" expand="true"/>
-            <task id="104" name="Filter implementieren" meeting="false" start="2012-06-30" duration="1" complete="0" expand="true"/>
+            <task id="102" name="PropertiesView" color="#00cccc" meeting="false" start="2012-07-02" duration="1" complete="0" expand="true"/>
+            <task id="103" name="einzelne Mementos" color="#00cccc" meeting="false" start="2012-07-02" duration="1" complete="0" expand="true"/>
+            <task id="104" name="Filter implementieren" color="#00cccc" meeting="false" start="2012-06-30" duration="2" complete="0" expand="true"/>
         </task>
-        <task id="99" name="MSE metric" meeting="false" start="2012-06-30" duration="1" complete="0" expand="false">
+        <task id="99" name="MSE metric" meeting="false" start="2012-07-03" duration="3" complete="0" expand="true">
             <notes><![CDATA[4]]></notes>
-            <task id="107" name="AnalyseInfo" meeting="false" start="2012-06-30" duration="1" complete="0" expand="true"/>
-            <task id="108" name="PropertiesView?" meeting="false" start="2012-06-30" duration="1" complete="0" expand="true"/>
-            <task id="109" name="Metrik implementieren" meeting="false" start="2012-06-30" duration="1" complete="0" expand="true"/>
-            <task id="113" name="normalisierte Werte?" meeting="false" start="2012-06-30" duration="1" complete="0" expand="true"/>
+            <task id="107" name="AnalyseInfo" color="#00cccc" meeting="false" start="2012-07-04" duration="1" complete="0" expand="true"/>
+            <task id="108" name="PropertiesView?" color="#00cccc" meeting="false" start="2012-07-05" duration="1" complete="0" priority="3" expand="true"/>
+            <task id="109" name="Metrik implementieren" color="#00cccc" meeting="false" start="2012-07-03" duration="2" complete="0" expand="true"/>
         </task>
-        <task id="34" name="PluginManager&gt;EventManager" meeting="false" start="2012-06-30" duration="2" complete="0" expand="true">
+        <task id="34" name="PluginManager&gt;EventManager" color="#00cc00" meeting="false" start="2012-07-01" duration="5" complete="0" expand="true">
             <notes><![CDATA[5, 5, 5, 6, 2 > 10]]></notes>
         </task>
         <task id="78" name="PP_MotionVectors" meeting="false" start="2012-07-15" duration="1" complete="0" expand="true"/>
@@ -176,11 +181,45 @@
     </resources>
     <allocations>
         <allocation task-id="13" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="36" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="41" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="68" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="66" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="63" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="39" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="62" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
         <allocation task-id="13" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
-        <allocation task-id="58" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="34" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="33" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="35" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
         <allocation task-id="13" resource-id="2" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
+        <allocation task-id="77" resource-id="2" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="98" resource-id="2" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="91" resource-id="2" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="90" resource-id="2" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="104" resource-id="2" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="103" resource-id="2" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="102" resource-id="2" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="108" resource-id="2" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="107" resource-id="2" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="109" resource-id="2" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
         <allocation task-id="13" resource-id="3" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
+        <allocation task-id="26" resource-id="3" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="94" resource-id="3" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="29" resource-id="3" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="27" resource-id="3" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="52" resource-id="3" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="97" resource-id="3" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="122" resource-id="3" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="120" resource-id="3" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
         <allocation task-id="13" resource-id="4" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
+        <allocation task-id="76" resource-id="4" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="119" resource-id="4" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="82" resource-id="4" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="83" resource-id="4" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="81" resource-id="4" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="304" resource-id="4" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="121" resource-id="4" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
     </allocations>
     <vacations>
         <vacation start="2012-07-18" end="2012-08-02" resourceid="0"/>
@@ -195,9 +234,9 @@
         <displaycolumn property-id="tpd8" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd9" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd2" order="-1" width="75" visible="false"/>
-        <displaycolumn property-id="tpd3" order="0" width="182" visible="true"/>
-        <displaycolumn property-id="tpd4" order="1" width="50" visible="true"/>
-        <displaycolumn property-id="tpd5" order="2" width="64" visible="true"/>
+        <displaycolumn property-id="tpd3" order="0" width="187" visible="true"/>
+        <displaycolumn property-id="tpd4" order="1" width="56" visible="true"/>
+        <displaycolumn property-id="tpd5" order="2" width="69" visible="true"/>
     </taskdisplaycolumns>
     <previous>
         <previous-tasks name="Planung 1">
