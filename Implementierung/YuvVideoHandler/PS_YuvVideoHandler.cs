@@ -15,13 +15,13 @@ namespace YuvVideoHandler
     using Devcorp.Controls.Design;
 
 
-	public class YuvVideoHandler : IVideoHandler
+	public class PS_YuvVideoHandler : IVideoHandler
 	{
         YuvVideoInfo _vidInfo;
         string _path;
 
 
-        public YuvVideoHandler(string filepath, YuvVideoInfo info)
+        public PS_YuvVideoHandler(string filepath, YuvVideoInfo info)
         {
             if (!System.IO.File.Exists(filepath))
             {
@@ -57,13 +57,15 @@ namespace YuvVideoHandler
 
         public System.Drawing.Bitmap getFrame(int frameNm)
         {
+            int blockbytes = bytesPerBlock(_vidInfo.yuvFormat);
+            int blockpixels = pixelsPerBlock(_vidInfo.yuvFormat);
+
+            Bitmap frame = new Bitmap(_vidInfo.width, _vidInfo.height);
+
             FileStream fs = File.OpenRead(_path);
             try
             {
-                int blockbytes = bytesPerBlock(_vidInfo.yuvFormat);
-                int blockpixels = pixelsPerBlock(_vidInfo.yuvFormat);
-
-                Bitmap b = new Bitmap(_vidInfo.width, _vidInfo.height);
+                
 
                 for (int y = 0; y < _vidInfo.height; y++)
                 {
@@ -89,7 +91,7 @@ namespace YuvVideoHandler
                                 throw new ArgumentException("Invalid YuvFormat set in VideoInfo.");
                         }
 
-                        b.SetPixel(x, y, color);
+                        frame.SetPixel(x, y, color);
                     }
                 }
             }
@@ -97,6 +99,8 @@ namespace YuvVideoHandler
             {
                 fs.Close();
             }
+
+            return frame;
         }
 
 
