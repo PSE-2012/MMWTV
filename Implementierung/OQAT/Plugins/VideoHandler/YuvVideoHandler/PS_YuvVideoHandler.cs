@@ -12,17 +12,38 @@ namespace YuvVideoHandler
 
 	public class PS_YuvVideoHandler : IVideoHandler
 	{
+        YuvVideoInfo _vidInfo;
+
+
+        public PS_YuvVideoHandler(string filepath, YuvVideoInfo info)
+        {
+            if (!System.IO.File.Exists(filepath))
+            {
+                throw new ArgumentException("Parameter filepath does not refer to an existing file.");
+            }
+            vidInfo = info;
+
+
+        }
 
 
         public IVideoInfo vidInfo
         {
             get
             {
-                throw new NotImplementedException();
+                return _vidInfo;
             }
-            set
+            private set
             {
-                throw new NotImplementedException();
+                if (value == null)
+                {
+                    throw new ArgumentException("Parameter vidInfo may not be null.");
+                }
+                if(value is YuvVideoInfo)
+                {
+                    throw new ArgumentException("Parameter vidInfo has to be of type YuvVideoInfo.");
+                }
+                _vidInfo =(YuvVideoInfo) value;
             }
         }
 
@@ -50,11 +71,7 @@ namespace YuvVideoHandler
         {
             get
             {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
+                return "YuvVideoHandler";
             }
         }
 
@@ -62,11 +79,7 @@ namespace YuvVideoHandler
         {
             get
             {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
+                return PluginType.VideoHandler;
             }
         }
 

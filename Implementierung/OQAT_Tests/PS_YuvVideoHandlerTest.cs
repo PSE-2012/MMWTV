@@ -21,6 +21,7 @@ namespace OQAT_Tests
 
 
         private TestContext testContextInstance;
+        private const string TESTVIDEO_PATH = "./akiyo_qcif.yuv";
 
         /// <summary>
         ///Ruft den Testkontext auf, der Informationen
@@ -37,6 +38,7 @@ namespace OQAT_Tests
                 testContextInstance = value;
             }
         }
+
 
         #region Zusätzliche Testattribute
         // 
@@ -68,6 +70,26 @@ namespace OQAT_Tests
         //
         #endregion
 
+        /// <summary>
+        ///Ein Test für Konstruktor-Parameter filepath
+        ///</summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ConstructorWrongFilepath()
+        {
+            PS_YuvVideoHandler handler = new PS_YuvVideoHandler("bla", new YuvVideoInfo());
+        }
+
+        /// <summary>
+        ///Ein Test für Konstruktor-Parameter videoInfo
+        ///</summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ConstructorEmptyVidInfo()
+        {
+            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, null);
+        }
+
 
         /// <summary>
         ///Ein Test für "vidInfo"
@@ -75,13 +97,12 @@ namespace OQAT_Tests
         [TestMethod()]
         public void vidInfoTest()
         {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(); // TODO: Passenden Wert initialisieren
-            IVideoInfo expected = null; // TODO: Passenden Wert initialisieren
+            YuvVideoInfo info = new YuvVideoInfo();
+            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, info);
+            IVideoInfo expected = info; // TODO: Passenden Wert initialisieren
             IVideoInfo actual;
-            target.vidInfo = expected;
             actual = target.vidInfo;
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
         }
 
         /// <summary>
@@ -90,13 +111,11 @@ namespace OQAT_Tests
         [TestMethod()]
         public void typeTest()
         {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(); // TODO: Passenden Wert initialisieren
-            PluginType expected = new PluginType(); // TODO: Passenden Wert initialisieren
+            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            PluginType expected = PluginType.VideoHandler;
             PluginType actual;
-            target.type = expected;
             actual = target.type;
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
         }
 
         /// <summary>
@@ -105,14 +124,16 @@ namespace OQAT_Tests
         [TestMethod()]
         public void namePluginTest()
         {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(); // TODO: Passenden Wert initialisieren
-            string expected = string.Empty; // TODO: Passenden Wert initialisieren
+            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            string expected = "YuvVideoHandler";
             string actual;
-            target.namePlugin = expected;
             actual = target.namePlugin;
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
         }
+
+
+
+
 
         /// <summary>
         ///Ein Test für "writeFrames"
@@ -120,7 +141,7 @@ namespace OQAT_Tests
         [TestMethod()]
         public void writeFramesTest()
         {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(); // TODO: Passenden Wert initialisieren
+            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
             int frameNum = 0; // TODO: Passenden Wert initialisieren
             Bitmap[] frames = null; // TODO: Passenden Wert initialisieren
             target.writeFrames(frameNum, frames);
@@ -133,24 +154,13 @@ namespace OQAT_Tests
         [TestMethod()]
         public void writeFrameTest()
         {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(); // TODO: Passenden Wert initialisieren
+            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
             int frameNum = 0; // TODO: Passenden Wert initialisieren
             Bitmap frame = null; // TODO: Passenden Wert initialisieren
             target.writeFrame(frameNum, frame);
             Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
 
-        /// <summary>
-        ///Ein Test für "setParentControll"
-        ///</summary>
-        [TestMethod()]
-        public void setParentControllTest()
-        {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(); // TODO: Passenden Wert initialisieren
-            Panel parent = null; // TODO: Passenden Wert initialisieren
-            target.setParentControll(parent);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
-        }
 
         /// <summary>
         ///Ein Test für "setMemento"
@@ -158,7 +168,7 @@ namespace OQAT_Tests
         [TestMethod()]
         public void setMementoTest()
         {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(); // TODO: Passenden Wert initialisieren
+            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
             Memento memento = null; // TODO: Passenden Wert initialisieren
             target.setMemento(memento);
             Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
@@ -170,7 +180,7 @@ namespace OQAT_Tests
         [TestMethod()]
         public void getMementoTest()
         {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(); // TODO: Passenden Wert initialisieren
+            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
             Memento expected = null; // TODO: Passenden Wert initialisieren
             Memento actual;
             actual = target.getMemento();
@@ -184,7 +194,7 @@ namespace OQAT_Tests
         [TestMethod()]
         public void getFramesTest()
         {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(); // TODO: Passenden Wert initialisieren
+            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
             int frameNm = 0; // TODO: Passenden Wert initialisieren
             int offset = 0; // TODO: Passenden Wert initialisieren
             Bitmap[] expected = null; // TODO: Passenden Wert initialisieren
@@ -200,7 +210,7 @@ namespace OQAT_Tests
         [TestMethod()]
         public void getFrameTest()
         {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(); // TODO: Passenden Wert initialisieren
+            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
             int frameNm = 0; // TODO: Passenden Wert initialisieren
             Bitmap expected = null; // TODO: Passenden Wert initialisieren
             Bitmap actual;
@@ -215,7 +225,7 @@ namespace OQAT_Tests
         [TestMethod()]
         public void getEventHandlersTest()
         {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(); // TODO: Passenden Wert initialisieren
+            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
             Dictionary<EventType, List<Delegate>> expected = null; // TODO: Passenden Wert initialisieren
             Dictionary<EventType, List<Delegate>> actual;
             actual = target.getEventHandlers();
@@ -229,7 +239,7 @@ namespace OQAT_Tests
         [TestMethod()]
         public void PS_YuvVideoHandlerConstructorTest()
         {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler();
+            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
             Assert.Inconclusive("TODO: Code zum Überprüfen des Ziels implementieren");
         }
     }

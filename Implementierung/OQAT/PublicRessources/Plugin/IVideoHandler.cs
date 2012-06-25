@@ -20,7 +20,7 @@
         /// <summary>
         /// A format specific VideoInfo object, see <see cref="IVideoInfo"/> for further information.
         /// </summary>
-		IVideoInfo vidInfo { get;set; }
+		IVideoInfo vidInfo { get; }
 
         /// <summary>
         /// Returns a frame from the currently loaded Video.

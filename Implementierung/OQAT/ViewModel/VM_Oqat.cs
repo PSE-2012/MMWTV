@@ -111,7 +111,7 @@
         /// </summary>
         /// <param name="sender">Reference to the caller.</param>
         /// <param name="e">Created project.</param>
-		private void onBuildProjectView(object sender, projectEventArgs e)
+		private void onBuildProjectView(object sender, ProjectEventArgs e)
 		{
 			throw new System.NotImplementedException();
 		}
