@@ -44,7 +44,7 @@ using Oqat.PublicRessources.Plugin;
         /// <summary>
         /// Relevant for Analysis videos.
         /// </summary>
-		private float[][] frameMetricValue
+		public float[][] frameMetricValue
 		{
 			get;
 			set;
