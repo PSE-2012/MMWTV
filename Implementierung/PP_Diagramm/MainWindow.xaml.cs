@@ -12,6 +12,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OxyPlot;
+using Oqat;
+using PP_Presentation;
+using Oqat.PublicRessources.Plugin;
+using Plugins;
+using System;
 
 
 namespace PP_Diagramm
