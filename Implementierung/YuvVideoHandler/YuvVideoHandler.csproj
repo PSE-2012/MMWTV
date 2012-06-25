@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Programme\AForge.NET\Framework\Release\AForge.Imaging.Formats.dll</HintPath>
     </Reference>
+    <Reference Include="Devcorp.Colorspaces">
+      <HintPath>.\Devcorp.Colorspaces.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -61,7 +64,9 @@
     <Compile Include="TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VM_Properties_YuvVideoHandler.cs" />
+    <Compile Include="PropertiesView.xaml.cs">
+      <DependentUpon>PropertiesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="YuvVideoInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +77,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="TestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertiesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

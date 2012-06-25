@@ -47,27 +47,32 @@ namespace YuvVideoHandler
         {
             InitializeComponent();
 
+            
+        }
+
+        int i = 0;
+        public void BrowseButton_Click(object sender, EventArgs e)
+        {
+            i++;
+            if (i >= 300) i = 0;
+
             YuvVideoInfo info = new YuvVideoInfo();
             info.width = 176;
             info.height = 144;
+            info.yuvFormat = YuvFormat.YUV420;
 
             PS_YuvVideoHandler hand = new PS_YuvVideoHandler("C:/akiyo_qcif.yuv", info);
 
-            Bitmap bmp = hand.getFrame(0); 
-            
-
-            //bmp = new Bitmap("C:/test.jpg");
-            //info.width = 550;
-            //info.height = 785;
+            Bitmap bmp = hand.getFrame(i);
 
             BitmapSource bmpsource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-   bmp.GetHbitmap(),
-   IntPtr.Zero,
-   System.Windows.Int32Rect.Empty,
-   BitmapSizeOptions.FromWidthAndHeight(info.width, info.height));
+                       bmp.GetHbitmap(),
+                       IntPtr.Zero,
+                       System.Windows.Int32Rect.Empty,
+                       BitmapSizeOptions.FromWidthAndHeight(info.width, info.height));
 
             ImageControl.Source = bmpsource;
-
+            
         }
     }
 }

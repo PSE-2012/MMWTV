@@ -22,7 +22,7 @@ namespace YuvVideoHandler
         YuvVideoInfo _vidInfo;
         string _path;
 
-        float lum2chrom;
+        double lum2chrom;
         int ysize;
         int chromasize;
         byte[] data;
@@ -153,17 +153,20 @@ namespace YuvVideoHandler
                 for (int x = 0; x < _vidInfo.width; x++)
                 {
                     int pixel = y * _vidInfo.width + x;
-                    YCbCr c = new YCbCr();
-                    c.Y = framedata_lum[pixel];
-                    c.Cb = framedata_u[Convert.ToInt32(pixel * lum2chrom)];
-                    c.Cr = framedata_v[Convert.ToInt32(pixel * lum2chrom)];
+                    int chromP = Convert.ToInt32(Math.Floor(pixel * lum2chrom));
 
-                    frame.SetPixel(x,y,c.ToRGB().Color);
+                    Color col = convertToRGB(framedata_lum[pixel], 0,0);//framedata_u[chromP],framedata_v[chromP]);
+                    frame.SetPixel(x, y, col);
+                
+                
                 }
             }
 
             return frame;
         }
+
+        
+
 
 
         public System.Drawing.Bitmap[] getFrames(int frameNm, int offset)
@@ -172,16 +175,18 @@ namespace YuvVideoHandler
         }
 
 
-        private float getLum2Chrom()
+        private double getLum2Chrom()
         {
             switch (_vidInfo.yuvFormat)
             {
                 case YuvFormat.YUV444:
                     return 1.0f;
                 case YuvFormat.YUV422:
-                    return 1/2;
+                    return 1.0f/2;
                 case YuvFormat.YUV411:
-                    return 1/4;
+                    return 1.0f/4;
+                case YuvFormat.YUV420:
+                    return 1.0f/4;
                 default:
                     throw new ArgumentException("Invalid YuvFormat set in VideoInfo.");
             }
@@ -228,6 +233,44 @@ namespace YuvVideoHandler
             Array.Copy(data, offset, dataOri_lum, 0, ysize);
             Array.Copy(data, offset + ysize, framedata_u, 0, chromasize);
             Array.Copy(data, offset + ysize + chromasize, framedata_v, 0, chromasize);
+        }
+
+        private byte clampToByte(int val)
+        {
+            return (byte)((val < 0) ? 0 : ((val > 255) ? 255 : val));
+        }
+        private System.Drawing.Color convertToRGB(int y, int u, int v)
+        {
+
+            // conversion yuv > rgb according to http://msdn.microsoft.com/en-us/library/ms893078.aspx
+            int c = y - 16;
+            int d = u - 128;
+            int e = v - 128;
+
+            byte r = clampToByte((298 * c           + 409 * e   + 128) >> 8);
+            byte g = clampToByte((298 * c - 100 * d - 208 * e   + 128) >> 8);
+            byte b = clampToByte((298 * c + 516 * d             + 128) >> 8);
+
+            /* 
+            //alternative conversion formulas
+            byte r = clampToByte(y + 1.402 * (v - 128));
+            byte g = clampToByte(y - 0.344 * (u - 128) - 0.714 * (v - 128));
+            byte b = clampToByte(y + 1.772 * (u - 128));
+            */
+
+            return System.Drawing.Color.FromArgb(r, g, b);
+        }
+
+        public static Color YUVtoRGB(double y, double u, double v)
+        {
+            int red = Convert.ToInt32((y + 1.139837398373983740 * v) * 255);
+            red = (red > 255) ? 255 : ((red < 0) ? 0 : red);
+            int green = Convert.ToInt32((y - 0.3946517043589703515 * u - 0.5805986066674976801 * v) * 255);
+            green = (green > 255) ? 255 : ((green < 0) ? 0 : green);
+            int blue = Convert.ToInt32((y + 2.032110091743119266 * u) * 255);
+            blue = (blue > 255) ? 255 : ((blue < 0) ? 0 : blue);
+
+            return Color.FromArgb(red, green, blue);
         }
 
 
