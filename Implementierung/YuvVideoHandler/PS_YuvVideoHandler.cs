@@ -75,7 +75,7 @@ namespace YuvVideoHandler
                 {
                     throw new ArgumentException("Parameter vidInfo may not be null.");
                 }
-                if(value is YuvVideoInfo)
+                if(!(value is YuvVideoInfo))
                 {
                     throw new ArgumentException("Parameter vidInfo has to be of type YuvVideoInfo.");
                 }
