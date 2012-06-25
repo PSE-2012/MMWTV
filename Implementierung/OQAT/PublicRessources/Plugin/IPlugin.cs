@@ -15,12 +15,12 @@
         /// <summary>
         /// A unambiguous name for the plugin.
         /// </summary>
-		string namePlugin { get;set; }
+		string namePlugin { get; }
 
         /// <summary>
         /// See <see cref="PluginType"/> for available types.
         /// </summary>
-		PluginType type { get;set; }
+		PluginType type { get; }
 
 
         /// <summary>
