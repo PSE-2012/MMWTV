@@ -1,4 +1,4 @@
-﻿namespace Oqat.Macro.ViewModel
+﻿namespace Oqat.ViewModel
 {
 	using System;
 	using System.Collections.Generic;

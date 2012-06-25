@@ -10,7 +10,7 @@
     /// <summary>
     /// This class can be used to pass projects trough events, i.e. after construction.
     /// </summary>
-	public class projectEventArgs : EventArgs
+	public class ProjectEventArgs : EventArgs
 	{
 		private Project project
 		{
