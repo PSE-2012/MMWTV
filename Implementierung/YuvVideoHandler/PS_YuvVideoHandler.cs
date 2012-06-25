@@ -12,13 +12,25 @@ namespace YuvVideoHandler
     using System.Drawing.Imaging;
     using System.Drawing;
     using System.IO;
-    using Devcorp.Controls.Design;
+    using AForge.Imaging;
 
 
 	public class PS_YuvVideoHandler : IVideoHandler
 	{
+        int NUMFRAMESINMEM = 1;
+
         YuvVideoInfo _vidInfo;
         string _path;
+
+        float lum2chrom;
+        int ysize;
+        int chromasize;
+        byte[] data;
+        byte[] framedata_lum;
+        byte[] framedata_u;
+        byte[] framedata_v;
+        byte[] dataOri_lum;
+        int firstFrameInMem;
 
 
         public PS_YuvVideoHandler(string filepath, YuvVideoInfo info)
@@ -31,7 +43,23 @@ namespace YuvVideoHandler
 
             vidInfo = info;
 
+            initBuffers();
+        }
 
+        private void initBuffers()
+        {
+            this.lum2chrom = getLum2Chrom();
+            this.ysize = _vidInfo.width * _vidInfo.height;
+            this.chromasize = (int)(ysize * lum2chrom);
+
+            data = new byte[(int)(_vidInfo.width * _vidInfo.height * (1 + 2 * lum2chrom) * NUMFRAMESINMEM)];
+
+            framedata_lum = new byte[ysize];
+            framedata_u = new byte[chromasize];
+            framedata_v = new byte[chromasize];
+            dataOri_lum = new byte[ysize];
+
+            Load(0);
         }
 
 
@@ -55,94 +83,7 @@ namespace YuvVideoHandler
             }
         }
 
-        public System.Drawing.Bitmap getFrame(int frameNm)
-        {
-            int blockbytes = bytesPerBlock(_vidInfo.yuvFormat);
-            int blockpixels = pixelsPerBlock(_vidInfo.yuvFormat);
-
-            Bitmap frame = new Bitmap(_vidInfo.width, _vidInfo.height);
-
-            FileStream fs = File.OpenRead(_path);
-            try
-            {
-                
-
-                for (int y = 0; y < _vidInfo.height; y++)
-                {
-                    for (int x = 0; x < _vidInfo.width; x++)
-                    {
-                        byte[] bytes = new byte[blockbytes];
-                        fs.Read(bytes,  0, blockbytes);
-
-
-                        Color color;
-                        switch (_vidInfo.yuvFormat)
-                        {
-                            case YuvFormat.YUV444:
-                                color = ColorSpaceHelper.YUVtoColor(Convert.ToDouble(bytes[0]), Convert.ToDouble(bytes[1]), Convert.ToDouble(bytes[2]));
-                                break;
-                            case YuvFormat.YUV422:
-                                color = ColorSpaceHelper.YUVtoColor(Convert.ToDouble(bytes[0]), Convert.ToDouble(bytes[1]), Convert.ToDouble(bytes[2]));
-                                break;
-                            case YuvFormat.YUV411:
-                                color = ColorSpaceHelper.YUVtoColor(Convert.ToDouble(bytes[1]), Convert.ToDouble(bytes[1]), Convert.ToDouble(bytes[2]));
-                                break;
-                            default:
-                                throw new ArgumentException("Invalid YuvFormat set in VideoInfo.");
-                        }
-
-                        frame.SetPixel(x, y, color);
-                    }
-                }
-            }
-            finally
-            {
-                fs.Close();
-            }
-
-            return frame;
-        }
-
-
-        public static int bytesPerBlock(YuvFormat format)
-        {
-            switch(format)
-            {
-                case YuvFormat.YUV444:
-                    return 3;
-                case YuvFormat.YUV422:
-                    return 4;
-                case YuvFormat.YUV411:
-                    return 6;
-                default:
-                    throw new ArgumentException("Invalid YuvFormat set in VideoInfo.");
-            }
-        }
-        public static int pixelsPerBlock(YuvFormat format)
-        {
-            switch(format)
-            {
-                case YuvFormat.YUV444:
-                    return 1;
-                case YuvFormat.YUV422:
-                    return 2;
-                case YuvFormat.YUV411:
-                    return 4;
-                default:
-                    throw new ArgumentException("Invalid YuvFormat set in VideoInfo.");
-            }
-        }
-
-
-
-
-
-
-
-        public System.Drawing.Bitmap[] getFrames(int frameNm, int offset)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public void writeFrame(int frameNum, System.Drawing.Bitmap frame)
         {
@@ -189,6 +130,107 @@ namespace YuvVideoHandler
         {
             throw new NotImplementedException();
         }
+
+
+
+
+
+
+
+
+
+
+        //
+        //<summary>reads the requested frame from the associated videofile</summary>
+        public System.Drawing.Bitmap getFrame(int frameNm)
+        {
+            this.getFrameData(frameNm);
+
+            Bitmap frame = new Bitmap(_vidInfo.width, _vidInfo.height);
+
+            for (int y = 0; y < _vidInfo.height; y++)
+            {
+                for (int x = 0; x < _vidInfo.width; x++)
+                {
+                    int pixel = y * _vidInfo.width + x;
+                    YCbCr c = new YCbCr();
+                    c.Y = framedata_lum[pixel];
+                    c.Cb = framedata_u[Convert.ToInt32(pixel * lum2chrom)];
+                    c.Cr = framedata_v[Convert.ToInt32(pixel * lum2chrom)];
+
+                    frame.SetPixel(x,y,c.ToRGB().Color);
+                }
+            }
+
+            return frame;
+        }
+
+
+        public System.Drawing.Bitmap[] getFrames(int frameNm, int offset)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private float getLum2Chrom()
+        {
+            switch (_vidInfo.yuvFormat)
+            {
+                case YuvFormat.YUV444:
+                    return 1.0f;
+                case YuvFormat.YUV422:
+                    return 1/2;
+                case YuvFormat.YUV411:
+                    return 1/4;
+                default:
+                    throw new ArgumentException("Invalid YuvFormat set in VideoInfo.");
+            }
+        }
+
+        // Loads new frames from file into memory
+        private bool Load(int startFrame)
+        {
+            FileStream fs;
+
+            try
+            {
+                fs = new FileStream(_path, FileMode.Open);
+                fs.Seek( (int)(startFrame * _vidInfo.width * _vidInfo.height * (1+2*lum2chrom)), SeekOrigin.Begin);
+                fs.Read(data, 0, (int)(_vidInfo.width * _vidInfo.height * (1+2*lum2chrom) * NUMFRAMESINMEM));
+                //totalFrames = (int)(fs.Length / (width * height * (1+2*lum2chrom)));
+                fs.Close();
+            }
+            catch (Exception) {return false; }
+
+
+            firstFrameInMem = startFrame;
+            return true;
+        }
+
+        // Get the luminance and color components of given frame and store them in arrays.s
+        // Loads automatically unavailable data from file to memory.
+        private void getFrameData(int frame)
+        {
+            // check if we have to load new data
+            if (frame >= firstFrameInMem + NUMFRAMESINMEM)
+            {
+                Load(frame);
+            }
+            if (frame <  firstFrameInMem)
+            {
+                Load(Math.Max(frame - NUMFRAMESINMEM + 1, 0));
+            }
+
+            // calculate beginning offset of given frame in buffer
+            int offset = (int)((frame - firstFrameInMem) * _vidInfo.height * _vidInfo.width * (1+2*lum2chrom));
+
+            Array.Copy(data, offset, framedata_lum, 0, ysize);
+            Array.Copy(data, offset, dataOri_lum, 0, ysize);
+            Array.Copy(data, offset + ysize, framedata_u, 0, chromasize);
+            Array.Copy(data, offset + ysize + chromasize, framedata_v, 0, chromasize);
+        }
+
+
     }
 }
 
