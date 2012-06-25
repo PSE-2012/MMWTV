@@ -9,26 +9,40 @@ namespace YuvVideoHandler
 	using System.Linq;
 	using System.Text;
 
+    public enum YuvFormat
+    {
+        YUV444,
+        YUV422,
+        YUV411,
+        //YUV420 not implemented at the moment
+    }
+
 	/// <remarks>an dieser stelle brauchen wir eine properties view für den VideoImportDialog und eine (oder de gleiche aber mit anderen parametern) die die infos in der smartlist darstellt</remarks>
 	public class YuvVideoInfo : IVideoInfo
 	{
-		private int width
+		public int width
 		{
 			get;
 			set;
 		}
 
-		private int height
+		public int height
 		{
 			get;
 			set;
 		}
 
-		private long frameNum
+		public long frameNum
 		{
 			get;
 			set;
 		}
+
+        public YuvFormat yuvFormat
+        {
+            get;
+            set;
+        }
 
 
         public string videoCodecName
