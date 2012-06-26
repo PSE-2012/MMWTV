@@ -15,12 +15,15 @@ namespace YuvVideoHandler
     using AForge.Imaging;
 
 
+
 	public class PS_YuvVideoHandler : IVideoHandler
 	{
         int NUMFRAMESINMEM = 1;
 
         YuvVideoInfo _vidInfo;
+        System.Windows.Controls.UserControl propertiesView = null;
         string _path;
+
 
         double lum2chrom;
         int ysize;
@@ -111,10 +114,25 @@ namespace YuvVideoHandler
             }
         }
 
-        public void setParentControll(System.Windows.Controls.Panel parent)
+        public void setParentControl(System.Windows.Controls.Panel parent)
         {
-            throw new NotImplementedException();
+            if (this.propertiesView == null)
+            {
+                this.propertiesView = new PropertiesView();
+            }
+
+            parent.Children.Add(this.propertiesView);
         }
+        public IVideoInfo createVideoInfo()
+        {
+            if (this.propertiesView == null)
+            {
+                throw new NullReferenceException("The properties view has to be created an displayed first in order to create a VideoInfo file.");
+            }
+
+
+        }
+
 
         public Dictionary<EventType, List<Delegate>> getEventHandlers()
         {

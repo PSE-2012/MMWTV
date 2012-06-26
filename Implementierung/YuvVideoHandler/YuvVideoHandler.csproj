@@ -70,12 +70,6 @@
     <Compile Include="YuvVideoInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OQAT\OQAT.csproj">
-      <Project>{B138D4F9-F3DB-45C3-B9B8-2FC79AEB425D}</Project>
-      <Name>OQAT</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -84,6 +78,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OQAT\OQAT.csproj">
+      <Project>{B138D4F9-F3DB-45C3-B9B8-2FC79AEB425D}</Project>
+      <Name>OQAT</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
