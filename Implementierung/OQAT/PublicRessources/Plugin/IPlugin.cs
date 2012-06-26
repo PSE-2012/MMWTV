@@ -27,7 +27,7 @@
         /// A panel where the plugin may place own gui components
         /// </summary>
         /// <param name="parent"></param>
-		void setParentControll(Panel parent);
+		void setParentControl(Panel parent);
 
         /// <summary>
         /// If a plugin wants to listen for some events of <see cref="EventType"/> it has to

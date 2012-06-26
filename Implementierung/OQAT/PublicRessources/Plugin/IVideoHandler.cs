@@ -53,6 +53,12 @@
         /// <param name="frames">Array of frames to place into the currently loaded video.</param>
 		void writeFrames(int frameNum, Bitmap[] frames);
 
+
+        /// <summary>
+        /// Creates a VideoInfo object of the appropriate type from the settings set in the PropertiesView
+        /// </summary>
+        public IVideoInfo createVideoInfo();
+
 	}
 }
 
