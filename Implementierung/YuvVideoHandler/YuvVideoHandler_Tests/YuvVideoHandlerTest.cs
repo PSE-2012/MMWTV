@@ -9,8 +9,8 @@ using System.Collections.Generic;
 
 namespace OQAT_Tests
 {
-    
-    
+
+
     /// <summary>
     ///Dies ist eine Testklasse für "PS_YuvVideoHandlerTest" und soll
     ///alle PS_YuvVideoHandlerTest Komponententests enthalten.
