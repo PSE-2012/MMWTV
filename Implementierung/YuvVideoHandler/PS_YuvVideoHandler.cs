@@ -66,6 +66,10 @@ namespace YuvVideoHandler
         }
 
 
+        #region getter/setter
+
+        /// <summary>Gets to current VideoInfo object.</summary>
+        /// <returns>the YuvVideoInfo instance of the handled video</returns>
         public IVideoInfo vidInfo
         {
             get
@@ -86,18 +90,8 @@ namespace YuvVideoHandler
             }
         }
 
-        
-
-        public void writeFrame(int frameNum, System.Drawing.Bitmap frame)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void writeFrames(int frameNum, System.Drawing.Bitmap[] frames)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>Gets plugin name according to IPlugin.</summary>
+        /// <returns>string of name of the plugin</returns>
         public string namePlugin
         {
             get
@@ -106,6 +100,8 @@ namespace YuvVideoHandler
             }
         }
 
+        /// <summary>Gets plugin name according to IPlugin.</summary>
+        /// <returns>the PluginType of the plugin</returns>
         public PluginType type
         {
             get
@@ -114,6 +110,10 @@ namespace YuvVideoHandler
             }
         }
 
+
+        /// <summary>Displays the UserControl of the handler for the user in order to change settings.
+        /// These settings can be used to generate a VideoInfo object by calling "createVideoInfo()"</summary>
+        /// <param name="parent">the propertiesView is added as a child to this.</param>
         public void setParentControl(System.Windows.Controls.Panel parent)
         {
             if (this.propertiesView == null)
@@ -123,6 +123,10 @@ namespace YuvVideoHandler
 
             parent.Children.Add(this.propertiesView);
         }
+
+        /// <summary>Generates a new YuvVideoInfo object from the current settings in 
+        /// the propertiesView displayed through "setParentControl()".</summary>
+        /// <returns>the VideoInfo with the current settings of the propertiesView.</returns>
         public IVideoInfo createVideoInfo()
         {
             if (this.propertiesView == null)
@@ -134,11 +138,19 @@ namespace YuvVideoHandler
         }
 
 
+        /// <summary>
+        ///  Passes a dictionary of eventHandlers this plugin uses to react to events of other modules.
+        /// </summary>
+        /// <returns>a dictionary of event types and their associated delegates this plugin uses to handle them.</returns>
         public Dictionary<EventType, List<Delegate>> getEventHandlers()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public Memento getMemento()
         {
             throw new NotImplementedException();
@@ -150,7 +162,7 @@ namespace YuvVideoHandler
         }
 
 
-
+        #endregion
 
 
 
@@ -291,6 +303,27 @@ namespace YuvVideoHandler
             return Color.FromArgb(red, green, blue);
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+        public void writeFrame(int frameNum, System.Drawing.Bitmap frame)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void writeFrames(int frameNum, System.Drawing.Bitmap[] frames)
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }

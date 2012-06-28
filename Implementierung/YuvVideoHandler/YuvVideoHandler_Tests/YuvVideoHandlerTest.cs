@@ -71,7 +71,7 @@ namespace YuvVideoHandler_Tests
         #endregion
 
         /// <summary>
-        ///Ein Test für Konstruktor-Parameter filepath
+        ///Test the constructor for wrong filepath
         ///</summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
@@ -79,9 +79,8 @@ namespace YuvVideoHandler_Tests
         {
             PS_YuvVideoHandler handler = new PS_YuvVideoHandler("bla", new YuvVideoInfo());
         }
-
         /// <summary>
-        ///Ein Test für Konstruktor-Parameter videoInfo
+        ///Test the constructor for null VideoInfo
         ///</summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
@@ -91,22 +90,27 @@ namespace YuvVideoHandler_Tests
         }
 
 
+
         /// <summary>
-        ///Ein Test für "vidInfo"
+        ///Test "vidInfo" getter
         ///</summary>
         [TestMethod()]
         public void vidInfoTest()
         {
             YuvVideoInfo info = new YuvVideoInfo();
+            info.height = 666;
+
             PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, info);
-            IVideoInfo expected = info; // TODO: Passenden Wert initialisieren
+            IVideoInfo expected = info;
             IVideoInfo actual;
             actual = target.vidInfo;
             Assert.AreEqual(expected, actual);
         }
 
+
+
         /// <summary>
-        ///Ein Test für "type"
+        ///Test "type" getter according to IPlugin
         ///</summary>
         [TestMethod()]
         public void typeTest()
@@ -119,7 +123,7 @@ namespace YuvVideoHandler_Tests
         }
 
         /// <summary>
-        ///Ein Test für "namePlugin"
+        ///Test "namePlugin" getter according to IPlugin
         ///</summary>
         [TestMethod()]
         public void namePluginTest()
