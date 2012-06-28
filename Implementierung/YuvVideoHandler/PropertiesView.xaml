@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="YuvVideoHandler.PropertiesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <Grid>
+        <Label Content="Breite" Width="50" Height="30" Margin="12,10,238,260"></Label>
+        <TextBox Name="tb_width" Width="40" Height="20" Margin="0,12,192,268" HorizontalAlignment="Right">176</TextBox>
+        <Label Content="Höhe" Height="30" Margin="158,10,92,260" Width="50" />
+        <TextBox Height="20" HorizontalAlignment="Right" Margin="0,12,46,268" Name="tb_height" Text="144" Width="40" />
+        <Label Content="Format" Height="30" Margin="12,46,238,224" Width="50" />
+        <ComboBox Name="cb_format" Height="20" Width="80" Margin="68,46,152,234">
+            <ComboBoxItem Name="cbi_format420">Yuv 4:2:0</ComboBoxItem>
+            <ComboBoxItem Name="cbi_format444">Yuv 4:4:4</ComboBoxItem>
+            <ComboBoxItem Name="cbi_format422">Yuv 4:2:2</ComboBoxItem>
+                </ComboBox>
+    </Grid>
+</UserControl>
