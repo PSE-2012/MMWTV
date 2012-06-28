@@ -130,7 +130,7 @@ namespace YuvVideoHandler
                 throw new NullReferenceException("The properties view has to be created an displayed first in order to create a VideoInfo file.");
             }
 
-
+            throw new NotImplementedException();
         }
 
 

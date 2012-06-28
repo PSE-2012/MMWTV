@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Devcorp.Colorspaces">
-      <HintPath>..\YuvVideoHandler\Devcorp.Colorspaces.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
@@ -62,10 +59,7 @@
     <Compile Include="YuvVideoHandlerTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Shadow Include="Testverweise\YuvVideoHandler.accessor" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OQAT\OQAT.csproj">
+    <ProjectReference Include="..\..\OQAT\OQAT.csproj">
       <Project>{B138D4F9-F3DB-45C3-B9B8-2FC79AEB425D}</Project>
       <Name>OQAT</Name>
     </ProjectReference>
@@ -73,6 +67,9 @@
       <Project>{8DDF1C82-B71A-4CF6-82DE-AFAF282B4F38}</Project>
       <Name>YuvVideoHandler</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Testverweise\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

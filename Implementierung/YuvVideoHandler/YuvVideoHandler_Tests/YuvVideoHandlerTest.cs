@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Windows.Controls;
 using System.Collections.Generic;
 
-namespace OQAT_Tests
+namespace YuvVideoHandler_Tests
 {
 
 
