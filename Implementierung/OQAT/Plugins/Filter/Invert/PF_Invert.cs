@@ -46,7 +46,7 @@ namespace PF_Invert
             }
         }
 
-        public void setParentControll(System.Windows.Controls.Panel parent)
+        public void setParentControl(System.Windows.Controls.Panel parent)
         {
             throw new NotImplementedException();
         }

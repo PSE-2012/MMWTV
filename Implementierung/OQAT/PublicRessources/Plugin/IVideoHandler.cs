@@ -57,7 +57,7 @@
         /// <summary>
         /// Creates a VideoInfo object of the appropriate type from the settings set in the PropertiesView
         /// </summary>
-        public IVideoInfo createVideoInfo();
+        IVideoInfo createVideoInfo();
 
 	}
 }
