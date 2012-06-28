@@ -68,8 +68,9 @@ namespace YuvVideoHandler
 
         #region getter/setter
 
-        /// <summary>Gets to current VideoInfo object.</summary>
-        /// <returns>the YuvVideoInfo instance of the handled video</returns>
+        /// <summary>Gets to current VideoInfo object, if a propertiesView is displayed through 
+        /// "setParentControl()" the values are updated to the users settings.</summary>
+        /// <returns>the current YuvVideoInfo instance of the handled video.</returns>
         public IVideoInfo vidInfo
         {
             get
@@ -78,14 +79,6 @@ namespace YuvVideoHandler
             }
             private set
             {
-                if (value == null)
-                {
-                    throw new ArgumentException("Parameter vidInfo may not be null.");
-                }
-                if(!(value is YuvVideoInfo))
-                {
-                    throw new ArgumentException("Parameter vidInfo has to be of type YuvVideoInfo.");
-                }
                 _vidInfo =(YuvVideoInfo) value;
             }
         }
@@ -112,7 +105,7 @@ namespace YuvVideoHandler
 
 
         /// <summary>Displays the UserControl of the handler for the user in order to change settings.
-        /// These settings can be used to generate a VideoInfo object by calling "createVideoInfo()"</summary>
+        /// These settings are updated directly to the videoInfo object "vidInfo".</summary>
         /// <param name="parent">the propertiesView is added as a child to this.</param>
         public void setParentControl(System.Windows.Controls.Panel parent)
         {
@@ -121,20 +114,15 @@ namespace YuvVideoHandler
                 this.propertiesView = new PropertiesView();
             }
 
-            parent.Children.Add(this.propertiesView);
-        }
-
-        /// <summary>Generates a new YuvVideoInfo object from the current settings in 
-        /// the propertiesView displayed through "setParentControl()".</summary>
-        /// <returns>the VideoInfo with the current settings of the propertiesView.</returns>
-        public IVideoInfo createVideoInfo()
-        {
-            if (this.propertiesView == null)
+            if (vidInfo == null)
             {
-                throw new NullReferenceException("The properties view has to be created an displayed first in order to create a VideoInfo file.");
+                vidInfo = new YuvVideoInfo();
             }
 
-            throw new NotImplementedException();
+            //TODO: databinding between propertiesView and vidInfo
+
+
+            parent.Children.Add(this.propertiesView);
         }
 
 
