@@ -45,6 +45,7 @@ namespace YuvVideoHandler
             _path = filepath;
 
             vidInfo = info;
+            calculateFrameCount();
 
             initBuffers();
         }
@@ -83,6 +84,26 @@ namespace YuvVideoHandler
             }
         }
 
+        /// <summary>
+        /// Calculates the number of frames of the video and writes this information into the vidInfo.
+        /// </summary>
+        /// <returns>true if operation was successful, false if an error occured</returns>
+        private bool calculateFrameCount()
+        {
+            try
+            {
+                FileStream fs = new FileStream(_path, FileMode.Open);
+                this._vidInfo.frameCount = (int)(fs.Length / (_vidInfo.width * _vidInfo.height * (1 + 2 * lum2chrom)));
+                fs.Close();
+
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+        }
+
         /// <summary>Gets plugin name according to IPlugin.</summary>
         /// <returns>string of name of the plugin</returns>
         public string namePlugin
@@ -118,11 +139,15 @@ namespace YuvVideoHandler
             {
                 vidInfo = new YuvVideoInfo();
             }
+            calculateFrameCount();
 
-            //TODO: databinding between propertiesView and vidInfo
+            //databinding between propertiesView and vidInfo
+            this.propertiesView.DataContext = vidInfo;
 
-
-            parent.Children.Add(this.propertiesView);
+            if (!parent.IsAncestorOf(this.propertiesView))
+            {
+                parent.Children.Add(this.propertiesView);
+            }
         }
 
 
@@ -220,7 +245,6 @@ namespace YuvVideoHandler
                 fs = new FileStream(_path, FileMode.Open);
                 fs.Seek( (int)(startFrame * _vidInfo.width * _vidInfo.height * (1+2*lum2chrom)), SeekOrigin.Begin);
                 fs.Read(data, 0, (int)(_vidInfo.width * _vidInfo.height * (1+2*lum2chrom) * NUMFRAMESINMEM));
-                //totalFrames = (int)(fs.Length / (width * height * (1+2*lum2chrom)));
                 fs.Close();
             }
             catch (Exception) {return false; }

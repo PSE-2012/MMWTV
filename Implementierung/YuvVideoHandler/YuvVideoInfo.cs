@@ -24,6 +24,7 @@ namespace YuvVideoHandler
         YuvFormat _yuvFormat;
         int _width;
         int _height;
+        int _frameCount = -1;
 
 
 		public int width
@@ -50,15 +51,15 @@ namespace YuvVideoHandler
             }
 		}
 
-		public long frameNum
+		public int frameCount
 		{
             get
             {
-                throw new NotImplementedException();
+                return _frameCount;
             }
             set
             {
-                throw new NotImplementedException();
+                _frameCount = value;
             }
 		}
 
