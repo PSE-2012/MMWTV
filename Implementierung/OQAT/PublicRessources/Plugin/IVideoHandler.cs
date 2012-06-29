@@ -54,11 +54,6 @@
 		void writeFrames(int frameNum, Bitmap[] frames);
 
 
-        /// <summary>
-        /// Creates a VideoInfo object of the appropriate type from the settings set in the PropertiesView
-        /// </summary>
-        IVideoInfo createVideoInfo();
-
 	}
 }
 
