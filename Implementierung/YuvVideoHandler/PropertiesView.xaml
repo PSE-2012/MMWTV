@@ -17,11 +17,8 @@
         
         <WrapPanel>
             <Label Height="30" Margin="0,5,0,0" Width="50">Format:</Label>
-            <ComboBox Name="cb_format" Height="20" Width="80">
-                <ComboBoxItem Name="cbi_format420">Yuv 4:2:0</ComboBoxItem>
-                <ComboBoxItem Name="cbi_format444">Yuv 4:4:4</ComboBoxItem>
-                <ComboBoxItem Name="cbi_format422">Yuv 4:2:2</ComboBoxItem>
-            </ComboBox>
+            <ComboBox x:Name="cb_format" Height="20" Width="80" DisplayMemberPath="formatString"
+                      SelectedValuePath="formatEnum" SelectedValue="{Binding yuvFormat}" />
         </WrapPanel>
         
         <Grid></Grid>
