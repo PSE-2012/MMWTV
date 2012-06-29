@@ -20,8 +20,7 @@ namespace YuvVideoHandler
 	{
         int NUMFRAMESINMEM = 1;
 
-        YuvVideoInfo _vidInfo;
-        System.Windows.Controls.UserControl propertiesView = null;
+        YuvVideoInfo _videoInfo;
         string _path;
 
 
@@ -53,10 +52,10 @@ namespace YuvVideoHandler
         private void initBuffers()
         {
             this.lum2chrom = getLum2Chrom();
-            this.ysize = _vidInfo.width * _vidInfo.height;
+            this.ysize = _videoInfo.width * _videoInfo.height;
             this.chromasize = (int)(ysize * lum2chrom);
 
-            data = new byte[(int)(_vidInfo.width * _vidInfo.height * (1 + 2 * lum2chrom) * NUMFRAMESINMEM)];
+            data = new byte[(int)(_videoInfo.width * _videoInfo.height * (1 + 2 * lum2chrom) * NUMFRAMESINMEM)];
 
             framedata_lum = new byte[ysize];
             framedata_u = new byte[chromasize];
@@ -76,11 +75,11 @@ namespace YuvVideoHandler
         {
             get
             {
-                return _vidInfo;
+                return _videoInfo;
             }
             private set
             {
-                _vidInfo =(YuvVideoInfo) value;
+                _videoInfo =(YuvVideoInfo) value;
             }
         }
 
@@ -93,7 +92,7 @@ namespace YuvVideoHandler
             try
             {
                 FileStream fs = new FileStream(_path, FileMode.Open);
-                this._vidInfo.frameCount = (int)(fs.Length / (_vidInfo.width * _vidInfo.height * (1 + 2 * lum2chrom)));
+                this._videoInfo.frameCount = (int)(fs.Length / (_videoInfo.width * _videoInfo.height * (1 + 2 * lum2chrom)));
                 fs.Close();
 
                 return true;
@@ -125,15 +124,13 @@ namespace YuvVideoHandler
         }
 
 
-        /// <summary>Displays the UserControl of the handler for the user in order to change settings.
+        /// <summary>Creates an instance of the propertiesView and
+        /// displays the UserControl of this handler for the user in order to change settings.
         /// These settings are updated directly to the videoInfo object "vidInfo".</summary>
         /// <param name="parent">the propertiesView is added as a child to this.</param>
         public void setParentControl(System.Windows.Controls.Panel parent)
         {
-            if (this.propertiesView == null)
-            {
-                this.propertiesView = new PropertiesView();
-            }
+            PropertiesView propertiesView = new PropertiesView();
 
             if (vidInfo == null)
             {
@@ -142,12 +139,9 @@ namespace YuvVideoHandler
             calculateFrameCount();
 
             //databinding between propertiesView and vidInfo
-            this.propertiesView.DataContext = vidInfo;
+            propertiesView.DataContext = vidInfo;
 
-            if (!parent.IsAncestorOf(this.propertiesView))
-            {
-                parent.Children.Add(this.propertiesView);
-            }
+            parent.Children.Add(propertiesView);
         }
 
 
@@ -157,29 +151,37 @@ namespace YuvVideoHandler
         /// <returns>a dictionary of event types and their associated delegates this plugin uses to handle them.</returns>
         public Dictionary<EventType, List<Delegate>> getEventHandlers()
         {
-            throw new NotImplementedException();
+            //TODO: are any events handled directly by VideoHandlers?
+            return new Dictionary<EventType,List<Delegate>>();
         }
 
         /// <summary>
-        /// 
+        /// Getter for properties to save.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Properties to save</returns>
+        /// <remarks>
+        /// This is only a stub as VideoHandlers are not needed to keep their settings. 
+        /// (Settings are rather saved with the Video object and its VideoInfo)
+        /// </remarks>
         public Memento getMemento()
         {
-            throw new NotImplementedException();
+            return new Memento("MementoStub", null);
         }
-
+        /// <summary>
+        /// Setter for properties (recoverd from disk by the Caretaker, passed by the PluginManager)
+        /// </summary>
+        /// <param name="memento">Properties to set.</param>
+        /// <remarks>
+        /// This is only a stub as VideoHandlers are not needed to keep their settings. 
+        /// (Settings are rather saved with the Video object and its VideoInfo)
+        /// </remarks>
         public void setMemento(Memento memento)
         {
-            throw new NotImplementedException();
+            
         }
 
 
         #endregion
-
-
-
-
 
 
 
@@ -189,13 +191,13 @@ namespace YuvVideoHandler
         {
             this.getFrameData(frameNm);
 
-            Bitmap frame = new Bitmap(_vidInfo.width, _vidInfo.height);
+            Bitmap frame = new Bitmap(_videoInfo.width, _videoInfo.height);
 
-            for (int y = 0; y < _vidInfo.height; y++)
+            for (int y = 0; y < _videoInfo.height; y++)
             {
-                for (int x = 0; x < _vidInfo.width; x++)
+                for (int x = 0; x < _videoInfo.width; x++)
                 {
-                    int pixel = y * _vidInfo.width + x;
+                    int pixel = y * _videoInfo.width + x;
                     int chromP = Convert.ToInt32(Math.Floor(pixel * lum2chrom));
 
                     Color col = convertToRGB(framedata_lum[pixel], 0,0);//framedata_u[chromP],framedata_v[chromP]);
@@ -220,7 +222,7 @@ namespace YuvVideoHandler
 
         private double getLum2Chrom()
         {
-            switch (_vidInfo.yuvFormat)
+            switch (_videoInfo.yuvFormat)
             {
                 case YuvFormat.YUV444:
                     return 1.0f;
@@ -243,8 +245,8 @@ namespace YuvVideoHandler
             try
             {
                 fs = new FileStream(_path, FileMode.Open);
-                fs.Seek( (int)(startFrame * _vidInfo.width * _vidInfo.height * (1+2*lum2chrom)), SeekOrigin.Begin);
-                fs.Read(data, 0, (int)(_vidInfo.width * _vidInfo.height * (1+2*lum2chrom) * NUMFRAMESINMEM));
+                fs.Seek( (int)(startFrame * _videoInfo.width * _videoInfo.height * (1+2*lum2chrom)), SeekOrigin.Begin);
+                fs.Read(data, 0, (int)(_videoInfo.width * _videoInfo.height * (1+2*lum2chrom) * NUMFRAMESINMEM));
                 fs.Close();
             }
             catch (Exception) {return false; }
@@ -269,7 +271,7 @@ namespace YuvVideoHandler
             }
 
             // calculate beginning offset of given frame in buffer
-            int offset = (int)((frame - firstFrameInMem) * _vidInfo.height * _vidInfo.width * (1+2*lum2chrom));
+            int offset = (int)((frame - firstFrameInMem) * _videoInfo.height * _videoInfo.width * (1+2*lum2chrom));
 
             Array.Copy(data, offset, framedata_lum, 0, ysize);
             Array.Copy(data, offset, dataOri_lum, 0, ysize);

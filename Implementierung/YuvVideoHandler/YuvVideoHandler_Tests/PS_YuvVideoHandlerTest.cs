@@ -21,7 +21,7 @@ namespace YuvVideoHandler_Tests
 
 
         private TestContext testContextInstance;
-        private const string TESTVIDEO_PATH = "./akiyo_qcif.yuv";
+        private const string TESTVIDEO_PATH = "C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/YuvVideoHandler/akiyo_qcif.yuv";
 
         /// <summary>
         ///Ruft den Testkontext auf, der Informationen
@@ -126,6 +126,38 @@ namespace YuvVideoHandler_Tests
             Assert.AreEqual(expected, actual);
         }
 
+
+
+        /// <summary>
+        ///Test "setParentControl"
+        ///</summary>
+        [TestMethod()]
+        public void setParentControlTest()
+        {
+            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+
+            Grid parent = new Grid();
+            target.setParentControl(parent);
+
+            Assert.AreEqual(1, parent.Children.Count);
+        }
+        /// <summary>
+        ///Test adding the view to two different controls
+        ///</summary>
+        [TestMethod()]
+        public void setTwoParentControlsTest()
+        {
+            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+
+            Grid parent1 = new Grid();
+            target.setParentControl(parent1);
+
+            Grid parent2 = new Grid();
+            target.setParentControl(parent2);
+
+            Assert.AreEqual(1, parent1.Children.Count);
+            Assert.AreEqual(1, parent2.Children.Count);
+        }
 
 
     }

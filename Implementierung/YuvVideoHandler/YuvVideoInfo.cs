@@ -14,10 +14,9 @@ namespace YuvVideoHandler
         YUV444,
         YUV422,
         YUV411,
-        YUV420
+        YUV420,
     }
 
-	/// <remarks>an dieser stelle brauchen wir eine properties view für den VideoImportDialog und eine (oder de gleiche aber mit anderen parametern) die die infos in der smartlist darstellt</remarks>
 	public class YuvVideoInfo : IVideoInfo
 	{
 
