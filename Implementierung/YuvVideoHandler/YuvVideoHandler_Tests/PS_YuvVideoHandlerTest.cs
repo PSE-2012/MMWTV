@@ -160,5 +160,175 @@ namespace YuvVideoHandler_Tests
         }
 
 
+
+        /// <summary>
+        ///Test "convertToRGB" on black
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("YuvVideoHandler.exe")]
+        public void convertToRGB_Black_Test()
+        {
+            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+
+            PrivateObject param0 = new PrivateObject(handler);
+            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+
+
+            //Testing standard colors according to 
+            //http://msdn.microsoft.com/en-us/library/windows/desktop/bb530104%28v=vs.85%29.aspx
+            int y = 16; 
+            int u = 128;
+            int v = 128;
+            Color expected = Color.Black;
+
+
+            Color actual;
+            actual = target.convertToRGB(y, u, v);
+
+            Assert.AreEqual(expected.A, actual.A, "A not equal");
+            Assert.AreEqual(expected.R, actual.R, "R not equal");
+            Assert.AreEqual(expected.G, actual.G, "G not equal");
+            Assert.AreEqual(expected.B, actual.B, "B not equal");
+        }
+        /// <summary>
+        ///Test "convertToRGB" on Red
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("YuvVideoHandler.exe")]
+        public void convertToRGB_Red_Test()
+        {
+            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+
+            PrivateObject param0 = new PrivateObject(handler);
+            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+
+
+            //Testing standard colors according to 
+            //http://msdn.microsoft.com/en-us/library/windows/desktop/bb530104%28v=vs.85%29.aspx
+            int y = 81;
+            int u = 90;
+            int v = 240;
+            Color expected = Color.Red;
+
+
+            Color actual;
+            actual = target.convertToRGB(y, u, v);
+
+            Assert.AreEqual(expected.A, actual.A, "A not equal");
+            Assert.AreEqual(expected.R, actual.R, "R not equal");
+            Assert.AreEqual(expected.G, actual.G, "G not equal");
+            Assert.AreEqual(expected.B, actual.B, "B not equal");
+        }
+        /// <summary>
+        ///Test "convertToRGB" on green
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("YuvVideoHandler.exe")]
+        public void convertToRGB_Green_Test()
+        {
+            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+
+            PrivateObject param0 = new PrivateObject(handler);
+            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+
+
+            //Testing standard colors according to 
+            //http://msdn.microsoft.com/en-us/library/windows/desktop/bb530104%28v=vs.85%29.aspx
+            int y = 145;
+            int u = 54;
+            int v = 34;
+            Color expected = Color.Lime;
+
+
+            Color actual;
+            actual = target.convertToRGB(y, u, v);
+
+            Assert.AreEqual(expected.A, actual.A, "A not equal");
+            Assert.AreEqual(expected.R, actual.R, "R not equal");
+            Assert.AreEqual(expected.G, actual.G, "G not equal");
+            Assert.AreEqual(expected.B, actual.B, "B not equal");
+        }
+        /// <summary>
+        ///Test "convertToRGB" on blue
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("YuvVideoHandler.exe")]
+        public void convertToRGB_Blue_Test()
+        {
+            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+
+            PrivateObject param0 = new PrivateObject(handler);
+            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+
+
+            //Testing standard colors according to 
+            //http://msdn.microsoft.com/en-us/library/windows/desktop/bb530104%28v=vs.85%29.aspx
+            int y = 41;
+            int u = 240;
+            int v = 110;
+            Color expected = Color.Blue;
+
+
+            Color actual;
+            actual = target.convertToRGB(y, u, v);
+
+            Assert.AreEqual(expected.A, actual.A, "A not equal");
+            Assert.AreEqual(expected.R, actual.R, "R not equal");
+            Assert.AreEqual(expected.G, actual.G, "G not equal");
+            Assert.AreEqual(expected.B, actual.B, "B not equal");
+        }
+        /// <summary>
+        ///Test "convertToRGB" on white
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("YuvVideoHandler.exe")]
+        public void convertToRGB_White_Test()
+        {
+            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+
+            PrivateObject param0 = new PrivateObject(handler);
+            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+
+
+            //Testing standard colors according to 
+            //http://msdn.microsoft.com/en-us/library/windows/desktop/bb530104%28v=vs.85%29.aspx
+            int y = 235;
+            int u = 128;
+            int v = 128;
+            Color expected = Color.White;
+
+
+            Color actual;
+            actual = target.convertToRGB(y, u, v);
+
+            Assert.AreEqual(expected.A, actual.A, "A not equal");
+            Assert.AreEqual(expected.R, actual.R, "R not equal");
+            Assert.AreEqual(expected.G, actual.G, "G not equal");
+            Assert.AreEqual(expected.B, actual.B, "B not equal");
+        }
+
+
+        /// <summary>
+        ///Ein Test für "clampToByte"
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("YuvVideoHandler.exe")]
+        public void clampToByteTest()
+        {
+            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+
+            PrivateObject param0 = new PrivateObject(handler);
+            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+
+            int[] val = new int[]        { -1, 128, 0, 255, 256, 500, int.MaxValue,  int.MinValue };
+            byte[] expected = new byte[] {  0, 128, 0, 255, 255, 255, 255,           0};
+
+            for (int i = 0; i < expected.Length; i++)
+            {
+                byte actual;
+                actual = target.clampToByte(val[i]);
+                Assert.AreEqual(expected[i], actual);
+            }
+        }
     }
 }

@@ -27,11 +27,12 @@ namespace YuvVideoHandler
         double lum2chrom;
         int ysize;
         int chromasize;
+
         byte[] data;
-        byte[] framedata_lum;
-        byte[] framedata_u;
-        byte[] framedata_v;
-        byte[] dataOri_lum;
+        int framedata_lum;
+        int framedata_u;
+        int framedata_v;
+
         int firstFrameInMem;
 
 
@@ -56,11 +57,6 @@ namespace YuvVideoHandler
             this.chromasize = (int)(ysize * lum2chrom);
 
             data = new byte[(int)(_videoInfo.width * _videoInfo.height * (1 + 2 * lum2chrom) * NUMFRAMESINMEM)];
-
-            framedata_lum = new byte[ysize];
-            framedata_u = new byte[chromasize];
-            framedata_v = new byte[chromasize];
-            dataOri_lum = new byte[ysize];
 
             Load(0);
         }
@@ -189,7 +185,7 @@ namespace YuvVideoHandler
         //<summary>reads the requested frame from the associated videofile</summary>
         public System.Drawing.Bitmap getFrame(int frameNm)
         {
-            this.getFrameData(frameNm);
+            this.updateFrameDataPointers(frameNm);
 
             Bitmap frame = new Bitmap(_videoInfo.width, _videoInfo.height);
 
@@ -200,7 +196,15 @@ namespace YuvVideoHandler
                     int pixel = y * _videoInfo.width + x;
                     int chromP = Convert.ToInt32(Math.Floor(pixel * lum2chrom));
 
-                    Color col = convertToRGB(framedata_lum[pixel], 0,0);//framedata_u[chromP],framedata_v[chromP]);
+                    Color col = convertToRGB(
+                        data[(int)(this.framedata_lum   + y * _videoInfo.width              + x)],
+                        data[(int)(this.framedata_u     + y * _videoInfo.width * lum2chrom  + x * lum2chrom * 2)],
+                        data[(int)(this.framedata_v     + y * _videoInfo.width * lum2chrom  + x * lum2chrom * 2)]);
+                    //data[y * width + x + offset],
+                    //data[(y / 2) * (width / 2) + (x / 2) + ysize + offset],
+                    //data[(y / 2) * (width / 2) + (x / 2) + ysize + (ysize / 4) + offset]
+                    //Color col = convertToRGB(framedata_lum[pixel], 0,0);//framedata_u[chromP],framedata_v[chromP]);
+
                     frame.SetPixel(x, y, col);
                 
                 
@@ -210,9 +214,6 @@ namespace YuvVideoHandler
             return frame;
         }
 
-        
-
-
 
         public System.Drawing.Bitmap[] getFrames(int frameNm, int offset)
         {
@@ -220,24 +221,11 @@ namespace YuvVideoHandler
         }
 
 
-        private double getLum2Chrom()
-        {
-            switch (_videoInfo.yuvFormat)
-            {
-                case YuvFormat.YUV444:
-                    return 1.0f;
-                case YuvFormat.YUV422:
-                    return 1.0f/2;
-                case YuvFormat.YUV411:
-                    return 1.0f/4;
-                case YuvFormat.YUV420:
-                    return 1.0f/4;
-                default:
-                    throw new ArgumentException("Invalid YuvFormat set in VideoInfo.");
-            }
-        }
-
-        // Loads new frames from file into memory
+        /// <summary>
+        /// Loads new frames from file into the data array in memory.
+        /// </summary>
+        /// <param name="startFrame">the (zero-based) frame number to start the read.</param>
+        /// <returns>true if loading was successful</returns>
         private bool Load(int startFrame)
         {
             FileStream fs;
@@ -258,34 +246,67 @@ namespace YuvVideoHandler
 
         // Get the luminance and color components of given frame and store them in arrays.s
         // Loads automatically unavailable data from file to memory.
-        private void getFrameData(int frame)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="frame"></param>
+        private void updateFrameDataPointers(int frame)
         {
             // check if we have to load new data
             if (frame >= firstFrameInMem + NUMFRAMESINMEM)
             {
                 Load(frame);
             }
-            if (frame <  firstFrameInMem)
+            if (frame < firstFrameInMem)
             {
                 Load(Math.Max(frame - NUMFRAMESINMEM + 1, 0));
             }
 
             // calculate beginning offset of given frame in buffer
-            int offset = (int)((frame - firstFrameInMem) * _videoInfo.height * _videoInfo.width * (1+2*lum2chrom));
+            int frameOffset = (int)((frame - firstFrameInMem) * _videoInfo.height * _videoInfo.width * (1+2*lum2chrom));
 
-            Array.Copy(data, offset, framedata_lum, 0, ysize);
-            Array.Copy(data, offset, dataOri_lum, 0, ysize);
-            Array.Copy(data, offset + ysize, framedata_u, 0, chromasize);
-            Array.Copy(data, offset + ysize + chromasize, framedata_v, 0, chromasize);
+
+            switch (_videoInfo.yuvFormat)
+            {
+
+            }
+
+            /*
+            Array.Copy(data, frameOffset, framedata_lum, 0, ysize);
+            Array.Copy(data, frameOffset, dataOri_lum, 0, ysize);
+            Array.Copy(data, frameOffset + ysize, framedata_u, 0, chromasize);
+            Array.Copy(data, frameOffset + ysize + chromasize, framedata_v, 0, chromasize);*/
         }
-
-        private byte clampToByte(int val)
+        private double getLum2Chrom()
         {
-            return (byte)((val < 0) ? 0 : ((val > 255) ? 255 : val));
+            switch (_videoInfo.yuvFormat)
+            {
+                case YuvFormat.YUV444:
+                    return 1.0f;
+                case YuvFormat.YUV422:
+                    return 1.0f / 2;
+                case YuvFormat.YUV411:
+                    return 1.0f / 4;
+                case YuvFormat.YUV420:
+                    return 1.0f / 4;
+                default:
+                    throw new ArgumentException("Invalid YuvFormat set in VideoInfo.");
+            }
         }
+
+
+
+
+
+        /// <summary>
+        /// Converts yuv color values to a RGB.
+        /// </summary>
+        /// <param name="y">luminance (yuv y)</param>
+        /// <param name="u">chroma (yuv u)</param>
+        /// <param name="v">chroma (yuv v)</param>
+        /// <returns>a Color with the according RGB values</returns>
         private System.Drawing.Color convertToRGB(int y, int u, int v)
         {
-
             // conversion yuv > rgb according to http://msdn.microsoft.com/en-us/library/ms893078.aspx
             int c = y - 16;
             int d = u - 128;
@@ -295,26 +316,14 @@ namespace YuvVideoHandler
             byte g = clampToByte((298 * c - 100 * d - 208 * e   + 128) >> 8);
             byte b = clampToByte((298 * c + 516 * d             + 128) >> 8);
 
-            /* 
-            //alternative conversion formulas
-            byte r = clampToByte(y + 1.402 * (v - 128));
-            byte g = clampToByte(y - 0.344 * (u - 128) - 0.714 * (v - 128));
-            byte b = clampToByte(y + 1.772 * (u - 128));
-            */
-
             return System.Drawing.Color.FromArgb(r, g, b);
         }
-
-        public static Color YUVtoRGB(double y, double u, double v)
+        /// <summary>
+        /// cuts val down to a value between 0 and 255
+        /// </summary>
+        private byte clampToByte(int val)
         {
-            int red = Convert.ToInt32((y + 1.139837398373983740 * v) * 255);
-            red = (red > 255) ? 255 : ((red < 0) ? 0 : red);
-            int green = Convert.ToInt32((y - 0.3946517043589703515 * u - 0.5805986066674976801 * v) * 255);
-            green = (green > 255) ? 255 : ((green < 0) ? 0 : green);
-            int blue = Convert.ToInt32((y + 2.032110091743119266 * u) * 255);
-            blue = (blue > 255) ? 255 : ((blue < 0) ? 0 : blue);
-
-            return Color.FromArgb(red, green, blue);
+            return (byte)((val < 0) ? 0 : ((val > 255) ? 255 : val));
         }
 
 
