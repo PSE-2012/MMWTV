@@ -9,12 +9,16 @@ namespace YuvVideoHandler
 	using System.Linq;
 	using System.Text;
 
+    /// <summary>
+    ///  All supported Yuv formats.
+    /// </summary>
+    /// <remarks>reference: http://www.fourcc.org/yuv.php#IYUV </remarks>
     public enum YuvFormat
     {
         YUV444,
-        YUV422,
-        YUV411,
-        YUV420,
+        YUV422_UYVY,
+        YUV411_Y41P,
+        YUV420_IYUV,
     }
 
 	public class YuvVideoInfo : IVideoInfo
