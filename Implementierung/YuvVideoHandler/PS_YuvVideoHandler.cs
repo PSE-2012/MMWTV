@@ -29,9 +29,10 @@ namespace YuvVideoHandler
         int framedata_v_start;
         float chroma_step_horizontal;
         float chroma_step_vertical;
-        float luma_step_horizontal;
+        int luma_step_horizontal;
 
         int firstFrameInMem;
+        int frameSize;
 
 
         public PS_YuvVideoHandler(string filepath, YuvVideoInfo info)
@@ -75,10 +76,12 @@ namespace YuvVideoHandler
         /// <returns>true if operation was successful, false if an error occured</returns>
         private bool calculateFrameCount()
         {
+            this.frameSize =(int)( _videoInfo.height * _videoInfo.width * (1 + 2 * this.getLum2Chrom()) );
+
             try
             {
                 FileStream fs = new FileStream(_path, FileMode.Open);
-                this._videoInfo.frameCount = (int)(fs.Length / (_videoInfo.width * _videoInfo.height * (1 + 2 * this.getLum2Chrom())));
+                this._videoInfo.frameCount = (int)(fs.Length / this.frameSize);
                 fs.Close();
 
                 return true;
@@ -182,20 +185,26 @@ namespace YuvVideoHandler
 
             Bitmap frame = new Bitmap(_videoInfo.width, _videoInfo.height);
 
+            int index_y = this.framedata_lum_start;
+            float index_u;
+            float index_v;
+
             for (int y = 0; y < _videoInfo.height; y++)
             {
+                float chromi =(float)( Math.Floor(y * this.chroma_step_vertical) 
+                    * Math.Floor(_videoInfo.width * this.chroma_step_horizontal) );
+                index_u = this.framedata_u_start + chromi;
+                index_v = this.framedata_v_start + chromi;
+
                 for (int x = 0; x < _videoInfo.width; x++)
                 {
-                    //calculate indices of current pixel in data array
-                    int chromi =(int) ( Math.Floor(y * this.chroma_step_vertical)
-                        * Math.Floor(_videoInfo.width * this.chroma_step_horizontal)
-                        + Math.Floor(x * this.chroma_step_horizontal));
-                    int index_y = this.framedata_lum_start   + (y * _videoInfo.width   + x);
-                    int index_u = this.framedata_u_start     + chromi;
-                    int index_v = this.framedata_v_start     + chromi;
-
-                    Color col = convertToRGB(data[index_y], data[index_u], data[index_v]);
+                    Color col = convertToRGB(data[index_y], data[(int)Math.Floor(index_u)], data[(int)Math.Floor(index_v)]);
                     frame.SetPixel(x, y, col);
+
+                    //increase indices for next pixel
+                    index_y += this.luma_step_horizontal;
+                    index_u += this.chroma_step_horizontal;
+                    index_v += this.chroma_step_horizontal;
                 }
             }
             return frame;
@@ -220,8 +229,8 @@ namespace YuvVideoHandler
             try
             {
                 fs = new FileStream(_path, FileMode.Open);
-                fs.Seek((int)(startFrame * _videoInfo.width * _videoInfo.height * (1 + 2 * this.getLum2Chrom())), SeekOrigin.Begin);
-                fs.Read(data, 0, (int)(_videoInfo.width * _videoInfo.height * (1 + 2 * this.getLum2Chrom()) * NUMFRAMESINMEM));
+                fs.Seek((int)(startFrame * this.frameSize), SeekOrigin.Begin);
+                fs.Read(data, 0, this.frameSize * NUMFRAMESINMEM);
                 fs.Close();
             }
             catch (Exception) {return false; }
@@ -248,7 +257,7 @@ namespace YuvVideoHandler
             }
 
             // calculate beginning offset of given frame in buffer
-            int frameOffset = (int)((frame - firstFrameInMem) * _videoInfo.height * _videoInfo.width * (1 + 2*this.getLum2Chrom()));
+            int frameOffset = (int)((frame - firstFrameInMem) * this.frameSize);
 
 
             switch (_videoInfo.yuvFormat)

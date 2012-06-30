@@ -35,14 +35,14 @@ namespace YuvVideoHandler
         {
             formatList = new List<ComboBoxYuvFormats>()
             {
-                new ComboBoxYuvFormats(){ formatEnum = YuvFormat.YUV420, 
-			        formatString = "Yuv 4:2:0" },
+                new ComboBoxYuvFormats(){ formatEnum = YuvFormat.YUV420_IYUV, 
+			        formatString = "Yuv 4:2:0 (IYUV)" },
                 new ComboBoxYuvFormats(){ formatEnum = YuvFormat.YUV444, 
 			        formatString = "Yuv 4:4:4" },
-                new ComboBoxYuvFormats(){ formatEnum = YuvFormat.YUV422, 
-			        formatString = "Yuv 4:2:2" },
-                new ComboBoxYuvFormats(){ formatEnum = YuvFormat.YUV411, 
-			        formatString = "Yuv 4:1:1" },
+                new ComboBoxYuvFormats(){ formatEnum = YuvFormat.YUV422_UYVY, 
+			        formatString = "Yuv 4:2:2 (UYVY)" },
+                new ComboBoxYuvFormats(){ formatEnum = YuvFormat.YUV411_Y41P, 
+			        formatString = "Yuv 4:1:1 (Y41P)" },
             };
         }
         

@@ -32,7 +32,7 @@ namespace YuvVideoHandler
             info = new YuvVideoInfo();
             info.width = 176;
             info.height = 144;
-            info.yuvFormat = YuvFormat.YUV420;
+            info.yuvFormat = YuvFormat.YUV420_IYUV;
 
             handler = new PS_YuvVideoHandler("C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/YuvVideoHandler/akiyo_qcif.yuv", info);
         }
