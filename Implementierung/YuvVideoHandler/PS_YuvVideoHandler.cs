@@ -18,7 +18,7 @@ namespace YuvVideoHandler
 
 	public class PS_YuvVideoHandler : IVideoHandler
 	{
-        int NUMFRAMESINMEM = 1;
+        int NUMFRAMESINMEM = 10;
 
         YuvVideoInfo _videoInfo;
         string _path;
@@ -47,6 +47,7 @@ namespace YuvVideoHandler
             calculateFrameCount();
 
             //init buffer
+            //TODO: limit buffersize with very big frames
             data = new byte[(int)(_videoInfo.width * _videoInfo.height * (1 + 2 * this.getLum2Chrom()) * NUMFRAMESINMEM)];
 
             Load(0);

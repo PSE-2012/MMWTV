@@ -330,5 +330,30 @@ namespace YuvVideoHandler_Tests
                 Assert.AreEqual(expected[i], actual);
             }
         }
+
+        /// <summary>
+        ///TODO: Ein Test für "getFrame"
+        ///</summary>
+        [TestMethod()]
+        public void getFrameTest()
+        {
+            YuvVideoInfo info = new YuvVideoInfo();
+            info.height = 144;
+            info.width = 176;
+            info.yuvFormat = YuvFormat.YUV420_IYUV;
+            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, info);
+
+            Bitmap expected = null; // TODO: Passenden Wert initialisieren
+            Bitmap actual;
+
+            TestContext.BeginTimer("frame1");
+            actual = target.getFrame(0);
+            TestContext.EndTimer("frame1");
+
+            TestContext.BeginTimer("frame2");
+            actual = target.getFrame(1);
+            TestContext.EndTimer("frame2");
+
+        }
     }
 }

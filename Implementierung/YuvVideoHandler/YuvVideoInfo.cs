@@ -21,6 +21,10 @@ namespace YuvVideoHandler
         YUV420_IYUV,
     }
 
+    /// <summary>
+    ///  Holds information about a yuv video file that can not be read from the file itself.
+    ///  Needed to work with the video in a YuvVideoHandler.
+    /// </summary>
 	public class YuvVideoInfo : IVideoInfo
 	{
 
