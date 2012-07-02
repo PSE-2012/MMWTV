@@ -43,7 +43,7 @@
 		/// Equals true if the video was created as a result of an analysis, e.g. to show
         /// the difference between two videos.
 		/// </summary>
-        private bool isAnalysis
+        public bool isAnalysis
 		{
             get
             {
@@ -58,7 +58,7 @@
         /// <summary>
         /// Path to the video file represented by this Video object.
         /// </summary>
-		private string vidPath
+		public string vidPath
 		{
             get
             {
@@ -81,7 +81,7 @@
             {
                 return _metricValues;
             }
-            private set
+            set
             {
                 _metricValues = value;
             }
@@ -91,7 +91,7 @@
         /// Returns a list of filters (or a metric) the video has been processed by.
         /// If this is a reference video an empty list is returned.
         /// </summary>
-		private List<MacroEntry> processedBy
+		public List<MacroEntry> processedBy
 		{
             get
             {
@@ -106,7 +106,7 @@
         /// <summary>
         /// Extra resources relevant to the video, e.g. motion vectors.
         /// </summary>
-		private Dictionary<PresentationPluginType, List<string>> extraResources
+		public Dictionary<PresentationPluginType, List<string>> extraResources
 		{
             //TODO: extraResources
 			get;
