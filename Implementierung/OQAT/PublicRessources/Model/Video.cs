@@ -1,6 +1,4 @@
-﻿//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-namespace Oqat.PublicRessources.Model
+﻿namespace Oqat.PublicRessources.Model
 {
 
 	using Plugins;
@@ -9,17 +7,36 @@ namespace Oqat.PublicRessources.Model
 	using System.Linq;
 	using System.Text;
 
-using System.IO;
-using Oqat.PublicRessources.Plugin;
+    using System.IO;
+    using Oqat.PublicRessources.Plugin;
+    using Oqat.ViewModel;
+
+
 	/// <summary>
 	/// This class is the Model for a Video object containing relevant information about a Video file.
 	/// </summary>
     public class Video : IMemorizable
 	{
-		private IVideoInfo vidInfo
+        private IVideoInfo _vidInfo;
+        private bool _isAnalysis;
+        private string _path;
+        private float[][] _metricValues;
+
+        private List<MacroEntry> _processedBy;
+
+        /// <summary>
+        /// Returns the VideoInfo object containing additional format-specific information about the video.
+        /// </summary>
+		public IVideoInfo vidInfo
 		{
-			get;
-			set;
+			get
+            {
+                return _vidInfo;
+            }
+            private set
+            {
+                _vidInfo = value;
+            }
 		}
 
 		/// <summary>
@@ -28,98 +45,160 @@ using Oqat.PublicRessources.Plugin;
 		/// </summary>
         private bool isAnalysis
 		{
-			get;
-			set;
+            get
+            {
+                return _isAnalysis;
+            }
+            private set
+            {
+                _isAnalysis = value;
+            }
 		}
 
         /// <summary>
-        /// Path to the video file represented by the Video object.
+        /// Path to the video file represented by this Video object.
         /// </summary>
 		private string vidPath
 		{
-			get;
-			set;
+            get
+            {
+                return _path;
+            }
+            private set
+            {
+                _path = value;
+            }
 		}
 
         /// <summary>
-        /// Relevant for Analysis videos.
+        /// Gets or sets values calculated by the analyzation metric that created this video.
+        /// Only applies if "isAnalysis" is true.
+        /// The two dimensional array holds data series (first dimension) with values for each frame (second dimension)
         /// </summary>
 		public float[][] frameMetricValue
 		{
-			get;
-			set;
+            get
+            {
+                return _metricValues;
+            }
+            private set
+            {
+                _metricValues = value;
+            }
 		}
 
         /// <summary>
-        /// Returns a list of filters the video has been processed by through OQAT (if any).
+        /// Returns a list of filters (or a metric) the video has been processed by.
+        /// If this is a reference video an empty list is returned.
         /// </summary>
 		private List<MacroEntry> processedBy
 		{
-			get;
-			set;
+            get
+            {
+                return this._processedBy;
+            }
+            set
+            {
+                _processedBy = value;
+            }
 		}
 
         /// <summary>
         /// Extra resources relevant to the video, e.g. motion vectors.
-        /// P.S. in English it's spelled as "resource", with one 's' ;-)
         /// </summary>
-		private Dictionary<PresentationPluginType, List<string>> extraRessources
+		private Dictionary<PresentationPluginType, List<string>> extraResources
 		{
+            //TODO: extraResources
 			get;
 			set;
 		}
 
-        /// <see cref="VideoEventArgs"/>
-        /// <summary>
-        /// This method is executed on invokation of an event indicating the creation
-        /// of a new Video object.
-        /// </summary>
-        /// <param name="sender"></param> Sender of the event.
-        /// <param name="e"></param> Video to be passed through the event.
-        private delegate void videoObjectCreatedEventHandler(Object sender, VideoEventArgs e);
+
+
+        
+
         /// <summary>
         /// An event that indicates the creation of a new Video object.
         /// </summary>
-		private event videoObjectCreatedEventHandler videoObjectCreated;
+        public delegate void videoObjectCreatedEventHandler(object sender, VideoEventArgs e);
+		public event videoObjectCreatedEventHandler videoObjectCreated;
+
+
+
+
 
         /// <summary>
-        /// 
+        /// Returns a video handler that may be used for getting or writing frames of the video.
+        /// e.g. a YuvVideoHandnler to process the video file if it is of yuv-format.
         /// </summary>
-        /// <param name="isAnalysis"></param> Equals true if the video is the result of an analysis.
-        /// <param name="vidPath"></param> Path to the video.
-        /// <param name="vidInfo"></param> An object containing relevant information about the video, i.e. codec name.
-		public Video(bool isAnalysis,  string vidPath, IVideoInfo vidInfo)
-		{
-		}
-
-        /// <summary>
-        /// Returns the video handler that may be used for processing the video, 
-        /// e.g. a YUV video handler for extracting or overwriting frames.
-        /// </summary>
-        /// <returns></returns>
+        /// <returns>a video handler to acess the video frames.</returns>
 		public virtual IVideoHandler getVideoHandler()
 		{
-			throw new System.NotImplementedException();
+            PluginManager pm = PluginManager.getPluginManager();
+
+            string handlerPluginName = Path.GetExtension(this.vidPath).ToLower() + "VideoHandler";
+
+            IVideoHandler handler =(IVideoHandler) pm.getPlugin(handlerPluginName);
+            //TODO: create an instance of the VideoHandler
+            // handler = handler.createInstance(this.vidPath, this.vidInfo);
+            return handler;
 		}
 
+
         /// <summary>
-        /// Can be used to load a saved previous state of a Video object.
+        /// Returns a memento that contains the current state of this video object
+        /// in order to save this and restore it later.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>a memento that contains the current state of this video object</returns>
 		public virtual Memento getMemento()
 		{
 			throw new System.NotImplementedException();
 		}
 
         /// <summary>
-        /// Can be used to save the current state of a Video object.
+        /// Sets the state of this video object to the one saved in the given memento.
         /// </summary>
-        /// <param name="memento"></param>
+        /// <param name="memento">a memento of a video instance</param>
 		public virtual void setMemento(Memento memento)
 		{
 			throw new System.NotImplementedException();
 		}
 
+
+
+
+        /// <summary>
+        /// Creates a new instance of Video.
+        /// </summary>
+        /// <param name="isAnalysis">true if the video is the result of an analysis.</param>
+        /// <param name="vidPath">filepath to the video</param>
+        /// <param name="vidInfo">videoInfo containing relevant information about the video. 
+        /// This can be created by the VideoHandler using user input to its propertiesView.</param>
+        /// <remarks>This contructor defaults processedBy to an empty list.</remarks>
+        public Video(bool isAnalysis, string vidPath, IVideoInfo vidInfo)
+            : this(isAnalysis, vidPath, vidInfo, new List<MacroEntry>())
+        {
+        }
+
+
+        /// <summary>
+        /// Creates a new instance of Video.
+        /// </summary>
+        /// <param name="isAnalysis">true if the video is the result of an analysis.</param>
+        /// <param name="vidPath">filepath to the video</param>
+        /// <param name="vidInfo">videoInfo containing relevant information about the video. 
+        /// This can be created by the VideoHandler using user input to its propertiesView.</param>
+        /// <param name="processedBy">a list of MacroEntries describing through which operations this video was created.</param>
+        public Video(bool isAnalysis, string vidPath, IVideoInfo vidInfo, List<MacroEntry> processedBy)
+        {
+            this.isAnalysis = isAnalysis;
+            this.vidPath = vidPath;
+            this.vidInfo = vidInfo;
+            this.processedBy = processedBy;
+
+            if (videoObjectCreated != null)
+                videoObjectCreated(this, new VideoEventArgs(this));
+        }
 	}
 }
 

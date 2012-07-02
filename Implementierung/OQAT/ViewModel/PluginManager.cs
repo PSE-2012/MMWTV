@@ -84,7 +84,7 @@
         /// <summary>
         /// Call this method to get a reference to the PluginManager
         /// </summary>
-		public virtual PluginManager getPluginManager()
+		public static PluginManager getPluginManager()
 		{
 			throw new System.NotImplementedException();
 		}

@@ -1,6 +1,4 @@
-﻿//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-namespace Oqat.PublicRessources.Model
+﻿namespace Oqat.PublicRessources.Model
 {
 	using System;
 	using System.Collections.Generic;
@@ -11,7 +9,7 @@ namespace Oqat.PublicRessources.Model
 	public interface IVideoInfo 
 	{
         string videoCodecName { get;set; }
-
+        int frameCount { get; set; }
 	}
 }
 
