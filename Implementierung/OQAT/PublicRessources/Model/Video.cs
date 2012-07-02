@@ -20,7 +20,7 @@
         private IVideoInfo _vidInfo;
         private bool _isAnalysis;
         private string _path;
-        private float[,] _metricValues;
+        private float[][] _metricValues;
 
         private List<MacroEntry> _processedBy;
 
@@ -75,7 +75,7 @@
         /// Only applies if "isAnalysis" is true.
         /// The two dimensional array holds data series (first dimension) with values for each frame (second dimension)
         /// </summary>
-		public float[,] frameMetricValue
+		public float[][] frameMetricValue
 		{
             get
             {
