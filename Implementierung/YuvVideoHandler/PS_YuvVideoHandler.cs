@@ -34,10 +34,6 @@ namespace YuvVideoHandler
 
         public PS_YuvVideoHandler(string filepath, YuvVideoInfo info)
         {
-            if (!System.IO.File.Exists(filepath))
-            {
-                throw new ArgumentException("Parameter filepath does not refer to an existing file.");
-            }
             _path = filepath;
 
             vidInfo = info;
@@ -266,18 +262,11 @@ namespace YuvVideoHandler
                 fs.Read(data, 0, this.frameSize * NUMFRAMESINMEM);
                 fs.Close();
             }
-            catch (Exception) {return false; }
+            catch (Exception) { return false; }
 
             firstFrameInMem = startFrame;
             return true;
         }
-
-
-        
-
-        
-
-
 
 
 
@@ -376,32 +365,21 @@ namespace YuvVideoHandler
         {
             byte[] fdata = new byte[this.frameSize];
             FrameDataPointers pointers = new FrameDataPointers(_videoInfo);
-
-            /*
-            int index_y = pointers.framedata_lum_start;
-            float index_u;
-            float index_v;
-         
+                        
             for (int y = 0; y < _videoInfo.height; y++)
             {
-                float chromi = (float)(Math.Floor(y * pointers.chroma_step_vertical)
-                    * Math.Floor(_videoInfo.width * pointers.chroma_step_horizontal));
-                index_u = pointers.framedata_u_start + chromi;
-                index_v = pointers.framedata_v_start + chromi;
-
                 for (int x = 0; x < _videoInfo.width; x++)
                 {
-                    Color col = convertToRGB(data[index_y], data[(int)Math.Floor(index_u)], data[(int)Math.Floor(index_v)]);
-                    frame.SetPixel(x, y, col);
+                    byte[] col = convertToYUV(frame.GetPixel(x,y));
 
-                    //increase indices for next pixel
-                    index_y += pointers.luma_step_horizontal;
-                    index_u += pointers.chroma_step_horizontal;
-                    index_v += pointers.chroma_step_horizontal;
+                    fdata[pointers.y_index] = col[0];
+                    fdata[pointers.u_index] = col[1];
+                    fdata[pointers.v_index] = col[2];
+
+                    pointers.Next();
                 }
             }
-            */
-
+            
             return fdata;
         }
     }
