@@ -368,6 +368,22 @@ namespace YuvVideoHandler
             throw new NotImplementedException();
         }
 
+
+        /// <summary>
+        /// Converts the given RGB color to yuv format.
+        /// </summary>
+        /// <param name="rgbColor">the rgb color to be converted</param>
+        /// <returns>an array containing y, u, and v values in this order</returns>
+        private byte[] convertToYUV(Color rgbColor)
+        {
+            byte[] yuv = new byte[3];
+            // conversion rgb > yuv according to http://msdn.microsoft.com/en-us/library/ms893078.aspx
+            yuv[0] =(byte)( ((  66 * rgbColor.R + 129 * rgbColor.G +  25 * rgbColor.B + 128) >> 8) +  16);
+            yuv[1] =(byte)( ((-38 * rgbColor.R - 74 * rgbColor.G + 112 * rgbColor.B + 128) >> 8) + 128);
+            yuv[2] =(byte)( ((112 * rgbColor.R - 94 * rgbColor.G - 18 * rgbColor.B + 128) >> 8) + 128);
+
+            return yuv;
+        }
     }
 }
 
