@@ -26,15 +26,7 @@ namespace YuvVideoHandler
 
         byte[] data;
 
-        struct FrameDataPointers
-        {
-            public int framedata_lum_start;
-            public int framedata_u_start;
-            public int framedata_v_start;
-            public float chroma_step_horizontal;
-            public float chroma_step_vertical;
-            public int luma_step_horizontal;
-        }
+
 
         int firstFrameInMem;
         int frameSize;
@@ -53,13 +45,36 @@ namespace YuvVideoHandler
 
             //init buffer
             //TODO: limit buffersize with very big frames
-            data = new byte[(int)(_videoInfo.width * _videoInfo.height * (1 + 2 * this.getLum2Chrom()) * NUMFRAMESINMEM)];
+            data = new byte[(int)(_videoInfo.width * _videoInfo.height * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)) * NUMFRAMESINMEM)];
 
             Load(0);
         }        
 
 
         #region getter/setter
+
+        /// <summary>
+        /// Returns the relative number of chroma (u or v) to luma (y) samples according to yuv format.
+        /// </summary>
+        /// <param name="format">the yuv format</param>
+        /// <returns>relative number of samples (1, 0.5 or 0.25)</returns>
+        public static float getLum2Chrom(YuvFormat format)
+        {
+            switch (format)
+            {
+                case YuvFormat.YUV444:
+                    return 1.0f;
+                case YuvFormat.YUV422_UYVY:
+                    return 0.5f;
+                case YuvFormat.YUV411_Y41P:
+                    return 0.25f;
+                case YuvFormat.YUV420_IYUV:
+                    return 0.25f;
+                default:
+                    throw new ArgumentException("Invalid YuvFormat set in VideoInfo.");
+            }
+        }
+
 
         /// <summary>Gets to current VideoInfo object, if a propertiesView is displayed through 
         /// "setParentControl()" the values are updated to the users settings.</summary>
@@ -82,7 +97,7 @@ namespace YuvVideoHandler
         /// <returns>true if operation was successful, false if an error occured</returns>
         private bool calculateFrameCount()
         {
-            this.frameSize =(int)( _videoInfo.height * _videoInfo.width * (1 + 2 * this.getLum2Chrom()) );
+            this.frameSize =(int)( _videoInfo.height * _videoInfo.width * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)) );
 
             try
             {
@@ -187,30 +202,30 @@ namespace YuvVideoHandler
         /// <returns>the selected frame as a RGB Bitmap object</returns>
         public System.Drawing.Bitmap getFrame(int frameNm)
         {
-            FrameDataPointers pointers = getFrameDataPointers(frameNm);
+            // check if we have to load new data
+            if (frameNm >= firstFrameInMem + NUMFRAMESINMEM)
+            {
+                Load(frameNm);
+            }
+            if (frameNm < firstFrameInMem)
+            {
+                Load(Math.Max(frameNm - NUMFRAMESINMEM + 1, 0));
+            }
+
+            int frameOffset = (frameNm - firstFrameInMem) * this.frameSize;
+
+            FrameDataPointers pointers = new FrameDataPointers(_videoInfo);
 
             Bitmap frame = new Bitmap(_videoInfo.width, _videoInfo.height);
 
-            int index_y = pointers.framedata_lum_start;
-            float index_u;
-            float index_v;
-
             for (int y = 0; y < _videoInfo.height; y++)
             {
-                float chromi =(float)( Math.Floor(y * pointers.chroma_step_vertical) 
-                    * Math.Floor(_videoInfo.width * pointers.chroma_step_horizontal) );
-                index_u = pointers.framedata_u_start + chromi;
-                index_v = pointers.framedata_v_start + chromi;
-
                 for (int x = 0; x < _videoInfo.width; x++)
                 {
-                    Color col = convertToRGB(data[index_y], data[(int)Math.Floor(index_u)], data[(int)Math.Floor(index_v)]);
+                    Color col = convertToRGB(data[frameOffset + pointers.y_index], data[frameOffset + pointers.u_index], data[frameOffset+pointers.v_index]);
                     frame.SetPixel(x, y, col);
-
-                    //increase indices for next pixel
-                    index_y += pointers.luma_step_horizontal;
-                    index_u += pointers.chroma_step_horizontal;
-                    index_v += pointers.chroma_step_horizontal;
+                    
+                    pointers.Next();
                 }
             }
             return frame;
@@ -258,83 +273,9 @@ namespace YuvVideoHandler
         }
 
 
-        /// <summary>
-        ///  Set the offsets and pointers according to YuvFormat and load buffer if necessary.
-        /// </summary>
-        /// <param name="frame">the frame for which to set offsets</param>
-        private FrameDataPointers getFrameDataPointers(int frame)
-        {
-            FrameDataPointers pointers = new FrameDataPointers();
+        
 
-            // check if we have to load new data
-            if (frame >= firstFrameInMem + NUMFRAMESINMEM)
-            {
-                Load(frame);
-            }
-            if (frame < firstFrameInMem)
-            {
-                Load(Math.Max(frame - NUMFRAMESINMEM + 1, 0));
-            }
-
-            // calculate beginning offset of given frame in buffer
-            int frameOffset = (int)((frame - firstFrameInMem) * this.frameSize);
-
-
-            switch (_videoInfo.yuvFormat)
-            {
-                case YuvFormat.YUV420_IYUV:
-                    pointers.framedata_lum_start = frameOffset;
-                    pointers.framedata_u_start = frameOffset + (_videoInfo.width*_videoInfo.height);
-                    pointers.framedata_v_start = (int)(frameOffset + (_videoInfo.width*_videoInfo.height) * (1 + this.getLum2Chrom()));
-                    pointers.chroma_step_horizontal = 0.5f;
-                    pointers.chroma_step_vertical = 0.5f;
-                    pointers.luma_step_horizontal = 1;
-                    break;
-                case YuvFormat.YUV444:
-                    pointers.framedata_lum_start = frameOffset;
-                    pointers.framedata_u_start = frameOffset + 1;
-                    pointers.framedata_v_start = frameOffset + 2;
-                    pointers.chroma_step_horizontal = 3;
-                    pointers.chroma_step_vertical = 3;
-                    pointers.luma_step_horizontal = 3;
-                    break;
-                case YuvFormat.YUV422_UYVY:
-                    pointers.framedata_lum_start = frameOffset + 1;
-                    pointers.framedata_u_start = frameOffset;
-                    pointers.framedata_v_start = frameOffset + 2;
-                    pointers.chroma_step_horizontal = 4;
-                    pointers.chroma_step_vertical = 1;
-                    pointers.luma_step_horizontal = 2;
-                    break;
-                case YuvFormat.YUV411_Y41P:
-                    pointers.framedata_lum_start = frameOffset + 1;
-                    pointers.framedata_u_start = frameOffset;
-                    pointers.framedata_v_start = frameOffset + 2;
-                    pointers.chroma_step_horizontal = 4;
-                    pointers.chroma_step_vertical = 1;
-                    pointers.luma_step_horizontal = 2;
-                    break;
-            }
-
-            return pointers;
-        }
-
-        private float getLum2Chrom()
-        {
-            switch (_videoInfo.yuvFormat)
-            {
-                case YuvFormat.YUV444:
-                    return 1.0f;
-                case YuvFormat.YUV422_UYVY:
-                    return 0.5f;
-                case YuvFormat.YUV411_Y41P:
-                    return 0.25f;
-                case YuvFormat.YUV420_IYUV:
-                    return 0.25f;
-                default:
-                    throw new ArgumentException("Invalid YuvFormat set in VideoInfo.");
-            }
-        }
+        
 
 
 
@@ -382,12 +323,36 @@ namespace YuvVideoHandler
 
         public void writeFrame(int frameNum, System.Drawing.Bitmap frame)
         {
-            throw new NotImplementedException();
+            this.writeFrames(frameNum, new Bitmap[] { frame });
         }
 
         public void writeFrames(int frameNum, System.Drawing.Bitmap[] frames)
         {
-            throw new NotImplementedException();
+            byte[][] wdata = new byte[frames.Length][];
+
+            for (int i = 0; i < frames.Length; i++)
+            {
+                wdata[i] = frameToYUV(frames[i]);
+            }
+
+            FileStream fs;
+            try
+            {
+                fs = new FileStream(_path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, this.frameSize*frames.Length);
+                fs.Seek((int)(frameNum * this.frameSize), SeekOrigin.Begin);
+
+                for (int i = 0; i < frames.Length; i++)
+                {
+                    fs.Write(wdata[i], 0, wdata[i].Length);
+                }
+                
+                fs.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+
         }
 
 
@@ -406,6 +371,169 @@ namespace YuvVideoHandler
 
             return yuv;
         }
+
+        private byte[] frameToYUV(Bitmap frame)
+        {
+            byte[] fdata = new byte[this.frameSize];
+            FrameDataPointers pointers = new FrameDataPointers(_videoInfo);
+
+            /*
+            int index_y = pointers.framedata_lum_start;
+            float index_u;
+            float index_v;
+         
+            for (int y = 0; y < _videoInfo.height; y++)
+            {
+                float chromi = (float)(Math.Floor(y * pointers.chroma_step_vertical)
+                    * Math.Floor(_videoInfo.width * pointers.chroma_step_horizontal));
+                index_u = pointers.framedata_u_start + chromi;
+                index_v = pointers.framedata_v_start + chromi;
+
+                for (int x = 0; x < _videoInfo.width; x++)
+                {
+                    Color col = convertToRGB(data[index_y], data[(int)Math.Floor(index_u)], data[(int)Math.Floor(index_v)]);
+                    frame.SetPixel(x, y, col);
+
+                    //increase indices for next pixel
+                    index_y += pointers.luma_step_horizontal;
+                    index_u += pointers.chroma_step_horizontal;
+                    index_v += pointers.chroma_step_horizontal;
+                }
+            }
+            */
+
+            return fdata;
+        }
     }
+
+
+
+
+    /// <summary>
+    /// Helper class managing the indices in an byte array of yuv frame data according to yuv format. 
+    /// </summary>
+    class FrameDataPointers
+    {
+        int framedata_lum_start;
+        int framedata_u_start;
+        int framedata_v_start;
+        float chroma_step_horizontal;
+        float chroma_step_vertical;
+        int luma_step_horizontal;
+
+        int indexY;
+        float indexU;
+        float indexV;
+
+        YuvVideoInfo _videoInfo;
+        int x = 0;
+        int y = 0;
+
+        /// <summary>
+        /// Creates a new set of indices for the current data array.
+        /// </summary>
+        public FrameDataPointers(YuvVideoInfo info)
+        {
+            _videoInfo = info;
+
+            setFrameDataPointers();
+
+            indexY = framedata_lum_start;
+            indexU = framedata_u_start;
+            indexV = framedata_v_start;
+        }
+
+
+        /// <summary>
+        ///  Set the offsets and pointers according to YuvFormat
+        /// </summary>
+        private void setFrameDataPointers()
+        {
+            switch (_videoInfo.yuvFormat)
+            {
+                case YuvFormat.YUV420_IYUV:
+                    this.framedata_lum_start = 0;
+                    this.framedata_u_start = (_videoInfo.width * _videoInfo.height);
+                    this.framedata_v_start = (int)((_videoInfo.width * _videoInfo.height) * (1 + PS_YuvVideoHandler.getLum2Chrom(_videoInfo.yuvFormat)));
+                    this.chroma_step_horizontal = 0.5f;
+                    this.chroma_step_vertical = 0.5f;
+                    this.luma_step_horizontal = 1;
+                    break;
+                case YuvFormat.YUV444:
+                    this.framedata_lum_start = 0;
+                    this.framedata_u_start = 1;
+                    this.framedata_v_start = 2;
+                    this.chroma_step_horizontal = 3;
+                    this.chroma_step_vertical = 3;
+                    this.luma_step_horizontal = 3;
+                    break;
+                case YuvFormat.YUV422_UYVY:
+                    this.framedata_lum_start = 1;
+                    this.framedata_u_start = 0;
+                    this.framedata_v_start = 2;
+                    this.chroma_step_horizontal = 4;
+                    this.chroma_step_vertical = 1;
+                    this.luma_step_horizontal = 2;
+                    break;
+                case YuvFormat.YUV411_Y41P:
+                    this.framedata_lum_start = 1;
+                    this.framedata_u_start = 0;
+                    this.framedata_v_start = 2;
+                    this.chroma_step_horizontal = 4;
+                    this.chroma_step_vertical = 1;
+                    this.luma_step_horizontal = 2;
+                    break;
+            }
+        }
+
+        public int y_index
+        {
+            get
+            {
+                return this.indexY;
+            }
+        }
+        public int u_index
+        {
+            get
+            {
+                return (int)Math.Floor(this.indexU);
+            }
+        }
+        public int v_index
+        {
+            get
+            {
+                return (int)Math.Floor(this.indexV);
+            }
+        }
+
+        public bool Next()
+        {
+            //next x
+            this.x++;
+
+            indexY += luma_step_horizontal;
+            indexU += chroma_step_horizontal;
+            indexV += chroma_step_horizontal;
+
+
+            //next y
+            if (x >= _videoInfo.width)
+            {
+                x = 0;
+                y++;
+                if (y >= _videoInfo.height) return false;
+
+                float chromi = (float)(Math.Floor(y * chroma_step_vertical)
+                        * Math.Floor(_videoInfo.width * chroma_step_horizontal));
+                indexU = framedata_u_start + chromi;
+                indexV = framedata_v_start + chromi;
+            }
+
+            return true;
+        }
+    }
+
 }
 
