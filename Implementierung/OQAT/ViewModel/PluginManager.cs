@@ -329,7 +329,7 @@
         /// </summary>
         /// <param name="namePlugin"></param>
         /// <returns></returns>
-        private virtual List<Memento> getMementoList(string namePlugin)
+        private List<Memento> getMementoList(string namePlugin)
         {
             if (blackList.ContainsKey(namePlugin))
                 return null;    // should never come to this, since noone can have plugin names (getPluginNames)
