@@ -17,6 +17,7 @@ namespace Oqat.Model
 	/// </summary>
     public class Caretaker
 	{
+        private static Caretaker cTaker;
 		/// <summary>
 		/// Getter and setter methods for a Caretaker.
 		/// </summary>
@@ -24,10 +25,9 @@ namespace Oqat.Model
         {
             get
             {
-                if (caretaker == null)
-                    return new Caretaker();
-                else
-                    return caretaker;
+                if (cTaker == null)
+                    cTaker = new Caretaker();
+                return cTaker;
             }
         }
 
