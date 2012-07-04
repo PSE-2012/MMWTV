@@ -45,6 +45,11 @@
         [ImportMany(typeof(IPlugin), AllowRecomposition = true, RequiredCreationPolicy = CreationPolicy.Shared)]
         private IEnumerable<Lazy<IPlugin, IPluginMetadata>> pluginTable { get; set; }
 
+        /// <summary>
+        /// Here happens the matching of exports provided by a Catalog with import attributes provided by
+        /// this class.
+        /// </summary>
+        private CompositionContainer pluginContainer;
 
         /// <summary>
         /// FileSystemWatcher to monitor changes within the pluginPath folder.
@@ -86,6 +91,16 @@
 		private PluginManager()
 		{
             PLUGIN_PATH = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(PluginManager)).Location) + "\\Plugins";
+
+            try
+            {
+                pluginContainer = new CompositionContainer(new DirectoryCatalog(PLUGIN_PATH));
+            }
+            catch (Exception exc)
+            {
+                /// cannot recover if someone messed within the pluginFolder
+                raiseEvent(EventType.failure, new ErrorEventArgs(exc));
+            }
 
             watcher = new FileSystemWatcher(PLUGIN_PATH);
             watcher.Created += new FileSystemEventHandler(onPluginFolderChanged);
