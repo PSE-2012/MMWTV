@@ -22,11 +22,16 @@
         /// <summary>
         /// The one and only PluginManager instance in a running Oqat instance.
         /// </summary>
-		private PluginManager pluginManager
-		{
-			get;
-			set;
-		}
+        internatl static PluginManager pluginManager
+        {
+            get
+            {
+                if (pluginManager == null)
+                    return new PluginManager();
+                else
+                    return pluginManager;
+            }
+        }
 
         /// <summary>
         /// In this Dictionary PluginManager holds references to all known plugins.
@@ -77,14 +82,6 @@
         /// and if the plugin folder was changed ( a new plugin was dropped in it).
         /// </summary>
 		public virtual void loadPluginTable()
-		{
-			throw new System.NotImplementedException();
-		}
-
-        /// <summary>
-        /// Call this method to get a reference to the PluginManager
-        /// </summary>
-		public static PluginManager getPluginManager()
 		{
 			throw new System.NotImplementedException();
 		}
