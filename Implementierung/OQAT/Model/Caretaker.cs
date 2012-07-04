@@ -104,6 +104,11 @@ namespace Oqat.Model
 			throw new System.NotImplementedException();
 		}
 
+        public virtual Memento getMemento(string path)
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>
         /// Adds new settings of a plugin.
         /// </summary>
