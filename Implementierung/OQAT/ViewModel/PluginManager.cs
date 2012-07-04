@@ -47,6 +47,11 @@
 
 
         /// <summary>
+        /// FileSystemWatcher to monitor changes within the pluginPath folder.
+        /// </summary>
+        private FileSystemWatcher watcher;
+
+        /// <summary>
         /// This is the path where PluginManager will search for plugins.
         /// </summary>
 		private string pluginPath
