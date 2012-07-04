@@ -13,6 +13,12 @@
     /// </summary>
     public class OqatApp
 	{
+
+        static void Main(string[] args)
+        {
+        }
+
+
         /// <summary>
         /// A reference to the OQAT main ViewModel.
         /// </summary>
