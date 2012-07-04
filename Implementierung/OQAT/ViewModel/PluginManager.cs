@@ -60,9 +60,7 @@
 
 
         [Import(typeof(IPlugin))]
-        Lazy<IPlugin,IPluginMetadata> tmpPlugin { get; set; }
-
-        
+        Lazy<IPlugin,IPluginMetadata> tmpPlugin { get; set; } 
         /// <summary>
         /// Checks the PLUGIN_PATH folder for consistancy, i.e. violations of oqat plugin conventions
         /// and adds name and crime  of illegal plugins to the blackList.
@@ -125,6 +123,16 @@
                     }
                 }
             }
+
+            List<ErrorEventArgs> errorList = new List<ErrorEventArgs>();
+            foreach (string entry in blackList.Keys)
+            {
+                blackList.TryGetValue(entry, out errorList);
+                foreach (ErrorEventArgs e in errorList)
+                {
+                    raiseEvent(EventType.info, e);
+                }
+            }
         }
 
         /// <summary>
@@ -153,6 +161,11 @@
         /// this class.
         /// </summary>
         private CompositionContainer pluginContainer;
+
+        /// <summary>
+        /// All composable parts found by MEF will be placed here.
+        /// </summary>
+        private DirectoryCatalog pluginCatalog;
 
         /// <summary>
         /// FileSystemWatcher to monitor changes within the pluginPath folder.
@@ -195,9 +208,13 @@
 		{
             PLUGIN_PATH = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(PluginManager)).Location) + "\\Plugins";
             blackList = new Dictionary<string, List<ErrorEventArgs>>();
+
+            consistencyCheck();
+
             try
             {
-                pluginContainer = new CompositionContainer(new DirectoryCatalog(PLUGIN_PATH));
+                pluginCatalog = new DirectoryCatalog(PLUGIN_PATH);
+                pluginContainer = new CompositionContainer(pluginCatalog);
             }
             catch (Exception exc)
             {
@@ -205,6 +222,7 @@
                 raiseEvent(EventType.failure, new ErrorEventArgs(exc));
             }
             pluginContainer.ComposeParts(this.pluginTable);
+
             watcher = new FileSystemWatcher(PLUGIN_PATH);
             watcher.Created += new FileSystemEventHandler(onPluginFolderChanged);
             watcher.Deleted += new FileSystemEventHandler(onPluginFolderChanged);
@@ -220,11 +238,17 @@
         /// <param name="e"></param>
         /// <remarks>
         /// If a Plugin is currently in use, the assembly cannot be unloaded till
-        /// dispose() was called on that particular plugin.
+        /// the corresponding appdomain is unloaded.
         /// </remarks>
         private void onPluginFolderChanged(object source, FileSystemEventArgs e)
         {
+            if (((File.GetAttributes(e.FullPath) & FileAttributes.Directory) != FileAttributes.Directory)
+                & ((e.ChangeType == System.IO.WatcherChangeTypes.Created) 
+                    | (e.ChangeType == System.IO.WatcherChangeTypes.Deleted))) {
 
+                        consistencyCheck();
+                        pluginCatalog.Refresh();
+            }
         }
 
 
