@@ -20,11 +20,16 @@ namespace Oqat.Model
 		/// <summary>
 		/// Getter and setter methods for a Caretaker.
 		/// </summary>
-        private Caretaker caretaker
-		{
-			get;
-			set;
-		}
+        internal static Caretaker caretaker
+        {
+            get
+            {
+                if (caretaker == null)
+                    return new Caretaker();
+                else
+                    return caretaker;
+            }
+        }
 
         /// <summary>
         /// A table of plugin names and a list of saved settings belonging to each of them.
