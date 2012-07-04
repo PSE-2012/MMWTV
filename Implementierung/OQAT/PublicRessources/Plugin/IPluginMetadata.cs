@@ -12,8 +12,6 @@ namespace Oqat.PublicRessources.Plugin
     ///     [ExportMetadata("namePlugin", "FilterPlugin")]
     ///     [ExportMetadata("type", PluginType.Filter)]
     /// </summary>
-    class IPluginMetadata
-    {
         public interface IPluginMetadata
         {
             /// <summary>
@@ -31,5 +29,4 @@ namespace Oqat.PublicRessources.Plugin
             /// </summary>
             PluginType type { get; }
         }
-    }
 }
