@@ -22,7 +22,7 @@
         /// <summary>
         /// The one and only PluginManager instance in a running Oqat instance.
         /// </summary>
-        internatl static PluginManager pluginManager
+        internal static PluginManager pluginManager
         {
             get
             {
