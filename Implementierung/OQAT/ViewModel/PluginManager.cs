@@ -54,11 +54,12 @@
         /// <summary>
         /// This is the path where PluginManager will search for plugins.
         /// </summary>
-		private string pluginPath
-		{
-			get;
-			set;
-		}
+        /// <remarks>
+        /// It will be set during construction of a new PluginManager instance
+        /// and will be set to "Plugins" (relative to the codebase of the assembly 
+        /// PluginManager class is in, i.e. "C:\Oqat\Plugins" if oqat.exe is in "C:\Oqat").
+        /// </remarks>
+        private readonly string PLUGIN_PATH;
 
         /// <summary>
         /// Used to store registered eventhandler.
@@ -80,22 +81,34 @@
         }
 
         /// <summary>
-        /// This is (and should remain so) the only point to work with MEF.
-        /// This Method fills the <see cref="pluginTable"/> .
-        /// loadPluginTable will be called in the PluginManager constructor
-        /// and if the plugin folder was changed ( a new plugin was dropped in it).
-        /// </summary>
-		public virtual void loadPluginTable()
-		{
-			throw new System.NotImplementedException();
-		}
-
-        /// <summary>
-        /// Nothing happens here yet. (implementation details)
+        /// Constructor
         /// </summary>
 		private PluginManager()
 		{
+            PLUGIN_PATH = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(PluginManager)).Location) + "\\Plugins";
+
+            watcher = new FileSystemWatcher(PLUGIN_PATH);
+            watcher.Created += new FileSystemEventHandler(onPluginFolderChanged);
+            watcher.Deleted += new FileSystemEventHandler(onPluginFolderChanged);
+            watcher.EnableRaisingEvents = true;
 		}
+
+        /// <summary>
+        /// Will be called if a file was either created or deleted.
+        /// According to the type of changes (deletion, creation) new
+        /// Plugins(if valid) will be loaded or existing deleted.
+        /// </summary>
+        /// <param name="source">The caller</param>
+        /// <param name="e"></param>
+        /// <remarks>
+        /// If a Plugin is currently in use, the assembly cannot be unloaded till
+        /// dispose() was called on that particular plugin.
+        /// </remarks>
+        private void onPluginFolderChanged(object source, FileSystemEventArgs e)
+        {
+
+        }
+
 
         /// <summary>
         /// This method allow to get a particular memento.
