@@ -46,6 +46,10 @@
         private IEnumerable<Lazy<IPlugin, IPluginMetadata>> pluginTable { get; set; }
 
         /// <summary>
+        /// One or more Mementos sorted by the corresponding plugin.
+        /// </summary>
+        private SortedDictionary<string, List<Memento>> memTable;
+        /// <summary>
         /// Plugins on this list will not be returned by getPluginNames(), getPlugin(), etc.
         /// 
         /// The blackList dictionary can be used to check if a given plugin is valid (blackList does not contain the
@@ -56,7 +60,7 @@
         /// Usually a plugin will be set on this list if some conventinons have been violated,
         /// i.e. ambiguous name, not implemented pluginType (<see cref="IPluginMetadata"/>).
         /// </remarks>
-        private Dictionary<string, List<ErrorEventArgs>> blackList;
+        private SortedDictionary<string, List<ErrorEventArgs>> blackList;
 
 
         [Import(typeof(IPlugin))]
@@ -207,7 +211,7 @@
 		private PluginManager()
 		{
             PLUGIN_PATH = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(PluginManager)).Location) + "\\Plugins";
-            blackList = new Dictionary<string, List<ErrorEventArgs>>();
+            blackList = new SortedDictionary<string, List<ErrorEventArgs>>();
 
             consistencyCheck();
 
@@ -257,26 +261,44 @@
         /// </summary>
         /// <param name="namePlugin">The name of the plugin the memento belongs to. </param>
         /// <param name="nameMemento">The name of the memento you are looking for.</param>
-        /// <returns></returns>
+        /// <returns>Memento instance according to arguments or null if no such memento was found.</returns>
 		public virtual Memento getMemento(string namePlugin, string nameMemento)
 		{
-			throw new System.NotImplementedException();
-		}
-
-		public virtual IPlugin getPlugin(string namePlugin)
-		{
-			throw new System.NotImplementedException();
+            return (from i in getMementoList(namePlugin)
+                   where i.name.Equals("string")
+                   select i).FirstOrDefault();
 		}
 
         /// <summary>
-        /// Returns names of all Plugins of a given PluginType, usefull
+        /// Will return a plugin of type T, if it is loaded and
+        /// not blacklisted.
+        /// </summary>
+        /// <typeparam name="T">The type of plugin to return</typeparam>
+        /// <param name="namePlugin">The name of plugin to return</param>
+        /// <returns>A instance of namePlugin</returns>
+		public virtual T getPlugin<T>(string namePlugin)
+		{
+            
+			var plToRet = from i in pluginTable
+                          where i.Metadata.namePlugin.Equals(typeof(T)) & !blackList.ContainsKey(i.Metadata.namePlugin)
+                          select i.Value;
+            if (plToRet.FirstOrDefault() != null)
+                return (T)plToRet.FirstOrDefault();
+            else
+                return default(T);
+		}
+
+        /// <summary>
+        /// Returns names of all Plugins(not blacklisted) of a given PluginType, usefull
         /// when you want to display them in a list.
         /// </summary>
         /// <param name="type">The PluginType you want a list for.</param>
         /// <returns></returns>
 		public virtual List<string> getPluginNames(PluginType type)
 		{
-			throw new System.NotImplementedException();
+            return new List<string>(from i in pluginTable
+                                    where (i.Metadata.type == type) & !blackList.ContainsKey(i.Metadata.namePlugin)
+                                    select i.Metadata.namePlugin);
 		}
 
         /// <summary>
@@ -301,15 +323,46 @@
 			throw new System.NotImplementedException();
 		}
 
+
         /// <summary>
-        /// Return all known mementos of a plugin.
+        /// Return a list of all known mementos of a plugin
         /// </summary>
         /// <param name="namePlugin"></param>
         /// <returns></returns>
+        private virtual List<Memento> getMementoList(string namePlugin)
+        {
+            if (blackList.ContainsKey(namePlugin))
+                return null;    // should never come to this, since noone can have plugin names (getPluginNames)
+                            // of blacklisted plugins
+
+            Memento mem = Caretaker.caretaker.getMemento(PLUGIN_PATH + "\\" + namePlugin + ".mem");
+            try
+            {
+                return (List<Memento>)mem.state;
+            }
+            catch
+            {
+                return new List<Memento>();
+            }
+        }
+
+        /// <summary>
+        /// Return a list with memento names of a given plugin.
+        /// </summary>
+        /// <param name="namePlugin">Name of the plugin to get memento names from</param>
+        /// <returns>List of known memento names. Please note that the list will be empty if no mementos could be found.</returns>
 		public virtual List<String> getMementoNames(string namePlugin)
 		{
-			throw new System.NotImplementedException();
-		}
+
+
+                List<string> nameList = new List<string>();
+                foreach (Memento i in getMementoList(namePlugin))
+                {
+                    nameList.Add(i.name);
+                }
+                return nameList;
+
+        }
 
 	}
 }
