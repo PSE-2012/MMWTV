@@ -50,5 +50,10 @@ namespace Oqat.PublicRessources.Plugin
         /// oqat has to be restarted in order to gain full functionallity.
         /// </summary>
         failure,
+
+        /// <summary>
+        /// Will be raised if PluginManager refreshed(added or deleted some entries) pluginTable.
+        /// </summary>
+        pluginTableChanged,
 	}
 }
