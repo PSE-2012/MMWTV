@@ -46,6 +46,109 @@
         private IEnumerable<Lazy<IPlugin, IPluginMetadata>> pluginTable { get; set; }
 
         /// <summary>
+        /// Plugins on this list will not be returned by getPluginNames(), getPlugin(), etc.
+        /// 
+        /// The blackList dictionary can be used to check if a given plugin is valid (blackList does not contain the
+        /// name of it) or if invalid why (value of key (pluginName) is a ErrorEventArgs List containing all
+        /// violations).
+        /// </summary>
+        /// <remarks>
+        /// Usually a plugin will be set on this list if some conventinons have been violated,
+        /// i.e. ambiguous name, not implemented pluginType (<see cref="IPluginMetadata"/>).
+        /// </remarks>
+        private Dictionary<string, List<ErrorEventArgs>> blackList;
+
+
+        [Import(typeof(IPlugin))]
+        Lazy<IPlugin,IPluginMetadata> tmpPlugin { get; set; }
+
+        
+        /// <summary>
+        /// Checks the PLUGIN_PATH folder for consistancy, i.e. violations of oqat plugin conventions
+        /// and adds name and crime  of illegal plugins to the blackList.
+        /// </summary>
+        private void consistencyCheck()
+        {
+            SortedDictionary<string, int> tmpDictionary = new SortedDictionary<string, int>();
+            blackList.Clear();
+            foreach (string file in Directory.GetFiles(PLUGIN_PATH))
+            {
+                if (Path.GetExtension(file).Equals(".dll")) 
+                {
+                    AssemblyCatalog tmpCatalog;
+                    CompositionContainer tmpContainer;
+                    List<ErrorEventArgs> tmpList = new List<ErrorEventArgs>();
+                    try
+                    {
+                        tmpCatalog = new AssemblyCatalog(file);
+                        tmpContainer = new CompositionContainer(tmpCatalog);
+                        tmpContainer.ComposeParts(this.tmpPlugin);
+
+                        tmpDictionary.Add(tmpPlugin.Metadata.namePlugin, tmpPlugin.GetHashCode() );
+                        if (!checkIfPluginTypeIsValid(tmpPlugin.Value, Type.GetType(tmpPlugin.Metadata.type.ToString())))
+                        {
+                            tmpList.Add(new ErrorEventArgs(new Exception("The type" +
+                            " specified in the attribute pluginType(" + tmpPlugin.Metadata.type + ") is not implemented." +
+                             "Oqat will ignore this assembly:" + file + ". To be able to use " + tmpPlugin.Metadata.namePlugin
+                            + "Plugin it has to implement the" + tmpPlugin.Metadata.type + " interface")));
+
+                            if (blackList.ContainsKey(tmpPlugin.Metadata.namePlugin))
+                            blackList.TryGetValue(tmpPlugin.Metadata.namePlugin, out tmpList);
+                            else
+                            blackList.Add(tmpPlugin.Metadata.namePlugin, tmpList);
+                                
+                        }
+
+                        tmpContainer.Dispose();
+                        tmpCatalog.Dispose();
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    int tmpHashCode;
+                    foreach (string entry in tmpDictionary.Keys)
+                    {
+                        tmpDictionary.TryGetValue(entry, out tmpHashCode);
+                        if (tmpPlugin.Metadata.namePlugin.Equals(entry)
+                            & (tmpPlugin.GetHashCode() != tmpHashCode)) {
+
+                                tmpList.Add(new ErrorEventArgs(new Exception("Plugin name conflict, Oqat will"
+                                + " ignore this assembly: " + file + "To be able to use " + tmpPlugin.Metadata.namePlugin
+                                + "Plugin it has to export an unambiguous name.")));
+
+                                if (blackList.ContainsKey(entry))
+                                    blackList.TryGetValue(entry, out tmpList);
+                                else
+                                    blackList.Add(entry, tmpList);
+                            }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks if given plugin is compatible with the generic
+        /// type T.
+        /// </summary>
+        /// <param name="plType">Type to check plugin against.</typeparam>
+        /// <param name="plugin">Plugin to check type from.</param>
+        /// <returns></returns>
+        private bool checkIfPluginTypeIsValid(IPlugin plugin, Type plType)
+        {
+            object myTestCast = null;
+            try
+            {
+                myTestCast = Convert.ChangeType(plugin, plType);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Here happens the matching of exports provided by a Catalog with import attributes provided by
         /// this class.
         /// </summary>
@@ -91,7 +194,7 @@
 		private PluginManager()
 		{
             PLUGIN_PATH = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(PluginManager)).Location) + "\\Plugins";
-
+            blackList = new Dictionary<string, List<ErrorEventArgs>>();
             try
             {
                 pluginContainer = new CompositionContainer(new DirectoryCatalog(PLUGIN_PATH));
@@ -101,7 +204,7 @@
                 /// cannot recover if someone messed within the pluginFolder
                 raiseEvent(EventType.failure, new ErrorEventArgs(exc));
             }
-
+            pluginContainer.ComposeParts(this.pluginTable);
             watcher = new FileSystemWatcher(PLUGIN_PATH);
             watcher.Created += new FileSystemEventHandler(onPluginFolderChanged);
             watcher.Deleted += new FileSystemEventHandler(onPluginFolderChanged);
