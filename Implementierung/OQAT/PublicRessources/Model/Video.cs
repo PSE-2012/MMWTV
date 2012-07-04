@@ -134,7 +134,7 @@
         /// <returns>a video handler to acess the video frames.</returns>
 		public virtual IVideoHandler getVideoHandler()
 		{
-            PluginManager pm = PluginManager.getPluginManager();
+            PluginManager pm = PluginManager.pluginManager;
 
             string handlerPluginName = Path.GetExtension(this.vidPath).ToLower() + "VideoHandler";
 
