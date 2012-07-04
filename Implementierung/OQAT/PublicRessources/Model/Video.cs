@@ -138,7 +138,7 @@
 
             string handlerPluginName = Path.GetExtension(this.vidPath).ToLower() + "VideoHandler";
 
-            IVideoHandler handler =(IVideoHandler) pm.getPlugin(handlerPluginName);
+            IVideoHandler handler = pm.getPlugin < IVideoHandler>(handlerPluginName);
             //TODO: create an instance of the VideoHandler
             // handler = handler.createInstance(this.vidPath, this.vidInfo);
             return handler;
