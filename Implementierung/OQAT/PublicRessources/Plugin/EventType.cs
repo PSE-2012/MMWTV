@@ -31,8 +31,24 @@ namespace Oqat.PublicRessources.Plugin
         /// </summary>
 		fileSelected,
         /// <summary>
-        /// Weill be raised if a new video object was created ( VM_VideoImportDialog).
+        /// Will be raised if a new video object was created ( VM_VideoImportDialog).
         /// </summary>
 		vidObjectCreated,
+
+        /// <summary>
+        /// Will be raised if some minor errors were discovered and Oqat was capable of recovery or
+        /// if some optional information is available.
+        /// </summary>
+        info,
+        /// <summary>
+        /// Will be raised if some Error were Discovered and Oqat needs user Input to recover.
+        /// </summary>
+        panic,
+        
+        /// <summary>
+        /// Will be raised if some Error were Discovered and Oqat cannot recover, usually this means
+        /// oqat has to be restarted in order to gain full functionallity.
+        /// </summary>
+        failure,
 	}
 }
