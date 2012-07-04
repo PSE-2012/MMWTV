@@ -9,6 +9,8 @@
     using Oqat.PublicRessources.Model;
     using Oqat.PublicRessources.Plugin;
     using System.IO;
+    using System.ComponentModel.Composition;
+    using System.ComponentModel.Composition.Hosting;
 
     /// <summary>
     /// This class is responsible for Dependency Injection trough the MEF Framework.
@@ -38,13 +40,10 @@
         /// All plugins of some <see cref="PluginType"/> or a particular
         /// plugin can be found by providing a PluginType or additionally a
         /// PluginName ( usefull for <see cref="VideoHandler"/> since we have
-        /// to determine (at runtime) which videoVodec has to be use).
+        /// to determine (at runtime) which videoCodec has to be used).
         /// </summary>
-		private Dictionary<PluginType,Dictionary<string, IPlugin>> pluginTable
-		{
-			get;
-			set;
-		}
+        [ImportMany(typeof(IPlugin), AllowRecomposition = true, RequiredCreationPolicy = CreationPolicy.Shared)]
+        private IEnumerable<Lazy<IPlugin, IPluginMetadata>> pluginTable { get; set; }
 
 
         /// <summary>
