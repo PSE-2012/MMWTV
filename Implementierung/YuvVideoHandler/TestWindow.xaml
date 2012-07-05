@@ -1,16 +1,17 @@
 ﻿<Window x:Class="YuvVideoHandler.TestWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="340" d:DesignWidth="496" SizeToContent="WidthAndHeight">
+        Title="MainWindow" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="340" d:DesignWidth="561" SizeToContent="WidthAndHeight">
     <Grid>
             <Image Height="144" HorizontalAlignment="Left" Margin="12,12,0,0" Name="ImageControl" Stretch="Fill" VerticalAlignment="Top" Width="176" />
-            <Button Content="Next frame" Height="34" HorizontalAlignment="Left" Margin="347,12,0,0"
+        <Image Height="144" HorizontalAlignment="Left" Margin="194,12,0,0" Name="ImageControl2" Stretch="Fill" VerticalAlignment="Top" Width="176" />
+        <Button Content="Next frame" Height="34" HorizontalAlignment="Left" Margin="408,12,0,0"
     Name="BrowseButton" VerticalAlignment="Top" Width="119"
     Foreground="Maroon" FontSize="16" FontFamily="Georgia" Click="BrowseButton_Click" />
-            <Button Content="PropertiesView" Height="34" HorizontalAlignment="Left" Margin="347,52,0,0"
+            <Button Content="PropertiesView" Height="34" HorizontalAlignment="Left" Margin="408,52,0,0"
     Name="showPropView" VerticalAlignment="Top" Width="119"
     Foreground="Maroon" FontSize="16" FontFamily="Georgia" Click="PropViewButton_Click" />
-        <Grid x:Name="propGrid" Margin="196,122,12,-44"></Grid>
-        <Button Content="WriteFrame" Height="34" HorizontalAlignment="Left" Margin="347,92,0,0" Name="WriteFrame" VerticalAlignment="Top" Width="119" Foreground="Maroon" FontSize="16" FontFamily="Georgia" Click="WriteFrameButton_Click" />
+        <Grid x:Name="propGrid" Margin="200,172,8,-94"></Grid>
+        <Button Content="WriteFrame" Height="34" HorizontalAlignment="Left" Margin="408,92,0,0" Name="WriteFrame" VerticalAlignment="Top" Width="119" Foreground="Maroon" FontSize="16" FontFamily="Georgia" Click="WriteFrameButton_Click" />
     </Grid>
 </Window>

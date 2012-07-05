@@ -50,18 +50,23 @@ namespace YuvVideoHandler
 
             
 
-            Bitmap bmp = handler.getFrame(i);
+            Bitmap[] bmp = handler.getFrames(i, 20);
 
-            handler2.writeFrame(i, bmp);
+            handler2.writeFrame(i, bmp[0]);
 
             BitmapSource bmpsource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                       bmp.GetHbitmap(),
+                       bmp[0].GetHbitmap(),
+                       IntPtr.Zero,
+                       System.Windows.Int32Rect.Empty,
+                       BitmapSizeOptions.FromWidthAndHeight(info.width, info.height));
+            BitmapSource bmpsource2 = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                       bmp[4].GetHbitmap(),
                        IntPtr.Zero,
                        System.Windows.Int32Rect.Empty,
                        BitmapSizeOptions.FromWidthAndHeight(info.width, info.height));
 
             ImageControl.Source = bmpsource;
-            
+            ImageControl2.Source = bmpsource2;
         }
 
         private void PropViewButton_Click(object sender, RoutedEventArgs e)
