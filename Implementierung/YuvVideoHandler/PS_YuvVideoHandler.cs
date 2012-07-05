@@ -20,7 +20,7 @@ namespace YuvVideoHandler
 
 	public class PS_YuvVideoHandler : IVideoHandler
 	{
-        int NUMFRAMESINMEM = 10;
+        int NUMFRAMESINMEM = 5;
         int THREADS = 4;
 
         YuvVideoInfo _videoInfo;
@@ -97,21 +97,14 @@ namespace YuvVideoHandler
         /// Calculates the number of frames of the video and writes this information into the vidInfo.
         /// </summary>
         /// <returns>true if operation was successful, false if an error occured</returns>
-        private bool calculateFrameCount()
+        private void calculateFrameCount()
         {
             this.frameSize =(int)( _videoInfo.height * _videoInfo.width * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)) );
 
-            try
+            FileInfo f = new FileInfo(_path);
+            if (f.Exists)
             {
-                FileStream fs = new FileStream(_path, FileMode.Open);
-                this._videoInfo.frameCount = (int)(fs.Length / this.frameSize);
-                fs.Close();
-
-                return true;
-            }
-            catch(Exception e)
-            {
-                return false;
+                this._videoInfo.frameCount = (int)(f.Length / this.frameSize);
             }
         }
 

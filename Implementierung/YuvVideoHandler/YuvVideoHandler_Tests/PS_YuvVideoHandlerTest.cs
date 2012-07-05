@@ -6,6 +6,7 @@ using Oqat.PublicRessources.Plugin;
 using System.Drawing;
 using System.Windows.Controls;
 using System.Collections.Generic;
+using System.IO;
 
 namespace YuvVideoHandler_Tests
 {
@@ -498,5 +499,68 @@ namespace YuvVideoHandler_Tests
 
         #endregion
 
+
+        /// <summary>
+        ///Test getFrame and writeFrame
+        ///</summary>
+        [TestMethod()]
+        public void readANDwriteFrameTest()
+        {/*
+            YuvVideoInfo info_r = new YuvVideoInfo();
+            info_r.height = 144;
+            info_r.width = 176;
+            info_r.yuvFormat = YuvFormat.YUV420_IYUV;
+            PS_YuvVideoHandler reader = new PS_YuvVideoHandler(TESTVIDEO_PATH, info_r);
+
+            YuvVideoInfo info_w = new YuvVideoInfo();
+            info_w.height = 144;
+            info_w.width = 176;
+            info_w.yuvFormat = YuvFormat.YUV420_IYUV;
+            PS_YuvVideoHandler writer = new PS_YuvVideoHandler(TESTVIDEO_PATH+"copy", info_w);
+
+            
+            for (int j = 0; j < ((YuvVideoInfo)reader.vidInfo).frameCount; j++)
+            {
+                Bitmap bmp = reader.getFrame(j);
+
+                writer.writeFrame(j, bmp);
+            }
+            */
+
+            /*
+            //check
+            //TODO: find better way to compare the two files
+            int bsize = 1024;
+            int error = 0;
+            
+            FileStream fs1;
+            fs1 = new FileStream(TESTVIDEO_PATH, FileMode.Open);
+            byte[] data1 = new byte[bsize];
+
+            FileStream fs2;
+            fs2 = new FileStream(TESTVIDEO_PATH+"copy", FileMode.Open);
+            byte[] data2 = new byte[bsize];
+
+
+            for (int i = 0; i < fs1.Length; i += bsize)
+            {
+                fs1.Read(data1, 0, bsize);
+                fs2.Read(data2, 0, bsize);
+
+                for (int j = 0; j < bsize; j++)
+                {
+                    int diff = Math.Abs(data1[j] - data2[j]);
+                    Assert.IsTrue(diff < 40, "big difference at "+(i*bsize + j)+": "+diff);
+                    error += diff;
+                }
+            }
+
+            fs1.Close();
+            fs2.Close();
+
+            Assert.IsTrue(error < 10, "accumulated error is " + error);
+            
+            */
+        }
     }
 }

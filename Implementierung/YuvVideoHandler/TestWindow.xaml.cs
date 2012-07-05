@@ -35,9 +35,14 @@ namespace YuvVideoHandler
             info.height = 144;
             info.yuvFormat = YuvFormat.YUV420_IYUV;
 
+            YuvVideoInfo info2 = new YuvVideoInfo();
+            info2.width = 176;
+            info2.height = 144;
+            info2.yuvFormat = YuvFormat.YUV420_IYUV;
+
             handler = new PS_YuvVideoHandler("C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/YuvVideoHandler/akiyo_qcif.yuv", info);
 
-            handler2 = new PS_YuvVideoHandler("C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/YuvVideoHandler/akiyo_qcif2.yuv", info);
+            handler2 = new PS_YuvVideoHandler("C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/YuvVideoHandler/akiyo_qcif2.yuv", info2);
 
         }
 
@@ -52,7 +57,6 @@ namespace YuvVideoHandler
 
             Bitmap[] bmp = handler.getFrames(i, 20);
 
-            handler2.writeFrame(i, bmp[0]);
 
             BitmapSource bmpsource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
                        bmp[0].GetHbitmap(),
@@ -77,8 +81,18 @@ namespace YuvVideoHandler
 
         private void WriteFrameButton_Click(object sender, RoutedEventArgs e)
         {
+            for (int j = 0; j < ((YuvVideoInfo)handler.vidInfo).frameCount; j++)
+            {
+                Bitmap bmp = handler.getFrame(j);
 
+                handler2.writeFrame(j, bmp);
+            }
         }
+
+
+
+
+
     }
 
 
