@@ -9,6 +9,8 @@ namespace YuvVideoHandler
 	using System.Linq;
 	using System.Text;
 
+    using System.Threading;
+
     using System.Drawing.Imaging;
     using System.Drawing;
     using System.IO;
@@ -25,10 +27,11 @@ namespace YuvVideoHandler
         string _path;
 
         byte[] data;
+        int bufferSizeFrames;
 
 
 
-        int firstFrameInMem;
+        int firstFrameInMem = int.MinValue;
         int frameSize;
 
 
@@ -40,11 +43,14 @@ namespace YuvVideoHandler
             calculateFrameCount();
 
             //init buffer
-            //TODO: limit buffersize with very big frames
-            data = new byte[(int)(_videoInfo.width * _videoInfo.height * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)) * NUMFRAMESINMEM)];
+            initBuffer(NUMFRAMESINMEM);
+        }
 
-            Load(0);
-        }        
+        private void initBuffer(int frames)
+        {
+            bufferSizeFrames = frames;
+            data = new byte[(int)(_videoInfo.width * _videoInfo.height * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)) * bufferSizeFrames)];
+        }
 
 
         #region getter/setter
@@ -199,13 +205,13 @@ namespace YuvVideoHandler
         public System.Drawing.Bitmap getFrame(int frameNm)
         {
             // check if we have to load new data
-            if (frameNm >= firstFrameInMem + NUMFRAMESINMEM)
+            if (frameNm >= firstFrameInMem + bufferSizeFrames)
             {
                 Load(frameNm);
             }
             if (frameNm < firstFrameInMem)
             {
-                Load(Math.Max(frameNm - NUMFRAMESINMEM + 1, 0));
+                Load(Math.Max(frameNm - bufferSizeFrames + 1, 0));
             }
 
             int frameOffset = (frameNm - firstFrameInMem) * this.frameSize;
@@ -230,17 +236,29 @@ namespace YuvVideoHandler
 
         public System.Drawing.Bitmap[] getFrames(int frameNm, int count)
         {
-            //TODO: securely avoid concurrent access to file in the threads
+            //if buffer is much smaller than requested number of frames, resize buffer
+            if (count > 2 * this.bufferSizeFrames) initBuffer(count);
+
             Load(frameNm);
 
             Bitmap[] frames = new Bitmap[count];
             int n = 0;
 
-            for (int i = 0; i < this.THREADS; i++)
+            while(n < count)
             {
+                frames[n] = getFrame(frameNm + n);
+                n++;
 
+                /*
+                for (int i = 0; i < this.THREADS; i++)
+                {
+                    //TODO: implement concurrent calls to getFrame()
+                    //Thread MyThread = new Thread(new ThreadStart(getFrameT));
+
+                }
+                */
             }
-            //TODO: implement concurrent calls to getFrame()
+            
 
             return frames;
         }
@@ -259,7 +277,7 @@ namespace YuvVideoHandler
             {
                 fs = new FileStream(_path, FileMode.Open);
                 fs.Seek((int)(startFrame * this.frameSize), SeekOrigin.Begin);
-                fs.Read(data, 0, this.frameSize * NUMFRAMESINMEM);
+                fs.Read(data, 0, this.frameSize * bufferSizeFrames);
                 fs.Close();
             }
             catch (Exception) { return false; }
