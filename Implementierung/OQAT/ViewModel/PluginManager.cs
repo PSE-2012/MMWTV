@@ -21,6 +21,8 @@
     /// </summary>
 	public class PluginManager
 	{
+
+        private static PluginManager plMan;
         /// <summary>
         /// The one and only PluginManager instance in a running Oqat instance.
         /// </summary>
@@ -28,12 +30,12 @@
         {
             get
             {
-                if (pluginManager == null)
-                    return new PluginManager();
-                else
-                    return pluginManager;
+                if (plMan == null)
+                    plMan = new PluginManager();
+                return plMan;
             }
         }
+
 
         /// <summary>
         /// In this Dictionary PluginManager holds references to all known plugins.
@@ -63,8 +65,7 @@
         private SortedDictionary<string, List<ErrorEventArgs>> blackList;
 
 
-        [Import(typeof(IPlugin))]
-        Lazy<IPlugin,IPluginMetadata> tmpPlugin { get; set; } 
+
         /// <summary>
         /// Checks the PLUGIN_PATH folder for consistancy, i.e. violations of oqat plugin conventions
         /// and adds name and crime  of illegal plugins to the blackList.
@@ -73,18 +74,26 @@
         {
             SortedDictionary<string, int> tmpDictionary = new SortedDictionary<string, int>();
             blackList.Clear();
-            foreach (string file in Directory.GetFiles(PLUGIN_PATH))
+            string[] files;
+            try
+            {
+                files = Directory.GetFiles(PLUGIN_PATH);
+            }
+            catch (Exception exc)
+            {
+                raiseEvent(EventType.failure, new ErrorEventArgs(exc));
+                files = null;
+            }
+
+            if(files != null)
+            foreach (string file in files)
             {
                 if (Path.GetExtension(file).Equals(".dll")) 
                 {
-                    AssemblyCatalog tmpCatalog;
-                    CompositionContainer tmpContainer;
+                    var tmpPlugin = (new PluginSandbox(file)).tmpPlugin;
                     List<ErrorEventArgs> tmpList = new List<ErrorEventArgs>();
                     try
                     {
-                        tmpCatalog = new AssemblyCatalog(file);
-                        tmpContainer = new CompositionContainer(tmpCatalog);
-                        tmpContainer.ComposeParts(this.tmpPlugin);
 
                         tmpDictionary.Add(tmpPlugin.Metadata.namePlugin, tmpPlugin.GetHashCode() );
                         if (!checkIfPluginTypeIsValid(tmpPlugin.Value, Type.GetType(tmpPlugin.Metadata.type.ToString())))
@@ -100,9 +109,6 @@
                             blackList.Add(tmpPlugin.Metadata.namePlugin, tmpList);
                                 
                         }
-
-                        tmpContainer.Dispose();
-                        tmpCatalog.Dispose();
                     }
                     catch (Exception exc)
                     {
@@ -201,9 +207,44 @@
         /// is valid.
         /// </summary>
         /// <param name="eType"> The type of event to raise.</param>
-        public virtual void raiseEvent(EventType eType, EventArgs e)
+        internal virtual void raiseEvent(EventType eType, EventArgs e)
         {
+            switch(eType)
+            {
+                case EventType.info:
+                    try
+                    {
+                        OqatInfo(this, (ErrorEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.panic:
+                    try
+                    {
+                        OqatPanic(this, (ErrorEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.failure:
+                    try
+                    {
+                        OqatFailure(this, (ErrorEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+            }
         }
+
+
 
         /// <summary>
         /// Constructor
@@ -211,6 +252,11 @@
 		private PluginManager()
 		{
             PLUGIN_PATH = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(PluginManager)).Location) + "\\Plugins";
+            if (!System.IO.Directory.Exists(PLUGIN_PATH))
+            {
+                System.IO.Directory.CreateDirectory(PLUGIN_PATH);
+                raiseEvent(EventType.info, new ErrorEventArgs(new Exception("Cant find Pluginfolder, create new one.")));
+            }
             blackList = new SortedDictionary<string, List<ErrorEventArgs>>();
 
             consistencyCheck();
@@ -218,19 +264,26 @@
             try
             {
                 pluginCatalog = new DirectoryCatalog(PLUGIN_PATH);
-                pluginContainer = new CompositionContainer(pluginCatalog);
             }
             catch (Exception exc)
             {
                 /// cannot recover if someone messed within the pluginFolder
                 raiseEvent(EventType.failure, new ErrorEventArgs(exc));
             }
-            pluginContainer.ComposeParts(this.pluginTable);
+            try
+            {
+                pluginContainer = new CompositionContainer(pluginCatalog);
+                pluginContainer.ComposeParts(this);
 
-            watcher = new FileSystemWatcher(PLUGIN_PATH);
-            watcher.Created += new FileSystemEventHandler(onPluginFolderChanged);
-            watcher.Deleted += new FileSystemEventHandler(onPluginFolderChanged);
-            watcher.EnableRaisingEvents = true;
+                watcher = new FileSystemWatcher(PLUGIN_PATH);
+                watcher.Created += new FileSystemEventHandler(onPluginFolderChanged);
+                watcher.Deleted += new FileSystemEventHandler(onPluginFolderChanged);
+                watcher.EnableRaisingEvents = true;
+            }
+            catch (Exception exc)
+            {
+                raiseEvent(EventType.failure, new ErrorEventArgs(exc));
+            }
 		}
 
         /// <summary>
@@ -301,27 +354,42 @@
                                     select i.Metadata.namePlugin);
 		}
 
-        /// <summary>
-        /// Provides a way to register a given delgate for a 
-        /// event of a given EventType.
-        /// </summary>
-        /// <param name="eType">The EventType to listen.</param>
-        /// <param name="handler">The handler to call if a event is raised.</param>
-		public virtual void addEventHandler(EventType eType, Delegate handler)
-		{
-			throw new System.NotImplementedException();
-		}
+        //private static Dictionary<EventType, string> eventTable;
+        //private static Dictionary<EventType, Type> delegateTypeTable;
+
+        internal delegate void OqatErrorHandler(object sender, ErrorEventArgs e);
+        internal static event OqatErrorHandler OqatInfo;
+        internal static event OqatErrorHandler OqatPanic;
+        internal static event OqatErrorHandler OqatFailure;
 
 
-        /// <summary>
-        /// Provides a way to unregister a delegate from an Event.
-        /// </summary>
-        /// <param name="eType">The EventType the given handler is registered.</param>
-        /// <param name="handler">The handler to unregister.</param>
-		public virtual void removeEventHandler(EventType eType, Delegate handler)
-		{
-			throw new System.NotImplementedException();
-		}
+        
+        ///// <summary>
+        ///// Provides a way to register a given delgate for a 
+        ///// event of a given EventType.
+        ///// </summary>
+        ///// <remarks>
+        ///// It is crucial to register an error handler (eventtypes info, failure, panic)
+        ///// before the first call of the pluginManager property, otherwise there
+        ///// is no way to be notified if errors ocured.
+        ///// </remarks>
+        ///// <param name="eType">The EventType to listen.</param>
+        ///// <param name="handler">The handler to call if a event is raised.</param>
+        //public static void addEventHandler<T>(EventType eType, EventHandler<T> handler)
+        //{
+        //}
+
+
+
+        ///// <summary>
+        ///// Provides a way to unregister a delegate from an Event.
+        ///// </summary>
+        ///// <param name="eType">The EventType the given handler is registered.</param>
+        ///// <param name="handler">The handler to unregister.</param>
+        //public virtual void removeEventHandler(EventType eType, Delegate handler)
+        //{
+
+        //}
 
 
         /// <summary>
