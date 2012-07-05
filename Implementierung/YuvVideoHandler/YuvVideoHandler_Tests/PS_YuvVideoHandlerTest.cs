@@ -505,7 +505,7 @@ namespace YuvVideoHandler_Tests
         ///</summary>
         [TestMethod()]
         public void readANDwriteFrameTest()
-        {/*
+        {
             YuvVideoInfo info_r = new YuvVideoInfo();
             info_r.height = 144;
             info_r.width = 176;
@@ -518,7 +518,7 @@ namespace YuvVideoHandler_Tests
             info_w.yuvFormat = YuvFormat.YUV420_IYUV;
             PS_YuvVideoHandler writer = new PS_YuvVideoHandler(TESTVIDEO_PATH+"copy", info_w);
 
-            
+            /*
             for (int j = 0; j < ((YuvVideoInfo)reader.vidInfo).frameCount; j++)
             {
                 Bitmap bmp = reader.getFrame(j);
@@ -527,11 +527,13 @@ namespace YuvVideoHandler_Tests
             }
             */
 
-            /*
+            
             //check
             //TODO: find better way to compare the two files
-            int bsize = 1024;
+            int bsize =(int)( info_r.width * info_r.height * (1 + PS_YuvVideoHandler.getLum2Chrom(info_r.yuvFormat)) ); //bsize = 1 frame
+
             int error = 0;
+            int errorcount = 0;
             
             FileStream fs1;
             fs1 = new FileStream(TESTVIDEO_PATH, FileMode.Open);
@@ -541,26 +543,47 @@ namespace YuvVideoHandler_Tests
             fs2 = new FileStream(TESTVIDEO_PATH+"copy", FileMode.Open);
             byte[] data2 = new byte[bsize];
 
+            StreamWriter log = new StreamWriter("C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/YuvVideoHandler/log/log.txt");
+            
+            
 
             for (int i = 0; i < fs1.Length; i += bsize)
             {
-                fs1.Read(data1, 0, bsize);
-                fs2.Read(data2, 0, bsize);
+                int r = fs1.Read(data1, 0, bsize);
+                int r2 = fs2.Read(data2, 0, bsize);
 
-                for (int j = 0; j < bsize; j++)
+                Assert.AreEqual(r, r2, "file read out of sync");
+
+                StreamWriter logdetail = new StreamWriter("C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/YuvVideoHandler/log/log"+(i/bsize)+".txt");
+
+                for (int j = 0; j < r; j++)
                 {
                     int diff = Math.Abs(data1[j] - data2[j]);
-                    Assert.IsTrue(diff < 40, "big difference at "+(i*bsize + j)+": "+diff);
+
+                    int y = j / info_r.width;
+                    int x = j % info_r.width;
+
+                    //Assert.IsTrue(diff < 5, "big difference at "+x+","+y+": "+diff);
+                    if (diff > 5) logdetail.WriteLine(x + "," + y + ": " + diff);
                     error += diff;
+                    if (diff > 5) errorcount++;
+
+
                 }
+
+                logdetail.Close();
+                
+                float errorratio = (((float)errorcount) / bsize);
+                log.WriteLine("Frame: "+(i/bsize)+" / errorratio: "+errorratio);
+                //Assert.IsTrue(error < 10, i+": error ratio: " + errorratio + " / error count: " + errorcount + " / accumulated error: " + error);
+                error = 0;
+                errorcount = 0;
             }
 
+            log.Close();
+            
             fs1.Close();
             fs2.Close();
-
-            Assert.IsTrue(error < 10, "accumulated error is " + error);
-            
-            */
         }
     }
 }
