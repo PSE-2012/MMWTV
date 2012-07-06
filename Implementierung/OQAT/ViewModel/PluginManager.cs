@@ -22,6 +22,7 @@
 	public class PluginManager
 	{
 
+        private static Object key = new Object();
         private static PluginManager plMan;
         /// <summary>
         /// The one and only PluginManager instance in a running Oqat instance.
@@ -30,9 +31,12 @@
         {
             get
             {
-                if (plMan == null)
-                    plMan = new PluginManager();
-                return plMan;
+                lock (key)
+                {
+                    if (plMan == null)
+                        plMan = new PluginManager();
+                    return plMan;
+                }
             }
         }
 
@@ -70,79 +74,94 @@
         /// Checks the PLUGIN_PATH folder for consistancy, i.e. violations of oqat plugin conventions
         /// and adds name and crime  of illegal plugins to the blackList.
         /// </summary>
-        private void consistencyCheck()
+        private bool consistencyCheck()
         {
-            SortedDictionary<string, int> tmpDictionary = new SortedDictionary<string, int>();
-            blackList.Clear();
-            string[] files;
-            try
+            bool errorsOcured;
+            lock (key)
             {
-                files = Directory.GetFiles(PLUGIN_PATH);
-            }
-            catch (Exception exc)
-            {
-                raiseEvent(EventType.failure, new ErrorEventArgs(exc));
-                files = null;
-            }
-
-            if(files != null)
-            foreach (string file in files)
-            {
-                if (Path.GetExtension(file).Equals(".dll")) 
+                /// if no errors occured the plugin List must not be refreshed 
+                /// completly, only the new one
+                /// which name will be passed by the pluginTableChanged event.
+                errorsOcured = false;
+                SortedDictionary<string, int> tmpDictionary = new SortedDictionary<string, int>();
+                blackList.Clear();
+                string[] files;
+                try
                 {
-                    var tmpPlugin = (new PluginSandbox(file)).tmpPlugin;
-                    List<ErrorEventArgs> tmpList = new List<ErrorEventArgs>();
-                    try
+                    files = Directory.GetFiles(PLUGIN_PATH);
+                }
+                catch (Exception exc)
+                {
+                    raiseEvent(EventType.failure, new ErrorEventArgs(exc));
+                    files = null;
+                    errorsOcured = true;
+                }
+
+                if (files != null)
+                    foreach (string file in files)
                     {
-
-                        tmpDictionary.Add(tmpPlugin.Metadata.namePlugin, tmpPlugin.GetHashCode() );
-                        if (!checkIfPluginTypeIsValid(tmpPlugin.Value, Type.GetType(tmpPlugin.Metadata.type.ToString())))
+                        if (Path.GetExtension(file).Equals(".dll"))
                         {
-                            tmpList.Add(new ErrorEventArgs(new Exception("The type" +
-                            " specified in the attribute pluginType(" + tmpPlugin.Metadata.type + ") is not implemented." +
-                             "Oqat will ignore this assembly:" + file + ". To be able to use " + tmpPlugin.Metadata.namePlugin
-                            + "Plugin it has to implement the" + tmpPlugin.Metadata.type + " interface")));
+                            var tmpPlugin = (new PluginSandbox(file)).tmpPlugin;
+                            List<ErrorEventArgs> tmpList = new List<ErrorEventArgs>();
+                            try
+                            {
 
-                            if (blackList.ContainsKey(tmpPlugin.Metadata.namePlugin))
-                            blackList.TryGetValue(tmpPlugin.Metadata.namePlugin, out tmpList);
-                            else
-                            blackList.Add(tmpPlugin.Metadata.namePlugin, tmpList);
-                                
+                                tmpDictionary.Add(tmpPlugin.Metadata.namePlugin, tmpPlugin.GetHashCode());
+
+
+                                if (!checkIfPluginTypeIsValid(tmpPlugin.Value, tmpPlugin.Metadata.type))
+                                {
+                                    tmpList.Add(new ErrorEventArgs(new Exception("The type" +
+                                    " specified in the attribute pluginType(" + tmpPlugin.Metadata.type + ") is not implemented." +
+                                     "Oqat will ignore this assembly:" + file + ". To be able to use " + tmpPlugin.Metadata.namePlugin
+                                    + "Plugin it has to implement the" + tmpPlugin.Metadata.type + " interface")));
+
+                                    if (blackList.ContainsKey(tmpPlugin.Metadata.namePlugin))
+                                        blackList.TryGetValue(tmpPlugin.Metadata.namePlugin, out tmpList);
+                                    else
+                                        blackList.Add(tmpPlugin.Metadata.namePlugin, tmpList);
+                                    errorsOcured = true;
+                                }
+                            }
+                            catch (Exception exc)
+                            {
+                                raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                                errorsOcured = true;
+                            }
+                            int tmpHashCode;
+                            foreach (string entry in tmpDictionary.Keys)
+                            {
+                                tmpDictionary.TryGetValue(entry, out tmpHashCode);
+                                if (tmpPlugin.Metadata.namePlugin.Equals(entry)
+                                    & (tmpPlugin.GetHashCode() != tmpHashCode))
+                                {
+
+                                    tmpList.Add(new ErrorEventArgs(new Exception("Plugin name conflict, Oqat will"
+                                    + " ignore this assembly: " + file + "To be able to use " + tmpPlugin.Metadata.namePlugin
+                                    + "Plugin it has to export an unambiguous name.")));
+
+                                    if (blackList.ContainsKey(entry))
+                                        blackList.TryGetValue(entry, out tmpList);
+                                    else
+                                        blackList.Add(entry, tmpList);
+
+                                    errorsOcured = true;
+                                }
+                            }
                         }
                     }
-                    catch (Exception exc)
-                    {
-                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
-                    }
-                    int tmpHashCode;
-                    foreach (string entry in tmpDictionary.Keys)
-                    {
-                        tmpDictionary.TryGetValue(entry, out tmpHashCode);
-                        if (tmpPlugin.Metadata.namePlugin.Equals(entry)
-                            & (tmpPlugin.GetHashCode() != tmpHashCode)) {
-
-                                tmpList.Add(new ErrorEventArgs(new Exception("Plugin name conflict, Oqat will"
-                                + " ignore this assembly: " + file + "To be able to use " + tmpPlugin.Metadata.namePlugin
-                                + "Plugin it has to export an unambiguous name.")));
-
-                                if (blackList.ContainsKey(entry))
-                                    blackList.TryGetValue(entry, out tmpList);
-                                else
-                                    blackList.Add(entry, tmpList);
-                            }
-                    }
-                }
             }
-
-            List<ErrorEventArgs> errorList = new List<ErrorEventArgs>();
-            foreach (string entry in blackList.Keys)
-            {
-                blackList.TryGetValue(entry, out errorList);
-                foreach (ErrorEventArgs e in errorList)
+                List<ErrorEventArgs> errorList = new List<ErrorEventArgs>();
+                foreach (string entry in blackList.Keys)
                 {
-                    raiseEvent(EventType.info, e);
+                    blackList.TryGetValue(entry, out errorList);
+                    foreach (ErrorEventArgs e in errorList)
+                    {
+                        raiseEvent(EventType.info, e);
+                    }
                 }
-            }
+                return errorsOcured;
         }
 
         /// <summary>
@@ -152,17 +171,40 @@
         /// <param name="plType">Type to check plugin against.</typeparam>
         /// <param name="plugin">Plugin to check type from.</param>
         /// <returns></returns>
-        private bool checkIfPluginTypeIsValid(IPlugin plugin, Type plType)
+        private bool checkIfPluginTypeIsValid(IPlugin plugin, PluginType plType)
         {
-            object myTestCast = null;
+            bool retVal;
+            switch (plType)
+            {
+                   
+                case PluginType.IFilterOqat:
+                    retVal = castTest<IFilterOqat>(plugin);
+                    break;
+                case PluginType.IMacro:
+                    retVal = castTest<IMacro>(plugin);
+                    break;
+                case PluginType.IMetric:
+                    retVal = castTest<IMetricOqat>(plugin);
+                    break;
+                case PluginType.IPresentation:
+                    retVal = castTest<IPresentation>(plugin);
+                    break;
+                case PluginType.IVideoHandler:
+                    retVal = castTest<IVideoHandler>(plugin);
+                    break;
+                default:
+                    retVal = false;
+                    break;
+            }
+            return retVal;
+        }
+        private bool castTest<T>(IPlugin plugin) where T: IPlugin
+        {
             try
             {
-                myTestCast = Convert.ChangeType(plugin, plType);
+                var tmp = (T)plugin;
             }
-            catch
-            {
-                return false;
-            }
+            catch { return false; }
             return true;
         }
 
@@ -241,6 +283,16 @@
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
+                case EventType.pluginTableChanged:
+                    try
+                    {
+                        OqatPluginTableChanged(this, (EntryEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
             }
         }
 
@@ -299,13 +351,28 @@
         /// </remarks>
         private void onPluginFolderChanged(object source, FileSystemEventArgs e)
         {
-            if (((File.GetAttributes(e.FullPath) & FileAttributes.Directory) != FileAttributes.Directory)
-                & ((e.ChangeType == System.IO.WatcherChangeTypes.Created) 
-                    | (e.ChangeType == System.IO.WatcherChangeTypes.Deleted))) {
+            
+                if (((File.GetAttributes(e.FullPath) & FileAttributes.Directory) != FileAttributes.Directory)
+                    & ((e.ChangeType == System.IO.WatcherChangeTypes.Created)
+                        | (e.ChangeType == System.IO.WatcherChangeTypes.Deleted)))
+                {
+                    var tmpSlot = consistencyCheck();
+                    pluginCatalog.Refresh();
+                    EntryEventArgs pluginTableChanges;
+                    if (!tmpSlot) // i.e. no errors occured
+                    { 
+                        var tmpPlugin = new PluginSandbox(e.FullPath);
+                        pluginTableChanges = new EntryEventArgs(tmpPlugin.tmpPlugin.Metadata.namePlugin);
+                    }
+                    else
+                    {
+                       pluginTableChanges = new EntryEventArgs("");
+                    }
 
-                        consistencyCheck();
-                        pluginCatalog.Refresh();
-            }
+                    raiseEvent(EventType.pluginTableChanged, pluginTableChanges);
+                      
+                }
+          
         }
 
 
@@ -354,42 +421,13 @@
                                     select i.Metadata.namePlugin);
 		}
 
-        //private static Dictionary<EventType, string> eventTable;
-        //private static Dictionary<EventType, Type> delegateTypeTable;
 
         internal delegate void OqatErrorHandler(object sender, ErrorEventArgs e);
+        internal delegate void notificationHandler(object sender, EntryEventArgs e);
         internal static event OqatErrorHandler OqatInfo;
         internal static event OqatErrorHandler OqatPanic;
         internal static event OqatErrorHandler OqatFailure;
-
-
-        
-        ///// <summary>
-        ///// Provides a way to register a given delgate for a 
-        ///// event of a given EventType.
-        ///// </summary>
-        ///// <remarks>
-        ///// It is crucial to register an error handler (eventtypes info, failure, panic)
-        ///// before the first call of the pluginManager property, otherwise there
-        ///// is no way to be notified if errors ocured.
-        ///// </remarks>
-        ///// <param name="eType">The EventType to listen.</param>
-        ///// <param name="handler">The handler to call if a event is raised.</param>
-        //public static void addEventHandler<T>(EventType eType, EventHandler<T> handler)
-        //{
-        //}
-
-
-
-        ///// <summary>
-        ///// Provides a way to unregister a delegate from an Event.
-        ///// </summary>
-        ///// <param name="eType">The EventType the given handler is registered.</param>
-        ///// <param name="handler">The handler to unregister.</param>
-        //public virtual void removeEventHandler(EventType eType, Delegate handler)
-        //{
-
-        //}
+        internal static event notificationHandler OqatPluginTableChanged;
 
 
         /// <summary>
