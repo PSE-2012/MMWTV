@@ -24,7 +24,7 @@ namespace Oqat.ViewModel
 
             AssemblyCatalog tmpCatalog = new AssemblyCatalog(file);
             tmpContainer = new CompositionContainer(tmpCatalog);
-            tmpContainer.ComposeParts(this.tmpPlugin);
+            tmpContainer.ComposeParts(this);
         }
     }
 }
