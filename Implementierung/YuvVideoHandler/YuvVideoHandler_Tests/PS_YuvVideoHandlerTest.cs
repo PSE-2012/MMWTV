@@ -71,16 +71,6 @@ namespace YuvVideoHandler_Tests
         //
         #endregion
 
-        /// <summary>
-        ///Test the constructor for wrong filepath
-        ///</summary>
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ConstructorWrongFilepath()
-        {
-            PS_YuvVideoHandler handler = new PS_YuvVideoHandler("bla", new YuvVideoInfo());
-        }
-
 
 
         /// <summary>
@@ -348,7 +338,7 @@ namespace YuvVideoHandler_Tests
             info.yuvFormat = YuvFormat.YUV420_IYUV;
             PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, info);
 
-            Bitmap expected = null; // TODO: Passenden Wert initialisieren
+            Bitmap expected = null;
             Bitmap actual;
 
             TestContext.BeginTimer("frame1");
@@ -358,8 +348,6 @@ namespace YuvVideoHandler_Tests
             TestContext.BeginTimer("frame2");
             actual = target.getFrame(1);
             TestContext.EndTimer("frame2");
-
-            //TODO: Check results of getFrame
 
         }
 

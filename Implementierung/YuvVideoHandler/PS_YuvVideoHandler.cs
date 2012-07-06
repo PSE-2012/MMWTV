@@ -9,7 +9,8 @@ namespace YuvVideoHandler
 	using System.Linq;
 	using System.Text;
 
-    using System.Threading;
+
+    using System.ComponentModel.Composition;
 
     using System.Drawing.Imaging;
     using System.Drawing;
@@ -17,7 +18,7 @@ namespace YuvVideoHandler
     using AForge.Imaging;
 
 
-
+    [Export(typeof(IVideoHandler))]
 	public class PS_YuvVideoHandler : IVideoHandler
 	{
         int NUMFRAMESINMEM = 5;
@@ -102,7 +103,7 @@ namespace YuvVideoHandler
             this.frameSize =(int)( _videoInfo.height * _videoInfo.width * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)) );
 
             FileInfo f = new FileInfo(_path);
-            if (f.Exists)
+            if (f.Exists && this.frameSize > 0)
             {
                 this._videoInfo.frameCount = (int)(f.Length / this.frameSize);
             }
