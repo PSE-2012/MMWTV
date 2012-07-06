@@ -431,42 +431,70 @@
 
 
         /// <summary>
-        /// Return a list of all known mementos of a plugin
+        /// Return a list of all known mementos of a plugin.
+        /// 
         /// </summary>
-        /// <param name="namePlugin"></param>
-        /// <returns></returns>
+        /// <param name="namePlugin">name of the Plugin to return mementos for</param>
+        /// <returns>List of mementos if all went well. Empty List if no mementos are assigned to the
+        /// Plugin with the given name. Null if Plugin with the name namePlugin was found.</returns>
         private List<Memento> getMementoList(string namePlugin)
         {
             if (blackList.ContainsKey(namePlugin))
                 return null;    // should never come to this, since noone can have plugin names (getPluginNames)
                             // of blacklisted plugins
+            string supposedMemPath = PLUGIN_PATH + "\\" + namePlugin + ".mem";
+            var memList = new List<Memento>();
+            Memento mem = Caretaker.caretaker.getMemento(supposedMemPath);
 
-            Memento mem = Caretaker.caretaker.getMemento(PLUGIN_PATH + "\\" + namePlugin + ".mem");
-            try
+            if (mem != null)
+                try
+                {
+                    memList = (List<Memento>)mem.state;
+                }
+                catch (Exception exc)
+                {
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    // todo: exc.Message + some explanation
+                 raiseEvent(EventType.info, new ErrorEventArgs(exc));
+
+                }
+            else
             {
-                return (List<Memento>)mem.state;
+                /// no mementos are assigned to the given plugin
+                /// construct one
+                var tmpPlugin = getPlugin<IPlugin>(namePlugin);
+                if (tmpPlugin != null)
+                    memList.Add(tmpPlugin.getMemento());
+                else
+                {
+                    memList = null;
+                }
             }
-            catch
-            {
-                return new List<Memento>();
-            }
+
+            return memList;
+                
         }
 
         /// <summary>
         /// Return a list with memento names of a given plugin.
         /// </summary>
         /// <param name="namePlugin">Name of the plugin to get memento names from</param>
-        /// <returns>List of known memento names. Please note that the list will be empty if no mementos could be found.</returns>
-		public virtual List<String> getMementoNames(string namePlugin)
+        /// <returns>List of known memento names. Please note that the list will be empty if no mementos could be found or 
+        /// null if no corresponding plugin was found.</returns>
+		internal virtual List<String> getMementoNames(string namePlugin)
 		{
 
-
-                List<string> nameList = new List<string>();
-                foreach (Memento i in getMementoList(namePlugin))
+            var nameList = new List<string>();
+            var tmpMemList = getMementoList(namePlugin);
+            if (tmpMemList != null)
+                foreach (Memento i in tmpMemList)
                 {
                     nameList.Add(i.name);
                 }
-                return nameList;
+            else
+                nameList = null;
+
+            return nameList;
 
         }
 
