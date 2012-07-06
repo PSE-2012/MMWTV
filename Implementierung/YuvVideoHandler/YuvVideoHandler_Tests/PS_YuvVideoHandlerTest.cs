@@ -563,8 +563,10 @@ namespace YuvVideoHandler_Tests
                     int y = j / info_r.width;
                     int x = j % info_r.width;
 
+                    if (j % info_r.width == 0) logdetail.Write(logdetail.NewLine);
+
                     //Assert.IsTrue(diff < 5, "big difference at "+x+","+y+": "+diff);
-                    if (diff > 5) logdetail.WriteLine(x + "," + y + ": " + diff);
+                    logdetail.Write(diff+" ");
                     error += diff;
                     if (diff > 5) errorcount++;
 
