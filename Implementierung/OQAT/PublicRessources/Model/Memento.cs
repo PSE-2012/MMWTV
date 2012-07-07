@@ -66,18 +66,18 @@ namespace Oqat.PublicRessources.Model
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="nameMemento"></param> Name of the Memento
-        /// <param name="state"></param> Object state to be saved
-		public Memento(string nameMemento)
+        /// <param name="nameMemento">Name of the Memento</param>
+        /// <param name="state">Object state to be saved</param>
+        public Memento(string nameMemento, object state)
 		{
 		}
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="nameMemento"></param> Name of the Memento
-        /// <param name="state"></param> Object state to be saved
-        /// <param name="mementoPath"></param> A path to save the Memento to
+        /// <param name="nameMemento">Name of the Memento</param>
+        /// <param name="state">Object state to be saved</param>
+        /// <param name="mementoPath">A path to save the Memento to</param>
 		public Memento(string nameMemento, object state, string mementoPath)
 		{
 		}
