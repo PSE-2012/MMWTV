@@ -6,12 +6,11 @@ namespace Oqat.Model
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Text;
-
     using Oqat.PublicRessources.Model;
     using System.IO;
-
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters.Binary;
+    using Oqat.ViewModel;
 
 	/// <summary>
 	/// This class is the Model for the Caretaker, which is responsible for saving
@@ -75,7 +74,7 @@ namespace Oqat.Model
         public virtual Memento getMemento(string fileName)
 		{
             Memento objectToSerialize = null;
-            if (File.Exists(fileName) && Path.GetExtension(fileName) == ".bin") //TODO: Rechte zum schreiben
+            if (File.Exists(fileName) && Path.GetExtension(fileName) == ".bin")
             {
                 //Reading files and creates a list of mementos
                 Stream stream = File.Open(fileName, FileMode.Open);
@@ -94,14 +93,20 @@ namespace Oqat.Model
 
         public virtual void writeMemento(Memento objectToSerialize)
         {
-            lock(writeDisk)
+            try
             {
-                Stream stream = File.Open(objectToSerialize.mementoPath, FileMode.Create);
-                BinaryFormatter bFormatter = new BinaryFormatter();
-                bFormatter.Serialize(stream, objectToSerialize);
-                stream.Close();
+                lock (writeDisk)
+                {
+                    Stream stream = File.Open(objectToSerialize.mementoPath, FileMode.Create);
+                    BinaryFormatter bFormatter = new BinaryFormatter();
+                    bFormatter.Serialize(stream, objectToSerialize);
+                    stream.Close();
+                }
             }
-
+            catch (UnauthorizedAccessException)
+            {
+                //TODO: Event
+            }
             
         }
 	}
