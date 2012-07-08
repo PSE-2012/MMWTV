@@ -293,7 +293,7 @@ namespace YuvVideoHandler_Tests
 
 
         /// <summary>
-        ///Test für "clampToByte"
+        ///Test "clampToByte"
         ///</summary>
         [TestMethod()]
         [DeploymentItem("YuvVideoHandler.exe")]
@@ -317,31 +317,9 @@ namespace YuvVideoHandler_Tests
             }
         }
 
-        /// <summary>
-        ///TODO: Ein Test für "getFrame"
-        ///</summary>
-        [TestMethod()]
-        public void getFrameTest()
-        {
-            YuvVideoInfo info = new YuvVideoInfo();
-            info.height = 144;
-            info.width = 176;
-            info.yuvFormat = YuvFormat.YUV420_IYUV;
-            YuvVideoHandler target =new YuvVideoHandler();
-            target.setVideo(TESTVIDEO_PATH, info);
+        
 
-            Bitmap expected = null;
-            Bitmap actual;
 
-            TestContext.BeginTimer("frame1");
-            actual = target.getFrame(0);
-            TestContext.EndTimer("frame1");
-
-            TestContext.BeginTimer("frame2");
-            actual = target.getFrame(1);
-            TestContext.EndTimer("frame2");
-
-        }
 
 
         #region convertToYUV_Tests
@@ -490,6 +468,42 @@ namespace YuvVideoHandler_Tests
         #endregion
 
 
+
+
+
+
+        /// <summary>
+        ///TODO: Test "getFrame"
+        ///</summary>
+        [TestMethod()]
+        public void getFrameTest()
+        {
+            YuvVideoInfo info = new YuvVideoInfo();
+            info.height = 144;
+            info.width = 176;
+            info.yuvFormat = YuvFormat.YUV420_IYUV;
+            YuvVideoHandler target = new YuvVideoHandler();
+            target.setVideo(TESTVIDEO_PATH, info);
+
+            Bitmap expected = null;
+            Bitmap actual;
+
+            TestContext.BeginTimer("frame1");
+            actual = target.getFrame(0);
+            TestContext.EndTimer("frame1");
+
+            TestContext.BeginTimer("frame2");
+            actual = target.getFrame(1);
+            TestContext.EndTimer("frame2");
+
+            //TODO: How to compare this?!
+
+            Assert.Inconclusive("Implement some way to check result first.");
+        }
+
+
+
+
         /// <summary>
         ///Test getFrame and writeFrame
         ///</summary>
@@ -598,6 +612,8 @@ namespace YuvVideoHandler_Tests
             
             fs1.Close();
             fs2.Close();
+
+            Assert.Inconclusive("Compare logfiles to determine errorrates");
         }
 
 
