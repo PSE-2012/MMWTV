@@ -10,6 +10,12 @@
     /// <summary>
     /// Every plugin has to implement this interface to be compatible with <see cref="PluginManager"/>.
     /// </summary>
+    /// <remarks>
+    /// a Plugin needs to export the following MEF stuff to be importable by PluginManager:
+    /// [ExportMetadata("namePlugin", namePlugin)]
+    /// [ExportMetadata("type", type)]
+    /// [Export(typeof(IPlugin))]
+    /// </remarks>
 	public interface IPlugin  : IMemorizable
 	{
 

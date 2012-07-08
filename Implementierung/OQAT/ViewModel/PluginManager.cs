@@ -19,6 +19,12 @@
     /// can register for and raise events for a specified <see cref="EventType"/>.
     /// Pluginsmanager is a singleton.
     /// </summary>
+    /// <remarks>
+    /// a Plugin needs to export the following MEF stuff to be importable by PluginManager:
+    /// [ExportMetadata("namePlugin", namePlugin)]
+    /// [ExportMetadata("type", type)]
+    /// [Export(typeof(IPlugin))]
+    /// </remarks>
 	public class PluginManager
 	{
 
