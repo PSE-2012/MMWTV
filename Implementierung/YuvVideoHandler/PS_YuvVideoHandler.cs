@@ -21,38 +21,73 @@ namespace YuvVideoHandler
     [Export(typeof(IVideoHandler))]
 	public class PS_YuvVideoHandler : IVideoHandler
 	{
-        int NUMFRAMESINMEM = 5;
-        int THREADS = 4;
+        const int NUMFRAMESINMEM = 5;
+        const int THREADS = 4;
 
-        YuvVideoInfo _videoInfo;
-        string _path;
+        YuvVideoInfo _videoInfo = null;
+        string _path = null;
 
-        byte[] data;
-        int bufferSizeFrames;
+        byte[] data = null;
+        int bufferSizeFrames = -1;
 
 
 
         int firstFrameInMem = int.MinValue;
         int frameSize;
 
-
+        /// <summary>
+        /// Constructs a YuvVideoHandler for the file at the given location that
+        /// this instance can read according to the additional information in the YuvVideoInfo.
+        /// </summary>
+        /// <param name="filepath">location of the videofile to read</param>
+        /// <param name="info">VideoInfo containing needed information like resolution and yuv format</param>
         public PS_YuvVideoHandler(string filepath, YuvVideoInfo info)
         {
-            _path = filepath;
+            setVideo(filepath, info);
+        }
 
+        /// <summary>
+        /// Constructs a YuvVideoHandler without filepath or VideoInfoObject. 
+        /// This instance can be used to display a propertiesview and create a YuvVideoInfo object for example.
+        /// </summary>
+        public PS_YuvVideoHandler()
+        {
+        }
+
+        /// <summary>
+        /// Returns a new VideoHandler instance.
+        /// </summary>
+        /// <returns>a new VideoHandler instance</returns>
+        public static IVideoHandler createVideoHandlerInstance()
+        {
+            return new PS_YuvVideoHandler();
+        }
+
+        /// <summary>
+        /// Sets a new video file as the context of this handler.
+        /// </summary>
+        /// <param name="filepath">location of the videofile to read</param>
+        /// <param name="info">VideoInfo containing needed information like resolution and yuv format</param>
+        public void setVideo(string filepath, IVideoInfo info)
+        {
+            _path = filepath;
             vidInfo = info;
-            calculateFrameCount();
 
             //init buffer
             initBuffer(NUMFRAMESINMEM);
         }
-        // TODO: constructor without info
 
 
+
+
+        /// <summary>
+        /// Creates the buffer array for the given number of frames.
+        /// </summary>
+        /// <param name="frames">the buffersize in frames of the video of this handler</param>
         private void initBuffer(int frames)
         {
-            bufferSizeFrames = frames;
             data = new byte[(int)(_videoInfo.width * _videoInfo.height * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)) * bufferSizeFrames)];
+            bufferSizeFrames = frames;
         }
 
 
@@ -93,6 +128,7 @@ namespace YuvVideoHandler
             private set
             {
                 _videoInfo =(YuvVideoInfo) value;
+                calculateFrameCount();
             }
         }
 
@@ -108,26 +144,6 @@ namespace YuvVideoHandler
             if (f.Exists && this.frameSize > 0)
             {
                 this._videoInfo.frameCount = (int)(f.Length / this.frameSize);
-            }
-        }
-
-        /// <summary>Gets plugin name according to IPlugin.</summary>
-        /// <returns>string of name of the plugin</returns>
-        public string namePlugin
-        {
-            get
-            {
-                return "YuvVideoHandler";
-            }
-        }
-
-        /// <summary>Gets plugin name according to IPlugin.</summary>
-        /// <returns>the PluginType of the plugin</returns>
-        public PluginType type
-        {
-            get
-            {
-                return PluginType.VideoHandler;
             }
         }
 
@@ -159,7 +175,6 @@ namespace YuvVideoHandler
         /// <returns>a dictionary of event types and their associated delegates this plugin uses to handle them.</returns>
         public Dictionary<EventType, List<Delegate>> getEventHandlers()
         {
-            //TODO: are any events handled directly by VideoHandlers?
             return new Dictionary<EventType,List<Delegate>>();
         }
 
@@ -200,7 +215,9 @@ namespace YuvVideoHandler
         /// <returns>the selected frame as a RGB Bitmap object</returns>
         public System.Drawing.Bitmap getFrame(int frameNm)
         {
-            // check if we have to load new data
+            if (data == null) initBuffer(NUMFRAMESINMEM);
+
+            // check if we have to load new data into the buffer
             if (frameNm >= firstFrameInMem + bufferSizeFrames)
             {
                 Load(frameNm);
@@ -210,12 +227,14 @@ namespace YuvVideoHandler
                 Load(Math.Max(frameNm - bufferSizeFrames + 1, 0));
             }
 
-            int frameOffset = (frameNm - firstFrameInMem) * this.frameSize;
 
+
+            int frameOffset = (frameNm - firstFrameInMem) * this.frameSize;
             FrameDataPointers pointers = new FrameDataPointers(_videoInfo);
 
             Bitmap frame = new Bitmap(_videoInfo.width, _videoInfo.height);
 
+            //convert every pixel of the frame from yuv to rgb
             for (int y = 0; y < _videoInfo.height; y++)
             {
                 for (int x = 0; x < _videoInfo.width; x++)
@@ -226,15 +245,15 @@ namespace YuvVideoHandler
                     pointers.Next();
                 }
             }
+
             return frame;
         }
 
 
         public System.Drawing.Bitmap[] getFrames(int frameNm, int count)
         {
-            //if buffer is much smaller than requested number of frames, resize buffer
-            if (count > 2 * this.bufferSizeFrames) initBuffer(count);
-
+            //if buffer is smaller than requested number of frames, resize buffer
+            if (count > this.bufferSizeFrames) initBuffer(count);
             Load(frameNm);
 
             Bitmap[] frames = new Bitmap[count];
@@ -331,8 +350,8 @@ namespace YuvVideoHandler
 
         public void writeFrames(int frameNum, System.Drawing.Bitmap[] frames)
         {
+            //fill 2 dimensional buffer of data to write with yuv frames
             byte[][] wdata = new byte[frames.Length][];
-
             for (int i = 0; i < frames.Length; i++)
             {
                 wdata[i] = frameToYUV(frames[i]);
@@ -341,21 +360,21 @@ namespace YuvVideoHandler
             FileStream fs;
             try
             {
-                fs = new FileStream(_path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, this.frameSize*frames.Length);
+                fs = new FileStream(_path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, this.frameSize * frames.Length);
                 fs.Seek((int)(frameNum * this.frameSize), SeekOrigin.Begin);
 
                 for (int i = 0; i < frames.Length; i++)
                 {
                     fs.Write(wdata[i], 0, wdata[i].Length);
                 }
-                
+
                 fs.Close();
             }
-            catch (Exception e)
+            catch(Exception e)
             {
-
+                //TODO: handle writer exceptions?
+                throw e;
             }
-
         }
 
 
@@ -375,6 +394,11 @@ namespace YuvVideoHandler
             return yuv;
         }
 
+        /// <summary>
+        /// Returns an array of bytes according to the set yuv format out of the given RGB Bitmap.
+        /// </summary>
+        /// <param name="frame">the frame to be converted to yuv</param>
+        /// <returns>a byte array filled with yuv equivalents of the given frame</returns>
         private byte[] frameToYUV(Bitmap frame)
         {
             byte[] fdata = new byte[this.frameSize];
@@ -478,6 +502,12 @@ namespace YuvVideoHandler
             }
         }
 
+
+
+
+        /// <summary>
+        /// the index in the data buffer for the y value of the current pixel
+        /// </summary>
         public int y_index
         {
             get
@@ -485,6 +515,10 @@ namespace YuvVideoHandler
                 return this.indexY;
             }
         }
+
+        /// <summary>
+        /// the index in the data buffer for the u value of the current pixel
+        /// </summary>
         public int u_index
         {
             get
@@ -492,6 +526,10 @@ namespace YuvVideoHandler
                 return (int)Math.Floor(this.indexU);
             }
         }
+
+        /// <summary>
+        /// the index in the data buffer for the v value of the current pixel
+        /// </summary>
         public int v_index
         {
             get
@@ -500,6 +538,12 @@ namespace YuvVideoHandler
             }
         }
 
+
+        /// <summary>
+        /// Moves the index pointers to the next pixel. 
+        /// Shifting rows from left to right, top to bottom.
+        /// </summary>
+        /// <returns>true if there was a next pixel in the frame to shift to</returns>
         public bool Next()
         {
             //next x
