@@ -137,7 +137,7 @@ namespace YuvVideoHandler_Tests
         ///Test "convertToRGB" on black
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("YuvVideoHandler.exe")]
+        [DeploymentItem("YuvVideoHandler.dll")]
         public void convertToRGB_Black_Test()
         {
             YuvVideoInfo info = new YuvVideoInfo();
@@ -168,7 +168,7 @@ namespace YuvVideoHandler_Tests
         ///Test "convertToRGB" on Red
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("YuvVideoHandler.exe")]
+        [DeploymentItem("YuvVideoHandler.dll")]
         public void convertToRGB_Red_Test()
         {
             YuvVideoInfo info = new YuvVideoInfo();
@@ -199,7 +199,7 @@ namespace YuvVideoHandler_Tests
         ///Test "convertToRGB" on green
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("YuvVideoHandler.exe")]
+        [DeploymentItem("YuvVideoHandler.dll")]
         public void convertToRGB_Green_Test()
         {
             YuvVideoInfo info = new YuvVideoInfo();
@@ -230,7 +230,7 @@ namespace YuvVideoHandler_Tests
         ///Test "convertToRGB" on blue
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("YuvVideoHandler.exe")]
+        [DeploymentItem("YuvVideoHandler.dll")]
         public void convertToRGB_Blue_Test()
         {
             YuvVideoInfo info = new YuvVideoInfo();
@@ -261,7 +261,7 @@ namespace YuvVideoHandler_Tests
         ///Test "convertToRGB" on white
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("YuvVideoHandler.exe")]
+        [DeploymentItem("YuvVideoHandler.dll")]
         public void convertToRGB_White_Test()
         {
             YuvVideoInfo info = new YuvVideoInfo();
@@ -296,7 +296,7 @@ namespace YuvVideoHandler_Tests
         ///Test "clampToByte"
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("YuvVideoHandler.exe")]
+        [DeploymentItem("YuvVideoHandler.dll")]
         public void clampToByteTest()
         {
             YuvVideoInfo info = new YuvVideoInfo();
@@ -328,7 +328,7 @@ namespace YuvVideoHandler_Tests
         ///Test "convertToYUV" on black
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("YuvVideoHandler.exe")]
+        [DeploymentItem("YuvVideoHandler.dll")]
         public void convertToYUV_Black_Test()
         {
             YuvVideoInfo info = new YuvVideoInfo();
@@ -356,7 +356,7 @@ namespace YuvVideoHandler_Tests
         ///Test "convertToYUV" on Red
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("YuvVideoHandler.exe")]
+        [DeploymentItem("YuvVideoHandler.dll")]
         public void convertToYUV_Red_Test()
         {
             YuvVideoInfo info = new YuvVideoInfo();
@@ -384,7 +384,7 @@ namespace YuvVideoHandler_Tests
         ///Test "convertToYUV" on green
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("YuvVideoHandler.exe")]
+        [DeploymentItem("YuvVideoHandler.dll")]
         public void convertToYUV_Green_Test()
         {
             YuvVideoInfo info = new YuvVideoInfo();
@@ -412,7 +412,7 @@ namespace YuvVideoHandler_Tests
         ///Test "convertToYUV" on blue
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("YuvVideoHandler.exe")]
+        [DeploymentItem("YuvVideoHandler.dll")]
         public void convertToYUV_Blue_Test()
         {
             YuvVideoInfo info = new YuvVideoInfo();
@@ -440,7 +440,7 @@ namespace YuvVideoHandler_Tests
         ///Test "convertToYUV" on white
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("YuvVideoHandler.exe")]
+        [DeploymentItem("YuvVideoHandler.dll")]
         public void convertToYUV_White_Test()
         {
             YuvVideoInfo info = new YuvVideoInfo();

@@ -18,7 +18,9 @@ namespace PS_YuvVideoHandler
     using AForge.Imaging;
 
 
-    [Export(typeof(IVideoHandler))]
+    [ExportMetadata("namePlugin", "YuvVideoHandler")]
+    [ExportMetadata("type", PluginType.IVideoHandler)]
+    [Export(typeof(IPlugin))]
 	public class YuvVideoHandler : IVideoHandler
 	{
         const int NUMFRAMESINMEM = 5;
