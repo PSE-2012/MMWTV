@@ -14,9 +14,9 @@
 	{
 
         /// <summary>
-        /// A panel where the plugin may place own gui components
+        /// Displays a view with GUI components of the plugin in the given parent container.
         /// </summary>
-        /// <param name="parent"></param>
+        /// <param name="parent">panel where the plugin may place own gui components</param>
 		void setParentControl(Panel parent);
 
         /// <summary>

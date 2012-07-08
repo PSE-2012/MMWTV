@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="PS_YuvVideoHandler.PropertiesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <StackPanel>
+        <WrapPanel>
+            <Label Width="50" Height="30" Margin="0,5,0,0">Breite:</Label>
+            <TextBox Name="tb_width" Width="40" Height="20" Text="{Binding width}" />
+        </WrapPanel>
+
+        <WrapPanel>
+            <Label Height="30" Margin="0,5,0,0" Width="50">Höhe:</Label>
+            <TextBox Height="20" Name="tb_height" Text="{Binding height}" Width="40" />
+        </WrapPanel>
+        
+        <WrapPanel>
+            <Label Height="30" Margin="0,5,0,0" Width="50">Format:</Label>
+            <ComboBox x:Name="cb_format" Height="20" Width="100" DisplayMemberPath="formatString"
+                      SelectedValuePath="formatEnum" SelectedValue="{Binding yuvFormat}" />
+        </WrapPanel>
+
+        <WrapPanel>
+            <Label Height="30" Margin="0,5,0,0" Width="50">Frames:</Label>
+            <TextBox Height="20" Name="tb_frames" Text="{Binding frameCount}" Width="40" IsReadOnly="True" />
+        </WrapPanel>
+
+        <Grid></Grid>
+        
+    </StackPanel>
+</UserControl>
