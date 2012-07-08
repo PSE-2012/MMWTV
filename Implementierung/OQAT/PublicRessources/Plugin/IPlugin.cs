@@ -13,17 +13,6 @@
 	public interface IPlugin  : IMemorizable
 	{
         /// <summary>
-        /// A unambiguous name for the plugin.
-        /// </summary>
-		string namePlugin { get; }
-
-        /// <summary>
-        /// See <see cref="PluginType"/> for available types.
-        /// </summary>
-		PluginType type { get; }
-
-
-        /// <summary>
         /// A panel where the plugin may place own gui components
         /// </summary>
         /// <param name="parent"></param>

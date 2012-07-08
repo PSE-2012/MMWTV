@@ -59,7 +59,7 @@
         /// Returns a new VideoHandler instance.
         /// </summary>
         /// <returns>a new VideoHandler instance</returns>
-        static IVideoHandler createVideoHandlerInstance();
+        IVideoHandler createVideoHandlerInstance();
 
 
         /// <summary>

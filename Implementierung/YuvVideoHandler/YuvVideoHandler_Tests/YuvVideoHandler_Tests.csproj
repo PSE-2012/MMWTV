@@ -40,6 +40,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -58,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PS_YuvVideoHandlerTest.cs" />
+    <Compile Include="YuvVideoHandlerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\OQAT\OQAT.csproj">
@@ -72,7 +73,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Shadow Include="Testverweise\YuvVideoHandler.accessor" />
+    <Shadow Include="Testverweise\PS_YuvVideoHandler.accessor" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

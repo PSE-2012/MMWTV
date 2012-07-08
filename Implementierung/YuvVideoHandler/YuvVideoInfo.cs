@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
-namespace YuvVideoHandler
+namespace PS_YuvVideoHandler
 {
 	using Oqat.PublicRessources.Model;
 	using Plugins;
@@ -28,9 +28,9 @@ namespace YuvVideoHandler
 	public class YuvVideoInfo : IVideoInfo
 	{
 
-        YuvFormat _yuvFormat;
-        int _width;
-        int _height;
+        YuvFormat _yuvFormat = YuvFormat.YUV444;
+        int _width = 0;
+        int _height = 0;
         int _frameCount = -1;
 
 

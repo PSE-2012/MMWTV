@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace YuvVideoHandler
+namespace PS_YuvVideoHandler
 {
     public partial class PropertiesView : UserControl
     {

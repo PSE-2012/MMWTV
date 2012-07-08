@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
-namespace YuvVideoHandler
+namespace PS_YuvVideoHandler
 {
 	using Oqat.PublicRessources.Model;
 	using Oqat.PublicRessources.Plugin;
@@ -19,7 +19,7 @@ namespace YuvVideoHandler
 
 
     [Export(typeof(IVideoHandler))]
-	public class PS_YuvVideoHandler : IVideoHandler
+	public class YuvVideoHandler : IVideoHandler
 	{
         const int NUMFRAMESINMEM = 5;
         const int THREADS = 4;
@@ -41,7 +41,7 @@ namespace YuvVideoHandler
         /// </summary>
         /// <param name="filepath">location of the videofile to read</param>
         /// <param name="info">VideoInfo containing needed information like resolution and yuv format</param>
-        public PS_YuvVideoHandler(string filepath, YuvVideoInfo info)
+        public YuvVideoHandler(string filepath, YuvVideoInfo info)
         {
             setVideo(filepath, info);
         }
@@ -50,7 +50,7 @@ namespace YuvVideoHandler
         /// Constructs a YuvVideoHandler without filepath or VideoInfoObject. 
         /// This instance can be used to display a propertiesview and create a YuvVideoInfo object for example.
         /// </summary>
-        public PS_YuvVideoHandler()
+        public YuvVideoHandler()
         {
         }
 
@@ -58,9 +58,9 @@ namespace YuvVideoHandler
         /// Returns a new VideoHandler instance.
         /// </summary>
         /// <returns>a new VideoHandler instance</returns>
-        public static IVideoHandler createVideoHandlerInstance()
+        public IVideoHandler createVideoHandlerInstance()
         {
-            return new PS_YuvVideoHandler();
+            return new YuvVideoHandler();
         }
 
         /// <summary>
@@ -86,8 +86,8 @@ namespace YuvVideoHandler
         /// <param name="frames">the buffersize in frames of the video of this handler</param>
         private void initBuffer(int frames)
         {
-            data = new byte[(int)(_videoInfo.width * _videoInfo.height * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)) * bufferSizeFrames)];
             bufferSizeFrames = frames;
+            data = new byte[(int)(_videoInfo.width * _videoInfo.height * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)) * bufferSizeFrames)];
         }
 
 
@@ -470,7 +470,7 @@ namespace YuvVideoHandler
                 case YuvFormat.YUV420_IYUV:
                     this.framedata_lum_start = 0;
                     this.framedata_u_start = (_videoInfo.width * _videoInfo.height);
-                    this.framedata_v_start = (int)((_videoInfo.width * _videoInfo.height) * (1 + PS_YuvVideoHandler.getLum2Chrom(_videoInfo.yuvFormat)));
+                    this.framedata_v_start = (int)((_videoInfo.width * _videoInfo.height) * (1 + YuvVideoHandler.getLum2Chrom(_videoInfo.yuvFormat)));
                     this.chroma_step_horizontal = 0.5f;
                     this.chroma_step_vertical = 0.5f;
                     this.luma_step_horizontal = 1;

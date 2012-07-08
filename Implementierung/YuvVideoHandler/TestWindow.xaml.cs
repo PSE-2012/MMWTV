@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 using System.Drawing;
 
-namespace YuvVideoHandler
+namespace PS_YuvVideoHandler
 {
     
     /// <summary>
@@ -23,8 +23,8 @@ namespace YuvVideoHandler
     public partial class TestWindow : Window
     {
         YuvVideoInfo info;
-        PS_YuvVideoHandler handler;
-        PS_YuvVideoHandler handler2;
+        YuvVideoHandler handler;
+        YuvVideoHandler handler2;
 
         public TestWindow()
         {
@@ -40,9 +40,11 @@ namespace YuvVideoHandler
             info2.height = 144;
             info2.yuvFormat = YuvFormat.YUV420_IYUV;
 
-            handler = new PS_YuvVideoHandler("C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/YuvVideoHandler/akiyo_qcif.yuv", info);
+            handler = new YuvVideoHandler();
+            handler.setVideo("C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/YuvVideoHandler/akiyo_qcif.yuv", info);
 
-            handler2 = new PS_YuvVideoHandler("C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/YuvVideoHandler/akiyo_qcif2.yuv", info2);
+            handler2 = new YuvVideoHandler();
+            handler2.setVideo("C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/YuvVideoHandler/akiyo_qcif2.yuv", info2);
 
         }
 

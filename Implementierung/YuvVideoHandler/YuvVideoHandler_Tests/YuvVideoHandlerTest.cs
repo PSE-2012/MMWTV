@@ -1,4 +1,5 @@
-﻿using YuvVideoHandler;
+﻿
+using PS_YuvVideoHandler;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Oqat.PublicRessources.Model;
@@ -17,7 +18,7 @@ namespace YuvVideoHandler_Tests
     ///alle PS_YuvVideoHandlerTest Komponententests enthalten.
     ///</summary>
     [TestClass()]
-    public class PS_YuvVideoHandlerTest
+    public class YuvVideoHandlerTest
     {
 
 
@@ -82,40 +83,14 @@ namespace YuvVideoHandler_Tests
             YuvVideoInfo info = new YuvVideoInfo();
             info.height = 666;
 
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, info);
+            YuvVideoHandler target =new YuvVideoHandler();
+            target.setVideo(TESTVIDEO_PATH, info);
             IVideoInfo expected = info;
             IVideoInfo actual;
             actual = target.vidInfo;
             Assert.AreEqual(expected, actual);
         }
 
-
-
-        /// <summary>
-        ///Test "type" getter according to IPlugin
-        ///</summary>
-        [TestMethod()]
-        public void typeTest()
-        {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
-            PluginType expected = PluginType.VideoHandler;
-            PluginType actual;
-            actual = target.type;
-            Assert.AreEqual(expected, actual);
-        }
-
-        /// <summary>
-        ///Test "namePlugin" getter according to IPlugin
-        ///</summary>
-        [TestMethod()]
-        public void namePluginTest()
-        {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
-            string expected = "YuvVideoHandler";
-            string actual;
-            actual = target.namePlugin;
-            Assert.AreEqual(expected, actual);
-        }
 
 
 
@@ -125,7 +100,9 @@ namespace YuvVideoHandler_Tests
         [TestMethod()]
         public void setParentControlTest()
         {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            YuvVideoInfo info = new YuvVideoInfo();
+            YuvVideoHandler target = new YuvVideoHandler();
+            target.setVideo(TESTVIDEO_PATH, info);
 
             Grid parent = new Grid();
             target.setParentControl(parent);
@@ -138,7 +115,9 @@ namespace YuvVideoHandler_Tests
         [TestMethod()]
         public void setTwoParentControlsTest()
         {
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            YuvVideoInfo info = new YuvVideoInfo();
+            YuvVideoHandler target = new YuvVideoHandler();
+            target.setVideo(TESTVIDEO_PATH, info);
 
             Grid parent1 = new Grid();
             target.setParentControl(parent1);
@@ -161,10 +140,12 @@ namespace YuvVideoHandler_Tests
         [DeploymentItem("YuvVideoHandler.exe")]
         public void convertToRGB_Black_Test()
         {
-            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            YuvVideoInfo info = new YuvVideoInfo();
+            YuvVideoHandler handler = new YuvVideoHandler();
+            handler.setVideo(TESTVIDEO_PATH, info);
 
             PrivateObject param0 = new PrivateObject(handler);
-            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+            YuvVideoHandler_Accessor target = new YuvVideoHandler_Accessor(param0);
 
 
             //Testing standard colors according to 
@@ -190,10 +171,12 @@ namespace YuvVideoHandler_Tests
         [DeploymentItem("YuvVideoHandler.exe")]
         public void convertToRGB_Red_Test()
         {
-            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            YuvVideoInfo info = new YuvVideoInfo();
+            YuvVideoHandler handler = new YuvVideoHandler();
+            handler.setVideo(TESTVIDEO_PATH, info);
 
             PrivateObject param0 = new PrivateObject(handler);
-            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+            YuvVideoHandler_Accessor target = new YuvVideoHandler_Accessor(param0);
 
 
             //Testing standard colors according to 
@@ -219,10 +202,12 @@ namespace YuvVideoHandler_Tests
         [DeploymentItem("YuvVideoHandler.exe")]
         public void convertToRGB_Green_Test()
         {
-            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            YuvVideoInfo info = new YuvVideoInfo();
+            YuvVideoHandler handler = new YuvVideoHandler();
+            handler.setVideo(TESTVIDEO_PATH, info);
 
             PrivateObject param0 = new PrivateObject(handler);
-            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+            YuvVideoHandler_Accessor target = new YuvVideoHandler_Accessor(param0);
 
 
             //Testing standard colors according to 
@@ -248,10 +233,12 @@ namespace YuvVideoHandler_Tests
         [DeploymentItem("YuvVideoHandler.exe")]
         public void convertToRGB_Blue_Test()
         {
-            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            YuvVideoInfo info = new YuvVideoInfo();
+            YuvVideoHandler handler = new YuvVideoHandler();
+            handler.setVideo(TESTVIDEO_PATH, info);
 
             PrivateObject param0 = new PrivateObject(handler);
-            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+            YuvVideoHandler_Accessor target = new YuvVideoHandler_Accessor(param0);
 
 
             //Testing standard colors according to 
@@ -277,10 +264,12 @@ namespace YuvVideoHandler_Tests
         [DeploymentItem("YuvVideoHandler.exe")]
         public void convertToRGB_White_Test()
         {
-            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            YuvVideoInfo info = new YuvVideoInfo();
+            YuvVideoHandler handler = new YuvVideoHandler();
+            handler.setVideo(TESTVIDEO_PATH, info);
 
             PrivateObject param0 = new PrivateObject(handler);
-            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+            YuvVideoHandler_Accessor target = new YuvVideoHandler_Accessor(param0);
 
 
             //Testing standard colors according to 
@@ -310,10 +299,12 @@ namespace YuvVideoHandler_Tests
         [DeploymentItem("YuvVideoHandler.exe")]
         public void clampToByteTest()
         {
-            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            YuvVideoInfo info = new YuvVideoInfo();
+            YuvVideoHandler handler = new YuvVideoHandler();
+            handler.setVideo(TESTVIDEO_PATH, info);
 
             PrivateObject param0 = new PrivateObject(handler);
-            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+            YuvVideoHandler_Accessor target = new YuvVideoHandler_Accessor(param0);
 
             int[] val = new int[]        { -1, 128, 0, 255, 256, 500, int.MaxValue,  int.MinValue };
             byte[] expected = new byte[] {  0, 128, 0, 255, 255, 255, 255,           0};
@@ -336,7 +327,8 @@ namespace YuvVideoHandler_Tests
             info.height = 144;
             info.width = 176;
             info.yuvFormat = YuvFormat.YUV420_IYUV;
-            PS_YuvVideoHandler target = new PS_YuvVideoHandler(TESTVIDEO_PATH, info);
+            YuvVideoHandler target =new YuvVideoHandler();
+            target.setVideo(TESTVIDEO_PATH, info);
 
             Bitmap expected = null;
             Bitmap actual;
@@ -361,10 +353,12 @@ namespace YuvVideoHandler_Tests
         [DeploymentItem("YuvVideoHandler.exe")]
         public void convertToYUV_Black_Test()
         {
-            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            YuvVideoInfo info = new YuvVideoInfo();
+            YuvVideoHandler handler = new YuvVideoHandler();
+            handler.setVideo(TESTVIDEO_PATH, info);
 
             PrivateObject param0 = new PrivateObject(handler);
-            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+            YuvVideoHandler_Accessor target = new YuvVideoHandler_Accessor(param0);
 
 
             //Testing standard colors according to 
@@ -387,10 +381,12 @@ namespace YuvVideoHandler_Tests
         [DeploymentItem("YuvVideoHandler.exe")]
         public void convertToYUV_Red_Test()
         {
-            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            YuvVideoInfo info = new YuvVideoInfo();
+            YuvVideoHandler handler = new YuvVideoHandler();
+            handler.setVideo(TESTVIDEO_PATH, info);
 
             PrivateObject param0 = new PrivateObject(handler);
-            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+            YuvVideoHandler_Accessor target = new YuvVideoHandler_Accessor(param0);
 
 
             //Testing standard colors according to 
@@ -413,10 +409,12 @@ namespace YuvVideoHandler_Tests
         [DeploymentItem("YuvVideoHandler.exe")]
         public void convertToYUV_Green_Test()
         {
-            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            YuvVideoInfo info = new YuvVideoInfo();
+            YuvVideoHandler handler = new YuvVideoHandler();
+            handler.setVideo(TESTVIDEO_PATH, info);
 
             PrivateObject param0 = new PrivateObject(handler);
-            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+            YuvVideoHandler_Accessor target = new YuvVideoHandler_Accessor(param0);
 
 
             //Testing standard colors according to 
@@ -439,10 +437,12 @@ namespace YuvVideoHandler_Tests
         [DeploymentItem("YuvVideoHandler.exe")]
         public void convertToYUV_Blue_Test()
         {
-            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            YuvVideoInfo info = new YuvVideoInfo();
+            YuvVideoHandler handler = new YuvVideoHandler();
+            handler.setVideo(TESTVIDEO_PATH, info);
 
             PrivateObject param0 = new PrivateObject(handler);
-            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+            YuvVideoHandler_Accessor target = new YuvVideoHandler_Accessor(param0);
 
 
             //Testing standard colors according to 
@@ -465,10 +465,12 @@ namespace YuvVideoHandler_Tests
         [DeploymentItem("YuvVideoHandler.exe")]
         public void convertToYUV_White_Test()
         {
-            PS_YuvVideoHandler handler = new PS_YuvVideoHandler(TESTVIDEO_PATH, new YuvVideoInfo());
+            YuvVideoInfo info = new YuvVideoInfo();
+            YuvVideoHandler handler = new YuvVideoHandler();
+            handler.setVideo(TESTVIDEO_PATH, info);
 
             PrivateObject param0 = new PrivateObject(handler);
-            PS_YuvVideoHandler_Accessor target = new PS_YuvVideoHandler_Accessor(param0);
+            YuvVideoHandler_Accessor target = new YuvVideoHandler_Accessor(param0);
 
 
             //Testing standard colors according to 
@@ -494,31 +496,45 @@ namespace YuvVideoHandler_Tests
         [TestMethod()]
         public void readANDwriteFrameTest()
         {
+            //init handler to read sample file
             YuvVideoInfo info_r = new YuvVideoInfo();
             info_r.height = 144;
             info_r.width = 176;
             info_r.yuvFormat = YuvFormat.YUV420_IYUV;
-            PS_YuvVideoHandler reader = new PS_YuvVideoHandler(TESTVIDEO_PATH, info_r);
+            YuvVideoHandler reader = new YuvVideoHandler();
+            reader.setVideo(TESTVIDEO_PATH, info_r);
 
+            //init handler to write a copy of sample file
             YuvVideoInfo info_w = new YuvVideoInfo();
             info_w.height = 144;
             info_w.width = 176;
             info_w.yuvFormat = YuvFormat.YUV420_IYUV;
-            PS_YuvVideoHandler writer = new PS_YuvVideoHandler(TESTVIDEO_PATH+"copy", info_w);
+            YuvVideoHandler writer = new YuvVideoHandler();
+            writer.setVideo(TESTVIDEO_PATH + "copy", info_w);
 
-            /*
+            
+
+            //copy sample file frame by frame
+            //REMARK: This part can be commented out to save time once the copy is written to disk 
+            //          if this test is run several times to tweak parameters and error calculations
             for (int j = 0; j < ((YuvVideoInfo)reader.vidInfo).frameCount; j++)
             {
                 Bitmap bmp = reader.getFrame(j);
 
                 writer.writeFrame(j, bmp);
             }
-            */
-
             
-            //check
-            //TODO: find better way to compare the two files
-            int bsize =(int)( info_r.width * info_r.height * (1 + PS_YuvVideoHandler.getLum2Chrom(info_r.yuvFormat)) ); //bsize = 1 frame
+
+
+
+
+            //
+            //compare original file with the copy read and written by the handler
+            //
+            //TODO: Debug writeFrame() & getFrame() as there are significant differences when a copy of a file is created through YuvVideoHandlers
+
+            //set buffersize to one frame
+            int bsize =(int)( info_r.width * info_r.height * (1 + YuvVideoHandler.getLum2Chrom(info_r.yuvFormat)) ); 
 
             int error = 0;
             int errorcount = 0;
@@ -526,15 +542,15 @@ namespace YuvVideoHandler_Tests
             FileStream fs1;
             fs1 = new FileStream(TESTVIDEO_PATH, FileMode.Open);
             byte[] data1 = new byte[bsize];
-
             FileStream fs2;
             fs2 = new FileStream(TESTVIDEO_PATH+"copy", FileMode.Open);
             byte[] data2 = new byte[bsize];
 
+            //log files are written to the log folder with error information about frames and the whole file
+            //because an unfulfilled assertion cancels the whole testrun
             StreamWriter log = new StreamWriter("C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/YuvVideoHandler/log/log.txt");
             
-            
-
+            //compare original and copy bytewise
             for (int i = 0; i < fs1.Length; i += bsize)
             {
                 int r = fs1.Read(data1, 0, bsize);
@@ -542,6 +558,9 @@ namespace YuvVideoHandler_Tests
 
                 Assert.AreEqual(r, r2, "file read out of sync");
 
+                //init log writer for this frame
+                //the logfile of each frame contains the difference in value of original and copy for each byte
+                //the diffs are written in the textfile as a matrix according to pixel position
                 StreamWriter logdetail = new StreamWriter("C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/YuvVideoHandler/log/log"+(i/bsize)+".txt");
 
                 for (int j = 0; j < r; j++)
@@ -563,9 +582,14 @@ namespace YuvVideoHandler_Tests
 
                 logdetail.Close();
                 
+
+
+                //the global logfile is written with the accumulated information about this frame
                 float errorratio = (((float)errorcount) / bsize);
                 log.WriteLine("Frame: "+(i/bsize)+" / errorratio: "+errorratio);
                 //Assert.IsTrue(error < 10, i+": error ratio: " + errorratio + " / error count: " + errorcount + " / accumulated error: " + error);
+                
+                
                 error = 0;
                 errorcount = 0;
             }
@@ -575,5 +599,7 @@ namespace YuvVideoHandler_Tests
             fs1.Close();
             fs2.Close();
         }
+
+
     }
 }
