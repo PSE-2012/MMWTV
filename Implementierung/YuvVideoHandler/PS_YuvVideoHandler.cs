@@ -46,6 +46,8 @@ namespace YuvVideoHandler
             //init buffer
             initBuffer(NUMFRAMESINMEM);
         }
+        // TODO: constructor without info
+
 
         private void initBuffer(int frames)
         {
