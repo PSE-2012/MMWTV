@@ -10,6 +10,8 @@
         <Grid>
             <TextBox Name="tb_filepath" Margin="20, 5, 20, 5" Text="{Binding vidPath}" />
         </Grid>
-        <Grid x:Name="gridHandlerView"></Grid>
+        <Grid x:Name="gridHandlerView">
+            <TextBlock Visibility="Collapsed" x:Name="txt_NoHandler">Es wurde kein geeigneter VideoHandler zum Lesen dieses Videos gefunden.</TextBlock>
+        </Grid>
     </StackPanel>
 </Window>

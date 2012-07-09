@@ -23,18 +23,32 @@ namespace Oqat
     public partial class VM_VidImportOptionsDialog : Window
     {
         Video video;
+        IVideoHandler handler;
 
         public VM_VidImportOptionsDialog()
         {
             InitializeComponent();
 
-            video = new Video();
-
-            IVideoHandler handler = video.getVideoHandler();
-            handler.setParentControl(this.gridHandlerView);
-
-            this.DataContext = video;            
+                      
         }
+
+        public Video importVideo(string path)
+        {
+            video = new Video();
+            video.vidPath = path;
+            IVideoHandler handler = video.getVideoHandler();
+            if (handler == null)
+            {
+                this.txt_NoHandler.Visibility = System.Windows.Visibility.Visible;
+            }
+            this.DataContext = video;
+
+            this.ShowDialog();
+
+            return video;
+        }
+
+        
 
     }
 }

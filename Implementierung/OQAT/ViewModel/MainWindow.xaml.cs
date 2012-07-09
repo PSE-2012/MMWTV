@@ -12,6 +12,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Oqat.PublicRessources.Model;
+using Oqat.PublicRessources.Plugin;
+
 namespace Oqat.ViewModel
 {
     /// <summary>
@@ -22,6 +25,23 @@ namespace Oqat.ViewModel
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            PluginManager pm = PluginManager.pluginManager;
+
+            string handlerPluginName = "FilterSample";
+
+            IPlugin handler = pm.getPlugin<IPlugin>(handlerPluginName);
+            List<string> bla = pm.getPluginNames(PublicRessources.Plugin.PluginType.IFilterOqat);
+
+
+
+            VM_VidImportOptionsDialog vidImport = new VM_VidImportOptionsDialog();
+
+            //path selected from DateiExplorer, pass it on
+            Video importedVideo = vidImport.importVideo("../../../akivo_qcif.yuv");
         }
 
 

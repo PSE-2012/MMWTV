@@ -17,7 +17,7 @@
 	{
         private IVideoInfo _vidInfo = null;
         private bool _isAnalysis = false;
-        private string _path;
+        private string _path = "";
         private float[][] _metricValues;
 
         private List<MacroEntry> _processedBy;
@@ -77,7 +77,7 @@
             {
                 return _vidInfo;
             }
-            private set
+            set
             {
                 _vidInfo = value;
             }
@@ -108,7 +108,7 @@
             {
                 return _path;
             }
-            private set
+            set
             {
                 _path = value;
             }
@@ -180,13 +180,13 @@
 		{
             PluginManager pm = PluginManager.pluginManager;
 
-            string handlerPluginName = Path.GetExtension(this.vidPath).ToLower() + "VideoHandler";
+            string handlerPluginName = Path.GetExtension(this.vidPath).ToLower().TrimStart(new char[] { '.' }) + "VideoHandler";
 
             IVideoHandler handler = pm.getPlugin < IVideoHandler>(handlerPluginName);
+            if (handler == null) return null;
 
             handler = handler.createVideoHandlerInstance();
             handler.setVideo(this.vidPath, this.vidInfo);
-
             return handler;
 		}
 
