@@ -398,9 +398,12 @@
         /// <returns>A instance of namePlugin</returns>
 		public virtual T getPlugin<T>(string namePlugin)
 		{
-            
-			var plToRet = from i in pluginTable
-                          where i.Metadata.namePlugin.Equals(typeof(T)) & !blackList.ContainsKey(i.Metadata.namePlugin)
+
+            var plToRet = from i in pluginTable
+                          where i.Metadata.namePlugin.Equals(namePlugin) &
+                                    Type.GetType("Oqat.PublicRessources.Plugin."
+                                            + PluginType.IFilterOqat.ToString()).Equals(typeof(T)) &
+                                    !blackList.ContainsKey(i.Metadata.namePlugin)
                           select i.Value;
             if (plToRet.FirstOrDefault() != null)
                 return (T)plToRet.FirstOrDefault();
