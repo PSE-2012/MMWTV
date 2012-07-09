@@ -1,7 +1,5 @@
 ﻿namespace Oqat.PublicRessources.Model
 {
-
-	using Plugins;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -17,12 +15,58 @@
 	/// </summary>
     public class Video : IMemorizable
 	{
-        private IVideoInfo _vidInfo;
-        private bool _isAnalysis;
-        private string _path;
+        private IVideoInfo _vidInfo = null;
+        private bool _isAnalysis = false;
+        private string _path = "";
         private float[][] _metricValues;
 
         private List<MacroEntry> _processedBy;
+
+        /// <summary>
+        /// Creates a new instance of Video with empty parameters.
+        /// </summary>
+        public Video()
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a new instance of Video.
+        /// </summary>
+        /// <param name="isAnalysis">true if the video is the result of an analysis.</param>
+        /// <param name="vidPath">filepath to the video</param>
+        /// <param name="vidInfo">videoInfo containing relevant information about the video. 
+        /// This can be created by the VideoHandler using user input to its propertiesView.</param>
+        /// <remarks>This contructor defaults processedBy to an empty list.</remarks>
+        public Video(bool isAnalysis, string vidPath, IVideoInfo vidInfo)
+            : this(isAnalysis, vidPath, vidInfo, new List<MacroEntry>())
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of Video.
+        /// </summary>
+        /// <param name="isAnalysis">true if the video is the result of an analysis.</param>
+        /// <param name="vidPath">filepath to the video</param>
+        /// <param name="vidInfo">videoInfo containing relevant information about the video. 
+        /// This can be created by the VideoHandler using user input to its propertiesView.</param>
+        /// <param name="processedBy">a list of MacroEntries describing through which operations this video was created.</param>
+        public Video(bool isAnalysis, string vidPath, IVideoInfo vidInfo, List<MacroEntry> processedBy)
+        {
+            this.isAnalysis = isAnalysis;
+            this.vidPath = vidPath;
+            this.vidInfo = vidInfo;
+            this.processedBy = processedBy;
+
+            if (videoObjectCreated != null)
+                videoObjectCreated(this, new VideoEventArgs(this));
+        }
+
+
+
+
+
+
 
         /// <summary>
         /// Returns the VideoInfo object containing additional format-specific information about the video.
@@ -33,7 +77,7 @@
             {
                 return _vidInfo;
             }
-            private set
+            set
             {
                 _vidInfo = value;
             }
@@ -64,7 +108,7 @@
             {
                 return _path;
             }
-            private set
+            set
             {
                 _path = value;
             }
@@ -136,11 +180,13 @@
 		{
             PluginManager pm = PluginManager.pluginManager;
 
-            string handlerPluginName = Path.GetExtension(this.vidPath).ToLower() + "VideoHandler";
+            string handlerPluginName = Path.GetExtension(this.vidPath).ToLower().TrimStart(new char[] { '.' }) + "VideoHandler";
 
             IVideoHandler handler = pm.getPlugin < IVideoHandler>(handlerPluginName);
-            //TODO: create an instance of the VideoHandler
-            // handler = handler.createInstance(this.vidPath, this.vidInfo);
+            if (handler == null) return null;
+
+            handler = handler.createVideoHandlerInstance();
+            handler.setVideo(this.vidPath, this.vidInfo);
             return handler;
 		}
 
@@ -152,6 +198,7 @@
         /// <returns>a memento that contains the current state of this video object</returns>
 		public virtual Memento getMemento()
 		{
+            //TODO: implement video memento
 			throw new System.NotImplementedException();
 		}
 
@@ -161,44 +208,14 @@
         /// <param name="memento">a memento of a video instance</param>
 		public virtual void setMemento(Memento memento)
 		{
+            //TODO: implement video memento
 			throw new System.NotImplementedException();
 		}
 
 
 
 
-        /// <summary>
-        /// Creates a new instance of Video.
-        /// </summary>
-        /// <param name="isAnalysis">true if the video is the result of an analysis.</param>
-        /// <param name="vidPath">filepath to the video</param>
-        /// <param name="vidInfo">videoInfo containing relevant information about the video. 
-        /// This can be created by the VideoHandler using user input to its propertiesView.</param>
-        /// <remarks>This contructor defaults processedBy to an empty list.</remarks>
-        public Video(bool isAnalysis, string vidPath, IVideoInfo vidInfo)
-            : this(isAnalysis, vidPath, vidInfo, new List<MacroEntry>())
-        {
-        }
-
-
-        /// <summary>
-        /// Creates a new instance of Video.
-        /// </summary>
-        /// <param name="isAnalysis">true if the video is the result of an analysis.</param>
-        /// <param name="vidPath">filepath to the video</param>
-        /// <param name="vidInfo">videoInfo containing relevant information about the video. 
-        /// This can be created by the VideoHandler using user input to its propertiesView.</param>
-        /// <param name="processedBy">a list of MacroEntries describing through which operations this video was created.</param>
-        public Video(bool isAnalysis, string vidPath, IVideoInfo vidInfo, List<MacroEntry> processedBy)
-        {
-            this.isAnalysis = isAnalysis;
-            this.vidPath = vidPath;
-            this.vidInfo = vidInfo;
-            this.processedBy = processedBy;
-
-            if (videoObjectCreated != null)
-                videoObjectCreated(this, new VideoEventArgs(this));
-        }
+        
 	}
 }
 

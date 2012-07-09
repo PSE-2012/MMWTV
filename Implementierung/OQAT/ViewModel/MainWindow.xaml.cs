@@ -1,0 +1,92 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+using Oqat.PublicRessources.Model;
+using Oqat.PublicRessources.Plugin;
+
+namespace Oqat.ViewModel
+{
+    /// <summary>
+    /// Interaktionslogik für MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            VM_VidImportOptionsDialog vidImport = new VM_VidImportOptionsDialog();
+
+            //path selected from DateiExplorer, pass it on
+            Video importedVideo = vidImport.importVideo("../../../akivo_qcif.yuv");
+        }
+
+
+
+
+        
+        #region OqatApp - Initialization
+        /*
+
+        /// <summary>
+        /// A reference to the OQAT main ViewModel.
+        /// </summary>
+        private VM_Oqat vm_Oqat
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// This is the only "not ViewModel" to listen
+        /// for the toggleView event. Other components can 
+        /// ask OqatApp for the current ViewState.
+        /// </summary>
+        /// <remarks>
+        /// Currently this feature is no needed by any component,
+        /// since every OqatIntern class can (and should) listen
+        /// for the toggleView event. The only known reasen to have
+        /// OqatApp to listen for toggleView is the shutdown process,
+        /// i.e. ViewType = shutdown.
+        /// </remarks>
+        /// <param name="sender">Reference to the caller</param>
+        /// <param name="e">Holds the new (global) ViewType.</param>
+        public delegate void onToggleView(object sender, ViewTypeEventArgs e);
+
+
+        /// <summary>
+        /// Initializes the main ViewModel the <see cref="VM_Oqat"/>.
+        /// 
+        /// </summary>
+        private void initOqat()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Initializes the <see cref="PluginManager"/>.
+        /// </summary>
+        private void initPluginManager()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        */
+        #endregion
+
+    }
+}
