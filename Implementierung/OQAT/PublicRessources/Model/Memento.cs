@@ -18,6 +18,10 @@ namespace Oqat.PublicRessources.Model
     [Serializable()]
     public class Memento : ISerializable
 	{
+
+        private string _name;
+        private object _state;
+        private string _mementoPath;
         /// <summary>
         /// Name of the Memento.
         /// </summary>
@@ -25,11 +29,11 @@ namespace Oqat.PublicRessources.Model
 		{
             get
             {
-                return this.name;
+                return this._name;
             }
             set
             {
-                this.name = value;
+                this._name = value;
             }
 		}
 
@@ -40,11 +44,11 @@ namespace Oqat.PublicRessources.Model
 		{
             get
             {
-                return this.state;
+                return this._state;
             }
             set
             {
-                this.state = value;
+                this._state = value;
             }
 		}
 
@@ -55,11 +59,11 @@ namespace Oqat.PublicRessources.Model
 		{
             get
             {
-                return this.mementoPath;
+                return this._mementoPath;
             }
             set
             {
-                this.mementoPath = value;
+                this._mementoPath = value;
             }
 		}
 
