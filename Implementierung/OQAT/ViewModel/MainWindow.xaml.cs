@@ -1,32 +1,44 @@
-﻿namespace Oqat.ViewModel
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace Oqat.ViewModel
 {
-	using Oqat.Model;
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-
     /// <summary>
-    /// This is the hook up point for OQAT to start. From here
-    /// all the intitialization work is done, i.e. VM_OQAT and
-    /// first call to the PluginManager.
+    /// Interaktionslogik für MainWindow.xaml
     /// </summary>
-    public class OqatApp
-	{
-
-        static void Main(string[] args)
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
         {
+            InitializeComponent();
         }
 
+
+
+
+        
+        #region OqatApp - Initialization
+        /*
 
         /// <summary>
         /// A reference to the OQAT main ViewModel.
         /// </summary>
-		private VM_Oqat vm_Oqat
-		{
-			get;
-			set;
-		}
+        private VM_Oqat vm_Oqat
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// This is the only "not ViewModel" to listen
@@ -42,34 +54,28 @@
         /// </remarks>
         /// <param name="sender">Reference to the caller</param>
         /// <param name="e">Holds the new (global) ViewType.</param>
-		public delegate void onToggleView(object sender, ViewTypeEventArgs e);
+        public delegate void onToggleView(object sender, ViewTypeEventArgs e);
 
 
         /// <summary>
         /// Initializes the main ViewModel the <see cref="VM_Oqat"/>.
         /// 
         /// </summary>
-		private void initOqat()
-		{
-			throw new System.NotImplementedException();
-		}
-
-        /// <summary>
-        /// Constructor ist empty. If no interesting usecase is found
-        /// at implementation time this will be deleted.
-        /// </summary>
-		public OqatApp()
-		{
-		}
+        private void initOqat()
+        {
+            throw new System.NotImplementedException();
+        }
 
         /// <summary>
         /// Initializes the <see cref="PluginManager"/>.
         /// </summary>
-		private void initPluginManager()
-		{
-			throw new System.NotImplementedException();
-		}
+        private void initPluginManager()
+        {
+            throw new System.NotImplementedException();
+        }
 
-	}
+        */
+        #endregion
+
+    }
 }
-

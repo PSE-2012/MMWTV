@@ -3,7 +3,6 @@
 namespace PS_YuvVideoHandler
 {
 	using Oqat.PublicRessources.Model;
-	using Plugins;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;

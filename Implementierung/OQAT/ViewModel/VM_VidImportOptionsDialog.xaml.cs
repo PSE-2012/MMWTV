@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Oqat.PublicRessources.Model;
+using Oqat.PublicRessources.Plugin;
 
 namespace Oqat
 {
@@ -20,10 +22,18 @@ namespace Oqat
     /// </summary>
     public partial class VM_VidImportOptionsDialog : Window
     {
+        Video video;
 
         public VM_VidImportOptionsDialog()
         {
             InitializeComponent();
+
+            video = new Video();
+
+            IVideoHandler handler = video.getVideoHandler();
+            handler.setParentControl(this.gridHandlerView);
+
+            this.DataContext = video;            
         }
 
     }

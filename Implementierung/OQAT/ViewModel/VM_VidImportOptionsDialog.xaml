@@ -6,10 +6,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              Title="Video importieren">
-    <StackPanel Orientation="Horizontal">
+    <StackPanel Orientation="Vertical">
         <Grid>
-            
-            
+            <TextBox Name="tb_filepath" Margin="20, 5, 20, 5" Text="{Binding vidPath}" />
         </Grid>
         <Grid x:Name="gridHandlerView"></Grid>
     </StackPanel>
