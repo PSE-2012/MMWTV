@@ -1,10 +1,10 @@
 ﻿namespace Oqat.ViewModel
 {
-	using Oqat.Model;
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
+    using Oqat.Model;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
 
     using Oqat.PublicRessources.Model;
     using Oqat.PublicRessources.Plugin;
@@ -25,8 +25,8 @@
     /// [ExportMetadata("type", type)]
     /// [Export(typeof(IPlugin))]
     /// </remarks>
-	public class PluginManager
-	{
+    public class PluginManager
+    {
 
         private static Object key = new Object();
         private static PluginManager plMan;
@@ -158,16 +158,16 @@
                         }
                     }
             }
-                List<ErrorEventArgs> errorList = new List<ErrorEventArgs>();
-                foreach (string entry in blackList.Keys)
+            List<ErrorEventArgs> errorList = new List<ErrorEventArgs>();
+            foreach (string entry in blackList.Keys)
+            {
+                blackList.TryGetValue(entry, out errorList);
+                foreach (ErrorEventArgs e in errorList)
                 {
-                    blackList.TryGetValue(entry, out errorList);
-                    foreach (ErrorEventArgs e in errorList)
-                    {
-                        raiseEvent(EventType.info, e);
-                    }
+                    raiseEvent(EventType.info, e);
                 }
-                return errorsOcured;
+            }
+            return errorsOcured;
         }
 
         /// <summary>
@@ -182,7 +182,7 @@
             bool retVal;
             switch (plType)
             {
-                   
+
                 case PluginType.IFilterOqat:
                     retVal = castTest<IFilterOqat>(plugin);
                     break;
@@ -204,7 +204,7 @@
             }
             return retVal;
         }
-        private bool castTest<T>(IPlugin plugin) where T: IPlugin
+        private bool castTest<T>(IPlugin plugin) where T : IPlugin
         {
             try
             {
@@ -243,11 +243,11 @@
         /// <summary>
         /// Used to store registered eventhandler.
         /// </summary>
-		private Dictionary<EventType, Delegate > handlerTable
-		{
-			get;
-			set;
-		}
+        private Dictionary<EventType, Delegate> handlerTable
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// All Oqat intern components can raise a event with this method,
@@ -257,7 +257,7 @@
         /// <param name="eType"> The type of event to raise.</param>
         internal virtual void raiseEvent(EventType eType, EventArgs e)
         {
-            switch(eType)
+            switch (eType)
             {
                 case EventType.info:
                     try
@@ -307,8 +307,8 @@
         /// <summary>
         /// Constructor
         /// </summary>
-		private PluginManager()
-		{
+        private PluginManager()
+        {
             PLUGIN_PATH = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(PluginManager)).Location) + "\\Plugins";
             if (!System.IO.Directory.Exists(PLUGIN_PATH))
             {
@@ -342,7 +342,7 @@
             {
                 raiseEvent(EventType.failure, new ErrorEventArgs(exc));
             }
-		}
+        }
 
         /// <summary>
         /// Will be called if a file was either created or deleted.
@@ -357,28 +357,28 @@
         /// </remarks>
         private void onPluginFolderChanged(object source, FileSystemEventArgs e)
         {
-            
-                if (((File.GetAttributes(e.FullPath) & FileAttributes.Directory) != FileAttributes.Directory)
-                    & ((e.ChangeType == System.IO.WatcherChangeTypes.Created)
-                        | (e.ChangeType == System.IO.WatcherChangeTypes.Deleted)))
-                {
-                    var tmpSlot = consistencyCheck();
-                    pluginCatalog.Refresh();
-                    EntryEventArgs pluginTableChanges;
-                    if (!tmpSlot) // i.e. no errors occured
-                    { 
-                        var tmpPlugin = new PluginSandbox(e.FullPath);
-                        pluginTableChanges = new EntryEventArgs(tmpPlugin.tmpPlugin.Metadata.namePlugin);
-                    }
-                    else
-                    {
-                       pluginTableChanges = new EntryEventArgs("");
-                    }
 
-                    raiseEvent(EventType.pluginTableChanged, pluginTableChanges);
-                      
+            if (((File.GetAttributes(e.FullPath) & FileAttributes.Directory) != FileAttributes.Directory)
+                & ((e.ChangeType == System.IO.WatcherChangeTypes.Created)
+                    | (e.ChangeType == System.IO.WatcherChangeTypes.Deleted)))
+            {
+                var tmpSlot = consistencyCheck();
+                pluginCatalog.Refresh();
+                EntryEventArgs pluginTableChanges;
+                if (!tmpSlot) // i.e. no errors occured
+                {
+                    var tmpPlugin = new PluginSandbox(e.FullPath);
+                    pluginTableChanges = new EntryEventArgs(tmpPlugin.tmpPlugin.Metadata.namePlugin);
                 }
-          
+                else
+                {
+                    pluginTableChanges = new EntryEventArgs("");
+                }
+
+                raiseEvent(EventType.pluginTableChanged, pluginTableChanges);
+
+            }
+
         }
 
 
@@ -388,12 +388,12 @@
         /// <param name="namePlugin">The name of the plugin the memento belongs to. </param>
         /// <param name="nameMemento">The name of the memento you are looking for.</param>
         /// <returns>Memento instance according to arguments or null if no such memento was found.</returns>
-		public virtual Memento getMemento(string namePlugin, string nameMemento)
-		{
+        public virtual Memento getMemento(string namePlugin, string nameMemento)
+        {
             return (from i in getMementoList(namePlugin)
-                   where i.name.Equals("string")
-                   select i).FirstOrDefault();
-		}
+                    where i.name.Equals("string")
+                    select i).FirstOrDefault();
+        }
 
         /// <summary>
         /// Will return a plugin of type T, if it is loaded and
@@ -402,17 +402,19 @@
         /// <typeparam name="T">The type of plugin to return</typeparam>
         /// <param name="namePlugin">The name of plugin to return</param>
         /// <returns>A instance of namePlugin</returns>
-		public virtual T getPlugin<T>(string namePlugin)
-		{
-            
-			var plToRet = from i in pluginTable
-                          where i.Metadata.namePlugin.Equals(typeof(T)) & !blackList.ContainsKey(i.Metadata.namePlugin)
+        public virtual T getPlugin<T>(string namePlugin)
+        {
+
+            var plToRet = from i in pluginTable
+                          where i.Metadata.namePlugin.Equals(namePlugin) &
+                                    Type.GetType("Oqat.PublicRessources.Plugin." + i.Metadata.type.ToString()).Equals(typeof(T)) &
+                                    !blackList.ContainsKey(i.Metadata.namePlugin)
                           select i.Value;
             if (plToRet.FirstOrDefault() != null)
                 return (T)plToRet.FirstOrDefault();
             else
                 return default(T);
-		}
+        }
 
         /// <summary>
         /// Returns names of all Plugins(not blacklisted) of a given PluginType, usefull
@@ -420,12 +422,12 @@
         /// </summary>
         /// <param name="type">The PluginType you want a list for.</param>
         /// <returns></returns>
-		public virtual List<string> getPluginNames(PluginType type)
-		{
+        public virtual List<string> getPluginNames(PluginType type)
+        {
             return new List<string>(from i in pluginTable
                                     where (i.Metadata.type == type) & !blackList.ContainsKey(i.Metadata.namePlugin)
                                     select i.Metadata.namePlugin);
-		}
+        }
 
 
         internal delegate void OqatErrorHandler(object sender, ErrorEventArgs e);
@@ -447,7 +449,7 @@
         {
             if (blackList.ContainsKey(namePlugin))
                 return null;    // should never come to this, since noone can have plugin names (getPluginNames)
-                            // of blacklisted plugins
+            // of blacklisted plugins
             string supposedMemPath = PLUGIN_PATH + "\\" + namePlugin + ".mem";
             var memList = new List<Memento>();
             Memento mem = Caretaker.caretaker.getMemento(supposedMemPath);
@@ -459,9 +461,9 @@
                 }
                 catch (Exception exc)
                 {
-   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     // todo: exc.Message + some explanation
-                 raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    raiseEvent(EventType.info, new ErrorEventArgs(exc));
 
                 }
             else
@@ -478,7 +480,7 @@
             }
 
             return memList;
-                
+
         }
 
         /// <summary>
@@ -487,8 +489,8 @@
         /// <param name="namePlugin">Name of the plugin to get memento names from</param>
         /// <returns>List of known memento names. Please note that the list will be empty if no mementos could be found or 
         /// null if no corresponding plugin was found.</returns>
-		internal virtual List<String> getMementoNames(string namePlugin)
-		{
+        internal virtual List<String> getMementoNames(string namePlugin)
+        {
 
             var nameList = new List<string>();
             var tmpMemList = getMementoList(namePlugin);
@@ -504,6 +506,6 @@
 
         }
 
-	}
+    }
 }
 
