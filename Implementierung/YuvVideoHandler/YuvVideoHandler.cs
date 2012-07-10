@@ -215,7 +215,7 @@ namespace PS_YuvVideoHandler
 
 
         /// <summary>
-        ///  Reads and returns the requested frame from the video file.
+        ///  Reads and returns the requested frame from the video file. Returns null if the video file cannot be read.
         /// </summary>
         /// <param name="frameNm">the number of the frame to return</param>
         /// <returns>the selected frame as a RGB Bitmap object</returns>
@@ -223,16 +223,8 @@ namespace PS_YuvVideoHandler
         {
             if (data == null) initBuffer(NUMFRAMESINMEM);
 
-            // check if we have to load new data into the buffer
-            if (frameNm >= firstFrameInMem + bufferSizeFrames)
-            {
-                Load(frameNm);
-            }
-            if (frameNm < firstFrameInMem)
-            {
-                Load(Math.Max(frameNm - bufferSizeFrames + 1, 0));
-            }
-
+            if (!Load(frameNm)) return null;
+                
 
 
             int frameOffset = (frameNm - firstFrameInMem) * this.frameSize;
@@ -255,12 +247,18 @@ namespace PS_YuvVideoHandler
             return frame;
         }
 
-
+        /// <summary>
+        ///  Reads and returns the requested frames from the video file. Returns null if the video file cannot be read.
+        /// </summary>
+        /// <param name="frameNm">the number of the first frame to return</param>
+        /// <param name="count">number of frames to get</param>
+        /// <returns>the selected frame as a RGB Bitmap object</returns>
         public System.Drawing.Bitmap[] getFrames(int frameNm, int count)
         {
             //if buffer is smaller than requested number of frames, resize buffer
             if (count > this.bufferSizeFrames) initBuffer(count);
-            Load(frameNm);
+
+            if (!Load(frameNm)) return null;
 
             Bitmap[] frames = new Bitmap[count];
             int n = 0;
@@ -292,6 +290,14 @@ namespace PS_YuvVideoHandler
         /// <returns>true if loading was successful</returns>
         private bool Load(int startFrame)
         {
+            // check if we have to load new data into the buffer
+            if(startFrame >= firstFrameInMem && startFrame < firstFrameInMem + bufferSizeFrames )
+            {
+                //data is already in buffer
+                return true;
+            }
+
+
             FileStream fs;
 
             try
@@ -301,7 +307,10 @@ namespace PS_YuvVideoHandler
                 fs.Read(data, 0, this.frameSize * bufferSizeFrames);
                 fs.Close();
             }
-            catch (Exception) { return false; }
+            catch (Exception e) 
+            {
+                return false; 
+            }
 
             firstFrameInMem = startFrame;
             return true;

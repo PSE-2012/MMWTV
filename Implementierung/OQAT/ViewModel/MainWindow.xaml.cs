@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 
 using Oqat.PublicRessources.Model;
 using Oqat.PublicRessources.Plugin;
+using System.Drawing;
 
 namespace Oqat.ViewModel
 {
@@ -30,13 +31,23 @@ namespace Oqat.ViewModel
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //path selected from DateiExplorer, pass it on
-            Video importedVideo = new Video(false, "../../../akivo_qcif.yuv", null);
+            Video importedVideo = new Video(false, "C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/akiyo_qcif.yuv", null);
             VM_VidImportOptionsDialog vidImport = new VM_VidImportOptionsDialog(importedVideo);
 
             bool? res = vidImport.ShowDialog();
             if (res.HasValue && res.Value)
             {
                 //video successfully imported - use importedVideo
+
+
+                //show first frame
+                IVideoHandler handler = importedVideo.getVideoHandler();
+                Bitmap bmp = handler.getFrame(10);
+                BitmapSource bmpsource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                                            bmp.GetHbitmap(), IntPtr.Zero, System.Windows.Int32Rect.Empty,
+                                            BitmapSizeOptions.FromWidthAndHeight(importedVideo.vidInfo.width, importedVideo.vidInfo.height));
+                
+                this.img_testframe.Source = bmpsource;
             }
         }
 

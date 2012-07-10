@@ -10,6 +10,8 @@
 	{
         string videoCodecName { get;set; }
         int frameCount { get; set; }
+        int width { get; set; }
+        int height { get; set; }
 	}
 }
 
