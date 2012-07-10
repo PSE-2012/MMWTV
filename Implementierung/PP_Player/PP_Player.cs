@@ -19,8 +19,9 @@ namespace PP_Presentation
     /// This class is responsible for loading a video to play from disk and setting up a container
     /// where the video can be played. It can be exported as a plugin.
     /// </summary>
+    [ExportMetadata("namePlugin", "VideoPlayer")]
+    [ExportMetadata("type", PluginType.IPresentation)]
     [Export(typeof(IPlugin))]
-    [ExportMetadata("Video Player", PluginType.IPresentation)]
 	public class PP_Player : IPresentation
 	{
 
@@ -37,6 +38,9 @@ namespace PP_Presentation
         {
             this._videohandler = videohandler;
             this._videoSource = new VideoSource();
+        }
+        public PP_Player()
+        {
         }
 
         /// <summary>
@@ -123,31 +127,6 @@ namespace PP_Presentation
             playerControl.getSourcePlayerControl().Dispose();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string namePlugin
-        {
-            get
-            {
-                return "Video Player";
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public PluginType type
-        {
-            get
-            {
-                return PluginType.IPresentation;
-            }
-        }
 
         /// <summary>
         /// Creates a new Player Control, which returns an AForge Source Player Control instance.
@@ -200,6 +179,13 @@ namespace PP_Presentation
         /// <param name="vid"></param>
         public void loadVideo(object sender, VideoEventArgs vid)
         {
+            //added by Sebastian
+            this._videohandler = vid.video.getVideoHandler();
+            this._videoSource = new VideoSource();
+
+
+
+
             videoSource.NUMFRAMESINMEM = vid.video.vidInfo.frameCount;
             videoSource.bmp = new Bitmap[videoSource.NUMFRAMESINMEM];
             videoSource.bmp = videohandler.getFrames(0, videoSource.NUMFRAMESINMEM);
