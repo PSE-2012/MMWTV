@@ -21,6 +21,8 @@ using System.Windows;
 // COM zugreifen müssen, legen Sie das ComVisible-Attribut für diesen Typ auf "true" fest.
 [assembly: ComVisible(false)]
 
+[assembly: InternalsVisibleTo("OQAT_Tests")]
+
 //Um mit dem Erstellen lokalisierbarer Anwendungen zu beginnen, legen Sie 
 //<UICulture>ImCodeVerwendeteKultur</UICulture> in der .csproj-Datei
 //in einer <PropertyGroup> fest. Wenn Sie in den Quelldateien beispielsweise Deutsch
