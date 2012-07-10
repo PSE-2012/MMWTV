@@ -37,9 +37,11 @@ namespace Oqat
             video = new Video();
             video.vidPath = path;
             IVideoHandler handler = video.getVideoHandler();
-            if (handler == null)
+            if (handler != null)
             {
-                this.txt_NoHandler.Visibility = System.Windows.Visibility.Visible;
+                this.txt_NoHandler.Visibility = System.Windows.Visibility.Collapsed;
+
+                handler.setParentControl(this.gridHandlerView);
             }
             this.DataContext = video;
 

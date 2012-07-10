@@ -27,7 +27,7 @@ namespace PS_YuvVideoHandler
         const int THREADS = 4;
 
         YuvVideoInfo _videoInfo = null;
-        string _path = null;
+        string _path = "";
 
         byte[] data = null;
         int bufferSizeFrames = -1;
@@ -140,12 +140,17 @@ namespace PS_YuvVideoHandler
         /// <returns>true if operation was successful, false if an error occured</returns>
         private void calculateFrameCount()
         {
+            if (this.vidInfo == null) return;
+
             this.frameSize =(int)( _videoInfo.height * _videoInfo.width * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)) );
 
-            FileInfo f = new FileInfo(_path);
-            if (f.Exists && this.frameSize > 0)
+            if(File.Exists(_path))
             {
-                this._videoInfo.frameCount = (int)(f.Length / this.frameSize);
+                FileInfo f = new FileInfo(_path);
+                if (this.frameSize > 0)
+                {
+                    this._videoInfo.frameCount = (int)(f.Length / this.frameSize);
+                }
             }
         }
 

@@ -186,7 +186,11 @@
             if (handler == null) return null;
 
             handler = handler.createVideoHandlerInstance();
-            handler.setVideo(this.vidPath, this.vidInfo);
+            if (this.vidInfo != null)
+            {
+                handler.setVideo(this.vidPath, this.vidInfo);
+            }
+
             return handler;
 		}
 
