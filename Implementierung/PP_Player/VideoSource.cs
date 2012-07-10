@@ -28,7 +28,7 @@ namespace PP_Presentation
         private Bitmap[] _bmp;
 
 		/// <summary>
-		/// 
+		/// If the playing thread is currently running, signals the video source to stop.
 		/// </summary>
         public virtual void SignalToStop()
 		{
@@ -40,7 +40,7 @@ namespace PP_Presentation
 		}
 
 		/// <summary>
-		/// 
+		/// Starts playing the video unless it's already running, by creating and starting a new WorkerThread.
 		/// </summary>
         public virtual void Start()
 		{
@@ -65,7 +65,8 @@ namespace PP_Presentation
 		}
 
 		/// <summary>
-		/// 
+		/// Stops playing the video by aborting the current playing thread.
+        /// The WaitForStop function is called to wait for the thread to stop operating.
 		/// </summary>
         public virtual void Stop()
 		{
@@ -80,7 +81,7 @@ namespace PP_Presentation
 		}
 
         /// <summary>
-        /// 
+        /// Pauses the video.
         /// </summary>
         public virtual void Pause()
         {
@@ -91,7 +92,7 @@ namespace PP_Presentation
         }
 
         /// <summary>
-        /// 
+        /// Resumes the video after a pause.
         /// </summary>
         public virtual void Resume()
         {
@@ -102,7 +103,8 @@ namespace PP_Presentation
         }
 
 		/// <summary>
-		/// 
+		/// After the video has been stopped, waits for the current thread to stop operating before
+        /// destroying the VideoSource.
 		/// </summary>
         public virtual void WaitForStop()
 		{
@@ -177,7 +179,7 @@ namespace PP_Presentation
         public event VideoSourceErrorEventHandler VideoSourceError;
 
         /// <summary>
-        /// 
+        /// Not sure if we need this
         /// </summary>
         public string Source
         {
@@ -186,7 +188,7 @@ namespace PP_Presentation
         }
 
         /// <summary>
-        /// 
+        /// The number of frames loaded in memory, usually the total frame count of the video.
         /// </summary>
         public int NUMFRAMESINMEM
         {
@@ -201,7 +203,7 @@ namespace PP_Presentation
         }
 
         /// <summary>
-        /// 
+        /// This is where the frames of the video to be played are located.
         /// </summary>
         public Bitmap[] bmp
         {

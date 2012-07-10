@@ -3,28 +3,34 @@
 namespace PP_Player
 {
 	using Oqat.PublicRessources.Model;
-	using Plugins;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Text;
 
+    /// <summary>
+    ///  All supported Yuv formats.
+    /// </summary>
+    /// <remarks>reference: http://www.fourcc.org/yuv.php#IYUV </remarks>
     public enum YuvFormat
     {
         YUV444,
-        YUV422,
-        YUV411,
-        YUV420
+        YUV422_UYVY,
+        YUV411_Y41P,
+        YUV420_IYUV,
     }
 
-	/// <remarks>an dieser stelle brauchen wir eine properties view für den VideoImportDialog und eine (oder de gleiche aber mit anderen parametern) die die infos in der smartlist darstellt</remarks>
-	public class YuvVideoInfo : Oqat.PublicRessources.Model.IVideoInfo
+    /// <summary>
+    ///  Holds information about a yuv video file that can not be read from the file itself.
+    ///  Needed to work with the video in a YuvVideoHandler.
+    /// </summary>
+	public class YuvVideoInfo : IVideoInfo
 	{
 
-        YuvFormat _yuvFormat;
-        int _width;
-        int _height;
-        int _framecount;
+        YuvFormat _yuvFormat = YuvFormat.YUV444;
+        int _width = 0;
+        int _height = 0;
+        int _frameCount = -1;
 
 
 		public int width
@@ -51,15 +57,15 @@ namespace PP_Player
             }
 		}
 
-		public long frameNum
+		public int frameCount
 		{
             get
             {
-                throw new NotImplementedException();
+                return _frameCount;
             }
             set
             {
-                throw new NotImplementedException();
+                _frameCount = value;
             }
 		}
 
@@ -85,18 +91,6 @@ namespace PP_Player
             set
             {
                 throw new NotImplementedException();
-            }
-        }
-
-        public int frameCount
-        {
-            get
-            {
-                return _framecount;
-            }
-            set
-            {
-                _framecount = value;
             }
         }
     }

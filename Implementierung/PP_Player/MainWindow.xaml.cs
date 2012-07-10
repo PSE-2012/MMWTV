@@ -22,13 +22,13 @@ namespace PP_Player
     {
         public MainWindow()
         {
-            // Testing the program with Sebastian's unfinished YUV Video Handler
+            // Testing the program with Sebastian's YUV Video Handler
             YuvVideoInfo info = new YuvVideoInfo();
             info.width = 176;
             info.height = 144;
-            info.yuvFormat = YuvFormat.YUV420;
+            info.yuvFormat = YuvFormat.YUV420_IYUV;
             info.frameCount = 500;
-            PS_YuvVideoHandler hand = new PS_YuvVideoHandler("C:/Documents/akiyo_qcif.yuv", info);
+            YuvVideoHandler hand = new YuvVideoHandler("C:/Documents/akiyo_qcif.yuv", info);
             Oqat.PublicRessources.Model.Video video = new Oqat.PublicRessources.Model.Video(false, "C:/Documents/akiyo_qcif.yuv", info);
             Oqat.PublicRessources.Model.VideoEventArgs vidargs = new Oqat.PublicRessources.Model.VideoEventArgs(video, false);
 
