@@ -29,10 +29,15 @@ namespace Oqat.ViewModel
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            VM_VidImportOptionsDialog vidImport = new VM_VidImportOptionsDialog();
-
             //path selected from DateiExplorer, pass it on
-            Video importedVideo = vidImport.importVideo("../../../akivo_qcif.yuv");
+            Video importedVideo = new Video(false, "../../../akivo_qcif.yuv", null);
+            VM_VidImportOptionsDialog vidImport = new VM_VidImportOptionsDialog(importedVideo);
+
+            bool? res = vidImport.ShowDialog();
+            if (res.HasValue && res.Value)
+            {
+                //video successfully imported - use importedVideo
+            }
         }
 
 

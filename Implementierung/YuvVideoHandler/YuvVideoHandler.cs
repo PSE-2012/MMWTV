@@ -15,7 +15,6 @@ namespace PS_YuvVideoHandler
     using System.Drawing.Imaging;
     using System.Drawing;
     using System.IO;
-    using AForge.Imaging;
 
 
     [ExportMetadata("namePlugin", "yuvVideoHandler")]
@@ -125,6 +124,7 @@ namespace PS_YuvVideoHandler
         {
             get
             {
+                calculateFrameCount();
                 return _videoInfo;
             }
             private set
@@ -140,7 +140,7 @@ namespace PS_YuvVideoHandler
         /// <returns>true if operation was successful, false if an error occured</returns>
         private void calculateFrameCount()
         {
-            if (this.vidInfo == null) return;
+            if (_videoInfo == null) return;
 
             this.frameSize =(int)( _videoInfo.height * _videoInfo.width * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)) );
 
@@ -163,11 +163,10 @@ namespace PS_YuvVideoHandler
         {
             PropertiesView propertiesView = new PropertiesView();
 
-            if (vidInfo == null)
+            if (_videoInfo == null)
             {
-                vidInfo = new YuvVideoInfo();
+                _videoInfo = new YuvVideoInfo();
             }
-            calculateFrameCount();
 
             //databinding between propertiesView and vidInfo
             propertiesView.DataContext = vidInfo;

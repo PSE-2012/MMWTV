@@ -45,11 +45,12 @@ namespace PS_YuvVideoHandler
 			        formatString = "Yuv 4:1:1 (Y41P)" },
             };
         }
+
         
     }
 
 
-    /// <summary
+    /// <summary>
     /// This class provides us with an object to fill a ComboBox with
     /// that can be bound to 'ViewModelEnum.Colors' enum fields in the binding
     /// object while displaying a string values in the to user in the ComboBox.

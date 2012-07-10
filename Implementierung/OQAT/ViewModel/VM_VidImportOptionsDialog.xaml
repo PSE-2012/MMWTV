@@ -13,5 +13,9 @@
             <TextBlock Visibility="Visible" x:Name="txt_NoHandler">Es wurde kein geeigneter VideoHandler zum Lesen dieses Videos gefunden.</TextBlock>
             <Grid x:Name="gridHandlerView"></Grid>
         </Grid>
+        <WrapPanel HorizontalAlignment="Center">
+            <Button Margin="5" Width="100" Name="btt_Import" Click="btt_Import_Click">Import</Button>
+            <Button Margin="5" Width="100" Name="btt_Cancel" Click="btt_Cancel_Click">Abbrechen</Button>
+        </WrapPanel>
     </StackPanel>
 </Window>

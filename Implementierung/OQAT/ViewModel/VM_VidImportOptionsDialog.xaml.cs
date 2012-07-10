@@ -25,29 +25,38 @@ namespace Oqat
         Video video;
         IVideoHandler handler;
 
-        public VM_VidImportOptionsDialog()
+        public VM_VidImportOptionsDialog(Video importTarget)
         {
             InitializeComponent();
 
-                      
-        }
-
-        public Video importVideo(string path)
-        {
-            video = new Video();
-            video.vidPath = path;
-            IVideoHandler handler = video.getVideoHandler();
+            video = importTarget;
+            handler = video.getVideoHandler();
             if (handler != null)
             {
                 this.txt_NoHandler.Visibility = System.Windows.Visibility.Collapsed;
 
                 handler.setParentControl(this.gridHandlerView);
+                video.vidInfo = handler.vidInfo;
             }
             this.DataContext = video;
+        }
 
-            this.ShowDialog();
+        public Video importedVideo
+        {
+            get
+            {
+                return video;
+            }
+        }
 
-            return video;
+        private void btt_Import_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+        }
+
+        private void btt_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
         }
 
         
