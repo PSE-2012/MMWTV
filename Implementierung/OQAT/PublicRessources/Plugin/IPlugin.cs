@@ -10,13 +10,19 @@
     /// <summary>
     /// Every plugin has to implement this interface to be compatible with <see cref="PluginManager"/>.
     /// </summary>
+    /// <remarks>
+    /// a Plugin needs to export the following MEF stuff to be importable by PluginManager:
+    /// [ExportMetadata("namePlugin", namePlugin)]
+    /// [ExportMetadata("type", type)]
+    /// [Export(typeof(IPlugin))]
+    /// </remarks>
 	public interface IPlugin  : IMemorizable
 	{
 
         /// <summary>
-        /// A panel where the plugin may place own gui components
+        /// Displays a view with GUI components of the plugin in the given parent container.
         /// </summary>
-        /// <param name="parent"></param>
+        /// <param name="parent">panel where the plugin may place own gui components</param>
 		void setParentControl(Panel parent);
 
         /// <summary>

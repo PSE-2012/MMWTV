@@ -1,0 +1,21 @@
+﻿<Window x:Class="Oqat.VM_VidImportOptionsDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             Title="Video importieren">
+    <StackPanel Orientation="Vertical">
+        <Grid>
+            <TextBox Name="tb_filepath" Margin="20, 5, 20, 5" Text="{Binding vidPath}" />
+        </Grid>
+        <Grid>
+            <TextBlock Visibility="Visible" x:Name="txt_NoHandler">Es wurde kein geeigneter VideoHandler zum Lesen dieses Videos gefunden.</TextBlock>
+            <Grid x:Name="gridHandlerView"></Grid>
+        </Grid>
+        <WrapPanel HorizontalAlignment="Center">
+            <Button Margin="5" Width="100" Name="btt_Import" Click="btt_Import_Click">Import</Button>
+            <Button Margin="5" Width="100" Name="btt_Cancel" Click="btt_Cancel_Click">Abbrechen</Button>
+        </WrapPanel>
+    </StackPanel>
+</Window>

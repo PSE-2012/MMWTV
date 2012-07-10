@@ -53,6 +53,22 @@
         /// <param name="frames">Array of frames to place into the currently loaded video.</param>
 		void writeFrames(int frameNum, Bitmap[] frames);
 
+
+
+        /// <summary>
+        /// Returns a new VideoHandler instance.
+        /// </summary>
+        /// <returns>a new VideoHandler instance</returns>
+        IVideoHandler createVideoHandlerInstance();
+
+
+        /// <summary>
+        /// Sets a new video file as the context of this handler.
+        /// </summary>
+        /// <param name="filepath">location of the videofile to read</param>
+        /// <param name="info">VideoInfo containing needed information</param>
+        void setVideo(string filepath, IVideoInfo info);
+       
 	}
 }
 
