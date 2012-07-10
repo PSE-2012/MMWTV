@@ -7,6 +7,7 @@ namespace Oqat.Model
 	using System.Linq;
 	using System.Text;
     using Oqat.PublicRessources.Model;
+    using Oqat.PublicRessources.Plugin;
     using System.IO;
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters.Binary;
@@ -56,7 +57,7 @@ namespace Oqat.Model
             }
             private set
             {
-                caretaker = value;
+                _caretaker = value;
             }
         }
 
@@ -70,10 +71,11 @@ namespace Oqat.Model
         /// <summary>
         /// Loads binary Memento file. If file doesn't exist, null will be returned.
         /// </summary>
-        /// <param name="fileName"></param> The binary file to load.
+        /// <param name="fileName">The binary file to load.</param> 
         public virtual Memento getMemento(string fileName)
 		{
             Memento objectToSerialize = null;
+            //check if correct file exist
             if (File.Exists(fileName) && Path.GetExtension(fileName) == ".bin")
             {
                 //Reading files and creates a list of mementos
@@ -88,7 +90,7 @@ namespace Oqat.Model
 
         /// <summary>
         /// Saves newly created Memento to the hard disk drive.
-        /// /// <param name="objectToSerialize"></param> The Memento
+        /// /// <param name="objectToSerialize">The Memento</param> 
         /// </summary>
 
         public virtual void writeMemento(Memento objectToSerialize)
@@ -103,9 +105,9 @@ namespace Oqat.Model
                     stream.Close();
                 }
             }
-            catch (UnauthorizedAccessException)
+            catch (Exception exc)
             {
-                //TODO: Event
+                PluginManager.pluginManager.raiseEvent(EventType.info, new ErrorEventArgs(exc));
             }
             
         }
