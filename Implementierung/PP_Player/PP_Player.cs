@@ -4,7 +4,6 @@ namespace PP_Presentation
 {
 	using AForge.Controls;
 	using Oqat.PublicRessources.Plugin;
-	using Plugins;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -18,7 +17,7 @@ namespace PP_Presentation
     
     /// <summary>
     /// This class is responsible for loading a video to play from disk and setting up a container
-    /// where the video can be played.
+    /// where the video can be played. It can be exported as a plugin.
     /// </summary>
     [Export(typeof(IPlugin))]
     [ExportMetadata("Video Player", PluginType.IPresentation)]
@@ -30,7 +29,7 @@ namespace PP_Presentation
         private VideoSource _videoSource;
 
         /// <summary>
-        /// 
+        /// Initializes a new PP_Player instance with a given VideoHandler and a VideoSource
         /// </summary>
         /// <param name="videohandler"></param>
         /// <param name="videoSource"></param>
@@ -41,7 +40,7 @@ namespace PP_Presentation
         }
 
         /// <summary>
-        /// 
+        /// The video handler which is responsible for getting frames from the video.
         /// </summary>
         public IVideoHandler videohandler
         {
@@ -56,7 +55,7 @@ namespace PP_Presentation
         }
 
         /// <summary>
-        /// 
+        /// The PlayerControl is the View Model for PP_Player
         /// </summary>
         public PlayerControl playerControl
         {
@@ -70,7 +69,7 @@ namespace PP_Presentation
         }
 
         /// <summary>
-        /// 
+        /// The VideoSource is responsible for operations like Start, Stop, Pause, Play
         /// </summary>
         public VideoSource videoSource
         {
@@ -100,7 +99,8 @@ namespace PP_Presentation
         }
 
         /// <summary>
-        /// 
+        /// Unloads all currently loaded video frames from memory, as well as the video handler and the video source.
+        /// Stops the player control.
         /// </summary>
         public void unloadVideo()
         {
@@ -114,7 +114,7 @@ namespace PP_Presentation
         }
 
         /// <summary>
-        /// 
+        /// Clears the Player Control out of the PP_Player's View.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -150,7 +150,9 @@ namespace PP_Presentation
         }
 
         /// <summary>
-        /// 
+        /// Creates a new Player Control, which returns an AForge Source Player Control instance.
+        /// Sets the video source of the Source Player Control and adds the Player Control to
+        /// the children of the parent panel.
         /// </summary>
         /// <param name="parent"></param>
         public void setParentControl(System.Windows.Controls.Panel parent)
@@ -188,7 +190,11 @@ namespace PP_Presentation
         }
 
         /// <summary>
-        /// 
+        /// This function is responsible for loading the frames of a video into memory.
+        /// First it gets the frame count X of the video from its VideoInfo object and gives
+        /// the information to our Video Source. Our Video Source then creates a new array
+        /// of X BitMaps, these are the frames to be loaded into memory. With the getFrames
+        /// method of our VideoHandler, the Video Source loads the frames into the BitMap array.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="vid"></param>
@@ -196,12 +202,8 @@ namespace PP_Presentation
         {
             videoSource.NUMFRAMESINMEM = vid.video.vidInfo.frameCount;
             videoSource.bmp = new Bitmap[videoSource.NUMFRAMESINMEM];
+            videoSource.bmp = videohandler.getFrames(0, videoSource.NUMFRAMESINMEM);
             // videoSource.bmp = vid.video.getVideoHandler().getFrames(0, videoSource.NUMFRAMESINMEM);
-
-            for (int i = 0; i < videoSource.NUMFRAMESINMEM; i++)
-            {
-              videoSource.bmp[i] = videohandler.getFrame(i);
-            }
         }
 
         // private void videoSourcePlayer_NewFrame(object sender, ref Bitmap image)

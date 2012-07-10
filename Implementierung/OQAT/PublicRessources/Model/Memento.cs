@@ -74,6 +74,8 @@ namespace Oqat.PublicRessources.Model
         /// <param name="state">Object state to be saved</param>
         public Memento(string nameMemento, object state)
 		{
+            this.name = nameMemento;
+            this.state = state;
 		}
 
         /// <summary>
@@ -81,9 +83,12 @@ namespace Oqat.PublicRessources.Model
         /// </summary>
         /// <param name="nameMemento">Name of the Memento</param>
         /// <param name="state">Object state to be saved</param>
-        /// <param name="mementoPath">A path to save the Memento to</param>
+        /// <param name="_mementoPath">A path to save the Memento to</param>
 		public Memento(string nameMemento, object state, string mementoPath)
 		{
+            this.name = nameMemento;
+            this.state = state;
+            this.mementoPath = mementoPath;
 		}
 
         public Memento(SerializationInfo info, StreamingContext ctxt)

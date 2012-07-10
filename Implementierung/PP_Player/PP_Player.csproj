@@ -72,8 +72,11 @@
       <DependentUpon>PlayerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="PP_Player.cs" />
-    <Compile Include="PS_YuvVideoHandler.cs" />
+    <Compile Include="PropertiesView.xaml.cs">
+      <DependentUpon>PropertiesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VideoSource.cs" />
+    <Compile Include="YuvVideoHandler.cs" />
     <Compile Include="YuvVideoInfo.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -88,6 +91,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="PlayerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertiesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -121,6 +128,9 @@
       <Project>{B138D4F9-F3DB-45C3-B9B8-2FC79AEB425D}</Project>
       <Name>OQAT</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OQAT.sln" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
