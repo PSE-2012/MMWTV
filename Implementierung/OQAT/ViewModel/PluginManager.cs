@@ -108,7 +108,21 @@
                     {
                         if (Path.GetExtension(file).Equals(".dll"))
                         {
-                            var tmpPlugin = (new PluginSandbox(file)).tmpPlugin;
+                            Lazy<IPlugin, IPluginMetadata>  tmpPlugin;
+                            try
+                            {
+                                tmpPlugin = (new PluginSandbox(file)).tmpPlugin;
+                            }
+                            catch (Exception exc)
+                            {
+                                errorsOcured = true;
+                                
+                                /// Provide a delete dialogue ?
+                                /// Maybe set on a ignoreList ( not the Blacklist)
+                                raiseEvent(EventType.info, new ErrorEventArgs( new Exception("Uncompatible Plugin" + 
+                               " was found in the Pluginfolder: " + file, exc)));
+                                break;
+                            }
                             List<ErrorEventArgs> tmpList = new List<ErrorEventArgs>();
                             try
                             {
