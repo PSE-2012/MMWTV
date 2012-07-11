@@ -13,9 +13,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OxyPlot;
 using Oqat;
-using PP_Presentation;
+
+
 using Oqat.PublicRessources.Plugin;
-using Plugins;
+
 
 using Microsoft.CSharp;
 using System.ComponentModel.Composition;
@@ -27,14 +28,14 @@ namespace PP_Diagramm
     /// </summary>
     /// 
     [ExportMetadata("namePlugin", "PP_Diagramm")]
-    [ExportMetadata("type", PluginType.Presentation)]
+    [ExportMetadata("type", PluginType.IPresentation)]
     [Export(typeof(IPlugin))]
   
     public partial class Diagramm :UserControl ,IPresentation   
     {
         private PresentationPluginType _presentationType=PresentationPluginType.Diagram;
         private string _namePlugin = "PP_Diagramm";
-        private PluginType _type = PluginType.Presentation;
+        private PluginType _type = PluginType.IPresentation;
 
         public Diagramm()
         {
@@ -93,7 +94,7 @@ namespace PP_Diagramm
             }
         }
 
-        public void setParentControll(System.Windows.Controls.Panel parent)
+        public void setParentControl(System.Windows.Controls.Panel parent)
         {
             parent.Children.Add(this);
 

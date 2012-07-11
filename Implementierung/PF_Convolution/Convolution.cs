@@ -132,7 +132,7 @@ namespace PF_Convolution
             }
         }
 
-        public void setParentControll(System.Windows.Controls.Panel parent)
+        public void setParentControl(System.Windows.Controls.Panel parent)
         {
            
             parent.Children.Add(propertiesView);

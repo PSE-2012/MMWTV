@@ -142,7 +142,7 @@ namespace PM_MSE
             propertiesView = new VM_PM_MSE();
            
         }
-        public void setParentControll(System.Windows.Controls.Panel parent)
+        public void setParentControl(System.Windows.Controls.Panel parent)
         {
             parent.Children.Add(this.propertiesView);
         }
