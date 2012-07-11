@@ -36,6 +36,11 @@ namespace PP_Presentation
             return sourcePlayer;
         }
         
+        public VideoSource getVideoSource()
+        {
+            return (VideoSource)sourcePlayer.VideoSource;
+        }
+        
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
             this.sourcePlayer.Stop();
@@ -48,12 +53,12 @@ namespace PP_Presentation
 
         private void Pause_Click(object sender, RoutedEventArgs e)
         {
-           
+            getVideoSource().Pause();  
         }
 
         private void Resume_Click(object sender, RoutedEventArgs e)
         {
-            
+            getVideoSource().Resume();
         }
     }
 }
