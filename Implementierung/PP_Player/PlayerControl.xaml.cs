@@ -35,10 +35,25 @@ namespace PP_Presentation
         public VideoSourcePlayer getSourcePlayerControl() {
             return sourcePlayer;
         }
+        
+        private void Stop_Click(object sender, RoutedEventArgs e)
+        {
+            this.sourcePlayer.Stop();
+        }
 
-        private void btt_Start_Click(object sender, RoutedEventArgs e)
+        private void Start_Click(object sender, RoutedEventArgs e)
         {
             this.sourcePlayer.Start();
+        }
+
+        private void Pause_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        private void Resume_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
