@@ -10,7 +10,18 @@ namespace Oqat
     /// <summary>
     /// Interaktionslogik für "App.xaml"
     /// </summary>
-    public partial class App : Application
+    public partial class OqatApp : Application
     {
+
+        private void initOqat() {}
+        private void initPluginManager() {}
+
+        OqatApp()
+        {
+            initPluginManager();
+            initOqat();
+        }
     }
+
+   
 }
