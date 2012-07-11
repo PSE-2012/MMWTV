@@ -4,10 +4,12 @@
 namespace PF_Convolution
 {
     using Oqat;
-    using Oqat.PublicRessources.Plugin;
-    using Oqat.PublicRessources.Model;
+    
   
-    using Plugins;
+    using Oqat.PublicRessources.Model;
+    using Oqat.PublicRessources.Plugin;
+    using Oqat.PublicRessources;
+ 
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -18,7 +20,7 @@ namespace PF_Convolution
     using System.ComponentModel.Composition;
 
     [ExportMetadata("namePlugin", "PF_Convolution")]
-    [ExportMetadata("type", PluginType.Filter)]
+    [ExportMetadata("type", PluginType.IFilterOqat)]
     [Export(typeof(IPlugin))]
 
 
@@ -26,7 +28,7 @@ namespace PF_Convolution
     {
 
         private string _namePlugin = "PF_Convolution";
-        private PluginType _type= PluginType.Filter;
+        private PluginType _type= PluginType.IFilterOqat;
         int[,] matrix = new int[5, 5];
         private VM_Convolution propertiesView;
 
