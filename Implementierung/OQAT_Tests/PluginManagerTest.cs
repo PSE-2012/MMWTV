@@ -44,24 +44,31 @@ namespace OQAT_Tests
         //
         // Initialize exe/plugin path and the ManualResetEvent
         // empty plugin directory.
-        static ManualResetEvent evtObj;
+        static EventWaitHandle evtObj;
+        static bool key;
         static string exePath;
         static string plPath;
         static string samplePluginOriginPath;
         static string filterSamplePath;
+        static string uncompatibleAssembly;
         static string presentationPath;
         static string metricPath;
         static string secondFilterSamplePath;
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
         {
-           evtObj = new ManualResetEvent(false);
-           exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-           plPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Plugins";
-           samplePluginOriginPath = Directory.GetParent(exePath).Parent.FullName + "\\TestData\\SamplePlugins\\bin";
+            evtObj = new ManualResetEvent(false);
+           exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(PluginManager)).Location);
+         //  exePath = Directory.GetParent(Directory.GetParent(exePath).Parent.FullName).Parent.FullName;
+         //  exePath = exePath + "\\OQAT_Tests\\bin\\Debug";
+           plPath = exePath + "\\Plugins";
+           samplePluginOriginPath = Directory.GetParent(Directory.GetParent(exePath).Parent.FullName).Parent.FullName + "\\Implementierung\\OQAT_Tests" + "\\TestData\\SamplePlugins\\bin";
 
            filterSamplePath = samplePluginOriginPath + "\\filter\\FilterSample.dll";
            Assert.IsTrue(File.Exists(filterSamplePath));
+
+           uncompatibleAssembly = samplePluginOriginPath + "\\filter\\AForge.dll";
+           Assert.IsTrue(File.Exists(uncompatibleAssembly));
 
            presentationPath = samplePluginOriginPath + "\\presentation\\PresentationSample.dll";
            Assert.IsTrue(File.Exists(presentationPath));
@@ -113,6 +120,7 @@ namespace OQAT_Tests
         public void pluginManagerTest()
         {
             /// non or empty plugin folder
+           
             PluginManager actual;
             PluginManager.OqatInfo += onSomeError;
             PluginManager.OqatPanic += onSomeError;
@@ -131,7 +139,17 @@ namespace OQAT_Tests
             /// after that the pluginTableChanged Event is raised
             /// the only listener is this TestClass.
             copyHelper(filterSamplePath);
-            evtObj.WaitOne();
+            key = false;
+            while (!key)
+            {
+                evtObj.WaitOne();
+            }
+            copyHelper(uncompatibleAssembly);
+            key = false;
+            while (!key)
+            {
+                evtObj.WaitOne();
+            }
         }
 
 
@@ -143,12 +161,13 @@ namespace OQAT_Tests
 
         private void onPluginTableChanged(Object sender, EventArgs e) 
         {
+            key = true;
             evtObj.Set();
         }
 
         private void onSomeError(Object sender, ErrorEventArgs e)
         {
-            Assert.Fail(e.GetException().Message);
+            Console.WriteLine(e.GetException().Message + "\n" + e.GetException().StackTrace + "\n");
         }
 
         ///// <summary>
