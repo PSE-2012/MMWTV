@@ -60,26 +60,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="PublicRessources\Model\IVideoInfo.cs" />
-    <Compile Include="PublicRessources\Model\Memento.cs" />
-    <Compile Include="PublicRessources\Model\MementoEventArgs.cs" />
-    <Compile Include="PublicRessources\Model\Video.cs" />
-    <Compile Include="PublicRessources\Model\VideoEventArgs.cs" />
-    <Compile Include="PublicRessources\Plugin\AnalysisInfo.cs" />
-    <Compile Include="PublicRessources\Plugin\EventType.cs" />
-    <Compile Include="PublicRessources\Plugin\IFilterOqat.cs" />
-    <Compile Include="PublicRessources\Plugin\IMacro.cs" />
-    <Compile Include="PublicRessources\Plugin\IMemorizable.cs" />
-    <Compile Include="PublicRessources\Plugin\IMetricOqat.cs" />
-    <Compile Include="PublicRessources\Plugin\IPlugin.cs" />
-    <Compile Include="PublicRessources\Plugin\IPluginMetadata.cs" />
-    <Compile Include="PublicRessources\Plugin\IPresentation.cs" />
-    <Compile Include="PublicRessources\Plugin\IVideoHandler.cs" />
-    <Compile Include="PublicRessources\Plugin\MacroEntry.cs" />
-    <Compile Include="PublicRessources\Plugin\MacroEntryFilter.cs" />
-    <Compile Include="PublicRessources\Plugin\MacroEntryMetric.cs" />
-    <Compile Include="PublicRessources\Plugin\PluginType.cs" />
-    <Compile Include="PublicRessources\Plugin\PresentationPluginType.cs" />
     <Compile Include="ViewModel\EntryEventArgs.cs" />
     <Compile Include="ViewModel\ExtraResourceEventArgs.cs" />
     <Compile Include="ViewModel\Macro\Macro.cs" />
@@ -153,6 +133,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OqatPublicResources\OqatPublicResources.csproj">
+      <Project>{64D5940A-48B4-410D-B1A2-752ED52C2D5F}</Project>
+      <Name>OqatPublicResources</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

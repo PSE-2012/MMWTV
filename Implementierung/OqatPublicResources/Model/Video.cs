@@ -7,8 +7,6 @@
 
     using System.IO;
     using Oqat.PublicRessources.Plugin;
-    using Oqat.ViewModel;
-
 
 	/// <summary>
 	/// This class is the Model for a Video object containing relevant information about a Video file.
@@ -178,20 +176,21 @@
         /// <returns>a video handler to acess the video frames.</returns>
 		public virtual IVideoHandler getVideoHandler()
 		{
-            PluginManager pm = PluginManager.pluginManager;
+            //PluginManager pm = PluginManager.pluginManager;
 
-            string handlerPluginName = Path.GetExtension(this.vidPath).ToLower().TrimStart(new char[] { '.' }) + "VideoHandler";
+            //string handlerPluginName = Path.GetExtension(this.vidPath).ToLower().TrimStart(new char[] { '.' }) + "VideoHandler";
 
-            IVideoHandler handler = pm.getPlugin < IVideoHandler>(handlerPluginName);
-            if (handler == null) return null;
+            //IVideoHandler handler = pm.getPlugin < IVideoHandler>(handlerPluginName);
+            //if (handler == null) return null;
 
-            handler = handler.createVideoHandlerInstance();
-            if (this.vidInfo != null)
-            {
-                handler.setVideo(this.vidPath, this.vidInfo);
-            }
+            //handler = handler.createVideoHandlerInstance();
+            //if (this.vidInfo != null)
+            //{
+            //    handler.setVideo(this.vidPath, this.vidInfo);
+            //}
 
-            return handler;
+            //return handler;
+            return null;
 		}
 
 
