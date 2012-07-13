@@ -14,6 +14,7 @@ namespace PP_Presentation
     using System.Windows.Controls;
     using System.ComponentModel.Composition;
     using Oqat.PublicRessources.Model;
+    using PS_YuvVideoHandler;
     
     /// <summary>
     /// This class is responsible for loading a video to play from disk and setting up a container
@@ -29,18 +30,13 @@ namespace PP_Presentation
         private PlayerControl _playerControl;
         private VideoSource _videoSource;
 
-        /// <summary>
-        /// Initializes a new PP_Player instance with a given VideoHandler and a VideoSource
-        /// </summary>
-        /// <param name="videohandler"></param>
-        /// <param name="videoSource"></param>
-        public PP_Player(IVideoHandler videohandler, VideoSource videoSource)
-        {
-            this._videohandler = videohandler;
-            this._videoSource = new VideoSource();
-        }
+        private PresentationPluginType _presentationType = PresentationPluginType.Player;
+        private PluginType _type = PluginType.IPresentation;
+        private string _namePlugin = "PP_Player";
+
         public PP_Player()
         {
+            this._videoSource = new VideoSource();
         }
 
         /// <summary>
@@ -94,11 +90,35 @@ namespace PP_Presentation
         {
             get
             {
-                return PresentationPluginType.Player;
+                return _presentationType;
             }
             set
             {
+                _presentationType = value;
+            }
+        }
 
+        public PluginType type
+        {
+            get
+            {
+                return _type;
+            }
+            set
+            {
+                _type = value;
+            }
+        }
+
+        public string namePlugin
+        {
+            get
+            {
+                return _namePlugin;
+            }
+            set
+            {
+                _namePlugin = value;
             }
         }
 
@@ -147,7 +167,8 @@ namespace PP_Presentation
         /// <returns></returns>
         public Dictionary<EventType, List<Delegate>> getEventHandlers()
         {
-            throw new NotImplementedException();
+            Dictionary<EventType, List<Delegate>> handlers = new Dictionary<EventType, List<Delegate>>();
+            return handlers;
         }
 
         /// <summary>
@@ -179,17 +200,10 @@ namespace PP_Presentation
         /// <param name="vid"></param>
         public void loadVideo(object sender, VideoEventArgs vid)
         {
-            //added by Sebastian
             this._videohandler = vid.video.getVideoHandler();
-            this._videoSource = new VideoSource();
-
-
-
-
             videoSource.NUMFRAMESINMEM = vid.video.vidInfo.frameCount;
             videoSource.bmp = new Bitmap[videoSource.NUMFRAMESINMEM];
             videoSource.bmp = videohandler.getFrames(0, videoSource.NUMFRAMESINMEM);
-            // videoSource.bmp = vid.video.getVideoHandler().getFrames(0, videoSource.NUMFRAMESINMEM);
         }
 
         // private void videoSourcePlayer_NewFrame(object sender, ref Bitmap image)
