@@ -14,7 +14,6 @@ namespace PP_Presentation
     using System.Windows.Controls;
     using System.ComponentModel.Composition;
     using Oqat.PublicRessources.Model;
-    using PS_YuvVideoHandler;
     
     /// <summary>
     /// This class is responsible for loading a video to play from disk and setting up a container
@@ -23,7 +22,7 @@ namespace PP_Presentation
     [ExportMetadata("namePlugin", "VideoPlayer")]
     [ExportMetadata("type", PluginType.IPresentation)]
     [Export(typeof(IPlugin))]
-	public class PP_Player : IPresentation
+	public class PP_Player : IPresentation, ICloneable
 	{
 
         private IVideoHandler _videohandler;
@@ -33,6 +32,11 @@ namespace PP_Presentation
         private PresentationPluginType _presentationType = PresentationPluginType.Player;
         private PluginType _type = PluginType.IPresentation;
         private string _namePlugin = "PP_Player";
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
 
         public PP_Player()
         {
