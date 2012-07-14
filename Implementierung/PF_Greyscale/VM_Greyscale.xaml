@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="PF_Greyscale.VM_Greyscale"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="508">
+    <StackPanel Height="220" Name="stackPanel1" Width="317">
+        <WrapPanel Height="33" Name="wrapPanel1" Width="150">
+            <Label Content="Red Value" Height="30" Name="label1" Width="105" />
+            <Label Height="30" Width="45" Name="lbRed" Content="{Binding ElementName=red, Path=Value}"/>
+        </WrapPanel>
+        <Slider Height="40" Name="red" Width="150" 
+                    Minimum="0"
+                   Maximum="1"
+                     IsSnapToTickEnabled="false"
+               ValueChanged="ValueChanged"
+                />
+        <WrapPanel Height="33" Name="wrapPanel2" Width="150">
+            <Label Content="Green Value" Height="30" Name="label2" Width="105" />
+            <Label Height="30" Width="45" Name="lbGreen" Content="{Binding ElementName=green, Path=Value}"/>
+        </WrapPanel>
+        <Slider Height="40" Name="green" Width="150"  Minimum="0"
+                   Maximum="1"
+                     IsSnapToTickEnabled="false"
+                  ValueChanged="ValueChanged"/>
+        <WrapPanel Height="33" Name="wrapPanel3" Width="150">
+            <Label Content="Blue Value" Height="30" Name="label3" Width="105" />
+            <Label Height="30" Width="45" Name="lbBlue" Content="{Binding ElementName=blue, Path=Value}"/>
+        </WrapPanel>
+        <Slider Height="40" Name="blue" Width="150"
+                     Minimum="0"
+                   Maximum="1"
+                     IsSnapToTickEnabled="false"
+                  ValueChanged="ValueChanged"/>
+       
+    </StackPanel>
+</UserControl>
