@@ -17,6 +17,7 @@
         private bool _isAnalysis = false;
         private string _path = "";
         private float[][] _metricValues;
+        private Dictionary<PresentationPluginType, List<string>> _extraResources;
 
         private List<MacroEntry> _processedBy;
 
@@ -56,6 +57,8 @@
             this.vidInfo = vidInfo;
             this.processedBy = processedBy;
 
+
+            // TODO: Maybe this should not be done in the video class but in a class creating the videos.
             if (videoObjectCreated != null)
                 videoObjectCreated(this, new VideoEventArgs(this));
         }
@@ -150,9 +153,14 @@
         /// </summary>
 		public Dictionary<PresentationPluginType, List<string>> extraResources
 		{
-            //TODO: extraResources
-			get;
-			set;
+            get
+            {
+                return _extraResources;
+            }
+            set
+            {
+                _extraResources = value;
+            }
 		}
 
 
@@ -162,6 +170,7 @@
         /// <summary>
         /// An event that indicates the creation of a new Video object.
         /// </summary>
+        // TODO: Maybe this should not be done in the video class but in a class creating the videos.
         public delegate void videoObjectCreatedEventHandler(object sender, VideoEventArgs e);
 		public event videoObjectCreatedEventHandler videoObjectCreated;
 
@@ -176,6 +185,8 @@
         /// <returns>a video handler to acess the video frames.</returns>
 		public virtual IVideoHandler getVideoHandler()
 		{
+            //TODO: Fix getVideoHandler for new project structure.
+
             //PluginManager pm = PluginManager.pluginManager;
 
             //string handlerPluginName = Path.GetExtension(this.vidPath).ToLower().TrimStart(new char[] { '.' }) + "VideoHandler";
@@ -201,21 +212,29 @@
         /// <returns>a memento that contains the current state of this video object</returns>
 		public virtual Memento getMemento()
 		{
-            //TODO: implement video memento
-			throw new System.NotImplementedException();
+            FileInfo inf = new FileInfo(this._path);
+
+            return new Memento(inf.Name, this, inf.FullName + ".mem");
 		}
 
         /// <summary>
         /// Sets the state of this video object to the one saved in the given memento.
         /// </summary>
+        /// <exception cref="ArgumentException">Throws ArgumentException if the memento is not a memento of a video object.</exception>
         /// <param name="memento">a memento of a video instance</param>
 		public virtual void setMemento(Memento memento)
 		{
-            //TODO: implement video memento
-			throw new System.NotImplementedException();
+            if( !(memento.state is Video) )
+                throw new ArgumentException("Invalid Memento to restore Video.\n"+memento.mementoPath+" is not a Video object memento.");
+            
+            Video refv =(Video) memento.state;
+            this._path = refv._path;
+            this._extraResources = refv._extraResources;
+            this._isAnalysis = refv._isAnalysis;
+            this._metricValues = refv._metricValues;
+            this._processedBy = refv._processedBy;
+            this._vidInfo = refv._vidInfo;
 		}
-
-
 
 
         
