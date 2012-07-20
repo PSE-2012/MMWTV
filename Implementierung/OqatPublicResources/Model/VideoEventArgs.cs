@@ -1,7 +1,4 @@
-﻿//------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
-namespace Oqat.PublicRessources.Model
+﻿namespace Oqat.PublicRessources.Model
 {
 	using System;
 	using System.Collections.Generic;
@@ -13,7 +10,7 @@ namespace Oqat.PublicRessources.Model
 	/// </summary>
     public class VideoEventArgs : EventArgs
 	{
-        private Video _video;
+        private IVideo _video;
         private bool _isRefVid;
 
         /// <summary>
@@ -21,36 +18,30 @@ namespace Oqat.PublicRessources.Model
         /// The property isRefVideo defaults to false.
         /// </summary>
         /// <param name="video">the video object for these eventArgs</param>
-        public VideoEventArgs(Video video)
+        public VideoEventArgs(IVideo video) : this(video, false)
         {
-            this.video = video;
-            this.isRefVid = false;
         }
         /// <summary>
         /// Constructs a new instance of VideoEventArgs with the given video and status.
         /// </summary>
         /// <param name="video">the video object for these eventArgs</param>
         /// <param name="isRef">status wether this video is passed as a reference video</param>
-        public VideoEventArgs(Video video, bool isRef)
+        public VideoEventArgs(IVideo video, bool isRef)
         {
-            this.video = video;
-            this.isRefVid = isRef;
+            this._video = video;
+            this._isRefVid = isRef;
         }
 
 
-        /// <see cref="Video"/>
+        /// <see cref="IVideo"/>
         /// <summary>
         /// The video associated with this event.
         /// </summary>
-		public virtual Video video
+		public IVideo video
 		{
             get
             {
                 return _video;
-            }
-            private set
-            {
-                _video = value;
             }
 		}
 

@@ -1,4 +1,4 @@
-﻿namespace Oqat.PublicRessources.Model
+﻿namespace Oqat.Model
 {
 	using System;
 	using System.Collections.Generic;
@@ -7,6 +7,8 @@
 
     using System.IO;
     using Oqat.PublicRessources.Plugin;
+    using Oqat.PublicRessources.Model;
+    using Oqat.ViewModel;
 
 	/// <summary>
 	/// This class is the Model for a Video object containing relevant information about a Video file.
@@ -21,13 +23,13 @@
 
         private List<MacroEntry> _processedBy;
 
-        ///// <summary>
-        ///// Creates a new instance of Video with empty parameters.
-        ///// </summary>
-        //public Video()
-        //{
+        /// <summary>
+        /// Creates a new instance of Video with empty parameters.
+        /// </summary>
+        public Video()
+        {
 
-        //}
+        }
 
         /// <summary>
         /// Creates a new instance of Video.
@@ -60,7 +62,7 @@
 
             // TODO: Maybe this should not be done in the video class but in a class creating the videos.
             if (videoObjectCreated != null)
-                videoObjectCreated(this, new VideoEventArgs(this, false));
+                videoObjectCreated(this, new VideoEventArgs(this));
         }
 
 
@@ -185,22 +187,21 @@
         /// <returns>a video handler to acess the video frames.</returns>
 		public virtual IVideoHandler getVideoHandler()
 		{
-            //TODO: Fix getVideoHandler for new project structure.
 
-            //PluginManager pm = PluginManager.pluginManager;
+            PluginManager pm = PluginManager.pluginManager;
 
-            //string handlerPluginName = Path.GetExtension(this.vidPath).ToLower().TrimStart(new char[] { '.' }) + "VideoHandler";
+            string handlerPluginName = Path.GetExtension(this.vidPath).ToLower().TrimStart(new char[] { '.' }) + "VideoHandler";
 
-            //IVideoHandler handler = pm.getPlugin < IVideoHandler>(handlerPluginName);
-            //if (handler == null) return null;
+            IVideoHandler handler = pm.getPlugin<IVideoHandler>(handlerPluginName);
+            if (handler == null) return null;
 
-            //handler = handler.createVideoHandlerInstance();
-            //if (this.vidInfo != null)
-            //{
-            //    handler.setVideo(this.vidPath, this.vidInfo);
-            //}
+            handler = handler.createVideoHandlerInstance();
+            if (this.vidInfo != null)
+            {
+                handler.setVideo(this.vidPath, this.vidInfo);
+            }
 
-            //return handler;
+            return handler;
             return null;
 		}
 
