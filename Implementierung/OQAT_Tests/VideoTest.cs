@@ -159,12 +159,12 @@ namespace OQAT_Tests
         [TestMethod()]
         public void getVideoHandlerTest()
         {
-            Video target = new Video(); // TODO: Passenden Wert initialisieren
-            IVideoHandler expected = null; // TODO: Passenden Wert initialisieren
-            IVideoHandler actual;
-            actual = target.getVideoHandler();
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
+            //Video target = new Video(); // TODO: Passenden Wert initialisieren
+            //IVideoHandler expected = null; // TODO: Passenden Wert initialisieren
+            //IVideoHandler actual;
+            //actual = target.getVideoHandler();
+            //Assert.AreEqual(expected, actual);
+            //Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
         }
 
         
