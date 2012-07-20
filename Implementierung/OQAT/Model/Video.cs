@@ -23,13 +23,6 @@
 
         private List<MacroEntry> _processedBy;
 
-        /// <summary>
-        /// Creates a new instance of Video with empty parameters.
-        /// </summary>
-        public Video()
-        {
-
-        }
 
         /// <summary>
         /// Creates a new instance of Video.
