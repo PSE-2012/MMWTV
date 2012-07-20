@@ -5,6 +5,9 @@ using System.Text;
 using System.IO;
 
 using Oqat.PublicRessources.Model;
+using Oqat.PublicRessources.Plugin;
+using System.Collections.Generic;
+
 namespace Oqat.Model
 {
     /// <see cref="Project"/>
@@ -12,29 +15,49 @@ namespace Oqat.Model
     /// This class is the Model for the tree structure where each video in a project 
     /// is represented by a node containing the path to it.
     /// </summary>
-    class SmartNode : Collection<SmartNode>
+    class SmartNode
     {
+
+        public ObservableCollection<SmartNode> smartTree;
+        public string name
+        {
+            get
+            {
+                return Path.GetFileNameWithoutExtension(video.vidPath);
+            }
+        }
+        public int idFather;
+        public readonly int id;
         /// <summary>
         /// The Video object represented by the SmartNode.
         /// </summary>
-        private Video video
+        public Video video
         {
             get;
-            set;
+            private set;
         }
 
-        /// <summary>
-        /// Creates an empty SmartNode.
-        /// </summary>
-        public SmartNode()
-        {
-        }
         /// <summary>
         /// Creates a new SmartNode from a given path to a video file.
         /// </summary>
         /// <param name="vidPath"></param>
-        public SmartNode(string vidPath)
+        public SmartNode(Video vid, int id, int idFather)
         {
+            this.video = vid;
+            this.id = id;
+            this.idFather = idFather;
+        }
+
+
+        /// <summary>
+        /// Creates a new SmartNode from a given path to a video file.
+        /// </summary>
+        /// <param name="vidPath"></param>
+        public SmartNode(bool isAnalysis, string vidPath, IVideoInfo vidInfo,int id, int idFather, List<MacroEntry> processedBy = null)
+        {
+            this.id = id;
+            this.idFather = idFather;
+            video = new Video(isAnalysis, vidPath, vidInfo, processedBy);
         }
     }
 }

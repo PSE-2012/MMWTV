@@ -11,6 +11,7 @@ namespace Oqat.Model
     using System.IO;
     using Oqat.PublicRessources.Plugin;
     using Oqat.PublicRessources.Model;
+    using System.Collections.ObjectModel;
 
 	/// <summary>
 	/// This class is the Model for a user's project in OQAT.
@@ -20,35 +21,46 @@ namespace Oqat.Model
 		/// <summary>
 		/// Name of the project.
 		/// </summary>
-        private string name
+        public string name
 		{
 			get;
-			set;
+			private set;
 		}
+        private int _unusedId = 0;
+        private object idLock;
+        public int unusedId {
+            get
+            {
+                lock(idLock) {
+                return ++_unusedId;
+                }
+            }
+        }
+        private Dictionary<int, SmartNode> smartIndex;
 
 		/// <summary>
 		/// Description of the project.
 		/// </summary>
-        private string description
+        public string description
 		{
 			get;
-			set;
+			private set;
 		}
 
 		/// <summary>
 		/// Path to the project folder.
 		/// </summary>
-        private string path_Project
+        public string path_Project
 		{
 			get;
-			set;
+			private set;
 		}
 
         /// <see cref="SmartNode"/>
         /// <summary>
         /// The tree structure of videos belonging to the project.
         /// </summary>
-        private SmartNode smartTree;
+        ObservableCollection<SmartNode> smartTree;
 
         /// <summary>
         /// 
@@ -57,28 +69,49 @@ namespace Oqat.Model
         /// <param name="path"></param> Path to the project folder.
         /// <param name="vidList"></param> List of videos belonging to the project.
         /// <param name="description"></param> Description of the project.
-		public Project(string name, string path, List<Video> vidList, string description)
+		public Project(string name, string path, string description, List<Video> vidList = null)
 		{
+            this.name = name;
+            this.path_Project = path;
+            this.description = description;
+            this.smartTree = new ObservableCollection<SmartNode>();
+            if ((vidList != null) & (vidList.Count > 0))
+            {
+                foreach (Video vid in vidList)
+                {
+                    addNode(vid, 0);
+                }
+            }
 		}
+        public void addNode(Video vid, int idFather) {
+            SmartNode newNode = new SmartNode(vid, unusedId, idFather);
+            smartIndex.Add(newNode.id, newNode);
+            smartTree.Add(newNode);
+        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="path"></param> Path to the project folder.
-		public Project(string path)
-		{
-		}
+        public void rmNode(int id, bool force)
+        {
+            SmartNode toRmNode;
+            smartIndex.TryGetValue(id, out toRmNode);
+            if (toRmNode != null)
+            {
+                SmartNode child;
+                smartIndex.TryGetValue(id, out child);
+                SmartNode father;
+                smartIndex.TryGetValue(child.idFather, out father);
+                if ((toRmNode.smartTree.Count > 0) & !force)
+                {
+                    foreach (SmartNode i in child.smartTree)
+                    {
+                        i.idFather = father.id;
+                    }
+                    father.smartTree.Concat(child.smartTree);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param> Name of the project.
-        /// <param name="path"></param> Path to the project folder.
-        /// <param name="description"></param> Description of the project.
-		public Project(string name, string path, string description)
-		{
-		}
-
+                }
+                father.smartTree.Remove(child);
+                smartIndex.Remove(id);
+            }
+        }
         /// <summary>
         /// Loads a saved project from the hard disk drive.
         /// </summary>
