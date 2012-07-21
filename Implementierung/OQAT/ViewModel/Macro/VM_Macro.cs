@@ -6,6 +6,7 @@
 	using System.Text;
 	using Oqat.ViewModel;
     using Oqat.PublicRessources.Model;
+    using Oqat.Model;
 
     /// <summary>
     /// This components provides the user a way to coordinate choosen filters or metrics (from the <see cref="PluginLists"/>)

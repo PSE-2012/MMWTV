@@ -16,6 +16,7 @@ using Oqat.PublicRessources.Model;
 using Oqat.PublicRessources.Plugin;
 using System.Drawing;
 
+using Oqat.Model;
 namespace Oqat.ViewModel
 {
     /// <summary>
@@ -23,9 +24,13 @@ namespace Oqat.ViewModel
     /// </summary>
     public partial class MainWindow : Window
     {
+        VM_ProjectExplorer vmPrExp;
         public MainWindow()
         {
             InitializeComponent();
+            vmPrExp = new VM_ProjectExplorer(new Project("myProject", "noRealPath", "No Description either"), stackPanel);
+            
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
 ﻿using Oqat.PublicRessources.Model;
+using Oqat.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Oqat.PublicRessources.Plugin;

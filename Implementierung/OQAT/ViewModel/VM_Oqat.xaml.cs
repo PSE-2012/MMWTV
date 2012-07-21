@@ -82,7 +82,6 @@ namespace Oqat.ViewModel
         /// </summary>
         private void initProjectExplorer()
         {
-            throw new System.NotImplementedException();
         }
 
         public VM_Oqat()
