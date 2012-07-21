@@ -32,7 +32,7 @@ namespace Oqat.Model
             get
             {
                 lock(idLock) {
-                return ++_unusedId;
+                return _unusedId++;
                 }
             }
         }
@@ -60,7 +60,11 @@ namespace Oqat.Model
         /// <summary>
         /// The tree structure of videos belonging to the project.
         /// </summary>
-        ObservableCollection<SmartNode> smartTree;
+        internal ObservableCollection<SmartNode> smartTree
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// 
@@ -71,11 +75,14 @@ namespace Oqat.Model
         /// <param name="description"></param> Description of the project.
 		public Project(string name, string path, string description, List<Video> vidList = null)
 		{
+            this.idLock = new Object();
             this.name = name;
             this.path_Project = path;
             this.description = description;
             this.smartTree = new ObservableCollection<SmartNode>();
-            if ((vidList != null) & (vidList.Count > 0))
+            this.smartIndex = new Dictionary<int, SmartNode>();
+
+            if ((vidList != null) && (vidList.Count > 0))
             {
                 foreach (Video vid in vidList)
                 {
@@ -84,9 +91,18 @@ namespace Oqat.Model
             }
 		}
         public void addNode(Video vid, int idFather) {
-            SmartNode newNode = new SmartNode(vid, unusedId, idFather);
-            smartIndex.Add(newNode.id, newNode);
-            smartTree.Add(newNode);
+            SmartNode newChild = new SmartNode(vid, unusedId, idFather);
+            smartIndex.Add(newChild.id, newChild);
+            SmartNode father;
+            if (idFather >= 0)
+            {
+                smartIndex.TryGetValue(idFather, out father);
+                father.smartTree.Add(newChild);
+            }
+            else
+            {
+                smartTree.Add(newChild);
+            }
         }
 
         public void rmNode(int id, bool force)

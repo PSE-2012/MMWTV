@@ -18,12 +18,16 @@ namespace Oqat.Model
     class SmartNode
     {
 
-        public ObservableCollection<SmartNode> smartTree;
+        public ObservableCollection<SmartNode> smartTree
+        {
+            get;
+            private set;
+        }
         public string name
         {
             get
             {
-                return Path.GetFileNameWithoutExtension(video.vidPath);
+               return Path.GetFileNameWithoutExtension(video.vidPath);
             }
         }
         public int idFather;
@@ -43,6 +47,7 @@ namespace Oqat.Model
         /// <param name="vidPath"></param>
         public SmartNode(Video vid, int id, int idFather)
         {
+            this.smartTree = new ObservableCollection<SmartNode>();
             this.video = vid;
             this.id = id;
             this.idFather = idFather;
@@ -58,6 +63,11 @@ namespace Oqat.Model
             this.id = id;
             this.idFather = idFather;
             video = new Video(isAnalysis, vidPath, vidInfo, processedBy);
+        }
+
+        public override string ToString()
+        {
+            return name;
         }
     }
 }

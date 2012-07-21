@@ -8,37 +8,15 @@
     using Oqat.Model;
     using Oqat.PublicRessources.Model;
     using System.Windows.Controls;
+using System.Collections.ObjectModel;
 
     /// <summary>
     /// This class is mainly responsible to sync the SmartTree(GUI) with the SmartNodes (Model) and
     /// raising the right events if user wants to delete/play a video.
     /// </summary>
-	public class VM_ProjectExplorer
+	public partial class VM_ProjectExplorer : UserControl
 	{
-		private  TabControl projectExplorer
-		{
-			get;
-			set;
-		}
 
-        /// <summary>
-        /// All videos (and analysis results) are listed in here.
-        /// The contents are bound to the SmartNode of the current project
-        /// </summary>
-		private TreeView smartTree
-		{
-			get;
-			set;
-		}
-
-        /// <summary>
-        /// This component is a ordinary file explorer and can be used to import Videos.
-        /// </summary>
-		private TreeView fileExplorer
-		{
-			get;
-			set;
-		}
 
         /// <summary>
         /// Reference to the currently active project.
@@ -49,15 +27,22 @@
 			set;
 		}
 
-
-		private PluginManager pluginManager
-		{
-			get;
-			set;
-		}
-
 		public VM_ProjectExplorer(Project project, Panel parent)
 		{
+            InitializeComponent();
+            this.project = project;
+            myTreeView.DataContext = project.smartTree;
+            parent.Children.Add(this);
+            //////
+            this.project.addNode(new Video(false, "someOther", null), -1);
+            this.project.addNode(new Video(false, "andOneMore", null), 0);
+            this.project.addNode(new Video(false, "someOther", null), -1);
+            this.project.addNode(new Video(false, "andOneMore", null), 1);
+            this.project.addNode(new Video(false, "someOther", null), -1);
+            this.project.addNode(new Video(false, "andOneMore", null), 2);
+
+
+
 		}
 
         /// <summary>
