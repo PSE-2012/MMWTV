@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using Oqat.PublicRessources.Model;
 using Oqat.PublicRessources.Plugin;
 
-namespace Oqat
+namespace Oqat.ViewModel
 {
     /// <summary>
     /// Dialog to query user for information needed to add a video file to the project.

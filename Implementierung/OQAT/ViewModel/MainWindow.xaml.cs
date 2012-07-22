@@ -30,8 +30,8 @@ namespace Oqat.ViewModel
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            /*
-             * Code crashes when PP_Player is in Plugins-Folder - uncomment to test it
+           
+            
 
 
             //path selected from DateiExplorer, pass it on
@@ -47,7 +47,7 @@ namespace Oqat.ViewModel
 
 
 
-
+            
             //display in PP_Player
             VideoEventArgs vidargs = new Oqat.PublicRessources.Model.VideoEventArgs(importedVideo, false);
 
@@ -58,9 +58,7 @@ namespace Oqat.ViewModel
             
             // player.unloadVideo();
             // player.onFlushPresentationPlugins(this, null);
-             
             
-            */
         }
 
 

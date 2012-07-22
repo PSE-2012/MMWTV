@@ -6,12 +6,14 @@
 	using System.Text;
 
     /// <remarks>vlcht wäre es praktisches das Teil als Klasse zu implementieren</remarks>
-	public interface IVideoInfo 
+	public interface IVideoInfo
 	{
         string videoCodecName { get;set; }
         int frameCount { get; set; }
         int width { get; set; }
         int height { get; set; }
+
+        bool Equals(object o);
 	}
 }
 

@@ -86,13 +86,44 @@ namespace PS_YuvVideoHandler
         {
             get
             {
-                throw new NotImplementedException();
+                return "YUV";
             }
             set
             {
                 throw new NotImplementedException();
             }
         }
+
+
+
+
+
+
+        public override bool Equals(System.Object obj)
+        {
+            // If parameter is null return false.
+            if (obj == null)
+            {
+                return false;
+            }
+
+            // If parameter cannot be cast to Video return false.
+            YuvVideoInfo p = obj as YuvVideoInfo;
+            if ((System.Object)p == null)
+            {
+                return false;
+            }
+
+            // Return true if the fields match:
+            return (this._yuvFormat == p._yuvFormat
+                && this._width == p._width && this._height == p._height);
+        }
+
+        public override int GetHashCode()
+        {
+            return (this.width ^ this.height << 4) | (int)this.yuvFormat;
+        }
+
     }
 }
 
