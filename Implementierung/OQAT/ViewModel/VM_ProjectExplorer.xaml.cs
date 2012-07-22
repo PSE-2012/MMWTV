@@ -33,16 +33,6 @@ using System.Collections.ObjectModel;
             this.project = project;
             myTreeView.DataContext = project.smartTree;
             parent.Children.Add(this);
-            //////
-            this.project.addNode(new Video(false, "someOther", null), -1);
-            this.project.addNode(new Video(false, "andOneMore", null), 0);
-            this.project.addNode(new Video(false, "someOther", null), -1);
-            this.project.addNode(new Video(false, "andOneMore", null), 1);
-            this.project.addNode(new Video(false, "someOther", null), -1);
-            this.project.addNode(new Video(false, "andOneMore", null), 2);
-
-
-
 		}
 
         /// <summary>

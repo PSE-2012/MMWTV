@@ -63,6 +63,9 @@
     <Compile Include="Model\Video.cs" />
     <Compile Include="ViewModel\EntryEventArgs.cs" />
     <Compile Include="ViewModel\ExtraResourceEventArgs.cs" />
+    <Compile Include="ViewModel\VM_Welcome.xaml.cs">
+      <DependentUpon>VM_Welcome.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\Macro\Macro.cs" />
     <Compile Include="ViewModel\Macro\PF_MacroFilter.cs" />
     <Compile Include="ViewModel\Macro\PM_MacroMetric.cs" />
@@ -80,26 +83,27 @@
     <Compile Include="ViewModel\VM_ProjectExplorer.xaml.cs">
       <DependentUpon>VM_ProjectExplorer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\VM_ProjectOpenDialog.cs" />
+    <Compile Include="ViewModel\VM_ProjectOpenDialog.xaml.cs" >
+      <DependentUpon>VM_ProjectOpenDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\VM_VidImportOptionsDialog.xaml.cs">
       <DependentUpon>VM_VidImportOptionsDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\VM_Welcome.cs" />
     <Compile Include="ViewModel\VM_Oqat.xaml.cs">
       <DependentUpon>VM_Oqat.xaml</DependentUpon>
     </Compile>
-    <Page Include="ViewModel\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="OqatApp.xaml.cs">
       <DependentUpon>OqatApp.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModel\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="ViewModel\VM_ProjectOpenDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewModel\VM_Welcome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ViewModel\VM_ProjectExplorer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
