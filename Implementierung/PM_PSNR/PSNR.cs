@@ -3,8 +3,8 @@
 namespace PM_PSNR
 {
     using Oqat.PublicRessources.Plugin;
-    using Plugins;
-    using Plugins.Metric;
+
+
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -15,13 +15,13 @@ namespace PM_PSNR
 
 
     [ExportMetadata("namePlugin", "PM_PSNR")]
-    [ExportMetadata("type", PluginType.Metric)]
+    [ExportMetadata("type", PluginType.IMetric)]
     [Export(typeof(IPlugin))]
 
 	public class PSNR :  IMetricOqat
 	{
         private string _namePlugin = "PM_PSNR";
-        private PluginType _type = PluginType.Metric;
+        private PluginType _type = PluginType.IMetric;
 
         public AnalysisInfo analyse(System.Drawing.Bitmap frameRef, System.Drawing.Bitmap frameProc)
         {
@@ -100,7 +100,7 @@ namespace PM_PSNR
             }
         }
 
-        public void setParentControll(System.Windows.Controls.Panel parent)
+        public void setParentControl(System.Windows.Controls.Panel parent)
         {
            
         }
