@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 using Oqat.ViewModel.Macro;
+using Oqat.Model;
 namespace Oqat.ViewModel
 {
     /// <summary>
@@ -82,18 +83,25 @@ namespace Oqat.ViewModel
         /// </summary>
         private void initProjectExplorer()
         {
-            throw new System.NotImplementedException();
+            var tmpPr = new Project("testProject", "C:\\Users\\Public\\Videos\\Sample Videos\\someProject.proj", "description");
+            tmpPr.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\firstVideo.avi", null), -1);
+            tmpPr.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\secondVideo.avi", null), -1);
+            tmpPr.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\childOfFirst.avi", null), 0);
+            tmpPr.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\childOfSecond.avi", null), 1);
+            this.vM_ProjectExplorer = new VM_ProjectExplorer(tmpPr, projectExplorerPanel);
+       
         }
 
         public VM_Oqat()
         {
+            InitializeComponent();
             // PluginManager is initializet by OqatApp
-            initMenu();
-            initWelcome();
-            initProjectExplorer();
-            initPluginLists();
-            initPresentation();
-            initMacro();
+          //  initMenu();
+          //  initWelcome();
+          //  initProjectExplorer();
+          //  initPluginLists();
+          //  initPresentation();
+           // initMacro();
         }
 
         /// <summary>

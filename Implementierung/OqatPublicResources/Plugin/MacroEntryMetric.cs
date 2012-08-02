@@ -15,7 +15,7 @@
         /// <summary>
         /// Reference video used for this particular analysis.
         /// </summary>
-		private Video vidRef
+		private IVideo vidRef
 		{
 			get;
 			set;
@@ -24,7 +24,7 @@
         /// <summary>
         /// Processed video used for this particular analysis.
         /// </summary>
-		private Video vidProc
+		private IVideo vidProc
 		{
 			get;
 			set;

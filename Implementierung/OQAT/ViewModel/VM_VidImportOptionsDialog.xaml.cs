@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using Oqat.PublicRessources.Model;
+using Oqat.Model;
 using Oqat.PublicRessources.Plugin;
 
 namespace Oqat.ViewModel
