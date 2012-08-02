@@ -121,9 +121,11 @@
                                 /// Maybe set on a ignoreList ( not the Blacklist)
                                 raiseEvent(EventType.info, new ErrorEventArgs( new Exception("Uncompatible Plugin" + 
                                " was found in the Pluginfolder: " + file, exc)));
-                                break;
+                                continue;
                             }
+                            
                             List<ErrorEventArgs> tmpList = new List<ErrorEventArgs>();
+                           
                             try
                             {
 
@@ -276,6 +278,7 @@
                 case EventType.info:
                     try
                     {
+                        if (OqatInfo != null)
                         OqatInfo(this, (ErrorEventArgs)e);
                     }
                     catch (Exception exc)
@@ -286,6 +289,7 @@
                 case EventType.panic:
                     try
                     {
+                        if (OqatPanic != null)
                         OqatPanic(this, (ErrorEventArgs)e);
                     }
                     catch (Exception exc)
@@ -296,6 +300,7 @@
                 case EventType.failure:
                     try
                     {
+                        if (OqatFailure != null)
                         OqatFailure(this, (ErrorEventArgs)e);
                     }
                     catch (Exception exc)
@@ -306,6 +311,7 @@
                 case EventType.pluginTableChanged:
                     try
                     {
+                        if (OqatPluginTableChanged != null)
                         OqatPluginTableChanged(this, (EntryEventArgs)e);
                     }
                     catch (Exception exc)
