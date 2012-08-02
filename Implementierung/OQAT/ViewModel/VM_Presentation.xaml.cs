@@ -71,12 +71,6 @@ namespace Oqat.ViewModel
             this.playerProc = PluginManager.pluginManager.getPlugin<IPresentation>("VideoPlayer");
             this.playerRef =(IPresentation) this.playerProc.Clone();
 
-            
-            
-            
-            //player.loadVideo(this, vidargs);
-            //player.setParentControl(this.gridPlayer);
-
         }
 
 
@@ -143,17 +137,7 @@ namespace Oqat.ViewModel
             }
 		}
 
-        /// <summary>
-        /// Corresponding event is called from whithin VM_Presentation ( a
-        /// droppanel or something simmilar) if user chooses some extra resources
-        /// to visualise.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void onExtraResourceSelected(object sender, EventArgs e) 
-        { 
         
-        }
 
         /// <summary>
         /// Will be called if the view was toggled. This methode
@@ -177,9 +161,23 @@ namespace Oqat.ViewModel
             this.mainGrid.Children.Clear();
 		}
 
-		private void showExtraResourceList()
-		{
-			throw new System.NotImplementedException();
-		}
+
+        private void showExtraResourceList()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Corresponding event is called from whithin VM_Presentation ( a
+        /// droppanel or something simmilar) if user chooses some extra resources
+        /// to visualise.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void onExtraResourceSelected(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
