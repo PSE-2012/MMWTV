@@ -7,6 +7,7 @@
 
     using Oqat.PublicRessources.Plugin;
     using Oqat.PublicRessources.Model;
+    using Oqat.Model;
     using System.Windows.Controls;
 
     /// <summary>
