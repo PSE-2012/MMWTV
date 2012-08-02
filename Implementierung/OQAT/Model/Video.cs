@@ -195,7 +195,6 @@
             }
 
             return handler;
-            return null;
 		}
 
 

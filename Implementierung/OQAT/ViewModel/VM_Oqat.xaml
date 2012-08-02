@@ -4,7 +4,11 @@
         Title="Objective Quality Assessment Toolkit" Height="768" Width="1024">
     <DockPanel>
         <Grid x:Name="menuPanel" DockPanel.Dock="Top"/>
-        <Grid x:Name="projectExplorerPanel" DockPanel.Dock="Left"/>
+        <Grid x:Name="projectExplorerPanel" DockPanel.Dock="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
         <Grid x:Name="presentationPanel" DockPanel.Dock="Top"/>
         <Grid x:Name="pluginListsPanel" DockPanel.Dock="Right"/>
     </DockPanel>
