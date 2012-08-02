@@ -313,8 +313,42 @@
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
+                case EventType.videoLoad:
+                    try
+                    {
+                        videoLoad(this, (VideoEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.toggleView:
+                    try
+                    {
+                        videoLoad(this, (VideoEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
             }
         }
+
+
+        internal delegate void OqatErrorHandler(object sender, ErrorEventArgs e);
+        internal static event OqatErrorHandler OqatInfo;
+        internal static event OqatErrorHandler OqatPanic;
+        internal static event OqatErrorHandler OqatFailure;
+        internal delegate void notificationHandler(object sender, EntryEventArgs e);
+        internal static event notificationHandler OqatPluginTableChanged;
+
+        internal delegate void videoLoadHandler(object sender, VideoEventArgs e);
+        internal static event videoLoadHandler videoLoad;
+        internal delegate void toggleViewHandler(object sender, ViewTypeEventArgs e);
+        internal static event toggleViewHandler toggleView;
+
 
 
 
@@ -442,14 +476,6 @@
                                     where (i.Metadata.type == type) & !blackList.ContainsKey(i.Metadata.namePlugin)
                                     select i.Metadata.namePlugin);
         }
-
-
-        internal delegate void OqatErrorHandler(object sender, ErrorEventArgs e);
-        internal delegate void notificationHandler(object sender, EntryEventArgs e);
-        internal static event OqatErrorHandler OqatInfo;
-        internal static event OqatErrorHandler OqatPanic;
-        internal static event OqatErrorHandler OqatFailure;
-        internal static event notificationHandler OqatPluginTableChanged;
 
 
         /// <summary>

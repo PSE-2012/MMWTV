@@ -23,15 +23,21 @@ namespace Oqat.ViewModel
     /// </summary>
     public partial class MainWindow : Window
     {
+        VM_Presentation pres;
         public MainWindow()
         {
             InitializeComponent();
+
+            //pres = new VM_Presentation();
+            //this.gridPlayer.Children.Add(pres);
+
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           
-            
+
+            PluginManager p = PluginManager.pluginManager;
 
 
             //path selected from DateiExplorer, pass it on
@@ -47,7 +53,7 @@ namespace Oqat.ViewModel
 
 
 
-            
+            /*
             //display in PP_Player
             VideoEventArgs vidargs = new Oqat.PublicRessources.Model.VideoEventArgs(importedVideo, false);
 
@@ -58,7 +64,7 @@ namespace Oqat.ViewModel
             
             // player.unloadVideo();
             // player.onFlushPresentationPlugins(this, null);
-            
+            */
         }
 
 

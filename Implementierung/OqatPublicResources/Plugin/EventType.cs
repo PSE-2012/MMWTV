@@ -55,5 +55,10 @@ namespace Oqat.PublicRessources.Plugin
         /// Will be raised if PluginManager refreshed(added or deleted some entries) pluginTable.
         /// </summary>
         pluginTableChanged,
+
+        /// <summary>
+        /// Will be raised if the viewType is changed in order to adapt the presentation.
+        /// </summary>
+        toggleView,
 	}
 }
