@@ -307,7 +307,7 @@ namespace PS_YuvVideoHandler
                 fs.Read(data, 0, this.frameSize * bufferSizeFrames);
                 fs.Close();
             }
-            catch (Exception e) 
+            catch (Exception) 
             {
                 return false; 
             }
