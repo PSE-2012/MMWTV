@@ -19,7 +19,7 @@ namespace PP_Presentation
     /// This class is responsible for loading a video to play from disk and setting up a container
     /// where the video can be played. It can be exported as a plugin.
     /// </summary>
-    [ExportMetadata("namePlugin", "VideoPlayer")]
+    [ExportMetadata("namePlugin", "PP_Player")]
     [ExportMetadata("type", PluginType.IPresentation)]
     [Export(typeof(IPlugin))]
 	public class PP_Player : IPresentation, ICloneable
