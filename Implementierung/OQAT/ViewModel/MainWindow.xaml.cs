@@ -23,16 +23,19 @@ namespace Oqat.ViewModel
     /// </summary>
     public partial class MainWindow : Window
     {
+        VM_Presentation pres;
         public MainWindow()
         {
             InitializeComponent();
+
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           
-            
+            PluginManager p = PluginManager.pluginManager;
 
+            pres = new VM_Presentation(this.gridPlayer);
 
             //path selected from DateiExplorer, pass it on
             Video importedVideo = new Video(false, "C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/akiyo_qcif.yuv", null);
@@ -47,7 +50,7 @@ namespace Oqat.ViewModel
 
 
 
-            
+            /*
             //display in PP_Player
             VideoEventArgs vidargs = new Oqat.PublicRessources.Model.VideoEventArgs(importedVideo, false);
 
@@ -58,7 +61,7 @@ namespace Oqat.ViewModel
             
             // player.unloadVideo();
             // player.onFlushPresentationPlugins(this, null);
-            
+            */
         }
 
 

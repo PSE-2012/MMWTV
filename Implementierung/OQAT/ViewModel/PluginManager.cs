@@ -121,7 +121,7 @@
                                 /// Maybe set on a ignoreList ( not the Blacklist)
                                 raiseEvent(EventType.info, new ErrorEventArgs( new Exception("Uncompatible Plugin" + 
                                " was found in the Pluginfolder: " + file, exc)));
-                                break;
+                                continue;
                             }
                             List<ErrorEventArgs> tmpList = new List<ErrorEventArgs>();
                             try
@@ -276,7 +276,8 @@
                 case EventType.info:
                     try
                     {
-                        OqatInfo(this, (ErrorEventArgs)e);
+                        if (OqatInfo != null)
+                            OqatInfo(this, (ErrorEventArgs)e);
                     }
                     catch (Exception exc)
                     {
@@ -286,7 +287,8 @@
                 case EventType.panic:
                     try
                     {
-                        OqatPanic(this, (ErrorEventArgs)e);
+                        if (OqatPanic != null)
+                            OqatPanic(this, (ErrorEventArgs)e);
                     }
                     catch (Exception exc)
                     {
@@ -296,7 +298,8 @@
                 case EventType.failure:
                     try
                     {
-                        OqatFailure(this, (ErrorEventArgs)e);
+                        if (OqatFailure != null)
+                            OqatFailure(this, (ErrorEventArgs)e);
                     }
                     catch (Exception exc)
                     {
@@ -306,7 +309,30 @@
                 case EventType.pluginTableChanged:
                     try
                     {
-                        OqatPluginTableChanged(this, (EntryEventArgs)e);
+                        if (OqatPluginTableChanged != null)
+                            OqatPluginTableChanged(this, (EntryEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.videoLoad:
+                    try
+                    {
+                        if (videoLoad != null)
+                            videoLoad(this, (VideoEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.toggleView:
+                    try
+                    {
+                        if (toggleView != null)
+                            toggleView(this, (ViewTypeEventArgs)e);
                     }
                     catch (Exception exc)
                     {
@@ -315,6 +341,20 @@
                     break;
             }
         }
+
+
+        internal delegate void OqatErrorHandler(object sender, ErrorEventArgs e);
+        internal static event OqatErrorHandler OqatInfo;
+        internal static event OqatErrorHandler OqatPanic;
+        internal static event OqatErrorHandler OqatFailure;
+        internal delegate void notificationHandler(object sender, EntryEventArgs e);
+        internal static event notificationHandler OqatPluginTableChanged;
+
+        internal delegate void videoLoadHandler(object sender, VideoEventArgs e);
+        internal static event videoLoadHandler videoLoad;
+        internal delegate void toggleViewHandler(object sender, ViewTypeEventArgs e);
+        internal static event toggleViewHandler toggleView;
+
 
 
 
@@ -442,14 +482,6 @@
                                     where (i.Metadata.type == type) & !blackList.ContainsKey(i.Metadata.namePlugin)
                                     select i.Metadata.namePlugin);
         }
-
-
-        internal delegate void OqatErrorHandler(object sender, ErrorEventArgs e);
-        internal delegate void notificationHandler(object sender, EntryEventArgs e);
-        internal static event OqatErrorHandler OqatInfo;
-        internal static event OqatErrorHandler OqatPanic;
-        internal static event OqatErrorHandler OqatFailure;
-        internal static event notificationHandler OqatPluginTableChanged;
 
 
         /// <summary>

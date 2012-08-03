@@ -17,6 +17,6 @@
 		IPresentation,
 		IVideoHandler,
 		IMacro,
-        IPluign,
+        IPlugin,
 	}
 }

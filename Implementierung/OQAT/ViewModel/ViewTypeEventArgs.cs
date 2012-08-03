@@ -18,6 +18,11 @@ namespace Oqat.ViewModel
 			set;
 		}
 
+        public ViewTypeEventArgs(ViewType type)
+        {
+            this.viewType = type;
+        }
+
 	}
 }
 

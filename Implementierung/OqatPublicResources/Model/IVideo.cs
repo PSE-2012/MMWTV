@@ -70,19 +70,5 @@ namespace Oqat.PublicRessources.Model
 		IVideoHandler getVideoHandler();
 
 
-        /// <summary>
-        /// Returns a memento that contains the current state of this video object
-        /// in order to save this and restore it later.
-        /// </summary>
-        /// <returns>a memento that contains the current state of this video object</returns>
-		Memento getMemento();
-
-        /// <summary>
-        /// Sets the state of this video object to the one saved in the given memento.
-        /// </summary>
-        /// <exception cref="ArgumentException">Throws ArgumentException if the memento is not a memento of a video object.</exception>
-        /// <param name="memento">a memento of a video instance</param>
-		void setMemento(Memento memento);
-
     }
 }
