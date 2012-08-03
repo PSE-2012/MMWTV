@@ -59,17 +59,20 @@ namespace Oqat.ViewModel
 
 
 
-        public VM_Presentation()
+        public VM_Presentation(Panel parent)
         {
             InitializeComponent();
+            parent.Children.Add(this);
+
+            PluginManager.toggleView += this.onToggleView;
+            PluginManager.videoLoad += this.onVideoLoad;
 
 
-            //get presentationPlugins from pluginmanager
 
             //initializing presentationPlugins
-
-            this.playerProc = PluginManager.pluginManager.getPlugin<IPresentation>("VideoPlayer");
+            this.playerProc = PluginManager.pluginManager.getPlugin<IPresentation>("PP_Player");
             this.playerRef =(IPresentation) this.playerProc.Clone();
+            this.diagramm = PluginManager.pluginManager.getPlugin<IPresentation>("PP_Diagram");
 
         }
 
@@ -147,10 +150,6 @@ namespace Oqat.ViewModel
         /// <param name="e"></param>
         private void onFlushPresentationPlugins(object sender, EventArgs e) { }
 
-		public VM_Presentation(Panel parent)
-		{
-            parent.Children.Add(this);
-		}
 
         /// <summary>
         /// Can be used to remove presentation plugins (e.g. PresentationType == Custom) from the VM_Presentation

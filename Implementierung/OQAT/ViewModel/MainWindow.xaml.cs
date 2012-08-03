@@ -28,17 +28,14 @@ namespace Oqat.ViewModel
         {
             InitializeComponent();
 
-            //pres = new VM_Presentation();
-            //this.gridPlayer.Children.Add(pres);
-
             
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
             PluginManager p = PluginManager.pluginManager;
 
+            pres = new VM_Presentation(this.gridPlayer);
 
             //path selected from DateiExplorer, pass it on
             Video importedVideo = new Video(false, "C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/akiyo_qcif.yuv", null);
