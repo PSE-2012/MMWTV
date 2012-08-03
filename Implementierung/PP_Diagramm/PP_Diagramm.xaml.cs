@@ -27,7 +27,7 @@ namespace PP_Diagramm
     /// Interaktionslogik für PP_Diagramm.xaml
     /// </summary>
     /// 
-    [ExportMetadata("namePlugin", "PP_Diagramm")]
+    [ExportMetadata("namePlugin", "PP_Diagram")]
     [ExportMetadata("type", PluginType.IPresentation)]
     [Export(typeof(IPlugin))]
   
@@ -36,6 +36,12 @@ namespace PP_Diagramm
         private PresentationPluginType _presentationType=PresentationPluginType.Diagram;
         private string _namePlugin = "PP_Diagramm";
         private PluginType _type = PluginType.IPresentation;
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+
 
         public Diagramm()
         {
