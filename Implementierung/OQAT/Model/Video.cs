@@ -29,11 +29,10 @@
         /// </summary>
         /// <param name="isAnalysis">true if the video is the result of an analysis.</param>
         /// <param name="vidPath">filepath to the video</param>
-        /// <param name="vidInfo">videoInfo containing relevant information about the video. 
         /// This can be created by the VideoHandler using user input to its propertiesView.</param>
         /// <remarks>This contructor defaults processedBy to an empty list.</remarks>
         public Video(bool isAnalysis, string vidPath, IVideoInfo vidInfo)
-            : this(isAnalysis, vidPath, vidInfo, new List<MacroEntry>())
+            : this(isAnalysis, vidPath, new List<MacroEntry>())
         {
         }
 
@@ -42,10 +41,9 @@
         /// </summary>
         /// <param name="isAnalysis">true if the video is the result of an analysis.</param>
         /// <param name="vidPath">filepath to the video</param>
-        /// <param name="vidInfo">videoInfo containing relevant information about the video. 
         /// This can be created by the VideoHandler using user input to its propertiesView.</param>
         /// <param name="processedBy">a list of MacroEntries describing through which operations this video was created.</param>
-        public Video(bool isAnalysis, string vidPath, IVideoInfo vidInfo, List<MacroEntry> processedBy)
+        public Video(bool isAnalysis, string vidPath, List<MacroEntry> processedBy)
         {
             this.isAnalysis = isAnalysis;
             this.vidPath = vidPath;
@@ -170,7 +168,14 @@
 		public event videoObjectCreatedEventHandler videoObjectCreated;
 
 
-
+        private IVideoHandler _handler;
+        internal IVideoHandler handler
+        {
+            get
+            {
+                return (_handler != null) ? _handler : getVideoHandler();
+            }
+        }
 
 
         /// <summary>
@@ -178,23 +183,26 @@
         /// e.g. a YuvVideoHandnler to process the video file if it is of yuv-format.
         /// </summary>
         /// <returns>a video handler to acess the video frames.</returns>
-		public virtual IVideoHandler getVideoHandler()
+		private virtual IVideoHandler getVideoHandler()
 		{
 
             PluginManager pm = PluginManager.pluginManager;
 
             string handlerPluginName = Path.GetExtension(this.vidPath).ToLower().TrimStart(new char[] { '.' }) + "VideoHandler";
 
-            IVideoHandler handler = pm.getPlugin<IVideoHandler>(handlerPluginName);
-            if (handler == null) return null;
+            _handler = pm.getPlugin<IVideoHandler>(handlerPluginName);
+            if (_handler == null)
+                throw new Exception("Cant process given video file format.");
+                //PluginManager.pluginManager.raiseEvent(EventType.panic, 
+                //    new ErrorEventArgs(new Exception("No such ")));
 
-            handler = handler.createVideoHandlerInstance();
+            _handler = handler.createVideoHandlerInstance();
             if (this.vidInfo != null)
             {
-                handler.setVideo(this.vidPath, this.vidInfo);
+                _handler.setVideo(this.vidPath, this.vidInfo);
             }
 
-            return handler;
+            return _handler;
 		}
 
 
