@@ -54,8 +54,8 @@ namespace Oqat.ViewModel
         /// </summary>
         ViewType vtype;
 
-        Video videoProc;
-        Video videoRef;
+        IVideo videoProc;
+        IVideo videoRef;
 
 
 
@@ -68,12 +68,13 @@ namespace Oqat.ViewModel
             PluginManager.videoLoad += this.onVideoLoad;
 
 
-
+            /*
+             * Crashing in pluginManager!
             //initializing presentationPlugins
             this.playerProc = PluginManager.pluginManager.getPlugin<IPresentation>("PP_Player");
             this.playerRef =(IPresentation) this.playerProc.Clone();
             this.diagramm = PluginManager.pluginManager.getPlugin<IPresentation>("PP_Diagram");
-
+            */
         }
 
 
@@ -94,12 +95,12 @@ namespace Oqat.ViewModel
             {
                 this.onToggleView(this, new ViewTypeEventArgs(ViewType.MetricView));
 
-                this.videoRef =(Video) e.video;
+                this.videoRef =(IVideo) e.video;
                 this.playerRef.loadVideo(this, e);
             }
             else
             {
-                this.videoProc = (Video)e.video;
+                this.videoProc = (IVideo)e.video;
                 this.playerProc.loadVideo(this, e);
             }
 

@@ -100,7 +100,7 @@ namespace Oqat.ViewModel
           //  initWelcome();
           //  initProjectExplorer();
           //  initPluginLists();
-          //  initPresentation();
+            initPresentation();
            // initMacro();
         }
 
@@ -117,7 +117,40 @@ namespace Oqat.ViewModel
         /// </summary>
         private void initPresentation()
         {
-            throw new System.NotImplementedException();
+
+            this.vM_presentation = new VM_Presentation(this.presentationPanel);
+
+
+            /*
+             * Test loading a video
+             * 
+             * 
+            //path selected from DateiExplorer, pass it on
+            Video importedVideo = new Video(false, "C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/akiyo_qcif.yuv", null);
+            VM_VidImportOptionsDialog vidImport = new VM_VidImportOptionsDialog(importedVideo);
+
+            bool? res = vidImport.ShowDialog();
+            if (!(res.HasValue && res.Value))
+            {
+                //canceled import
+                return;
+            }
+            
+            
+            //display in PP_Player
+            VideoEventArgs vidargs = new Oqat.PublicRessources.Model.VideoEventArgs(importedVideo, false);
+
+            //initializing example PP_Player
+            IPresentation player = PluginManager.pluginManager.getPlugin<IPresentation>("VideoPlayer");
+            player.loadVideo(this, vidargs);
+            player.setParentControl(this.gridPlayer);
+            
+            // player.unloadVideo();
+            // player.onFlushPresentationPlugins(this, null);
+            */
+
+
+
         }
 
         /// <summary>
