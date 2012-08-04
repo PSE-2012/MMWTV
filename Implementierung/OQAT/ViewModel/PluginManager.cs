@@ -458,7 +458,6 @@
         /// <returns>A instance of namePlugin</returns>
         public virtual T getPlugin<T>(string namePlugin)
         {
-
             var plToRet = from i in pluginTable
                           where i.Metadata.namePlugin.Equals(namePlugin) &
                                     typeof(Oqat.PublicRessources.Plugin.IPlugin).Assembly.GetType("Oqat.PublicRessources.Plugin."
