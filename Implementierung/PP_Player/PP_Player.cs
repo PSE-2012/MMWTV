@@ -1,6 +1,4 @@
-﻿//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-namespace PP_Presentation
+﻿namespace PP_Presentation
 {
 	using AForge.Controls;
 	using Oqat.PublicRessources.Plugin;
@@ -35,7 +33,7 @@ namespace PP_Presentation
 
         public object Clone()
         {
-            return this.MemberwiseClone();
+            return new PP_Player();
         }
 
         public PP_Player()

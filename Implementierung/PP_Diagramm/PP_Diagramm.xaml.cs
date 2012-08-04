@@ -106,6 +106,7 @@ namespace PP_Diagramm
 
         }
 
+
         public Dictionary<EventType, List<Delegate>> getEventHandlers()
         {
             Dictionary<EventType, List<Delegate>> handlers = new Dictionary<EventType,List<Delegate>>();

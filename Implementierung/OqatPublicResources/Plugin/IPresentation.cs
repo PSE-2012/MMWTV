@@ -16,7 +16,7 @@
         /// <summary>
         /// See <see cref="PresentationPluginType"/> for a complete list.
         /// </summary>
-		PresentationPluginType presentationType { get;set; }
+		PresentationPluginType presentationType { get; }
 
         /// <summary>
         /// This method will be called if a new Video should be loaded into the plugin.
