@@ -462,13 +462,13 @@
             var plToRet = from i in pluginTable
                           where i.Metadata.namePlugin.Equals(namePlugin) &
                                     typeof(Oqat.PublicRessources.Plugin.IPlugin).Assembly.GetType("Oqat.PublicRessources.Plugin."
-                                    + i.Metadata.type.ToString()).Equals(typeof(T)) &
+                                    + i.Metadata.type.ToString()).Equals(typeof( T)) &
                                     !blackList.ContainsKey(i.Metadata.namePlugin)
                           select i.Value;
             if (plToRet.FirstOrDefault() != null)
-                return (T)plToRet.FirstOrDefault();
+                return (T )plToRet.FirstOrDefault();
             else
-                return default(T);
+                return default(T );
         }
 
         /// <summary>

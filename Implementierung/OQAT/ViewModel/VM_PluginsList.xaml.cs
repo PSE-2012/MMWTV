@@ -41,6 +41,10 @@ namespace Oqat.ViewModel
             this.filterList = new List<PluginViewModel>();
             this.metricList = new List<PluginViewModel>();
 
+
+
+
+            /*
             foreach (string name in PluginManager.pluginManager.getPluginNames(PluginType.IFilterOqat))
             {
                 filterList.Add(new PluginViewModel(name));
@@ -50,6 +54,7 @@ namespace Oqat.ViewModel
             {
                 metricList.Add(new PluginViewModel(name));
             }
+            */
         }
 		
 
