@@ -182,5 +182,21 @@ namespace Oqat.ViewModel
             throw new System.NotImplementedException();
         }
 
+        private void MenuItem1_Click(object sender, RoutedEventArgs e)
+        {
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
+                new ViewTypeEventArgs(ViewType.FilterView));
+        }
+        private void MenuItem2_Click(object sender, RoutedEventArgs e)
+        {
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
+                new ViewTypeEventArgs(ViewType.MetricView));
+        }
+        private void MenuItem3_Click(object sender, RoutedEventArgs e)
+        {
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
+                new ViewTypeEventArgs(ViewType.AnalyzeView));
+        }
+
     }
 }

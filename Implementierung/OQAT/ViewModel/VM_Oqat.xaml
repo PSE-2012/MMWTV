@@ -3,7 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Objective Quality Assessment Toolkit" Height="768" Width="1024">
     <DockPanel>
-        <Grid x:Name="menuPanel" DockPanel.Dock="Top"/>
+        <Menu IsMainMenu="True">
+            <MenuItem Header="ToggleView">
+                <MenuItem Header="FilterView" Name="miFilterView" Click="MenuItem1_Click" />
+                <MenuItem Header="MetricView" Name="miMetricView" Click="MenuItem2_Click" />
+                <MenuItem Header="AnalyseView" Name="miAnalyseView" Click="MenuItem3_Click" />
+            </MenuItem>
+        </Menu>
+        <Grid x:Name="menuPanel" DockPanel.Dock="Top">
+        </Grid>
         <Grid x:Name="projectExplorerPanel" DockPanel.Dock="Left">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>

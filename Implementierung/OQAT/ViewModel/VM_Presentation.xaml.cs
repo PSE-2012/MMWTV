@@ -22,30 +22,86 @@ namespace Oqat.ViewModel
     /// </summary>
     public partial class VM_Presentation : UserControl
     {
-                /// <summary>
+        List<IPresentation> _custom;
+        IPresentation _playerProc;
+        IPresentation _playerRef;
+        IPresentation _diagram;
+
+        /// <summary>
         /// A video player plugin of the <see cref="PresentationPluginType"/> Player.
         /// This player is displayed in the MetricView <see cref="ViewType"/> only.
         /// </summary>
-        IPresentation playerProc;
+        private IPresentation playerProc
+        {
+            get
+            {
+                if (_playerProc == null)
+                {
+                    _playerProc = PluginManager.pluginManager.getPlugin<IPresentation>("PP_Player");
+
+                    if (_playerProc == null)
+                    {
+                        //no Player is available from PluginManager
+                        throw new ApplicationException("Es wurde kein Player-Plugin gefunden.");
+                    }
+                }
+                return _playerProc;
+            }
+        }
 
         /// <summary>
         /// A video player plugin of the <see cref="PresentationPluginType"/> Player.
         /// This player is displayed in the MetricView, FilterView, AnalysisView <see cref="ViewType"/>
         /// and contains the reference Video (if currentView == MetricView) or the only Video (if currentView == FilterView).
         /// </summary>
-        IPresentation playerRef;
+        private IPresentation playerRef
+        {
+            get
+            {
+                if (_playerRef == null)
+                {
+                    _playerRef =(IPresentation) PluginManager.pluginManager.getPlugin<IPresentation>("PP_Player").Clone();
+
+                    if (_playerRef == null)
+                    {
+                        //no Player is available from PluginManager
+                        throw new ApplicationException("Es wurde kein Player-Plugin gefunden.");
+                    }
+                }
+                return _playerRef;
+            }
+        }
 
         /// <summary>
         /// CurrentDiagramm is of the PresentationPluginType diagram and is visible only in the AnalysisView.
         /// </summary>
-        IPresentation diagramm;
+        /// <exception cref="Dll"
+        private IPresentation diagram
+        {
+            get
+            {
+                if (_diagram == null)
+                {
+                    _diagram = PluginManager.pluginManager.getPlugin<IPresentation>("PP_Diagram");
+
+                    if (_diagram == null)
+                    {
+                        //no Player is available from PluginManager
+                        throw new ApplicationException("Es wurde kein Diagramm-Plugin gefunden.");
+                    }
+                }
+                return _diagram;
+            }
+        }
+
+
 
         /// <summary>
         /// ThirdPary plugins needed for visualisation of extra ressources (<see cref="Video"/>).
         /// Such plugins can be visible (user has to choose) in alle ViewTypes where the VM_Presentation is
         /// active, i.e. all except the WelcomeView.
         /// </summary>
-        List<IPresentation> custom;
+        
 
 
 
@@ -68,13 +124,8 @@ namespace Oqat.ViewModel
             PluginManager.videoLoad += this.onVideoLoad;
 
 
-            /*
-             * Crashing in pluginManager!
-            //initializing presentationPlugins
-            this.playerProc = PluginManager.pluginManager.getPlugin<IPresentation>("PP_Player");
-            this.playerRef =(IPresentation) this.playerProc.Clone();
-            this.diagramm = PluginManager.pluginManager.getPlugin<IPresentation>("PP_Diagram");
-            */
+            //TODO custom PresentationPlugins
+            this._custom = new List<IPresentation>();
         }
 
 
@@ -106,7 +157,7 @@ namespace Oqat.ViewModel
 
             if (this.vtype == ViewType.AnalyzeView)
             {
-                this.diagramm.loadVideo(this, e);
+                this.diagram.loadVideo(this, e);
             }
 		}
 
@@ -127,20 +178,19 @@ namespace Oqat.ViewModel
             switch (vtype)
             {
                 case ViewType.FilterView:
-                    this.playerProc.setParentControl(this.mainGrid);
+                    this.playerProc.setParentControl(this.playerPanel);
                     break;
                 case ViewType.MetricView:
-                    this.playerProc.setParentControl(this.mainGrid);
-                    this.playerRef.setParentControl(this.mainGrid);
+                    this.playerProc.setParentControl(this.playerPanel);
+                    this.playerRef.setParentControl(this.playerPanel);
                     break;
                 case ViewType.AnalyzeView:
-                    this.playerProc.setParentControl(this.mainGrid);
-                    this.playerRef.setParentControl(this.mainGrid);
-                    this.diagramm.setParentControl(this.mainGrid);
+                    this.playerProc.setParentControl(this.playerPanel);
+                    this.playerRef.setParentControl(this.playerPanel);
+                    this.diagram.setParentControl(this.otherPanel);
                     break;
             }
 		}
-
         
 
         /// <summary>
@@ -149,7 +199,25 @@ namespace Oqat.ViewModel
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void onFlushPresentationPlugins(object sender, EventArgs e) { }
+        private void onFlushPresentationPlugins(object sender, EventArgs e) 
+        {
+            try
+            {
+                this.playerProc.onFlushPresentationPlugins(sender, e);
+                this.playerRef.onFlushPresentationPlugins(sender, e);
+                this.diagram.onFlushPresentationPlugins(sender, e);
+
+                foreach (IPresentation p in _custom)
+                {
+                    p.onFlushPresentationPlugins(sender, e);
+                }
+            }
+            catch (NullReferenceException ex)
+            {
+                //ignore broken plugins dealing with null references
+                PluginManager.pluginManager.raiseEvent(EventType.failure, new System.IO.ErrorEventArgs(ex));
+            }
+        }
 
 
         /// <summary>
@@ -158,8 +226,13 @@ namespace Oqat.ViewModel
         /// </summary>
 		private void resetPanel()
 		{
-            this.mainGrid.Children.Clear();
+            this.playerPanel.Children.Clear();
+            this.otherPanel.Children.Clear();
+            this.onFlushPresentationPlugins(this, new EventArgs());
 		}
+
+
+
 
 
         private void showExtraResourceList()
