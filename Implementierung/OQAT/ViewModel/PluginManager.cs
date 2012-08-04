@@ -461,7 +461,8 @@
 
             var plToRet = from i in pluginTable
                           where i.Metadata.namePlugin.Equals(namePlugin) &
-                                    Type.GetType("Oqat.PublicRessources.Plugin." + i.Metadata.type.ToString()).Equals(typeof(T)) &
+                                    typeof(Oqat.PublicRessources.Plugin.IPlugin).Assembly.GetType("Oqat.PublicRessources.Plugin."
+                                    + i.Metadata.type.ToString()).Equals(typeof(T)) &
                                     !blackList.ContainsKey(i.Metadata.namePlugin)
                           select i.Value;
             if (plToRet.FirstOrDefault() != null)

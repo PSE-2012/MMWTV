@@ -26,7 +26,7 @@ namespace Oqat.ViewModel
             set;
         }
 
-        private VM_PluginLists vM_PluginList
+        private VM_PluginsList vM_PluginsList
         {
             get;
             set;
@@ -68,7 +68,7 @@ namespace Oqat.ViewModel
         /// </summary>
         private void initPluginLists()
         {
-            throw new System.NotImplementedException();
+            this.vM_PluginsList = new VM_PluginsList(this.pluginListsPanel);
         }
         /// <summary>
         /// Initializes the Welcome view.
@@ -99,7 +99,7 @@ namespace Oqat.ViewModel
           //  initMenu();
           //  initWelcome();
           //  initProjectExplorer();
-          //  initPluginLists();
+            initPluginLists();
             initPresentation();
            // initMacro();
         }
