@@ -132,10 +132,14 @@ namespace PP_Presentation
         /// </summary>
         public void unloadVideo()
         {
-            for (int i = 0; i < videoSource.bmp.Length; i++)
+            if (videoSource != null)
             {
-                videoSource.bmp[i] = null;
+                for (int i = 0; i < videoSource.bmp.Length; i++)
+                {
+                    videoSource.bmp[i] = null;
+                }
             }
+
             videohandler = null;
             videoSource = null;
             playerControl.getSourcePlayerControl().Stop();
@@ -148,7 +152,8 @@ namespace PP_Presentation
         /// <param name="e"></param>
         public void onFlushPresentationPlugins(object sender, EventArgs e)
         {
-            playerControl.getSourcePlayerControl().Dispose();
+            if(playerControl != null && playerControl.getSourcePlayerControl() != null)
+                playerControl.getSourcePlayerControl().Dispose();
         }
 
 
