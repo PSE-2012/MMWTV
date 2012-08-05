@@ -95,7 +95,7 @@ namespace Oqat.PublicRessources.Model
         {
             this.name = (string)info.GetValue("Name", typeof(string));
             this.state = (object)info.GetValue("State", typeof(object));
-            this.name = (string)info.GetValue("Memento Path", typeof(string));
+            this.mementoPath = (string)info.GetValue("Memento Path", typeof(string));
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
