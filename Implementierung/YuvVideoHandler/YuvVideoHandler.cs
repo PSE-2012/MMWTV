@@ -15,6 +15,7 @@ namespace PS_YuvVideoHandler
     using System.Drawing.Imaging;
     using System.Drawing;
     using System.IO;
+    using System.Windows.Controls;
 
 
     [ExportMetadata("namePlugin", "yuvVideoHandler")]
@@ -28,24 +29,31 @@ namespace PS_YuvVideoHandler
         YuvVideoInfo _videoInfo = null;
         string _path = "";
 
-        byte[] data = null;
+        private byte[] _data = null;
+        public byte[] data
+        {
+            get
+            {
+                if (consistent)
+                    initBuffer(vidInfo.frameCount);
+                else
+                    throw new Exception("Buffer is uninitialized, due inconsistencies.");
+
+                    return _data;
+            }
+            private set {
+                if (consistent)
+                {
+                    _data = value;
+                }
+            }
+        }
         int bufferSizeFrames = -1;
 
 
 
         int firstFrameInMem = int.MinValue;
         int frameSize;
-
-        /// <summary>
-        /// Constructs a YuvVideoHandler for the file at the given location that
-        /// this instance can read according to the additional information in the YuvVideoInfo.
-        /// </summary>
-        /// <param name="filepath">location of the videofile to read</param>
-        /// <param name="info">VideoInfo containing needed information like resolution and yuv format</param>
-        public YuvVideoHandler(string filepath, YuvVideoInfo info)
-        {
-            setVideo(filepath, info);
-        }
 
         /// <summary>
         /// Constructs a YuvVideoHandler without filepath or VideoInfoObject. 
@@ -75,7 +83,8 @@ namespace PS_YuvVideoHandler
             vidInfo = info;
 
             //init buffer
-            initBuffer(NUMFRAMESINMEM);
+            if(info!=null)
+             initBuffer(NUMFRAMESINMEM);
         }
 
 
@@ -117,20 +126,32 @@ namespace PS_YuvVideoHandler
         }
 
 
-        /// <summary>Gets to current VideoInfo object, if a propertiesView is displayed through 
+        /// <summary>Gets the current VideoInfo object, if a propertiesView is displayed through 
         /// "setParentControl()" the values are updated to the users settings.</summary>
         /// <returns>the current YuvVideoInfo instance of the handled video.</returns>
         public IVideoInfo vidInfo
         {
             get
             {
-                calculateFrameCount();
+                if (_videoInfo == null)
+                    _videoInfo = new YuvVideoInfo();
                 return _videoInfo;
             }
             private set
             {
-                _videoInfo =(YuvVideoInfo) value;
+                if (value != null)
+                {
+                    _videoInfo = (YuvVideoInfo)value;
+                }
+            }
+        }
+
+        public bool consistent
+        {
+            get {
+               
                 calculateFrameCount();
+                return (vidInfo.frameCount < 0) ? false : true;
             }
         }
 
@@ -154,24 +175,34 @@ namespace PS_YuvVideoHandler
             }
         }
 
-
-        /// <summary>Creates an instance of the propertiesView and
-        /// displays the UserControl of this handler for the user in order to change settings.
-        /// These settings are updated directly to the videoInfo object "vidInfo".</summary>
-        /// <param name="parent">the propertiesView is added as a child to this.</param>
-        public void setParentControl(System.Windows.Controls.Panel parent)
+        private PropertiesView _propertyView;
+        /// <summary>
+        /// Contains the propertyView UserControl for this VideoHandler.
+        /// </summary>
+        public UserControl propertyView
         {
-            PropertiesView propertiesView = new PropertiesView();
-
-            if (_videoInfo == null)
+            get
             {
-                _videoInfo = new YuvVideoInfo();
+                if (_propertyView == null)
+                {
+                    _propertyView = new PropertiesView();
+                    _propertyView.DataContext = vidInfo;
+                }
+                return _propertyView;
             }
+        }
 
-            //databinding between propertiesView and vidInfo
-            propertiesView.DataContext = vidInfo;
-
-            parent.Children.Add(propertiesView);
+        private ReadOnlyPropertiesView _readOnlyInfoView;
+        public UserControl readOnlyInfoView
+        {
+            get
+            {
+                if (_readOnlyInfoView == null)
+                {
+                    _readOnlyInfoView = new ReadOnlyPropertiesView(vidInfo as YuvVideoInfo);
+                }
+                return _readOnlyInfoView;
+            }
         }
 
 

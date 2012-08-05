@@ -48,6 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadOnlyPropertiesView.xaml.cs">
+      <DependentUpon>ReadOnlyPropertiesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="YuvVideoHandler.cs" />
     <Compile Include="PropertiesView.xaml.cs">
       <DependentUpon>PropertiesView.xaml</DependentUpon>
@@ -56,6 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="PropertiesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReadOnlyPropertiesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
