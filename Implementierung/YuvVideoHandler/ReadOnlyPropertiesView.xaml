@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="PS_YuvVideoHandler.ReadOnlyPropertiesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="oqatGroupBoxStyle" TargetType="GroupBox">
+            <Setter Property="Padding" Value="2,2,2,2" />
+            <Setter Property="Margin" Value="2,2,2,2" />
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+    </UserControl.Resources>
+
+        <GroupBox Header="Format specific informations" Style="{StaticResource oqatGroupBoxStyle}">
+
+            <Grid>    
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Yuv video format: "/>
+                <TextBlock Text="{Binding yuvFormat}" ></TextBlock>
+        
+            </Grid>
+        </GroupBox>
+</UserControl>
