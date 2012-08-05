@@ -55,5 +55,15 @@ namespace Oqat.PublicRessources.Plugin
         /// Will be raised if PluginManager refreshed(added or deleted some entries) pluginTable.
         /// </summary>
         pluginTableChanged,
+
+        /// <summary>
+        /// Will be raised if a new project was created (usually by <see cref="VM_OqatWelcome"/>).
+        /// </summary>
+        newProjectCreated,
+
+        /// <summary>
+        /// Will be raised if a new project was created (usually by <see cref="VM_Oqat"/>
+        /// </summary>
+        toggleView
 	}
 }
