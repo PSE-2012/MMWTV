@@ -24,6 +24,7 @@ namespace PF_Invert
     using AForge.Imaging;
     using System.Windows;
     using System.ComponentModel.Composition;
+    using System.Windows.Controls;
     
 
     [ExportMetadata("namePlugin", "PF_Invert")]
@@ -69,9 +70,12 @@ namespace PF_Invert
             }
         }
 
-        public void setParentControl(System.Windows.Controls.Panel parent)
+        public UserControl propertyView
         {
-            
+            get
+            {
+                return null;
+            }
         }
 
         public Dictionary<EventType, List<Delegate>> getEventHandlers()

@@ -17,6 +17,7 @@ namespace PF_Greyscale
     using System.Linq;
     using System.Text;
     using System.ComponentModel.Composition;
+    using System.Windows.Controls;
 
 
     [ExportMetadata("namePlugin", "PF_Greyscale")]
@@ -70,9 +71,12 @@ namespace PF_Greyscale
             }
         }
 
-        public void setParentControl(System.Windows.Controls.Panel parent)
+        public UserControl propertyView
         {
-            parent.Children.Add(this.propertiesView);
+            get
+            {
+                return this.propertiesView;
+            }
         }
 
         public Dictionary<EventType, List<Delegate>> getEventHandlers()

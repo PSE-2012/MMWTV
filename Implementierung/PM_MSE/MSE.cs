@@ -12,6 +12,7 @@ namespace PM_MSE
     using System.Drawing;
     using System.ComponentModel.Composition;
     using Oqat.PublicRessources.Model;
+    using System.Windows.Controls;
 
     [ExportMetadata("namePlugin", "PM_MSE")]
     [ExportMetadata("type", PluginType.IMetric)]
@@ -142,9 +143,12 @@ namespace PM_MSE
             propertiesView = new VM_PM_MSE();
            
         }
-        public void setParentControl(System.Windows.Controls.Panel parent)
+        public UserControl propertyView
         {
-            parent.Children.Add(this.propertiesView);
+            get
+            {
+                return this.propertiesView;
+            }
         }
 
         public Dictionary<EventType, List<Delegate>> getEventHandlers()

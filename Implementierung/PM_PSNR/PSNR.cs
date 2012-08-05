@@ -12,6 +12,7 @@ namespace PM_PSNR
     using System.Drawing;
     using System.ComponentModel.Composition;
     using Oqat.PublicRessources.Model;
+    using System.Windows.Controls;
 
 
     [ExportMetadata("namePlugin", "PM_PSNR")]
@@ -100,9 +101,12 @@ namespace PM_PSNR
             }
         }
 
-        public void setParentControl(System.Windows.Controls.Panel parent)
+        public UserControl propertyView
         {
-           
+            get
+            {
+                return null;
+            }
         }
 
         public Dictionary<EventType, List<Delegate>> getEventHandlers()

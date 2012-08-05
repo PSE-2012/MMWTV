@@ -18,6 +18,7 @@ namespace PF_Convolution
     using AForge.Imaging;
     using System.Windows;
     using System.ComponentModel.Composition;
+    using System.Windows.Controls;
 
     [ExportMetadata("namePlugin", "PF_Convolution")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
@@ -132,10 +133,12 @@ namespace PF_Convolution
             }
         }
 
-        public void setParentControl(System.Windows.Controls.Panel parent)
+        public UserControl propertyView
         {
-           
-            parent.Children.Add(propertiesView);
+            get
+            {
+                return this.propertiesView;
+            }
         }
 
         public Dictionary<EventType, List<Delegate>> getEventHandlers()

@@ -40,8 +40,6 @@ namespace PP_Diagramm
         public Diagramm()
         {
            
-            
-          
          
             InitializeComponent();
         }
@@ -54,7 +52,6 @@ namespace PP_Diagramm
             }
             set
             {
-               
                _presentationType= value;
             }
         }
@@ -94,17 +91,16 @@ namespace PP_Diagramm
             }
         }
 
-        public void setParentControl(System.Windows.Controls.Panel parent)
-        {
-            parent.Children.Add(this);
 
-        }
-
-        public Dictionary<EventType, List<Delegate>> getEventHandlers()
+        public UserControl propertyView
         {
-            Dictionary<EventType, List<Delegate>> handlers = new Dictionary<EventType,List<Delegate>>();
-            return handlers;
+            get
+            {
+                return this;
+            }
         }
+         
+   
 
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
