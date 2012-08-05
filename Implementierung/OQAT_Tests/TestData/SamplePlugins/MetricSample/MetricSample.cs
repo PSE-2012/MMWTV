@@ -26,7 +26,7 @@ namespace Metric
         public AnalysisInfo analyse(Bitmap frameRef, Bitmap frameProc)
         {
             MessageBox.Show("MetricSample process(..) called.");
-            return new AnalysisInfo();
+            return new AnalysisInfo(new Bitmap(10, 10), new float[2]);
         }
 
         public Dictionary<EventType, List<Delegate>> getEventHandlers()
