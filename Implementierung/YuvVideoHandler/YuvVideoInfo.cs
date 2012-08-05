@@ -24,6 +24,7 @@ namespace PS_YuvVideoHandler
     ///  Holds information about a yuv video file that can not be read from the file itself.
     ///  Needed to work with the video in a YuvVideoHandler.
     /// </summary>
+    [Serializable]
 	public class YuvVideoInfo : IVideoInfo
 	{
 
