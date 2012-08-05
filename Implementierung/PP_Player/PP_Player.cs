@@ -35,7 +35,7 @@ namespace PP_Presentation
 
         public object Clone()
         {
-            return this.MemberwiseClone();
+            return new PP_Player();
         }
 
         public PP_Player()
@@ -152,27 +152,18 @@ namespace PP_Presentation
         }
 
 
-        /// <summary>
-        /// Creates a new Player Control, which returns an AForge Source Player Control instance.
-        /// Sets the video source of the Source Player Control and adds the Player Control to
-        /// the children of the parent panel.
-        /// </summary>
-        /// <param name="parent"></param>
-        public void setParentControl(System.Windows.Controls.Panel parent)
-        {
-            playerControl = new PlayerControl();
-            playerControl.getSourcePlayerControl().VideoSource = videoSource;
-            parent.Children.Add(playerControl);
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public Dictionary<EventType, List<Delegate>> getEventHandlers()
+       /// <summary>
+       /// This property holds the actual player you can put in your View in. 
+       /// </summary>
+        public UserControl propertyView
         {
-            Dictionary<EventType, List<Delegate>> handlers = new Dictionary<EventType, List<Delegate>>();
-            return handlers;
+            get
+            {
+                              
+                playerControl.getSourcePlayerControl().VideoSource = videoSource;
+                return playerControl;
+            }
         }
 
         /// <summary>
@@ -204,7 +195,7 @@ namespace PP_Presentation
         /// <param name="vid"></param>
         public void loadVideo(object sender, VideoEventArgs vid)
         {
-            this._videohandler = vid.video.getVideoHandler();
+            this._videohandler = vid.video.handler;
             videoSource.NUMFRAMESINMEM = vid.video.vidInfo.frameCount;
             videoSource.bmp = new Bitmap[videoSource.NUMFRAMESINMEM];
             videoSource.bmp = videohandler.getFrames(0, videoSource.NUMFRAMESINMEM);
