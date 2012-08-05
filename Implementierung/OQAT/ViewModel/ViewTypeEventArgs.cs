@@ -15,8 +15,13 @@ namespace Oqat.ViewModel
 		public virtual ViewType viewType
 		{
 			get;
-			set;
+			private set;
 		}
+
+        public ViewTypeEventArgs(ViewType viewType)
+        {
+            this.viewType = viewType;
+        }
 
 	}
 }
