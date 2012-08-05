@@ -203,7 +203,7 @@
                 case PluginType.IMacro:
                     retVal = castTest<IMacro>(plugin);
                     break;
-                case PluginType.IMetric:
+                case PluginType.IMetricOqat:
                     retVal = castTest<IMetricOqat>(plugin);
                     break;
                 case PluginType.IPresentation:
@@ -339,6 +339,28 @@
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
+                case EventType.newMementoCreated:
+                    try
+                    {
+                        if (newMementoCreated != null)
+                            newMementoCreated(this, (MementoEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.macroEntrySelected:
+                    try
+                    {
+                        if (macroEntryClicked != null)
+                            macroEntryClicked(this, (EventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
             }
         }
 
@@ -354,6 +376,10 @@
         internal static event videoLoadHandler videoLoad;
         internal delegate void toggleViewHandler(object sender, ViewTypeEventArgs e);
         internal static event toggleViewHandler toggleView;
+        internal delegate void macroEntryClickedHandler(object sender, EventArgs e);
+        internal static event macroEntryClickedHandler macroEntryClicked;
+        internal delegate void newMementoCreatedHandler(object sender, MementoEventArgs e);
+        internal static event newMementoCreatedHandler newMementoCreated;
 
 
 
@@ -458,16 +484,16 @@
         /// <returns>A instance of namePlugin</returns>
         public virtual T getPlugin<T>(string namePlugin)
         {
-            var plToRet = from i in pluginTable
-                          where i.Metadata.namePlugin.Equals(namePlugin) &
-                                    typeof(Oqat.PublicRessources.Plugin.IPlugin).Assembly.GetType("Oqat.PublicRessources.Plugin."
-                                    + i.Metadata.type.ToString()).Equals(typeof( T)) &
-                                    !blackList.ContainsKey(i.Metadata.namePlugin)
-                          select i.Value;
-            if (plToRet.FirstOrDefault() != null)
-                return (T )plToRet.FirstOrDefault();
-            else
-                return default(T );
+            foreach (Lazy<IPlugin, IPluginMetadata> i in pluginTable)
+            {
+                if (i.Metadata.namePlugin.Equals(namePlugin)
+                    && !blackList.ContainsKey(i.Metadata.namePlugin))
+                {
+                    if(i.Value is T)
+                        return (T)i.Value;
+                }
+            }
+            return default(T);
         }
 
         /// <summary>

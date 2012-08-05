@@ -15,13 +15,13 @@ namespace PM_PSNR
 
 
     [ExportMetadata("namePlugin", "PM_PSNR")]
-    [ExportMetadata("type", PluginType.IMetric)]
+    [ExportMetadata("type", PluginType.IMetricOqat)]
     [Export(typeof(IPlugin))]
 
 	public class PSNR :  IMetricOqat
 	{
         private string _namePlugin = "PM_PSNR";
-        private PluginType _type = PluginType.IMetric;
+        private PluginType _type = PluginType.IMetricOqat;
 
         public AnalysisInfo analyse(System.Drawing.Bitmap frameRef, System.Drawing.Bitmap frameProc)
         {
