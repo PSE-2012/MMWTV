@@ -3,8 +3,84 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="buttonBaseStyle" TargetType="{x:Type Control}">
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="welcomeButtonStyle" BasedOn="{StaticResource buttonBaseStyle}" TargetType="Button">
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="15"/>
+           
+        </Style>
+        <Style x:Key="lineStyle" TargetType="Line">
+            <Setter Property="Stroke" Value="Blue" />
+            <Setter Property="Stretch" Value="Fill" />
+            <Setter Property="Grid.ZIndex" Value="100" />
+            <Setter Property="StrokeThickness" Value="5" />
+        </Style>
 
+        <Style x:Key="horizontalLineStyle" TargetType="Line" BasedOn="{StaticResource lineStyle}">
+            <Setter Property="X2" Value="1" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Grid.ColumnSpan" 
+                    Value="{Binding   
+                                Path=ColumnDefinitions.Count,  
+                                RelativeSource={RelativeSource AncestorType=Grid}}"/>
+        </Style>
+
+        <Style x:Key="verticalLineStyle" TargetType="Line" BasedOn="{StaticResource lineStyle}">
+            <Setter Property="Y2" Value="1" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Grid.RowSpan"   
+                    Value="{Binding   
+                                Path=RowDefinitions.Count,  
+                                RelativeSource={RelativeSource AncestorType=Grid}}"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="80*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <!--<Line  Grid.Column="0" Style="{StaticResource verticalLineStyle}"/>
+        <Line  Grid.Row="0"  Style="{StaticResource horizontalLineStyle}"/>
+        <Line  Grid.Column="1" Style="{StaticResource verticalLineStyle}"/>
+        <Line  Grid.Row="1"  Style="{StaticResource horizontalLineStyle}"/>-->
+
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+            <!--<Line  Grid.Column="0" Style="{StaticResource verticalLineStyle}"/>
+            <Line  Grid.Row="0"  Style="{StaticResource horizontalLineStyle}"/>-->
+            <Grid Grid.Column="0" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition   Width="50*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button Style="{StaticResource welcomeButtonStyle}" Grid.Column="1" Grid.Row="0" x:Name="newPrjCreate_Button" Click="newPrjCreate_Click">Create new project.</Button>
+                <Button Style="{StaticResource welcomeButtonStyle}" Grid.Column="0" Grid.Row="0" Click="exPrjOpen_Click">Open existing project.</Button>
+            </Grid>
+            
+        </Grid>
+    </Grid>
 </UserControl>
