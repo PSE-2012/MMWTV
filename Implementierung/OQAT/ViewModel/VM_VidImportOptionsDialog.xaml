@@ -3,19 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:closableTabs="clr-namespace:WPF_ClosableTabItem;assembly=WPF_ClosableTabItem"
              mc:Ignorable="d"
              Title="Video importieren">
+    <Window.Resources>
+
+    </Window.Resources>
     <StackPanel Orientation="Vertical">
-        <Grid>
-            <TextBox Name="tb_filepath" Margin="20, 5, 20, 5" Text="{Binding vidPath}" />
-        </Grid>
-        <Grid>
-            <TextBlock Visibility="Visible" x:Name="txt_NoHandler">Es wurde kein geeigneter VideoHandler zum Lesen dieses Videos gefunden.</TextBlock>
-            <Grid x:Name="gridHandlerView"></Grid>
-        </Grid>
+        <TabControl x:Name="vidHandlersPanel"
+                    closableTabs:ClosableTabItem.TabClose="TabClosed">
+        </TabControl>
         <WrapPanel HorizontalAlignment="Center">
-            <Button Margin="5" Width="100" Name="btt_Import" Click="btt_Import_Click">Import</Button>
-            <Button Margin="5" Width="100" Name="btt_Cancel" Click="btt_Cancel_Click">Abbrechen</Button>
+            <Button Margin="5" Width="100" Name="btt_Import" IsDefault="True" Click="btt_Import_Click">Import</Button>
+            <Button Margin="5" Width="100" Name="btt_Cancel" IsCancel="True" Click="btt_Cancel_Click">Abbrechen</Button>
         </WrapPanel>
     </StackPanel>
 </Window>
