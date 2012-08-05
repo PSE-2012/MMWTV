@@ -13,6 +13,8 @@ using System.Windows.Shapes;
 
 using Oqat.ViewModel.Macro;
 using Oqat.Model;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
 namespace Oqat.ViewModel
 {
     /// <summary>
@@ -20,30 +22,33 @@ namespace Oqat.ViewModel
     /// </summary>
     public partial class VM_Oqat : Window
     {
+        private VM_Welcome _vM_Welcome;
         private VM_Welcome vM_Welcome
         {
             get;
             set;
         }
-
+        private VM_PluginLists _vM_PluginLists;
         private VM_PluginLists vM_PluginList
         {
             get;
             set;
         }
-
+        private VM_ProjectExplorer _vM_ProjectExplorer;
         private VM_ProjectExplorer vM_ProjectExplorer
         {
             get;
             set;
         }
 
+        private VM_Presentation _vM_Presentation;
         private VM_Presentation vM_presentation
         {
             get;
             set;
         }
 
+        private VM_Macro _vM_Macro;
         private VM_Macro vM_Macro
         {
             get;
@@ -75,7 +80,8 @@ namespace Oqat.ViewModel
         /// </summary>
         private void initWelcome()
         {
-            throw new System.NotImplementedException();
+            vM_Welcome = new VM_Welcome();
+            this.welcomePanel.Children.Add(vM_Welcome);
         }
 
         /// <summary>
@@ -83,25 +89,36 @@ namespace Oqat.ViewModel
         /// </summary>
         private void initProjectExplorer()
         {
-            var tmpPr = new Project("testProject", "C:\\Users\\Public\\Videos\\Sample Videos\\someProject.proj", "description");
-            tmpPr.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\firstVideo.avi", null), -1);
-            tmpPr.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\secondVideo.avi", null), -1);
-            tmpPr.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\childOfFirst.avi", null), 0);
-            tmpPr.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\childOfSecond.avi", null), 1);
-            this.vM_ProjectExplorer = new VM_ProjectExplorer(tmpPr, projectExplorerPanel);
+
+            //var tmpPr = new Project("testProject", "C:\\Users\\Public\\Videos\\Sample Videos\\someProject.proj", "description");
+
+            //this.vM_ProjectExplorer = new VM_ProjectExplorer(tmpPr, projectExplorerPanel);
        
+        }
+
+        public void onNewProjectCreated(object sender, ProjectEventArgs e)
+        {
+            //e.project.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\firstVideo.avi", null), -1);
+            //e.project.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\secondVideo.avi", null), -1);
+            //e.project.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\childOfFirst.avi", null), 0);
+            //e.project.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\childOfSecond.avi", null), 1);
+
+            this.vM_ProjectExplorer = new VM_ProjectExplorer(e.project);
+
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView, new ViewTypeEventArgs(ViewType.FilterView));
         }
 
         public VM_Oqat()
         {
             InitializeComponent();
-            // PluginManager is initializet by OqatApp
-          //  initMenu();
-          //  initWelcome();
-          //  initProjectExplorer();
-          //  initPluginLists();
-          //  initPresentation();
-           // initMacro();
+            PluginManager.pluginManager.OqatNewProjectCreatedHandler += onNewProjectCreated;
+            PluginManager.pluginManager.OqatToggleView += onToggleView;
+                // PluginManager is initializet by OqatApp
+                //  initMenu();
+             initWelcome();
+            //  initPluginLists();
+            //  initPresentation();
+            // initMacro();
         }
 
         /// <summary>
@@ -146,8 +163,65 @@ namespace Oqat.ViewModel
         /// <param name="e"></param>
         private void onToggleView(object sender, ViewTypeEventArgs e)
         {
-            throw new System.NotImplementedException();
+            if(e.viewType!=currentView)
+            switch (e.viewType)
+            {
+                case ViewType.WelcomeView:
+                    welcomePanel.Children.Add(vM_Welcome);
+                    projectExplorerPanel.Children.Remove(vM_ProjectExplorer);
+                  //  pluginListsPanel.Children.Remove(vM_PluginList);
+                    break;
+                case ViewType.MetricView:
+                    welcomePanel.Children.Remove(vM_Welcome);
+                    
+                    projectExplorerPanel.Children.Add(vM_ProjectExplorer);                    
+                    break;
+                case ViewType.FilterView:
+                    welcomePanel.Children.Remove(vM_Welcome);
+
+                    projectExplorerPanel.Children.Add(vM_ProjectExplorer);
+                    break;
+                case ViewType.AnalyzeView:
+                    welcomePanel.Children.Remove(vM_Welcome);
+                    projectExplorerPanel.Children.Add(vM_ProjectExplorer);
+                    break;
+            }
         }
+
+
+
+            [StructLayout(LayoutKind.Sequential)]
+            private struct MARGINS
+            {
+                public int cxLeftWidth;      // width of left border that retains its size
+                public int cxRightWidth;     // width of right border that retains its size
+                public int cyTopHeight;      // height of top border that retains its size
+                public int cyBottomHeight;   // height of bottom border that retains its size
+            };
+
+            [DllImport("DwmApi.dll")]
+            private static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS pMarInset);
+
+            private void Window_Loaded(object sender, RoutedEventArgs e)
+            {
+                WindowInteropHelper windowInteropHelper = new WindowInteropHelper(this);
+                IntPtr myHwnd = windowInteropHelper.Handle;
+                HwndSource mainWindowSrc = System.Windows.Interop.HwndSource.FromHwnd(myHwnd);
+
+                mainWindowSrc.CompositionTarget.BackgroundColor = Color.FromArgb(0, 0, 0, 0);
+
+                MARGINS margins = new MARGINS()
+                {
+                    cxLeftWidth = -1,
+                    cxRightWidth = -1,
+                    cyBottomHeight = -1,
+                    cyTopHeight = -1
+                };
+
+                DwmExtendFrameIntoClientArea(myHwnd, ref margins);
+            }
+        
+
 
     }
 }
