@@ -319,6 +319,28 @@
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
+                case EventType.newProjectCreated:
+                    try
+                    {
+
+                        OqatNewProjectCreatedHandler(this, (ProjectEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.toggleView:
+                    try
+                    {
+
+                        OqatToggleView(this, (ViewTypeEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
             }
         }
 
@@ -427,7 +449,8 @@
 
             var plToRet = from i in pluginTable
                           where i.Metadata.namePlugin.Equals(namePlugin) &
-                                    Type.GetType("Oqat.PublicRessources.Plugin." + i.Metadata.type.ToString()).Equals(typeof(T)) &
+                                    typeof(Oqat.PublicRessources.Plugin.IPlugin).Assembly.GetType("Oqat.PublicRessources.Plugin."
+                                    + i.Metadata.type.ToString()).Equals(typeof(T)) &
                                     !blackList.ContainsKey(i.Metadata.namePlugin)
                           select i.Value;
             if (plToRet.FirstOrDefault() != null)
@@ -452,10 +475,15 @@
 
         internal delegate void OqatErrorHandler(object sender, ErrorEventArgs e);
         internal delegate void notificationHandler(object sender, EntryEventArgs e);
+        internal delegate void newProjectCreatedHandler(object sender, ProjectEventArgs e);
+        internal delegate void toggleViewHandler(object sender, ViewTypeEventArgs e);
         internal static event OqatErrorHandler OqatInfo;
         internal static event OqatErrorHandler OqatPanic;
         internal static event OqatErrorHandler OqatFailure;
         internal static event notificationHandler OqatPluginTableChanged;
+
+        internal event newProjectCreatedHandler OqatNewProjectCreatedHandler;
+        internal event toggleViewHandler OqatToggleView;
 
 
         /// <summary>
