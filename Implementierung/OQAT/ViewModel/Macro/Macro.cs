@@ -7,6 +7,7 @@ namespace Oqat.ViewModel.Macro
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Text;
+    using System.Windows.Controls;
 
     /// <summary>
     /// This class implements the IMacro interface, see <see cref="IMacro"/> for further information
@@ -36,14 +37,17 @@ namespace Oqat.ViewModel.Macro
             throw new NotImplementedException();
         }
 
-        public void setParentControl(System.Windows.Controls.Panel parent)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Dictionary<EventType, List<Delegate>> getEventHandlers()
+        private UserControl _propertyView;
+        /// <summary>
+        /// Macro property view control.
+        /// </summary>
+        public UserControl propertyView
         {
-            throw new NotImplementedException();
+            get
+            {
+                return _propertyView;
+            }
         }
 
         public PublicRessources.Model.Memento getMemento()
