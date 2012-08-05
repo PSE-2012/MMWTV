@@ -64,19 +64,19 @@ namespace OQAT_Tests
            plPath = exePath + "\\Plugins";
            samplePluginOriginPath = Directory.GetParent(Directory.GetParent(exePath).Parent.FullName).Parent.FullName + "\\Implementierung\\OQAT_Tests" + "\\TestData\\SamplePlugins\\bin";
 
-           filterSamplePath = samplePluginOriginPath + "\\filter\\FilterSample.dll";
+           filterSamplePath = samplePluginOriginPath + "\\FilterSample.dll";
            Assert.IsTrue(File.Exists(filterSamplePath));
 
-           uncompatibleAssembly = samplePluginOriginPath + "\\filter\\AForge.dll";
-           Assert.IsTrue(File.Exists(uncompatibleAssembly));
+      //     uncompatibleAssembly = samplePluginOriginPath + "\\AForge.dll";
+        //   Assert.IsTrue(File.Exists(uncompatibleAssembly));
 
-           presentationPath = samplePluginOriginPath + "\\presentation\\PresentationSample.dll";
+           presentationPath = samplePluginOriginPath + "\\PresentationSample.dll";
            Assert.IsTrue(File.Exists(presentationPath));
 
-           metricPath = samplePluginOriginPath + "\\metric\\MetricSample.dll";
+           metricPath = samplePluginOriginPath + "\\MetricSample.dll";
            Assert.IsTrue(File.Exists(metricPath));
 
-           secondFilterSamplePath = samplePluginOriginPath + "\\secondFilter\\SecondFilterSample.dll";
+           secondFilterSamplePath = samplePluginOriginPath + "\\SecondFilterSample.dll";
            Assert.IsTrue(File.Exists(secondFilterSamplePath));
            Assert.IsTrue(Directory.Exists(samplePluginOriginPath));   
 
@@ -144,7 +144,7 @@ namespace OQAT_Tests
             {
                 evtObj.WaitOne();
             }
-            copyHelper(uncompatibleAssembly);
+            copyHelper(presentationPath);
             key = false;
             while (!key)
             {
@@ -201,19 +201,14 @@ namespace OQAT_Tests
         //    Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
         //}
 
-        ///// <summary>
-        /////Ein Test für "getPlugin"
-        /////</summary>
-        //public void getPluginTestHelper<T>()
-        //{
-        //    PluginManager_Accessor target = new PluginManager_Accessor(); // TODO: Passenden Wert initialisieren
-        //    string namePlugin = string.Empty; // TODO: Passenden Wert initialisieren
-        //    T expected = default(T); // TODO: Passenden Wert initialisieren
-        //    T actual;
-        //    actual = target.getPlugin<T>(namePlugin);
-        //    Assert.AreEqual(expected, actual);
-        //    Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
-        //}
+        /// <summary>
+        ///Ein Test für "getPlugin"
+        ///</summary>
+        public void getPluginTestHelper<T>()
+        {
+            var player = PluginManager.pluginManager.getPlugin<IPresentation>("VideoPlayer");
+            Assert.IsNotNull(player);
+        }
 
         //[TestMethod()]
         //public void getPluginTest()
