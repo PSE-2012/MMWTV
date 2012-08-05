@@ -20,17 +20,13 @@
 	{
 
         /// <summary>
-        /// Displays a view with GUI components of the plugin in the given parent container.
+        /// Return an optional View a plugin might have implemented (i.e. options view), if
+        /// plugin does not provide an additional view, this field can be left uninitialized 
         /// </summary>
-        /// <param name="parent">panel where the plugin may place own gui components</param>
-		void setParentControl(Panel parent);
-
-        /// <summary>
-        /// If a plugin wants to listen for some events of <see cref="EventType"/> it has to
-        /// return the event handler and the corresponding types in this method.
-        /// </summary>
-        /// <returns></returns>
-		Dictionary<EventType,List<Delegate>> getEventHandlers();
+        UserControl propertyView
+        {
+            get;
+        }
 
 
 	}
