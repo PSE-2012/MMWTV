@@ -11,11 +11,12 @@
     using Oqat.PublicRessources.Model;
     using Oqat.ViewModel;
     using System.Collections.ObjectModel;
+    using System.Runtime.Serialization;
 
 	/// <summary>
 	/// This class is the Model for a user's project in OQAT.
 	/// </summary>
-    public class Project : IMemorizable
+    public class Project
 	{
 		/// <summary>
 		/// Name of the project.
@@ -101,7 +102,13 @@
                     addNode(vid, 0);
                 }
             }
+            saveProject();
 		}
+
+        internal void saveProject()
+        {
+            Caretaker.caretaker.writeMemento(getMemento());
+        }
 
         /// <summary>
         /// Constructs a new project according to 
@@ -113,23 +120,40 @@
         /// <param name="mem">Memento to extract new settings from.</param>
         internal Project(Memento mem)
         {
-          
+            this.idLock = new Object();
+            ProjectProperties prProperties;
             try
             {
-               var prProperties = (ProjectProperties)mem.state;
-               if (prProperties.complete)
-                   this.setMemento(mem);
-               else
-                   throw new ArgumentException("Given memento does not contain all requered properties.");
+               prProperties = (ProjectProperties)mem.state;
             }
             catch (InvalidCastException exc)
             {
                 throw new ArgumentException("State object within the given memento: " + mem.name + " is not of the type"
                     + " ProejctProperties.", exc);
             }
+            /// state object save.
+            if ((prProperties == null) && !prProperties.complete)
+            {
+                PluginManager.pluginManager.raiseEvent(EventType.info, new ErrorEventArgs(
+                    new Exception("Couldnt load project completely, " +
+                    "given project may be broken. Oqat will try to load the project anyway, if" +
+                " problem will occure you will be notified.")));
+                throw new ArgumentException("Couldnt load project, given project may be broken");
+            }
+            this.name = String.IsNullOrEmpty(prProperties.name) ? name : prProperties.name;
+            this.description = String.IsNullOrEmpty(prProperties.description) ? description : prProperties.description;
 
- 
+            // ProjectProperties checked path for validity at construction time.
+            path_Project = String.IsNullOrEmpty(prProperties.path_Project) ? path_Project : prProperties.path_Project;
 
+            if (prProperties.newTrees)
+            {
+                PluginManager.pluginManager.raiseEvent(EventType.panic, new ErrorEventArgs(new Exception("Couldnt "
+                    + "build the SmartTree. A blanc SmartTree will be generated.")));
+            }
+                _unusedId = prProperties._unusedId;
+                smartIndex = prProperties.smartIndex;
+                smartTree = prProperties.smartTree;
         }
 
 
@@ -166,6 +190,8 @@
             {
                 smartTree.Add(newChild);
             }
+
+            saveProject();
         }
 
         /// <summary>
@@ -199,63 +225,29 @@
 
             if ((toRmNode.smartTree.Count > 0) & !force)
              {
+                int idFathersFather = (father != null) ? father.id : -1;
                  foreach (SmartNode i in toRmNode.smartTree)
                     {
-                        i.idFather = father.id;
+                        i.idFather = idFathersFather;
                     }
-                 if (father == null)
-                     smartTree.Concat(toRmNode.smartTree);
-                 else
-                     father.smartTree.Concat(toRmNode.smartTree);
+                 var fatherTree = (father == null) ? smartTree : father.smartTree;
+                 foreach (SmartNode n in toRmNode.smartTree)
+                 {
+                     fatherTree.Add(n);
+                 }
 
              }
+            saveProject();
         }
         /// <summary>
         /// Return a memento for the current project.
         /// </summary>
         /// <returns></returns>
-		public virtual Memento getMemento()
+		private Memento getMemento()
 		{
             return new Memento(this.name, 
                 new ProjectProperties(name, description,path_Project, smartIndex, smartTree, _unusedId), 
-                this.path_Project + this.name + "_Project.oqat");
-		}
-
-        /// <summary>
-        /// Sets the current properties to those within
-        /// the given memento state object.
-        /// </summary>
-        /// <param name="memento">Memento to get the new properties from.</param>
-		public virtual void setMemento(Memento mem)
-		{
-            ProjectProperties prProperties;
-            try
-            {
-                prProperties = (ProjectProperties)mem.state;
-            }
-            catch (InvalidCastException exc)
-            {
-                throw new ArgumentException("State object within the given memento: " + mem.name + " is not of the type"
-                    + " ProejctProperties.", exc);
-            }
-
-            name = String.IsNullOrEmpty(prProperties.name) ? name : prProperties.name;
-            description = String.IsNullOrEmpty(prProperties.description) ? description : prProperties.description;
-
-            // ProjectProperties checked path for validity at construction time.
-            path_Project = String.IsNullOrEmpty(prProperties.path_Project) ? path_Project : prProperties.description;
-
-            if (prProperties.newTrees)
-            {
-                _unusedId = prProperties._unusedId;
-                smartIndex.Clear();
-                smartIndex.Concat(prProperties.smartIndex);
-
-                smartTree.Clear();
-                smartTree.Concat(prProperties.smartTree);
-            }
-            
-
+                this.path_Project);
 		}
 
 	}
@@ -266,7 +258,8 @@
     /// be retrieved by a Project to restore or change settings respectively
     /// smartNodes. All values within this class are either null or valid.
     /// </summary>
-    internal class ProjectProperties
+    [Serializable()]
+    internal class ProjectProperties : ISerializable
     {
         /// <summary>
         /// Indicates whether all properties requered
@@ -294,7 +287,8 @@
 
         /// <summary>
         /// This bool indicates whether smartIndex, smartTree and
-        /// _unusedId are valid.
+        /// _unusedId are valid. If there are not, newTrees are
+        /// build.
         /// </summary>
         internal bool newTrees = false;
 
@@ -345,7 +339,7 @@
             private set;
         }
 
-
+        
         internal ProjectProperties(string name, string description, string path_Project,
             Dictionary<int, SmartNode> smartIndex, ObservableCollection<SmartNode> smartTree, int _unusedId) 
         {
@@ -362,17 +356,23 @@
                 throw new ArgumentException("Given project path" + path_Project + " is invalid.", exc);
             }
 
-            newTrees = smartConsistency(smartIndex, smartTree, _unusedId);
+            newTrees = !smartConsistency(smartIndex, smartTree, _unusedId);
             if (newTrees)
+            {
+                this._unusedId = 0;
+                this.smartTree = new ObservableCollection<SmartNode>();
+                this.smartIndex = new Dictionary<int,SmartNode>();
+            }
+            else
             {
                 this._unusedId = _unusedId;
                 this.smartTree = smartTree;
                 this.smartIndex = smartIndex;
             }
 
-            complete = newTrees && String.IsNullOrWhiteSpace(name) && 
-                        String.IsNullOrWhiteSpace(description) && 
-                            String.IsNullOrWhiteSpace(path_Project);
+            complete = !newTrees && !String.IsNullOrWhiteSpace(name) && 
+                        (null != description) && 
+                            !String.IsNullOrWhiteSpace(path_Project);
 
         }
 
@@ -433,6 +433,26 @@
             return consistent;
         }
 
+        public ProjectProperties(SerializationInfo info, StreamingContext stxt) : 
+            this((string)info.GetValue("name", typeof(string)),
+            (string)info.GetValue("description", typeof(string)), 
+            (string)info.GetValue("path_Project", typeof(string)),
+            (Dictionary<int, SmartNode>) info.GetValue("smartIndex", typeof(Dictionary<int, SmartNode>)),
+            (ObservableCollection<SmartNode>)info.GetValue("smartTree", typeof(ObservableCollection<SmartNode>)),
+            (int) info.GetValue("_unusedId", typeof(int)))
+        {
+            this.complete = (bool)info.GetValue("complete", typeof(bool));
+        }
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("name", this.name);
+            info.AddValue("description", this.description);
+            info.AddValue("_unusedId", this._unusedId);
+            info.AddValue("smartIndex", this.smartIndex);
+            info.AddValue("smartTree", this.smartTree);
+            info.AddValue("path_Project", this.path_Project);
+            info.AddValue("complete", this.complete);
+        }
     }
 }
 
