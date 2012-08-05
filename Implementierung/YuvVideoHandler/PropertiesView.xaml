@@ -4,6 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="groupBoxStyle" TargetType="GroupBox">
+            <Setter Property="Padding" Value="2,2,2,2" />
+            <Setter Property="Margin" Value="2,2,2,2" />
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+    </UserControl.Resources>
+    <GroupBox Header="Required parameters" Style="{StaticResource groupBoxStyle}" >
     <StackPanel>
         <WrapPanel>
             <Label Width="50" Height="30" Margin="0,5,0,0">Breite:</Label>
@@ -29,4 +38,5 @@
         <Grid></Grid>
         
     </StackPanel>
+    </GroupBox>
 </UserControl>
