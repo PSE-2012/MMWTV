@@ -63,26 +63,30 @@ namespace Oqat.PublicRessources.Model
 		}
 
         /// <summary>
-        /// Returns a video handler that may be used for getting or writing frames of the video.
+        /// A video handler that may be used for getting or writing frames of the video.
         /// e.g. a YuvVideoHandnler to process the video file if it is of yuv-format.
         /// </summary>
-        /// <returns>a video handler to acess the video frames.</returns>
-		IVideoHandler getVideoHandler();
+        IVideoHandler handler
+        {
+            get;
+        }
+	//	IVideoHandler getVideoHandler();
 
+        // already implemented with through the IMemorizable interface
 
-        /// <summary>
-        /// Returns a memento that contains the current state of this video object
-        /// in order to save this and restore it later.
-        /// </summary>
-        /// <returns>a memento that contains the current state of this video object</returns>
-		Memento getMemento();
+        ///// <summary>
+        ///// Returns a memento that contains the current state of this video object
+        ///// in order to save this and restore it later.
+        ///// </summary>
+        ///// <returns>a memento that contains the current state of this video object</returns>
+        //Memento getMemento();
 
-        /// <summary>
-        /// Sets the state of this video object to the one saved in the given memento.
-        /// </summary>
-        /// <exception cref="ArgumentException">Throws ArgumentException if the memento is not a memento of a video object.</exception>
-        /// <param name="memento">a memento of a video instance</param>
-		void setMemento(Memento memento);
+        ///// <summary>
+        ///// Sets the state of this video object to the one saved in the given memento.
+        ///// </summary>
+        ///// <exception cref="ArgumentException">Throws ArgumentException if the memento is not a memento of a video object.</exception>
+        ///// <param name="memento">a memento of a video instance</param>
+        //void setMemento(Memento memento);
 
     }
 }
