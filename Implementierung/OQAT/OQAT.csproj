@@ -58,6 +58,7 @@
     <Reference Include="Microsoft.WindowsAPICodePack.Shell">
       <HintPath>..\..\lib\Windows API Code Pack 1.1\binaries\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -82,6 +83,9 @@
     </ApplicationDefinition>
     <Compile Include="Model\Video.cs" />
     <Compile Include="ViewModel\EntryEventArgs.cs" />
+    <Compile Include="ViewModel\ExplorerBrowser.xaml.cs">
+      <DependentUpon>ExplorerBrowser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ExtraResourceEventArgs.cs" />
     <Compile Include="ViewModel\VM_Welcome.xaml.cs">
       <DependentUpon>VM_Welcome.xaml</DependentUpon>
@@ -116,6 +120,10 @@
       <DependentUpon>OqatApp.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ViewModel\ExplorerBrowser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewModel\VM_ProjectOpenDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -169,6 +177,10 @@
     <ProjectReference Include="..\OqatPublicResources\OqatPublicResources.csproj">
       <Project>{64D5940A-48B4-410D-B1A2-752ED52C2D5F}</Project>
       <Name>OqatPublicResources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPF_ClosableTabItem\WPF_ClosableTabItem.csproj">
+      <Project>{5F6709BE-B477-4C58-B4C0-1735443E6799}</Project>
+      <Name>WPF_ClosableTabItem</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

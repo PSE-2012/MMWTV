@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
+using Oqat.ViewModel;
 namespace Oqat
 {
     /// <summary>
@@ -14,7 +15,10 @@ namespace Oqat
     {
 
         private void initOqat() {}
-        private void initPluginManager() {}
+        private void initPluginManager() 
+        {
+            var pm = PluginManager.pluginManager;
+        }
 
         OqatApp()
         {
