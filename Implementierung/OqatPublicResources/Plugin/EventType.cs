@@ -60,5 +60,10 @@ namespace Oqat.PublicRessources.Plugin
         /// Will be raised if the viewType is changed in order to adapt the presentation.
         /// </summary>
         toggleView,
+
+        /// <summary>
+        /// Will be raised if a macroentry (filter/metric) is selected in the macroView.
+        /// </summary>
+        macroEntrySelected,
 	}
 }

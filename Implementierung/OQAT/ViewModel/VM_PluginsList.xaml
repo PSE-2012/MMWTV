@@ -3,33 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d">
-    <Grid>
-        <TabControl>
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:Oqat.ViewModel">
+    <StackPanel Orientation="Vertical">
+        <TabControl SelectionChanged="tab_SelectedChanged">
             <TabItem Header="Filter" Name="tabFilterList">
-                <TreeView Name="treeFilters" ItemsSource="{Binding filterList}">
-                        <TreeView.ItemContainerStyle>
-                            <Style TargetType="{x:Type TreeViewItem}">
-                                <Setter Property="IsExpanded" Value="False" />
-                                <Setter Property="FontWeight" Value="Normal" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="FontWeight" Value="Bold" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TreeView.ItemContainerStyle>
-
-                        <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding mementos}">
-                                <TextBlock Text="{Binding mementos}" />
-                            </HierarchicalDataTemplate>
-                        </TreeView.ItemTemplate>
-                    </TreeView>
+                <TreeView Name="treeFilters" ItemsSource="{Binding}" SelectedItemChanged="treePlugins_SelectedItemChanged">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type local:PluginViewModel}"
+                                              ItemsSource="{Binding children}">
+                            <TextBlock Text="{Binding Path=name}"/>
+                        </HierarchicalDataTemplate>
+                    </TreeView.Resources>
+                </TreeView>
             </TabItem>
             <TabItem Header="Metriken" Name="tabMetricList">
-
+                <TreeView Name="treeMetrics" ItemsSource="{Binding}" SelectedItemChanged="treePlugins_SelectedItemChanged">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type local:PluginViewModel}"
+                                              ItemsSource="{Binding children}">
+                            <TextBlock Text="{Binding Path=name}"/>
+                        </HierarchicalDataTemplate>
+                    </TreeView.Resources>
+                </TreeView>
             </TabItem>
         </TabControl>
-    </Grid>
+        
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Name="panelMementoSave" Visibility="Hidden">
+                <TextBox Name="tbMementoName" Margin="3">Filtereinstell1</TextBox>
+                <Button Name="bttSaveMemento" Margin="3" Click="bttSaveMemento_Click">Speichern</Button>
+                <Button Name="bttCopyMemento" Margin="3" Click="bttCopyMemento_Click">Kopieren</Button>
+                <Button Name="bttDeleteMemento" Margin="3" Click="bttDeleteMemento_Click">Löschen</Button>
+            </StackPanel>
+            <Grid Name="gridPluginProperties" />
+        </StackPanel>
+    </StackPanel>
 </UserControl>

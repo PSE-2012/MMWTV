@@ -76,7 +76,7 @@ namespace Oqat.Model
 		{
             Memento objectToSerialize = null;
             //check if correct file exist
-            if (File.Exists(fileName) && Path.GetExtension(fileName) == ".bin")
+            if (File.Exists(fileName) && Path.GetExtension(fileName) == ".mem")
             {
                 //Reading files and creates a list of mementos
                 Stream stream = File.Open(fileName, FileMode.Open);

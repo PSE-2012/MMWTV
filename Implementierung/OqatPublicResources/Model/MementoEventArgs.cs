@@ -16,20 +16,26 @@ namespace Oqat.PublicRessources.Model
         /// <summary>
         /// Name of the plugin the Memento belongs to.
         /// </summary>
-		private string pluginKey
+		public string pluginKey
 		{
 			get;
-			set;
+			private set;
 		}
 
         /// <summary>
         /// Name of the Memento.
         /// </summary>
-		private string mementoName
+		public string mementoName
 		{
 			get;
-			set;
+			private set;
 		}
+
+        public MementoEventArgs(string mementoName, string pluginKey)
+        {
+            this.mementoName = mementoName;
+            this.pluginKey = pluginKey;
+        }
 
 	}
 }
