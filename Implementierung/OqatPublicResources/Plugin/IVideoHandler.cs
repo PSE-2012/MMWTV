@@ -7,6 +7,7 @@
 
     using System.Drawing;
     using Oqat.PublicRessources.Model;
+using System.Windows.Controls;
 
 
     /// <summary>
@@ -68,6 +69,23 @@
         /// <param name="filepath">location of the videofile to read</param>
         /// <param name="info">VideoInfo containing needed information</param>
         void setVideo(string filepath, IVideoInfo info);
+
+
+        /// <summary>
+        /// If formatsperific informations are available, they can be presented in this
+        /// user control.
+        /// </summary>
+        UserControl readOnlyInfoView
+        {
+            get;
+        }
+        /// <summary>
+        /// Indicates whether the video handler has correct data to work on.
+        /// </summary>
+        bool consistent
+        {
+            get;
+        }
        
 	}
 }
