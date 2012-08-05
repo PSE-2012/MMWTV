@@ -7,6 +7,7 @@ using System.IO;
 using Oqat.PublicRessources.Model;
 using Oqat.PublicRessources.Plugin;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Oqat.Model
 {
@@ -15,7 +16,8 @@ namespace Oqat.Model
     /// This class is the Model for the tree structure where each video in a project 
     /// is represented by a node containing the path to it.
     /// </summary>
-    class SmartNode
+    [Serializable()]
+    class SmartNode : ISerializable
     {
 
         public ObservableCollection<SmartNode> smartTree
@@ -44,7 +46,6 @@ namespace Oqat.Model
         /// <summary>
         /// Creates a new SmartNode from a given path to a video file.
         /// </summary>
-        /// <param name="vidPath"></param>
         public SmartNode(Video vid, int id, int idFather)
         {
             this.smartTree = new ObservableCollection<SmartNode>();
@@ -53,21 +54,26 @@ namespace Oqat.Model
             this.idFather = idFather;
         }
 
-
-        /// <summary>
-        /// Creates a new SmartNode from a given path to a video file.
-        /// </summary>
-        /// <param name="vidPath"></param>
-        public SmartNode(bool isAnalysis, string vidPath, IVideoInfo vidInfo,int id, int idFather, List<MacroEntry> processedBy = null)
-        {
-            this.id = id;
-            this.idFather = idFather;
-            video = new Video(isAnalysis, vidPath, vidInfo, processedBy);
-        }
-
         public override string ToString()
         {
             return name;
+        }
+
+        public SmartNode(SerializationInfo info, StreamingContext ctxt) :
+            this((Video)info.GetValue("video", typeof(Video)), 
+            (int)info.GetValue("id", typeof(int)), 
+            (int)info.GetValue("idFather", typeof(int)))
+        {
+            this.smartTree = 
+                (ObservableCollection<SmartNode>)info.GetValue("smartTree", typeof(ObservableCollection<SmartNode>));
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("smartTree", this.smartTree);
+            info.AddValue("idFather", this.idFather);
+            info.AddValue("id", this.id);
+            info.AddValue("video", this.video);
         }
     }
 }
