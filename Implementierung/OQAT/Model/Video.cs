@@ -9,11 +9,13 @@
     using Oqat.PublicRessources.Plugin;
     using Oqat.PublicRessources.Model;
     using Oqat.ViewModel;
+    using System.Runtime.Serialization;
 
 	/// <summary>
 	/// This class is the Model for a Video object containing relevant information about a Video file.
 	/// </summary>
-    public class Video : IVideo
+    [Serializable()]
+    public class Video : IVideo, ISerializable
 	{
         private IVideoInfo _vidInfo = null;
         private bool _isAnalysis = false;
@@ -30,30 +32,23 @@
         /// <param name="isAnalysis">true if the video is the result of an analysis.</param>
         /// <param name="vidPath">filepath to the video</param>
         /// This can be created by the VideoHandler using user input to its propertiesView.</param>
-        /// <remarks>This contructor defaults processedBy to an empty list.</remarks>
-        public Video(bool isAnalysis, string vidPath, IVideoInfo vidInfo)
-            : this(isAnalysis, vidPath, new List<MacroEntry>())
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of Video.
-        /// </summary>
-        /// <param name="isAnalysis">true if the video is the result of an analysis.</param>
-        /// <param name="vidPath">filepath to the video</param>
-        /// This can be created by the VideoHandler using user input to its propertiesView.</param>
         /// <param name="processedBy">a list of MacroEntries describing through which operations this video was created.</param>
-        public Video(bool isAnalysis, string vidPath, List<MacroEntry> processedBy)
+        /// <remarks>Note that optional parameters are used (for vidInfo and processedBy). If you do not
+        /// need them just dont mention them in the invocation, else see <see cref="http://msdn.microsoft.com/de-de/library/dd264739.aspx"/>
+        public Video(bool isAnalysis, string vidPath, IVideoInfo vidInfo = null,List<MacroEntry> processedBy = null)
         {
             this.isAnalysis = isAnalysis;
             this.vidPath = vidPath;
-            this.vidInfo = vidInfo;
-            this.processedBy = processedBy;
+            
+            this.vidInfo =vidInfo;
+            this.processedBy = (processedBy != null) ? processedBy: new List<MacroEntry>();
 
 
+            // dont see the need for this event right now...
+            // vidImport dialog constructs this object and the video can be extracted from it
             // TODO: Maybe this should not be done in the video class but in a class creating the videos.
-            if (videoObjectCreated != null)
-                videoObjectCreated(this, new VideoEventArgs(this));
+            //if (videoObjectCreated != null)
+            //    videoObjectCreated(this, new VideoEventArgs(this));
         }
 
 
@@ -169,7 +164,7 @@
 
 
         private IVideoHandler _handler;
-        internal IVideoHandler handler
+        public IVideoHandler handler
         {
             get
             {
@@ -183,7 +178,7 @@
         /// e.g. a YuvVideoHandnler to process the video file if it is of yuv-format.
         /// </summary>
         /// <returns>a video handler to acess the video frames.</returns>
-		private virtual IVideoHandler getVideoHandler()
+		private IVideoHandler getVideoHandler()
 		{
 
             PluginManager pm = PluginManager.pluginManager;
@@ -237,8 +232,28 @@
             this._vidInfo = refv._vidInfo;
 		}
 
+        public Video(SerializationInfo info, StreamingContext ctxt) :
+            this((bool)info.GetValue("isAnalysis", typeof(bool)), 
+            (string)info.GetValue("vidPath", typeof(string)),
+            (IVideoInfo)info.GetValue("vidInfo", typeof(IVideoInfo)), 
+            (List<MacroEntry>)info.GetValue("processedBy", typeof(List<MacroEntry>)))
+        {
+            this.extraResources = 
+                (Dictionary<PresentationPluginType, List<string>>)info.GetValue("extraResources", 
+                typeof(Dictionary<PresentationPluginType, List<string>>));
+        }
 
-        
-	}
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("isAnalysis", this.isAnalysis);
+            info.AddValue("vidPath", this.vidPath);
+            info.AddValue("vidInfo", this.vidInfo);
+            info.AddValue("processedBy", this.processedBy);
+            info.AddValue("extraResources", this.extraResources);
+            info.AddValue("frameMetricValue", this.frameMetricValue);
+
+        }
+    }
 }
 
