@@ -9,18 +9,24 @@
              
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-    <TabControl Grid.Row="0" Grid.RowSpan="4">
-        <TabItem >
-            <TreeView  x:Name="smartTreeExplorer" ItemsSource="{Binding}"
-                      SelectedItemChanged="onSmartNodeSelect">
+    <Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TreeView Grid.Row="0" Grid.RowSpan="4" x:Name="smartTreeExplorer" ItemsSource="{Binding}"
+                      SelectedItemChanged="onSmartNodeSelect"   KeyDown="smartTreeExplorer_KeyDown"
+                          DragDrop.Drop="smartTreeExplorer_Drop" AllowDrop="True"
+                          DragDrop.DragEnter="smartTreeExplorer_DragEnter">
+
+
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type local:SmartNode}"
                                               ItemsSource="{Binding smartTree}">
@@ -28,18 +34,6 @@
                     </HierarchicalDataTemplate>                  
                 </TreeView.Resources>
             </TreeView>
-        </TabItem>
-        <TabItem>
-
-                <!--FileBrowser-->
-                <Border Width="400">
-                    <WinApiPresentation:ExplorerBrowser                        
-                        x:Name="fileExp"
-                        Margin="5"
-                        NavigationTarget="{Binding SelectedItem, ElementName=KnownFoldersList, Mode=OneWay}" />
-                </Border>
-            </TabItem>
-    </TabControl>
         <StackPanel Grid.Row="5">
             <StackPanel.DataContext>
                 <Binding ElementName="smartTreeExplorer"  Path="SelectedItem"/>
@@ -54,4 +48,5 @@
             </WrapPanel>
         </StackPanel>
     </Grid>
+    </Border>
 </UserControl>
