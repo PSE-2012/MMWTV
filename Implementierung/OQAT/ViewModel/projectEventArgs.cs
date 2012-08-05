@@ -12,11 +12,16 @@
     /// </summary>
 	public class ProjectEventArgs : EventArgs
 	{
-		private Project project
+		public Project project
 		{
 			get;
-			set;
+			private set;
 		}
+
+        public ProjectEventArgs(Project project)
+        {
+            this.project = project;
+        }
 
 	}
 }
