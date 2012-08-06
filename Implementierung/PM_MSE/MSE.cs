@@ -14,13 +14,13 @@ namespace PM_MSE
     using Oqat.PublicRessources.Model;
 
     [ExportMetadata("namePlugin", "PM_MSE")]
-    [ExportMetadata("type", PluginType.IMetric)]
+    [ExportMetadata("type", PluginType.IMetricOqat)]
     [Export(typeof(IPlugin))]
 
 	public class MSE : IMetricOqat
 	{
         private string _namePlugin = "PM_MSE";
-        private PluginType _type = PluginType.IMetric;
+        private PluginType _type = PluginType.IMetricOqat;
         
         VM_PM_MSE propertiesView;
 
