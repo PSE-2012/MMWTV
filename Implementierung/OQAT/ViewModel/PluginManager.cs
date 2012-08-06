@@ -524,8 +524,12 @@
         internal static event macroEntryClickedHandler macroEntryClicked;
         internal delegate void newMementoCreatedHandler(object sender, MementoEventArgs e);
         internal static event newMementoCreatedHandler newMementoCreated;
-        internal event newProjectCreatedHandler OqatNewProjectCreatedHandler;
-        internal event toggleViewHandler OqatToggleView;
+        internal static event newProjectCreatedHandler OqatNewProjectCreatedHandler;
+        internal static event toggleViewHandler OqatToggleView;
+
+
+
+
         /// <summary>
         /// Return a list of all known mementos of a plugin.
         /// 

@@ -120,7 +120,7 @@ namespace Oqat.ViewModel
             InitializeComponent();
             parent.Children.Add(this);
 
-            PluginManager.toggleView += this.onToggleView;
+            PluginManager.OqatToggleView += this.onToggleView;
             PluginManager.videoLoad += this.onVideoLoad;
 
 
@@ -178,16 +178,15 @@ namespace Oqat.ViewModel
             switch (vtype)
             {
                 case ViewType.FilterView:
-                    this.playerProc.setParentControl(this.playerPanel);
+                    this.playerPanel.Children.Add(playerProc.propertyView);
                     break;
                 case ViewType.MetricView:
-                    this.playerProc.setParentControl(this.playerPanel);
-                    this.playerRef.setParentControl(this.playerPanel);
+                    this.playerPanel.Children.Add(playerProc.propertyView);
+                    this.playerPanel.Children.Add(playerRef.propertyView);
                     break;
                 case ViewType.AnalyzeView:
-                    this.playerProc.setParentControl(this.playerPanel);
-                    this.playerRef.setParentControl(this.playerPanel);
-                    this.diagram.setParentControl(this.otherPanel);
+                    this.playerPanel.Children.Add(playerProc.propertyView);
+                    this.otherPanel.Children.Add(diagram.propertyView);
                     break;
             }
 		}

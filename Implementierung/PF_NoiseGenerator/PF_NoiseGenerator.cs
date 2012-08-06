@@ -20,6 +20,8 @@ namespace PF_NoiseGenerator
     using AForge.Imaging.Filters;
     using AForge.Math.Random;
 
+    using System.Windows.Controls;
+
 
 
     [ExportMetadata("namePlugin", "PF_NoiseGenerator")]
@@ -76,9 +78,12 @@ namespace PF_NoiseGenerator
             }
         }
 
-        public void setParentControl(System.Windows.Controls.Panel parent)
+        public UserControl propertyView
         {
-            parent.Children.Add(this.propertiesView);
+            get
+            {
+                return propertiesView;
+            }
         }
 
         public Dictionary<EventType, List<Delegate>> getEventHandlers()

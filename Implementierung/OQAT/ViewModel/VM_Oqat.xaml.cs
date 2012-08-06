@@ -111,8 +111,8 @@ namespace Oqat.ViewModel
         public VM_Oqat()
         {
             InitializeComponent();
-            PluginManager.pluginManager.OqatNewProjectCreatedHandler += onNewProjectCreated;
-            PluginManager.pluginManager.OqatToggleView += onToggleView;
+            PluginManager.OqatNewProjectCreatedHandler += onNewProjectCreated;
+            PluginManager.OqatToggleView += onToggleView;
                 // PluginManager is initializet by OqatApp
                 //  initMenu();
              initWelcome();

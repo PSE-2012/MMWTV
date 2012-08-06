@@ -52,7 +52,7 @@ namespace Oqat.ViewModel
             InitializeComponent();
             parent.Children.Add(this);
 
-            PluginManager.toggleView += this.onToggleView;
+            PluginManager.OqatToggleView += this.onToggleView;
             PluginManager.newMementoCreated += onNewMementoCreated;
             PluginManager.macroEntryClicked += onMacroFilterEntryClicked;
 
@@ -185,7 +185,7 @@ namespace Oqat.ViewModel
                 copied = true;
             }
 
-            propPlugin.setParentControl(this.gridPluginProperties);
+            this.gridPluginProperties.Children.Add(propPlugin.propertyView);
         }
 
         private void bttSaveMemento_Click(object sender, RoutedEventArgs e)
