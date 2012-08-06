@@ -81,11 +81,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\OqatSerializationBinder.cs" />
     <Compile Include="Model\Video.cs" />
     <Compile Include="ViewModel\EntryEventArgs.cs" />
-    <Compile Include="ViewModel\ExplorerBrowser.xaml.cs">
-      <DependentUpon>ExplorerBrowser.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\ExtraResourceEventArgs.cs" />
     <Compile Include="ViewModel\VM_Welcome.xaml.cs">
       <DependentUpon>VM_Welcome.xaml</DependentUpon>
@@ -120,10 +118,6 @@
       <DependentUpon>OqatApp.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ViewModel\ExplorerBrowser.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ViewModel\VM_ProjectOpenDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
