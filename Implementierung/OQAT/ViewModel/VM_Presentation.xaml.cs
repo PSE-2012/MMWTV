@@ -27,6 +27,31 @@ namespace Oqat.ViewModel
         IPresentation _playerRef;
         IPresentation _diagram;
 
+
+        /// <summary>
+        /// According to the current view type the Presetaion will show or hide some features.
+        /// </summary>
+        ViewType vtype;
+
+        IVideo videoProc;
+        IVideo videoRef;
+
+
+
+        public VM_Presentation()
+        {
+            InitializeComponent();
+
+            PluginManager.OqatToggleView += this.onToggleView;
+            PluginManager.videoLoad += this.onVideoLoad;
+
+
+            //TODO custom PresentationPlugins
+            this._custom = new List<IPresentation>();
+        }
+
+
+
         /// <summary>
         /// A video player plugin of the <see cref="PresentationPluginType"/> Player.
         /// This player is displayed in the MetricView <see cref="ViewType"/> only.
@@ -105,28 +130,7 @@ namespace Oqat.ViewModel
 
 
 
-        /// <summary>
-        /// According to the current view type the Presetaion will show or hide some features.
-        /// </summary>
-        ViewType vtype;
-
-        IVideo videoProc;
-        IVideo videoRef;
-
-
-
-        public VM_Presentation(Panel parent)
-        {
-            InitializeComponent();
-            parent.Children.Add(this);
-
-            PluginManager.OqatToggleView += this.onToggleView;
-            PluginManager.videoLoad += this.onVideoLoad;
-
-
-            //TODO custom PresentationPlugins
-            this._custom = new List<IPresentation>();
-        }
+        
 
 
 

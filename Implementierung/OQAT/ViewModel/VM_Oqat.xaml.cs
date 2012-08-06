@@ -22,6 +22,39 @@ namespace Oqat.ViewModel
     /// </summary>
     public partial class VM_Oqat : Window
     {
+        public VM_Oqat()
+        {
+            InitializeComponent();
+
+            // PluginManager is initializet by OqatApp
+            PluginManager.OqatNewProjectCreatedHandler += onNewProjectCreated;
+            PluginManager.OqatToggleView += onToggleView;
+            
+
+
+            //  initMenu();
+            vM_Welcome = new VM_Welcome();
+            this.welcomePanel.Children.Add(vM_Welcome);
+
+            //  initPluginLists
+            this.vM_PluginsList = new VM_PluginsList();
+            this.pluginListsPanel.Children.Add(this.vM_PluginsList);
+
+            //  initPresentation
+            this.vM_presentation = new VM_Presentation();
+            this.presentationPanel.Children.Add(this.vM_presentation);
+            
+            // initMacro();
+
+            
+            //startup viewType is WelcomeView (visibilities set in xaml)
+        }
+
+
+
+#region VM fields
+
+
         private VM_Welcome _vM_Welcome;
         private VM_Welcome vM_Welcome
         {
@@ -55,11 +88,6 @@ namespace Oqat.ViewModel
             set;
         }
 
-        private PluginManager pluginManager
-        {
-            get;
-            set;
-        }
 
         private ViewType currentView
         {
@@ -68,33 +96,10 @@ namespace Oqat.ViewModel
         }
 
 
-        /// <summary>
-        /// Initializes the pluginList (Filter and MetricList).
-        /// </summary>
-        private void initPluginLists()
-        {
-            this.vM_PluginsList = new VM_PluginsList(this.pluginListsPanel);
-        }
-        /// <summary>
-        /// Initializes the Welcome view.
-        /// </summary>
-        private void initWelcome()
-        {
-            vM_Welcome = new VM_Welcome();
-            this.welcomePanel.Children.Add(vM_Welcome);
-        }
+#endregion
 
-        /// <summary>
-        /// Initializes the ProjectExplorer(SmartTree and FileExplorer).
-        /// </summary>
-        private void initProjectExplorer()
-        {
 
-            //var tmpPr = new Project("testProject", "C:\\Users\\Public\\Videos\\Sample Videos\\someProject.proj", "description");
 
-            //this.vM_ProjectExplorer = new VM_ProjectExplorer(tmpPr, projectExplorerPanel);
-       
-        }
 
         public void onNewProjectCreated(object sender, ProjectEventArgs e)
         {
@@ -108,72 +113,9 @@ namespace Oqat.ViewModel
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView, new ViewTypeEventArgs(ViewType.FilterView));
         }
 
-        public VM_Oqat()
-        {
-            InitializeComponent();
-            PluginManager.OqatNewProjectCreatedHandler += onNewProjectCreated;
-            PluginManager.OqatToggleView += onToggleView;
-                // PluginManager is initializet by OqatApp
-                //  initMenu();
-             initWelcome();
-            //  initPluginLists();
-            //  initPresentation();
-            // initMacro();
-        }
+        
 
-        /// <summary>
-        /// Initializes the main menu.
-        /// </summary>
-        private void initMenu()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
-        /// Initializes the presentation viewmodel.
-        /// </summary>
-        private void initPresentation()
-        {
-
-            this.vM_presentation = new VM_Presentation(this.presentationPanel);
-
-
-            /*
-             * Test loading a video
-             * 
-             * 
-            //path selected from DateiExplorer, pass it on
-            Video importedVideo = new Video(false, "C:/Dokumente und Einstellungen/Sebastian/Eigene Dateien/PSE/Implementierung/akiyo_qcif.yuv", null);
-            VM_VidImportOptionsDialog vidImport = new VM_VidImportOptionsDialog(importedVideo);
-
-            bool? res = vidImport.ShowDialog();
-            if (!(res.HasValue && res.Value))
-            {
-                //canceled import
-                return;
-            }
-            
-            
-            //display in PP_Player
-            VideoEventArgs vidargs = new Oqat.PublicRessources.Model.VideoEventArgs(importedVideo, false);
-
-            //initializing example PP_Player
-            IPresentation player = PluginManager.pluginManager.getPlugin<IPresentation>("VideoPlayer");
-            player.loadVideo(this, vidargs);
-            player.setParentControl(this.gridPlayer);
-            
-            // player.unloadVideo();
-            // player.onFlushPresentationPlugins(this, null);
-            */
-
-
-
-        }
-
-        /// <summary>
-        /// Initializes the macro viewmodel.
-        /// </summary>
-        private void initMacro() { }
+        
 
 
         /// <summary>
@@ -196,8 +138,22 @@ namespace Oqat.ViewModel
         /// <param name="e"></param>
         private void onToggleView(object sender, ViewTypeEventArgs e)
         {
-            if(e.viewType!=currentView)
-            throw new System.NotImplementedException();
+            if (e.viewType != currentView)
+            {
+                switch (e.viewType)
+                {
+                    case ViewType.WelcomeView:
+                        welcomePanel.Visibility = Visibility.Visible;
+                        runningAppPanel.Visibility = Visibility.Collapsed;
+                        break;
+                    case ViewType.MetricView:
+                    case ViewType.FilterView:
+                    case ViewType.AnalyzeView:
+                        welcomePanel.Visibility = Visibility.Collapsed;
+                        runningAppPanel.Visibility = Visibility.Visible;
+                        break;
+                }
+            }
         }
 
         //private void MenuItem1_Click(object sender, RoutedEventArgs e)

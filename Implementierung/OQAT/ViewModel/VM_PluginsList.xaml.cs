@@ -32,6 +32,24 @@ namespace Oqat.ViewModel
         IPlugin propPlugin;
         bool copied = false;
 
+
+        public VM_PluginsList()
+        {
+            InitializeComponent();
+
+            PluginManager.OqatToggleView += this.onToggleView;
+            PluginManager.newMementoCreated += onNewMementoCreated;
+            PluginManager.macroEntryClicked += onMacroFilterEntryClicked;
+
+            loadPluginLists();
+
+            this.treeFilters.DataContext = this.filterList;
+            this.treeMetrics.DataContext = this.metricList;
+        }
+
+
+
+
         public ObservableCollection<PluginViewModel> filterList
         {
             get
@@ -47,20 +65,7 @@ namespace Oqat.ViewModel
             }
         }
 
-        public VM_PluginsList(Panel parent)
-        {
-            InitializeComponent();
-            parent.Children.Add(this);
-
-            PluginManager.OqatToggleView += this.onToggleView;
-            PluginManager.newMementoCreated += onNewMementoCreated;
-            PluginManager.macroEntryClicked += onMacroFilterEntryClicked;
-
-            loadPluginLists();
-
-            this.treeFilters.DataContext = this.filterList;
-            this.treeMetrics.DataContext = this.metricList;
-        }
+        
 
         private void loadPluginLists()
         {
