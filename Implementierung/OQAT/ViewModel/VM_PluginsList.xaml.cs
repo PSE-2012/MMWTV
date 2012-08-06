@@ -149,7 +149,7 @@ namespace Oqat.ViewModel
             if (this.tabFilterList.IsSelected)
                 curTV = this.treeFilters;
             else
-                curTV = this.treeFilters;
+                curTV = this.treeMetrics;
 
             return (PluginViewModel) curTV.SelectedItem;
         }
@@ -162,9 +162,22 @@ namespace Oqat.ViewModel
         /// <param name="e"></param>
         private void treePlugins_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            if (e.NewValue == null)
+            {
+                this.panelMementoSave.Visibility = System.Windows.Visibility.Hidden;
+                return;
+            }
+
+            PluginViewModel val = (PluginViewModel)e.NewValue;
+
+            updatePropertiesView(val);
+        }
+
+        private void updatePropertiesView(PluginViewModel selectedPlugin)
+        {
             this.gridPluginProperties.Children.Clear();
 
-            if (e.NewValue == null)
+            if (selectedPlugin == null)
             {
                 this.panelMementoSave.Visibility = System.Windows.Visibility.Hidden;
                 return;
@@ -172,14 +185,12 @@ namespace Oqat.ViewModel
 
             this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
 
-
-            PluginViewModel val =(PluginViewModel) e.NewValue;
-            string pn = val.getPluginName();
+            string pn = selectedPlugin.getPluginName();
             propPlugin = PluginManager.pluginManager.getPlugin<IPlugin>(pn);
 
-            if (val.isMemento)
+            if (selectedPlugin.isMemento)
             {
-                Memento m = PluginManager.pluginManager.getMemento(val.parentName, val.name);
+                Memento m = PluginManager.pluginManager.getMemento(selectedPlugin.parentName, selectedPlugin.name);
                 if (m != null)
                     propPlugin.setMemento(m);
 
@@ -190,8 +201,17 @@ namespace Oqat.ViewModel
                 copied = true;
             }
 
+
+            if (propPlugin.propertyView == null)
+            {
+                this.panelMementoSave.Visibility = System.Windows.Visibility.Hidden;
+                return;
+            }
+            
             this.gridPluginProperties.Children.Add(propPlugin.propertyView);
         }
+
+
 
         private void bttSaveMemento_Click(object sender, RoutedEventArgs e)
         {
@@ -239,8 +259,9 @@ namespace Oqat.ViewModel
 
         private void tab_SelectedChanged(object sender, SelectionChangedEventArgs e)
         {
-            ViewType t = ViewType.FilterView;
+            updatePropertiesView(this.getSelectedPVM());
 
+            ViewType t = ViewType.FilterView;
             if(this.tabMetricList.IsSelected)
                 t = ViewType.MetricView;
 
