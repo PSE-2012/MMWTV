@@ -202,7 +202,8 @@
         public void loadVideo(object sender, VideoEventArgs vid)
         {
             this._videohandler = vid.video.handler;
-            videoSource.NUMFRAMESINMEM = vid.video.vidInfo.frameCount;
+            //TODO: implement dynamic buffer
+            videoSource.NUMFRAMESINMEM = 20;//vid.video.vidInfo.frameCount;
             videoSource.bmp = new Bitmap[videoSource.NUMFRAMESINMEM];
             videoSource.bmp = videohandler.getFrames(0, videoSource.NUMFRAMESINMEM);
         }
