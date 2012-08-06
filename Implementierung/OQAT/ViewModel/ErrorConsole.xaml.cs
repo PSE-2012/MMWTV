@@ -71,12 +71,19 @@ namespace Oqat.ViewModel
             get;
             private set;
         }
+        public DateTime time
+        {
+            get;
+            private set;
+        }
 
         public ErrorViewModel(string message, string source, string priority)
         {
             this.message = message;
             this.source = source;
             this.priority = priority;
+
+            time = DateTime.Now;
         }
 
     }
