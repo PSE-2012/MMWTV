@@ -182,14 +182,14 @@ namespace Oqat.ViewModel
             switch (vtype)
             {
                 case ViewType.FilterView:
-                    this.playerPanel.Children.Add(playerProc.propertyView);
+                    this.gridPlayer1.Children.Add(playerProc.propertyView);
                     break;
                 case ViewType.MetricView:
-                    this.playerPanel.Children.Add(playerProc.propertyView);
-                    this.playerPanel.Children.Add(playerRef.propertyView);
+                    this.gridPlayer1.Children.Add(playerProc.propertyView);
+                    this.gridPlayer2.Children.Add(playerRef.propertyView);
                     break;
                 case ViewType.AnalyzeView:
-                    this.playerPanel.Children.Add(playerProc.propertyView);
+                    this.gridPlayer1.Children.Add(playerProc.propertyView);
                     this.otherPanel.Children.Add(diagram.propertyView);
                     break;
             }
@@ -229,7 +229,8 @@ namespace Oqat.ViewModel
         /// </summary>
 		private void resetPanel()
 		{
-            this.playerPanel.Children.Clear();
+            this.gridPlayer1.Children.Clear();
+            this.gridPlayer2.Children.Clear();
             this.otherPanel.Children.Clear();
             this.onFlushPresentationPlugins(this, new EventArgs());
 		}

@@ -2,18 +2,10 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Objective Quality Assessment Toolkit" Height="768" Width="1024"
-        x:Name="vm_Oqat">
+        x:Name="vm_Oqat" Closed="vm_Oqat_Closed">
     <!-- Background="Transparent" Loaded="Window_Loaded" -->
     
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="welcomePanel"/>
         <DockPanel x:Name="runningAppPanel" Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="Collapsed">
             <Grid x:Name="menuPanel" DockPanel.Dock="Top">
@@ -22,7 +14,7 @@
                 </Menu>
             </Grid>
             <Grid x:Name="projectExplorerPanel" DockPanel.Dock="Left" Width="200"/>
-            <Grid x:Name="pluginListsPanel" DockPanel.Dock="Right"/>
+            <Grid x:Name="pluginListsPanel" DockPanel.Dock="Right" Width="200"/>
             <Grid x:Name="presentationPanel" DockPanel.Dock="Top"/>
         </DockPanel>
     </Grid>

@@ -198,6 +198,11 @@ namespace Oqat.ViewModel
             OqatApp.errorConsole.Show();
         }
 
+        private void vm_Oqat_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
 
     }
 
