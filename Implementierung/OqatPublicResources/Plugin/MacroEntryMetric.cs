@@ -10,6 +10,7 @@
     /// <summary>
     /// This class is used to determine the history of a analysis video object.
     /// </summary>
+    [Serializable()]
 	public class MacroEntryMetric : MacroEntry
 	{
         /// <summary>
