@@ -93,6 +93,7 @@ namespace Oqat.ViewModel
             foreach (Video vid in videoList)
             {
                 vid.vidInfo = vid.handler.vidInfo;
+       
                 if (!vid.handler.consistent)
                 {
                     throw new Exception("Check your input, inconsistencies were detected.");
