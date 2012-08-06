@@ -14,12 +14,16 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <DockPanel x:Name="runningAppPanel" Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="Collapsed">
-            <Grid x:Name="menuPanel" DockPanel.Dock="Top"/>
-            <Grid x:Name="projectExplorerPanel" DockPanel.Dock="Left" Width="200"/>
-            <Grid x:Name="presentationPanel" DockPanel.Dock="Top"/>
-            <Grid x:Name="pluginListsPanel" DockPanel.Dock="Right"/>
-        </DockPanel>
         <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="welcomePanel"/>
+        <DockPanel x:Name="runningAppPanel" Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="Collapsed">
+            <Grid x:Name="menuPanel" DockPanel.Dock="Top">
+                <Menu>
+                    <MenuItem Name="miErrorConsole" Header="ErrorConsole" Click="miErrorConsole_Click" />
+                </Menu>
+            </Grid>
+            <Grid x:Name="projectExplorerPanel" DockPanel.Dock="Left" Width="200"/>
+            <Grid x:Name="pluginListsPanel" DockPanel.Dock="Right"/>
+            <Grid x:Name="presentationPanel" DockPanel.Dock="Top"/>
+        </DockPanel>
     </Grid>
 </Window>

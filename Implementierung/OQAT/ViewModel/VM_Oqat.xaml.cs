@@ -109,6 +109,7 @@ namespace Oqat.ViewModel
             //e.project.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\childOfSecond.avi", null), 1);
 
             this.vM_ProjectExplorer = new VM_ProjectExplorer(e.project);
+            this.projectExplorerPanel.Children.Add(vM_ProjectExplorer);
 
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView, new ViewTypeEventArgs(ViewType.FilterView));
         }
@@ -191,7 +192,14 @@ namespace Oqat.ViewModel
         #endregion
 
 
-    }
+
+        private void miErrorConsole_Click(object sender, RoutedEventArgs e)
+        {
+            OqatApp.errorConsole.Show();
+        }
+
 
     }
+
+}
 

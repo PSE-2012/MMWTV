@@ -13,17 +13,22 @@ namespace Oqat
     /// </summary>
     public partial class OqatApp : Application
     {
-
-        private void initOqat() {}
-        private void initPluginManager() 
+        public static ErrorConsole errorConsole
         {
-            var pm = PluginManager.pluginManager;
+            get;
+            private set;
         }
+        
 
         OqatApp()
         {
             initPluginManager();
-            initOqat();
+            errorConsole = new ErrorConsole();
+        }
+
+        private void initPluginManager()
+        {
+            var pm = PluginManager.pluginManager;
         }
     }
 
