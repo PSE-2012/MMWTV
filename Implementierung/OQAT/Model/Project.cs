@@ -310,10 +310,39 @@
         /// smartTree but arranges them 
         /// by an id.
         /// </summary>
+        private Dictionary<int, SmartNode> _smartIndex;
         internal Dictionary<int, SmartNode> smartIndex
         {
-            get;
-            private set;
+            get
+            {
+                if (_smartIndex == null)
+                    _smartIndex = new Dictionary<int, SmartNode>();
+                return _smartIndex;
+            }
+            private set
+            {
+                _smartIndex = value;
+            }
+        }
+
+        private List<SmartNode> _smartIndexBackup;
+        private List<SmartNode> smartIndexBackup
+        {
+            get
+            {
+                if (_smartIndex == null)
+                    throw new ArgumentNullException("SmartTree is initialized, cant construct backup");
+                if (_smartIndexBackup == null)
+                {
+                    _smartIndexBackup = new List<SmartNode>();
+                    foreach (var i in smartIndex.Values)
+                    {
+                        _smartIndexBackup.Add(i);
+                    }
+                }
+                
+                return _smartIndexBackup;
+            }
         }
 
         /// <summary>
@@ -345,6 +374,9 @@
         {
             this.name = String.IsNullOrWhiteSpace(name) ? null : name;
             this.description = String.IsNullOrWhiteSpace(description) ? null : description;
+            this.smartIndex = smartIndex;
+            this.smartTree = smartTree;
+            this._unusedId = _unusedId;
 
             try
             {
@@ -362,12 +394,6 @@
                 this._unusedId = 0;
                 this.smartTree = new ObservableCollection<SmartNode>();
                 this.smartIndex = new Dictionary<int,SmartNode>();
-            }
-            else
-            {
-                this._unusedId = _unusedId;
-                this.smartTree = smartTree;
-                this.smartIndex = smartIndex;
             }
 
             complete = !newTrees && !String.IsNullOrWhiteSpace(name) && 
@@ -394,35 +420,40 @@
                 if (smartIndex.ContainsKey(_unusedId))
                     consistent = false;
 
-                int smartTreeCount = 0;
+                //int smartTreeCount = 0;
 
+                //if (consistent)
+                //    foreach (SmartNode i in smartTree)
+                //    {
+
+                //        if ((i.id == _unusedId) 
+                //            || !smartIndex.ContainsKey(i.id)
+                //            || i.idFather >= 0)
+                //        {
+                //            consistent = false;
+                //            break;
+                //        }
+
+                //        smartTreeCount++;
+                //        foreach (SmartNode k in i.smartTree)
+                //        {
+                //            if ((k.id == _unusedId) 
+                //                || !smartIndex.ContainsKey(k.id)
+                //                || k.idFather != i.idFather)
+                //            {
+                //                consistent = false;
+                //                break;
+                //            }
+
+                //            smartTreeCount++;
+                //        }
+                //    }
+                smartCount = 0;
+                level = 0;
+                maxLevel = smartIndex.Count + 5;
                 if (consistent)
-                    foreach (SmartNode i in smartTree)
-                    {
-
-                        if ((i.id == _unusedId) 
-                            || !smartIndex.ContainsKey(i.id)
-                            || i.idFather >= 0)
-                        {
-                            consistent = false;
-                            break;
-                        }
-
-                        smartTreeCount++;
-                        foreach (SmartNode k in i.smartTree)
-                        {
-                            if ((k.id == _unusedId) 
-                                || !smartIndex.ContainsKey(k.id)
-                                || k.idFather != i.idFather)
-                            {
-                                consistent = false;
-                                break;
-                            }
-
-                            smartTreeCount++;
-                        }
-                    }
-                if (smartIndex.Count != smartTreeCount)
+                    smartTreeCounter(smartTree);
+                if (smartIndex.Count != smartCount)
                     consistent = false;
             }
             else
@@ -433,23 +464,59 @@
             return consistent;
         }
 
+        private int level = -1;
+        /// <summary>
+        /// set this to smartIndex.count + 5
+        /// </summary>
+        private int maxLevel = 0;
+        private int smartCount = 0;
+        private void smartTreeCounter(ObservableCollection<SmartNode> smartTree)
+        {           
+            foreach (var i in smartTree)
+            {
+                smartTreeCounter(i.smartTree);
+                smartCount++;
+                level++;
+                if (level > maxLevel)
+                    throw new InternalBufferOverflowException("More than thousan SmartNodes were found, cant guarantie" +
+                " consistency.");
+            }
+        }
+
         public ProjectProperties(SerializationInfo info, StreamingContext stxt) : 
             this((string)info.GetValue("name", typeof(string)),
             (string)info.GetValue("description", typeof(string)), 
             (string)info.GetValue("path_Project", typeof(string)),
-            (Dictionary<int, SmartNode>) info.GetValue("smartIndex", typeof(Dictionary<int, SmartNode>)),
-            (ObservableCollection<SmartNode>)info.GetValue("smartTree", typeof(ObservableCollection<SmartNode>)),
+            restoreIndex((List<SmartNode>) info.GetValue("smartIndexBackup", typeof(List<SmartNode>))),
+            ((SmartNode)info.GetValue("smartTree", typeof(SmartNode))).smartTree,
             (int) info.GetValue("_unusedId", typeof(int)))
         {
-            this.complete = (bool)info.GetValue("complete", typeof(bool));
+        }
+
+        private static Dictionary<int, SmartNode> restoreIndex(List<SmartNode> smartIndexBackup)
+        {
+            
+            Dictionary<int, SmartNode> restoredIndex = new Dictionary<int,SmartNode>();
+
+            foreach (var i in smartIndexBackup)
+            {
+                if (i == null)
+                    return restoredIndex;           //Exception would fit better, but it doesnt work yet.
+                restoredIndex.Add(i.id, i);
+            }
+            return restoredIndex;
         }
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("name", this.name);
             info.AddValue("description", this.description);
             info.AddValue("_unusedId", this._unusedId);
-            info.AddValue("smartIndex", this.smartIndex);
-            info.AddValue("smartTree", this.smartTree);
+           
+            info.AddValue("smartIndexBackup", this.smartIndexBackup);
+
+            // smartTree will be placed inside a smartNode, cause ObservableCollection
+            // not serializable
+            info.AddValue("smartTree", (new SmartNode(null, -2, -2, this.smartTree)));
             info.AddValue("path_Project", this.path_Project);
             info.AddValue("complete", this.complete);
         }
