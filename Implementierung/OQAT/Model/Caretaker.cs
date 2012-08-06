@@ -79,9 +79,10 @@ namespace Oqat.Model
             if (File.Exists(fileName))
             {
                 //Reading files and creates a list of mementos
-                Stream stream = File.Open(fileName, FileMode.Open);
+                Stream stream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
                 //using binary format
                 BinaryFormatter bFormatter = new BinaryFormatter();
+                bFormatter.Binder = new OqatSerializationBinder();
                 objectToSerialize = (Memento)bFormatter.Deserialize(stream);
                 stream.Close();
             }
@@ -99,7 +100,7 @@ namespace Oqat.Model
             {
                 lock (writeDisk)
                 {
-                    Stream stream = File.Open(objectToSerialize.mementoPath, FileMode.Create);
+                    Stream stream = File.Open(objectToSerialize.mementoPath, FileMode.Create, FileAccess.Write, FileShare.None);
                     BinaryFormatter bFormatter = new BinaryFormatter();
                     bFormatter.Serialize(stream, objectToSerialize);
                     stream.Close();
