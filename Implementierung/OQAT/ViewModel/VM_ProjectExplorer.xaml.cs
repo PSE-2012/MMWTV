@@ -58,7 +58,9 @@
         {
             SmartNode selected = (SmartNode)e.NewValue;
 
-
+            // TODO: Event to load video on proper userinput
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
+                new VideoEventArgs(selected.video));
         }
 
         private void smartTreeExplorer_KeyDown(object sender, KeyEventArgs e)

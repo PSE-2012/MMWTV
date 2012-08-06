@@ -188,6 +188,8 @@
             _handler = pm.getPlugin<IVideoHandler>(handlerPluginName);
             if (_handler == null)
                 throw new Exception("Cant process given video file format.");
+            //TODO: catch this exception. oqat shouldn't crash on a unknown file!
+
                 //PluginManager.pluginManager.raiseEvent(EventType.panic, 
                 //    new ErrorEventArgs(new Exception("No such ")));
 
