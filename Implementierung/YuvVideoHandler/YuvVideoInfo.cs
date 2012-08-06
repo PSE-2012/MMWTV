@@ -10,6 +10,8 @@ namespace PS_YuvVideoHandler
     using System.Runtime.Serialization;
     using System.Reflection;
 
+    using System.IO;
+
     /// <summary>
     ///  All supported Yuv formats.
     /// </summary>
@@ -35,7 +37,8 @@ namespace PS_YuvVideoHandler
         int _width = 0;
         int _height = 0;
         int _frameCount = -1;
-
+        int _framesize;
+        string _path;
 
 		public int width
 		{
@@ -46,6 +49,7 @@ namespace PS_YuvVideoHandler
             set
             {
                 _width = value;
+                this.calculateFrameCount();
             }
 		}
 
@@ -58,8 +62,21 @@ namespace PS_YuvVideoHandler
             set
             {
                 _height = value;
+                this.calculateFrameCount();
             }
 		}
+
+        public int frameSize
+        {
+            get
+            {
+                return _framesize;
+            }
+            set
+            {
+                _framesize = value;
+            }
+        }
 
 		public int frameCount
 		{
@@ -82,6 +99,7 @@ namespace PS_YuvVideoHandler
             set
             {
                 _yuvFormat = value;
+                this.calculateFrameCount();
             }
         }
 
@@ -94,10 +112,45 @@ namespace PS_YuvVideoHandler
             }
             set
             {
-                throw new NotImplementedException();
+                
             }
         }
 
+        public string path
+        {
+            get
+            {
+                return _path;
+            }
+            set
+            {
+                _path = value;
+                this.calculateFrameCount();
+            }
+        }
+
+
+        /// <summary>
+        /// Calculates the number of frames of the video and writes this information into the vidInfo.
+        /// </summary>
+        /// <returns>true if operation was successful, false if an error occured</returns>
+        private void calculateFrameCount()
+        {
+            frameSize = (int)(height * width * (1 + 2 * YuvVideoHandler.getLum2Chrom(yuvFormat)));
+
+            if (File.Exists(_path))
+            {
+                FileInfo f = new FileInfo(_path);
+                if (this.frameSize > 0)
+                {
+                    frameCount = (int)(f.Length / this.frameSize);
+                }
+            }
+            else
+            {
+                frameCount = -1;
+            }
+        }
 
 
 
@@ -128,11 +181,14 @@ namespace PS_YuvVideoHandler
             return (this.width ^ this.height << 4) | (int)this.yuvFormat;
         }
 
-        public YuvVideoInfo()
+        public YuvVideoInfo(string path)
         {
+            _path = path;
+
+            //set default values
             yuvFormat = YuvFormat.YUV420_IYUV;
-            width = 352;
-            height = 288;
+            width = 176;
+            height = 144;
         }
         public YuvVideoInfo(SerializationInfo info, StreamingContext context)
         {
@@ -140,6 +196,7 @@ namespace PS_YuvVideoHandler
             this.width = (int)info.GetValue("width", typeof(int));
             this.height = (int)info.GetValue("height", typeof(int));
             this.frameCount = (int)info.GetValue("frameCount", typeof(int));
+            this._path = (string)info.GetValue("path", typeof(string));
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -148,6 +205,7 @@ namespace PS_YuvVideoHandler
             info.AddValue("width", this.width);
             info.AddValue("height", this.height);
             info.AddValue("frameCount", this.frameCount);
+            info.AddValue("path", this._path);
         }
     }
 }

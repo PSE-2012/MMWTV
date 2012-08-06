@@ -55,6 +55,20 @@ namespace PS_YuvVideoHandler
         int firstFrameInMem = int.MinValue;
         int frameSize;
 
+        private string path
+        {
+            get
+            {
+                return _path;
+            }
+            set
+            {
+                _path = value;
+                if(_videoInfo != null) _videoInfo.path = _path;
+            }
+        }
+       
+
         /// <summary>
         /// Constructs a YuvVideoHandler without filepath or VideoInfoObject. 
         /// This instance can be used to display a propertiesview and create a YuvVideoInfo object for example.
@@ -79,7 +93,7 @@ namespace PS_YuvVideoHandler
         /// <param name="info">VideoInfo containing needed information like resolution and yuv format</param>
         public void setVideo(string filepath, IVideoInfo info)
         {
-            _path = filepath;
+            path = filepath;
             vidInfo = info;
 
             //init buffer
@@ -134,7 +148,7 @@ namespace PS_YuvVideoHandler
             get
             {
                 if (_videoInfo == null)
-                    _videoInfo = new YuvVideoInfo();
+                    _videoInfo = new YuvVideoInfo(this.path);
                 return _videoInfo;
             }
             private set
@@ -148,32 +162,13 @@ namespace PS_YuvVideoHandler
 
         public bool consistent
         {
-            get {
-               
-                calculateFrameCount();
+            get 
+            {
                 return (vidInfo.frameCount < 0) ? false : true;
             }
         }
 
-        /// <summary>
-        /// Calculates the number of frames of the video and writes this information into the vidInfo.
-        /// </summary>
-        /// <returns>true if operation was successful, false if an error occured</returns>
-        private void calculateFrameCount()
-        {
-            if (_videoInfo == null) return;
-
-            this.frameSize =(int)( _videoInfo.height * _videoInfo.width * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)) );
-
-            if(File.Exists(_path))
-            {
-                FileInfo f = new FileInfo(_path);
-                if (this.frameSize > 0)
-                {
-                    this._videoInfo.frameCount = (int)(f.Length / this.frameSize);
-                }
-            }
-        }
+        
 
         private PropertiesView _propertyView;
         /// <summary>
@@ -333,7 +328,7 @@ namespace PS_YuvVideoHandler
 
             try
             {
-                fs = new FileStream(_path, FileMode.Open);
+                fs = new FileStream(path, FileMode.Open);
                 fs.Seek((int)(startFrame * this.frameSize), SeekOrigin.Begin);
                 fs.Read(data, 0, this.frameSize * bufferSizeFrames);
                 fs.Close();
@@ -406,7 +401,7 @@ namespace PS_YuvVideoHandler
             FileStream fs;
             try
             {
-                fs = new FileStream(_path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, this.frameSize * frames.Length);
+                fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, this.frameSize * frames.Length);
                 fs.Seek((int)(frameNum * this.frameSize), SeekOrigin.Begin);
 
                 for (int i = 0; i < frames.Length; i++)
