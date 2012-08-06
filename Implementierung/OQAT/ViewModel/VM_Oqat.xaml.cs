@@ -114,10 +114,6 @@ namespace Oqat.ViewModel
         }
 
         
-
-        
-
-
         /// <summary>
         /// From here all the project relevant initialization methods are called.
         /// This delegate will be called if a existing project was open or
@@ -129,6 +125,7 @@ namespace Oqat.ViewModel
         {
             throw new System.NotImplementedException();
         }
+
 
         /// <summary>
         /// Can be used to check if all viewmodels have disconnected or connected
@@ -156,47 +153,11 @@ namespace Oqat.ViewModel
             }
         }
 
-        //private void MenuItem1_Click(object sender, RoutedEventArgs e)
-        //{
-        //    PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
-        //        new ViewTypeEventArgs(ViewType.FilterView));
-        //}
-        //private void MenuItem2_Click(object sender, RoutedEventArgs e)
-        //{
-        //    PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
-        //        new ViewTypeEventArgs(ViewType.MetricView));
-        //}
-        //private void MenuItem3_Click(object sender, RoutedEventArgs e)
-        //{
-        //    PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
-        //        new ViewTypeEventArgs(ViewType.AnalyzeView));
-        //    switch (e.viewType)
-        //    {
-        //        case ViewType.WelcomeView:
-        //            welcomePanel.Children.Add(vM_Welcome);
-        //            projectExplorerPanel.Children.Remove(vM_ProjectExplorer);
-        //          //  pluginListsPanel.Children.Remove(vM_PluginList);
-        //            break;
-        //        case ViewType.MetricView:
-        //            welcomePanel.Children.Remove(vM_Welcome);
-                    
-        //            projectExplorerPanel.Children.Add(vM_ProjectExplorer);                    
-        //            break;
-        //        case ViewType.FilterView:
-        //            welcomePanel.Children.Remove(vM_Welcome);
 
-        //            projectExplorerPanel.Children.Add(vM_ProjectExplorer);
-        //            break;
-        //        case ViewType.AnalyzeView:
-        //            welcomePanel.Children.Remove(vM_Welcome);
-        //            projectExplorerPanel.Children.Add(vM_ProjectExplorer);
-        //            break;
-        //    }
-        //}
+        #region styles
 
 
-
-            [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential)]
             private struct MARGINS
             {
                 public int cxLeftWidth;      // width of left border that retains its size
@@ -226,9 +187,11 @@ namespace Oqat.ViewModel
 
                 DwmExtendFrameIntoClientArea(myHwnd, ref margins);
             }
-        
 
-        }
+        #endregion
+
+
+    }
 
     }
 
