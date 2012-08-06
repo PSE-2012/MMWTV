@@ -62,6 +62,10 @@
         public PlayerControl playerControl
         {
             get {
+                if (_playerControl == null)
+                {
+                    _playerControl = new PlayerControl();
+                }
                 return _playerControl;
             }
             set
@@ -150,8 +154,8 @@
         /// <param name="e"></param>
         public void onFlushPresentationPlugins(object sender, EventArgs e)
         {
-            if(playerControl != null && playerControl.getSourcePlayerControl() != null)
-                playerControl.getSourcePlayerControl().Dispose();
+            if (playerControl != null && playerControl.getSourcePlayerControl() != null)
+                playerControl = null;
         }
 
 
@@ -163,7 +167,6 @@
         {
             get
             {
-                              
                 playerControl.getSourcePlayerControl().VideoSource = videoSource;
                 return playerControl;
             }
