@@ -12,11 +12,11 @@
 	public enum PluginType : int
 	{
 		IFilterOqat,
-		IMetric,
+		IMetricOqat,
 		System,
 		IPresentation,
 		IVideoHandler,
 		IMacro,
-        IPluign,
+        IPlugin,
 	}
 }

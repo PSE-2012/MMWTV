@@ -275,40 +275,87 @@
         {
             switch (eType)
             {
-               case EventType.info:
+                case EventType.info:
                     try
                     {
                         if (OqatInfo != null)
+<<<<<<< HEAD
+                        OqatInfo(this, (ErrorEventArgs)e);
+=======
                             OqatInfo(this, (ErrorEventArgs)e);
+>>>>>>> 9a93c72c9bcc76844a49a65c1daa56d28df13b5e
                     }
                     catch (Exception exc)
                     {
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
-                           case EventType.toggleView:
-                    try {
-                    if (OqatToggleView != null)
-                            OqatToggleView(this, (ViewTypeEventArgs)e);
-                    }
-                    catch (Exception exc)
-                    {
-                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
-                    }
-                    break;
-                     case EventType.newProjectCreated:
+                case EventType.panic:
                     try
                     {
-
-                        OqatNewProjectCreatedHandler(this, (ProjectEventArgs)e);
+                        if (OqatPanic != null)
+<<<<<<< HEAD
+                        OqatPanic(this, (ErrorEventArgs)e);
+=======
+                            OqatPanic(this, (ErrorEventArgs)e);
+>>>>>>> 9a93c72c9bcc76844a49a65c1daa56d28df13b5e
                     }
                     catch (Exception exc)
                     {
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
-
-
+                case EventType.failure:
+                    try
+                    {
+                        if (OqatFailure != null)
+<<<<<<< HEAD
+                        OqatFailure(this, (ErrorEventArgs)e);
+=======
+                            OqatFailure(this, (ErrorEventArgs)e);
+>>>>>>> 9a93c72c9bcc76844a49a65c1daa56d28df13b5e
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.pluginTableChanged:
+                    try
+                    {
+                        if (OqatPluginTableChanged != null)
+<<<<<<< HEAD
+                        OqatPluginTableChanged(this, (EntryEventArgs)e);
+=======
+                            OqatPluginTableChanged(this, (EntryEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.videoLoad:
+                    try
+                    {
+                        if (videoLoad != null)
+                            videoLoad(this, (VideoEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.toggleView:
+                    try
+                    {
+                        if (toggleView != null)
+                            toggleView(this, (ViewTypeEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
                 case EventType.newMementoCreated:
                     try
                     {
@@ -325,61 +372,56 @@
                     {
                         if (macroEntryClicked != null)
                             macroEntryClicked(this, (EventArgs)e);
+>>>>>>> 9a93c72c9bcc76844a49a65c1daa56d28df13b5e
                     }
                     catch (Exception exc)
                     {
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
+                case EventType.newProjectCreated:
+                    try
+                    {
 
+                        OqatNewProjectCreatedHandler(this, (ProjectEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.toggleView:
+                    try
+                    {
 
-                case EventType.panic:
-                    try
-                    {
-                        if (OqatPanic != null)
-                            OqatPanic(this, (ErrorEventArgs)e);
+                        OqatToggleView(this, (ViewTypeEventArgs)e);
                     }
                     catch (Exception exc)
                     {
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
-                case EventType.failure:
-                    try
-                    {
-                        if (OqatFailure != null)
-                            OqatFailure(this, (ErrorEventArgs)e);
-                    }
-                    catch (Exception exc)
-                    {
-                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
-                    }
-                    break;
-                case EventType.pluginTableChanged:
-                    try
-                    {
-                        if (OqatPluginTableChanged != null)
-                            OqatPluginTableChanged(this, (EntryEventArgs)e);
-                    }
-                    catch (Exception exc)
-                    {
-                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
-                    }
-            break;
-                                       case EventType.videoLoad:
-                    try
-                    {
-                        if (videoLoad != null)
-                            videoLoad(this, (VideoEventArgs)e);
-                    }
-                    catch (Exception exc)
-                    {
-                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
-                    }
-                    break;
-
             }
         }
+
+
+        internal delegate void OqatErrorHandler(object sender, ErrorEventArgs e);
+        internal static event OqatErrorHandler OqatInfo;
+        internal static event OqatErrorHandler OqatPanic;
+        internal static event OqatErrorHandler OqatFailure;
+        internal delegate void notificationHandler(object sender, EntryEventArgs e);
+        internal static event notificationHandler OqatPluginTableChanged;
+
+        internal delegate void videoLoadHandler(object sender, VideoEventArgs e);
+        internal static event videoLoadHandler videoLoad;
+        internal delegate void toggleViewHandler(object sender, ViewTypeEventArgs e);
+        internal static event toggleViewHandler toggleView;
+        internal delegate void macroEntryClickedHandler(object sender, EventArgs e);
+        internal static event macroEntryClickedHandler macroEntryClicked;
+        internal delegate void newMementoCreatedHandler(object sender, MementoEventArgs e);
+        internal static event newMementoCreatedHandler newMementoCreated;
+
+
 
 
         /// <summary>
@@ -482,6 +524,19 @@
         /// <returns>A instance of namePlugin</returns>
         public virtual T getPlugin<T>(string namePlugin)
         {
+<<<<<<< HEAD
+
+            var plToRet = from i in pluginTable
+                          where i.Metadata.namePlugin.Equals(namePlugin) &
+                                    typeof(Oqat.PublicRessources.Plugin.IPlugin).Assembly.GetType("Oqat.PublicRessources.Plugin."
+                                    + i.Metadata.type.ToString()).Equals(typeof(T)) &
+                                    !blackList.ContainsKey(i.Metadata.namePlugin)
+                          select i.Value;
+            if (plToRet.FirstOrDefault() != null)
+                return (T)plToRet.FirstOrDefault();
+            else
+                return default(T);
+=======
             foreach (Lazy<IPlugin, IPluginMetadata> i in pluginTable)
             {
                 if (i.Metadata.namePlugin.Equals(namePlugin)
@@ -492,6 +547,7 @@
                 }
             }
             return default(T);
+>>>>>>> 9a93c72c9bcc76844a49a65c1daa56d28df13b5e
         }
 
         /// <summary>
@@ -508,6 +564,7 @@
         }
 
 
+<<<<<<< HEAD
         internal delegate void OqatErrorHandler(object sender, ErrorEventArgs e);
         internal delegate void notificationHandler(object sender, EntryEventArgs e);
         internal delegate void newProjectCreatedHandler(object sender, ProjectEventArgs e);
@@ -517,15 +574,12 @@
         internal static event OqatErrorHandler OqatFailure;
         internal static event notificationHandler OqatPluginTableChanged;
 
-        internal delegate void videoLoadHandler(object sender, VideoEventArgs e);
-        internal static event videoLoadHandler videoLoad;
-
-        internal delegate void macroEntryClickedHandler(object sender, EventArgs e);
-        internal static event macroEntryClickedHandler macroEntryClicked;
-        internal delegate void newMementoCreatedHandler(object sender, MementoEventArgs e);
-        internal static event newMementoCreatedHandler newMementoCreated;
         internal event newProjectCreatedHandler OqatNewProjectCreatedHandler;
         internal event toggleViewHandler OqatToggleView;
+
+
+=======
+>>>>>>> 9a93c72c9bcc76844a49a65c1daa56d28df13b5e
         /// <summary>
         /// Return a list of all known mementos of a plugin.
         /// 

@@ -12,6 +12,7 @@ namespace Oqat.ViewModel
             this.entry = entry;
         }
         private string entry;
+
         public string Entry {
             get 
             {

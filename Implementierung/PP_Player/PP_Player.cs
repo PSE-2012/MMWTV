@@ -1,6 +1,4 @@
-﻿//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-namespace PP_Presentation
+﻿namespace PP_Presentation
 {
 	using AForge.Controls;
 	using Oqat.PublicRessources.Plugin;
@@ -19,7 +17,7 @@ namespace PP_Presentation
     /// This class is responsible for loading a video to play from disk and setting up a container
     /// where the video can be played. It can be exported as a plugin.
     /// </summary>
-    [ExportMetadata("namePlugin", "VideoPlayer")]
+    [ExportMetadata("namePlugin", "PP_Player")]
     [ExportMetadata("type", PluginType.IPresentation)]
     [Export(typeof(IPlugin))]
 	public class PP_Player : IPresentation, ICloneable
@@ -132,10 +130,14 @@ namespace PP_Presentation
         /// </summary>
         public void unloadVideo()
         {
-            for (int i = 0; i < videoSource.bmp.Length; i++)
+            if (videoSource != null)
             {
-                videoSource.bmp[i] = null;
+                for (int i = 0; i < videoSource.bmp.Length; i++)
+                {
+                    videoSource.bmp[i] = null;
+                }
             }
+
             videohandler = null;
             videoSource = null;
             playerControl.getSourcePlayerControl().Stop();
@@ -148,7 +150,8 @@ namespace PP_Presentation
         /// <param name="e"></param>
         public void onFlushPresentationPlugins(object sender, EventArgs e)
         {
-            playerControl.getSourcePlayerControl().Dispose();
+            if(playerControl != null && playerControl.getSourcePlayerControl() != null)
+                playerControl.getSourcePlayerControl().Dispose();
         }
 
 

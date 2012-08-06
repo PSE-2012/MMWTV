@@ -28,8 +28,13 @@ namespace Oqat.ViewModel
             get;
             set;
         }
-        private VM_PluginsList _vM_PluginLists;
+<<<<<<< HEAD
+        private VM_PluginLists _vM_PluginLists;
+        private VM_PluginLists vM_PluginList
+=======
+
         private VM_PluginsList vM_PluginsList
+>>>>>>> 9a93c72c9bcc76844a49a65c1daa56d28df13b5e
         {
             get;
             set;
@@ -111,6 +116,7 @@ namespace Oqat.ViewModel
         public VM_Oqat()
         {
             InitializeComponent();
+<<<<<<< HEAD
             PluginManager.pluginManager.OqatNewProjectCreatedHandler += onNewProjectCreated;
             PluginManager.pluginManager.OqatToggleView += onToggleView;
                 // PluginManager is initializet by OqatApp
@@ -119,6 +125,15 @@ namespace Oqat.ViewModel
             //  initPluginLists();
             //  initPresentation();
             // initMacro();
+=======
+            // PluginManager is initializet by OqatApp
+          //  initMenu();
+          //  initWelcome();
+          //  initProjectExplorer();
+            initPluginLists();
+            initPresentation();
+           // initMacro();
+>>>>>>> 9a93c72c9bcc76844a49a65c1daa56d28df13b5e
         }
 
         /// <summary>
@@ -197,47 +212,31 @@ namespace Oqat.ViewModel
         private void onToggleView(object sender, ViewTypeEventArgs e)
         {
             if(e.viewType!=currentView)
-            throw new System.NotImplementedException();
+            switch (e.viewType)
+            {
+                case ViewType.WelcomeView:
+                    welcomePanel.Children.Add(vM_Welcome);
+                    projectExplorerPanel.Children.Remove(vM_ProjectExplorer);
+                  //  pluginListsPanel.Children.Remove(vM_PluginList);
+                    break;
+                case ViewType.MetricView:
+                    welcomePanel.Children.Remove(vM_Welcome);
+                    
+                    projectExplorerPanel.Children.Add(vM_ProjectExplorer);                    
+                    break;
+                case ViewType.FilterView:
+                    welcomePanel.Children.Remove(vM_Welcome);
+
+                    projectExplorerPanel.Children.Add(vM_ProjectExplorer);
+                    break;
+                case ViewType.AnalyzeView:
+                    welcomePanel.Children.Remove(vM_Welcome);
+                    projectExplorerPanel.Children.Add(vM_ProjectExplorer);
+                    break;
+            }
         }
 
-        //private void MenuItem1_Click(object sender, RoutedEventArgs e)
-        //{
-        //    PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
-        //        new ViewTypeEventArgs(ViewType.FilterView));
-        //}
-        //private void MenuItem2_Click(object sender, RoutedEventArgs e)
-        //{
-        //    PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
-        //        new ViewTypeEventArgs(ViewType.MetricView));
-        //}
-        //private void MenuItem3_Click(object sender, RoutedEventArgs e)
-        //{
-        //    PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
-        //        new ViewTypeEventArgs(ViewType.AnalyzeView));
-        //    switch (e.viewType)
-        //    {
-        //        case ViewType.WelcomeView:
-        //            welcomePanel.Children.Add(vM_Welcome);
-        //            projectExplorerPanel.Children.Remove(vM_ProjectExplorer);
-        //          //  pluginListsPanel.Children.Remove(vM_PluginList);
-        //            break;
-        //        case ViewType.MetricView:
-        //            welcomePanel.Children.Remove(vM_Welcome);
-                    
-        //            projectExplorerPanel.Children.Add(vM_ProjectExplorer);                    
-        //            break;
-        //        case ViewType.FilterView:
-        //            welcomePanel.Children.Remove(vM_Welcome);
-
-        //            projectExplorerPanel.Children.Add(vM_ProjectExplorer);
-        //            break;
-        //        case ViewType.AnalyzeView:
-        //            welcomePanel.Children.Remove(vM_Welcome);
-        //            projectExplorerPanel.Children.Add(vM_ProjectExplorer);
-        //            break;
-        //    }
-        //}
-
+<<<<<<< HEAD
 
 
             [StructLayout(LayoutKind.Sequential)]
@@ -272,7 +271,23 @@ namespace Oqat.ViewModel
             }
         
 
+=======
+        private void MenuItem1_Click(object sender, RoutedEventArgs e)
+        {
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
+                new ViewTypeEventArgs(ViewType.FilterView));
         }
+        private void MenuItem2_Click(object sender, RoutedEventArgs e)
+        {
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
+                new ViewTypeEventArgs(ViewType.MetricView));
+        }
+        private void MenuItem3_Click(object sender, RoutedEventArgs e)
+        {
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
+                new ViewTypeEventArgs(ViewType.AnalyzeView));
+        }
+>>>>>>> 9a93c72c9bcc76844a49a65c1daa56d28df13b5e
 
     }
-
+}

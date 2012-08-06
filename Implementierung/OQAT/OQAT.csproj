@@ -85,6 +85,9 @@
     <Compile Include="Model\Video.cs" />
     <Compile Include="ViewModel\EntryEventArgs.cs" />
     <Compile Include="ViewModel\ExtraResourceEventArgs.cs" />
+    <Compile Include="ViewModel\VM_PluginsList.xaml.cs">
+      <DependentUpon>VM_PluginsList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\VM_Welcome.xaml.cs">
       <DependentUpon>VM_Welcome.xaml</DependentUpon>
     </Compile>
@@ -100,8 +103,6 @@
     <Compile Include="ViewModel\ViewTypeEventArgs.cs" />
     <Compile Include="ViewModel\VM_Menu.cs" />
     <Compile Include="ViewModel\VM_OptionsDialog.cs" />
-    <Compile Include="ViewModel\VM_PluginLists.cs" />
-    <Compile Include="ViewModel\VM_Presentation.cs" />
     <Compile Include="ViewModel\VM_ProjectExplorer.xaml.cs">
       <DependentUpon>VM_ProjectExplorer.xaml</DependentUpon>
     </Compile>
@@ -114,10 +115,17 @@
     <Compile Include="ViewModel\VM_Oqat.xaml.cs">
       <DependentUpon>VM_Oqat.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\VM_Presentation.xaml.cs">
+      <DependentUpon>VM_Presentation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OqatApp.xaml.cs">
       <DependentUpon>OqatApp.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ViewModel\VM_PluginsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewModel\VM_ProjectOpenDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -135,6 +143,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ViewModel\VM_Oqat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\VM_Presentation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

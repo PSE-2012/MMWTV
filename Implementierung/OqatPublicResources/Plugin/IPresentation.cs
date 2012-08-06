@@ -11,12 +11,12 @@
     /// This interface has to be implemented in order to be recognized
     /// as a PresentationPlugin ( Pluginmanager)
     /// </summary>
-	public interface IPresentation  : IPlugin
+    public interface IPresentation : IPlugin, ICloneable
 	{
         /// <summary>
         /// See <see cref="PresentationPluginType"/> for a complete list.
         /// </summary>
-		PresentationPluginType presentationType { get;set; }
+		PresentationPluginType presentationType { get; }
 
         /// <summary>
         /// This method will be called if a new Video should be loaded into the plugin.
