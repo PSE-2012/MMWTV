@@ -254,7 +254,7 @@
         /// and will be set to "Plugins" (relative to the codebase of the assembly 
         /// PluginManager class is in, i.e. "C:\Oqat\Plugins" if oqat.exe is in "C:\Oqat").
         /// </remarks>
-        private readonly string PLUGIN_PATH;
+        public readonly string PLUGIN_PATH;
 
         /// <summary>
         /// Used to store registered eventhandler.
