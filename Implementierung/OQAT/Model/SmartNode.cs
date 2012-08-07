@@ -17,27 +17,9 @@ namespace Oqat.Model
     /// is represented by a node containing the path to it.
     /// </summary>
     [Serializable()]
-    class SmartNode : ISerializable
+    class SmartNode
     {
 
-        private List<SmartNode> _smartTreeBackup;
-        private List<SmartNode> smartTreeBackup
-        {
-            get
-            {
-                if (_smartTree == null)
-                    throw new ArgumentNullException("SmartTree uninitialized, cant backup.");
-                if (_smartTreeBackup == null)
-                {
-                    _smartTreeBackup = new List<SmartNode>();
-                    foreach (var i in smartTree)
-                    {
-                        _smartTreeBackup.Add(i);
-                    }
-                }
-                return _smartTreeBackup;
-            }
-        }
 
         private ObservableCollection<SmartNode> _smartTree;
         public ObservableCollection<SmartNode> smartTree
@@ -51,6 +33,7 @@ namespace Oqat.Model
                 _smartTree = value;
             }
         }
+
         public string name
         {
             get
@@ -86,31 +69,26 @@ namespace Oqat.Model
             return name;
         }
 
-        private ObservableCollection<SmartNode> restoreIndex(List<SmartNode> smartTreeBackup)
+        public override bool Equals(object obj)
         {
-            ObservableCollection<SmartNode> restoredIndex = new ObservableCollection<SmartNode>();
-            foreach (var i in smartTreeBackup)
+            if (!(obj is SmartNode) || obj == null)
+                return false;
+
+            SmartNode node = obj as SmartNode;
+
+            if (!this.name.Equals(node.name) || this.idFather!=node.idFather || this.id!=node.id
+                || this.smartTree.Count != node.smartTree.Count)
+                return false;
+
+            for (int i = 0; i < this.smartTree.Count; i++)
             {
-                restoredIndex.Add(i);
+                if (this.smartTree[i] != node.smartTree[i])
+                    return false;
             }
-            return restoredIndex;
+
+
+            return true;
         }
 
-        public SmartNode(SerializationInfo info, StreamingContext ctxt) :
-            this((Video)info.GetValue("video", typeof(Video)), 
-            (int)info.GetValue("id", typeof(int)), 
-            (int)info.GetValue("idFather", typeof(int)))
-        {
-            this.smartTree = restoreIndex(
-                (List<SmartNode>)info.GetValue("smartTreeBackup", typeof(List<SmartNode>)));
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("smartTreeBackup", this.smartTreeBackup);
-            info.AddValue("idFather", this.idFather);
-            info.AddValue("id", this.id);
-            info.AddValue("video", this.video);
-        }
     }
 }
