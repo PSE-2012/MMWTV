@@ -161,9 +161,13 @@ namespace Oqat.ViewModel.Macro
                     if (index != oldIndex)
                     {
                         // TODO neues object bei index einfügen und altes bei oldindex löschen
-
+                        this.macro.macroQueue.Rows.RemoveAt(index);
                     }
                 }
+            }
+            if (oldIndex < 0)
+            {
+                //todo: extern drag and drop
             }
         }
 
@@ -174,17 +178,18 @@ namespace Oqat.ViewModel.Macro
             if (oldIndex >= 0)
             {
                 macroTable.SelectedIndex = oldIndex;
-                RowDefinition selectedItem = this.macroTable.Items[oldIndex] as RowDefinition;
+                DataRow selectedRow = this.macro.macroQueue.Rows[oldIndex];
 
-                if (selectedItem != null)
+                if (selectedRow != null)
                 {
                     DragDropEffects allowedEffects = DragDropEffects.Move;
 
-                    if (DragDrop.DoDragDrop(this.macroTable, selectedItem, allowedEffects) != DragDropEffects.None)
+                    if (DragDrop.DoDragDrop(this.macroTable, selectedRow, allowedEffects) != DragDropEffects.None)
                     {
                         // The item was dropped into a new location,
                         // so make it the new selected item.
-                        this.macroTable.SelectedItem = selectedItem;
+
+                        this.macroTable.SelectedItem = selectedRow;
                     }
                 }
             }
