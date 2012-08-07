@@ -1,21 +1,35 @@
 ﻿<Window x:Class="Oqat.ViewModel.VM_Oqat"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Objective Quality Assessment Toolkit" Height="768" Width="1024"
+        Title="Objective Quality Assessment Toolkit" Height="768" Width="1100"
         x:Name="vm_Oqat" Closed="vm_Oqat_Closed">
     <!-- Background="Transparent" Loaded="Window_Loaded" -->
     
     <Grid>
-        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="welcomePanel"/>
-        <DockPanel x:Name="runningAppPanel" Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="Collapsed">
+        <Grid x:Name="welcomePanel"/>
+        <DockPanel x:Name="runningAppPanel" Visibility="Collapsed">
             <Grid x:Name="menuPanel" DockPanel.Dock="Top">
                 <Menu>
-                    <MenuItem Name="miErrorConsole" Header="ErrorConsole" Click="miErrorConsole_Click" />
+                    <MenuItem Header="Projekt">
+                        
+                    </MenuItem>
+                    <MenuItem Header="Tools">
+                        <MenuItem Name="miErrorConsole" Header="ErrorConsole" Click="miErrorConsole_Click" />
+                    </MenuItem>
+                    <MenuItem Header="Info" Name="miInfo" Click="miInfo_Click"></MenuItem>
                 </Menu>
             </Grid>
-            <Grid x:Name="projectExplorerPanel" DockPanel.Dock="Left" Width="200"/>
-            <Grid x:Name="pluginListsPanel" DockPanel.Dock="Right" Width="200"/>
-            <Grid x:Name="presentationPanel" DockPanel.Dock="Top"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <Grid Grid.Column="0" x:Name="projectExplorerPanel" Width="200"/>
+                <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" x:Name="presentationPanel"/>
+                <Grid Grid.Column="2" x:Name="pluginListsPanel" Width="200"/>
+            </Grid>
         </DockPanel>
     </Grid>
 </Window>

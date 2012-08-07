@@ -42,7 +42,7 @@ namespace Oqat.ViewModel
 
             //  initPresentation
             this.vM_presentation = new VM_Presentation();
-            this.presentationPanel.Children.Add(this.vM_presentation);
+            this.presentationPanel.Content = this.vM_presentation;
             
             // initMacro();
 
@@ -201,6 +201,12 @@ namespace Oqat.ViewModel
         private void vm_Oqat_Closed(object sender, EventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void miInfo_Click(object sender, RoutedEventArgs e)
+        {
+            WindowOqatInfo wi = new WindowOqatInfo();
+            wi.ShowDialog();
         }
 
 
