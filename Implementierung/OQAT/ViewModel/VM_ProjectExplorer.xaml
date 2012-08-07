@@ -22,16 +22,23 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TreeView Grid.Row="0" Grid.RowSpan="4" x:Name="smartTreeExplorer" ItemsSource="{Binding}"
-                      SelectedItemChanged="onSmartNodeSelect"   KeyDown="smartTreeExplorer_KeyDown"
+                      KeyDown="smartTreeExplorer_KeyDown"
                           DragDrop.Drop="smartTreeExplorer_Drop" AllowDrop="True"
                           DragDrop.DragEnter="smartTreeExplorer_DragEnter">
-
 
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type local:SmartNode}"
                                               ItemsSource="{Binding smartTree}">
-                        <TextBlock Text="{Binding Path=name}"/>
-                    </HierarchicalDataTemplate>                  
+                        <TextBlock Text="{Binding Path=name}">
+                            <TextBlock.ContextMenu>
+                                <ContextMenu StaysOpen="true">
+                                    <MenuItem Header="auswählen" x:Name="miLoadProc" Click="miLoadProc_Click"/>
+                                    <MenuItem Header="als Referenz auswählen" x:Name="miLoadRef" Click="miLoadRef_Click"/>
+                                    <MenuItem Header="Analyse anzeigen" x:Name="miLoadAna" Click="miLoadAna_Click" IsEnabled="{Binding Path=video.isAnalysis}"/>
+                                </ContextMenu>
+                            </TextBlock.ContextMenu>
+                        </TextBlock>
+                    </HierarchicalDataTemplate>
                 </TreeView.Resources>
             </TreeView>
         <StackPanel Grid.Row="5">

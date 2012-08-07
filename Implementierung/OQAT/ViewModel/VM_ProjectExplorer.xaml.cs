@@ -54,15 +54,6 @@
         /// <param name="e"></param>
         private void onVideoClick(object sender, VideoEventArgs e) { }
 
-        private void onSmartNodeSelect(object sender, RoutedPropertyChangedEventArgs<object> e) 
-        {
-            SmartNode selected = (SmartNode)e.NewValue;
-
-            // TODO: Event to load video on proper userinput
-            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
-                new VideoEventArgs(selected.video));
-        }
-
         private void smartTreeExplorer_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
@@ -142,6 +133,38 @@
                 }
 
         }
+
+        private void miLoadAna_Click(object sender, RoutedEventArgs e)
+        {
+            //select the TreeViewItem that whose contextmenu was opened
+            TextBlock tblock = ((TextBlock)((ContextMenu)((MenuItem)sender).Parent).PlacementTarget);
+            getNearestFather(tblock).IsSelected = true;
+
+            SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad, 
+                new VideoEventArgs(selNode.video));
+        }
+        private void miLoadRef_Click(object sender, RoutedEventArgs e)
+        {
+            //select the TreeViewItem that whose contextmenu was opened
+            TextBlock tblock = ((TextBlock)((ContextMenu)((MenuItem)sender).Parent).PlacementTarget);
+            getNearestFather(tblock).IsSelected = true;
+
+            SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
+                new VideoEventArgs(selNode.video, true));
+        }
+        private void miLoadProc_Click(object sender, RoutedEventArgs e)
+        {
+            //select the TreeViewItem that whose contextmenu was opened
+            TextBlock tblock = ((TextBlock)((ContextMenu)((MenuItem)sender).Parent).PlacementTarget);
+            getNearestFather(tblock).IsSelected = true;
+
+            SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
+                new VideoEventArgs(selNode.video, false));
+        }
+
 
 	}
 }
