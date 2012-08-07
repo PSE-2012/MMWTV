@@ -172,8 +172,9 @@
             {
                 PF_MacroFilter macroFilter = (PF_MacroFilter)this.macroFilter;
                 IVideoInfo vidInfo = vidRef.vidInfo;
-                vidResult = new Video(false, "C:/Documents/newvideo.yuv", vidInfo, null);
-                // vidResult = new Video(false, "C:/Documents/newvideo.yuv", vidInfo, macroFilter.getPluginMementoList());
+                // vidResult = new Video(false, "C:/Documents/newvideo.yuv", vidInfo, null);
+                vidResult = new Video(false, "C:/Documents/newvideo.yuv", vidInfo, this.macroFilter.getPluginMementoList());
+                macroFilter.init(vidRef, vidResult);
                 macroFilter.process(vidRef, vidResult); // vidresult from eventargs?
             }
         }

@@ -21,7 +21,6 @@ namespace Oqat.ViewModel.Macro
     public class PF_MacroFilter : Macro, IFilterOqat
     {
         internal List<RangeSlider> rsl;
-
         public MacroFilterControl macroControl;
 
         public UserControl propertyView
@@ -35,7 +34,6 @@ namespace Oqat.ViewModel.Macro
         public PF_MacroFilter()
         {
             macroQueue = new DataTable();
-            // TODO: better names of the columns
             macroQueue.Columns.Add("Plugin Name", typeof(String));
             macroQueue.Columns.Add("Memento Name", typeof(String));
             macroQueue.Columns.Add("Macro Entry", typeof(MacroEntryFilter));
@@ -64,7 +62,7 @@ namespace Oqat.ViewModel.Macro
             currentPlugin = null; // to avoid loading the same plugin twice
             IFilterOqat currentPluginEntry;
             Memento currentMementoEntry;
-            List<MacroEntry> macroEntrys = (List<MacroEntry>)currentMemento.state;
+            List<MacroEntry> macroEntrys = (List<MacroEntry>)memento.state;
             foreach (MacroEntry currentEntry in macroEntrys)
             {
                 currentPluginEntry = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>(currentEntry.pluginName);
@@ -77,13 +75,15 @@ namespace Oqat.ViewModel.Macro
                 {
                     MacroEntryFilter currentFilterEntry = (MacroEntryFilter)currentEntry;
                     // here error handling in case the plugin doesn't implement IFilterOqat
-                    for (int j = 0; j <= BUFFERSIZE; j++)
+                    int arraycount = resultFrames.Count();
+                    for (int j = 0; j < arraycount; j++)
                     {
                         // todo: bla
-                        if ((currentFilterEntry.startFrameRelative / 100) * totalFrames <= j && j <= (currentFilterEntry.endFrameRelative / 100) * totalFrames)
+                        if ((currentFilterEntry.startFrameRelative / 100) * totalFrames <= (i+j) && (i+j) <= (currentFilterEntry.endFrameRelative / 100) * totalFrames)
                         {
                             currentPluginEntry.setMemento(currentMementoEntry);
-                            resultFrames[j] = currentPluginEntry.process(resultFrames[j]);
+                            System.Drawing.Bitmap tempmap = currentPluginEntry.process(resultFrames[j]);
+                            resultFrames[j] = tempmap;
                         }
                     }
                 }
@@ -92,34 +92,48 @@ namespace Oqat.ViewModel.Macro
 
         private void mementoProcess(Memento memento)
         {
-            for (int j = 0; j <= BUFFERSIZE; j++) // iterate over all frames to be processed
+            int arraycount = resultFrames.Count();
+            for (int j = 0; j < arraycount; j++) // iterate over all frames to be processed
             {
-                if ((currentMacroEntry.startFrameRelative / 100) * totalFrames <= j && j <= (currentMacroEntry.endFrameRelative / 100) * totalFrames)
+                if ((currentMacroEntry.startFrameRelative / 100) * totalFrames <= (i + j) && (i + j) <= (currentMacroEntry.endFrameRelative / 100) * totalFrames)
                 {
-                    currentPlugin.setMemento(currentMemento);
-                    resultFrames[j] = currentPlugin.process(resultFrames[j]);
+                    currentPlugin.setMemento(memento);
+                    System.Drawing.Bitmap tempmap = currentPlugin.process(resultFrames[j]);
+                    resultFrames[j] = tempmap;
                 }
             }
         }
 
-        public void process(Video vidRef, Video vidResult)
+        public void init(Video vidRef, Video vidResult)
         {
             refHand = vidRef.handler;
             resultHand = vidResult.handler;
-            // BUFFERSIZE = 4095;
-            BUFFERSIZE = 127;
+            BUFFERSIZE = 255;
             totalFrames = vidRef.vidInfo.frameCount;
             i = 0;
-            resultFrames = new System.Drawing.Bitmap[BUFFERSIZE];
-            //while (i < totalFrames)
-           // { // loop until all frames have been processed
-                resultFrames = refHand.getFrames(i, BUFFERSIZE); // initialize the first BUFFERSIZE frames to be processed
-                /** foreach (DataRow c in macroQueue.Rows)
+        }
+
+        public void process(Video vidRef, Video vidResult)
+        {
+            while (i < totalFrames)
+           {
+               if ((i + BUFFERSIZE) > (totalFrames - i))
+               {
+                   resultFrames = refHand.getFrames(i, totalFrames - i);
+               }
+               else
+               {
+                   resultFrames = refHand.getFrames(i, BUFFERSIZE); // initialize the first BUFFERSIZE frames to be processed
+               }
+                foreach (DataRow c in macroQueue.Rows)
                 {
                     // here maybe error handling in case the plugin doesn't implement IFilterOqat, although plugin lists has probably checked that already
                     currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c["Plugin Name"]);
-                    // currentMemento = PluginManager.pluginManager.getMemento((String)c["Plugin Name"], (String)c["Memento Name"]);
-                    currentMemento = currentPlugin.getMemento();
+                    currentMemento = PluginManager.pluginManager.getMemento((String)c["Plugin Name"], (String)c["Memento Name"]);
+                    //Object obj;
+                    //obj = (Object)currentPlugin;
+                    //Memento testmemento = new Memento("bla", obj);
+                    //currentMemento = testmemento;
                     currentMacroEntry = (MacroEntryFilter)c["Macro Entry"];
                     if (currentPlugin is IMacro)
                     {
@@ -131,8 +145,8 @@ namespace Oqat.ViewModel.Macro
                     }
                 }
                 resultHand.writeFrames(i, resultFrames); // write the processed frames to disk
-                i += BUFFERSIZE; **/
-            //}
+                i += BUFFERSIZE;
+            }
             resultFrames = null;
             currentPlugin = null;
             currentMemento = null;

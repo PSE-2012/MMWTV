@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Oqat.PublicRessources.Plugin;
 using Oqat.PublicRessources.Model;
+using System.Windows.Controls.Primitives;
 using System.Data;
 using AC.AvalonControlsLibrary.Controls;
 using System.Collections.ObjectModel;
@@ -102,8 +103,94 @@ namespace Oqat.ViewModel.Macro
             Binding bind2 = new Binding();
             rangeSliders.SetBinding(ListView.ItemsSourceProperty, bind2);
             this.DataContext = this.macro;
-            macroTable.Drop += new DragEventHandler(dragdrop);
+            macroTable.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(macroTable_MouseLeftButtonDown);
+            macroTable.Drop += new DragEventHandler(macroTable_Drop);
         }
+
+        //Drag'N'Drop start#
+        private int oldIndex = -1;
+        private delegate Point GetPositionDelegate(IInputElement element);
+
+        private int GetCurrentIndex(GetPositionDelegate getPosition)
+        {
+            int index = -1;
+            int i = -1;
+            while (i < this.macroTable.Items.Count && index == -1)
+            {
+                ++i;
+                ListViewItem item = GetListViewItem(i);
+                if (this.IsMouseOverTarget(item, getPosition))
+                {
+                    index = i;
+                }
+            }
+            return index;
+        }
+
+        private ListViewItem GetListViewItem(int index)
+        {
+            if (macroTable.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
+                return null;
+
+            return macroTable.ItemContainerGenerator.ContainerFromIndex(index) as ListViewItem;
+        }
+
+        private bool IsMouseOverTarget(Visual target, GetPositionDelegate getPosition)
+        {
+            if (target != null)
+            {
+                Rect bounds = VisualTreeHelper.GetDescendantBounds(target);
+                Point mousePos = getPosition((IInputElement)target);
+                return bounds.Contains(mousePos);
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        private void macroTable_Drop(object sender, DragEventArgs e)
+        {
+            if (oldIndex >= 0)
+            {
+                int index = this.GetCurrentIndex(e.GetPosition);
+
+                if (index >= 0)
+                {
+                    if (index != oldIndex)
+                    {
+                        // TODO neues object bei index einfügen und altes bei oldindex löschen
+
+                    }
+                }
+            }
+        }
+
+        private void macroTable_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            oldIndex = this.GetCurrentIndex(e.GetPosition);
+
+            if (oldIndex >= 0)
+            {
+                macroTable.SelectedIndex = oldIndex;
+                RowDefinition selectedItem = this.macroTable.Items[oldIndex] as RowDefinition;
+
+                if (selectedItem != null)
+                {
+                    DragDropEffects allowedEffects = DragDropEffects.Move;
+
+                    if (DragDrop.DoDragDrop(this.macroTable, selectedItem, allowedEffects) != DragDropEffects.None)
+                    {
+                        // The item was dropped into a new location,
+                        // so make it the new selected item.
+                        this.macroTable.SelectedItem = selectedItem;
+                    }
+                }
+            }
+        }
+
+        //Drag'N'Drop end#
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
@@ -111,6 +198,8 @@ namespace Oqat.ViewModel.Macro
             macroTable.IsEnabled = false;
             rangeSliders.IsEnabled = false;
             vmmacro.onStartProcess(this, ea);
+            startbutton.IsEnabled = false;
+            deletebutton.IsEnabled = false;
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -120,14 +209,6 @@ namespace Oqat.ViewModel.Macro
             msd.Visibility = System.Windows.Visibility.Visible;
         }
         
-
-        private void dragdrop(object sender, DragEventArgs e)
-        {
-            // get mementoeventargs from sender somehow
-            MementoEventArgs ea = null;
-            vmmacro.onEntrySelect(this, ea);
-        }
-
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             while (macroTable.SelectedIndex != -1)
