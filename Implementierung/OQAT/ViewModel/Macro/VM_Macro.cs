@@ -22,11 +22,7 @@
         /// Currently active view.
         /// VM_Macro is displayed if viewType == ( Filter || Metric)
         /// </summary>
-        private ViewType viewType
-        {
-            get;
-            set;
-        }
+        private ViewType viewType = ViewType.FilterView;
 
         internal PF_MacroFilter macroFilter
         {
@@ -89,20 +85,21 @@
             }
         }
 
-        public UserControl propertiesView
+        //propertiesView has to be wrapped in a grid in order for updates onToggleView to show immidiatelly
+        Grid _propertiesView;
+        public System.Windows.UIElement propertiesView
         {
             get
             {
-                UserControl view = null;
-                if (this.viewType == ViewType.FilterView)
-                {
-                    view = this.macroFilter.macroControl;
-                }
-                if (this.viewType == ViewType.MetricView)
-                {
-                    view = this.macroMetric.macroControl;
-                }
-                return view;
+                if (_propertiesView == null) _propertiesView = new Grid();
+                return _propertiesView;
+            }
+            private set
+            {
+                if (_propertiesView == null) _propertiesView = new Grid();
+
+                _propertiesView.Children.Clear();
+                _propertiesView.Children.Add(value);
             }
         }
 
@@ -117,8 +114,12 @@
 
         public VM_Macro()
         {
+            PluginManager.OqatToggleView += this.onToggleView;
+            PluginManager.macroEntryAdd += this.onEntrySelect;
+
             MacroSave += new MacroSaveEventHandler(macroSave);
             StartProcess += new StartProcessEventHandler(startProcess);
+
             delList = new List<RangeSelectionChangedEventHandler>();
             this.macroFilter = new PF_MacroFilter();
             this.macroMetric = new PM_MacroMetric();
@@ -136,6 +137,15 @@
         public void onToggleView(object sender, ViewTypeEventArgs e)
         {
             this.viewType = e.viewType;
+
+            if (this.viewType == ViewType.FilterView)
+            {
+                propertiesView = this.macroFilter.macroControl;
+            }
+            else if (this.viewType == ViewType.MetricView)
+            {
+                propertiesView = this.macroMetric.macroControl;
+            }
         }
 
         /// <summary>

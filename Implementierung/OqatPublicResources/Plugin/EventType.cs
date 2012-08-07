@@ -13,10 +13,6 @@ namespace Oqat.PublicRessources.Plugin
 	public enum EventType : int
 	{
         /// <summary>
-        /// Will be raised if a video (VM_ProjectExplorer) is clicked on.
-        /// </summary>
-		videoClick,
-        /// <summary>
         /// Will be raised if a video (VM_ProjectExplorer, VM_Presentation) was selected
         /// to load into a player.
         /// </summary>
@@ -26,10 +22,6 @@ namespace Oqat.PublicRessources.Plugin
         /// </summary>
 		newMementoCreated,
 
-        /// <summary>
-        /// Will be raised if the user selects a file out of te FileExplorer (ProjectExplorer)
-        /// </summary>
-		fileSelected,
         /// <summary>
         /// Will be raised if a new video object was created ( VM_VideoImportDialog).
         /// </summary>
@@ -44,7 +36,6 @@ namespace Oqat.PublicRessources.Plugin
         /// Will be raised if some Error were Discovered and Oqat needs user Input to recover.
         /// </summary>
         panic,
-        
         /// <summary>
         /// Will be raised if some Error were Discovered and Oqat cannot recover, usually this means
         /// oqat has to be restarted in order to gain full functionallity.
@@ -71,6 +62,11 @@ namespace Oqat.PublicRessources.Plugin
         /// Will be raised if a macroentry (filter/metric) is selected in the macroView.
         /// </summary>
         macroEntrySelected,
+
+        /// <summary>
+        /// Will be raised when a filter/metric is selected to be added to the current macro.
+        /// </summary>
+        macroEntryAdd,
 	}
 
 

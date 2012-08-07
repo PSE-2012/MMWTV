@@ -179,7 +179,7 @@ namespace Oqat.ViewModel
 
             if (selectedPlugin == null)
             {
-                this.panelMementoSave.Visibility = System.Windows.Visibility.Hidden;
+                this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
                 return;
             }
 
@@ -204,7 +204,7 @@ namespace Oqat.ViewModel
 
             if (propPlugin.propertyView == null)
             {
-                this.panelMementoSave.Visibility = System.Windows.Visibility.Hidden;
+                this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
                 return;
             }
             
@@ -247,8 +247,11 @@ namespace Oqat.ViewModel
 
         private void bttAddToMacro_Click(object sender, RoutedEventArgs e)
         {
-            //if(saveCurrentMemento())
-                //PluginManager.pluginManager.raiseEvent(EventType
+            if(saveCurrentMemento())
+            {
+                PluginManager.pluginManager.raiseEvent(EventType.macroEntryAdd, 
+                    new MementoEventArgs(tbMementoName.Text, getSelectedPVM().getPluginName()));
+            }
         }
 
         private bool saveCurrentMemento()

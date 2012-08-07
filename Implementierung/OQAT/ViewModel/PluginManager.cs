@@ -286,7 +286,7 @@
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
-                           case EventType.toggleView:
+                case EventType.toggleView:
                     try {
                     if (OqatToggleView != null)
                             OqatToggleView(this, (ViewTypeEventArgs)e);
@@ -296,7 +296,7 @@
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
-                     case EventType.newProjectCreated:
+                case EventType.newProjectCreated:
                     try
                     {
 
@@ -307,8 +307,6 @@
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
-
-
                 case EventType.newMementoCreated:
                     try
                     {
@@ -331,8 +329,6 @@
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
-
-
                 case EventType.panic:
                     try
                     {
@@ -365,12 +361,23 @@
                     {
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
-            break;
-                                       case EventType.videoLoad:
+                    break;
+                case EventType.videoLoad:
                     try
                     {
                         if (videoLoad != null)
                             videoLoad(this, (VideoEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.macroEntryAdd:
+                    try
+                    {
+                        if (macroEntryAdd != null)
+                            macroEntryAdd(this, (MementoEventArgs)e);
                     }
                     catch (Exception exc)
                     {
@@ -512,6 +519,7 @@
         internal delegate void notificationHandler(object sender, EntryEventArgs e);
         internal delegate void newProjectCreatedHandler(object sender, ProjectEventArgs e);
         internal delegate void toggleViewHandler(object sender, ViewTypeEventArgs e);
+        internal delegate void macroEntryAddHandler(object sender, MementoEventArgs e);
         internal static event OqatErrorHandler OqatInfo;
         internal static event OqatErrorHandler OqatPanic;
         internal static event OqatErrorHandler OqatFailure;
@@ -526,6 +534,7 @@
         internal static event newMementoCreatedHandler newMementoCreated;
         internal static event newProjectCreatedHandler OqatNewProjectCreatedHandler;
         internal static event toggleViewHandler OqatToggleView;
+        internal static event macroEntryAddHandler macroEntryAdd;
 
 
 

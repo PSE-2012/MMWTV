@@ -13,7 +13,7 @@ using System.Windows.Shapes;
 
 using Oqat.PublicRessources.Plugin;
 using Oqat.PublicRessources.Model;
-
+using Oqat.ViewModel.Macro;
 
 namespace Oqat.ViewModel
 {
@@ -26,7 +26,7 @@ namespace Oqat.ViewModel
         IPresentation _playerProc;
         IPresentation _playerRef;
         IPresentation _diagram;
-
+        VM_Macro vm_macro;
 
         /// <summary>
         /// According to the current view type the Presetaion will show or hide some features.
@@ -45,6 +45,8 @@ namespace Oqat.ViewModel
             PluginManager.OqatToggleView += this.onToggleView;
             PluginManager.videoLoad += this.onVideoLoad;
 
+            //init macro
+            vm_macro = new VM_Macro();
 
             //TODO custom PresentationPlugins
             this._custom = new List<IPresentation>();
@@ -183,10 +185,12 @@ namespace Oqat.ViewModel
             {
                 case ViewType.FilterView:
                     this.gridPlayer1.Children.Add(playerProc.propertyView);
+                    this.gridMacro.Children.Add(vm_macro.propertiesView);
                     break;
                 case ViewType.MetricView:
                     this.gridPlayer1.Children.Add(playerProc.propertyView);
                     this.gridPlayer2.Children.Add(playerRef.propertyView);
+                    this.gridMacro.Children.Add(vm_macro.propertiesView);
                     break;
                 case ViewType.AnalyzeView:
                     this.gridPlayer1.Children.Add(playerProc.propertyView);
@@ -232,6 +236,8 @@ namespace Oqat.ViewModel
             this.gridPlayer1.Children.Clear();
             this.gridPlayer2.Children.Clear();
             this.otherPanel.Children.Clear();
+            this.gridMacro.Children.Clear();
+
             this.onFlushPresentationPlugins(this, new EventArgs());
 		}
 
