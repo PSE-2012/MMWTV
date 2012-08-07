@@ -215,30 +215,7 @@ namespace Oqat.ViewModel
 
         private void bttSaveMemento_Click(object sender, RoutedEventArgs e)
         {
-            if (this.tbMementoName.Text == "")
-            {
-                System.Windows.MessageBox.Show("Bitte geben Sie den zu speichernden Einstellungen einen Namen.");
-                return;
-            }
-            
-            
-            Memento mem = propPlugin.getMemento();
-            mem.name = this.tbMementoName.Text;
-
-
-            //TODO: how is same name as existing memento avoided?
-
-            if (copied)
-            {
-                //TODO: write Memento through pluginManager
-            }
-            else
-            {
-                //TODO: overwrite selected Memento
-            }
-
-
-            //treeview is updated through the onNewMementoCreated handler
+            saveCurrentMemento();
         }
 
         private void bttCopyMemento_Click(object sender, RoutedEventArgs e)
@@ -266,6 +243,41 @@ namespace Oqat.ViewModel
                 t = ViewType.MetricView;
 
             PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(t));
+        }
+
+        private void bttAddToMacro_Click(object sender, RoutedEventArgs e)
+        {
+            //if(saveCurrentMemento())
+                //PluginManager.pluginManager.raiseEvent(EventType
+        }
+
+        private bool saveCurrentMemento()
+        {
+            if (this.tbMementoName.Text == "")
+            {
+                System.Windows.MessageBox.Show("Bitte geben Sie den zu speichernden Einstellungen einen Namen.");
+                return false;
+            }
+
+
+            Memento mem = propPlugin.getMemento();
+            mem.name = this.tbMementoName.Text;
+
+
+            //TODO: how is same name as existing memento avoided?
+
+            if (copied)
+            {
+                //TODO: write Memento through pluginManager
+            }
+            else
+            {
+                //TODO: overwrite selected Memento
+            }
+
+
+            return true;
+            //treeview is updated through the onNewMementoCreated handler
         }
 
 
