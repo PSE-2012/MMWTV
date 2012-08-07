@@ -117,7 +117,7 @@ namespace Oqat.ViewModel.Macro
         {
             while (i < totalFrames)
            {
-               if ((i + BUFFERSIZE) > (totalFrames - i))
+               if ((i + BUFFERSIZE - totalFrames) > 0)
                {
                    resultFrames = refHand.getFrames(i, totalFrames - i);
                }
@@ -152,7 +152,6 @@ namespace Oqat.ViewModel.Macro
             currentMemento = null;
             refHand = null;
             resultHand = null;
-            // TODO: send event processing finished
         }
 
         public string namePlugin
