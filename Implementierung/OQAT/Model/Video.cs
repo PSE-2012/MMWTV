@@ -15,7 +15,7 @@
 	/// This class is the Model for a Video object containing relevant information about a Video file.
 	/// </summary>
     [Serializable()]
-    public class Video : IVideo, ISerializable
+    public class Video : IVideo
 	{
         private IVideoInfo _vidInfo = null;
         private bool _isAnalysis = false;
@@ -155,14 +155,16 @@
 
         
 
-        /// <summary>
-        /// An event that indicates the creation of a new Video object.
-        /// </summary>
-        // TODO: Maybe this should not be done in the video class but in a class creating the videos.
-        public delegate void videoObjectCreatedEventHandler(object sender, VideoEventArgs e);
-		public event videoObjectCreatedEventHandler videoObjectCreated;
+        ///// <summary>
+        ///// An event that indicates the creation of a new Video object.
+        ///// </summary>
+        //// TODO: Maybe this should not be done in the video class but in a class creating the videos.
+        //[NonSerialized()]
+        //public delegate void videoObjectCreatedEventHandler(object sender, VideoEventArgs e);
+        //[NonSerialized()]
+        //public event videoObjectCreatedEventHandler videoObjectCreated;
 
-
+        [NonSerialized]
         private IVideoHandler _handler;
         public IVideoHandler handler
         {
@@ -183,8 +185,8 @@
 
             PluginManager pm = PluginManager.pluginManager;
 
-            string handlerPluginName = Path.GetExtension(this.vidPath).ToLower().TrimStart(new char[] { '.' }) + "VideoHandler";
-
+           string handlerPluginName = Path.GetExtension(this.vidPath).ToLower().TrimStart(new char[] { '.' }) + "VideoHandler";
+           
             _handler = pm.getPlugin<IVideoHandler>(handlerPluginName);
             if (_handler == null)
                 throw new Exception("Cant process given video file format.");
@@ -202,60 +204,6 @@
             return _handler;
 		}
 
-
-        /// <summary>
-        /// Returns a memento that contains the current state of this video object
-        /// in order to save this and restore it later.
-        /// </summary>
-        /// <returns>a memento that contains the current state of this video object</returns>
-		public virtual Memento getMemento()
-		{
-            FileInfo inf = new FileInfo(this._path);
-
-            return new Memento(inf.Name, this, inf.FullName + ".mem");
-		}
-
-        /// <summary>
-        /// Sets the state of this video object to the one saved in the given memento.
-        /// </summary>
-        /// <exception cref="ArgumentException">Throws ArgumentException if the memento is not a memento of a video object.</exception>
-        /// <param name="memento">a memento of a video instance</param>
-		public virtual void setMemento(Memento memento)
-		{
-            if( !(memento.state is Video) )
-                throw new ArgumentException("Invalid Memento to restore Video.\n"+memento.mementoPath+" is not a Video object memento.");
-            
-            Video refv =(Video) memento.state;
-            this._path = refv._path;
-            this._extraResources = refv._extraResources;
-            this._isAnalysis = refv._isAnalysis;
-            this._metricValues = refv._metricValues;
-            this._processedBy = refv._processedBy;
-            this._vidInfo = refv._vidInfo;
-		}
-
-        public Video(SerializationInfo info, StreamingContext ctxt) :
-            this((bool)info.GetValue("isAnalysis", typeof(bool)), 
-            (string)info.GetValue("vidPath", typeof(string)),
-            (IVideoInfo)info.GetValue("vidInfo", typeof(IVideoInfo)), 
-            (List<MacroEntry>)info.GetValue("processedBy", typeof(List<MacroEntry>)))
-        {
-            this.extraResources = 
-                (Dictionary<PresentationPluginType, List<string>>)info.GetValue("extraResources", 
-                typeof(Dictionary<PresentationPluginType, List<string>>));
-        }
-
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("isAnalysis", this.isAnalysis);
-            info.AddValue("vidPath", this.vidPath);
-            info.AddValue("vidInfo", this.vidInfo);
-            info.AddValue("processedBy", this.processedBy);
-            info.AddValue("extraResources", this.extraResources);
-            info.AddValue("frameMetricValue", this.frameMetricValue);
-
-        }
     }
 }
 

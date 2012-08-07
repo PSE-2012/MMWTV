@@ -8,10 +8,10 @@
     /// <remarks>vlcht wäre es praktisches das Teil als Klasse zu implementieren</remarks>
 	public interface IVideoInfo
 	{
-        string videoCodecName { get;set; }
-        int frameCount { get; set; }
-        int width { get; set; }
-        int height { get; set; }
+        string videoCodecName { get; }
+        int frameCount { get;  }
+        int width { get;  }
+        int height { get;  }
 
         bool Equals(object o);
 	}

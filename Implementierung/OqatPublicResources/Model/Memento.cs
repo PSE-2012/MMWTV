@@ -16,7 +16,7 @@ namespace Oqat.PublicRessources.Model
 	/// This class is used for saving the internal state of an object, e.g. plugin settings.
 	/// </summary>
     [Serializable()]
-    public class Memento : ISerializable
+    public class Memento
 	{
 
         private string _name;
@@ -91,19 +91,6 @@ namespace Oqat.PublicRessources.Model
             this.mementoPath = mementoPath;
 		}
 
-        public Memento(SerializationInfo info, StreamingContext ctxt)
-        {
-            this.name = (string)info.GetValue("Name", typeof(string));
-            this.state = (object)info.GetValue("State", typeof(object));
-            this.mementoPath = (string)info.GetValue("Memento Path", typeof(string));
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
-        {
-            info.AddValue("Name", this.name);
-            info.AddValue("State", this.state);
-            info.AddValue("Memento Path", this.mementoPath);
-        }
 
 	}
 }

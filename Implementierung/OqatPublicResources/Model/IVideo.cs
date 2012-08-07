@@ -6,7 +6,7 @@ using Oqat.PublicRessources.Plugin;
 
 namespace Oqat.PublicRessources.Model
 {
-    public interface IVideo : IMemorizable
+    public interface IVideo
     {
 
 

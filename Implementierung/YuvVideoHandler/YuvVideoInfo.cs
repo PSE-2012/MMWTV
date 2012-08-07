@@ -30,7 +30,7 @@ namespace PS_YuvVideoHandler
     ///  Needed to work with the video in a YuvVideoHandler.
     /// </summary>
     [Serializable()]
-	public class YuvVideoInfo : IVideoInfo, ISerializable
+	public class YuvVideoInfo : IVideoInfo
 	{
 
         YuvFormat _yuvFormat = YuvFormat.YUV444;
@@ -108,11 +108,7 @@ namespace PS_YuvVideoHandler
         {
             get
             {
-                return "YUV";
-            }
-            set
-            {
-                
+                return "yuv";
             }
         }
 
@@ -152,7 +148,7 @@ namespace PS_YuvVideoHandler
             }
         }
 
-
+        public YuvVideoInfo() { }
 
 
 
@@ -189,23 +185,6 @@ namespace PS_YuvVideoHandler
             yuvFormat = YuvFormat.YUV420_IYUV;
             width = 176;
             height = 144;
-        }
-        public YuvVideoInfo(SerializationInfo info, StreamingContext context)
-        {
-            this.yuvFormat = (YuvFormat)info.GetValue("yuvFormat", typeof(YuvFormat));
-            this.width = (int)info.GetValue("width", typeof(int));
-            this.height = (int)info.GetValue("height", typeof(int));
-            this.frameCount = (int)info.GetValue("frameCount", typeof(int));
-            this._path = (string)info.GetValue("path", typeof(string));
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("yuvFormat", this.yuvFormat);
-            info.AddValue("width", this.width);
-            info.AddValue("height", this.height);
-            info.AddValue("frameCount", this.frameCount);
-            info.AddValue("path", this._path);
         }
     }
 }

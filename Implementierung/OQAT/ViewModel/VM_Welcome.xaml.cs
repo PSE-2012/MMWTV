@@ -60,7 +60,7 @@
             if (result == true)
             {
                 exPrjMem = Caretaker.caretaker.getMemento(dlg.FileName);
-                Project exPrj = new Project(exPrjMem);
+                Project exPrj = exPrjMem.state as Project;
                 PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.newProjectCreated,
                     new ProjectEventArgs(exPrj));
             }

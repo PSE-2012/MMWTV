@@ -16,6 +16,7 @@
 	/// <summary>
 	/// This class is the Model for a user's project in OQAT.
 	/// </summary>
+    [Serializable()]
     public class Project
 	{
 		/// <summary>
@@ -27,20 +28,24 @@
 			private set;
 		}
 
-
-        private int _unusedId = 0;
-        private object idLock;
-
+        public int unusedId
+        {
+            get
+            {
+                return _unusedId;
+            }
+        }
         /// <summary>
         /// Each SmartNode has an unambiguos id
         /// by which it can be identified.
         /// </summary>
-        public int unusedId {
-            get
+        private int _unusedId = 0;
+        private object idLock;
+        private int getUnusedId()
+        {
+            lock (idLock)
             {
-                lock(idLock) {
                 return _unusedId++;
-                }
             }
         }
         /// <summary>
@@ -107,53 +112,7 @@
 
         internal void saveProject()
         {
-            Caretaker.caretaker.writeMemento(getMemento());
-        }
-
-        /// <summary>
-        /// Constructs a new project according to 
-        /// the state object withing the given memento.
-        /// </summary>
-        /// <remarks>The state object within the given memento has to 
-        /// be of the type <see cref="ProjectProperties"/> or a
-        /// ArgumentException will be thrown.</remarks>
-        /// <param name="mem">Memento to extract new settings from.</param>
-        internal Project(Memento mem)
-        {
-            this.idLock = new Object();
-            ProjectProperties prProperties;
-            try
-            {
-               prProperties = (ProjectProperties)mem.state;
-            }
-            catch (InvalidCastException exc)
-            {
-                throw new ArgumentException("State object within the given memento: " + mem.name + " is not of the type"
-                    + " ProejctProperties.", exc);
-            }
-            /// state object save.
-            if ((prProperties == null) && !prProperties.complete)
-            {
-                PluginManager.pluginManager.raiseEvent(EventType.info, new ErrorEventArgs(
-                    new Exception("Couldnt load project completely, " +
-                    "given project may be broken. Oqat will try to load the project anyway, if" +
-                " problem will occure you will be notified.")));
-                throw new ArgumentException("Couldnt load project, given project may be broken");
-            }
-            this.name = String.IsNullOrEmpty(prProperties.name) ? name : prProperties.name;
-            this.description = String.IsNullOrEmpty(prProperties.description) ? description : prProperties.description;
-
-            // ProjectProperties checked path for validity at construction time.
-            path_Project = String.IsNullOrEmpty(prProperties.path_Project) ? path_Project : prProperties.path_Project;
-
-            if (prProperties.newTrees)
-            {
-                PluginManager.pluginManager.raiseEvent(EventType.panic, new ErrorEventArgs(new Exception("Couldnt "
-                    + "build the SmartTree. A blanc SmartTree will be generated.")));
-            }
-                _unusedId = prProperties._unusedId;
-                smartIndex = prProperties.smartIndex;
-                smartTree = prProperties.smartTree;
+            Caretaker.caretaker.writeMemento(new Memento(this.name, this, this.path_Project));
         }
 
 
@@ -178,7 +137,7 @@
                 throw new ArgumentException("Given father id is unknown.");
 
             // Process valid arguments.
-            SmartNode newChild = new SmartNode(vid, unusedId, idFather);
+            SmartNode newChild = new SmartNode(vid, getUnusedId(), idFather);
             smartIndex.Add(newChild.id, newChild);
             SmartNode father;
             if (idFather >= 0)
@@ -239,287 +198,7 @@
              }
             saveProject();
         }
-        /// <summary>
-        /// Return a memento for the current project.
-        /// </summary>
-        /// <returns></returns>
-		private Memento getMemento()
-		{
-            return new Memento(this.name, 
-                new ProjectProperties(name, description,path_Project, smartIndex, smartTree, _unusedId), 
-                this.path_Project);
-		}
-
 	}
 
 
-    /// <summary>
-    /// This class can be stored within a <see cref="Memento"/> and
-    /// be retrieved by a Project to restore or change settings respectively
-    /// smartNodes. All values within this class are either null or valid.
-    /// </summary>
-    [Serializable()]
-    internal class ProjectProperties : ISerializable
-    {
-        /// <summary>
-        /// Indicates whether all properties requered
-        /// to consruct a new Project instance are valid.
-        /// </summary>
-        internal bool complete = false;
-
-        /// <summary>
-        /// Project name.
-        /// </summary>
-        internal string name
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Project description.
-        /// </summary>
-        internal string description
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// This bool indicates whether smartIndex, smartTree and
-        /// _unusedId are valid. If there are not, newTrees are
-        /// build.
-        /// </summary>
-        internal bool newTrees = false;
-
-
-        /// <summary>
-        /// The smallest unused id, were unused
-        /// means that there is no element within
-        /// the smartIndex or the smartTree with
-        /// the same id.
-        /// </summary>
-        internal int _unusedId
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Contains same smartNodes as 
-        /// smartTree but arranges them 
-        /// by an id.
-        /// </summary>
-        private Dictionary<int, SmartNode> _smartIndex;
-        internal Dictionary<int, SmartNode> smartIndex
-        {
-            get
-            {
-                if (_smartIndex == null)
-                    _smartIndex = new Dictionary<int, SmartNode>();
-                return _smartIndex;
-            }
-            private set
-            {
-                _smartIndex = value;
-            }
-        }
-
-        private List<SmartNode> _smartIndexBackup;
-        private List<SmartNode> smartIndexBackup
-        {
-            get
-            {
-                if (_smartIndex == null)
-                    throw new ArgumentNullException("SmartTree is initialized, cant construct backup");
-                if (_smartIndexBackup == null)
-                {
-                    _smartIndexBackup = new List<SmartNode>();
-                    foreach (var i in smartIndex.Values)
-                    {
-                        _smartIndexBackup.Add(i);
-                    }
-                }
-                
-                return _smartIndexBackup;
-            }
-        }
-
-        /// <summary>
-        /// Contains smae smartNodes as
-        /// smartIndex but arranges them
-        /// as a tree.
-        /// </summary>
-        internal ObservableCollection<SmartNode> smartTree
-        {
-            get;
-            private set;
-        }
-
-
-        /// <summary>
-        /// Project path. It
-        /// is made sure that this path
-        /// is valid.
-        /// </summary>
-        internal string path_Project
-        {
-            get;
-            private set;
-        }
-
-        
-        internal ProjectProperties(string name, string description, string path_Project,
-            Dictionary<int, SmartNode> smartIndex, ObservableCollection<SmartNode> smartTree, int _unusedId) 
-        {
-            this.name = String.IsNullOrWhiteSpace(name) ? null : name;
-            this.description = String.IsNullOrWhiteSpace(description) ? null : description;
-            this.smartIndex = smartIndex;
-            this.smartTree = smartTree;
-            this._unusedId = _unusedId;
-
-            try
-            {
-                new FileInfo(path_Project);
-                this.path_Project = path_Project;
-            }
-            catch (Exception exc)
-            {
-                throw new ArgumentException("Given project path" + path_Project + " is invalid.", exc);
-            }
-
-            newTrees = !smartConsistency(smartIndex, smartTree, _unusedId);
-            if (newTrees)
-            {
-                this._unusedId = 0;
-                this.smartTree = new ObservableCollection<SmartNode>();
-                this.smartIndex = new Dictionary<int,SmartNode>();
-            }
-
-            complete = !newTrees && !String.IsNullOrWhiteSpace(name) && 
-                        (null != description) && 
-                            !String.IsNullOrWhiteSpace(path_Project);
-
-        }
-
-        /// <summary>
-        /// Checks given parameters for consistency. 
-        /// </summary>
-        /// <param name="smartIndex"></param>
-        /// <param name="smartTree"></param>
-        /// <param name="_unusedId"></param>
-        /// <returns>Returns false if
-        /// incosistencies were found.</returns>
-        private bool smartConsistency(Dictionary<int, SmartNode> smartIndex, ObservableCollection<SmartNode> smartTree, int _unusedId) {
-           
-            bool consistent = true;
-            if ((smartTree != null) && (smartIndex != null))
-            {
-
-
-                if (smartIndex.ContainsKey(_unusedId))
-                    consistent = false;
-
-                //int smartTreeCount = 0;
-
-                //if (consistent)
-                //    foreach (SmartNode i in smartTree)
-                //    {
-
-                //        if ((i.id == _unusedId) 
-                //            || !smartIndex.ContainsKey(i.id)
-                //            || i.idFather >= 0)
-                //        {
-                //            consistent = false;
-                //            break;
-                //        }
-
-                //        smartTreeCount++;
-                //        foreach (SmartNode k in i.smartTree)
-                //        {
-                //            if ((k.id == _unusedId) 
-                //                || !smartIndex.ContainsKey(k.id)
-                //                || k.idFather != i.idFather)
-                //            {
-                //                consistent = false;
-                //                break;
-                //            }
-
-                //            smartTreeCount++;
-                //        }
-                //    }
-                smartCount = 0;
-                level = 0;
-                maxLevel = smartIndex.Count + 5;
-                if (consistent)
-                    smartTreeCounter(smartTree);
-                if (smartIndex.Count != smartCount)
-                    consistent = false;
-            }
-            else
-            {
-                consistent = false;
-            }
-            
-            return consistent;
-        }
-
-        private int level = -1;
-        /// <summary>
-        /// set this to smartIndex.count + 5
-        /// </summary>
-        private int maxLevel = 0;
-        private int smartCount = 0;
-        private void smartTreeCounter(ObservableCollection<SmartNode> smartTree)
-        {           
-            foreach (var i in smartTree)
-            {
-                smartTreeCounter(i.smartTree);
-                smartCount++;
-                level++;
-                if (level > maxLevel)
-                    throw new InternalBufferOverflowException("More than thousan SmartNodes were found, cant guarantie" +
-                " consistency.");
-            }
-        }
-
-        public ProjectProperties(SerializationInfo info, StreamingContext stxt) : 
-            this((string)info.GetValue("name", typeof(string)),
-            (string)info.GetValue("description", typeof(string)), 
-            (string)info.GetValue("path_Project", typeof(string)),
-            restoreIndex((List<SmartNode>) info.GetValue("smartIndexBackup", typeof(List<SmartNode>))),
-            ((SmartNode)info.GetValue("smartTree", typeof(SmartNode))).smartTree,
-            (int) info.GetValue("_unusedId", typeof(int)))
-        {
-        }
-
-        private static Dictionary<int, SmartNode> restoreIndex(List<SmartNode> smartIndexBackup)
-        {
-            
-            Dictionary<int, SmartNode> restoredIndex = new Dictionary<int,SmartNode>();
-
-            foreach (var i in smartIndexBackup)
-            {
-                if (i == null)
-                    return restoredIndex;           //Exception would fit better, but it doesnt work yet.
-                restoredIndex.Add(i.id, i);
-            }
-            return restoredIndex;
-        }
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("name", this.name);
-            info.AddValue("description", this.description);
-            info.AddValue("_unusedId", this._unusedId);
-           
-            info.AddValue("smartIndexBackup", this.smartIndexBackup);
-
-            // smartTree will be placed inside a smartNode, cause ObservableCollection
-            // not serializable
-            info.AddValue("smartTree", (new SmartNode(null, -2, -2, this.smartTree)));
-            info.AddValue("path_Project", this.path_Project);
-            info.AddValue("complete", this.complete);
-        }
-    }
 }
-
