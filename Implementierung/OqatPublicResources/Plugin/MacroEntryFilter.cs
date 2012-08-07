@@ -14,17 +14,32 @@ namespace Oqat.PublicRessources.Plugin
     [Serializable()]
 	public class MacroEntryFilter : MacroEntry
 	{
-		private double endFrameRelative
+        private double _endFrameRelative;
+        private double _startFrameRelative;
+
+		public double endFrameRelative
 		{
-			get;
-			set;
+            get
+            {
+                return this._endFrameRelative;
+            }
+            set
+            {
+                this._endFrameRelative = value;
+            }
 		}
 
-		private double startFrameRelative
-		{
-			get;
-			set;
-		}
+        public double startFrameRelative
+        {
+            get
+            {
+                return this._startFrameRelative;
+            }
+            set
+            {
+                this._startFrameRelative = value;
+            }
+        }
 
 	}
 }

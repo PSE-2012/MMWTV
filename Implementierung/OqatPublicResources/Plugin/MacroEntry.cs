@@ -14,17 +14,32 @@
     [Serializable()]
 	public abstract class MacroEntry
 	{
-		private string pluginName
-		{
-			get;
-			set;
-		}
+        private string _pluginName;
+        private string _mementoName;
 
-		private string mementoName
-		{
-			get;
-			set;
-		}
+        public string pluginName
+        {
+            get
+            {
+                return this._pluginName;
+            }
+            set
+            {
+                this._pluginName = value;
+            }
+        }
+
+        public string mementoName
+        {
+            get
+            {
+                return this._mementoName;
+            }
+            set
+            {
+                this._mementoName = value;
+            }
+        }
 
         public MacroEntry()
         {

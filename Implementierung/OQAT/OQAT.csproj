@@ -55,6 +55,10 @@
     <StartupObject>Oqat.OqatApp</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AvalonControlsLibrary, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\AvalonControlsLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack.Shell">
       <HintPath>..\..\lib\Windows API Code Pack 1.1\binaries\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
@@ -85,6 +89,12 @@
     <Compile Include="Model\Video.cs" />
     <Compile Include="ViewModel\EntryEventArgs.cs" />
     <Compile Include="ViewModel\ExtraResourceEventArgs.cs" />
+    <Compile Include="ViewModel\Macro\MacroControl.xaml.cs">
+      <DependentUpon>MacroControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Macro\MacroSaveDialog.xaml.cs">
+      <DependentUpon>MacroSaveDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\VM_PluginsList.xaml.cs">
       <DependentUpon>VM_PluginsList.xaml</DependentUpon>
     </Compile>
@@ -125,6 +135,14 @@
     <Compile Include="ViewModel\ErrorConsole.xaml.cs">
       <DependentUpon>ErrorConsole.xaml</DependentUpon>
     </Compile>
+    <Page Include="ViewModel\Macro\MacroControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewModel\Macro\MacroSaveDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ViewModel\VM_PluginsList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
