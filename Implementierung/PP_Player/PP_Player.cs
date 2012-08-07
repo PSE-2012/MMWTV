@@ -203,9 +203,10 @@
         {
             this._videohandler = vid.video.handler;
             //TODO: implement dynamic buffer
-            videoSource.NUMFRAMESINMEM = 20;//vid.video.vidInfo.frameCount;
-            videoSource.bmp = new Bitmap[videoSource.NUMFRAMESINMEM];
+            videoSource.NUMFRAMESINMEM = 10;//vid.video.vidInfo.frameCount;
             videoSource.bmp = videohandler.getFrames(0, videoSource.NUMFRAMESINMEM);
+
+            videoSource.Start();
         }
 
         // private void videoSourcePlayer_NewFrame(object sender, ref Bitmap image)

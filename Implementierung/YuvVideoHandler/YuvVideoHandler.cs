@@ -29,31 +29,11 @@ namespace PS_YuvVideoHandler
         YuvVideoInfo _videoInfo = null;
         string _path = "";
 
-        private byte[] _data = null;
-        public byte[] data
-        {
-            get
-            {
-                if (consistent)
-                    initBuffer(vidInfo.frameCount);
-                else
-                    throw new Exception("Buffer is uninitialized, due inconsistencies.");
-
-                    return _data;
-            }
-            private set {
-                if (consistent)
-                {
-                    _data = value;
-                }
-            }
-        }
+        private byte[] data = null;
         int bufferSizeFrames = -1;
 
-
-
         int firstFrameInMem = int.MinValue;
-        int frameSize;
+
 
         private string path
         {
@@ -97,8 +77,8 @@ namespace PS_YuvVideoHandler
             vidInfo = info;
 
             //init buffer
-            if(info!=null)
-             initBuffer(NUMFRAMESINMEM);
+            if(info != null)
+                initBuffer(NUMFRAMESINMEM);
         }
 
 
@@ -253,7 +233,7 @@ namespace PS_YuvVideoHandler
                 
 
 
-            int frameOffset = (frameNm - firstFrameInMem) * this.frameSize;
+            int frameOffset = (frameNm - firstFrameInMem) * ((YuvVideoInfo)vidInfo).frameSize;
             FrameDataPointers pointers = new FrameDataPointers(_videoInfo);
 
             Bitmap frame = new Bitmap(_videoInfo.width, _videoInfo.height);
@@ -329,8 +309,8 @@ namespace PS_YuvVideoHandler
             try
             {
                 fs = new FileStream(path, FileMode.Open);
-                fs.Seek((int)(startFrame * this.frameSize), SeekOrigin.Begin);
-                fs.Read(data, 0, this.frameSize * bufferSizeFrames);
+                fs.Seek((int)(startFrame * ((YuvVideoInfo)vidInfo).frameSize), SeekOrigin.Begin);
+                fs.Read(data, 0, ((YuvVideoInfo)vidInfo).frameSize * bufferSizeFrames);
                 fs.Close();
             }
             catch (Exception) 
@@ -401,8 +381,8 @@ namespace PS_YuvVideoHandler
             FileStream fs;
             try
             {
-                fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, this.frameSize * frames.Length);
-                fs.Seek((int)(frameNum * this.frameSize), SeekOrigin.Begin);
+                fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, ((YuvVideoInfo)vidInfo).frameSize * frames.Length);
+                fs.Seek((int)(frameNum * ((YuvVideoInfo)vidInfo).frameSize), SeekOrigin.Begin);
 
                 for (int i = 0; i < frames.Length; i++)
                 {
@@ -442,7 +422,7 @@ namespace PS_YuvVideoHandler
         /// <returns>a byte array filled with yuv equivalents of the given frame</returns>
         private byte[] frameToYUV(Bitmap frame)
         {
-            byte[] fdata = new byte[this.frameSize];
+            byte[] fdata = new byte[((YuvVideoInfo)vidInfo).frameSize];
             FrameDataPointers pointers = new FrameDataPointers(_videoInfo);
                         
             for (int y = 0; y < _videoInfo.height; y++)
