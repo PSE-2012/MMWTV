@@ -24,18 +24,17 @@ namespace Oqat.ViewModel.Macro
         internal DataTable macroQueue;
         internal List<MacroEntry> macroEntryList;
 
-        public void fetchPlugins() { }
-
         internal Macro()
         {
         }
+
+        public UserControl macroControl;
 
         public UserControl propertyView
         {
             get
             {
-                VM_Macro vmmacro = new VM_Macro();
-                return new MacroControl(this, vmmacro);
+                return macroControl;
             }
         }
 
@@ -78,21 +77,9 @@ namespace Oqat.ViewModel.Macro
             throw new NotImplementedException();
         }
 
-        public MacroControl macroControl;
-
         public Dictionary<EventType, List<Delegate>> getEventHandlers()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// View of the Macro Queue.
-        /// </summary>
-        /// <param name="parent"></param>
-        public void setParentControl(System.Windows.Controls.Panel parent)
-        {
-            macroControl = new MacroControl(this, new VM_Macro());
-            parent.Children.Add(macroControl);
         }
 
         /// <summary>
@@ -114,8 +101,6 @@ namespace Oqat.ViewModel.Macro
             throw new NotImplementedException();
             //this.macroMemento = memento;
         }
-
-
     }
 }
 

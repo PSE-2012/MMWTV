@@ -9,6 +9,7 @@
     using Oqat.PublicRessources.Plugin;
     using Oqat.Model;
     using System.Data;
+    using System.Windows.Controls;
     using AC.AvalonControlsLibrary.Controls;
 
     /// <summary>
@@ -27,7 +28,6 @@
             set;
         }
 
-
         internal PF_MacroFilter macroFilter
         {
             get;
@@ -43,7 +43,7 @@
         /// <summary>
         /// Currently selected reference video
         /// </summary>
-        private Video vidRef
+        public Video vidRef
         {
             get;
             set;
@@ -52,7 +52,7 @@
         /// <summary>
         /// Currently selected processed video.
         /// </summary>
-        private Video vidProc
+        public Video vidProc
         {
             get;
             set;
@@ -73,6 +73,38 @@
             set;
         }
 
+        public MacroFilterControl macroFilterControl
+        {
+            get
+            {
+                return this.macroFilter.macroControl;
+            }
+        }
+        
+        public MacroMetricControl macroMetricControl
+        {
+            get
+            {
+                return this.macroMetric.macroControl;
+            }
+        }
+
+        public UserControl propertiesView
+        {
+            get
+            {
+                UserControl view = null;
+                if (this.viewType == ViewType.FilterView)
+                {
+                    view = this.macroFilter.macroControl;
+                }
+                if (this.viewType == ViewType.MetricView)
+                {
+                    view = this.macroMetric.macroControl;
+                }
+                return view;
+            }
+        }
 
         internal delegate void MacroSaveEventHandler(object sender, EntryEventArgs e);
         internal event MacroSaveEventHandler MacroSave;
@@ -88,6 +120,10 @@
             MacroSave += new MacroSaveEventHandler(macroSave);
             StartProcess += new StartProcessEventHandler(startProcess);
             delList = new List<RangeSelectionChangedEventHandler>();
+            this.macroFilter = new PF_MacroFilter();
+            this.macroMetric = new PM_MacroMetric();
+            this.macroFilter.macroControl = new MacroFilterControl(macroFilter, this);
+            this.macroMetric.macroControl = new MacroMetricControl(macroMetric, this);
         }
 
         /// <summary>
@@ -100,20 +136,6 @@
         public void onToggleView(object sender, ViewTypeEventArgs e)
         {
             this.viewType = e.viewType;
-            if (e.viewType == ViewType.FilterView)
-            {
-                if (this.macroFilter == null)
-                {
-                    this.macroFilter = new PF_MacroFilter();
-                }
-            }
-            if (e.viewType == ViewType.MetricView)
-            {
-                if (this.macroMetric == null)
-                {
-                    this.macroMetric = new PM_MacroMetric();
-                }
-            }
         }
 
         /// <summary>
@@ -140,7 +162,8 @@
             {
                 PF_MacroFilter macroFilter = (PF_MacroFilter)this.macroFilter;
                 IVideoInfo vidInfo = vidRef.vidInfo;
-                vidResult = new Video(false, "path", vidInfo, macroFilter.getPluginMementoList());
+                vidResult = new Video(false, "C:/Documents/newvideo.yuv", vidInfo, null);
+                // vidResult = new Video(false, "C:/Documents/newvideo.yuv", vidInfo, macroFilter.getPluginMementoList());
                 macroFilter.process(vidRef, vidResult); // vidresult from eventargs?
             }
         }

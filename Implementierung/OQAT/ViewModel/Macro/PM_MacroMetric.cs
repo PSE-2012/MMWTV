@@ -7,6 +7,7 @@ namespace Oqat.ViewModel.Macro
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Text;
+    using System.Windows.Controls;
 
     using System.Drawing;
 
@@ -17,6 +18,15 @@ namespace Oqat.ViewModel.Macro
     /// </summary>
 	public class PM_MacroMetric : Macro, IMetricOqat
     {
+        public MacroMetricControl macroControl;
+
+        public UserControl propertyView
+        {
+            get
+            {
+                return macroControl;
+            }
+        }
 
         public AnalysisInfo analyse(Bitmap frameRef, Bitmap frameProc)
         {

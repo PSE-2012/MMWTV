@@ -89,8 +89,11 @@
     <Compile Include="Model\Video.cs" />
     <Compile Include="ViewModel\EntryEventArgs.cs" />
     <Compile Include="ViewModel\ExtraResourceEventArgs.cs" />
-    <Compile Include="ViewModel\Macro\MacroControl.xaml.cs">
-      <DependentUpon>MacroControl.xaml</DependentUpon>
+    <Compile Include="ViewModel\Macro\MacroFilterControl.xaml.cs">
+      <DependentUpon>MacroFilterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Macro\MacroMetricControl.xaml.cs">
+      <DependentUpon>MacroMetricControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Macro\MacroSaveDialog.xaml.cs">
       <DependentUpon>MacroSaveDialog.xaml</DependentUpon>
@@ -135,7 +138,11 @@
     <Compile Include="ViewModel\ErrorConsole.xaml.cs">
       <DependentUpon>ErrorConsole.xaml</DependentUpon>
     </Compile>
-    <Page Include="ViewModel\Macro\MacroControl.xaml">
+    <Page Include="ViewModel\Macro\MacroFilterControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewModel\Macro\MacroMetricControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -212,6 +219,10 @@
     <ProjectReference Include="..\WPF_ClosableTabItem\WPF_ClosableTabItem.csproj">
       <Project>{5F6709BE-B477-4C58-B4C0-1735443E6799}</Project>
       <Name>WPF_ClosableTabItem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YuvVideoHandler\YuvVideoHandler.csproj">
+      <Project>{8DDF1C82-B71A-4CF6-82DE-AFAF282B4F38}</Project>
+      <Name>YuvVideoHandler</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
