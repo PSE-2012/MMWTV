@@ -82,7 +82,7 @@ namespace Oqat.ViewModel.Macro
                     }
                     else
                     {
-                        gvColumn.Width = 200;
+                        gvColumn.Width = 150;
                     }
                     // TODO: disable column resizing!?
                     gvColumn.DisplayMemberBinding = new Binding(c.ColumnName);
@@ -179,6 +179,7 @@ namespace Oqat.ViewModel.Macro
             {
                 macroTable.SelectedIndex = oldIndex;
                 DataRow selectedRow = this.macro.macroQueue.Rows[oldIndex];
+                
 
                 if (selectedRow != null)
                 {
@@ -216,6 +217,7 @@ namespace Oqat.ViewModel.Macro
         
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
+            // TODO: Selecting multiple entries with drag and drop doesn't work anymore ever since drag and drop was implemented
             while (macroTable.SelectedIndex != -1)
             {
                 int index = macroTable.SelectedIndex;
