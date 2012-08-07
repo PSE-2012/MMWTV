@@ -321,8 +321,8 @@
                 case EventType.macroEntrySelected:
                     try
                     {
-                        if (macroEntryClicked != null)
-                            macroEntryClicked(this, (EventArgs)e);
+                        if (macroEntrySelected != null)
+                            macroEntrySelected(this, (EventArgs)e);
                     }
                     catch (Exception exc)
                     {
@@ -378,6 +378,17 @@
                     {
                         if (macroEntryAdd != null)
                             macroEntryAdd(this, (MementoEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.macroProcessingFinished:
+                    try
+                    {
+                        if (macroProcessingFinished != null)
+                            macroProcessingFinished(this, (VideoEventArgs)e);
                     }
                     catch (Exception exc)
                     {
@@ -528,14 +539,15 @@
         internal delegate void videoLoadHandler(object sender, VideoEventArgs e);
         internal static event videoLoadHandler videoLoad;
 
-        internal delegate void macroEntryClickedHandler(object sender, EventArgs e);
-        internal static event macroEntryClickedHandler macroEntryClicked;
+        internal delegate void macroEntrySelectedHandler(object sender, EventArgs e);
+        internal static event macroEntrySelectedHandler macroEntrySelected;
         internal delegate void newMementoCreatedHandler(object sender, MementoEventArgs e);
         internal static event newMementoCreatedHandler newMementoCreated;
         internal static event newProjectCreatedHandler OqatNewProjectCreatedHandler;
         internal static event toggleViewHandler OqatToggleView;
         internal static event macroEntryAddHandler macroEntryAdd;
-
+        internal delegate void macroProcessingFinishedHandler(object sender, VideoEventArgs e);
+        internal static event macroProcessingFinishedHandler macroProcessingFinished;
 
 
 

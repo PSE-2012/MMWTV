@@ -116,7 +116,7 @@ namespace Oqat.ViewModel.Macro
         public void process(Video vidRef, Video vidResult)
         {
             while (i < totalFrames)
-           {
+            {
                if ((i + BUFFERSIZE) > (totalFrames - i))
                {
                    resultFrames = refHand.getFrames(i, totalFrames - i);
@@ -152,7 +152,8 @@ namespace Oqat.ViewModel.Macro
             currentMemento = null;
             refHand = null;
             resultHand = null;
-            // TODO: send event processing finished
+
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult));
         }
 
         public string namePlugin

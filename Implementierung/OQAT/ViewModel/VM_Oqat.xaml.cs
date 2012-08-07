@@ -103,11 +103,6 @@ namespace Oqat.ViewModel
 
         public void onNewProjectCreated(object sender, ProjectEventArgs e)
         {
-            //e.project.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\firstVideo.avi", null), -1);
-            //e.project.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\secondVideo.avi", null), -1);
-            //e.project.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\childOfFirst.avi", null), 0);
-            //e.project.addNode(new Video(false, "C:\\Users\\Public\\Videos\\Sample Videos\\childOfSecond.avi", null), 1);
-
             this.vM_ProjectExplorer = new VM_ProjectExplorer(e.project);
             this.projectExplorerPanel.Children.Add(vM_ProjectExplorer);
 
