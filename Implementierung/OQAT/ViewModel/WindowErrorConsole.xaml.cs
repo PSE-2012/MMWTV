@@ -16,9 +16,9 @@ namespace Oqat.ViewModel
     /// <summary>
     /// Interaktionslogik für Window1.xaml
     /// </summary>
-    public partial class ErrorConsole : Window
+    public partial class WindowErrorConsole : Window
     {
-        public ErrorConsole()
+        public WindowErrorConsole()
         {
             InitializeComponent();
 
@@ -61,17 +61,17 @@ namespace Oqat.ViewModel
             get;
             private set;
         }
-        public string message
-        {
-            get;
-            private set;
-        }
         public string source
         {
             get;
             private set;
         }
         public DateTime time
+        {
+            get;
+            private set;
+        }
+        public string message
         {
             get;
             private set;
