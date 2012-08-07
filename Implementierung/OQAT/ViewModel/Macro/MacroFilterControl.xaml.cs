@@ -20,11 +20,8 @@ using System.Collections.ObjectModel;
 
 namespace Oqat.ViewModel.Macro
 {
-    public partial class MacroControl : UserControl
+    public partial class MacroFilterControl : UserControl
     {
-
-        
-
         private PF_MacroFilter _macro;
 
         public PF_MacroFilter macro
@@ -66,9 +63,9 @@ namespace Oqat.ViewModel.Macro
             ScrollViewer1.ScrollToVerticalOffset(e.VerticalOffset);
         }
 
-        public MacroControl(Macro macro, VM_Macro vmmacro)
+        public MacroFilterControl(PF_MacroFilter macro, VM_Macro vmmacro)
         {
-            this.macro = (PF_MacroFilter) macro;
+            this.macro = macro;
             this.vmmacro = vmmacro;
             InitializeComponent();
             DataTable macroEntryTable = macro.macroQueue;
@@ -113,7 +110,7 @@ namespace Oqat.ViewModel.Macro
             VideoEventArgs ea = new VideoEventArgs(null, false); // TODO: set vidResult through file explorer
             macroTable.IsEnabled = false;
             rangeSliders.IsEnabled = false;
-            // vmmacro.onStartProcess(this, ea);
+            vmmacro.onStartProcess(this, ea);
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)

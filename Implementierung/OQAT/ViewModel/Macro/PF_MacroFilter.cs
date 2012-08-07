@@ -10,6 +10,7 @@ namespace Oqat.ViewModel.Macro
     using System.Linq;
     using System.Text;
     using System.Data;
+    using System.Windows.Controls;
     using AC.AvalonControlsLibrary.Controls;
 
     /// <summary>
@@ -21,6 +22,16 @@ namespace Oqat.ViewModel.Macro
     {
         internal List<RangeSlider> rsl;
 
+        public MacroFilterControl macroControl;
+
+        public UserControl propertyView
+        {
+            get
+            {
+                return macroControl;
+            }
+        }
+
         public PF_MacroFilter()
         {
             macroQueue = new DataTable();
@@ -31,16 +42,6 @@ namespace Oqat.ViewModel.Macro
             macroQueue.Columns.Add("Start", typeof(Double));
             macroQueue.Columns.Add("Stop", typeof(Double));
             rsl = new List<RangeSlider>();
-        }
-
-        /// <summary>
-        /// View of the Macro Queue.
-        /// </summary>
-        /// <param name="parent"></param>
-        new public void setParentControl(System.Windows.Controls.Panel parent)
-        {
-            macroControl = new MacroControl(this, new VM_Macro());
-            parent.Children.Add(macroControl);
         }
 
         public System.Drawing.Bitmap process(System.Drawing.Bitmap frame) // filter preview of 1 frame!?
@@ -105,18 +106,20 @@ namespace Oqat.ViewModel.Macro
         {
             refHand = vidRef.handler;
             resultHand = vidResult.handler;
-            BUFFERSIZE = 4095;
+            // BUFFERSIZE = 4095;
+            BUFFERSIZE = 127;
             totalFrames = vidRef.vidInfo.frameCount;
             i = 0;
             resultFrames = new System.Drawing.Bitmap[BUFFERSIZE];
-            while (i < totalFrames)
-            { // loop until all frames have been processed
+            //while (i < totalFrames)
+           // { // loop until all frames have been processed
                 resultFrames = refHand.getFrames(i, BUFFERSIZE); // initialize the first BUFFERSIZE frames to be processed
-                foreach (DataRow c in macroQueue.Rows)
+                /** foreach (DataRow c in macroQueue.Rows)
                 {
                     // here maybe error handling in case the plugin doesn't implement IFilterOqat, although plugin lists has probably checked that already
                     currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c["Plugin Name"]);
-                    currentMemento = PluginManager.pluginManager.getMemento((String)c["Plugin Name"], (String)c["Memento Name"]);
+                    // currentMemento = PluginManager.pluginManager.getMemento((String)c["Plugin Name"], (String)c["Memento Name"]);
+                    currentMemento = currentPlugin.getMemento();
                     currentMacroEntry = (MacroEntryFilter)c["Macro Entry"];
                     if (currentPlugin is IMacro)
                     {
@@ -128,8 +131,8 @@ namespace Oqat.ViewModel.Macro
                     }
                 }
                 resultHand.writeFrames(i, resultFrames); // write the processed frames to disk
-                i += BUFFERSIZE;
-            }
+                i += BUFFERSIZE; **/
+            //}
             resultFrames = null;
             currentPlugin = null;
             currentMemento = null;
