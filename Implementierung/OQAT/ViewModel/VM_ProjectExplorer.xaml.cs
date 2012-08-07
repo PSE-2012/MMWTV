@@ -136,6 +136,7 @@
 
         private void miLoadAna_Click(object sender, RoutedEventArgs e)
         {
+            //select the TreeViewItem that whose contextmenu was opened
             TextBlock tblock = ((TextBlock)((ContextMenu)((MenuItem)sender).Parent).PlacementTarget);
             getNearestFather(tblock).IsSelected = true;
 
@@ -145,6 +146,7 @@
         }
         private void miLoadRef_Click(object sender, RoutedEventArgs e)
         {
+            //select the TreeViewItem that whose contextmenu was opened
             TextBlock tblock = ((TextBlock)((ContextMenu)((MenuItem)sender).Parent).PlacementTarget);
             getNearestFather(tblock).IsSelected = true;
 
@@ -154,6 +156,7 @@
         }
         private void miLoadProc_Click(object sender, RoutedEventArgs e)
         {
+            //select the TreeViewItem that whose contextmenu was opened
             TextBlock tblock = ((TextBlock)((ContextMenu)((MenuItem)sender).Parent).PlacementTarget);
             getNearestFather(tblock).IsSelected = true;
 
