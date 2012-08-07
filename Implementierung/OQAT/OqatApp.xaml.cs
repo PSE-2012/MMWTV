@@ -13,7 +13,7 @@ namespace Oqat
     /// </summary>
     public partial class OqatApp : Application
     {
-        public static ErrorConsole errorConsole
+        public static WindowErrorConsole errorConsole
         {
             get;
             private set;
@@ -22,8 +22,9 @@ namespace Oqat
 
         OqatApp()
         {
+            errorConsole = new WindowErrorConsole();
+
             initPluginManager();
-            errorConsole = new ErrorConsole();
         }
 
         private void initPluginManager()

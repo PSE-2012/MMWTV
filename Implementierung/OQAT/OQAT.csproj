@@ -113,7 +113,6 @@
     <Compile Include="ViewModel\ProjectEventArgs.cs" />
     <Compile Include="ViewModel\ViewType.cs" />
     <Compile Include="ViewModel\ViewTypeEventArgs.cs" />
-    <Compile Include="ViewModel\VM_Menu.cs" />
     <Compile Include="ViewModel\VM_OptionsDialog.cs" />
     <Compile Include="ViewModel\VM_ProjectExplorer.xaml.cs">
       <DependentUpon>VM_ProjectExplorer.xaml</DependentUpon>
@@ -134,8 +133,11 @@
       <DependentUpon>OqatApp.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModel\ErrorConsole.xaml.cs">
-      <DependentUpon>ErrorConsole.xaml</DependentUpon>
+    <Compile Include="ViewModel\WindowErrorConsole.xaml.cs">
+      <DependentUpon>WindowErrorConsole.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\WindowOqatInfo.xaml.cs">
+      <DependentUpon>WindowOqatInfo.xaml</DependentUpon>
     </Compile>
     <Page Include="ViewModel\Macro\MacroFilterControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -177,7 +179,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewModel\ErrorConsole.xaml">
+    <Page Include="ViewModel\WindowErrorConsole.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\WindowOqatInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
