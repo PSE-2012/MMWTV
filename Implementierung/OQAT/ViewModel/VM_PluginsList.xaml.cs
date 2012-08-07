@@ -247,7 +247,7 @@ namespace Oqat.ViewModel
 
         private void bttAddToMacro_Click(object sender, RoutedEventArgs e)
         {
-            if(saveCurrentMemento())
+            //if(saveCurrentMemento())
                 //PluginManager.pluginManager.raiseEvent(EventType
         }
 
