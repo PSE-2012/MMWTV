@@ -18,7 +18,7 @@ namespace PM_PSNR
     [ExportMetadata("namePlugin", "PM_PSNR")]
     [ExportMetadata("type", PluginType.IMetricOqat)]
     [Export(typeof(IPlugin))]
-
+    [Serializable()]
 	public class PSNR :  IMetricOqat
 	{
         private string _namePlugin = "PM_PSNR";

@@ -17,6 +17,7 @@ namespace PF_NoiseGenerator
     /// <summary>
     /// Interaktionslogik für VM_Greyscale.xaml
     /// </summary>
+    [Serializable()]
     public partial class VM_NoiseGenerator : UserControl
     {
         float uperBorder;

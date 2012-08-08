@@ -17,7 +17,7 @@ namespace PM_MSE
     [ExportMetadata("namePlugin", "PM_MSE")]
     [ExportMetadata("type", PluginType.IMetricOqat)]
     [Export(typeof(IPlugin))]
-
+    [Serializable()]
 	public class MSE : IMetricOqat
 	{
         private string _namePlugin = "PM_MSE";
@@ -159,16 +159,17 @@ namespace PM_MSE
 
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
-            Memento mem = new Memento(this.namePlugin, this);
+            int rb = propertiesView.getRb();
+            Memento mem = new Memento(this.namePlugin, rb);
 
             return mem;
         }
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
-            Object obj = memento.state;
-            MSE mse = (MSE)obj;
-            this.propertiesView.setRb(mse.propertiesView.getRb())  ;
+            int obj =(int) memento.state;
+           
+            this.propertiesView.setRb(obj)  ;
            
         }
     }

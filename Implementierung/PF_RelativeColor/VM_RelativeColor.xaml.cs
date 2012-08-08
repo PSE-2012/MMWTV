@@ -17,6 +17,7 @@ namespace PF_RelativeColor
     /// <summary>
     /// Interaktionslogik für VM_RelativeColor.xaml
     /// </summary>
+    [Serializable()]
     public partial class VM_RelativeColor : UserControl
     {
         double redValue;

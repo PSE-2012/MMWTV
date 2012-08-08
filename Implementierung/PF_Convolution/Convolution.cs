@@ -24,10 +24,9 @@ namespace PF_Convolution
     [ExportMetadata("type", PluginType.IFilterOqat)]
     [Export(typeof(IPlugin))]
 
-
+    [Serializable()]
     public class Convolution : IFilterOqat
     {
-
         private string _namePlugin = "PF_Convolution";
         private PluginType _type= PluginType.IFilterOqat;
         int[,] matrix = new int[5, 5];
@@ -149,7 +148,7 @@ namespace PF_Convolution
 
         public Memento getMemento()
         {
-            Memento mem = new Memento(this.namePlugin,this);
+            Memento mem = new Memento(this.namePlugin,this.matrix);
             
             return mem;
         }
@@ -157,14 +156,14 @@ namespace PF_Convolution
         public void setMemento(Memento memento)
         {
            Object obj= memento.state;
-           
-            Convolution otto = (Convolution)obj;
+
+           var otto = (int[,])obj;
 
 
             for (int i = 0; i < 5; i++)
             {
                 for( int j = 0; j<5; j++){
-                    matrix[i, j] = otto.matrix[i, j];
+                   this.matrix[i, j] = matrix[i, j];
                 }
 
             }

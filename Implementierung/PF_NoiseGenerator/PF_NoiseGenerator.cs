@@ -27,7 +27,7 @@ namespace PF_NoiseGenerator
     [ExportMetadata("namePlugin", "PF_NoiseGenerator")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
     [Export(typeof(IPlugin))]
-
+    [Serializable()]
     public class NoiseGenerator : IFilterOqat
     {
 
@@ -94,16 +94,16 @@ namespace PF_NoiseGenerator
 
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
-            Memento mem = new Memento(this.namePlugin, this);
+            Memento mem = new Memento(this.namePlugin, null);
 
             return mem;
         }
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
-            Object obj = memento.state;
-            NoiseGenerator otto = (NoiseGenerator)obj;
-            this.propertiesView.changeValue(otto.propertiesView.getUp());
+          //  Object obj = memento.state;
+         //   NoiseGenerator otto = (NoiseGenerator)obj;
+         //   this.propertiesView.changeValue(otto.propertiesView.getUp());
           
         }
 
