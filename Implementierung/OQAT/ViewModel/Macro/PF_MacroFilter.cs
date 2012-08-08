@@ -117,7 +117,7 @@ namespace Oqat.ViewModel.Macro
         {
             while (i < totalFrames)
             {
-               if ((i + BUFFERSIZE) > (totalFrames - i))
+               if ((i + BUFFERSIZE - totalFrames) > 0)
                {
                    resultFrames = refHand.getFrames(i, totalFrames - i);
                }

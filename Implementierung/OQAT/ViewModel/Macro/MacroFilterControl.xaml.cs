@@ -82,7 +82,7 @@ namespace Oqat.ViewModel.Macro
                     }
                     else
                     {
-                        gvColumn.Width = 200;
+                        gvColumn.Width = 150;
                     }
                     // TODO: disable column resizing!?
                     gvColumn.DisplayMemberBinding = new Binding(c.ColumnName);
@@ -161,9 +161,13 @@ namespace Oqat.ViewModel.Macro
                     if (index != oldIndex)
                     {
                         // TODO neues object bei index einfügen und altes bei oldindex löschen
-
+                        this.macro.macroQueue.Rows.RemoveAt(index);
                     }
                 }
+            }
+            if (oldIndex < 0)
+            {
+                //todo: extern drag and drop
             }
         }
 
@@ -175,11 +179,12 @@ namespace Oqat.ViewModel.Macro
             {
                 macroTable.SelectedIndex = oldIndex;
                 DataRow selectedRow = this.macro.macroQueue.Rows[oldIndex];
-
+                
 
                 if (selectedRow != null)
                 {
                     DragDropEffects allowedEffects = DragDropEffects.Move;
+
                     if (DragDrop.DoDragDrop(this.macroTable, selectedRow, allowedEffects) != DragDropEffects.None)
                     {
                         // The item was dropped into a new location,
@@ -215,6 +220,7 @@ namespace Oqat.ViewModel.Macro
         
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
+            // TODO: Selecting multiple entries with drag and drop doesn't work anymore ever since drag and drop was implemented
             while (macroTable.SelectedIndex != -1)
             {
                 int index = macroTable.SelectedIndex;

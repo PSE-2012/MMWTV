@@ -203,7 +203,7 @@
                 rs.RangeStartSelected = startValueSlider;
                 rs.RangeStopSelected = stopValueSlider;
                 rs.MinRange = 1L;
-                rs.Width = 500;
+                rs.Width = 150;
                 rs.Height = 17.29;
 
                 this.macroFilter.macroQueue.Rows.Add(mfe.pluginName, mfe.mementoName, mfe, startValue, stopValue);
