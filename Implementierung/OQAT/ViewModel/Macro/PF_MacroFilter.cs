@@ -117,14 +117,14 @@ namespace Oqat.ViewModel.Macro
         {
             while (i < totalFrames)
             {
-               if ((i + BUFFERSIZE - totalFrames) > 0)
-               {
-                   resultFrames = refHand.getFrames(i, totalFrames - i);
-               }
-               else
-               {
-                   resultFrames = refHand.getFrames(i, BUFFERSIZE); // initialize the first BUFFERSIZE frames to be processed
-               }
+                if ((i + BUFFERSIZE - totalFrames) > 0)
+                {
+                    resultFrames = refHand.getFrames(i, totalFrames - i);
+                }
+                else
+                {
+                    resultFrames = refHand.getFrames(i, BUFFERSIZE); // initialize the first BUFFERSIZE frames to be processed
+                }
                 foreach (DataRow c in macroQueue.Rows)
                 {
                     // here maybe error handling in case the plugin doesn't implement IFilterOqat, although plugin lists has probably checked that already

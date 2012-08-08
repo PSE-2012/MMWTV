@@ -107,8 +107,8 @@
         internal event MacroSaveEventHandler MacroSave;
         internal delegate void EntrySelectEventHandler(object sender, EventArgs e);
         internal event EntrySelectEventHandler EntrySelect;
-        internal delegate void StartProcessEventHandler(object sender, EventArgs e);
-        internal event StartProcessEventHandler StartProcess;
+        //internal delegate void StartProcessEventHandler(object sender, EventArgs e);
+        //internal event StartProcessEventHandler StartProcess;
         internal RangeSelectionChangedEventHandler del;
         internal List<RangeSelectionChangedEventHandler> delList;
 
@@ -118,7 +118,7 @@
             PluginManager.macroEntryAdd += this.onEntrySelect;
 
             MacroSave += new MacroSaveEventHandler(macroSave);
-            StartProcess += new StartProcessEventHandler(startProcess);
+            //StartProcess += new StartProcessEventHandler(startProcess);
 
             delList = new List<RangeSelectionChangedEventHandler>();
             this.macroFilter = new PF_MacroFilter();
@@ -148,17 +148,8 @@
             }
         }
 
-        /// <summary>
-        /// Raised if user clicks on the process button.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">Should contain informations about the result video i.e. name, format.</param>
-        internal void onStartProcess(object sender, EventArgs e) // EventArgs are VideoEventArgs
-        {
-            StartProcess(sender, e);
-        }
 
-        private void startProcess(object sender, EventArgs e)
+        public void startProcess()
         {
             if (this.viewType == ViewType.MetricView)
             {
@@ -170,12 +161,16 @@
             }
             if (this.viewType == ViewType.FilterView)
             {
+                macroFilterControl.macroTable.IsEnabled = false;
+                macroFilterControl.rangeSliders.IsEnabled = false;
+            
                 PF_MacroFilter macroFilter = (PF_MacroFilter)this.macroFilter;
-                IVideoInfo vidInfo = vidRef.vidInfo;
-                // vidResult = new Video(false, "C:/Documents/newvideo.yuv", vidInfo, null);
-                vidResult = new Video(false, "C:/Documents/newvideo.yuv", vidInfo, this.macroFilter.getPluginMementoList());
+                IVideoInfo vidInfo =(IVideoInfo) vidRef.vidInfo.Clone();
+                //TODO: where to save the new video?!?
+                string resultpath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                vidResult = new Video(false, resultpath+"/newvideo.yuv", vidInfo, this.macroFilter.getPluginMementoList());
                 macroFilter.init(vidRef, vidResult);
-                macroFilter.process(vidRef, vidResult); // vidresult from eventargs?
+                macroFilter.process(vidRef, vidResult);
             }
         }
 

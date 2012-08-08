@@ -264,5 +264,21 @@ namespace Oqat.ViewModel
 
         }
 
+        private void bttProcessMacro_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.videoProc == null || 
+                (vtype == ViewType.MetricView && videoRef == null))
+            {
+                MessageBox.Show("Bitte wählen Sie zunächst Videos.", "Macro Ausführung nicht möglich");
+                return;
+            }
+            
+            //TODO: seems like the naming proc vs. ref was understood the other way round in macro
+            vm_macro.vidProc = (Oqat.Model.Video) this.videoRef;
+            vm_macro.vidRef = (Oqat.Model.Video) this.videoProc;
+
+            vm_macro.startProcess();
+        }
+
     }
 }

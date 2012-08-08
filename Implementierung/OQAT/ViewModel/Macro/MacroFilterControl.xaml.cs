@@ -201,15 +201,6 @@ namespace Oqat.ViewModel.Macro
 
         //Drag'N'Drop end#
 
-        private void Start_Click(object sender, RoutedEventArgs e)
-        {
-            VideoEventArgs ea = new VideoEventArgs(null, false); // TODO: set vidResult through file explorer
-            macroTable.IsEnabled = false;
-            rangeSliders.IsEnabled = false;
-            vmmacro.onStartProcess(this, ea);
-            startbutton.IsEnabled = false;
-            deletebutton.IsEnabled = false;
-        }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
