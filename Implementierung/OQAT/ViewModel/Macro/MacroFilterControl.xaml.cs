@@ -75,15 +75,6 @@ namespace Oqat.ViewModel.Macro
                 if (c.ColumnName != "Macro Entry")
                 {
                     GridViewColumn gvColumn = new GridViewColumn();
-                    if (c.ColumnName == "Start" || c.ColumnName == "Stop")
-                    {
-                        gvColumn.Width = 50;
-                    }
-                    else
-                    {
-                        gvColumn.Width = 150;
-                    }
-                    // TODO: disable column resizing?
                     gvColumn.DisplayMemberBinding = new Binding(c.ColumnName);
                     gvColumn.Header = c.ColumnName;
                     gv.Columns.Add(gvColumn);
@@ -139,7 +130,6 @@ namespace Oqat.ViewModel.Macro
             {
                 return false;
             }
-
         }
 
         private void macroTable_Drop(object sender, DragEventArgs e)
@@ -147,7 +137,6 @@ namespace Oqat.ViewModel.Macro
             if (oldIndex >= 0)
             {
                 int index = this.GetCurrentIndex(e.GetPosition);
-
                 if (index >= 0)
                 {
                     if (index != oldIndex)
@@ -166,27 +155,22 @@ namespace Oqat.ViewModel.Macro
         private void macroTable_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             oldIndex = this.GetCurrentIndex(e.GetPosition);
-
             if (oldIndex >= 0)
             {
                 macroTable.SelectedIndex = oldIndex;
                 DataRow selectedRow = this.macro.macroQueue.Rows[oldIndex];
-                
-
                 if (selectedRow != null)
                 {
                     DragDropEffects allowedEffects = DragDropEffects.Move;
 
                     if (DragDrop.DoDragDrop(this.macroTable, selectedRow, allowedEffects) != DragDropEffects.None)
                     {
-                        // The item was dropped into a new location,
-                        // so make it the new selected item.
-
+                        // The item was dropped into a new location, so make it the new selected item.
                         this.macroTable.SelectedItem = selectedRow;
                     }
 
                     PluginManager.pluginManager.raiseEvent(EventType.macroEntrySelected,
-                        new MementoEventArgs(selectedRow["Memento Name"].ToString(), selectedRow["Plugin Name"].ToString()));
+                        new MementoEventArgs(selectedRow["Properties"].ToString(), selectedRow["Filter"].ToString()));
                 }
             }
         }

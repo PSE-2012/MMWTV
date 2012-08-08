@@ -34,11 +34,11 @@ namespace Oqat.ViewModel.Macro
         public PF_MacroFilter()
         {
             macroQueue = new DataTable();
-            macroQueue.Columns.Add("Plugin Name", typeof(String));
-            macroQueue.Columns.Add("Memento Name", typeof(String));
-            macroQueue.Columns.Add("Macro Entry", typeof(MacroEntryFilter));
             macroQueue.Columns.Add("Start", typeof(Double));
             macroQueue.Columns.Add("Stop", typeof(Double));
+            macroQueue.Columns.Add("Filter", typeof(String));
+            macroQueue.Columns.Add("Properties", typeof(String));
+            macroQueue.Columns.Add("Macro Entry", typeof(MacroEntryFilter));
             rsl = new List<RangeSlider>();
         }
 
@@ -128,8 +128,8 @@ namespace Oqat.ViewModel.Macro
                 foreach (DataRow c in macroQueue.Rows)
                 {
                     // here maybe error handling in case the plugin doesn't implement IFilterOqat, although plugin lists has probably checked that already
-                    currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c["Plugin Name"]);
-                    currentMemento = PluginManager.pluginManager.getMemento((String)c["Plugin Name"], (String)c["Memento Name"]);
+                    currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c["Filter"]);
+                    currentMemento = PluginManager.pluginManager.getMemento((String)c["Filter"], (String)c["Properties"]);
                     currentMacroEntry = (MacroEntryFilter)c["Macro Entry"];
                     if (currentPlugin is IMacro)
                     {

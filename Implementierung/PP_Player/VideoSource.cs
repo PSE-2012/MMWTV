@@ -21,7 +21,7 @@ namespace PP_Presentation
         private Thread thread = null;
         private ManualResetEvent stopEvent = null;
         private ManualResetEvent suspendEvent = null;
-
+        private string source;
         private int _NUMFRAMESINMEM;
         private Bitmap[] _bmp;
 
@@ -186,6 +186,14 @@ namespace PP_Presentation
             {
                 _bmp = value;
             }
+        }
+
+        /// <summary>
+        /// Not sure if we need this
+        /// </summary>
+        public string Source {
+            get { return source; }
+            set { source = value; }
         }
 
         /// <summary>

@@ -110,7 +110,6 @@
         internal event EntrySelectEventHandler EntrySelect;
         //internal delegate void StartProcessEventHandler(object sender, EventArgs e);
         //internal event StartProcessEventHandler StartProcess;
-        internal RangeSelectionChangedEventHandler del;
         internal List<RangeSelectionChangedEventHandler> delList;
 
         public VM_Macro()
@@ -178,25 +177,21 @@
                 long startValueSlider = 0;
                 long stopValueSlider = 500;
                 // long stopValueSlider = vidRef.vidInfo.frameCount;
-
                 MacroEntryFilter mfe = new MacroEntryFilter();
                 mfe.pluginName = e.pluginKey;
                 mfe.mementoName = e.mementoName;
                 mfe.startFrameRelative = startValue;
                 mfe.endFrameRelative = stopValue;
-
                 // TODO: What does the slider do if the loaded plugin is a Macro Filter? Check for plugin name == "macro"?
-
                 RangeSlider rs = new AC.AvalonControlsLibrary.Controls.RangeSlider();
                 rs.RangeStart = startValueSlider;
                 rs.RangeStop = stopValueSlider;
                 rs.RangeStartSelected = startValueSlider;
                 rs.RangeStopSelected = stopValueSlider;
                 rs.MinRange = 1L;
-                rs.Width = 150; // TODO: changing width at runtime
+                rs.Width = 270; // TODO: changing width at runtime
                 rs.Height = 17.29; // this height fits the height of the data rows in the macro table
-
-                this.macroFilter.macroQueue.Rows.Add(mfe.pluginName, mfe.mementoName, mfe, startValue, stopValue);
+                this.macroFilter.macroQueue.Rows.Add(startValue, stopValue, mfe.pluginName, mfe.mementoName, mfe);
                 int j = this.macroFilter.macroQueue.Rows.Count - 1;
                 this.macroFilter.macroControl.addDelegate(rs, j, delList);
                 this.macroFilter.rsl.Add(rs);

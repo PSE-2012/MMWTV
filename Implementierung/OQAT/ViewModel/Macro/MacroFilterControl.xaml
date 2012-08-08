@@ -14,15 +14,15 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer Grid.Row="0" Grid.Column="0" Name="ScrollViewer1" VerticalAlignment="Top" ScrollChanged="scroll" HorizontalAlignment="Left" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+        <ScrollViewer Grid.Row="0" Grid.Column="0" Name="ScrollViewer1" VerticalAlignment="Top" ScrollChanged="scroll" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
             <Grid>
-                <ListView HorizontalAlignment="Left" FontSize="13" Name="macroTable" AllowDrop="True" SelectionMode="Extended">
+                <ListView HorizontalAlignment="Stretch" FontSize="13" Name="macroTable" AllowDrop="True" SelectionMode="Extended">
                 </ListView>
             </Grid>
         </ScrollViewer>
         <ScrollViewer Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Name="ScrollViewer2" ScrollChanged="scroll2" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
             <Grid>
-                <ListView HorizontalAlignment="Left" Name="rangeSliders">
+                <ListView HorizontalAlignment="Stretch" Name="rangeSliders">
                 </ListView>
             </Grid>
         </ScrollViewer>
@@ -31,8 +31,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Name="savebutton" Content="Save Macrofilter" Click="Save_Click"   HorizontalAlignment="Center" VerticalAlignment="Bottom" ></Button>
-            <Button Grid.Column="2" Name="deletebutton" Content="Delete Selected Entries" Click="Delete_Click"   HorizontalAlignment="Center" VerticalAlignment="Bottom" ></Button>
+            <Button Grid.Column="0" Name="savebutton" Content="Save Macrofilter" Click="Save_Click"   HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ></Button>
+            <Button Grid.Column="1" Name="deletebutton" Content="Delete Selected Entries" Click="Delete_Click"   HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ></Button>
         </Grid>
     </Grid>
 </UserControl>
