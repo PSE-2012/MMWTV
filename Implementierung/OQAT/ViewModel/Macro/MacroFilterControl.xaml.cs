@@ -141,8 +141,108 @@ namespace Oqat.ViewModel.Macro
                 {
                     if (index != oldIndex)
                     {
-                        // TODO neues object bei index einfügen und altes bei oldindex löschen
-                        this.macro.macroQueue.Rows.RemoveAt(index);
+                        macroTable.IsEnabled = false;
+                        RangeSlider sliderOld = this.macro.rsl[oldIndex];
+                        DataRow oldRow = this.macro.macroQueue.Rows[oldIndex];
+                        double startOld = (double) oldRow["Start"];
+                        double stopOld = (double) oldRow["Stop"];
+                        string filterOld = (string) oldRow["Filter"];
+                        string propertiesOld = (string) oldRow["Properties"];
+                        MacroEntryFilter macroentryOld = (MacroEntryFilter) oldRow["Macro Entry"];
+                        DataRow tempRow = this.macro.macroQueue.Rows[index];
+                        double startTemp = (double)tempRow["Start"];
+                        double stopTemp = (double)tempRow["Stop"];
+                        string filterTemp = (string)tempRow["Filter"];
+                        string propertiesTemp = (string)tempRow["Properties"];
+                        MacroEntryFilter macroentryTemp = (MacroEntryFilter)tempRow["Macro Entry"];
+                        RangeSlider sliderTemp = this.macro.rsl[index];
+                        this.macro.macroQueue.Rows[index]["Start"] = startOld;
+                        this.macro.macroQueue.Rows[index]["Stop"] = stopOld;
+                        this.macro.macroQueue.Rows[index]["Filter"] = filterOld;
+                        this.macro.macroQueue.Rows[index]["Properties"] = propertiesOld;
+                        this.macro.macroQueue.Rows[index]["Macro Entry"] = macroentryOld;
+                        this.macro.rsl[index] = sliderOld;
+                        if (index < oldIndex)
+                        {
+                            for (int i = index + 1; i <= oldIndex; i++)
+                            {
+                                oldRow = this.macro.macroQueue.Rows[i];
+                                sliderOld = this.macro.rsl[i];
+                                startOld = (double)oldRow["Start"];
+                                stopOld = (double)oldRow["Stop"];
+                                filterOld = (string)oldRow["Filter"];
+                                propertiesOld = (string)oldRow["Properties"];
+                                macroentryOld = (MacroEntryFilter)oldRow["Macro Entry"];
+                                this.macro.macroQueue.Rows[i]["Start"] = startTemp;
+                                this.macro.macroQueue.Rows[i]["Stop"] = stopTemp;
+                                this.macro.macroQueue.Rows[i]["Filter"] = filterTemp;
+                                this.macro.macroQueue.Rows[i]["Properties"] = propertiesTemp;
+                                this.macro.macroQueue.Rows[i]["Macro Entry"] = macroentryTemp;
+                                this.macro.rsl[i] = sliderTemp;
+                                startTemp = startOld;
+                                stopTemp = stopOld;
+                                filterTemp = filterOld;
+                                propertiesTemp = propertiesOld;
+                                macroentryTemp = macroentryOld;
+                                sliderTemp = sliderOld;
+                            }
+                            List<RangeSelectionChangedEventHandler> tempList = new List<RangeSelectionChangedEventHandler>();
+                            for (int j = index; j <= oldIndex; j++)
+                            {
+                                foreach (RangeSelectionChangedEventHandler ev in this.vmmacro.delList)
+                                {
+                                    this.macro.rsl[j].RangeSelectionChanged -= ev;
+                                }
+                                addDelegate(this.macro.rsl[j], j, tempList);
+                            }
+                            for (int j = index; j <= oldIndex; j++)
+                            {
+                                this.vmmacro.delList[j] = null;
+                                this.vmmacro.delList[j] += tempList[j - index];
+                            }
+                            updateSliders();
+                        }
+                        else
+                        {
+                            for (int i = index - 1; i >= oldIndex; i--)
+                            {
+                                oldRow = this.macro.macroQueue.Rows[i];
+                                sliderOld = this.macro.rsl[i];
+                                startOld = (double)oldRow["Start"];
+                                stopOld = (double)oldRow["Stop"];
+                                filterOld = (string)oldRow["Filter"];
+                                propertiesOld = (string)oldRow["Properties"];
+                                macroentryOld = (MacroEntryFilter)oldRow["Macro Entry"];
+                                this.macro.macroQueue.Rows[i]["Start"] = startTemp;
+                                this.macro.macroQueue.Rows[i]["Stop"] = stopTemp;
+                                this.macro.macroQueue.Rows[i]["Filter"] = filterTemp;
+                                this.macro.macroQueue.Rows[i]["Properties"] = propertiesTemp;
+                                this.macro.macroQueue.Rows[i]["Macro Entry"] = macroentryTemp;
+                                this.macro.rsl[i] = sliderTemp;
+                                startTemp = startOld;
+                                stopTemp = stopOld;
+                                filterTemp = filterOld;
+                                propertiesTemp = propertiesOld;
+                                macroentryTemp = macroentryOld;
+                                sliderTemp = sliderOld;
+                            }
+                            List<RangeSelectionChangedEventHandler> tempList = new List<RangeSelectionChangedEventHandler>();
+                            for (int j = oldIndex; j <= index; j++)
+                            {
+                                foreach (RangeSelectionChangedEventHandler ev in this.vmmacro.delList)
+                                {
+                                    this.macro.rsl[j].RangeSelectionChanged -= ev;
+                                }
+                                addDelegate(this.macro.rsl[j], j, tempList);
+                            }
+                            for (int j = oldIndex; j <= index; j++)
+                            {
+                                this.vmmacro.delList[j] = null;
+                                this.vmmacro.delList[j] += tempList[index - j];
+                            }
+                            updateSliders();
+                        }
+                        macroTable.IsEnabled = true;
                     }
                 }
             }
@@ -216,7 +316,7 @@ namespace Oqat.ViewModel.Macro
         
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Selecting multiple entries with ctrl/shift doesn't work anymore ever since drag and drop was implemented
+            // Selecting multiple entries with ctrl doesn't work anymore ever since drag and drop was implemented. Shift requires double click
             while (macroTable.SelectedIndex != -1)
             {
                 int index = macroTable.SelectedIndex;
@@ -237,7 +337,7 @@ namespace Oqat.ViewModel.Macro
                 }
                 updateSliders();
                 this.macro.macroQueue.Rows.RemoveAt(index);
-            }           
+            }
         }
     }
 }

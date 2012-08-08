@@ -176,7 +176,6 @@
                 long stopValue = 100;
                 long startValueSlider = 0;
                 long stopValueSlider = 500;
-                // long stopValueSlider = vidRef.vidInfo.frameCount;
                 MacroEntryFilter mfe = new MacroEntryFilter();
                 mfe.pluginName = e.pluginKey;
                 mfe.mementoName = e.mementoName;
