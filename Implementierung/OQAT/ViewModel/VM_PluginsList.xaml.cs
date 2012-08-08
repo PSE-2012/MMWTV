@@ -205,7 +205,7 @@ namespace Oqat.ViewModel
                 this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
                 return;
             }
-            this.gridPluginProperties.Children.Add(propPlugin.propertyView);
+            this.gridPluginProperties.Content = propPlugin.propertyView;
         }
 
 
@@ -231,7 +231,7 @@ namespace Oqat.ViewModel
             }
 
             Memento m = new Memento(propPVM.name, null);
-            //TODO: PluginManager.pluginManager.addMemento(propPVM.parentName, m);
+            PluginManager.pluginManager.addMemento(propPVM.getPluginName(), m);
 
             //update treeviews
             this.loadPluginLists();
@@ -314,16 +314,16 @@ namespace Oqat.ViewModel
 
             if (copied)
             {
-                //TODO: PluginManager.pluginManager.addMemento(propPVM.parentName, mem);
+                PluginManager.pluginManager.addMemento(propPVM.getPluginName(), mem);
             }
             else
             {
                 if (mem.name != propPVM.name)
                 {
                     Memento del = new Memento(propPVM.name, null);
-                    //TODO: PluginManager.pluginManager.addMemento(propPVM.parentName, del);
+                    PluginManager.pluginManager.addMemento(propPVM.getPluginName(), del);
 
-                    //TODO: PluginManager.pluginManager.addMemento(propPVM.parentName, mem);
+                    PluginManager.pluginManager.addMemento(propPVM.getPluginName(), mem);
                 }
             }
 
