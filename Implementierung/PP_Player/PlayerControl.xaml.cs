@@ -55,10 +55,5 @@ namespace PP_Presentation
         {
             getVideoSource().Pause();  
         }
-
-        private void Resume_Click(object sender, RoutedEventArgs e)
-        {
-            getVideoSource().Resume();
-        }
     }
 }

@@ -16,8 +16,6 @@ namespace PP_Presentation
 	public class VideoSource : IVideoSource
 
 	{
-
-        private String source;
         private long bytesReceived;
         private int framesReceived;
         private Thread thread = null;
@@ -44,23 +42,18 @@ namespace PP_Presentation
 		/// </summary>
         public virtual void Start()
 		{
-            if (!IsRunning)
+            if (!this.IsRunning)
             {
-                // check source
-                //if ((source == null) || (source == string.Empty))
-                  //  throw new ArgumentException("Video source is not specified.");
-
                 framesReceived = 0;
                 bytesReceived = 0;
-
-                // create events
                 stopEvent = new ManualResetEvent(false);
                 suspendEvent = new ManualResetEvent(true);
-
-                // create and start new thread
                 thread = new Thread(new ThreadStart(WorkerThread));
-                // thread.Name = source; // mainly for debugging
                 thread.Start();
+            }
+            else
+            {
+                suspendEvent.Set(); // resume during play
             }
 		}
 
@@ -91,17 +84,6 @@ namespace PP_Presentation
             }
         }
 
-        /// <summary>
-        /// Resumes the video after a pause.
-        /// </summary>
-        public virtual void Resume()
-        {
-            if (this.IsRunning)
-            {
-            suspendEvent.Set();
-            }
-        }
-
 		/// <summary>
 		/// After the video has been stopped, waits for the current thread to stop operating before
         /// destroying the VideoSource.
@@ -115,7 +97,6 @@ namespace PP_Presentation
                 Free();
             }
 		}
-
 
         /// <summary>
         /// 
@@ -155,7 +136,6 @@ namespace PP_Presentation
                     // check thread status
                     if (thread.Join(0) == false)
                         return true;
-
                     // the thread is not running, free resources
                     Free();
                 }
@@ -177,15 +157,6 @@ namespace PP_Presentation
         /// 
         /// </summary>
         public event VideoSourceErrorEventHandler VideoSourceError;
-
-        /// <summary>
-        /// Not sure if we need this
-        /// </summary>
-        public string Source
-        {
-            get { return source; }
-            set { source = value; }
-        }
 
         /// <summary>
         /// The number of frames loaded in memory, usually the total frame count of the video.
