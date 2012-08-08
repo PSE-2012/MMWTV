@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"
              xmlns:local="clr-namespace:Oqat.ViewModel">
-    <StackPanel Orientation="Vertical">
-        <TabControl SelectionChanged="tab_SelectedChanged">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TabControl SelectionChanged="tab_SelectedChanged" Grid.Row="0">
             <TabItem Header="Filter" Name="tabFilterList">
                 <TreeView Name="treeFilters" ItemsSource="{Binding}" SelectedItemChanged="treePlugins_SelectedItemChanged">
                     <TreeView.Resources>
@@ -28,16 +32,49 @@
                 </TreeView>
             </TabItem>
         </TabControl>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"  Name="gridPluginProperties" />
+            <Grid Grid.Row="1" Name="panelMementoSave" Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                    <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="tbMementoName" Margin="3">Filtereinstell1</TextBox>
+                    <Button Grid.Row="0" Grid.Column="0" Name="bttSaveMemento" Margin="3" Click="bttSaveMemento_Click">
+                        <Image Source="/OQAT;component/Resources/icons/save.png"/>
+                    </Button>
+                    <Button Grid.Row="0" Grid.Column="1" Name="bttCopyMemento" Margin="3" Click="bttCopyMemento_Click">
+                        <Image Source="/OQAT;component/Resources/icons/copy.png"/>
+                    </Button>
+                    <Button Grid.Row="0" Grid.Column="2" Name="bttDeleteMemento" Margin="3" Click="bttDeleteMemento_Click">
+                        <Image Source="/OQAT;component/Resources/icons/delete.png"/>
+                    </Button>
+                <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Name="bttAddToMacro" Click="bttAddToMacro_Click">
+                    <Image Source="/OQAT;component/Resources/icons/add.png"/>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+    <!--<StackPanel Orientation="Vertical">
+        
         
         <StackPanel>
-            <StackPanel Orientation="Horizontal" Name="panelMementoSave" Visibility="Hidden">
-                <TextBox Name="tbMementoName" Margin="3">Filtereinstell1</TextBox>
-                <Button Name="bttSaveMemento" Margin="3" Click="bttSaveMemento_Click">Speichern</Button>
-                <Button Name="bttCopyMemento" Margin="3" Click="bttCopyMemento_Click">Kopieren</Button>
-                <Button Name="bttDeleteMemento" Margin="3" Click="bttDeleteMemento_Click">Löschen</Button>
-            </StackPanel>
+
             <Grid Name="gridPluginProperties" />
-            <Button Name="bttAddToMacro" Click="bttAddToMacro_Click">hinzufügen</Button>
+            <Button Name="bttAddToMacro" Click="bttAddToMacro_Click">
+                <Image Source="/OQAT;component/Resources/icons/add.png"/>
+            </Button>
         </StackPanel>
-    </StackPanel>
+    </StackPanel>-->
 </UserControl>

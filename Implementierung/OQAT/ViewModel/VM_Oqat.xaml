@@ -21,14 +21,14 @@
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="60*"/>
+                    <ColumnDefinition Width="20*"/>
                 </Grid.ColumnDefinitions>
                 
-                <Grid Grid.Column="0" x:Name="projectExplorerPanel" Width="200"/>
+                <Grid Grid.Column="0" x:Name="projectExplorerPanel" Margin="5,5,2,5"/>
                 <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" x:Name="presentationPanel"/>
-                <Grid Grid.Column="2" x:Name="pluginListsPanel" Width="200"/>
+                <Grid Grid.Column="2" x:Name="pluginListsPanel" Margin="5,5,2,5"/>
             </Grid>
         </DockPanel>
     </Grid>
