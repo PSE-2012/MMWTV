@@ -5,11 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"
              xmlns:local="clr-namespace:Oqat.ViewModel">
-    <Grid >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
+            <RowDefinition Height="25"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <TabControl SelectionChanged="tab_SelectedChanged" Grid.Row="0">
             <TabItem Header="Filter" Name="tabFilterList">
                 <TreeView Name="treeFilters" ItemsSource="{Binding}" SelectedItemChanged="treePlugins_SelectedItemChanged">
@@ -35,22 +37,24 @@
                 </TreeView>
             </TabItem>
         </TabControl>
-        <Grid Grid.Row="1">
+
+        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="bttAddToMacro" Click="bttAddToMacro_Click">Hinzufügen</Button>
+
+        <Grid Grid.Row="2" Name="panelMementoSave" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
-                
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0"  Name="gridPluginProperties" />
-            <Grid Grid.Row="1" Name="panelMementoSave" Visibility="Hidden">
+
+            <ScrollViewer Grid.Row="0"  Name="gridPluginProperties" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="25"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                     <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="tbMementoName" Margin="3">Filtereinstell1</TextBox>
@@ -63,10 +67,8 @@
                     <Button Grid.Row="0" Grid.Column="2" Name="bttDeleteMemento" Margin="3" Click="bttDeleteMemento_Click">
                         <Image Source="/OqatPublicResources;component/Resources/icons/delete.png"/>
                     </Button>
-                <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Name="bttAddToMacro" Click="bttAddToMacro_Click">
-                    <Image Source="/OqatPublicResources;component/Resources/icons/add.png"/>
-                </Button>
-            </Grid>
+            </Grid> 
         </Grid>
+        
     </Grid>
 </UserControl>
