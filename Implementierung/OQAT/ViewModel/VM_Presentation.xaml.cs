@@ -195,6 +195,8 @@ namespace Oqat.ViewModel
         /// <param name="e"></param>
 		private void onToggleView(object sender, ViewTypeEventArgs e)
 		{
+            //TODO: only hide panels, don't remove them
+
             if (this.vtype == e.viewType)
                 return;
 

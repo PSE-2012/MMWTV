@@ -192,6 +192,9 @@ namespace Oqat.ViewModel.Macro
 
                         this.macroTable.SelectedItem = selectedRow;
                     }
+
+                    PluginManager.pluginManager.raiseEvent(EventType.macroEntrySelected,
+                        new MementoEventArgs(selectedRow["Memento Name"].ToString(), selectedRow["Plugin Name"].ToString()));
                 }
             }
         }

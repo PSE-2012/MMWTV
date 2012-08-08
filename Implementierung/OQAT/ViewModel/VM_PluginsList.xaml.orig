@@ -35,6 +35,7 @@
                 </TreeView>
             </TabItem>
         </TabControl>
+<<<<<<< HEAD
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -69,4 +70,20 @@
             </Grid>
         </Grid>
     </Grid>
+=======
+        
+        <StackPanel>
+            <StackPanel Orientation="Vertical" Name="panelMementoSave" Visibility="Hidden">
+                <TextBox Name="tbMementoName" Margin="3">Filtereinstell1</TextBox>
+                <StackPanel Orientation="Horizontal">
+                    <Button Name="bttSaveMemento" Margin="3" Click="bttSaveMemento_Click">Speichern</Button>
+                    <Button Name="bttCopyMemento" Margin="3" Click="bttCopyMemento_Click">Kopieren</Button>
+                    <Button Name="bttDeleteMemento" Margin="3" Click="bttDeleteMemento_Click">Löschen</Button>
+                </StackPanel>
+            </StackPanel>
+            <ScrollViewer Name="gridPluginProperties" />
+            <Button Name="bttAddToMacro" Click="bttAddToMacro_Click">hinzufügen</Button>
+        </StackPanel>
+    </StackPanel>
+>>>>>>> ee161f07b29061364f3078c7f49684221b74e738
 </UserControl>

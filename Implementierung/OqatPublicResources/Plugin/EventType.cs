@@ -67,6 +67,11 @@ namespace Oqat.PublicRessources.Plugin
         /// Will be raised when a filter/metric is selected to be added to the current macro.
         /// </summary>
         macroEntryAdd,
+
+        /// <summary>
+        /// Will be raised after the macro finished processing/analyzing a video.
+        /// </summary>
+        macroProcessingFinished,
 	}
 
 
