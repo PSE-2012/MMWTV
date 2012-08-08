@@ -60,7 +60,20 @@
         /// <summary>
         /// One or more Mementos sorted by the corresponding plugin.
         /// </summary>
-        private SortedDictionary<string, List<Memento>> memTable;
+        private SortedDictionary<string, List<Memento>> _memTable;
+        private SortedDictionary<string, List<Memento>> memTable
+        {
+            get
+            {
+                if (_memTable == null)
+                    initMemTable();
+                return _memTable;
+            }
+            set
+            {
+                _memTable = value;
+            }
+        }
         /// <summary>
         /// Plugins on this list will not be returned by getPluginNames(), getPlugin(), etc.
         /// 
@@ -467,7 +480,9 @@
         /// <returns>Memento instance according to arguments or null if no such memento was found.</returns>
         public virtual Memento getMemento(string namePlugin, string nameMemento)
         {
-            return (from i in getMementoList(namePlugin)
+            List<Memento> memObjects;
+            getMementoList(namePlugin, out memObjects);
+            return (from i in memObjects
                     where i.name.Equals(nameMemento)
                     select i).FirstOrDefault();
         }
@@ -530,6 +545,32 @@
 
 
 
+        private void initMemTable()
+        {
+            bool saveRequired = false;
+            memTable = new SortedDictionary<string, List<Memento>>();
+            foreach (var pl in pluginTable)
+            {
+                
+                    var tmp = Caretaker.caretaker.getMemento(getMementoSavePath(pl.Metadata.namePlugin));
+                    if (tmp == null) // no memento exists
+                    {
+                        var memToAdd = pl.Value.getMemento();
+                        var memListToAdd = new List<Memento>();
+                        memListToAdd.Add(memToAdd);
+                        memTable.Add(pl.Metadata.namePlugin, memListToAdd);
+                        saveRequired = true;
+                    }
+                    else
+                    {
+                        var readMemento = (List<Memento>)tmp.state;
+                        memTable.Add(pl.Metadata.namePlugin, readMemento);
+                    }
+         
+            }
+            if (saveRequired)
+                save();
+        }
 
         /// <summary>
         /// Return a list of all known mementos of a plugin.
@@ -538,42 +579,36 @@
         /// <param name="namePlugin">name of the Plugin to return mementos for</param>
         /// <returns>List of mementos if all went well. Empty List if no mementos are assigned to the
         /// Plugin with the given name. Null if Plugin with the name namePlugin was found.</returns>
-        private List<Memento> getMementoList(string namePlugin)
+        private void getMementoList(string namePlugin, out List<Memento> mementoObjects)
         {
-            if (blackList.ContainsKey(namePlugin))
-                return null;    // should never come to this, since noone can have plugin names (getPluginNames)
-            // of blacklisted plugins
-            string supposedMemPath = PLUGIN_PATH + "\\" + namePlugin + ".mem";
-            var memList = new List<Memento>();
-            Memento mem = Caretaker.caretaker.getMemento(supposedMemPath);
 
-            if (mem != null)
-                try
-                {
-                    memList = (List<Memento>)mem.state;
-                }
-                catch (Exception exc)
-                {
-                    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    // todo: exc.Message + some explanation
-                    raiseEvent(EventType.info, new ErrorEventArgs(exc));
-
-                }
-            else
+            if (blackList.ContainsKey(namePlugin) || !memTable.ContainsKey(namePlugin))
             {
-                /// no mementos are assigned to the given plugin
-                /// construct one
-                var tmpPlugin = getPlugin<IPlugin>(namePlugin);
-                if (tmpPlugin != null)
-                    memList.Add(tmpPlugin.getMemento());
-                else
-                {
-                    memList = null;
-                }
+                mementoObjects = null;    // should never come to this, since noone can have plugin names (getPluginNames)
+                raiseEvent(EventType.info, new ErrorEventArgs(new Exception("Plugin: " + namePlugin + " is blacklisted.")));
+                return;                 // of blacklisted plugins
             }
 
-            return memList;
 
+            memTable.TryGetValue(namePlugin, out mementoObjects);
+
+        }
+
+        private string getMementoSavePath(string namePlugin)
+        {
+            return PLUGIN_PATH + "\\" + namePlugin + ".mem";
+        }
+
+        private void save()
+        {
+            string supposedPath;
+            List<Memento> memObjects;
+            foreach(var pl in pluginTable)
+            {
+                supposedPath = getMementoSavePath(pl.Metadata.namePlugin);
+                getMementoList(pl.Metadata.namePlugin, out memObjects);
+                Caretaker.caretaker.writeMemento(new Memento(pl.Metadata.namePlugin, memObjects, supposedPath));
+            }
         }
 
         /// <summary>
@@ -585,8 +620,9 @@
         internal virtual List<String> getMementoNames(string namePlugin)
         {
 
-            var nameList = new List<string>();
-            var tmpMemList = getMementoList(namePlugin);
+            List<string> nameList = new List<string>();
+            List<Memento> tmpMemList;
+            getMementoList(namePlugin, out tmpMemList);
             if (tmpMemList != null)
                 foreach (Memento i in tmpMemList)
                 {
@@ -597,6 +633,47 @@
 
             return nameList;
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="namePlugin"></param>
+        /// <param name="mem"></param>
+        /// <returns></returns>
+        internal virtual void addMemento(string namePlugin, Memento mem)
+        {
+            List<string> memNames = getMementoNames(namePlugin);
+            if (memNames == null)
+                throw new ArgumentException("Plugin: " + namePlugin + " is unknown.");
+
+            List<Memento> memObjects;
+            getMementoList(namePlugin, out memObjects);
+            if (memNames.Contains(mem.name))
+            {
+                /// change existing memento
+
+                foreach (var i in memObjects)
+                {
+                    if (i.name.Equals(mem.name))
+                    {
+                        memObjects.Remove(i);
+                        if (mem.state != null)
+                        {
+                            memObjects.Add(mem);
+                            break;
+                        }
+
+                    }
+                }
+
+
+            }
+            else
+            {
+                memObjects.Add(mem);
+            }
+            save();
         }
 
     }
