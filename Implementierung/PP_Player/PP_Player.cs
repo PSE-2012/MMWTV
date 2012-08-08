@@ -178,7 +178,7 @@
         /// <returns></returns>
         public Memento getMemento()
         {
-            throw new NotImplementedException();
+            return new Oqat.PublicRessources.Model.Memento("defaultPlayer", null, "");
         }
 
         /// <summary>

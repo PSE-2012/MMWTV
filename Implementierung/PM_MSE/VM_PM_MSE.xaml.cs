@@ -17,6 +17,7 @@ namespace PM_MSE
     /// <summary>
     /// Interaktionslogik für VM_PM_MSE.xaml
     /// </summary>
+    [Serializable()]
     public partial class VM_PM_MSE : UserControl
     {
         public VM_PM_MSE()

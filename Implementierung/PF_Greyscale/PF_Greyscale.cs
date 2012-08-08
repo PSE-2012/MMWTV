@@ -23,7 +23,7 @@ namespace PF_Greyscale
     [ExportMetadata("namePlugin", "PF_Greyscale")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
     [Export(typeof(IPlugin))]
-
+    [Serializable()]
     public class Greyscale : IFilterOqat
     {
 
@@ -87,7 +87,12 @@ namespace PF_Greyscale
 
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
-            Memento mem = new Memento(this.namePlugin, this);
+            double[] colorValues = new double[3];
+            colorValues[0] = this.propertiesView.getRed();
+            colorValues[1] = this.propertiesView.getGreen();
+            colorValues[2] = this.propertiesView.getBlue();
+
+            Memento mem = new Memento(this.namePlugin + "_properties", colorValues);
 
             return mem;
         }
@@ -96,8 +101,8 @@ namespace PF_Greyscale
         {
             Object obj = memento.state;
 
-            Greyscale otto = (Greyscale)obj;
-            this.propertiesView.changeValue(otto.propertiesView.getRed(), otto.propertiesView.getGreen(), otto.propertiesView.getBlue());
+            var otto = (double[])obj;
+            this.propertiesView.changeValue(otto[0], otto[1], otto[2]);
         }
 
        

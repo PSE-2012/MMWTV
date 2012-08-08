@@ -111,12 +111,11 @@ namespace PP_Diagramm
 
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
-            throw new NotImplementedException();
+            return new Oqat.PublicRessources.Model.Memento("defaultDiagramm", null, "");
         }
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
-            throw new NotImplementedException();
         }
 
         private void createDataSeries(float[][] series)

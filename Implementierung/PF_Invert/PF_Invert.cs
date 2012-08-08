@@ -30,7 +30,7 @@ namespace PF_Invert
     [ExportMetadata("namePlugin", "PF_Invert")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
     [Export(typeof(IPlugin))]
-
+    [Serializable()]
 	public class Invert : IFilterOqat
 	{
 

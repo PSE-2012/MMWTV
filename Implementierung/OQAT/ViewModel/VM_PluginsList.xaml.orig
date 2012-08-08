@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="Oqat.ViewModel.VM_PluginsList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:Oqat.ViewModel">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TabControl SelectionChanged="tab_SelectedChanged" Grid.Row="0">
+            <TabItem Header="Filter" Name="tabFilterList">
+                <TreeView Name="treeFilters" ItemsSource="{Binding}" SelectedItemChanged="treePlugins_SelectedItemChanged">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type local:PluginViewModel}"
+                                              ItemsSource="{Binding children}">
+                            <TextBlock Text="{Binding Path=name}"/>
+                        </HierarchicalDataTemplate>
+                        <Style TargetType="TreeViewItem">
+                            <Setter Property="IsSelected" Value="{Binding Path=selected, Mode=TwoWay}" />
+                        </Style>
+                    </TreeView.Resources>
+                </TreeView>
+            </TabItem>
+            <TabItem Header="Metriken" Name="tabMetricList">
+                <TreeView Name="treeMetrics" ItemsSource="{Binding}" SelectedItemChanged="treePlugins_SelectedItemChanged">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type local:PluginViewModel}"
+                                              ItemsSource="{Binding children}">
+                            <TextBlock Text="{Binding Path=name}"/>
+                        </HierarchicalDataTemplate>
+                    </TreeView.Resources>
+                </TreeView>
+            </TabItem>
+        </TabControl>
+<<<<<<< HEAD
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"  Name="gridPluginProperties" />
+            <Grid Grid.Row="1" Name="panelMementoSave" Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                    <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="tbMementoName" Margin="3">Filtereinstell1</TextBox>
+                    <Button Grid.Row="0" Grid.Column="0" Name="bttSaveMemento" Margin="3" Click="bttSaveMemento_Click">
+                        <Image Source="/OqatPublicResources;component/Resources/icons/save.png"/>
+                    </Button>
+                    <Button Grid.Row="0" Grid.Column="1" Name="bttCopyMemento" Margin="3" Click="bttCopyMemento_Click">
+                        <Image Source="/OqatPublicResources;component/Resources/icons/copy.png"/>
+                    </Button>
+                    <Button Grid.Row="0" Grid.Column="2" Name="bttDeleteMemento" Margin="3" Click="bttDeleteMemento_Click">
+                        <Image Source="/OqatPublicResources;component/Resources/icons/delete.png"/>
+                    </Button>
+                <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Name="bttAddToMacro" Click="bttAddToMacro_Click">
+                    <Image Source="/OqatPublicResources;component/Resources/icons/add.png"/>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+=======
+        
+        <StackPanel>
+            <StackPanel Orientation="Vertical" Name="panelMementoSave" Visibility="Hidden">
+                <TextBox Name="tbMementoName" Margin="3">Filtereinstell1</TextBox>
+                <StackPanel Orientation="Horizontal">
+                    <Button Name="bttSaveMemento" Margin="3" Click="bttSaveMemento_Click">Speichern</Button>
+                    <Button Name="bttCopyMemento" Margin="3" Click="bttCopyMemento_Click">Kopieren</Button>
+                    <Button Name="bttDeleteMemento" Margin="3" Click="bttDeleteMemento_Click">Löschen</Button>
+                </StackPanel>
+            </StackPanel>
+            <ScrollViewer Name="gridPluginProperties" />
+            <Button Name="bttAddToMacro" Click="bttAddToMacro_Click">hinzufügen</Button>
+        </StackPanel>
+    </StackPanel>
+>>>>>>> ee161f07b29061364f3078c7f49684221b74e738
+</UserControl>

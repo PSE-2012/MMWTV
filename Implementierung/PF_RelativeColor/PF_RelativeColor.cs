@@ -18,7 +18,7 @@ namespace PF_RelativeColor
     [ExportMetadata("namePlugin", "PF_RelativeColor")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
     [Export(typeof(IPlugin))]
-
+    [Serializable()]
 	public class RelativeColor : IFilterOqat
 	{
         private string _namePlugin = "PF_RelativeColor";
@@ -107,7 +107,11 @@ namespace PF_RelativeColor
 
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
-            Memento mem = new Memento(this.namePlugin, this);
+            double[] colorValues= new double[3];
+            colorValues[0] = propertiesView.getRed();
+            colorValues[1] = propertiesView.getGreen();
+            colorValues[2] = propertiesView.getBlue();
+            Memento mem = new Memento(this.namePlugin, colorValues);
 
             return mem;
         }
@@ -116,8 +120,8 @@ namespace PF_RelativeColor
         {
             Object obj = memento.state;
 
-            RelativeColor otto = (RelativeColor)obj;
-            this.propertiesView.changeValue(otto.propertiesView.getRed(), otto.propertiesView.getGreen(), otto.propertiesView.getBlue());
+            var otto = (double[])obj;
+            this.propertiesView.changeValue(otto[0], otto[1], otto[2]);
         }
 
     }

@@ -42,7 +42,7 @@ namespace Oqat.ViewModel
 
             //  initPresentation
             this.vM_presentation = new VM_Presentation();
-            this.presentationPanel.Content = this.vM_presentation;
+            this.presentationPanel.Children.Add(this.vM_presentation);
             
             // initMacro();
 

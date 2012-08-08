@@ -17,6 +17,7 @@ namespace PF_Convolution
     /// <summary>
     /// Interaktionslogik für VM_Convolution.xaml
     /// </summary>
+    [Serializable()]
     public partial class VM_Convolution : UserControl
     {
         public VM_Convolution()

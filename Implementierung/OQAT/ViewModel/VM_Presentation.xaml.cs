@@ -36,6 +36,25 @@ namespace Oqat.ViewModel
         IVideo videoProc;
         IVideo videoRef;
 
+        //public int playerWidth
+        //{
+        //    get
+        //    {
+        //        if (videoRef != null)
+        //        {
+
+        //        }
+        //        return 0;
+        //    }
+        //}
+
+        //public int playerHeight
+        //{
+        //    get
+        //    {
+        //        return 0;
+        //    }
+        //}
 
 
         public VM_Presentation()

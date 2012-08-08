@@ -205,8 +205,7 @@ namespace Oqat.ViewModel
                 this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
                 return;
             }
-            
-            this.gridPluginProperties.Content = propPlugin.propertyView;
+            this.gridPluginProperties.Children.Add(propPlugin.propertyView);
         }
 
 
