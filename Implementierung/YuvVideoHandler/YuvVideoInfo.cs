@@ -183,13 +183,13 @@ namespace PS_YuvVideoHandler
 
             // if Format names were found within the filename, set resolution 
             // and format accordingly
-            if (Path.GetFileName(path).ToUpper().Equals("QCIF"))
+            if (Path.GetFileName(path).ToUpper().Contains("QCIF"))
             {
                 height = 144;
                 width = 176;
                 yuvFormat = YuvFormat.YUV420_IYUV;
             }
-            else if (Path.GetFileName(path).ToUpper().Equals("CIF"))
+            else if (Path.GetFileName(path).ToUpper().Contains("CIF"))
             {
                 height = 288;
                 width = 352;
