@@ -66,8 +66,40 @@
     <Compile Include="Plugin\MacroEntryMetric.cs" />
     <Compile Include="Plugin\PluginType.cs" />
     <Compile Include="Plugin\PresentationPluginType.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\icons\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

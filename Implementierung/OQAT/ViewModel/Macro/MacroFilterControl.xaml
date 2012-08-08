@@ -5,22 +5,35 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d">
 
-    <Grid x:Name="grid" Height="200">
+    <Grid x:Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         
-        <ScrollViewer Name="ScrollViewer1" Height="200" Width="435" VerticalAlignment="Top" ScrollChanged="scroll" HorizontalAlignment="Left" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+        <ScrollViewer Grid.Row="0" Name="ScrollViewer1"  VerticalAlignment="Top" ScrollChanged="scroll" HorizontalAlignment="Left" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
             <Grid>
                 <ListView HorizontalAlignment="Left" FontSize="13" Name="macroTable" AllowDrop="True" SelectionMode="Extended">
                 </ListView>
             </Grid>
         </ScrollViewer>
-        <ScrollViewer Height="200" Width="180" VerticalAlignment="Top" Name="ScrollViewer2" ScrollChanged="scroll2" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible" Margin="147,0,451,0">
+        <ScrollViewer Grid.Row="1"  VerticalAlignment="Top" Name="ScrollViewer2" ScrollChanged="scroll2" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible" >
             <Grid>
                 <ListView HorizontalAlignment="Left" Name="rangeSliders">
             </ListView>
             </Grid>
         </ScrollViewer>
-        <Button Name="startbutton"  Content="Start Process" Click="Start_Click" Width="300" Height="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,1000,-31"></Button>
-        <Button Name="savebutton" Content="Save Macrofilter" Click="Save_Click" Width="300" Height="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,1000,-70"></Button>
-        <Button Name="deletebutton" Content="Delete Selected Entries" Click="Delete_Click" Width="300" Height="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="334,0,666,-31"></Button>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Name="startbutton"  Content="Start Process" Click="Start_Click"   HorizontalAlignment="Center" VerticalAlignment="Bottom" ></Button>
+            <Button Grid.Column="1" Name="savebutton" Content="Save Macrofilter" Click="Save_Click"   HorizontalAlignment="Center" VerticalAlignment="Bottom" ></Button>
+            <Button Grid.Column="2" Name="deletebutton" Content="Delete Selected Entries" Click="Delete_Click"   HorizontalAlignment="Center" VerticalAlignment="Bottom" ></Button>
+
+        </Grid>
     </Grid>
 </UserControl>
