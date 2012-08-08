@@ -42,7 +42,7 @@ namespace Oqat.ViewModel.Macro
             rsl = new List<RangeSlider>();
         }
 
-        public System.Drawing.Bitmap process(System.Drawing.Bitmap frame) // filter preview of 1 frame!?
+        public System.Drawing.Bitmap process(System.Drawing.Bitmap frame) // TODO: What should this method actually be used for?
         {
             throw new NotImplementedException();
         }
@@ -78,7 +78,7 @@ namespace Oqat.ViewModel.Macro
                     int arraycount = resultFrames.Count();
                     for (int j = 0; j < arraycount; j++)
                     {
-                        // todo: bla
+                        // TODO: Handling of an entry that is another macrofilter - what to do with the slider values?
                         if ((currentFilterEntry.startFrameRelative / 100) * totalFrames <= (i+j) && (i+j) <= (currentFilterEntry.endFrameRelative / 100) * totalFrames)
                         {
                             currentPluginEntry.setMemento(currentMementoEntry);
@@ -130,10 +130,6 @@ namespace Oqat.ViewModel.Macro
                     // here maybe error handling in case the plugin doesn't implement IFilterOqat, although plugin lists has probably checked that already
                     currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c["Plugin Name"]);
                     currentMemento = PluginManager.pluginManager.getMemento((String)c["Plugin Name"], (String)c["Memento Name"]);
-                    //Object obj;
-                    //obj = (Object)currentPlugin;
-                    //Memento testmemento = new Memento("bla", obj);
-                    //currentMemento = testmemento;
                     currentMacroEntry = (MacroEntryFilter)c["Macro Entry"];
                     if (currentPlugin is IMacro)
                     {
@@ -152,7 +148,6 @@ namespace Oqat.ViewModel.Macro
             currentMemento = null;
             refHand = null;
             resultHand = null;
-
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult));
         }
 

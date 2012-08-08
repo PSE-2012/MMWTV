@@ -24,6 +24,7 @@ namespace Oqat.ViewModel.Macro
     public partial class MacroFilterControl : UserControl
     {
         private PF_MacroFilter _macro;
+        private VM_Macro _vmmacro;
 
         public PF_MacroFilter macro
         {
@@ -37,8 +38,6 @@ namespace Oqat.ViewModel.Macro
                 _macro = value;
             }
         }
-
-        private VM_Macro _vmmacro;
 
         public VM_Macro vmmacro
         {
@@ -84,7 +83,7 @@ namespace Oqat.ViewModel.Macro
                     {
                         gvColumn.Width = 150;
                     }
-                    // TODO: disable column resizing!?
+                    // TODO: disable column resizing?
                     gvColumn.DisplayMemberBinding = new Binding(c.ColumnName);
                     gvColumn.Header = c.ColumnName;
                     gv.Columns.Add(gvColumn);
@@ -94,14 +93,7 @@ namespace Oqat.ViewModel.Macro
             macroTable.DataContext = this.macro.macroQueue;
             Binding bind = new Binding();
             macroTable.SetBinding(ListView.ItemsSourceProperty, bind);
-            GridView gvs = new GridView();
-            GridViewColumn gvsColumn = new GridViewColumn();
-            gvsColumn.Header = "Frames Relative";
-            gvs.Columns.Add(gvsColumn);
-            rangeSliders.View = gvs;
-            rangeSliders.DataContext = this.macro.rsl;
-            Binding bind2 = new Binding();
-            rangeSliders.SetBinding(ListView.ItemsSourceProperty, bind2);
+            updateSliders();
             this.DataContext = this.macro;
             macroTable.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(macroTable_MouseLeftButtonDown);
             macroTable.Drop += new DragEventHandler(macroTable_Drop);
@@ -167,7 +159,7 @@ namespace Oqat.ViewModel.Macro
             }
             if (oldIndex < 0)
             {
-                //todo: extern drag and drop
+                //TODO: external drag and drop
             }
         }
 
@@ -198,9 +190,7 @@ namespace Oqat.ViewModel.Macro
                 }
             }
         }
-
         //Drag'N'Drop end#
-
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
@@ -220,10 +210,29 @@ namespace Oqat.ViewModel.Macro
             Binding bind = new Binding();
             rangeSliders.SetBinding(ListView.ItemsSourceProperty, bind);
         }
+
+        public void addDelegate(RangeSlider rs, int j, List<RangeSelectionChangedEventHandler> delList)
+        {
+            RangeSelectionChangedEventHandler del;
+            del = delegate(object sender2, RangeSelectionChangedEventArgs e2)
+            {
+                MacroEntryFilter mfeTemp = new MacroEntryFilter();
+                mfeTemp = (MacroEntryFilter)this.macro.macroQueue.Rows[j]["Macro Entry"];
+                mfeTemp.startFrameRelative = ((double)e2.NewRangeStart / 500) * 100;
+                mfeTemp.endFrameRelative = ((double)e2.NewRangeStop / 500) * 100;
+                if (mfeTemp.startFrameRelative > 100) mfeTemp.startFrameRelative = 100; // slider values go out of range for some reason -> bugfix
+                if (mfeTemp.endFrameRelative < 0) mfeTemp.endFrameRelative = 0; // slider values go out of range for some reason -> bugfix
+                this.macro.macroQueue.Rows[j]["Macro Entry"] = mfeTemp;
+                this.macro.macroQueue.Rows[j]["Start"] = mfeTemp.startFrameRelative;
+                this.macro.macroQueue.Rows[j]["Stop"] = mfeTemp.endFrameRelative;
+            };
+            rs.RangeSelectionChanged += del;
+            delList.Add(del);
+        }
         
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Selecting multiple entries with drag and drop doesn't work anymore ever since drag and drop was implemented
+            // TODO: Selecting multiple entries with ctrl/shift doesn't work anymore ever since drag and drop was implemented
             while (macroTable.SelectedIndex != -1)
             {
                 int index = macroTable.SelectedIndex;
@@ -235,25 +244,8 @@ namespace Oqat.ViewModel.Macro
                     {
                         this.macro.rsl[i].RangeSelectionChanged -= ev;
                     }
-                    // this.macro.rsl[i].RangeSelectionChanged -= this.vmmacro.delList[i]; I have no idea why this doesn't work
-                    RangeSelectionChangedEventHandler del;
-                    int j = i;
-                    del = delegate(object sender2, RangeSelectionChangedEventArgs e2)
-                    {
-                        MacroEntryFilter mfeTemp = new MacroEntryFilter();
-                        mfeTemp = (MacroEntryFilter)this.macro.macroQueue.Rows[j]["Macro Entry"];
-                        mfeTemp.startFrameRelative = ((double)e2.NewRangeStart / 500) * 100;
-                        mfeTemp.endFrameRelative = ((double)e2.NewRangeStop / 500) * 100;
-                        if (mfeTemp.startFrameRelative > 100) mfeTemp.startFrameRelative = 100; // bugfix rangeslider
-                        if (mfeTemp.endFrameRelative < 0) mfeTemp.endFrameRelative = 0; // bugfix rangeslider
-                        this.macro.macroQueue.Rows[j]["Macro Entry"] = mfeTemp;
-                        this.macro.macroQueue.Rows[j]["Start"] = mfeTemp.startFrameRelative;
-                        this.macro.macroQueue.Rows[j]["Stop"] = mfeTemp.endFrameRelative;
-                    };
-                    this.macro.rsl[i].RangeSelectionChanged += del;
-                    tempList.Add(del);
+                    addDelegate(this.macro.rsl[i], i, tempList);
                 }
-
                 for (int i = index; i < this.macro.rsl.Count; i++)
                 {
                     this.vmmacro.delList[i] = null;

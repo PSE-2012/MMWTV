@@ -149,29 +149,23 @@
             }
         }
 
-
         public void startProcess()
         {
             if (this.viewType == ViewType.MetricView)
             {
-                PM_MacroMetric macroMetric = (PM_MacroMetric)this.macroMetric;
-                arrayVidResult = new Video[macroMetric.macroQueue.Rows.Count]; // this line of code doesn't really belong in onStartProcess
-                // what video info object to use for the result videos?
-                // setting paths of result videos?
-                // macroMetric.analyse(vidRef, vidProc, arrayVidResult); // arrayvidresult from eventargs?
+                arrayVidResult = new Video[macroMetric.macroQueue.Rows.Count]; // setting paths of result videos?
             }
             if (this.viewType == ViewType.FilterView)
             {
                 macroFilterControl.macroTable.IsEnabled = false;
                 macroFilterControl.rangeSliders.IsEnabled = false;
-            
-                PF_MacroFilter macroFilter = (PF_MacroFilter)this.macroFilter;
+                // TODO: don't forget to enable the table after processing is finished
                 IVideoInfo vidInfo =(IVideoInfo) vidRef.vidInfo.Clone();
                 //TODO: where to save the new video?!?
                 string resultpath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
                 vidResult = new Video(false, resultpath+"/newvideo.yuv", vidInfo, this.macroFilter.getPluginMementoList());
-                macroFilter.init(vidRef, vidResult);
-                macroFilter.process(vidRef, vidResult);
+                this.macroFilter.init(vidRef, vidResult);
+                this.macroFilter.process(vidRef, vidResult);
             }
         }
 
@@ -182,7 +176,7 @@
                 long startValue = 0;
                 long stopValue = 100;
                 long startValueSlider = 0;
-                long stopValueSlider = 500; // 500 only for testing
+                long stopValueSlider = 500;
                 // long stopValueSlider = vidRef.vidInfo.frameCount;
 
                 MacroEntryFilter mfe = new MacroEntryFilter();
@@ -199,25 +193,12 @@
                 rs.RangeStartSelected = startValueSlider;
                 rs.RangeStopSelected = stopValueSlider;
                 rs.MinRange = 1L;
-                rs.Width = 150;
-                rs.Height = 17.29;
+                rs.Width = 150; // TODO: changing width at runtime
+                rs.Height = 17.29; // this height fits the height of the data rows in the macro table
 
                 this.macroFilter.macroQueue.Rows.Add(mfe.pluginName, mfe.mementoName, mfe, startValue, stopValue);
                 int j = this.macroFilter.macroQueue.Rows.Count - 1;
-                del = delegate(object sender2, RangeSelectionChangedEventArgs e2)
-                {
-                    MacroEntryFilter mfeTemp = new MacroEntryFilter();
-                    mfeTemp = (MacroEntryFilter)this.macroFilter.macroQueue.Rows[j]["Macro Entry"];
-                    mfeTemp.startFrameRelative = ((double)e2.NewRangeStart / 500) * 100;
-                    mfeTemp.endFrameRelative = ((double)e2.NewRangeStop / 500) * 100;
-                    if (mfeTemp.startFrameRelative > 100) mfeTemp.startFrameRelative = 100; // slider values go out of range for some reason -> error handling
-                    if (mfeTemp.endFrameRelative < 0) mfeTemp.endFrameRelative = 0;
-                    this.macroFilter.macroQueue.Rows[j]["Macro Entry"] = mfeTemp;
-                    this.macroFilter.macroQueue.Rows[j]["Start"] = mfeTemp.startFrameRelative;
-                    this.macroFilter.macroQueue.Rows[j]["Stop"] = mfeTemp.endFrameRelative;
-                };
-                rs.RangeSelectionChanged += del;
-                delList.Add(del);
+                this.macroFilter.macroControl.addDelegate(rs, j, delList);
                 this.macroFilter.rsl.Add(rs);
                 this.macroFilter.macroControl.updateSliders();
             }
@@ -241,12 +222,10 @@
         {
             if (this.viewType == ViewType.FilterView)
             {
-                // we need the getpluginmementolist method of PF_MacroFilter -> type cast required
-                PF_MacroFilter macroFilter = (PF_MacroFilter)this.macroFilter;
                 //convert datatable macro entry column to list of macroEntrys
-                List<MacroEntry> macroEntryList = macroFilter.getPluginMementoList();
+                List<MacroEntry> macroEntryList = this.macroFilter.getPluginMementoList();
                 // save the macro filter
-                macroFilter.createNewMemento(macroEntryList, e.Entry);
+                this.macroFilter.createNewMemento(macroEntryList, e.Entry);
             }
             if (this.viewType == ViewType.MetricView)
             {
