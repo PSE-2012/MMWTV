@@ -6,19 +6,38 @@
              mc:Ignorable="d" 
              xmlns:wfi="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
              xmlns:aforge="clr-namespace:AForge.Controls;assembly=AForge.Controls">
-    <Grid>
-
-        <wfi:WindowsFormsHost>
-
-            <aforge:VideoSourcePlayer x:Name="sourcePlayer" AutoSizeControl="True" BackColor="ControlDarkDark"
-                                                  ForeColor="White" Width= "300" Height= "300" BorderColor="Black"></aforge:VideoSourcePlayer>
+    <Grid x:Name="host">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+            <wfi:WindowsFormsHost Grid.Row="0" Width="{Binding Source=host, Path=ActualWidth}"
+                                             Height="{Binding Source=host, Path=ActualHeight}">
             
-        </wfi:WindowsFormsHost>
+            <aforge:VideoSourcePlayer x:Name="sourcePlayer"  BackColor="ControlDarkDark"
+                                                  ForeColor="White" BorderColor="Black"></aforge:VideoSourcePlayer>
+            
 
-        <Button Content="Start" Click="Start_Click" Width="40" Height="25" Margin="0,306,260,-31"></Button>
-        <Button Content="Pause" Click="Pause_Click" Width="40" Height="25" Margin="91,306,169,-31"></Button>
-        <Button Content="Stop" Click="Stop_Click" Width="40" Height="25" Margin="260,306,0,-31"></Button>
-        <Button Content="Resume" Click="Resume_Click" Width="50" Height="25" Margin="174,306,86,-31"></Button>
+        </wfi:WindowsFormsHost>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Click="Start_Click" >
+                <Image Source="/OqatPublicResources;component/Resources/icons/play.png"/>
+            </Button>
+            <Button Grid.Column="1"  Click="Pause_Click" >
+                <Image Source="/OqatPublicResources;component/Resources/icons/pause.png"/>
+            </Button>
+            <Button Grid.Column="2"  Click="Stop_Click">
+                <Image Source="/OqatPublicResources;component/Resources/icons/stop.png"/>
+            </Button>
+            <Button Grid.Column="3" Content="Resume" Click="Resume_Click" ></Button>
+        </Grid>
+
 
     </Grid>
     
