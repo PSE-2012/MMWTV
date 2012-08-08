@@ -73,8 +73,8 @@ namespace PS_YuvVideoHandler
         /// <param name="info">VideoInfo containing needed information like resolution and yuv format</param>
         public void setVideo(string filepath, IVideoInfo info)
         {
-            path = filepath;
             vidInfo = info;
+            path = filepath;
 
             //init buffer
             if(info != null)
@@ -391,7 +391,7 @@ namespace PS_YuvVideoHandler
 
                 fs.Close();
             }
-            catch(Exception e)
+            catch(IOException e)
             {
                 //TODO: handle writer exceptions?
                 throw e;
