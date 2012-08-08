@@ -256,14 +256,6 @@
         /// </remarks>
         public readonly string PLUGIN_PATH;
 
-        /// <summary>
-        /// Used to store registered eventhandler.
-        /// </summary>
-        private Dictionary<EventType, Delegate> handlerTable
-        {
-            get;
-            set;
-        }
 
         /// <summary>
         /// All Oqat intern components can raise a event with this method,
