@@ -468,7 +468,7 @@
         public virtual Memento getMemento(string namePlugin, string nameMemento)
         {
             return (from i in getMementoList(namePlugin)
-                    where i.name.Equals("string")
+                    where i.name.Equals(nameMemento)
                     select i).FirstOrDefault();
         }
 
