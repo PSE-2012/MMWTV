@@ -186,6 +186,11 @@ namespace PS_YuvVideoHandler
             width = 176;
             height = 144;
         }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }
 

@@ -6,7 +6,7 @@
 	using System.Text;
 
     /// <remarks>vlcht wäre es praktisches das Teil als Klasse zu implementieren</remarks>
-	public interface IVideoInfo
+    public interface IVideoInfo : ICloneable
 	{
         string videoCodecName { get; }
         int frameCount { get;  }
