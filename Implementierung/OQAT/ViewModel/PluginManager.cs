@@ -322,7 +322,7 @@
                     try
                     {
                         if (macroEntrySelected != null)
-                            macroEntrySelected(this, (EventArgs)e);
+                            macroEntrySelected(this, (MementoEventArgs)e);
                     }
                     catch (Exception exc)
                     {
@@ -539,7 +539,7 @@
         internal delegate void videoLoadHandler(object sender, VideoEventArgs e);
         internal static event videoLoadHandler videoLoad;
 
-        internal delegate void macroEntrySelectedHandler(object sender, EventArgs e);
+        internal delegate void macroEntrySelectedHandler(object sender, MementoEventArgs e);
         internal static event macroEntrySelectedHandler macroEntrySelected;
         internal delegate void newMementoCreatedHandler(object sender, MementoEventArgs e);
         internal static event newMementoCreatedHandler newMementoCreated;

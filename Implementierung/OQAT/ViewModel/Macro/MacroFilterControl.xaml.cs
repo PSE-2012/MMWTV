@@ -174,18 +174,22 @@ namespace Oqat.ViewModel.Macro
             if (oldIndex >= 0)
             {
                 macroTable.SelectedIndex = oldIndex;
-                RowDefinition selectedItem = this.macroTable.Items[oldIndex] as RowDefinition;
+                DataRow selectedRow = this.macro.macroQueue.Rows[oldIndex];
 
-                if (selectedItem != null)
+
+                if (selectedRow != null)
                 {
                     DragDropEffects allowedEffects = DragDropEffects.Move;
-
-                    if (DragDrop.DoDragDrop(this.macroTable, selectedItem, allowedEffects) != DragDropEffects.None)
+                    if (DragDrop.DoDragDrop(this.macroTable, selectedRow, allowedEffects) != DragDropEffects.None)
                     {
                         // The item was dropped into a new location,
                         // so make it the new selected item.
-                        this.macroTable.SelectedItem = selectedItem;
+
+                        this.macroTable.SelectedItem = selectedRow;
                     }
+
+                    PluginManager.pluginManager.raiseEvent(EventType.macroEntrySelected,
+                        new MementoEventArgs(selectedRow["Memento Name"].ToString(), selectedRow["Plugin Name"].ToString()));
                 }
             }
         }

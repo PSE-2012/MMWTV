@@ -39,7 +39,8 @@ namespace Oqat.ViewModel
 
             PluginManager.OqatToggleView += this.onToggleView;
             PluginManager.newMementoCreated += onNewMementoCreated;
-            PluginManager.macroEntryClicked += onMacroFilterEntryClicked;
+            PluginManager.macroEntrySelected += onMacroFilterEntryClicked;
+
 
             loadPluginLists();
 
@@ -127,10 +128,11 @@ namespace Oqat.ViewModel
         }
 
 
-		private void onMacroFilterEntryClicked( object sender, EventArgs e)
+		private void onMacroFilterEntryClicked( object sender, MementoEventArgs e)
 		{
-			//TODO: select the corresponding memento from the treeview in order to display the propertiesView
-		}
+            PluginViewModel tmp = new PluginViewModel(e.mementoName, e.pluginKey);
+            updatePropertiesView(tmp);
+        }
 
 
         private void onNewMementoCreated(object sender, MementoEventArgs e)
@@ -222,7 +224,7 @@ namespace Oqat.ViewModel
         {
             this.copied = true;
 
-            this.tbMementoName.Text = getSelectedPVM().name + "_copy";
+            this.tbMementoName.Text = this.tbMementoName.Text + "_copy";
         }
 
         private void bttDeleteMemento_Click(object sender, RoutedEventArgs e)
@@ -315,6 +317,12 @@ namespace Oqat.ViewModel
             {
                 return memento;
             }
+        }
+
+        public bool selected
+        {
+            get;
+            set;
         }
 
 
