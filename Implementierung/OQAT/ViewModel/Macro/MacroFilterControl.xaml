@@ -9,24 +9,25 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
-        
-        <ScrollViewer Grid.Row="0" Name="ScrollViewer1"  VerticalAlignment="Top" ScrollChanged="scroll" HorizontalAlignment="Left" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Row="0" Grid.Column="0" Name="ScrollViewer1" VerticalAlignment="Top" ScrollChanged="scroll" HorizontalAlignment="Left" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
             <Grid>
                 <ListView HorizontalAlignment="Left" FontSize="13" Name="macroTable" AllowDrop="True" SelectionMode="Extended">
                 </ListView>
             </Grid>
         </ScrollViewer>
-        <ScrollViewer Grid.Row="1"  VerticalAlignment="Top" Name="ScrollViewer2" ScrollChanged="scroll2" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible" >
+        <ScrollViewer Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Name="ScrollViewer2" ScrollChanged="scroll2" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
             <Grid>
                 <ListView HorizontalAlignment="Left" Name="rangeSliders">
-            </ListView>
+                </ListView>
             </Grid>
         </ScrollViewer>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>

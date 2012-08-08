@@ -10,6 +10,7 @@
     using Oqat.Model;
     using System.Data;
     using System.Windows.Controls;
+    using System.Windows.Data;
     using AC.AvalonControlsLibrary.Controls;
 
     /// <summary>
@@ -218,6 +219,14 @@
                 rs.RangeSelectionChanged += del;
                 delList.Add(del);
                 this.macroFilter.rsl.Add(rs);
+                GridView gvs = new GridView(); // since we can't figure out a way to set the DisplayMemberBinding of the GridViewColumn
+                GridViewColumn gvsColumn = new GridViewColumn(); // in a way that the slider is visible, we rebuild the GridViewColumn after we delete an entry
+                gvsColumn.Header = "Frames Relative";
+                gvs.Columns.Add(gvsColumn);
+                this.macroFilter.macroControl.rangeSliders.View = gvs;
+                this.macroFilter.macroControl.rangeSliders.DataContext = this.macroFilter.macroControl.macro.rsl;
+                Binding bind2 = new Binding();
+                this.macroFilter.macroControl.rangeSliders.SetBinding(ListView.ItemsSourceProperty, bind2);
             }
             if (this.viewType == ViewType.MetricView)
             {
