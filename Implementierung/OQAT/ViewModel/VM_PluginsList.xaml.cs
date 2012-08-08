@@ -30,6 +30,7 @@ namespace Oqat.ViewModel
         ObservableCollection<PluginViewModel> _metricList;
 
         IPlugin propPlugin;
+        PluginViewModel propPVM;
         bool copied = false;
 
 
@@ -130,8 +131,9 @@ namespace Oqat.ViewModel
 
 		private void onMacroFilterEntryClicked( object sender, MementoEventArgs e)
 		{
-            PluginViewModel tmp = new PluginViewModel(e.mementoName, e.pluginKey);
-            updatePropertiesView(tmp);
+            propPVM = findPVM(e.pluginKey, e.mementoName);
+
+            updatePropertiesView();
         }
 
 
@@ -139,21 +141,6 @@ namespace Oqat.ViewModel
         {
             //update the treeviews
             this.loadPluginLists();
-        }
-
-        /// <summary>
-        /// Returns the currently selected and active plugin / memento&plugin from the PluginsList.
-        /// </summary>
-        /// <returns></returns>
-        private PluginViewModel getSelectedPVM()
-        {
-            TreeView curTV;
-            if (this.tabFilterList.IsSelected)
-                curTV = this.treeFilters;
-            else
-                curTV = this.treeMetrics;
-
-            return (PluginViewModel) curTV.SelectedItem;
         }
 
 
@@ -170,16 +157,14 @@ namespace Oqat.ViewModel
                 return;
             }
 
-            PluginViewModel val = (PluginViewModel)e.NewValue;
+            this.propPVM = (PluginViewModel)e.NewValue;
 
-            updatePropertiesView(val);
+            updatePropertiesView();
         }
 
-        private void updatePropertiesView(PluginViewModel selectedPlugin)
+        private void updatePropertiesView()
         {
-            this.gridPluginProperties.Children.Clear();
-
-            if (selectedPlugin == null)
+            if (propPVM == null)
             {
                 this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
                 return;
@@ -187,19 +172,30 @@ namespace Oqat.ViewModel
 
             this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
 
-            string pn = selectedPlugin.getPluginName();
+            string pn = propPVM.getPluginName();
             propPlugin = PluginManager.pluginManager.getPlugin<IPlugin>(pn);
 
-            if (selectedPlugin.isMemento)
+            if (propPVM.isMemento)
             {
-                Memento m = PluginManager.pluginManager.getMemento(selectedPlugin.parentName, selectedPlugin.name);
+                Memento m = PluginManager.pluginManager.getMemento(propPVM.parentName, propPVM.name);
                 if (m != null)
+                {
                     propPlugin.setMemento(m);
 
-                copied = false;
+                    this.tbMementoName.Text = propPVM.name;
+                    copied = false;
+                }
+                else
+                {
+                    MessageBox.Show("Die Einstellungen konnten nicht gefunden werden.");
+                    this.loadPluginLists();
+                    propPVM = new PluginViewModel(propPVM.parentName);
+                    updatePropertiesView();
+                }
             }
             else
             {
+                this.tbMementoName.Text = propPVM.name + "_option";
                 copied = true;
             }
 
@@ -210,7 +206,7 @@ namespace Oqat.ViewModel
                 return;
             }
             
-            this.gridPluginProperties.Children.Add(propPlugin.propertyView);
+            this.gridPluginProperties.Content = propPlugin.propertyView;
         }
 
 
@@ -225,20 +221,27 @@ namespace Oqat.ViewModel
             this.copied = true;
 
             this.tbMementoName.Text = this.tbMementoName.Text + "_copy";
+            //TODO: update propPVM
         }
 
         private void bttDeleteMemento_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Delete the memento through pluginManager
+            if (!propPVM.isMemento)
+            {
+                return;
+            }
 
-            
+            Memento m = new Memento(propPVM.name, null);
+            //TODO: PluginManager.pluginManager.addMemento(propPVM.parentName, m);
+
             //update treeviews
             this.loadPluginLists();
         }
 
         private void tab_SelectedChanged(object sender, SelectionChangedEventArgs e)
         {
-            updatePropertiesView(this.getSelectedPVM());
+            propPVM = this.getSelectedPVM();
+            updatePropertiesView();
 
             ViewType t = ViewType.FilterView;
             if(this.tabMetricList.IsSelected)
@@ -246,6 +249,40 @@ namespace Oqat.ViewModel
 
             PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(t));
         }
+
+        /// <summary>
+        /// Returns the currently selected and active plugin / memento&plugin from the PluginsList.
+        /// </summary>
+        /// <returns></returns>
+        private PluginViewModel getSelectedPVM()
+        {
+            TreeView curTV;
+            if (this.tabFilterList.IsSelected)
+                curTV = this.treeFilters;
+            else
+                curTV = this.treeMetrics;
+
+            return (PluginViewModel)curTV.SelectedItem;
+        }
+
+        private PluginViewModel findPVM(string pluginName, string mementoName)
+        {
+            foreach (PluginViewModel p in filterList.Union(metricList))
+            {
+                if (p.getPluginName() == pluginName)
+                {
+                    foreach (PluginViewModel pc in p.children)
+                    {
+                        if (pc.name == mementoName)
+                            return pc;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+
 
         private void bttAddToMacro_Click(object sender, RoutedEventArgs e)
         {
@@ -260,7 +297,12 @@ namespace Oqat.ViewModel
         {
             if (this.tbMementoName.Text == "")
             {
-                System.Windows.MessageBox.Show("Bitte geben Sie den zu speichernden Einstellungen einen Namen.");
+                System.Windows.MessageBox.Show("Bitte geben Sie den zu speichernden Einstellungen einen Namen.", "Speichern nicht möglich");
+                return false;
+            }
+            else if (findPVM(propPVM.getPluginName(), tbMementoName.Text) != null)
+            {
+                System.Windows.MessageBox.Show("Der Name der zu speichernden Einstellungen ist nicht eindeutig.", "Speichern nicht möglich");
                 return false;
             }
 
@@ -273,11 +315,17 @@ namespace Oqat.ViewModel
 
             if (copied)
             {
-                //TODO: write Memento through pluginManager
+                //TODO: PluginManager.pluginManager.addMemento(propPVM.parentName, mem);
             }
             else
             {
-                //TODO: overwrite selected Memento
+                if (mem.name != propPVM.name)
+                {
+                    Memento del = new Memento(propPVM.name, null);
+                    //TODO: PluginManager.pluginManager.addMemento(propPVM.parentName, del);
+
+                    //TODO: PluginManager.pluginManager.addMemento(propPVM.parentName, mem);
+                }
             }
 
 

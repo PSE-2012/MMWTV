@@ -33,13 +33,15 @@
         </TabControl>
         
         <StackPanel>
-            <StackPanel Orientation="Horizontal" Name="panelMementoSave" Visibility="Hidden">
+            <StackPanel Orientation="Vertical" Name="panelMementoSave" Visibility="Hidden">
                 <TextBox Name="tbMementoName" Margin="3">Filtereinstell1</TextBox>
-                <Button Name="bttSaveMemento" Margin="3" Click="bttSaveMemento_Click">Speichern</Button>
-                <Button Name="bttCopyMemento" Margin="3" Click="bttCopyMemento_Click">Kopieren</Button>
-                <Button Name="bttDeleteMemento" Margin="3" Click="bttDeleteMemento_Click">Löschen</Button>
+                <StackPanel Orientation="Horizontal">
+                    <Button Name="bttSaveMemento" Margin="3" Click="bttSaveMemento_Click">Speichern</Button>
+                    <Button Name="bttCopyMemento" Margin="3" Click="bttCopyMemento_Click">Kopieren</Button>
+                    <Button Name="bttDeleteMemento" Margin="3" Click="bttDeleteMemento_Click">Löschen</Button>
+                </StackPanel>
             </StackPanel>
-            <Grid Name="gridPluginProperties" />
+            <ScrollViewer Name="gridPluginProperties" />
             <Button Name="bttAddToMacro" Click="bttAddToMacro_Click">hinzufügen</Button>
         </StackPanel>
     </StackPanel>
