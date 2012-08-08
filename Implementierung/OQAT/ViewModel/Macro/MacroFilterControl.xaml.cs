@@ -208,6 +208,18 @@ namespace Oqat.ViewModel.Macro
             msd.vmmacro = vmmacro;
             msd.Visibility = System.Windows.Visibility.Visible;
         }
+
+        public void updateSliders()
+        {
+            GridView gvs = new GridView(); // since we can't figure out a way to set the DisplayMemberBinding of the GridViewColumn
+            GridViewColumn gvsColumn = new GridViewColumn(); // in a way that the slider is visible, we rebuild the GridViewColumn after we add/delete an entry
+            gvsColumn.Header = "Frames Relative";
+            gvs.Columns.Add(gvsColumn);
+            rangeSliders.View = gvs;
+            rangeSliders.DataContext = this.macro.rsl;
+            Binding bind = new Binding();
+            rangeSliders.SetBinding(ListView.ItemsSourceProperty, bind);
+        }
         
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
@@ -247,14 +259,7 @@ namespace Oqat.ViewModel.Macro
                     this.vmmacro.delList[i] = null;
                     this.vmmacro.delList[i] += tempList[i - index];
                 }
-                GridView gvs = new GridView(); // since we can't figure out a way to set the DisplayMemberBinding of the GridViewColumn
-                GridViewColumn gvsColumn = new GridViewColumn(); // in a way that the slider is visible, we rebuild the GridViewColumn after we delete an entry
-                gvsColumn.Header = "Frames Relative";
-                gvs.Columns.Add(gvsColumn);
-                rangeSliders.View = gvs;
-                rangeSliders.DataContext = this.macro.rsl;
-                Binding bind2 = new Binding();
-                rangeSliders.SetBinding(ListView.ItemsSourceProperty, bind2);
+                updateSliders();
                 this.macro.macroQueue.Rows.RemoveAt(index);
             }           
         }
