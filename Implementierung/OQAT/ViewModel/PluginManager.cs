@@ -673,8 +673,9 @@
                         if (mem.state != null)
                         {
                             memObjects.Add(mem);
-                            break;
+                            
                         }
+                        break;
 
                     }
                 }
