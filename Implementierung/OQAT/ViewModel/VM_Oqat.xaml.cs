@@ -37,8 +37,8 @@ namespace Oqat.ViewModel
             this.welcomePanel.Children.Add(vM_Welcome);
 
             //  initPluginLists
-            this.vM_PluginsList = new VM_PluginsList();
-            this.pluginListsPanel.Children.Add(this.vM_PluginsList);
+            this.tabFilter.Content = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IFilterOqat);
+            this.tabMetric.Content = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IMetricOqat);
 
             //  initPresentation
             this.vM_presentation = new VM_Presentation();
@@ -61,12 +61,14 @@ namespace Oqat.ViewModel
             get;
             set;
         }
+        /*
         private VM_PluginsList _vM_PluginLists;
         private VM_PluginsList vM_PluginsList
         {
+            //TODO: adapt this to new pluginList structure if necessary
             get;
             set;
-        }
+        }*/
         private VM_ProjectExplorer _vM_ProjectExplorer;
         private VM_ProjectExplorer vM_ProjectExplorer
         {

@@ -27,56 +27,47 @@ namespace Oqat.ViewModel
     public partial class VM_PluginsList : UserControl
     {
 
-        ObservableCollection<PluginViewModel> _filterList;
-        ObservableCollection<PluginViewModel> _metricList;
+        ObservableCollection<PluginViewModel> _pluginList;
+        PluginType pluginType;
 
-        IPlugin propPlugin;
-        PluginViewModel propPVM;
-        bool copied = false;
+        IPlugin selectedPlugin;
+        PluginViewModel selectedPVM;
+        bool copied;
 
 
-        public VM_PluginsList()
+        public VM_PluginsList(PluginType plugintype)
         {
             InitializeComponent();
 
-            PluginManager.OqatToggleView += this.onToggleView;
+            this.pluginType = plugintype;
+
             PluginManager.newMementoCreated += onNewMementoCreated;
             PluginManager.macroEntrySelected += onMacroFilterEntryClicked;
 
-
             loadPluginLists();
 
-            this.treeFilters.DataContext = this.filterList;
-            this.treeMetrics.DataContext = this.metricList;
-
-            this.gridPluginProperties.DataContext = propPlugin;
+            this.treePlugins.ItemsSource = pluginList;
+            //TODO: does it work?!
+            this.gridPluginProperties.DataContext = selectedPlugin;
         }
 
 
 
 
-        public ObservableCollection<PluginViewModel> filterList
+        private ObservableCollection<PluginViewModel> pluginList
         {
             get
             {
-                return _filterList;
-            }
-        }
-        public ObservableCollection<PluginViewModel> metricList
-        {
-            get
-            {
-                return _metricList;
+                return _pluginList;
             }
         }
 
         private void loadPluginLists()
         {
-            _filterList = new ObservableCollection<PluginViewModel>();
-            _metricList = new ObservableCollection<PluginViewModel>();
+            _pluginList = new ObservableCollection<PluginViewModel>();
 
             
-            foreach (string name in PluginManager.pluginManager.getPluginNames(PluginType.IFilterOqat))
+            foreach (string name in PluginManager.pluginManager.getPluginNames(pluginType))
             {
                 PluginViewModel pl = new PluginViewModel(name);
 
@@ -89,58 +80,21 @@ namespace Oqat.ViewModel
                     }
                 }
 
-                filterList.Add(pl);
-            }
-
-
-            foreach (string name in PluginManager.pluginManager.getPluginNames(PluginType.IMetricOqat))
-            {
-                PluginViewModel pl = new PluginViewModel(name);
-
-                List<string> mementos = PluginManager.pluginManager.getMementoNames(name);
-                if (mementos != null)
-                {
-                    foreach (string m in mementos)
-                    {
-                        pl.children.Add(new PluginViewModel(m, pl));
-                    }
-                }
-
-                metricList.Add(pl);
-            }
-
-
-            //TODO: 2way binding
-            this.treeFilters.ItemsSource = filterList;
-            this.treeMetrics.ItemsSource = metricList;
-        }
-
-
-
-
-
-        /// <summary>
-        /// Focus metric or filter list fitting the new ViewType
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void onToggleView(object sender, ViewTypeEventArgs e)
-        {
-            if (e.viewType == ViewType.FilterView)
-            {
-                this.tabFilterList.IsSelected = true;
-            }
-            else if (e.viewType == ViewType.MetricView)
-            {
-                this.tabMetricList.IsSelected = true;
+                pluginList.Add(pl);
             }
         }
+
+
+
+
+
+
 
 
 		private void onMacroFilterEntryClicked( object sender, MementoEventArgs e)
 		{
-            propPVM = findPVM(e.pluginKey, e.mementoName);
-            propPVM.selected = true;
+            selectedPVM = findPVM(e.pluginKey, e.mementoName);
+            selectedPVM.selected = true;
 
             updatePropertiesView();
         }
@@ -153,37 +107,12 @@ namespace Oqat.ViewModel
         }
 
 
-        private void tab_SelectedChanged(object sender, SelectionChangedEventArgs e)
-        {
-            propPVM = this.getSelectedPVM();
-            updatePropertiesView();
-
-            ViewType t = ViewType.FilterView;
-            if (this.tabMetricList.IsSelected)
-                t = ViewType.MetricView;
-
-            PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(t));
-        }
 
 
-        /// <summary>
-        /// Returns the currently selected and active plugin / memento&plugin from the PluginsList.
-        /// </summary>
-        /// <returns></returns>
-        private PluginViewModel getSelectedPVM()
-        {
-            TreeView curTV;
-            if (this.tabFilterList.IsSelected)
-                curTV = this.treeFilters;
-            else
-                curTV = this.treeMetrics;
-
-            return (PluginViewModel)curTV.SelectedItem;
-        }
 
         private PluginViewModel findPVM(string pluginName, string mementoName)
         {
-            foreach (PluginViewModel p in filterList.Union(metricList))
+            foreach (PluginViewModel p in pluginList)
             {
                 if (p.getPluginName() == pluginName)
                 {
@@ -208,14 +137,14 @@ namespace Oqat.ViewModel
         /// <param name="e"></param>
         private void treePlugins_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            this.propPVM = (PluginViewModel)e.NewValue;
+            this.selectedPVM = (PluginViewModel)e.NewValue;
 
             updatePropertiesView();
         }
 
         private void updatePropertiesView()
         {
-            if (propPVM == null)
+            if (selectedPVM == null)
             {
                 this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
                 return;
@@ -223,39 +152,39 @@ namespace Oqat.ViewModel
 
             this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
 
-            string pn = propPVM.getPluginName();
-            propPlugin = PluginManager.pluginManager.getPlugin<IPlugin>(pn);
+            string pn = selectedPVM.getPluginName();
+            selectedPlugin = PluginManager.pluginManager.getPlugin<IPlugin>(pn);
 
-            if (propPVM.isMemento)
+            if (selectedPVM.isMemento)
             {
-                Memento m = PluginManager.pluginManager.getMemento(propPVM.parentName, propPVM.name);
+                Memento m = PluginManager.pluginManager.getMemento(selectedPVM.parentName, selectedPVM.name);
                 if (m != null)
                 {
-                    propPlugin.setMemento(m);
+                    selectedPlugin.setMemento(m);
 
-                    this.tbMementoName.Text = propPVM.name;
+                    this.tbMementoName.Text = selectedPVM.name;
                 }
                 else
                 {
                     MessageBox.Show("Die Einstellungen konnten nicht gefunden werden.");
                     this.loadPluginLists();
-                    propPVM = new PluginViewModel(propPVM.parentName);
+                    selectedPVM = new PluginViewModel(selectedPVM.parentName);
                     updatePropertiesView();
                 }
             }
             else
             {
-                this.tbMementoName.Text = propPVM.name + "_option";
-                propPVM = propPVM.parent;
+                this.tbMementoName.Text = selectedPVM.name + "_option";
+                selectedPVM = selectedPVM.parent;
             }
 
 
-            if (propPlugin.propertyView == null)
+            if (selectedPlugin.propertyView == null)
             {
                 this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
                 return;
             }
-            this.gridPluginProperties.Content = propPlugin.propertyView;
+            this.gridPluginProperties.Content = selectedPlugin.propertyView;
         }
 
 
@@ -274,13 +203,13 @@ namespace Oqat.ViewModel
 
         private void bttDeleteMemento_Click(object sender, RoutedEventArgs e)
         {
-            if (!propPVM.isMemento)
+            if (!selectedPVM.isMemento)
             {
                 return;
             }
 
-            Memento m = new Memento(propPVM.name, null);
-            PluginManager.pluginManager.addMemento(propPVM.getPluginName(), m);
+            Memento m = new Memento(selectedPVM.name, null);
+            PluginManager.pluginManager.addMemento(selectedPVM.getPluginName(), m);
 
             //update treeviews
             this.loadPluginLists();
@@ -292,44 +221,44 @@ namespace Oqat.ViewModel
             if(saveCurrentMemento())
             {
                 PluginManager.pluginManager.raiseEvent(EventType.macroEntryAdd, 
-                    new MementoEventArgs(propPVM.name, getSelectedPVM().getPluginName()));
+                    new MementoEventArgs(selectedPVM.name, selectedPVM.getPluginName()));
             }
         }
 
         private bool saveCurrentMemento()
         {
-            if(!propPVM.isMemento) copied = true;
+            if(!selectedPVM.isMemento) copied = true;
 
             if (this.tbMementoName.Text == "")
             {
                 System.Windows.MessageBox.Show("Bitte geben Sie den zu speichernden Einstellungen einen Namen.", "Speichern nicht möglich");
                 return false;
             }
-            else if (copied && findPVM(propPVM.getPluginName(), tbMementoName.Text) != null)
+            else if (copied && findPVM(selectedPVM.getPluginName(), tbMementoName.Text) != null)
             {
                 System.Windows.MessageBox.Show("Der Name der zu speichernden Einstellungen ist nicht eindeutig.", "Speichern nicht möglich");
                 return false;
             }
             
 
-            Memento mem = propPlugin.getMemento();
+            Memento mem = selectedPlugin.getMemento();
             mem.name = this.tbMementoName.Text;
 
 
             if (copied)
             {
-                propPVM = new PluginViewModel(mem.name, propPVM);
-                propPVM.parent.children.Add(propPVM);
-                propPVM.parent.childrenChanged();
+                selectedPVM = new PluginViewModel(mem.name, selectedPVM);
+                selectedPVM.parent.children.Add(selectedPVM);
+                selectedPVM.parent.childrenChanged();
             }
 
 
-            if (mem.name != propPVM.name)
+            if (mem.name != selectedPVM.name)
             {
-                Memento del = new Memento(propPVM.name, null);
-                PluginManager.pluginManager.addMemento(propPVM.getPluginName(), del);
+                Memento del = new Memento(selectedPVM.name, null);
+                PluginManager.pluginManager.addMemento(selectedPVM.getPluginName(), del);
             }
-            PluginManager.pluginManager.addMemento(propPVM.getPluginName(), mem);
+            PluginManager.pluginManager.addMemento(selectedPVM.getPluginName(), mem);
             
             
             //TODO: use event instead

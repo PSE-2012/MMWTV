@@ -12,31 +12,18 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         
-        <TabControl SelectionChanged="tab_SelectedChanged" Grid.Row="0">
-            <TabItem Header="Filter" Name="tabFilterList">
-                <TreeView Name="treeFilters" ItemsSource="{Binding}" SelectedItemChanged="treePlugins_SelectedItemChanged">
-                    <TreeView.Resources>
-                        <HierarchicalDataTemplate DataType="{x:Type local:PluginViewModel}"
-                                              ItemsSource="{Binding children}">
-                            <TextBlock Text="{Binding Path=name}"/>
-                        </HierarchicalDataTemplate>
-                        <Style TargetType="TreeViewItem">
-                            <Setter Property="IsSelected" Value="{Binding Path=selected, Mode=TwoWay}" />
-                        </Style>
-                    </TreeView.Resources>
-                </TreeView>
-            </TabItem>
-            <TabItem Header="Metriken" Name="tabMetricList">
-                <TreeView Name="treeMetrics" ItemsSource="{Binding}" SelectedItemChanged="treePlugins_SelectedItemChanged">
-                    <TreeView.Resources>
-                        <HierarchicalDataTemplate DataType="{x:Type local:PluginViewModel}"
-                                              ItemsSource="{Binding children}">
-                            <TextBlock Text="{Binding Path=name}"/>
-                        </HierarchicalDataTemplate>
-                    </TreeView.Resources>
-                </TreeView>
-            </TabItem>
-        </TabControl>
+
+        <TreeView Name="treePlugins" ItemsSource="{Binding}" SelectedItemChanged="treePlugins_SelectedItemChanged">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type local:PluginViewModel}"
+                                        ItemsSource="{Binding children}">
+                    <TextBlock Text="{Binding Path=name}"/>
+                </HierarchicalDataTemplate>
+                <Style TargetType="TreeViewItem">
+                    <Setter Property="IsSelected" Value="{Binding Path=selected, Mode=TwoWay}" />
+                </Style>
+            </TreeView.Resources>
+        </TreeView>
 
         <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="bttAddToMacro" Click="bttAddToMacro_Click">Hinzufügen</Button>
 
