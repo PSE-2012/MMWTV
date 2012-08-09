@@ -25,8 +25,6 @@
     /// </summary>
 	public partial class VM_ProjectExplorer : UserControl
 	{
-
-
         /// <summary>
         /// Reference to the currently active project.
         /// </summary>
@@ -54,7 +52,10 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void onVideoClick(object sender, VideoEventArgs e) { }
+        private void onVideoClick(object sender, VideoEventArgs e) 
+        {
+
+        }
 
         private void smartTreeExplorer_KeyDown(object sender, KeyEventArgs e)
         {
@@ -172,6 +173,16 @@
         {
             //TODO: find correct parentid
             project.addNode(e.video, -1);
+        }
+
+        private void treeitem_MouseDoubleClicked(object sender, RoutedEventArgs e)
+        {
+            if (this.smartTreeExplorer.SelectedItem == ((SmartNode)((TreeViewItem)e.Source).Header))
+            {
+                SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
+                PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
+                    new VideoEventArgs(selNode.video));
+            }
         }
 	}
 }

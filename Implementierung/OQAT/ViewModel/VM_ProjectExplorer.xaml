@@ -39,6 +39,9 @@
                             </TextBlock.ContextMenu>
                         </TextBlock>
                     </HierarchicalDataTemplate>
+                    <Style TargetType="TreeViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="treeitem_MouseDoubleClicked"/>
+                    </Style>
                 </TreeView.Resources>
             </TreeView>
         <StackPanel Grid.Row="5">
