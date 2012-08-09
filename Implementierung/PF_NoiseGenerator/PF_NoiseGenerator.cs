@@ -92,19 +92,19 @@ namespace PF_NoiseGenerator
             return handlers;
         }
 
-        public Oqat.PublicRessources.Model.Memento getMemento()
+    public Oqat.PublicRessources.Model.Memento getMemento()
         {
-            Memento mem = new Memento(this.namePlugin, null);
+            Memento mem = new Memento(this.namePlugin, this.propertiesView.getUp());
 
             return mem;
         }
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
-            //TODO: fix setMmento
-            //Object obj = memento.state;
-            //NoiseGenerator otto = (NoiseGenerator)obj;
-            //this.propertiesView.changeValue(otto.propertiesView.getUp());
+            
+            Object obj = memento.state;
+            float otto = (float)obj;
+            this.propertiesView.changeValue(otto);
           
         }
 

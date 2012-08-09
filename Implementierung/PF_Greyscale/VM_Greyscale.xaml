@@ -6,31 +6,34 @@
              mc:Ignorable="d">
     <StackPanel Name="stackPanel1" Margin="10">
         <WrapPanel Name="wrapPanel1">
-            <Label Content="Red Value" Height="30" Name="label1" Width="105" />
-            <Label Height="30" Width="45" Name="lbRed" Content="{Binding ElementName=red, Path=Value}"/>
+            <Label Content="Red Value"  Name="label1" />
+            <Label Name="lbRed" Content="{Binding ElementName=red, Path=Value}"/>
         </WrapPanel>
-        <Slider Height="40" Name="red" Width="150" 
+        <Slider  Name="red"  
                     Minimum="0"
                    Maximum="1"
-                     IsSnapToTickEnabled="false"
+                      IsSnapToTickEnabled="True"
+    TickFrequency="0.0001"
                ValueChanged="ValueChanged"
                 />
         <WrapPanel Name="wrapPanel2">
-            <Label Content="Green Value" Height="30" Name="label2" Width="105" />
-            <Label Height="30" Width="45" Name="lbGreen" Content="{Binding ElementName=green, Path=Value}"/>
+            <Label Content="Green Value"  Name="label2"  />
+            <Label  Name="lbGreen" Content="{Binding ElementName=green, Path=Value}"/>
         </WrapPanel>
-        <Slider Height="40" Name="green" Width="150"  Minimum="0"
+        <Slider Name="green"  Minimum="0"
                    Maximum="1"
-                     IsSnapToTickEnabled="false"
+                       IsSnapToTickEnabled="True"
+    TickFrequency="0.0001"
                   ValueChanged="ValueChanged"/>
         <WrapPanel Name="wrapPanel3">
-            <Label Content="Blue Value" Height="30" Name="label3" Width="105" />
-            <Label Height="30" Width="45" Name="lbBlue" Content="{Binding ElementName=blue, Path=Value}"/>
+            <Label Content="Blue Value"  Name="label3" />
+            <Label  Name="lbBlue" Content="{Binding ElementName=blue, Path=Value}"/>
         </WrapPanel>
-        <Slider Height="40" Name="blue" Width="150"
+        <Slider Name="blue" 
                      Minimum="0"
                    Maximum="1"
-                     IsSnapToTickEnabled="false"
+                       IsSnapToTickEnabled="True"
+    TickFrequency="0.0001"
                   ValueChanged="ValueChanged"/>
        
     </StackPanel>
