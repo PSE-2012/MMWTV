@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Globalization;
 
 namespace PF_Convolution
 {
@@ -23,29 +24,61 @@ namespace PF_Convolution
         public VM_Convolution()
         {
             InitializeComponent();
-            resetPanel();
+        }
+    }
+
+
+
+
+    [ValueConversion(typeof(int[,]), typeof(string))]
+    public class IntMatrixConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int[,] matrix = (int[,])value;
+            string text = "";
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    text += matrix[i, j].ToString() + " ";
+                }
+                text += "\n";
+            }
+            
+            return text;
         }
 
-        public void resetPanel()
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            tB1.Text = "0,0,0,0,0";
-            tB2.Text = "0,0,0,0,0";
-            tB3.Text = "0,0,0,0,0";
-            tB4.Text = "0,0,0,0,0";
-            tB5.Text = "0,0,0,0,0";
-        }
-        public void setPanel(String[] text)
-        {
-            tB1.Text = text[0];
-            tB2.Text = text[1];
-            tB3.Text = text[2];
-            tB4.Text = text[3];
-            tB5.Text = text[4];
-        }
+            int[,] matrix = null;
+            string text = (string)value;
 
-        public string[] getPanel()
-        {
-            return new String[] { tB1.Text, tB2.Text,tB3.Text,tB4.Text,tB5.Text };
+            string[] rows = text.Trim().Split('\n');
+            for (int i = 0; i < rows.Length; i++)
+            {
+                string[] fields = rows[i].Trim().Split(' ');
+
+                if (matrix == null) matrix = new int[rows.Length, fields.Length];
+
+                for (int j = 0; j < fields.Length; j++)
+                {
+                    if (j < matrix.GetLength(1))
+                    {
+                        try
+                        {
+                            matrix[i, j] = int.Parse(fields[j]);
+                        }
+                        catch (FormatException ex)
+                        {
+
+                        }
+                    }
+                }
+            }
+
+            return matrix;
         }
     }
 }
