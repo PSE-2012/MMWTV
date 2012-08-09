@@ -206,6 +206,18 @@ namespace Oqat.ViewModel
             wi.ShowDialog();
         }
 
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewType newv = ViewType.FilterView;
+            if (tabMetric.IsSelected) newv = ViewType.MetricView;
+
+            if (newv != currentView)
+            {
+                PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
+                    new ViewTypeEventArgs(newv));
+            }
+        }
+
 
     }
 

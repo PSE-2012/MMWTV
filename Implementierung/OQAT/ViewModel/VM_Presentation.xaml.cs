@@ -28,33 +28,10 @@ namespace Oqat.ViewModel
         IPresentation _diagram;
         VM_Macro vm_macro;
 
-        /// <summary>
-        /// According to the current view type the Presetaion will show or hide some features.
-        /// </summary>
         ViewType vtype;
 
         IVideo videoProc;
         IVideo videoRef;
-
-        //public int playerWidth
-        //{
-        //    get
-        //    {
-        //        if (videoRef != null)
-        //        {
-
-        //        }
-        //        return 0;
-        //    }
-        //}
-
-        //public int playerHeight
-        //{
-        //    get
-        //    {
-        //        return 0;
-        //    }
-        //}
 
 
         public VM_Presentation()
@@ -69,6 +46,12 @@ namespace Oqat.ViewModel
 
             //TODO custom PresentationPlugins
             this._custom = new List<IPresentation>();
+
+
+            this.gridPlayer1.Children.Add(playerProc.propertyView);
+            this.gridPlayer2.Children.Add(playerRef.propertyView);
+            this.otherPanel.Children.Add(diagram.propertyView);
+            this.gridMacro.Children.Add(vm_macro.propertiesView);
         }
 
 
@@ -147,16 +130,16 @@ namespace Oqat.ViewModel
         /// Such plugins can be visible (user has to choose) in alle ViewTypes where the VM_Presentation is
         /// active, i.e. all except the WelcomeView.
         /// </summary>
-        
-
-
-
-        
 
 
 
 
 
+
+
+
+
+        #region OQAT Events
 
         /// <summary>
         /// This methode will be called if a videoLoad event is raised, i.e. 
@@ -186,8 +169,6 @@ namespace Oqat.ViewModel
             }
 		}
 
-
-
         /// <summary>
         /// This method will be called if the view was toggled.
         /// </summary>
@@ -195,27 +176,29 @@ namespace Oqat.ViewModel
         /// <param name="e"></param>
 		private void onToggleView(object sender, ViewTypeEventArgs e)
 		{
-            //TODO: only hide panels, don't remove them
-
             if (this.vtype == e.viewType)
                 return;
 
             this.vtype = e.viewType;
-            this.resetPanel();
             switch (vtype)
             {
                 case ViewType.FilterView:
-                    this.gridPlayer1.Children.Add(playerProc.propertyView);
-                    this.gridMacro.Children.Add(vm_macro.propertiesView);
+                    this.gridPlayer1.Visibility = System.Windows.Visibility.Visible;
+                    this.gridPlayer2.Visibility = System.Windows.Visibility.Collapsed;
+                    this.otherPanel.Visibility = System.Windows.Visibility.Collapsed;
+                    this.gridMacro.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case ViewType.MetricView:
-                    this.gridPlayer1.Children.Add(playerProc.propertyView);
-                    this.gridPlayer2.Children.Add(playerRef.propertyView);
-                    this.gridMacro.Children.Add(vm_macro.propertiesView);
+                    this.gridPlayer1.Visibility = System.Windows.Visibility.Visible;
+                    this.gridPlayer2.Visibility = System.Windows.Visibility.Visible;
+                    this.otherPanel.Visibility = System.Windows.Visibility.Collapsed;
+                    this.gridMacro.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case ViewType.AnalyzeView:
-                    this.gridPlayer1.Children.Add(playerProc.propertyView);
-                    this.otherPanel.Children.Add(diagram.propertyView);
+                    this.gridPlayer1.Visibility = System.Windows.Visibility.Visible;
+                    this.gridPlayer2.Visibility = System.Windows.Visibility.Visible;
+                    this.otherPanel.Visibility = System.Windows.Visibility.Visible;
+                    this.gridMacro.Visibility = System.Windows.Visibility.Collapsed;
                     break;
             }
 		}
@@ -247,24 +230,10 @@ namespace Oqat.ViewModel
             }
         }
 
-
-        /// <summary>
-        /// Can be used to remove presentation plugins (e.g. PresentationType == Custom) from the VM_Presentation
-        /// view.
-        /// </summary>
-		private void resetPanel()
-		{
-            this.gridPlayer1.Children.Clear();
-            this.gridPlayer2.Children.Clear();
-            this.otherPanel.Children.Clear();
-            this.gridMacro.Children.Clear();
-
-            this.onFlushPresentationPlugins(this, new EventArgs());
-		}
+        #endregion
 
 
-
-
+        #region extraResources
 
         private void showExtraResourceList()
         {
@@ -282,6 +251,10 @@ namespace Oqat.ViewModel
         {
 
         }
+
+        #endregion
+
+
 
         private void bttProcessMacro_Click(object sender, RoutedEventArgs e)
         {
