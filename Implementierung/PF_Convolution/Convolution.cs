@@ -37,6 +37,7 @@ namespace PF_Convolution
             propertiesView = new VM_Convolution();
             
         }
+        //sets matrix from propertie view panels and check the content of em
          bool setMatrix(String[] tbs)
         {
             bool success = true;
@@ -88,7 +89,27 @@ namespace PF_Convolution
          }
 
 
-         public Bitmap process(Bitmap frame) 
+  
+
+        public Memento getMemento()
+        {
+         
+            Memento mem = new Memento(this.namePlugin, propertiesView.getPanel());
+            
+            return mem;
+        }
+
+        public void setMemento(Memento memento)
+        {
+           Object obj= memento.state;
+
+           var tmp = (string[])obj;
+
+      
+
+           propertiesView.setPanel(tmp);
+        }
+        public Bitmap process(Bitmap frame)
         {
             if (setMatrix(propertiesView.getPanel()) == true)
             {
@@ -96,13 +117,12 @@ namespace PF_Convolution
                 AForge.Imaging.Filters.Convolution filter = new AForge.Imaging.Filters.Convolution(matrix);
                 // apply the filter
                 filter.ApplyInPlace(frame);
-                
+
             }
             else
             {
-               //frame = null;
-                
-            } 
+
+            }
             return frame;
         }
 
@@ -119,7 +139,7 @@ namespace PF_Convolution
             }
         }
 
-      
+
 
         public PluginType type
         {
@@ -145,32 +165,6 @@ namespace PF_Convolution
         {
             Dictionary<EventType, List<Delegate>> handlers = new Dictionary<EventType, List<Delegate>>();
             return handlers;
-        }
-
-        public Memento getMemento()
-        {
-            setMatrix(propertiesView.getPanel());
-            Memento mem = new Memento(this.namePlugin,this.matrix);
-            
-            return mem;
-        }
-
-        public void setMemento(Memento memento)
-        {
-           Object obj= memento.state;
-
-           var otto = (int[,])obj;
-
-           for (int i = 0; i < 5; i++)
-           {
-               for (int j = 0; j < 5; j++)
-               {
-                   otto[i, j] = this.matrix[i, j];
-               }
-           }
-           
-
-            setPanelView();
         }
     }
 }
