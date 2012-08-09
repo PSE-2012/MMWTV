@@ -166,6 +166,11 @@
         }
 
 
+        private void onMacroProcessingFinished(object sender, VideoEventArgs e)
+        {
+            //TODO: find correct parentid
+            project.addNode(e.video, -1);
+        }
 	}
 }
 
