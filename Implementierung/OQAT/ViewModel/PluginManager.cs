@@ -593,7 +593,6 @@
         /// Plugin with the given name. Null if Plugin with the name namePlugin was found.</returns>
         private void getMementoList(string namePlugin, out List<Memento> mementoObjects)
         {
-
             if (blackList.ContainsKey(namePlugin) || !memTable.ContainsKey(namePlugin))
             {
                 mementoObjects = null;    // should never come to this, since noone can have plugin names (getPluginNames)
@@ -673,10 +672,8 @@
                         if (mem.state != null)
                         {
                             memObjects.Add(mem);
-                            
                         }
                         break;
-
                     }
                 }
 

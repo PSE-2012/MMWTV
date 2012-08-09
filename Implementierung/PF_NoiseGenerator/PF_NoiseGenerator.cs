@@ -101,9 +101,10 @@ namespace PF_NoiseGenerator
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
-          //  Object obj = memento.state;
-         //   NoiseGenerator otto = (NoiseGenerator)obj;
-         //   this.propertiesView.changeValue(otto.propertiesView.getUp());
+            //TODO: fix setMmento
+            //Object obj = memento.state;
+            //NoiseGenerator otto = (NoiseGenerator)obj;
+            //this.propertiesView.changeValue(otto.propertiesView.getUp());
           
         }
 
