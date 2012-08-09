@@ -4,34 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="285" d:DesignWidth="410">
-    <StackPanel Height="220" Name="stackPanel1" Width="317">
-        <WrapPanel Height="33" Name="wrapPanel1" Width="150">
-            <Label Content="Red Factor          x" Height="30" Name="label1" Width="105" />
-            <Label Height="30" Width="45" Name="lbRed" Content="{Binding ElementName=red, Path=Value}"/>
+             >
+    <StackPanel  Name="stackPanel1" >
+        <WrapPanel  Name="wrapPanel1">
+            <Label Content="Red Factor          x"  Name="label1"  />
+            <Label  Name="lbRed" Content="{Binding ElementName=red, Path=Value}"/>
         </WrapPanel>
-        <Slider Height="40" Name="red" Width="150" 
+        <Slider  Name="red"
                     Minimum="0"
                    Maximum="2"
-                     IsSnapToTickEnabled="false"
+                      IsSnapToTickEnabled="True"
+    TickFrequency="0.01"
                ValueChanged="ValueChanged"
                 />
-        <WrapPanel Height="33" Name="wrapPanel2" Width="150">
-            <Label Content="Green Factor      x" Height="30" Name="label2" Width="105" />
-            <Label Height="30" Width="45" Name="lbGreen" Content="{Binding ElementName=green, Path=Value}"/>
+        <WrapPanel  Name="wrapPanel2">
+            <Label Content="Green Factor      x"  Name="label2"  />
+            <Label  Name="lbGreen" Content="{Binding ElementName=green, Path=Value}"/>
         </WrapPanel>
-        <Slider Height="40" Name="green" Width="150"  Minimum="0"
+        <Slider  Name="green"   Minimum="0"
                    Maximum="2"
-                     IsSnapToTickEnabled="false"
+                    IsSnapToTickEnabled="True"
+    TickFrequency="0.01"
                   ValueChanged="ValueChanged"/>
-        <WrapPanel Height="33" Name="wrapPanel3" Width="150">
-            <Label Content="Blue Factor         x" Height="30" Name="label3" Width="105" />
-            <Label Height="30" Width="45" Name="lbBlue" Content="{Binding ElementName=blue, Path=Value}"/>
+        <WrapPanel  Name="wrapPanel3" >
+            <Label Content="Blue Factor         x"  Name="label3"  />
+            <Label  Name="lbBlue" Content="{Binding ElementName=blue, Path=Value}"/>
         </WrapPanel>
-        <Slider Height="40" Name="blue" Width="150"
+        <Slider  Name="blue" 
                      Minimum="0"
                    Maximum="2"
-                     IsSnapToTickEnabled="false"
+                     IsSnapToTickEnabled="True"
+    TickFrequency="0.01"
                   ValueChanged="ValueChanged"/>
 
     </StackPanel>
