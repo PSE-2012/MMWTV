@@ -93,7 +93,7 @@ namespace PF_Convolution
 
         public Memento getMemento()
         {
-         
+            setMatrix(propertiesView.getPanel());
             Memento mem = new Memento(this.namePlugin, propertiesView.getPanel());
             
             return mem;
