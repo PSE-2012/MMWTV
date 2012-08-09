@@ -76,11 +76,12 @@ namespace PF_Convolution
                  for (int i = 0; i < 5; i++)
                  {
                      tbs[j] = tbs[j]+matrix[j,i];
+                     if (i < 4)
+                     {
+                         tbs[j] = tbs[j] + ',';
+                     }
                  }
-                 if (j < 4)
-                 {
-                     tbs[j] = tbs[j] + ',';
-                 }
+               
 
              }
              propertiesView.setPanel(tbs);
@@ -148,6 +149,7 @@ namespace PF_Convolution
 
         public Memento getMemento()
         {
+            setMatrix(propertiesView.getPanel());
             Memento mem = new Memento(this.namePlugin,this.matrix);
             
             return mem;
@@ -159,14 +161,14 @@ namespace PF_Convolution
 
            var otto = (int[,])obj;
 
-
-            for (int i = 0; i < 5; i++)
-            {
-                for( int j = 0; j<5; j++){
-                   this.matrix[i, j] = matrix[i, j];
-                }
-
-            }
+           for (int i = 0; i < 5; i++)
+           {
+               for (int j = 0; j < 5; j++)
+               {
+                   otto[i, j] = this.matrix[i, j];
+               }
+           }
+           
 
             setPanelView();
         }
