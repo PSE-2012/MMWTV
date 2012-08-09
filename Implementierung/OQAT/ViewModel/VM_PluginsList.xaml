@@ -21,6 +21,7 @@
                 </HierarchicalDataTemplate>
                 <Style TargetType="TreeViewItem">
                     <Setter Property="IsSelected" Value="{Binding Path=selected, Mode=TwoWay}" />
+                    <Setter Property="IsExpanded" Value="{Binding Path=expanded, Mode=TwoWay}" />
                 </Style>
             </TreeView.Resources>
         </TreeView>

@@ -297,7 +297,7 @@ namespace Oqat.ViewModel
             if (mementoSave(selectedPVM))
             {
                 PluginManager.pluginManager.raiseEvent(EventType.macroEntryAdd,
-                    new MementoEventArgs(selectedPVM.name, selectedPVM.parent.name));
+                    new MementoEventArgs(this.tbMementoName.Text, selectedPVM.parent.name));
             }
         }
 
@@ -367,6 +367,28 @@ namespace Oqat.ViewModel
                 {
                     _selected = value;
                     NotifyPropertyChanged("selected");
+
+                    if (value && isMemento)
+                    {
+                        parent.expanded = true;
+                    }
+                }
+            }
+        }
+
+        bool _expanded;
+        public bool expanded
+        {
+            get
+            {
+                return _expanded;
+            }
+            set
+            {
+                if (value != expanded)
+                {
+                    _expanded = value;
+                    NotifyPropertyChanged("expanded");
                 }
             }
         }
