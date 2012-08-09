@@ -120,6 +120,7 @@ namespace Oqat.ViewModel
                 this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
                 return;
             }
+            this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
 
 
             
@@ -140,14 +141,13 @@ namespace Oqat.ViewModel
                 }
             }
 
+            
+            this.gridPluginProperties.Content = selectedPlugin.propertyView;
+            this.tbMementoName.Text = selectedPVM.name;
             if (selectedPlugin.propertyView == null)
             {
                 this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
-                return;
             }
-            this.gridPluginProperties.Content = selectedPlugin.propertyView;
-            this.tbMementoName.Text = selectedPVM.name;
-            this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
         }
 
 
@@ -201,7 +201,15 @@ namespace Oqat.ViewModel
             //if plugin (no memento) itself is selected, copy it
             if (!memento.isMemento)
             {
-                return mementoCopy(memento);
+                if (selectedPlugin.propertyView != null)
+                {
+                    return mementoCopy(memento);
+                }
+                else
+                {
+                    //if there are no settings in propertyView, don't copy the plugin as memento
+                    return true;
+                }
             }
 
 
