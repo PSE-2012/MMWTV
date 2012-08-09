@@ -40,6 +40,8 @@
         {
             InitializeComponent();
 
+            PluginManager.macroProcessingFinished += this.onMacroProcessingFinished;
+
             // projectExplorer
             this.project = project;
             smartTreeExplorer.DataContext = project.smartTree;

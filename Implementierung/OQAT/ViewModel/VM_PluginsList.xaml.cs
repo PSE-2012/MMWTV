@@ -118,9 +118,11 @@ namespace Oqat.ViewModel
             if (selectedPVM == null)
             {
                 this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
+                this.bttAddToMacro.Visibility = System.Windows.Visibility.Collapsed;
                 return;
             }
             this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
+            this.bttAddToMacro.Visibility = System.Windows.Visibility.Visible;
 
 
             
@@ -251,6 +253,15 @@ namespace Oqat.ViewModel
             return true;
         }
 
+        private void mementoAddToMacro(PluginViewModel memento)
+        {
+            if (mementoSave(memento))
+            {
+                PluginManager.pluginManager.raiseEvent(EventType.macroEntryAdd,
+                    new MementoEventArgs(this.tbMementoName.Text, memento.parent.name));
+            }
+        }
+
 
         #region OQAT Events
 
@@ -294,14 +305,26 @@ namespace Oqat.ViewModel
 
         private void bttAddToMacro_Click(object sender, RoutedEventArgs e)
         {
-            if (mementoSave(selectedPVM))
-            {
-                PluginManager.pluginManager.raiseEvent(EventType.macroEntryAdd,
-                    new MementoEventArgs(this.tbMementoName.Text, selectedPVM.parent.name));
-            }
+            mementoAddToMacro(selectedPVM);
+        }
+
+        private void treeitem_MouseDoubleClicked(object sender, RoutedEventArgs e)
+        {
+            if (selectedPVM == ((PluginViewModel)((TreeViewItem)e.Source).Header))
+                mementoAddToMacro(selectedPVM);
         }
 
     }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -409,7 +432,6 @@ namespace Oqat.ViewModel
 
 
 
-        bool memento;
         public PluginViewModel(string pluginName)
         {
             this.name = pluginName;

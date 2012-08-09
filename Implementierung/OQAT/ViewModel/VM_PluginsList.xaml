@@ -20,13 +20,14 @@
                     <TextBlock Text="{Binding Path=name}"/>
                 </HierarchicalDataTemplate>
                 <Style TargetType="TreeViewItem">
+                    <EventSetter Event="MouseDoubleClick" Handler="treeitem_MouseDoubleClicked"/>
                     <Setter Property="IsSelected" Value="{Binding Path=selected, Mode=TwoWay}" />
                     <Setter Property="IsExpanded" Value="{Binding Path=expanded, Mode=TwoWay}" />
                 </Style>
             </TreeView.Resources>
         </TreeView>
 
-        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="bttAddToMacro" Click="bttAddToMacro_Click">zu Macro hinzufügen</Button>
+        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="bttAddToMacro" Visibility="Collapsed" Click="bttAddToMacro_Click">zu Macro hinzufügen</Button>
 
         <Grid Grid.Row="2" Name="panelMementoSave" Visibility="Hidden">
             <Grid.RowDefinitions>
