@@ -229,12 +229,11 @@ namespace Oqat.ViewModel.Macro
         }
         //Drag'N'Drop end#
 
-        private void Save_Click(object sender, RoutedEventArgs e)
-        {
-            MacroSaveDialog msd = new MacroSaveDialog();
-            msd.vmmacro = vmmacro;
-            msd.Visibility = System.Windows.Visibility.Visible;
-        }
+        //private void Save_Click(object sender, RoutedEventArgs e)
+        //{
+        //    msd.vmmacro = vmmacro;
+        //    msd.Visibility = System.Windows.Visibility.Visible;
+        //}
 
         public void updateSliders()
         {
