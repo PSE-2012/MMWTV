@@ -20,12 +20,13 @@ namespace Oqat.ViewModel.Macro
     [ExportMetadata("namePlugin", "PF_MacroFilter")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
     [Export(typeof(IPlugin))]
+
     /// <summary>
     /// This class is a implementation of IFilterOqat, <see cref="IFilterOqat"/> for further informations.
     /// Besides this class inherits from the abstract class <see cref="Macro"/> which in turn
     /// only implements IMacro, see <see cref="IMacro"/> for further informations.
     /// </summary>
-    public class PF_MacroFilter : Macro, IFilterOqat, IPlugin
+    public class PF_MacroFilter : Macro, IFilterOqat
     {
         string namePlugin 
         {
@@ -36,6 +37,7 @@ namespace Oqat.ViewModel.Macro
         }
 
         internal List<RangeSlider> rsl;
+        internal ObservableCollection<MacroEntryFilter> macroQueue;
 
         public PF_MacroFilter()
         {
@@ -63,11 +65,6 @@ namespace Oqat.ViewModel.Macro
         {
             var reset = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
             // this.macroQueue.OnCollectionChanged(reset);
-        }
-
-        public System.Drawing.Bitmap process(System.Drawing.Bitmap frame) // TODO: What should this method actually be used for?
-        {
-            throw new NotImplementedException();
         }
 
 

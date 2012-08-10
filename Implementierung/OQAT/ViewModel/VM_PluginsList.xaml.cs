@@ -45,7 +45,23 @@ namespace Oqat.ViewModel
                 return (PluginViewModel)this.treePlugins.SelectedItem;
             }
         }
-        PluginViewModel activeMacroPVM;
+        PluginViewModel _activeMacroPVM;
+        PluginViewModel activeMacroPVM
+        {
+            get
+            {
+                if (_activeMacroPVM == null)
+                {
+                    //select parent MacroPlugin (always last entry in list)
+                    _activeMacroPVM = pluginList.Last();
+                }
+                return _activeMacroPVM;
+            }
+            set
+            {
+                _activeMacroPVM = value;
+            }
+        }
 
         public delegate void macroLoadHandler(object sender, MementoEventArgs e);
         public event macroLoadHandler macroLoaded;
@@ -67,8 +83,23 @@ namespace Oqat.ViewModel
 
 
             //define panels for macro view
-            panelMacroPropertyView = System.Windows.Markup.XamlReader.Parse("<StackPanel Name=\"gridMacroPropertyView\"><Label>Nur das momentan gesetzte Macro kann bearbeitet und kopiert werden.</Label><Button Name=\"bttLoadAsMacro\" Click=\"bttLoadAsMacro_Click\">als aktives Macro laden</Button><Button Name=\"bttSwitchToCurrentMacro\" Click=\"bttSwitchToCurrentMacro_Click\">momentan aktives Macro bearbeiten</Button></StackPanel>") as Panel;
-            panelMacroPropertyViewCurrent = System.Windows.Markup.XamlReader.Parse("<StackPanel x:Name=\"gridCurrentMacroPropertyView\"><Label>Das momentan aktive Macro</Label></StackPanel>") as Panel;
+            panelMacroPropertyView = new StackPanel();
+                TextBlock l1 = new TextBlock();
+                l1.Text = "Nur das momentan gesetzte Macro kann bearbeitet und kopiert werden.";
+                Button b11 = new Button();
+                b11.Content = "als aktives Macro laden";
+                b11.Click += bttLoadAsMacro_Click;
+                Button b12 = new Button();
+                b12.Content = "momentan aktives Macro bearbeiten";
+                b12.Click += bttSwitchToCurrentMacro_Click;
+            panelMacroPropertyView.Children.Add(l1);
+            panelMacroPropertyView.Children.Add(b11);
+            panelMacroPropertyView.Children.Add(b12);
+
+            panelMacroPropertyViewCurrent = new StackPanel();
+                TextBlock l2 = new TextBlock();
+                l2.Text = "Das momentan aktive Macro";
+            panelMacroPropertyViewCurrent.Children.Add(l2);
         }
 
         /// <summary>
@@ -167,15 +198,20 @@ namespace Oqat.ViewModel
                         //remove the broken entry
                         selectedPVM.parent.children.Remove(selectedPVM);
                     }
-
-                    this.gridPluginProperties.Content = selectedPlugin.propertyView;
                 }
+            }
+            else if (selectedPlugin is IMacro)
+            {
+                //parent macro should select currently active macro
+                activeMacroPVM.selected = true;
             }
 
             
             
             this.tbMementoName.Text = selectedPVM.name;
-            if (gridPluginProperties.Content == null)
+            this.gridPluginProperties.Content = selectedPlugin.propertyView;
+            if (gridPluginProperties.Content == null
+                || (selectedPlugin is IMacro && selectedPVM != activeMacroPVM))
             {
                 this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
             }
@@ -355,11 +391,6 @@ namespace Oqat.ViewModel
 
         private void bttSwitchToCurrentMacro_Click(object sender, RoutedEventArgs e)
         {
-            if (activeMacroPVM == null)
-            {
-                //select parent MacroPlugin (always last entry in list)
-                activeMacroPVM = pluginList.Last();
-            }
             activeMacroPVM.selected = true;
         }
 

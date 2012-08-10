@@ -184,9 +184,9 @@
                 rs.Height = 17.29; // this height fits the height of the data rows in the macro table
                 this.macroFilter.macroQueue.Add(mEntryFilter);
                 int j = this.macroFilter.macroQueue.Count - 1;
-                this.macroFilter.macroControl.addDelegate(rs, j, delList);
+                ((MacroFilterControl)macroFilter.macroControl).addDelegate(rs, j, delList);
                 this.macroFilter.rsl.Add(rs);
-                this.macroFilter.macroControl.updateSliders();
+                ((MacroFilterControl)macroFilter.macroControl).updateSliders();
             }
             if (this.viewType == ViewType.MetricView)
             {
@@ -196,29 +196,6 @@
             }
         }
 
-        /// <summary>
-        /// Raised if user wishes to save current macroQueue for later use.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">name the new macro should have.</param>
-        internal void onMacroSave(object sender, EntryEventArgs e)
-        {
-            MacroSave(sender, e);
-        }
-
-        private void macroSave(object sender, EntryEventArgs e)
-        {
-            if (this.viewType == ViewType.FilterView)
-            {
-                //convert datatable macro entry column to list of macroEntrys
-                List<MacroEntry> macroEntryList = this.macroFilter.getPluginMementoList();
-                // save the macro filter
-                this.macroFilter.createNewMemento(macroEntryList, e.Entry);
-            }
-            if (this.viewType == ViewType.MetricView)
-            {
-
-            }
-        }
+        
     }
 }
