@@ -254,12 +254,12 @@ namespace Oqat.ViewModel.Macro
                 MacroEntryFilter mfeTemp = (MacroEntryFilter)macro.macroQueue[j];
                 mfeTemp.startFrameRelative = ((double)e2.NewRangeStart / 500) * 100;
                 mfeTemp.endFrameRelative = ((double)e2.NewRangeStop / 500) * 100;
-                
                 if (mfeTemp.startFrameRelative > 100) mfeTemp.startFrameRelative = 0; // slider values go out of range for some reason -> bugfix
                 if (mfeTemp.endFrameRelative < 0) mfeTemp.endFrameRelative = 100; // slider values go out of range for some reason -> bugfix
-
-                // TODO: BUGFIX
-
+                if (mfeTemp.startFrameRelative > mfeTemp.endFrameRelative)
+                {
+                    mfeTemp.endFrameRelative = mfeTemp.startFrameRelative;
+                }
                 this.macro.macroQueue[j] = mfeTemp;
                 ((MacroEntryFilter)this.macro.macroQueue[j]).startFrameRelative = mfeTemp.startFrameRelative;
                 ((MacroEntryFilter)this.macro.macroQueue[j]).endFrameRelative = mfeTemp.endFrameRelative;

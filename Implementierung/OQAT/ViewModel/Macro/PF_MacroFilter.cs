@@ -117,11 +117,16 @@ namespace Oqat.ViewModel.Macro
             int arraycount = resultFrames.Count();
             for (int j = 0; j < arraycount; j++) // iterate over all frames to be processed
             {
-                if ((currentMacroEntry.endFrameRelative / 100) * totalFrames <= (i + j) && (i + j) <= (currentMacroEntry.startFrameRelative / 100) * totalFrames)
+                if ((currentMacroEntry.startFrameRelative / 100) * totalFrames <= (i + j) && (i + j) <= (currentMacroEntry.endFrameRelative / 100) * totalFrames)
                 {
                     currentPlugin.setMemento(memento);
                     System.Drawing.Bitmap tempmap = currentPlugin.process(resultFrames[j]);
                     resultFrames[j] = tempmap;
+
+                    //DEBUG Pixelvergleich
+                    IPlugin usedPlugin = currentPlugin;
+                    var refVideoPixel = resultFrames[j].GetPixel(5,5);
+                    var resulVideoPixel = tempmap.GetPixel(5,5);
                 }
             }
         }
