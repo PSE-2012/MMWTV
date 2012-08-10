@@ -157,7 +157,7 @@
                 IVideoInfo vidInfo =(IVideoInfo) vidRef.vidInfo.Clone();
                 //TODO: where to save the new video?!?
                 string resultpath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                vidResult = new Video(false, resultpath+"\\newvideo.yuv", vidInfo, this.macroFilter.macroEntryList);
+                vidResult = new Video(false, resultpath+"\\newvideo.yuv", vidInfo, this.macroFilter.macroQueue.ToList<MacroEntry>());
                 this.macroFilter.init(vidRef, vidResult);
                 this.macroFilter.process(vidRef, vidResult);
                 macroFilterControl.macroTable.IsEnabled = true;

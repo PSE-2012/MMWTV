@@ -52,6 +52,7 @@ namespace Oqat.PublicRessources.Plugin
             }
         }
 
+        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MacroEntryFilter(string pluginName, string mementoName, double endFrameRelative, double startFrameRelative)

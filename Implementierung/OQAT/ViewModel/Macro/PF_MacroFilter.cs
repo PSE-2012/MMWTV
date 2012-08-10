@@ -186,16 +186,14 @@ namespace Oqat.ViewModel.Macro
         }
 
 
-
-        public List<MacroEntry> getPluginMementoList()
+        public Memento getMemento()
         {
-            macroEntryList = new List<MacroEntry>();
-            foreach (MacroEntry c in macroQueue)
-            {
-                MacroEntry newEntry = (MacroEntry)c;
-                macroEntryList.Add(newEntry);
-            }
-            return macroEntryList;
+            return new Memento(this.namePlugin, this.macroQueue.ToArray());
+        }
+
+        public void setMemento(Memento memento)
+        {
+            this.macroQueue = new ObservableCollection<MacroEntryFilter>((MacroEntryFilter[])memento.state);
         }
 
     }

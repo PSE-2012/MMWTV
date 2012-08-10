@@ -27,6 +27,9 @@ namespace Oqat.ViewModel.Macro
 	public class PM_MacroMetric : Macro, IMetricOqat
     {
 
+        internal ObservableCollection<MacroEntryMetric> macroQueue;
+
+
         public AnalysisInfo analyse(Bitmap frameRef, Bitmap frameProc)
         {
             throw new NotImplementedException();
@@ -34,7 +37,7 @@ namespace Oqat.ViewModel.Macro
 
         public PM_MacroMetric()
         {
-            macroQueue = new ObservableCollection<MacroEntry>();
+            macroQueue = new ObservableCollection<MacroEntryMetric>();
             /**macroQueue.Columns.Add("Metric Name", typeof(String));
             macroQueue.Columns.Add("Memento Name", typeof(String));**/
         }
