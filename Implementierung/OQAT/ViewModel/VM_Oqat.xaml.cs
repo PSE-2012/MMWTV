@@ -59,7 +59,7 @@ namespace Oqat.ViewModel
 
 
 
-#region VM fields
+        #region VM fields
 
 
         private VM_Welcome _vM_Welcome;
@@ -114,7 +114,9 @@ namespace Oqat.ViewModel
         {
             Memento mem = PluginManager.pluginManager.getMemento(e.pluginKey, e.mementoName);
             if (mem != null)
+            {
                 vM_presentation.vm_macro.macroFilter.setMemento(mem);
+            }
         }
         private void onMacroMetricLoad(object sender, MementoEventArgs e)
         {

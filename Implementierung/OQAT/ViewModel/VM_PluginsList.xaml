@@ -10,10 +10,11 @@
             <RowDefinition/>
             <RowDefinition Height="25"/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         
 
-        <TreeView Name="treePlugins" ItemsSource="{Binding}" SelectedItemChanged="treePlugins_SelectedItemChanged">
+        <TreeView Grid.Row="0" Name="treePlugins" ItemsSource="{Binding}" SelectedItemChanged="treePlugins_SelectedItemChanged">
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type local:PluginViewModel}"
                                         ItemsSource="{Binding children}">
@@ -58,6 +59,12 @@
                 </Button>
             </Grid> 
         </Grid>
+        
+        <StackPanel Grid.Row="2" Name="panelMacroProp">
+            <TextBlock TextWrapping="Wrap">Nur das momentan gesetzte Macro kann bearbeitet und kopiert werden.</TextBlock>
+            <Button Click="bttLoadAsMacro_Click">als Macro laden</Button>
+            <Button Click="bttSwitchToCurrentMacro_Click">aktives Macro fokusieren</Button>
+        </StackPanel>
         
     </Grid>
 </UserControl>

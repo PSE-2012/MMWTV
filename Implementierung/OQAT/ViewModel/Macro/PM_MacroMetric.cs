@@ -12,8 +12,12 @@ namespace Oqat.ViewModel.Macro
     using System.Windows.Controls;
     using System.Data;
     using System.Drawing;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.Composition;
+
+    [ExportMetadata("namePlugin", "PM_MacroMetric")]
+    [ExportMetadata("type", PluginType.IMetricOqat)]
+    [Export(typeof(IPlugin))]
 
     /// <summary>
     /// This class is a implementation of IMetricOqat, <see cref="IMetricOqat"/> for further informations.
@@ -22,16 +26,6 @@ namespace Oqat.ViewModel.Macro
     /// </summary>
 	public class PM_MacroMetric : Macro, IMetricOqat
     {
-        internal ObservableCollection<MacroEntryMetric> macroQueue;
-        public MacroMetricControl macroControl;
-
-        public UserControl propertyView
-        {
-            get
-            {
-                return macroControl;
-            }
-        }
 
         public AnalysisInfo analyse(Bitmap frameRef, Bitmap frameProc)
         {
@@ -40,7 +34,7 @@ namespace Oqat.ViewModel.Macro
 
         public PM_MacroMetric()
         {
-            macroQueue = new ObservableCollection<MacroEntryMetric>();
+            macroQueue = new ObservableCollection<MacroEntry>();
             /**macroQueue.Columns.Add("Metric Name", typeof(String));
             macroQueue.Columns.Add("Memento Name", typeof(String));**/
         }
@@ -77,7 +71,7 @@ namespace Oqat.ViewModel.Macro
             // Warning: the method, implemented this way, does not support having another macrometric inside the list of metrics
             for (int m = 0; m < macroQueue.Count; m++)
             {
-                MacroEntryMetric c = macroQueue[m];
+                MacroEntryMetric c =(MacroEntryMetric) macroQueue[m];
                 currentPlugin = (IMetricOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.mementoName);
                 currentMemento = PluginManager.pluginManager.getMemento((String)c.pluginName, (String)c.mementoName);
                 while (i < totalFrames)
@@ -123,44 +117,6 @@ namespace Oqat.ViewModel.Macro
             // TODO: event analyse finished
         }
 
-        public string namePlugin
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public PluginType type
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public Dictionary<EventType, List<Delegate>> getEventHandlers()
-        {
-            throw new NotImplementedException();
-        }
-
-        public PublicRessources.Model.Memento getMemento()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void setMemento(PublicRessources.Model.Memento memento)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 

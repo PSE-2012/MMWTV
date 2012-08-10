@@ -119,7 +119,7 @@ namespace Oqat.ViewModel.Macro
                     if (index != oldIndex)
                     {
                         //move Entry to drop position
-                        MacroEntryMetric movedEntry = this.macro.macroQueue[oldIndex];
+                        MacroEntryMetric movedEntry = (MacroEntryMetric)this.macro.macroQueue[oldIndex];
                         macro.macroQueue.RemoveAt(oldIndex);
                         macro.macroQueue.Insert(index, movedEntry);
                     }
@@ -129,7 +129,7 @@ namespace Oqat.ViewModel.Macro
             if (oldIndex < 0)
             {
                 //move Entry to drop position, from last (added with VM_Macro onEntrySelect())
-                MacroEntryMetric movedEntry = macro.macroQueue[macro.macroQueue.Count - 1];
+                MacroEntryMetric movedEntry = (MacroEntryMetric)macro.macroQueue[macro.macroQueue.Count - 1];
                 macro.macroQueue.RemoveAt(macro.macroQueue.Count - 1);
                 macro.macroQueue.Insert(index, movedEntry);
             }
@@ -141,7 +141,7 @@ namespace Oqat.ViewModel.Macro
             if (oldIndex >= 0)
             {
                 macroTable.SelectedIndex = oldIndex;
-                MacroEntryMetric selectedRow = this.macro.macroQueue[oldIndex];
+                MacroEntryMetric selectedRow = (MacroEntryMetric)this.macro.macroQueue[oldIndex];
                 if (selectedRow != null)
                 {
                     DragDropEffects allowedEffects = DragDropEffects.Move;

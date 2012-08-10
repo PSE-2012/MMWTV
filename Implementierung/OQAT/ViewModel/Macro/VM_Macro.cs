@@ -118,8 +118,8 @@
             //StartProcess += new StartProcessEventHandler(startProcess);
 
             delList = new List<RangeSelectionChangedEventHandler>();
-            this.macroFilter = new PF_MacroFilter();
-            this.macroMetric = new PM_MacroMetric();
+            this.macroFilter =(PF_MacroFilter) PluginManager.pluginManager.getPlugin<IMacro>("PF_MacroFilter");
+            this.macroMetric =(PM_MacroMetric)PluginManager.pluginManager.getPlugin<IMacro>("PM_MacroMetric");
         }
 
         /// <summary>
@@ -157,7 +157,7 @@
                 IVideoInfo vidInfo =(IVideoInfo) vidRef.vidInfo.Clone();
                 //TODO: where to save the new video?!?
                 string resultpath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                vidResult = new Video(false, resultpath+"\\newvideo.yuv", vidInfo, this.macroFilter.getPluginMementoList());
+                vidResult = new Video(false, resultpath+"\\newvideo.yuv", vidInfo, this.macroFilter.macroEntryList);
                 this.macroFilter.init(vidRef, vidResult);
                 this.macroFilter.process(vidRef, vidResult);
                 macroFilterControl.macroTable.IsEnabled = true;

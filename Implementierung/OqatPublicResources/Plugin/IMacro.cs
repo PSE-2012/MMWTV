@@ -12,11 +12,7 @@
     /// </summary>
 	public interface IMacro : IPlugin
 	{
-        /// <summary>
-        /// Returns names of plugins and mementos a macroplugin hides.
-        /// </summary>
-        /// <returns></returns>
-		List<MacroEntry> getPluginMementoList();
+
 	}
 }
 

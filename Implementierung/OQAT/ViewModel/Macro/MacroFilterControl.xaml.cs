@@ -139,7 +139,7 @@ namespace Oqat.ViewModel.Macro
                         RangeSlider sliderOld = this.macro.rsl[oldIndex];
 
                         //move Entry to drop position
-                        MacroEntryFilter movedEntry = this.macro.macroQueue[oldIndex];
+                        MacroEntryFilter movedEntry =(MacroEntryFilter) this.macro.macroQueue[oldIndex];
                         macro.macroQueue.RemoveAt(oldIndex);
                         macro.macroQueue.Insert(index, movedEntry);
                         
@@ -150,7 +150,7 @@ namespace Oqat.ViewModel.Macro
                         {
                             for (int i = index + 1; i <= oldIndex; i++)
                             {
-                                MacroEntryFilter oldRow = this.macro.macroQueue[i];
+                                MacroEntryFilter oldRow = (MacroEntryFilter)this.macro.macroQueue[i];
                                 sliderOld = this.macro.rsl[i];
                                 this.macro.rsl[i] = sliderTemp;
                                 sliderTemp = sliderOld;
@@ -201,7 +201,7 @@ namespace Oqat.ViewModel.Macro
             if (oldIndex < 0)
             {
                 //move Entry to drop position, from last (added with VM_Macro onEntrySelect())
-                MacroEntryFilter movedEntry = macro.macroQueue[macro.macroQueue.Count - 1];
+                MacroEntryFilter movedEntry = (MacroEntryFilter)macro.macroQueue[macro.macroQueue.Count - 1];
                 macro.macroQueue.RemoveAt(macro.macroQueue.Count - 1);
                 macro.macroQueue.Insert(index, movedEntry);
             }
@@ -213,7 +213,7 @@ namespace Oqat.ViewModel.Macro
             if (oldIndex >= 0)
             {
                 macroTable.SelectedIndex = oldIndex;
-                MacroEntryFilter selectedRow = this.macro.macroQueue[oldIndex];
+                MacroEntryFilter selectedRow = (MacroEntryFilter)this.macro.macroQueue[oldIndex];
                 if (selectedRow != null)
                 {
                     DragDropEffects allowedEffects = DragDropEffects.Move;
@@ -251,7 +251,7 @@ namespace Oqat.ViewModel.Macro
             RangeSelectionChangedEventHandler del;
             del = delegate(object sender2, RangeSelectionChangedEventArgs e2)
             {
-                MacroEntryFilter mfeTemp = macro.macroQueue[j];
+                MacroEntryFilter mfeTemp = (MacroEntryFilter)macro.macroQueue[j];
                 mfeTemp.startFrameRelative = ((double)e2.NewRangeStart / 500) * 100;
                 mfeTemp.endFrameRelative = ((double)e2.NewRangeStop / 500) * 100;
                 
@@ -261,8 +261,8 @@ namespace Oqat.ViewModel.Macro
                 // TODO: BUGFIX
 
                 this.macro.macroQueue[j] = mfeTemp;
-                this.macro.macroQueue[j].startFrameRelative = mfeTemp.startFrameRelative;
-                this.macro.macroQueue[j].endFrameRelative = mfeTemp.endFrameRelative;
+                ((MacroEntryFilter)this.macro.macroQueue[j]).startFrameRelative = mfeTemp.startFrameRelative;
+                ((MacroEntryFilter)this.macro.macroQueue[j]).endFrameRelative = mfeTemp.endFrameRelative;
             };
             rs.RangeSelectionChanged += del;
             delList.Add(del);

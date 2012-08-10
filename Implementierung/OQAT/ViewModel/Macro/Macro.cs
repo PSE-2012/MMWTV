@@ -14,11 +14,12 @@ namespace Oqat.ViewModel.Macro
     using AC.AvalonControlsLibrary.Controls;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
 
     /// <summary>
     /// This class implements the IMacro interface, see <see cref="IMacro"/> for further information
     /// </summary>
-    public abstract class Macro : IMacro, IPlugin
+    public abstract class Macro : IMacro, IPlugin, INotifyPropertyChanged
     {
         string namePlugin
         {
@@ -28,19 +29,36 @@ namespace Oqat.ViewModel.Macro
             }
         }
 
-        /// <summary>
-        /// The Macro Queue, with Pluginnames and Mementonames
-        /// </summary>
-        //internal DataTable macroQueue;
-        //internal ObservableCollection<MacroEntry> macroQueue;
-        internal List<MacroEntry> macroEntryList;
-
-
-        internal Macro()
-        {
-        }
 
         public UserControl macroControl;
+
+        internal ObservableCollection<MacroEntry> macroQueue;
+        internal List<MacroEntry> macroEntryList
+        {
+            get
+            {
+                return macroQueue.ToList();
+            }
+            set
+            {
+                if (value != null)
+                {
+                    macroQueue = new ObservableCollection<MacroEntry>(value);
+                }
+                else
+                {
+                    macroQueue = new ObservableCollection<MacroEntry>();
+                }
+                NotifyPropertyChanged("macroQueue");
+            }
+        }
+
+        public Macro()
+        {
+
+        }
+
+        
 
         public UserControl propertyView
         {
@@ -51,24 +69,13 @@ namespace Oqat.ViewModel.Macro
         }
 
 
-
-        /// <summary>
-        /// Returns names of plugins and mementos a macroplugin hides.
-        /// </summary>
-        /// <returns>List of Macro Entrys</returns>
-        public List<MacroEntry> getPluginMementoList()
-        {
-            return macroEntryList;
-        }
-
-
         /// <summary>
         /// Get a Macro Memento
         /// </summary>
         /// <returns>A Macro Memento</returns>
         public Memento getMemento()
         {
-            return new Memento(this.namePlugin, this.getPluginMementoList());
+            return new Memento(this.namePlugin, this.macroQueue.ToArray());
         }
 
         /// <summary>
@@ -80,7 +87,14 @@ namespace Oqat.ViewModel.Macro
             this.macroEntryList = (List<MacroEntry>)memento.state;
         }
 
-
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
     }
 }
 
