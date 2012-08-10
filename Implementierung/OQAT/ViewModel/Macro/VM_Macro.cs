@@ -104,8 +104,6 @@
             }
         }
 
-        internal delegate void MacroSaveEventHandler(object sender, EntryEventArgs e);
-        internal event MacroSaveEventHandler MacroSave;
         internal delegate void EntrySelectEventHandler(object sender, EventArgs e);
         internal event EntrySelectEventHandler EntrySelect;
         //internal delegate void StartProcessEventHandler(object sender, EventArgs e);
@@ -117,7 +115,6 @@
             PluginManager.OqatToggleView += this.onToggleView;
             PluginManager.macroEntryAdd += this.onEntrySelect;
 
-            MacroSave += new MacroSaveEventHandler(macroSave);
             //StartProcess += new StartProcessEventHandler(startProcess);
 
             delList = new List<RangeSelectionChangedEventHandler>();
@@ -202,29 +199,7 @@
             }
         }
 
-        /// <summary>
-        /// Raised if user wishes to save current macroQueue for later use.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">name the new macro should have.</param>
-        internal void onMacroSave(object sender, EntryEventArgs e)
-        {
-            MacroSave(sender, e);
-        }
 
-        private void macroSave(object sender, EntryEventArgs e)
-        {
-            if (this.viewType == ViewType.FilterView)
-            {
-                //convert datatable macro entry column to list of macroEntrys
-                List<MacroEntry> macroEntryList = this.macroFilter.getPluginMementoList();
-                // save the macro filter
-                this.macroFilter.createNewMemento(macroEntryList, e.Entry);
-            }
-            if (this.viewType == ViewType.MetricView)
-            {
 
-            }
-        }
     }
 }

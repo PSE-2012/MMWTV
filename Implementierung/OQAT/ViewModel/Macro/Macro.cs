@@ -101,6 +101,28 @@ namespace Oqat.ViewModel.Macro
             throw new NotImplementedException();
             //this.macroMemento = memento;
         }
+
+
+        public bool saveMacro(string macroType, string mementoName)
+        {
+            Memento mem = this.getMemento();
+            mem.name = mementoName;
+
+            /*
+            if (PluginManager.pluginManager.getMemento(macroType, mementoName) != null)
+            {
+                PluginManager.pluginManager.addMemento(mem.parent.name, mem);
+            }
+
+
+            //convert datatable macro entry column to list of macroEntrys
+            List<MacroEntry> macroEntryList = this.macroFilter.getPluginMementoList();
+            // save the macro filter
+            this.macroFilter.createNewMemento(macroEntryList, e.Entry);
+            */
+
+            return true;
+        }
     }
 }
 

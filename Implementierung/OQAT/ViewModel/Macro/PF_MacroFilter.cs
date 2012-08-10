@@ -12,6 +12,12 @@ namespace Oqat.ViewModel.Macro
     using System.Data;
     using System.Windows.Controls;
     using AC.AvalonControlsLibrary.Controls;
+    using System.ComponentModel.Composition;
+
+    
+    [ExportMetadata("namePlugin", "PF_MacroFilter")]
+    [ExportMetadata("type", PluginType.IFilterOqat)]
+    [Export(typeof(IPlugin))]
 
     /// <summary>
     /// This class is a implementation of IFilterOqat, <see cref="IFilterOqat"/> for further informations.

@@ -90,7 +90,10 @@ namespace Oqat.ViewModel.Macro
             macroTable.Drop += new DragEventHandler(macroTable_Drop);
         }
 
-        //Drag'N'Drop start#
+
+
+        #region drag'n'drop
+
         private int oldIndex = -1;
         private delegate Point GetPositionDelegate(IInputElement element);
 
@@ -274,13 +277,14 @@ namespace Oqat.ViewModel.Macro
                 }
             }
         }
-        //Drag'N'Drop end#
+
+        #endregion
+
+
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            MacroSaveDialog msd = new MacroSaveDialog();
-            msd.vmmacro = vmmacro;
-            msd.Visibility = System.Windows.Visibility.Visible;
+            this.macro.saveMacro("PF_MacroFilter", this.tbMacroName.Text);
         }
 
         public void updateSliders()
