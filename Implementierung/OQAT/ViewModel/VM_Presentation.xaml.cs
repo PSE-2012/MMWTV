@@ -26,7 +26,7 @@ namespace Oqat.ViewModel
         IPresentation _playerProc;
         IPresentation _playerRef;
         IPresentation _diagram;
-        VM_Macro vm_macro;
+        internal VM_Macro vm_macro;
 
         ViewType vtype;
 

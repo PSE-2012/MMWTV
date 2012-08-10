@@ -24,18 +24,17 @@ namespace Oqat.ViewModel.Macro
     /// Besides this class inherits from the abstract class <see cref="Macro"/> which in turn
     /// only implements IMacro, see <see cref="IMacro"/> for further informations.
     /// </summary>
-    public class PF_MacroFilter : Macro, IFilterOqat
+    public class PF_MacroFilter : Macro, IFilterOqat, IPlugin
     {
-        internal List<RangeSlider> rsl;
-        public MacroFilterControl macroControl;
-
-        public UserControl propertyView
+        string namePlugin 
         {
             get
             {
-                return macroControl;
+                return "PF_MacroFilter";
             }
         }
+
+        internal List<RangeSlider> rsl;
 
         public PF_MacroFilter()
         {
@@ -46,12 +45,11 @@ namespace Oqat.ViewModel.Macro
             macroQueue.Columns.Add("Properties", typeof(String));
             macroQueue.Columns.Add("Macro Entry", typeof(MacroEntryFilter));
             rsl = new List<RangeSlider>();
+
+            macroControl = new MacroFilterControl(this);
         }
 
-        public System.Drawing.Bitmap process(System.Drawing.Bitmap frame) // TODO: What should this method actually be used for?
-        {
-            throw new NotImplementedException();
-        }
+
 
         private IVideoHandler refHand;
         private IVideoHandler resultHand;
@@ -157,39 +155,13 @@ namespace Oqat.ViewModel.Macro
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult));
         }
 
-        public string namePlugin
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
 
-        public PluginType type
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public Dictionary<EventType, List<Delegate>> getEventHandlers()
+        public System.Drawing.Bitmap process(System.Drawing.Bitmap frame) // TODO: What should this method actually be used for?
         {
             throw new NotImplementedException();
         }
 
-        public PublicRessources.Model.Memento getMemento()
-        {
-            throw new NotImplementedException();
-        }
+
 
         public List<MacroEntry> getPluginMementoList()
         {
@@ -200,11 +172,6 @@ namespace Oqat.ViewModel.Macro
                 macroEntryList.Add(newEntry);
             }
             return macroEntryList;
-        }
-
-        public void setMemento(PublicRessources.Model.Memento memento)
-        {
-            throw new NotImplementedException();
         }
 
     }

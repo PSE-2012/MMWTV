@@ -12,23 +12,11 @@
     /// </summary>
 	public interface IMacro : IPlugin
 	{
-
-        void createNewMemento(List<MacroEntry> macroEntrys, string mementoName);
-
         /// <summary>
         /// Returns names of plugins and mementos a macroplugin hides.
         /// </summary>
         /// <returns></returns>
 		List<MacroEntry> getPluginMementoList();
-
-        /// <summary>
-        /// As the properties view of a macroplugin does not contained properties but plugins hidden by a particular
-        /// macro this delegate is responsible for opening the properties view of the plugin the user clicks on (in
-        /// the properties view of a macro).
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void onPluginEntrySelected(object sender, EventArgs e);
 	}
 }
 

@@ -253,6 +253,7 @@
         /// All composable parts found by MEF will be placed here.
         /// </summary>
         private DirectoryCatalog pluginCatalog;
+        private AggregateCatalog catalog;
 
         /// <summary>
         /// FileSystemWatcher to monitor changes within the pluginPath folder.
@@ -423,6 +424,9 @@
             try
             {
                 pluginCatalog = new DirectoryCatalog(PLUGIN_PATH);
+                catalog = new AggregateCatalog(
+                    pluginCatalog,
+                    new AssemblyCatalog(System.Reflection.Assembly.GetExecutingAssembly()));
             }
             catch (Exception exc)
             {
@@ -431,7 +435,7 @@
             }
             try
             {
-                pluginContainer = new CompositionContainer(pluginCatalog);
+                pluginContainer = new CompositionContainer(catalog);
                 pluginContainer.ComposeParts(this);
 
                 watcher = new FileSystemWatcher(PLUGIN_PATH);

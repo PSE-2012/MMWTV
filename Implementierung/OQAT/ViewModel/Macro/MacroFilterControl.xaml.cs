@@ -63,11 +63,12 @@ namespace Oqat.ViewModel.Macro
             ScrollViewer1.ScrollToVerticalOffset(e.VerticalOffset);
         }
 
-        public MacroFilterControl(PF_MacroFilter macro, VM_Macro vmmacro)
+        public MacroFilterControl(PF_MacroFilter macro)
         {
-            this.macro = macro;
-            this.vmmacro = vmmacro;
             InitializeComponent();
+
+            this.macro = macro;
+            
             DataTable macroEntryTable = macro.macroQueue;
             GridView gv = new GridView();
             foreach (DataColumn c in this.macro.macroQueue.Columns)
@@ -284,7 +285,7 @@ namespace Oqat.ViewModel.Macro
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            this.macro.saveMacro("PF_MacroFilter", this.tbMacroName.Text);
+            //this.macro.saveMacro("PF_MacroFilter", this.tbMacroName.Text);
         }
 
         public void updateSliders()

@@ -74,7 +74,7 @@
         {
             get
             {
-                return this.macroFilter.macroControl;
+                return this.macroFilter.macroControl as MacroFilterControl;
             }
         }
         
@@ -82,7 +82,7 @@
         {
             get
             {
-                return this.macroMetric.macroControl;
+                return this.macroMetric.macroControl as MacroMetricControl;
             }
         }
 
@@ -120,8 +120,6 @@
             delList = new List<RangeSelectionChangedEventHandler>();
             this.macroFilter = new PF_MacroFilter();
             this.macroMetric = new PM_MacroMetric();
-            this.macroFilter.macroControl = new MacroFilterControl(macroFilter, this);
-            this.macroMetric.macroControl = new MacroMetricControl(macroMetric, this);
         }
 
         /// <summary>
@@ -189,9 +187,9 @@
                 rs.Height = 17.29; // this height fits the height of the data rows in the macro table
                 this.macroFilter.macroQueue.Rows.Add(startValue, stopValue, mfe.pluginName, mfe.mementoName, mfe);
                 int j = this.macroFilter.macroQueue.Rows.Count - 1;
-                this.macroFilter.macroControl.addDelegate(rs, j, delList);
+                //this.macroFilter.macroControl.addDelegate(rs, j, delList);
                 this.macroFilter.rsl.Add(rs);
-                this.macroFilter.macroControl.updateSliders();
+                //this.macroFilter.macroControl.updateSliders();
             }
             if (this.viewType == ViewType.MetricView)
             {

@@ -13,8 +13,10 @@ using System.Windows.Shapes;
 
 using Oqat.ViewModel.Macro;
 using Oqat.Model;
+using Oqat.PublicRessources.Model;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+
 namespace Oqat.ViewModel
 {
     /// <summary>
@@ -37,8 +39,13 @@ namespace Oqat.ViewModel
             this.welcomePanel.Children.Add(vM_Welcome);
 
             //  initPluginLists
-            this.tabFilter.Content = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IFilterOqat);
-            this.tabMetric.Content = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IMetricOqat);
+            VM_PluginsList filters = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IFilterOqat);
+            this.tabFilter.Content = filters;
+            filters.macroLoaded += onMacroFilterLoad;
+
+            VM_PluginsList metrics = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IMetricOqat);
+            this.tabMetric.Content = metrics;
+            metrics.macroLoaded += onMacroMetricLoad;
 
             //  initPresentation
             this.vM_presentation = new VM_Presentation();
@@ -101,6 +108,22 @@ namespace Oqat.ViewModel
 #endregion
 
 
+
+
+        private void onMacroFilterLoad(object sender, MementoEventArgs e)
+        {
+            Memento mem = PluginManager.pluginManager.getMemento(e.pluginKey, e.mementoName);
+            if (mem != null)
+                vM_presentation.vm_macro.macroFilter.setMemento(mem);
+        }
+        private void onMacroMetricLoad(object sender, MementoEventArgs e)
+        {
+            Memento mem = PluginManager.pluginManager.getMemento(e.pluginKey, e.mementoName);
+            if (mem != null)
+            {
+                //TODO: vM_presentation.vm_macro.macroMetric.setMemento(mem);
+            }
+        }
 
 
         public void onNewProjectCreated(object sender, ProjectEventArgs e)

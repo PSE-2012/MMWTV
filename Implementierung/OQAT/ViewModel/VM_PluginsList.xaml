@@ -27,14 +27,14 @@
             </TreeView.Resources>
         </TreeView>
 
-        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="bttAddToMacro" Visibility="Collapsed" Click="bttAddToMacro_Click">zu Macro hinzufügen</Button>
+        <Button Grid.Row="1" Visibility="Collapsed" Name="bttAddToMacro" Click="bttAddToMacro_Click">zu Macro hinzufügen</Button>
 
         <Grid Grid.Row="2" Name="panelMementoSave" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-
+            
             <ScrollViewer Grid.Row="0"  Name="gridPluginProperties" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -48,13 +48,13 @@
                 </Grid.RowDefinitions>
                 <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Name="tbMementoName" Margin="3" Text=""/>
                 <Button Grid.Row="1" Grid.Column="0" Name="bttSaveMemento" Margin="3" Click="bttSaveMemento_Click">
-                    <Image Source="/OqatPublicResources;component/Resources/icons/save.png"/>
+                    <Image Source="/OqatPublicRessources;component/Resources/icons/save.png"/>
                 </Button>
                 <Button Grid.Row="1" Grid.Column="1" Name="bttCopyMemento" Margin="3" Click="bttCopyMemento_Click">
-                    <Image Source="/OqatPublicResources;component/Resources/icons/copy.png"/>
+                    <Image Source="/OqatPublicRessources;component/Resources/icons/copy.png"/>
                 </Button>
                 <Button Grid.Row="1" Grid.Column="2" Name="bttDeleteMemento" Margin="3" Click="bttDeleteMemento_Click">
-                    <Image Source="/OqatPublicResources;component/Resources/icons/delete.png"/>
+                    <Image Source="/OqatPublicRessources;component/Resources/icons/delete.png"/>
                 </Button>
             </Grid> 
         </Grid>

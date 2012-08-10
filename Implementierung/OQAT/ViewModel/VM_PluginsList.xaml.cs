@@ -45,7 +45,13 @@ namespace Oqat.ViewModel
                 return (PluginViewModel)this.treePlugins.SelectedItem;
             }
         }
-        bool copied;
+        PluginViewModel activeMacroPVM;
+
+        public delegate void macroLoadHandler(object sender, MementoEventArgs e);
+        public event macroLoadHandler macroLoaded;
+
+        Panel panelMacroPropertyView;
+        Panel panelMacroPropertyViewCurrent;
 
 
         public VM_PluginsList(PluginType plugintype)
@@ -58,6 +64,11 @@ namespace Oqat.ViewModel
 
             loadPluginLists();
             this.treePlugins.ItemsSource = pluginList;
+
+
+            //define panels for macro view
+            panelMacroPropertyView = System.Windows.Markup.XamlReader.Parse("<StackPanel Name=\"gridMacroPropertyView\"><Label>Nur das momentan gesetzte Macro kann bearbeitet und kopiert werden.</Label><Button Name=\"bttLoadAsMacro\" Click=\"bttLoadAsMacro_Click\">als aktives Macro laden</Button><Button Name=\"bttSwitchToCurrentMacro\" Click=\"bttSwitchToCurrentMacro_Click\">momentan aktives Macro bearbeiten</Button></StackPanel>") as Panel;
+            panelMacroPropertyViewCurrent = System.Windows.Markup.XamlReader.Parse("<StackPanel x:Name=\"gridCurrentMacroPropertyView\"><Label>Das momentan aktive Macro</Label></StackPanel>") as Panel;
         }
 
         /// <summary>
@@ -99,6 +110,8 @@ namespace Oqat.ViewModel
             {
                 if (p.parent.name == pluginName)
                 {
+                    if (mementoName == null) return p.parent;
+
                     foreach (PluginViewModel pc in p.children)
                     {
                         if (pc.name == mementoName)
@@ -129,24 +142,40 @@ namespace Oqat.ViewModel
             selectedPlugin = PluginManager.pluginManager.getPlugin<IPlugin>(selectedPVM.parent.name);
             if (selectedPVM.isMemento)
             {
-                Memento m = PluginManager.pluginManager.getMemento(selectedPVM.parent.name, selectedPVM.name);
-                if (m != null)
+                if (selectedPlugin is IMacro)
                 {
-                    selectedPlugin.setMemento(m);
+                    if(selectedPVM == activeMacroPVM)
+                    {
+                        this.gridPluginProperties.Content = panelMacroPropertyViewCurrent;
+                    }
+                    else
+                    {
+                        this.gridPluginProperties.Content = panelMacroPropertyView;
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Die Einstellungen konnten nicht gefunden werden.");
+                    Memento m = PluginManager.pluginManager.getMemento(selectedPVM.parent.name, selectedPVM.name);
+                    if (m != null)
+                    {
+                        selectedPlugin.setMemento(m);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Die Einstellungen konnten nicht gefunden werden.");
 
-                    //remove the broken entry
-                    selectedPVM.parent.children.Remove(selectedPVM);
+                        //remove the broken entry
+                        selectedPVM.parent.children.Remove(selectedPVM);
+                    }
+
+                    this.gridPluginProperties.Content = selectedPlugin.propertyView;
                 }
             }
 
             
-            this.gridPluginProperties.Content = selectedPlugin.propertyView;
+            
             this.tbMementoName.Text = selectedPVM.name;
-            if (selectedPlugin.propertyView == null)
+            if (gridPluginProperties.Content == null)
             {
                 this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
             }
@@ -249,10 +278,13 @@ namespace Oqat.ViewModel
             //focus the saved memento
             memento.selected = true;
 
-            copied = false;
             return true;
         }
 
+        /// <summary>
+        /// Prepares the selected plugin memento and adds it to the active macro.
+        /// </summary>
+        /// <param name="memento"></param>
         private void mementoAddToMacro(PluginViewModel memento)
         {
             if (mementoSave(memento))
@@ -261,6 +293,7 @@ namespace Oqat.ViewModel
                     new MementoEventArgs(this.tbMementoName.Text, memento.parent.name));
             }
         }
+
 
 
         #region OQAT Events
@@ -312,6 +345,22 @@ namespace Oqat.ViewModel
         {
             if (selectedPVM == ((PluginViewModel)((TreeViewItem)e.Source).Header))
                 mementoAddToMacro(selectedPVM);
+        }
+
+        private void bttLoadAsMacro_Click(object sender, RoutedEventArgs e)
+        {
+            macroLoaded(this, new MementoEventArgs(selectedPVM.name, selectedPVM.parent.name));
+            activeMacroPVM = selectedPVM;
+        }
+
+        private void bttSwitchToCurrentMacro_Click(object sender, RoutedEventArgs e)
+        {
+            if (activeMacroPVM == null)
+            {
+                //select parent MacroPlugin (always last entry in list)
+                activeMacroPVM = pluginList.Last();
+            }
+            activeMacroPVM.selected = true;
         }
 
     }
