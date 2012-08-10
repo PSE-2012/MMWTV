@@ -17,7 +17,8 @@ using System.Windows.Controls.Primitives;
 using System.Data;
 using AC.AvalonControlsLibrary.Controls;
 using System.Collections.ObjectModel;
-
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace Oqat.ViewModel.Macro
 {
@@ -79,6 +80,8 @@ namespace Oqat.ViewModel.Macro
 
             macroTable.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(macroTable_MouseLeftButtonDown);
             macroTable.Drop += new DragEventHandler(macroTable_Drop);
+
+            
         }
 
         //Drag'N'Drop start#
@@ -258,6 +261,9 @@ namespace Oqat.ViewModel.Macro
                 
                 if (mfeTemp.startFrameRelative > 100) mfeTemp.startFrameRelative = 0; // slider values go out of range for some reason -> bugfix
                 if (mfeTemp.endFrameRelative < 0) mfeTemp.endFrameRelative = 100; // slider values go out of range for some reason -> bugfix
+
+                // TODO: BUGFIX
+
                 this.macro.macroQueue[j] = mfeTemp;
                 this.macro.macroQueue[j].startFrameRelative = mfeTemp.startFrameRelative;
                 this.macro.macroQueue[j].endFrameRelative = mfeTemp.endFrameRelative;

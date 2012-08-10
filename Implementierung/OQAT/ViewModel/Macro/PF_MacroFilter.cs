@@ -12,10 +12,14 @@ namespace Oqat.ViewModel.Macro
     using System.Data;
     using System.Windows.Controls;
     using AC.AvalonControlsLibrary.Controls;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.Composition;
+    using System.Collections.Specialized;
+    using System.ComponentModel;
 
-
+    [ExportMetadata("namePlugin", "PF_MacroFilter")]
+    [ExportMetadata("type", PluginType.IFilterOqat)]
+    [Export(typeof(IPlugin))]
     /// <summary>
     /// This class is a implementation of IFilterOqat, <see cref="IFilterOqat"/> for further informations.
     /// Besides this class inherits from the abstract class <see cref="Macro"/> which in turn
@@ -38,13 +42,27 @@ namespace Oqat.ViewModel.Macro
         public PF_MacroFilter()
         {
             macroQueue = new ObservableCollection<MacroEntryFilter>();
-            /**macroQueue = new ObservableCollection();
-            macroQueue.Columns.Add("Start", typeof(Double));
-            macroQueue.Columns.Add("Stop", typeof(Double));
-            macroQueue.Columns.Add("Filter", typeof(String));
-            macroQueue.Columns.Add("Properties", typeof(String));
-            macroQueue.Columns.Add("Macro Entry", typeof(MacroEntryFilter));**/
             rsl = new List<RangeSlider>();
+            this.macroQueue.CollectionChanged += macroQueue_collectionChanged;
+        }
+
+        private void macroQueue_collectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e != null)
+            {
+                if (e.OldItems != null)
+                    foreach (INotifyPropertyChanged item in e.OldItems)
+                        item.PropertyChanged -= item_PropertyChanged;
+                if (e.NewItems != null)
+                    foreach (INotifyPropertyChanged item in e.NewItems)
+                        item.PropertyChanged += item_PropertyChanged;
+            }
+        }
+
+        private void item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var reset = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+            // this.macroQueue.OnCollectionChanged(reset);
         }
 
         public System.Drawing.Bitmap process(System.Drawing.Bitmap frame) // TODO: What should this method actually be used for?
@@ -120,7 +138,7 @@ namespace Oqat.ViewModel.Macro
 
         public void process(Video vidRef, Video vidResult)
         {
-            BUFFERSIZE = 300;
+            BUFFERSIZE = 127;
             while (i < totalFrames)
             {
                 if ((i + BUFFERSIZE - totalFrames) > 0)
@@ -131,8 +149,6 @@ namespace Oqat.ViewModel.Macro
                 {
                     resultFrames = refHand.getFrames(i, BUFFERSIZE); // initialize the first BUFFERSIZE frames to be processed
                 }
-                
-                
                 foreach (MacroEntryFilter c in macroQueue)
                 {
                     // here maybe error handling in case the plugin doesn't implement IFilterOqat, although plugin lists has probably checked that already
@@ -148,9 +164,7 @@ namespace Oqat.ViewModel.Macro
                         mementoProcess(currentMemento);
                     }
                 }
-            resultFrames = refHand.getFrames(0, 300);
-            var x = resultFrames[0].GetPixel(5, 5);
-            resultHand.writeFrames(0, resultFrames); // write the processed frames to disk
+            resultHand.writeFrames(i, resultFrames); // write the processed frames to disk
             i += BUFFERSIZE;
             }
             resultFrames = null;
@@ -210,8 +224,6 @@ namespace Oqat.ViewModel.Macro
         {
             throw new NotImplementedException();
         }
-
     }
-
 }
 
