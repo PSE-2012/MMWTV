@@ -47,6 +47,14 @@
             }
         }
 
+        public MacroEntryMetric(string pluginName, string mementoName, IVideo vidRef, IVideo vidProc)
+        {
+            this._pluginName = pluginName;
+            this._mementoName = mementoName;
+            this._vidRef = vidRef;
+            this._vidProc = vidProc;
+        }
+
 	}
 }
 

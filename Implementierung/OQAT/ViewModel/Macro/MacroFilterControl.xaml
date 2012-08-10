@@ -16,8 +16,18 @@
         </Grid.ColumnDefinitions>
         <ScrollViewer Grid.Row="0" Grid.Column="0" Name="ScrollViewer1" VerticalAlignment="Top" ScrollChanged="scroll" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
             <Grid>
-                <ListView HorizontalAlignment="Stretch" FontSize="13" Name="macroTable" AllowDrop="True" SelectionMode="Extended">
-                </ListView>
+                <StackPanel>
+                    <ListView Name ="macroTable" ItemsSource="{Binding macroTable}" HorizontalAlignment="Stretch" FontSize="13" AllowDrop="True" SelectionMode="Extended">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn  Header="Plugin Name" DisplayMemberBinding="{Binding pluginName}"/>
+                                <GridViewColumn  Header="Memento Name" DisplayMemberBinding="{Binding mementoName}"/>
+                                <GridViewColumn  Header="Start Frame" DisplayMemberBinding="{Binding startFrameRelative}"/>
+                                <GridViewColumn  Header="End Frame" DisplayMemberBinding="{Binding endFrameRelative}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
             </Grid>
         </ScrollViewer>
         <ScrollViewer Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Name="ScrollViewer2" ScrollChanged="scroll2" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
@@ -26,16 +36,12 @@
                 </ListView>
             </Grid>
         </ScrollViewer>
-        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-
-            <TextBox Grid.Column="0" Name="tbMacroName"/>
-            <Button Grid.Column="1" Name="savebutton" Content="Save Macrofilter" Click="Save_Click" />
-            <Button Grid.Column="2" Name="deletebutton" Content="Delete Selected Entries" Click="Delete_Click" />
+            <Button Grid.Column="1" Name="deletebutton" Content="Delete Selected Entries" Click="Delete_Click"   HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ></Button>
         </Grid>
     </Grid>
 </UserControl>

@@ -17,7 +17,8 @@ using System.Windows.Controls.Primitives;
 using System.Data;
 using AC.AvalonControlsLibrary.Controls;
 using System.Collections.ObjectModel;
-
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace Oqat.ViewModel.Macro
 {
@@ -69,24 +70,12 @@ namespace Oqat.ViewModel.Macro
 
             this.macro = macro;
             
-            DataTable macroEntryTable = macro.macroQueue;
-            GridView gv = new GridView();
-            foreach (DataColumn c in this.macro.macroQueue.Columns)
-            {
-                if (c.ColumnName != "Macro Entry")
-                {
-                    GridViewColumn gvColumn = new GridViewColumn();
-                    gvColumn.DisplayMemberBinding = new Binding(c.ColumnName);
-                    gvColumn.Header = c.ColumnName;
-                    gv.Columns.Add(gvColumn);
-                }
-            }
-            macroTable.View = gv;
             macroTable.DataContext = this.macro.macroQueue;
             Binding bind = new Binding();
             macroTable.SetBinding(ListView.ItemsSourceProperty, bind);
             updateSliders();
             this.DataContext = this.macro;
+
             macroTable.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(macroTable_MouseLeftButtonDown);
             macroTable.Drop += new DragEventHandler(macroTable_Drop);
         }
@@ -138,56 +127,32 @@ namespace Oqat.ViewModel.Macro
 
         private void macroTable_Drop(object sender, DragEventArgs e)
         {
+            int index = this.GetCurrentIndex(e.GetPosition);
             if (oldIndex >= 0)
             {
-                int index = this.GetCurrentIndex(e.GetPosition);
+                
                 if (index >= 0)
                 {
                     if (index != oldIndex)
                     {
                         macroTable.IsEnabled = false;
                         RangeSlider sliderOld = this.macro.rsl[oldIndex];
-                        DataRow oldRow = this.macro.macroQueue.Rows[oldIndex];
-                        double startOld = (double) oldRow["Start"];
-                        double stopOld = (double) oldRow["Stop"];
-                        string filterOld = (string) oldRow["Filter"];
-                        string propertiesOld = (string) oldRow["Properties"];
-                        MacroEntryFilter macroentryOld = (MacroEntryFilter) oldRow["Macro Entry"];
-                        DataRow tempRow = this.macro.macroQueue.Rows[index];
-                        double startTemp = (double)tempRow["Start"];
-                        double stopTemp = (double)tempRow["Stop"];
-                        string filterTemp = (string)tempRow["Filter"];
-                        string propertiesTemp = (string)tempRow["Properties"];
-                        MacroEntryFilter macroentryTemp = (MacroEntryFilter)tempRow["Macro Entry"];
+
+                        //move Entry to drop position
+                        MacroEntryFilter movedEntry = this.macro.macroQueue[oldIndex];
+                        macro.macroQueue.RemoveAt(oldIndex);
+                        macro.macroQueue.Insert(index, movedEntry);
+                        
                         RangeSlider sliderTemp = this.macro.rsl[index];
-                        this.macro.macroQueue.Rows[index]["Start"] = startOld;
-                        this.macro.macroQueue.Rows[index]["Stop"] = stopOld;
-                        this.macro.macroQueue.Rows[index]["Filter"] = filterOld;
-                        this.macro.macroQueue.Rows[index]["Properties"] = propertiesOld;
-                        this.macro.macroQueue.Rows[index]["Macro Entry"] = macroentryOld;
+                        
                         this.macro.rsl[index] = sliderOld;
                         if (index < oldIndex)
                         {
                             for (int i = index + 1; i <= oldIndex; i++)
                             {
-                                oldRow = this.macro.macroQueue.Rows[i];
+                                MacroEntryFilter oldRow = this.macro.macroQueue[i];
                                 sliderOld = this.macro.rsl[i];
-                                startOld = (double)oldRow["Start"];
-                                stopOld = (double)oldRow["Stop"];
-                                filterOld = (string)oldRow["Filter"];
-                                propertiesOld = (string)oldRow["Properties"];
-                                macroentryOld = (MacroEntryFilter)oldRow["Macro Entry"];
-                                this.macro.macroQueue.Rows[i]["Start"] = startTemp;
-                                this.macro.macroQueue.Rows[i]["Stop"] = stopTemp;
-                                this.macro.macroQueue.Rows[i]["Filter"] = filterTemp;
-                                this.macro.macroQueue.Rows[i]["Properties"] = propertiesTemp;
-                                this.macro.macroQueue.Rows[i]["Macro Entry"] = macroentryTemp;
                                 this.macro.rsl[i] = sliderTemp;
-                                startTemp = startOld;
-                                stopTemp = stopOld;
-                                filterTemp = filterOld;
-                                propertiesTemp = propertiesOld;
-                                macroentryTemp = macroentryOld;
                                 sliderTemp = sliderOld;
                             }
                             List<RangeSelectionChangedEventHandler> tempList = new List<RangeSelectionChangedEventHandler>();
@@ -210,24 +175,7 @@ namespace Oqat.ViewModel.Macro
                         {
                             for (int i = index - 1; i >= oldIndex; i--)
                             {
-                                oldRow = this.macro.macroQueue.Rows[i];
-                                sliderOld = this.macro.rsl[i];
-                                startOld = (double)oldRow["Start"];
-                                stopOld = (double)oldRow["Stop"];
-                                filterOld = (string)oldRow["Filter"];
-                                propertiesOld = (string)oldRow["Properties"];
-                                macroentryOld = (MacroEntryFilter)oldRow["Macro Entry"];
-                                this.macro.macroQueue.Rows[i]["Start"] = startTemp;
-                                this.macro.macroQueue.Rows[i]["Stop"] = stopTemp;
-                                this.macro.macroQueue.Rows[i]["Filter"] = filterTemp;
-                                this.macro.macroQueue.Rows[i]["Properties"] = propertiesTemp;
-                                this.macro.macroQueue.Rows[i]["Macro Entry"] = macroentryTemp;
                                 this.macro.rsl[i] = sliderTemp;
-                                startTemp = startOld;
-                                stopTemp = stopOld;
-                                filterTemp = filterOld;
-                                propertiesTemp = propertiesOld;
-                                macroentryTemp = macroentryOld;
                                 sliderTemp = sliderOld;
                             }
                             List<RangeSelectionChangedEventHandler> tempList = new List<RangeSelectionChangedEventHandler>();
@@ -252,7 +200,10 @@ namespace Oqat.ViewModel.Macro
             }
             if (oldIndex < 0)
             {
-                //TODO: external drag and drop
+                //move Entry to drop position, from last (added with VM_Macro onEntrySelect())
+                MacroEntryFilter movedEntry = macro.macroQueue[macro.macroQueue.Count - 1];
+                macro.macroQueue.RemoveAt(macro.macroQueue.Count - 1);
+                macro.macroQueue.Insert(index, movedEntry);
             }
         }
 
@@ -262,7 +213,7 @@ namespace Oqat.ViewModel.Macro
             if (oldIndex >= 0)
             {
                 macroTable.SelectedIndex = oldIndex;
-                DataRow selectedRow = this.macro.macroQueue.Rows[oldIndex];
+                MacroEntryFilter selectedRow = this.macro.macroQueue[oldIndex];
                 if (selectedRow != null)
                 {
                     DragDropEffects allowedEffects = DragDropEffects.Move;
@@ -273,8 +224,8 @@ namespace Oqat.ViewModel.Macro
                         this.macroTable.SelectedItem = selectedRow;
                     }
 
-                    PluginManager.pluginManager.raiseEvent(EventType.macroEntrySelected,
-                        new MementoEventArgs(selectedRow["Properties"].ToString(), selectedRow["Filter"].ToString()));
+                    /**PluginManager.pluginManager.raiseEvent(EventType.macroEntrySelected,
+                        new MementoEventArgs(selectedRow["Properties"].ToString(), selectedRow["Filter"].ToString()));**/
                 }
             }
         }
@@ -282,11 +233,6 @@ namespace Oqat.ViewModel.Macro
         #endregion
 
 
-
-        private void Save_Click(object sender, RoutedEventArgs e)
-        {
-            //this.macro.saveMacro("PF_MacroFilter", this.tbMacroName.Text);
-        }
 
         public void updateSliders()
         {
@@ -305,21 +251,29 @@ namespace Oqat.ViewModel.Macro
             RangeSelectionChangedEventHandler del;
             del = delegate(object sender2, RangeSelectionChangedEventArgs e2)
             {
-                MacroEntryFilter mfeTemp = new MacroEntryFilter();
-                mfeTemp = (MacroEntryFilter)this.macro.macroQueue.Rows[j]["Macro Entry"];
+                MacroEntryFilter mfeTemp = macro.macroQueue[j];
                 mfeTemp.startFrameRelative = ((double)e2.NewRangeStart / 500) * 100;
                 mfeTemp.endFrameRelative = ((double)e2.NewRangeStop / 500) * 100;
-                if (mfeTemp.startFrameRelative > 100) mfeTemp.startFrameRelative = 100; // slider values go out of range for some reason -> bugfix
-                if (mfeTemp.endFrameRelative < 0) mfeTemp.endFrameRelative = 0; // slider values go out of range for some reason -> bugfix
-                this.macro.macroQueue.Rows[j]["Macro Entry"] = mfeTemp;
-                this.macro.macroQueue.Rows[j]["Start"] = mfeTemp.startFrameRelative;
-                this.macro.macroQueue.Rows[j]["Stop"] = mfeTemp.endFrameRelative;
+                
+                if (mfeTemp.startFrameRelative > 100) mfeTemp.startFrameRelative = 0; // slider values go out of range for some reason -> bugfix
+                if (mfeTemp.endFrameRelative < 0) mfeTemp.endFrameRelative = 100; // slider values go out of range for some reason -> bugfix
+
+                // TODO: BUGFIX
+
+                this.macro.macroQueue[j] = mfeTemp;
+                this.macro.macroQueue[j].startFrameRelative = mfeTemp.startFrameRelative;
+                this.macro.macroQueue[j].endFrameRelative = mfeTemp.endFrameRelative;
             };
             rs.RangeSelectionChanged += del;
             delList.Add(del);
         }
         
         private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            deleteSelected();
+        }
+
+        private void deleteSelected()
         {
             // Selecting multiple entries with ctrl doesn't work anymore ever since drag and drop was implemented. Shift requires double click
             while (macroTable.SelectedIndex != -1)
@@ -341,7 +295,7 @@ namespace Oqat.ViewModel.Macro
                     this.vmmacro.delList[i] += tempList[i - index];
                 }
                 updateSliders();
-                this.macro.macroQueue.Rows.RemoveAt(index);
+                this.macro.macroQueue.RemoveAt(index);
             }
         }
     }

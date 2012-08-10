@@ -12,6 +12,8 @@ namespace Oqat.ViewModel.Macro
     using Oqat.Model;
     using System.Data;
     using AC.AvalonControlsLibrary.Controls;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
     /// <summary>
     /// This class implements the IMacro interface, see <see cref="IMacro"/> for further information
@@ -29,8 +31,8 @@ namespace Oqat.ViewModel.Macro
         /// <summary>
         /// The Macro Queue, with Pluginnames and Mementonames
         /// </summary>
-        internal DataTable macroQueue;
-
+        //internal DataTable macroQueue;
+        //internal ObservableCollection<MacroEntry> macroQueue;
         internal List<MacroEntry> macroEntryList;
 
 

@@ -6,5 +6,19 @@
              mc:Ignorable="d">
 
     <Grid x:Name="grid">
+        <ScrollViewer Grid.Row="0" Grid.Column="0" Name="ScrollViewer1" VerticalAlignment="Top" ScrollChanged="scroll" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+            <Grid>
+                <StackPanel>
+                    <ListView Name ="macroTable" ItemsSource="{Binding macroTable}" HorizontalAlignment="Stretch" FontSize="13" AllowDrop="True" SelectionMode="Extended">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn  Header="Metric Name" DisplayMemberBinding="{Binding pluginName}"/>
+                                <GridViewColumn  Header="Memento Name" DisplayMemberBinding="{Binding mementoName}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </UserControl>
