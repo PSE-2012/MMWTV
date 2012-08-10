@@ -104,6 +104,8 @@
             }
         }
 
+        internal delegate void MacroSaveEventHandler(object sender, EntryEventArgs e);
+        internal event MacroSaveEventHandler MacroSave;
         internal delegate void EntrySelectEventHandler(object sender, EventArgs e);
         internal event EntrySelectEventHandler EntrySelect;
         //internal delegate void StartProcessEventHandler(object sender, EventArgs e);
@@ -115,6 +117,7 @@
             PluginManager.OqatToggleView += this.onToggleView;
             PluginManager.macroEntryAdd += this.onEntrySelect;
 
+            MacroSave += new MacroSaveEventHandler(macroSave);
             //StartProcess += new StartProcessEventHandler(startProcess);
 
             delList = new List<RangeSelectionChangedEventHandler>();
@@ -149,7 +152,7 @@
         {
             if (this.viewType == ViewType.MetricView)
             {
-                arrayVidResult = new Video[macroMetric.macroQueue.Rows.Count]; // setting paths of result videos?
+                arrayVidResult = new Video[macroMetric.macroQueue.Count]; // setting paths of result videos?
             }
             if (this.viewType == ViewType.FilterView)
             {
@@ -159,9 +162,11 @@
                 IVideoInfo vidInfo =(IVideoInfo) vidRef.vidInfo.Clone();
                 //TODO: where to save the new video?!?
                 string resultpath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                vidResult = new Video(false, resultpath+"/newvideo.yuv", vidInfo, this.macroFilter.getPluginMementoList());
+                vidResult = new Video(false, resultpath+"\\newvideo.yuv", vidInfo, this.macroFilter.getPluginMementoList());
                 this.macroFilter.init(vidRef, vidResult);
                 this.macroFilter.process(vidRef, vidResult);
+                macroFilterControl.macroTable.IsEnabled = true;
+                macroFilterControl.rangeSliders.IsEnabled = true;
             }
         }
 
@@ -173,12 +178,7 @@
                 long stopValue = 100;
                 long startValueSlider = 0;
                 long stopValueSlider = 500;
-                MacroEntryFilter mfe = new MacroEntryFilter();
-                mfe.pluginName = e.pluginKey;
-                mfe.mementoName = e.mementoName;
-                mfe.startFrameRelative = startValue;
-                mfe.endFrameRelative = stopValue;
-                // TODO: What does the slider do if the loaded plugin is a Macro Filter? Check for plugin name == "macro"?
+                MacroEntryFilter mEntryFilter = new MacroEntryFilter(e.pluginKey, e.mementoName, stopValue, startValue);
                 RangeSlider rs = new AC.AvalonControlsLibrary.Controls.RangeSlider();
                 rs.RangeStart = startValueSlider;
                 rs.RangeStop = stopValueSlider;
@@ -187,19 +187,43 @@
                 rs.MinRange = 1L;
                 rs.Width = 270; // TODO: changing width at runtime
                 rs.Height = 17.29; // this height fits the height of the data rows in the macro table
-                this.macroFilter.macroQueue.Rows.Add(startValue, stopValue, mfe.pluginName, mfe.mementoName, mfe);
-                int j = this.macroFilter.macroQueue.Rows.Count - 1;
+                this.macroFilter.macroQueue.Add(mEntryFilter);
+                int j = this.macroFilter.macroQueue.Count - 1;
                 this.macroFilter.macroControl.addDelegate(rs, j, delList);
                 this.macroFilter.rsl.Add(rs);
                 this.macroFilter.macroControl.updateSliders();
             }
             if (this.viewType == ViewType.MetricView)
             {
-
+                MacroEntryMetric mEntryMetric = new MacroEntryMetric(e.pluginKey, e.mementoName, this.vidRef, this.vidProc);
+                macroMetric.macroQueue.Add(mEntryMetric);
+                //TODO add Textbox for name to save on disc???
             }
         }
 
+        /// <summary>
+        /// Raised if user wishes to save current macroQueue for later use.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">name the new macro should have.</param>
+        internal void onMacroSave(object sender, EntryEventArgs e)
+        {
+            MacroSave(sender, e);
+        }
 
+        private void macroSave(object sender, EntryEventArgs e)
+        {
+            if (this.viewType == ViewType.FilterView)
+            {
+                //convert datatable macro entry column to list of macroEntrys
+                List<MacroEntry> macroEntryList = this.macroFilter.getPluginMementoList();
+                // save the macro filter
+                this.macroFilter.createNewMemento(macroEntryList, e.Entry);
+            }
+            if (this.viewType == ViewType.MetricView)
+            {
 
+            }
+        }
     }
 }

@@ -41,6 +41,14 @@ namespace Oqat.PublicRessources.Plugin
             }
         }
 
+        public MacroEntryFilter(string pluginName, string mementoName, double endFrameRelative, double startFrameRelative)
+        {
+            this._pluginName = pluginName;
+            this._mementoName = mementoName;
+            this._endFrameRelative = endFrameRelative;
+            this._startFrameRelative = startFrameRelative;
+        }
+
 	}
 }
 

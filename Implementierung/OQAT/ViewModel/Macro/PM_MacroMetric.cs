@@ -12,6 +12,8 @@ namespace Oqat.ViewModel.Macro
     using System.Windows.Controls;
     using System.Data;
     using System.Drawing;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
     /// <summary>
     /// This class is a implementation of IMetricOqat, <see cref="IMetricOqat"/> for further informations.
@@ -20,6 +22,7 @@ namespace Oqat.ViewModel.Macro
     /// </summary>
 	public class PM_MacroMetric : Macro, IMetricOqat
     {
+        internal ObservableCollection<MacroEntryMetric> macroQueue;
         public MacroMetricControl macroControl;
 
         public UserControl propertyView
@@ -37,9 +40,9 @@ namespace Oqat.ViewModel.Macro
 
         public PM_MacroMetric()
         {
-            macroQueue = new DataTable();
-            macroQueue.Columns.Add("Metric Name", typeof(String));
-            macroQueue.Columns.Add("Memento Name", typeof(String));
+            macroQueue = new ObservableCollection<MacroEntryMetric>();
+            /**macroQueue.Columns.Add("Metric Name", typeof(String));
+            macroQueue.Columns.Add("Memento Name", typeof(String));**/
         }
 
         private int BUFFERSIZE;
@@ -72,11 +75,11 @@ namespace Oqat.ViewModel.Macro
         public void analyse(Video vidRef, Video vidProc, Video[] vidResult)
         {
             // Warning: the method, implemented this way, does not support having another macrometric inside the list of metrics
-            for (int m = 0; m < macroQueue.Rows.Count; m++)
+            for (int m = 0; m < macroQueue.Count; m++)
             {
-                DataRow c = macroQueue.Rows[m];
-                currentPlugin = (IMetricOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c["Metric Name"]);
-                currentMemento = PluginManager.pluginManager.getMemento((String)c["Metric Name"], (String)c["Memento Name"]);
+                MacroEntryMetric c = macroQueue[m];
+                currentPlugin = (IMetricOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.mementoName);
+                currentMemento = PluginManager.pluginManager.getMemento((String)c.pluginName, (String)c.mementoName);
                 while (i < totalFrames)
                 {
                     if ((i + BUFFERSIZE - totalFrames) > 0)
