@@ -26,6 +26,7 @@ namespace PF_Invert
     using System.ComponentModel.Composition;
     using System.Windows.Controls;
     
+    using System.Drawing.Imaging;
 
     [ExportMetadata("namePlugin", "PF_Invert")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
@@ -41,7 +42,16 @@ namespace PF_Invert
         {
             AForge.Imaging.Filters.Invert filter = new AForge.Imaging.Filters.Invert();
             // apply the filter
+            Bitmap test = new Bitmap(frame.Width, frame.Height, PixelFormat.Format24bppRgb);
+
+            Graphics g = Graphics.FromImage(test);
+            g.DrawImage(frame, 0, 0);
+            g.Dispose();
+
+            frame = test;
+
             filter.ApplyInPlace(frame);
+           
             return frame;
         }
 

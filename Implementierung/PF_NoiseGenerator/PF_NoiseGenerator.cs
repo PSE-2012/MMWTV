@@ -21,7 +21,7 @@ namespace PF_NoiseGenerator
     using AForge.Math.Random;
 
     using System.Windows.Controls;
-
+    using System.Drawing.Imaging;
 
 
     [ExportMetadata("namePlugin", "PF_NoiseGenerator")]
@@ -48,7 +48,13 @@ namespace PF_NoiseGenerator
             IRandomNumberGenerator generator = new UniformGenerator(new Range(-1*propertiesView.getUp(), propertiesView.getUp()));
            
             AdditiveNoise filter = new AdditiveNoise(generator);
-          
+            Bitmap test = new Bitmap(frame.Width, frame.Height, PixelFormat.Format24bppRgb);
+
+            Graphics g = Graphics.FromImage(test);
+            g.DrawImage(frame, 0, 0);
+            g.Dispose();
+
+            frame = test;
             filter.ApplyInPlace(frame);
             return frame;
         }
