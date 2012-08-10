@@ -262,7 +262,7 @@ namespace PS_YuvVideoHandler
         public System.Drawing.Bitmap[] getFrames(int frameNm, int count)
         {
             //if buffer is smaller than requested number of frames, resize buffer
-            if (count > this.bufferSizeFrames) initBuffer(count);
+            //if (count > this.bufferSizeFrames) initBuffer(count);
 
             if (!Load(frameNm)) return null;
 
