@@ -24,20 +24,10 @@ namespace Oqat.ViewModel.Macro
 {
     public partial class MacroFilterControl : UserControl
     {
-        private PF_MacroFilter _macro;
-        private VM_Macro _vmmacro;
-
         public PF_MacroFilter macro
         {
-            get
-            {
-                return this._macro;
-            }
-
-            set
-            {
-                _macro = value;
-            }
+            get;
+            set;
         }
 
         // The user may drag the mouse over the Macro Table itself instead of using a scrollbar, in which case ScrollViewer2 needs to be synchronised.

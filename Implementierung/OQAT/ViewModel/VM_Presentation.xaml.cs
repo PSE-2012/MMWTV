@@ -44,7 +44,7 @@ namespace Oqat.ViewModel
             //init macro
             vm_macro = new VM_Macro();
 
-            //TODO custom PresentationPlugins
+
             this._custom = new List<IPresentation>();
 
 

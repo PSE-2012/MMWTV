@@ -5,6 +5,7 @@ namespace Oqat.ViewModel.Macro
 	using Oqat.PublicRessources.Plugin;
     using Oqat.PublicRessources.Model;
     using Oqat.Model;
+
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -14,6 +15,8 @@ namespace Oqat.ViewModel.Macro
     using System.Drawing;
     using System.Collections.ObjectModel;
     using System.ComponentModel.Composition;
+
+
 
     [ExportMetadata("namePlugin", "PM_MacroMetric")]
     [ExportMetadata("type", PluginType.IMetricOqat)]
@@ -26,12 +29,20 @@ namespace Oqat.ViewModel.Macro
     /// </summary>
 	public class PM_MacroMetric : Macro, IMetricOqat
     {
+        string namePlugin
+        {
+            get
+            {
+                return "PF_MacroFilter";
+            }
+        }
 
         internal ObservableCollection<MacroEntryMetric> macroQueue;
 
 
         public AnalysisInfo analyse(Bitmap frameRef, Bitmap frameProc)
         {
+            //TODO: Do we ever use a macro like a metric without checking if it is macro?
             throw new NotImplementedException();
         }
 
@@ -65,7 +76,8 @@ namespace Oqat.ViewModel.Macro
                 resHand[k] = vidResult[k].handler;
             }
             BUFFERSIZE = 255;
-            totalFrames = vidRef.vidInfo.frameCount; // TODO: do not allow the analyse if vidRef and vidProc have got a different frame count
+            //TODO: do not allow the analyse if vidRef and vidProc have got a different frame count
+            totalFrames = vidRef.vidInfo.frameCount;
             i = 0;
         }
 
@@ -117,9 +129,29 @@ namespace Oqat.ViewModel.Macro
             procFrames = null;
             analyseInfo = null;
             resultFrames = null;
-            // TODO: event analyse finished
+
+            //notify OQAT about finished analysis
+            foreach (Video v in vidResult)
+            {
+                PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished,
+                    new VideoEventArgs(v));
+            }
         }
 
+
+        public override Memento getMemento()
+        {
+            return new Memento(this.namePlugin, this.macroQueue.ToArray());
+        }
+
+        public override void setMemento(Memento memento)
+        {
+            this.macroQueue.Clear();
+            foreach (MacroEntryMetric f in ((MacroEntryMetric[])memento.state))
+            {
+                this.macroQueue.Add(f);
+            }
+        }
     }
 }
 

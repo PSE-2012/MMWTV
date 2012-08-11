@@ -31,7 +31,7 @@
             set;
         }
 
-        private PM_MacroMetric macroMetric
+        internal PM_MacroMetric macroMetric
         {
             get;
             set;
@@ -104,8 +104,6 @@
             }
         }
 
-        internal delegate void EntrySelectEventHandler(object sender, EventArgs e);
-        internal event EntrySelectEventHandler EntrySelect;
 
         public VM_Macro()
         {
@@ -147,11 +145,8 @@
             {
                 macroFilterControl.macroTable.IsEnabled = false;
                 macroFilterControl.rangeSliders.IsEnabled = false;
-                // TODO: don't forget to enable the table after processing is finished
                 IVideoInfo vidInfo =(IVideoInfo) vidRef.vidInfo.Clone();
-                //TODO: where to save the new video?!?
-                string resultpath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                vidResult = new Video(false, resultpath+"\\newvideo.yuv", vidInfo, this.macroFilter.macroQueue.ToList<MacroEntry>());
+                vidResult = new Video(false, getNewFileName(vidRef.vidPath, "filtered"), vidInfo, this.macroFilter.macroQueue.ToList<MacroEntry>());
                 this.macroFilter.init(vidRef, vidResult);
                 this.macroFilter.process(vidRef, vidResult);
                 macroFilterControl.macroTable.IsEnabled = true;
@@ -169,10 +164,37 @@
             {
                 MacroEntryMetric mEntryMetric = new MacroEntryMetric(e.pluginKey, e.mementoName, this.vidRef, this.vidProc);
                 macroMetric.macroQueue.Add(mEntryMetric);
-                //TODO add Textbox for name to save on disc???
             }
         }
 
-        
+        /// <summary>
+        /// Generates a new filename, that is not taken yet. If the filename exists a number is added as suffix.
+        /// </summary>
+        /// <param name="originalFile">the originalfile used as base filename</param>
+        /// <param name="suffix">a suffix added to the original filename</param>
+        /// <returns>a filename similar to originalFile that does not exist yet.</returns>
+        private string getNewFileName(string originalFile, string suffix)
+        {
+            string resultpath = "";
+            int i = 0;
+            do
+            {
+                resultpath = System.IO.Path.GetDirectoryName(originalFile)
+                    + "\\" + System.IO.Path.GetFileNameWithoutExtension(originalFile)
+                    + suffix;
+
+                if (i > 0)
+                {
+                    resultpath += i;
+                }
+                i++;
+
+                resultpath += System.IO.Path.GetExtension(originalFile);
+            }
+            while(System.IO.File.Exists(resultpath));
+
+            return resultpath;
+        }
+
     }
 }

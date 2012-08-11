@@ -206,22 +206,24 @@ namespace Oqat.ViewModel.Macro
             currentMemento = null;
             refHand = null;
             resultHand = null;
+
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult));
         }
 
 
-        public System.Drawing.Bitmap process(System.Drawing.Bitmap frame) // TODO: What should this method actually be used for?
+        public System.Drawing.Bitmap process(System.Drawing.Bitmap frame) 
         {
+            //TODO: Do we ever use a macro like a filter without checking if it is macro?
             throw new NotImplementedException();
         }
 
 
-        public Memento getMemento()
+        public override Memento getMemento()
         {
             return new Memento(this.namePlugin, this.macroQueue.ToArray());
         }
 
-        public void setMemento(Memento memento)
+        public override void setMemento(Memento memento)
         {
             this.macroQueue.Clear();
             foreach(MacroEntryFilter f in ((MacroEntryFilter[])memento.state))

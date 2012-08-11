@@ -51,20 +51,13 @@ namespace Oqat.ViewModel.Macro
         /// Get a Macro Memento
         /// </summary>
         /// <returns>A Macro Memento</returns>
-        public Memento getMemento()
-        {
-            return null;
-            //return new Memento(this.namePlugin, this.macroQueue.ToArray());
-        }
+        public abstract Memento getMemento();
 
         /// <summary>
         /// Set a Macro Memento
         /// </summary>
         /// <param name="memento">The Memento that should be set as Macro Memento</param>
-        public void setMemento(Memento memento)
-        {
-            //this.macroEntryList = (List<MacroEntry>)memento.state;
-        }
+        public abstract void setMemento(Memento memento);
 
 
     }

@@ -42,13 +42,6 @@
             
             this.vidInfo =vidInfo;
             this.processedBy = (processedBy != null) ? processedBy: new List<MacroEntry>();
-
-
-            // dont see the need for this event right now...
-            // vidImport dialog constructs this object and the video can be extracted from it
-            // TODO: Maybe this should not be done in the video class but in a class creating the videos.
-            //if (videoObjectCreated != null)
-            //    videoObjectCreated(this, new VideoEventArgs(this));
         }
 
 
@@ -151,18 +144,6 @@
             }
 		}
 
-
-
-        
-
-        ///// <summary>
-        ///// An event that indicates the creation of a new Video object.
-        ///// </summary>
-        //// TODO: Maybe this should not be done in the video class but in a class creating the videos.
-        //[NonSerialized()]
-        //public delegate void videoObjectCreatedEventHandler(object sender, VideoEventArgs e);
-        //[NonSerialized()]
-        //public event videoObjectCreatedEventHandler videoObjectCreated;
 
         [NonSerialized]
         private IVideoHandler _handler;

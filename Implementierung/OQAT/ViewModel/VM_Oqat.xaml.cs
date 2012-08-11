@@ -39,13 +39,13 @@ namespace Oqat.ViewModel
             this.welcomePanel.Children.Add(vM_Welcome);
 
             //  initPluginLists
-            VM_PluginsList filters = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IFilterOqat);
-            this.tabFilter.Content = filters;
-            filters.macroLoaded += onMacroFilterLoad;
+            vM_FilterList = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IFilterOqat);
+            this.tabFilter.Content = vM_FilterList;
+            vM_FilterList.macroLoaded += onMacroFilterLoad;
 
-            VM_PluginsList metrics = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IMetricOqat);
-            this.tabMetric.Content = metrics;
-            metrics.macroLoaded += onMacroMetricLoad;
+            vM_MetricList = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IMetricOqat);
+            this.tabMetric.Content = vM_MetricList;
+            vM_MetricList.macroLoaded += onMacroMetricLoad;
 
             //  initPresentation
             this.vM_presentation = new VM_Presentation();
@@ -62,36 +62,29 @@ namespace Oqat.ViewModel
         #region VM fields
 
 
-        private VM_Welcome _vM_Welcome;
         private VM_Welcome vM_Welcome
         {
             get;
             set;
         }
-        /*
-        private VM_PluginsList _vM_PluginLists;
-        private VM_PluginsList vM_PluginsList
+
+        private VM_PluginsList vM_FilterList
         {
-            //TODO: adapt this to new pluginList structure if necessary
             get;
             set;
-        }*/
-        private VM_ProjectExplorer _vM_ProjectExplorer;
+        }
+        private VM_PluginsList vM_MetricList
+        {
+            get;
+            set;
+        }
         private VM_ProjectExplorer vM_ProjectExplorer
         {
             get;
             set;
         }
 
-        private VM_Presentation _vM_Presentation;
         private VM_Presentation vM_presentation
-        {
-            get;
-            set;
-        }
-
-        private VM_Macro _vM_Macro;
-        private VM_Macro vM_Macro
         {
             get;
             set;
@@ -123,7 +116,7 @@ namespace Oqat.ViewModel
             Memento mem = PluginManager.pluginManager.getMemento(e.pluginKey, e.mementoName);
             if (mem != null)
             {
-                //TODO: vM_presentation.vm_macro.macroMetric.setMemento(mem);
+                vM_presentation.vm_macro.macroMetric.setMemento(mem);
             }
         }
 
