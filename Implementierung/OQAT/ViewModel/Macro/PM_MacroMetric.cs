@@ -15,6 +15,8 @@ namespace Oqat.ViewModel.Macro
     using System.Drawing;
     using System.Collections.ObjectModel;
     using System.ComponentModel.Composition;
+    using System.Collections.Specialized;
+    using System.ComponentModel;
 
 
 
@@ -33,7 +35,7 @@ namespace Oqat.ViewModel.Macro
         {
             get
             {
-                return "PF_MacroFilter";
+                return "PM_MacroMetric";
             }
         }
 
@@ -49,6 +51,7 @@ namespace Oqat.ViewModel.Macro
         public PM_MacroMetric()
         {
             macroQueue = new ObservableCollection<MacroEntryMetric>();
+            macroControl = new MacroMetricControl(this);
             /**macroQueue.Columns.Add("Metric Name", typeof(String));
             macroQueue.Columns.Add("Memento Name", typeof(String));**/
         }
@@ -66,11 +69,13 @@ namespace Oqat.ViewModel.Macro
         private System.Drawing.Bitmap[] procFrames;
         private System.Drawing.Bitmap[] resultFrames;
 
+        
+
         public void init(Video vidRef, Video vidProc, Video[] vidResult)
         {
-            IVideoHandler refHand = vidRef.handler;
-            IVideoHandler procHand = vidProc.handler;
-            IVideoHandler[] resHand = new IVideoHandler[vidResult.Length];
+            refHand = vidRef.handler;
+            procHand = vidProc.handler;
+            resHand = new IVideoHandler[vidResult.Length];
             for (int k = 0; k < vidResult.Length; k++)
             {
                 resHand[k] = vidResult[k].handler;

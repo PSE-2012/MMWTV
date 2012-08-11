@@ -22,45 +22,23 @@ namespace Oqat.ViewModel.Macro
 {
     public partial class MacroMetricControl : UserControl
     {
-        private PM_MacroMetric _macro;
 
         public PM_MacroMetric macro
         {
-            get
-            {
-                return this._macro;
-            }
-
-            set
-            {
-                _macro = value;
-            }
+            get;
+            set;
         }
 
-        private VM_Macro _vmmacro;
+       
 
-        public VM_Macro vmmacro
+        public MacroMetricControl(PM_MacroMetric macro)
         {
-            get
-            {
-                return this._vmmacro;
-            }
-            set
-            {
-                _vmmacro = value;
-            }
-        }
-
-        public MacroMetricControl(PM_MacroMetric macro, VM_Macro vmmacro)
-        {
-            this.macro = macro;
-            this.vmmacro = vmmacro;
             InitializeComponent();
 
-            macroTable.DataContext = this.macro.macroQueue;
-            Binding bind = new Binding();
-            macroTable.SetBinding(ListView.ItemsSourceProperty, bind);
+            this.macro = macro;
             this.DataContext = this.macro;
+
+            this.macroTable.ItemsSource = this.macro.macroQueue;
 
             macroTable.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(macroTable_MouseLeftButtonDown);
             macroTable.Drop += new DragEventHandler(macroTable_Drop);
