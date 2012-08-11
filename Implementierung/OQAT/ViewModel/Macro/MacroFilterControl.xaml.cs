@@ -131,7 +131,6 @@ namespace Oqat.ViewModel.Macro
                         {
                             for (int i = index + 1; i <= oldIndex; i++)
                             {
-                                MacroEntryFilter oldRow = (MacroEntryFilter)this.macro.macroQueue[i];
                                 sliderOld = this.macro.rsl[i];
                                 this.macro.rsl[i] = sliderTemp;
                                 sliderTemp = sliderOld;
