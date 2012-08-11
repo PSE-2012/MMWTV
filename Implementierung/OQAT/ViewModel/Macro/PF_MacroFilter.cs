@@ -78,6 +78,11 @@ namespace Oqat.ViewModel.Macro
             ((MacroFilterControl)macroControl).updateSliders();
         }
 
+        /// <summary>
+        /// Method to update macroQueue if slider changes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void macroQueue_collectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e != null)
@@ -109,6 +114,11 @@ namespace Oqat.ViewModel.Macro
         private Memento currentMemento;
         private MacroEntryFilter currentMacroEntry;
 
+
+        /// <summary>
+        /// Method to split macro in it's Macroentrys
+        /// </summary>
+        /// <param name="memento"></param>
         private void macroEncode(Memento memento)
         {
             currentPlugin = null; // to avoid loading the same plugin twice
@@ -127,21 +137,26 @@ namespace Oqat.ViewModel.Macro
                 {
                     MacroEntryFilter currentFilterEntry = (MacroEntryFilter)currentEntry;
                     // here error handling in case the plugin doesn't implement IFilterOqat
-                    int arraycount = resultFrames.Count();
-                    for (int j = 0; j < arraycount; j++)
-                    {
-                        // TODO: Handling of an entry that is another macrofilter - what to do with the slider values?
-                        if ((currentFilterEntry.endFrameRelative / 100) * totalFrames <= (i+j) && (i+j) <= (currentFilterEntry.startFrameRelative / 100) * totalFrames)
-                        {
-                            currentPluginEntry.setMemento(currentMementoEntry);
-                            System.Drawing.Bitmap tempmap = currentPluginEntry.process(resultFrames[j]);
-                            resultFrames[j] = tempmap;
-                        }
-                    }
+                    mementoProcess(currentMementoEntry);
+                    //int arraycount = resultFrames.Count();
+                    //for (int j = 0; j < arraycount; j++)
+                    //{
+                    //    // TODO: Handling of an entry that is another macrofilter - what to do with the slider values?
+                    //    if ((currentFilterEntry.endFrameRelative / 100) * totalFrames <= (i+j) && (i+j) <= (currentFilterEntry.startFrameRelative / 100) * totalFrames)
+                    //    {
+                    //        currentPluginEntry.setMemento(currentMementoEntry);
+                    //        System.Drawing.Bitmap tempmap = currentPluginEntry.process(resultFrames[j]);
+                    //        resultFrames[j] = tempmap;
+                    //    }
+                    //}
                 }
             }
         }
 
+        /// <summary>
+        /// Method to assign settings to plugin and write temporary video
+        /// </summary>
+        /// <param name="memento">settings of used plugin</param>
         private void mementoProcess(Memento memento)
         {
             int arraycount = resultFrames.Count();
@@ -152,15 +167,15 @@ namespace Oqat.ViewModel.Macro
                     currentPlugin.setMemento(memento);
                     System.Drawing.Bitmap tempmap = currentPlugin.process(resultFrames[j]);
                     resultFrames[j] = tempmap;
-
-                    //DEBUG Pixelvergleich
-                    IPlugin usedPlugin = currentPlugin;
-                    var refVideoPixel = resultFrames[j].GetPixel(5,5);
-                    var resulVideoPixel = tempmap.GetPixel(5,5);
                 }
             }
         }
 
+        /// <summary>
+        /// Method to initialize Data for process
+        /// </summary>
+        /// <param name="vidRef">video to process</param>
+        /// <param name="vidResult">new video after process</param>
         public void init(Video vidRef, Video vidResult)
         {
             refHand = vidRef.handler;
@@ -170,6 +185,11 @@ namespace Oqat.ViewModel.Macro
             i = 0;
         }
 
+        /// <summary>
+        /// Assign frames to macroEncode/mementoProcess and write the result to disk
+        /// </summary>
+        /// <param name="vidRef">video to process</param>
+        /// <param name="vidResult">new video after process</param>
         public void process(Video vidRef, Video vidResult)
         {
             BUFFERSIZE = 127;

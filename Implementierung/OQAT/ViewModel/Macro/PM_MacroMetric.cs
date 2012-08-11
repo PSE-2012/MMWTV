@@ -35,7 +35,9 @@ namespace Oqat.ViewModel.Macro
                 return "PM_MacroMetric";
             }
         }
-
+        /// <summary>
+        /// Metric macroQueue
+        /// </summary>
         internal ObservableCollection<MacroEntryMetric> macroQueue;
 
         public AnalysisInfo analyse(Bitmap frameRef, Bitmap frameProc)
@@ -63,6 +65,12 @@ namespace Oqat.ViewModel.Macro
         private System.Drawing.Bitmap[] procFrames;
         private System.Drawing.Bitmap[] resultFrames;
 
+        /// <summary>
+        /// Method to initialize Data for analyze
+        /// </summary>
+        /// <param name="vidRef">first video</param>
+        /// <param name="vidProc">secend video</param>
+        /// <param name="vidResult">video results</param>
         public void init(Video vidRef, Video vidProc, Video[] vidResult)
         {
             refHand = vidRef.handler;
@@ -78,6 +86,13 @@ namespace Oqat.ViewModel.Macro
             i = 0;
         }
 
+        /// <summary>
+        /// Method to assign settings and bitmaps to Metric Plugins
+        /// and write new video to disk
+        /// </summary>
+        /// <param name="vidRef">first video</param>
+        /// <param name="vidProc">second video</param>
+        /// <param name="vidResult">video results</param>
         public void analyse(Video vidRef, Video vidProc, Video[] vidResult)
         {
             // Warning: the method, implemented this way, does not support having another macrometric inside the list of metrics

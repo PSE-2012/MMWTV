@@ -214,7 +214,9 @@ namespace Oqat.ViewModel.Macro
         #endregion
 
 
-
+        /// <summary>
+        /// Update slider for macroFilter
+        /// </summary>
         public void updateSliders()
         {
             GridView gvs = new GridView(); // since we can't figure out a way to set the DisplayMemberBinding of the GridViewColumn
@@ -227,6 +229,12 @@ namespace Oqat.ViewModel.Macro
             rangeSliders.SetBinding(ListView.ItemsSourceProperty, bind);
         }
 
+        /// <summary>
+        /// Updates delegates for sliders
+        /// </summary>
+        /// <param name="rs">RangeSlider</param>
+        /// <param name="j">new index for delegate</param>
+        /// <param name="delList">List of delegates</param>
         public void addDelegate(RangeSlider rs, int j, List<RangeSelectionChangedEventHandler> delList)
         {
             RangeSelectionChangedEventHandler del;
@@ -254,6 +262,9 @@ namespace Oqat.ViewModel.Macro
             deleteSelected();
         }
 
+        /// <summary>
+        /// All selected items in macroQueue will be deleted.
+        /// </summary>
         private void deleteSelected()
         {
             // Selecting multiple entries with ctrl doesn't work anymore ever since drag and drop was implemented. Shift requires double click
