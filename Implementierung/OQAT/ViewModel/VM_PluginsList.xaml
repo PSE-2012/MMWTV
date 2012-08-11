@@ -28,7 +28,7 @@
             </TreeView.Resources>
         </TreeView>
 
-        <Button Grid.Row="1" Visibility="Collapsed" Name="bttAddToMacro" Click="bttAddToMacro_Click">zu Macro hinzufügen</Button>
+        <Button Grid.Row="1"  Visibility="Collapsed" Name="bttAddToMacro" Click="bttAddToMacro_Click">zu Macro hinzufügen</Button>
 
         <Grid Grid.Row="2" Name="panelMementoSave" Visibility="Hidden">
             <Grid.RowDefinitions>
@@ -61,9 +61,9 @@
         </Grid>
         
         <StackPanel Grid.Row="2" Name="panelMacroProp">
-            <TextBlock TextWrapping="Wrap">Nur das momentan gesetzte Macro kann bearbeitet und kopiert werden.</TextBlock>
-            <Button Click="bttLoadAsMacro_Click">als Macro laden</Button>
-            <Button Click="bttSwitchToCurrentMacro_Click">aktives Macro fokusieren</Button>
+            <TextBlock Name="tb1" TextWrapping="Wrap">Nur das momentan gesetzte Macro kann bearbeitet und kopiert werden.</TextBlock>
+            <Button Name="bt2" Click="bttLoadAsMacro_Click">als Macro laden</Button>
+            <Button Name="bt3" Click="bttSwitchToCurrentMacro_Click">aktives Macro fokusieren</Button>
         </StackPanel>
         
     </Grid>

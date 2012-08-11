@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
+using System.IO;
 
 namespace PF_RelativeColor
 {
@@ -60,6 +62,33 @@ namespace PF_RelativeColor
         public double getBlue()
         {
             return blueValue;
+        }
+        public void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[3];
+                String[] t2 = new String[3];
+                for (int i = 0; i < 3; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                label1.Content = t2[0];
+                label2.Content = t2[1];
+                label3.Content = t2[2];
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+
         }
     }
 }

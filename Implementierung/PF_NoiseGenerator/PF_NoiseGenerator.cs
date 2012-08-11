@@ -11,7 +11,8 @@ namespace PF_NoiseGenerator
     using Oqat.PublicRessources.Model;
     using Oqat.PublicRessources.Plugin;
     using System.Drawing;
- 
+    using System.Xml;
+    using System.IO;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -40,6 +41,7 @@ namespace PF_NoiseGenerator
         public NoiseGenerator()
         {
             propertiesView = new VM_NoiseGenerator();
+            localize(_namePlugin+"_default.xml");
         
         }
 
@@ -113,7 +115,11 @@ namespace PF_NoiseGenerator
             this.propertiesView.changeValue(otto);
           
         }
+        private void localize(String s)
+        {
+            propertiesView.local(s);
 
+        }
        
     }
 }

@@ -8,7 +8,7 @@
     <StackPanel  Name="stackPanel1" >
         <WrapPanel  Name="wrapPanel1">
             <Label Content="Red Factor          x"  Name="label1"  />
-            <Label  Name="lbRed" Content="{Binding ElementName=red, Path=Value}"/>
+            <Label  Name="lbRed" Width="45" Content="{Binding ElementName=red, Path=Value}"/>
         </WrapPanel>
         <Slider  Name="red"
                     Minimum="0"
@@ -19,7 +19,7 @@
                 />
         <WrapPanel  Name="wrapPanel2">
             <Label Content="Green Factor      x"  Name="label2"  />
-            <Label  Name="lbGreen" Content="{Binding ElementName=green, Path=Value}"/>
+            <Label  Name="lbGreen" Width="45" Content="{Binding ElementName=green, Path=Value}"/>
         </WrapPanel>
         <Slider  Name="green"   Minimum="0"
                    Maximum="2"
@@ -28,7 +28,7 @@
                   ValueChanged="ValueChanged"/>
         <WrapPanel  Name="wrapPanel3" >
             <Label Content="Blue Factor         x"  Name="label3"  />
-            <Label  Name="lbBlue" Content="{Binding ElementName=blue, Path=Value}"/>
+            <Label  Name="lbBlue" Width="45" Content="{Binding ElementName=blue, Path=Value}"/>
         </WrapPanel>
         <Slider  Name="blue" 
                      Minimum="0"

@@ -18,6 +18,8 @@ using Oqat.PublicRessources.Plugin;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
+using System.IO;
+using System.Xml;
 
 namespace Oqat.ViewModel
 {
@@ -26,6 +28,45 @@ namespace Oqat.ViewModel
     /// </summary>
     public partial class VM_PluginsList : UserControl
     {
+        String msgText1 = "Die Einstellungen konnten nicht gefunden werden.";
+        String msgText2 = "Bitte geben Sie den zu speichernden Einstellungen einen Namen." ;
+        String msgText21 = "Speichern nicht möglich.";
+        String msgText3 = "Der Name der zu speichernden Einstellungen ist nicht eindeutig.";
+        String l2text = "Das momentan aktive Macro";
+        private void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[9];
+                String[] t2 = new String[9];
+                for (int i = 0; i < 9; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                tb1.Text = t2[0];
+                bt2.Content = t2[1];
+                bt3.Content = t2[2];
+                bttAddToMacro.Content = t2[3];
+                l2text = t2[4];
+                msgText1 = t2[5];
+                msgText2 = t2[6];
+                msgText21 = t2[7];
+                msgText3 = t2[8];
+
+
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
 
         ObservableCollection<PluginViewModel> _pluginList;
         private ObservableCollection<PluginViewModel> pluginList
@@ -72,7 +113,7 @@ namespace Oqat.ViewModel
         public VM_PluginsList(PluginType plugintype)
         {
             InitializeComponent();
-
+            local("VM_PluginsList_default.xml");
             this.pluginType = plugintype;
 
             PluginManager.macroEntrySelected += onMacroFilterEntryClicked;
@@ -82,9 +123,10 @@ namespace Oqat.ViewModel
 
             panelMacroPropertyViewCurrent = new StackPanel();
                 TextBlock l2 = new TextBlock();
-                l2.Text = "Das momentan aktive Macro";
+                l2.Text = l2text;
                 l2.TextAlignment = TextAlignment.Center;
             panelMacroPropertyViewCurrent.Children.Add(l2);
+            
         }
 
         /// <summary>
@@ -142,6 +184,8 @@ namespace Oqat.ViewModel
         /// <summary>
         /// Loads the propertyView of the selected plugin and manages visibility of the according pluginList buttons.
         /// </summary>
+        /// 
+       
         private void updatePropertiesView()
         {
             if (selectedPVM == null)
@@ -179,7 +223,7 @@ namespace Oqat.ViewModel
                     }
                     else
                     {
-                        MessageBox.Show("Die Einstellungen konnten nicht gefunden werden.");
+                        MessageBox.Show(msgText1);
 
                         //remove the broken entry
                         selectedPVM.parent.children.Remove(selectedPVM);
@@ -266,13 +310,13 @@ namespace Oqat.ViewModel
             //check memento naming
             if (this.tbMementoName.Text == "")
             {
-                System.Windows.MessageBox.Show("Bitte geben Sie den zu speichernden Einstellungen einen Namen.", "Speichern nicht möglich");
+                System.Windows.MessageBox.Show(msgText2,msgText21);
                 return false;
             }
             else if (renaming && findPVM(memento.parent.name, this.tbMementoName.Text) != null)
             {
                 //the new memento's name is already taken
-                System.Windows.MessageBox.Show("Der Name der zu speichernden Einstellungen ist nicht eindeutig.", "Speichern nicht möglich");
+                System.Windows.MessageBox.Show(msgText3, msgText21);
                 return false;
             }
 
@@ -528,6 +572,8 @@ namespace Oqat.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
+     
 
     }
 }

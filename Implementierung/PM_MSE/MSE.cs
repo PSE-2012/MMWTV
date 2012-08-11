@@ -26,10 +26,7 @@ namespace PM_MSE
         VM_PM_MSE propertiesView;
 
 
-        private int otto()
-        {
-            return 42;
-        }
+     
         public AnalysisInfo analyse(System.Drawing.Bitmap frameRef, System.Drawing.Bitmap frameProc)
         {
 
@@ -141,6 +138,7 @@ namespace PM_MSE
         }
         public MSE(){
             propertiesView = new VM_PM_MSE();
+            localize(_namePlugin + "_default.xml");
            
         }
         public UserControl propertyView
@@ -171,6 +169,11 @@ namespace PM_MSE
            
             this.propertiesView.setRb(obj)  ;
            
+        }
+        private void localize(String s)
+        {
+            propertiesView.local(s);
+
         }
     }
 }

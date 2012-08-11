@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
+using System.IO;
 
 namespace PF_NoiseGenerator
 {
@@ -27,7 +29,7 @@ namespace PF_NoiseGenerator
         public VM_NoiseGenerator()
         {
             InitializeComponent();
-
+           
             uper.Value =0;
            
             
@@ -53,7 +55,30 @@ namespace PF_NoiseGenerator
         public float getUp(){
             return uperBorder;
         }
-      
+
+        public void local(String s)
+        {
+           try{
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[1];
+                String[] t2 = new String[1];
+               
+                    reader.Read();
+                    reader.Read();
+                    t[0] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[0] = reader.Value;
+                
+                label1.Content = t2[0];
+           }
+           catch (IndexOutOfRangeException e) { }
+           catch (FileNotFoundException e) { }
+           catch (XmlException e) { }
+          
+        }
        
     }
 }
