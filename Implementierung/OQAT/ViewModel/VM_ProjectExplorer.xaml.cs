@@ -34,9 +34,9 @@
                 XmlTextReader reader = new XmlTextReader(sFilename);
                 reader.Read();
                 reader.Read();
-                String[] t = new String[2];
-                String[] t2 = new String[2];
-                for (int i = 0; i < 2; i++)
+                String[] t = new String[3];
+                String[] t2 = new String[3];
+                for (int i = 0; i < 3; i++)
                 {
                     reader.Read();
                     reader.Read();
@@ -46,7 +46,7 @@
                 }
                 lb1.Content = t2[0];
                 lb2.Content = t2[1];
-              
+                btnExport.Content = t2[2];
 
 
             }
@@ -211,8 +211,39 @@
                 SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
                 PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
                     new VideoEventArgs(selNode.video));
+                if (selNode.video.isAnalysis == true)
+                {
+                    btnExport.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    btnExport.Visibility = Visibility.Hidden;
+                }
             }
-        }
-	}
-}
 
+
+        }
+
+        private void btnExport_Click(object sender, RoutedEventArgs e)
+        {
+            SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
+            Video vid = selNode.video;
+
+            String s = "";
+
+
+            for (int j = 0; j < vid.frameMetricValue.Length; j++)
+            {
+                for (int i = 0; i < vid.frameMetricValue[i].Length; i++)
+                {
+                    s = s + vid.frameMetricValue[j][i] + " ";
+                }
+                s = s + System.Environment.NewLine;
+            }
+            String p = vid.vidPath + "_data.csv";
+            StreamWriter myFile = new StreamWriter(p);
+            myFile.Write(s);
+            myFile.Close();
+        }
+    }
+}

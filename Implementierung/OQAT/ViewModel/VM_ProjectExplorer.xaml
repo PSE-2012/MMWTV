@@ -48,7 +48,10 @@
             <StackPanel.DataContext>
                 <Binding ElementName="smartTreeExplorer"  Path="SelectedItem"/>
             </StackPanel.DataContext>
-            <WrapPanel>
+                <WrapPanel>
+                    <Button Content="Analyse Exportieren"  Name="btnExport" Width="116" Visibility="Hidden"  Click="btnExport_Click" />
+                </WrapPanel>
+                <WrapPanel>
                 <Label Name="lb1" Content="Titel:"/>
                 <Label  Content="{Binding name}"/>
             </WrapPanel>
