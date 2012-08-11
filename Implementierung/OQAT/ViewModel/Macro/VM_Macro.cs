@@ -139,7 +139,17 @@
         {
             if (this.viewType == ViewType.MetricView)
             {
-                arrayVidResult = new Video[macroMetric.macroQueue.Count]; // setting paths of result videos?
+                macroMetricControl.macroTable.IsEnabled = false;
+                arrayVidResult = new Video[macroMetric.macroQueue.Count];
+                IVideoInfo vidInfo = (IVideoInfo)vidRef.vidInfo.Clone();
+                //Name new Videos   "analysed" + macroMetric.macroQueue[i].mementoName?? maybe to long, or textboxes
+                for (int i = 0; i < macroMetric.macroQueue.Count; i++)
+                {
+                    arrayVidResult[i] = new Video(false, getNewFileName(vidRef.vidPath, "analysed" + i), vidInfo, this.macroFilter.macroQueue.ToList<MacroEntry>());
+                }
+                this.macroMetric.init(vidRef, vidProc, arrayVidResult);
+                this.macroMetric.analyse(vidRef, vidProc, arrayVidResult);
+                macroMetricControl.macroTable.IsEnabled = true;
             }
             if (this.viewType == ViewType.FilterView)
             {
