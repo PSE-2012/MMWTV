@@ -49,11 +49,11 @@
                 <Binding ElementName="smartTreeExplorer"  Path="SelectedItem"/>
             </StackPanel.DataContext>
             <WrapPanel>
-                <Label Content="Title:"/>
+                <Label Name="lb1" Content="Titel:"/>
                 <Label  Content="{Binding name}"/>
             </WrapPanel>
             <WrapPanel>
-                <Label Content="Path:"/>
+                <Label Name="lb2" Content="Pfad:"/>
                 <Label Content="{Binding video.vidPath}"/>
             </WrapPanel>
         </StackPanel>

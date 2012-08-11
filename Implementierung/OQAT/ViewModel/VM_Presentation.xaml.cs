@@ -15,6 +15,9 @@ using Oqat.PublicRessources.Plugin;
 using Oqat.PublicRessources.Model;
 using Oqat.ViewModel.Macro;
 
+using System.Xml;
+using System.IO;
+
 namespace Oqat.ViewModel
 {
     /// <summary>
@@ -33,11 +36,42 @@ namespace Oqat.ViewModel
         IVideo videoProc;
         IVideo videoRef;
 
+        String msgBox1= "Bitte wählen Sie zunächst Videos.";
+        String msgBox2 = "Macro Ausführung nicht möglich";
+        private void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[3];
+                String[] t2 = new String[3];
+                for (int i = 0; i < 3; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                bttProcessMacro.Content = t2[0];
+                msgBox1 = t2[1];
+                msgBox2 = t2[2];
+
+
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
+
 
         public VM_Presentation()
         {
             InitializeComponent();
-
+            local("VM_Presentation_default.xml");
             PluginManager.OqatToggleView += this.onToggleView;
             PluginManager.videoLoad += this.onVideoLoad;
 

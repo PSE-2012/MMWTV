@@ -17,7 +17,7 @@
     using System.IO;
     using System.Windows.Media;
     using System.Collections.Specialized;
-
+    using System.Xml;
 
     /// <summary>
     /// This class is mainly responsible to sync the SmartTree(GUI) with the SmartNodes (Model) and
@@ -25,6 +25,35 @@
     /// </summary>
 	public partial class VM_ProjectExplorer : UserControl
 	{
+
+        private void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[2];
+                String[] t2 = new String[2];
+                for (int i = 0; i < 2; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                lb1.Content = t2[0];
+                lb2.Content = t2[1];
+              
+
+
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
         /// <summary>
         /// Reference to the currently active project.
         /// </summary>
@@ -37,7 +66,7 @@
         public VM_ProjectExplorer(Project project)
         {
             InitializeComponent();
-
+            local("VM_ProjectExplorer_default.xml");
             PluginManager.macroProcessingFinished += this.onMacroProcessingFinished;
 
             // projectExplorer
