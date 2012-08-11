@@ -5,7 +5,6 @@ namespace Oqat.ViewModel.Macro
 	using Oqat.PublicRessources.Plugin;
     using Oqat.PublicRessources.Model;
     using Oqat.Model;
-
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -17,8 +16,6 @@ namespace Oqat.ViewModel.Macro
     using System.ComponentModel.Composition;
     using System.Collections.Specialized;
     using System.ComponentModel;
-
-
 
     [ExportMetadata("namePlugin", "PM_MacroMetric")]
     [ExportMetadata("type", PluginType.IMetricOqat)]
@@ -41,7 +38,6 @@ namespace Oqat.ViewModel.Macro
 
         internal ObservableCollection<MacroEntryMetric> macroQueue;
 
-
         public AnalysisInfo analyse(Bitmap frameRef, Bitmap frameProc)
         {
             //TODO: Do we ever use a macro like a metric without checking if it is macro?
@@ -52,8 +48,6 @@ namespace Oqat.ViewModel.Macro
         {
             macroQueue = new ObservableCollection<MacroEntryMetric>();
             macroControl = new MacroMetricControl(this);
-            /**macroQueue.Columns.Add("Metric Name", typeof(String));
-            macroQueue.Columns.Add("Memento Name", typeof(String));**/
         }
 
         private int BUFFERSIZE;
@@ -68,8 +62,6 @@ namespace Oqat.ViewModel.Macro
         private System.Drawing.Bitmap[] refFrames;
         private System.Drawing.Bitmap[] procFrames;
         private System.Drawing.Bitmap[] resultFrames;
-
-        
 
         public void init(Video vidRef, Video vidProc, Video[] vidResult)
         {
@@ -94,6 +86,7 @@ namespace Oqat.ViewModel.Macro
                 MacroEntryMetric c =(MacroEntryMetric) macroQueue[m];
                 currentPlugin = (IMetricOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.mementoName);
                 currentMemento = PluginManager.pluginManager.getMemento((String)c.pluginName, (String)c.mementoName);
+                vidResult[m].frameMetricValue = new float[totalFrames][];
                 while (i < totalFrames)
                 {
                     if ((i + BUFFERSIZE - totalFrames) > 0)
@@ -108,15 +101,13 @@ namespace Oqat.ViewModel.Macro
                         procFrames = procHand.getFrames(i, BUFFERSIZE);
                         resultFrames = new System.Drawing.Bitmap[BUFFERSIZE];
                     }
-                    refFrames = refHand.getFrames(i, BUFFERSIZE);
-                    procFrames = procHand.getFrames(i, BUFFERSIZE);
                     int arraycount = refFrames.Count();
                     for (int j = 0; j < arraycount; j++) // iterate over all frames to be analysed
                     {
                         currentPlugin.setMemento(currentMemento);
                         analyseInfo = currentPlugin.analyse(refFrames[j], procFrames[j]); // result of the current analysis
                         resultFrames[j] = analyseInfo.frame; // write the result frames to buffer
-                        vidResult[m].frameMetricValue[i] = analyseInfo.values; // sets frameMetricValue for the result video of the current metric
+                        vidResult[m].frameMetricValue[i + j] = analyseInfo.values; // sets frameMetricValue for the result video of the current metric
                     }
                     resHand[m].writeFrames(i, resultFrames); // write the result frames to disk
                     i += BUFFERSIZE;
