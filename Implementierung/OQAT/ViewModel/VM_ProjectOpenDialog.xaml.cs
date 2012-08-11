@@ -41,8 +41,8 @@ namespace Oqat.ViewModel
                     reader.MoveToNextAttribute();
                     t2[i] = reader.Value;
                 }
-                bt1.Content = t2[0];
-                bt2.Content = t2[1];
+                bt1.Content = t2[1];
+                bt2.Content = t2[0];
                 gb3.Header = t2[2];
                 gb4.Header = t2[3];
                 btnBrowse.Content = t2[4];
