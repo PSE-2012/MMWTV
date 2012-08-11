@@ -106,18 +106,12 @@
 
         internal delegate void EntrySelectEventHandler(object sender, EventArgs e);
         internal event EntrySelectEventHandler EntrySelect;
-        //internal delegate void StartProcessEventHandler(object sender, EventArgs e);
-        //internal event StartProcessEventHandler StartProcess;
-        internal List<RangeSelectionChangedEventHandler> delList;
 
         public VM_Macro()
         {
             PluginManager.OqatToggleView += this.onToggleView;
             PluginManager.macroEntryAdd += this.onEntrySelect;
 
-            //StartProcess += new StartProcessEventHandler(startProcess);
-
-            delList = new List<RangeSelectionChangedEventHandler>();
             this.macroFilter =(PF_MacroFilter) PluginManager.pluginManager.getPlugin<IMacro>("PF_MacroFilter");
             this.macroMetric =(PM_MacroMetric)PluginManager.pluginManager.getPlugin<IMacro>("PM_MacroMetric");
         }
@@ -169,24 +163,7 @@
         {
             if (this.viewType == ViewType.FilterView)
             {
-                long startValue = 0;
-                long stopValue = 100;
-                long startValueSlider = 0;
-                long stopValueSlider = 500;
-                MacroEntryFilter mEntryFilter = new MacroEntryFilter(e.pluginKey, e.mementoName, stopValue, startValue);
-                RangeSlider rs = new AC.AvalonControlsLibrary.Controls.RangeSlider();
-                rs.RangeStart = startValueSlider;
-                rs.RangeStop = stopValueSlider;
-                rs.RangeStartSelected = startValueSlider;
-                rs.RangeStopSelected = stopValueSlider;
-                rs.MinRange = 1L;
-                rs.Width = 270; // TODO: changing width at runtime
-                rs.Height = 17.29; // this height fits the height of the data rows in the macro table
-                this.macroFilter.macroQueue.Add(mEntryFilter);
-                int j = this.macroFilter.macroQueue.Count - 1;
-                ((MacroFilterControl)macroFilter.macroControl).addDelegate(rs, j, delList);
-                this.macroFilter.rsl.Add(rs);
-                ((MacroFilterControl)macroFilter.macroControl).updateSliders();
+                this.macroFilter.addFilter(e);
             }
             if (this.viewType == ViewType.MetricView)
             {

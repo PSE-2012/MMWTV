@@ -37,7 +37,11 @@ namespace Oqat.ViewModel.Macro
         }
 
         internal List<RangeSlider> rsl;
-        internal ObservableCollection<MacroEntryFilter> macroQueue;
+        internal ObservableCollection<MacroEntryFilter> macroQueue
+        {
+            get;
+            set;
+        }
 
         public PF_MacroFilter()
         {
@@ -46,6 +50,32 @@ namespace Oqat.ViewModel.Macro
             this.macroQueue.CollectionChanged += macroQueue_collectionChanged;
             
             macroControl = new MacroFilterControl(this);
+        }
+
+
+
+        public void addFilter(MementoEventArgs e)
+        {
+            long startValue = 0;
+            long stopValue = 100;
+            long startValueSlider = 0;
+            long stopValueSlider = 500;
+            MacroEntryFilter mEntryFilter = new MacroEntryFilter(e.pluginKey, e.mementoName, stopValue, startValue);
+            
+            RangeSlider rs = new AC.AvalonControlsLibrary.Controls.RangeSlider();
+            rs.RangeStart = startValueSlider;
+            rs.RangeStop = stopValueSlider;
+            rs.RangeStartSelected = startValueSlider;
+            rs.RangeStopSelected = stopValueSlider;
+            rs.MinRange = 1L;
+            rs.Width = 270; // TODO: changing width at runtime
+            rs.Height = 17.29; // this height fits the height of the data rows in the macro table
+            
+            this.macroQueue.Add(mEntryFilter);
+            int j = this.macroQueue.Count - 1;
+            ((MacroFilterControl)macroControl).addDelegate(rs, j, delList);
+            this.rsl.Add(rs);
+            ((MacroFilterControl)macroControl).updateSliders();
         }
 
         private void macroQueue_collectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -193,7 +223,11 @@ namespace Oqat.ViewModel.Macro
 
         public void setMemento(Memento memento)
         {
-            this.macroQueue = new ObservableCollection<MacroEntryFilter>((MacroEntryFilter[])memento.state);
+            this.macroQueue.Clear();
+            foreach(MacroEntryFilter f in ((MacroEntryFilter[])memento.state))
+            {
+                this.macroQueue.Add(f);
+            }
         }
 
     }

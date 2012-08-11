@@ -29,11 +29,11 @@ namespace Oqat.ViewModel.Macro
 
 
         public UserControl macroControl;
-
+        internal List<RangeSelectionChangedEventHandler> delList;
 
         public Macro()
         {
-
+            delList = new List<RangeSelectionChangedEventHandler>();
         }
 
         

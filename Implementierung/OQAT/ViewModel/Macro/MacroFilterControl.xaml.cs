@@ -40,18 +40,6 @@ namespace Oqat.ViewModel.Macro
             }
         }
 
-        public VM_Macro vmmacro
-        {
-            get
-            {
-                return this._vmmacro;
-            }
-            set
-            {
-                _vmmacro = value;
-            }
-        }
-
         // The user may drag the mouse over the Macro Table itself instead of using a scrollbar, in which case ScrollViewer2 needs to be synchronised.
         // Also when a table entry gets deleted, ScrollViewer1 is automatically reset and ScrollViewer2 requires resynchronisation.
         public void scroll(object sender, ScrollChangedEventArgs e)
@@ -69,12 +57,15 @@ namespace Oqat.ViewModel.Macro
             InitializeComponent();
 
             this.macro = macro;
-            
-            macroTable.DataContext = this.macro.macroQueue;
-            Binding bind = new Binding();
-            macroTable.SetBinding(ListView.ItemsSourceProperty, bind);
-            updateSliders();
             this.DataContext = this.macro;
+
+            this.macroTable.ItemsSource = this.macro.macroQueue;
+
+            //macroTable.DataContext = this.macro.macroQueue;
+            //Binding bind = new Binding();
+            //macroTable.SetBinding(ListView.ItemsSourceProperty, bind);
+            updateSliders();
+            
 
             macroTable.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(macroTable_MouseLeftButtonDown);
             macroTable.Drop += new DragEventHandler(macroTable_Drop);
@@ -158,7 +149,7 @@ namespace Oqat.ViewModel.Macro
                             List<RangeSelectionChangedEventHandler> tempList = new List<RangeSelectionChangedEventHandler>();
                             for (int j = index; j <= oldIndex; j++)
                             {
-                                foreach (RangeSelectionChangedEventHandler ev in this.vmmacro.delList)
+                                foreach (RangeSelectionChangedEventHandler ev in this.macro.delList)
                                 {
                                     this.macro.rsl[j].RangeSelectionChanged -= ev;
                                 }
@@ -166,8 +157,8 @@ namespace Oqat.ViewModel.Macro
                             }
                             for (int j = index; j <= oldIndex; j++)
                             {
-                                this.vmmacro.delList[j] = null;
-                                this.vmmacro.delList[j] += tempList[j - index];
+                                this.macro.delList[j] = null;
+                                this.macro.delList[j] += tempList[j - index];
                             }
                             updateSliders();
                         }
@@ -181,7 +172,7 @@ namespace Oqat.ViewModel.Macro
                             List<RangeSelectionChangedEventHandler> tempList = new List<RangeSelectionChangedEventHandler>();
                             for (int j = oldIndex; j <= index; j++)
                             {
-                                foreach (RangeSelectionChangedEventHandler ev in this.vmmacro.delList)
+                                foreach (RangeSelectionChangedEventHandler ev in this.macro.delList)
                                 {
                                     this.macro.rsl[j].RangeSelectionChanged -= ev;
                                 }
@@ -189,8 +180,8 @@ namespace Oqat.ViewModel.Macro
                             }
                             for (int j = oldIndex; j <= index; j++)
                             {
-                                this.vmmacro.delList[j] = null;
-                                this.vmmacro.delList[j] += tempList[index - j];
+                                this.macro.delList[j] = null;
+                                this.macro.delList[j] += tempList[index - j];
                             }
                             updateSliders();
                         }
@@ -283,7 +274,7 @@ namespace Oqat.ViewModel.Macro
                 List<RangeSelectionChangedEventHandler> tempList = new List<RangeSelectionChangedEventHandler>();
                 for (int i = index; i < this.macro.rsl.Count; i++)
                 {
-                    foreach (RangeSelectionChangedEventHandler ev in this.vmmacro.delList)
+                    foreach (RangeSelectionChangedEventHandler ev in this.macro.delList)
                     {
                         this.macro.rsl[i].RangeSelectionChanged -= ev;
                     }
@@ -291,12 +282,13 @@ namespace Oqat.ViewModel.Macro
                 }
                 for (int i = index; i < this.macro.rsl.Count; i++)
                 {
-                    this.vmmacro.delList[i] = null;
-                    this.vmmacro.delList[i] += tempList[i - index];
+                    this.macro.delList[i] = null;
+                    this.macro.delList[i] += tempList[i - index];
                 }
                 updateSliders();
                 this.macro.macroQueue.RemoveAt(index);
             }
         }
+
     }
 }

@@ -17,7 +17,7 @@
         <ScrollViewer Grid.Row="0" Grid.Column="0" Name="ScrollViewer1" VerticalAlignment="Top" ScrollChanged="scroll" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
             <Grid>
                 <StackPanel>
-                    <ListView Name ="macroTable" ItemsSource="{Binding macroTable}" HorizontalAlignment="Stretch" FontSize="13" AllowDrop="True" SelectionMode="Extended">
+                    <ListView Name="macroTable" ItemsSource="{Binding macroQueue}" HorizontalAlignment="Stretch" FontSize="13" AllowDrop="True" SelectionMode="Extended">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn  Header="Plugin Name" DisplayMemberBinding="{Binding pluginName}"/>
