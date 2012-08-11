@@ -16,6 +16,7 @@ namespace Oqat.ViewModel.Macro
     using System.ComponentModel.Composition;
     using System.Collections.Specialized;
     using System.ComponentModel;
+    using System.Threading;
 
     [ExportMetadata("namePlugin", "PM_MacroMetric")]
     [ExportMetadata("type", PluginType.IMetricOqat)]
@@ -62,15 +63,37 @@ namespace Oqat.ViewModel.Macro
         private System.Drawing.Bitmap[] refFrames;
         private System.Drawing.Bitmap[] procFrames;
         private System.Drawing.Bitmap[] resultFrames;
+        private Thread thread = null;
+        private Video[] vidRes;
+        internal delegate void threadAbortHandler(object sender, EventArgs e);
+        internal static event threadAbortHandler threadAbort;
+
+        private void onThreadAbort(object sender, EventArgs e)
+        {
+            // notify OQAT about finished analysis
+            if (vidRes != null)
+            {
+                foreach (Video v in vidRes)
+                {
+                    PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished,
+                        new VideoEventArgs(v));
+                }
+            }
+            // vidRes = null;
+            thread.Abort();
+            thread = null;
+            threadAbort = null;
+        }
 
         public void init(Video vidRef, Video vidProc, Video[] vidResult)
         {
             refHand = vidRef.handler;
             procHand = vidProc.handler;
-            resHand = new IVideoHandler[vidResult.Length];
-            for (int k = 0; k < vidResult.Length; k++)
+            vidRes = vidResult;
+            resHand = new IVideoHandler[vidRes.Length];
+            for (int k = 0; k < vidRes.Length; k++)
             {
-                resHand[k] = vidResult[k].handler;
+                resHand[k] = vidRes[k].handler;
             }
             BUFFERSIZE = 255;
             //TODO: do not allow the analyse if vidRef and vidProc have got a different frame count
@@ -80,13 +103,20 @@ namespace Oqat.ViewModel.Macro
 
         public void analyse(Video vidRef, Video vidProc, Video[] vidResult)
         {
+            thread = new Thread(new ThreadStart(WorkerThread));
+            threadAbort += new threadAbortHandler(onThreadAbort);
+            thread.Start();
+        }
+
+        private void WorkerThread()
+        {
             // Warning: the method, implemented this way, does not support having another macrometric inside the list of metrics
             for (int m = 0; m < macroQueue.Count; m++)
             {
-                MacroEntryMetric c =(MacroEntryMetric) macroQueue[m];
+                MacroEntryMetric c = (MacroEntryMetric)macroQueue[m];
                 currentPlugin = (IMetricOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.mementoName);
                 currentMemento = PluginManager.pluginManager.getMemento((String)c.pluginName, (String)c.mementoName);
-                vidResult[m].frameMetricValue = new float[totalFrames][];
+                vidRes[m].frameMetricValue = new float[totalFrames][];
                 while (i < totalFrames)
                 {
                     if ((i + BUFFERSIZE - totalFrames) > 0)
@@ -107,13 +137,13 @@ namespace Oqat.ViewModel.Macro
                         currentPlugin.setMemento(currentMemento);
                         analyseInfo = currentPlugin.analyse(refFrames[j], procFrames[j]); // result of the current analysis
                         resultFrames[j] = analyseInfo.frame; // write the result frames to buffer
-                        vidResult[m].frameMetricValue[i + j] = analyseInfo.values; // sets frameMetricValue for the result video of the current metric
+                        vidRes[m].frameMetricValue[i + j] = analyseInfo.values; // sets frameMetricValue for the result video of the current metric
                     }
                     resHand[m].writeFrames(i, resultFrames); // write the result frames to disk
                     i += BUFFERSIZE;
                 }
                 i = 0;
-            }     
+            }
             currentPlugin = null;
             currentMemento = null;
             refFrames = null;
@@ -125,15 +155,8 @@ namespace Oqat.ViewModel.Macro
             procFrames = null;
             analyseInfo = null;
             resultFrames = null;
-
-            //notify OQAT about finished analysis
-            foreach (Video v in vidResult)
-            {
-                PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished,
-                    new VideoEventArgs(v));
-            }
+            onThreadAbort(this, new EventArgs());
         }
-
 
         public override Memento getMemento()
         {
