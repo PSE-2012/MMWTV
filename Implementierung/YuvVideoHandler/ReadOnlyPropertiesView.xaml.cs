@@ -27,5 +27,6 @@ namespace PS_YuvVideoHandler
                 throw new NullReferenceException("Given YuvVideoInfo object is not initialized.");
             this.DataContext = yuvInfo;
         }
+       
     }
 }

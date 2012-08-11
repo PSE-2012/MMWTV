@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Xml;
 
 namespace PS_YuvVideoHandler
 {
@@ -18,6 +20,7 @@ namespace PS_YuvVideoHandler
     {
         // Collection property used to fill the ComboBox with a list
         List<ComboBoxYuvFormats> formatList;
+      
 
         public PropertiesView()
         {
@@ -25,6 +28,37 @@ namespace PS_YuvVideoHandler
 
             initFormatValues();
             this.cb_format.ItemsSource = formatList;
+            this.local("YufVideoHandler_default.xml");
+        }
+        private void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[6];
+                String[] t2 = new String[6];
+                for (int i = 0; i < 6; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                gb1.Header = t2[0];
+                l1.Content = t2[1];
+                l2.Content = t2[2];
+                l3.Content = t2[3];
+                l4.Content = t2[4];
+
+
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
         }
 
         /// <summary>

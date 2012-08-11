@@ -17,6 +17,9 @@ using Oqat.PublicRessources.Model;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 
+using System.IO;
+using System.Xml;
+
 namespace Oqat.ViewModel
 {
     /// <summary>
@@ -24,10 +27,42 @@ namespace Oqat.ViewModel
     /// </summary>
     public partial class VM_Oqat : Window
     {
+        private void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[5];
+                String[] t2 = new String[5];
+                for (int i = 0; i < 5; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                mn1.Header= t2[0];
+                mn2.Header = t2[1];
+                miInfo.Header= t2[2];
+                tabFilter.Header = t2[3];
+              tabMetric.Header= t2[4];
+              
+
+
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
+
         public VM_Oqat()
         {
             InitializeComponent();
-
+            local("VM_Oqat_default.xml");
             // PluginManager is initializet by OqatApp
             PluginManager.OqatNewProjectCreatedHandler += onNewProjectCreated;
             PluginManager.OqatToggleView += onToggleView;
