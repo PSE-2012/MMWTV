@@ -12,26 +12,26 @@
             <Setter Property="BorderThickness" Value="2"/>
         </Style>
     </UserControl.Resources>
-    <GroupBox Header="Required parameters" Style="{StaticResource groupBoxStyle}" >
+    <GroupBox Name="gb1" Header="Erforderliche Parameter" Style="{StaticResource groupBoxStyle}" >
     <StackPanel>
         <WrapPanel>
-            <Label Width="50" Height="30" Margin="0,5,0,0">Breite:</Label>
+            <Label Name="l1" Width="50" Height="30" Margin="0,5,0,0">Breite:</Label>
             <TextBox Name="tb_width" Width="40" Height="20" Text="{Binding width}" />
         </WrapPanel>
 
         <WrapPanel>
-            <Label Height="30" Margin="0,5,0,0" Width="50">Höhe:</Label>
+            <Label Name="l2" Height="30" Margin="0,5,0,0" Width="50">Höhe:</Label>
             <TextBox Height="20" Name="tb_height" Text="{Binding height}" Width="40" />
         </WrapPanel>
         
         <WrapPanel>
-            <Label Height="30" Margin="0,5,0,0" Width="50">Format:</Label>
+            <Label Name="l3" Height="30" Margin="0,5,0,0" Width="50">Format:</Label>
             <ComboBox x:Name="cb_format" Height="20" Width="100" DisplayMemberPath="formatString"
                       SelectedValuePath="formatEnum" SelectedValue="{Binding yuvFormat}" />
         </WrapPanel>
 
         <WrapPanel Visibility="Collapsed">
-            <Label Height="30" Margin="0,5,0,0" Width="50">Frames:</Label>
+            <Label Name="l4" Height="30" Margin="0,5,0,0" Width="50">Frames:</Label>
             <TextBox Height="20" Name="tb_frames" Text="{Binding frameCount}" Width="40" IsReadOnly="True" />
         </WrapPanel>
 

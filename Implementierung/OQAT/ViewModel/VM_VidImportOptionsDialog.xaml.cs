@@ -17,6 +17,7 @@ using Oqat.PublicRessources.Plugin;
 using WPF_ClosableTabItem;
 using System.Collections.Specialized;
 using System.IO;
+using System.Xml;
 
 namespace Oqat.ViewModel
 {
@@ -43,9 +44,40 @@ namespace Oqat.ViewModel
         }
         private Dictionary<ClosableTabItem, Video> vidHandlerViews;
 
+
+        private void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[3];
+                String[] t2 = new String[3];
+                for (int i = 0; i < 3; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                this.Title = t2[0];
+                btt_Import.Content = t2[1];
+                btt_Cancel.Content = t2[2];
+               
+
+
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
         public VM_VidImportOptionsDialog(StringCollection vidPathList)
         {
             InitializeComponent();
+            local("VM_VidImportOptionsDialog_default.xml");
      //       this.vidHandlerViews = new List<UserControl>();
             this.vidHandlerViews = new Dictionary<ClosableTabItem, Video>();
             Video video;

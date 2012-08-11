@@ -8,6 +8,7 @@ namespace PS_YuvVideoHandler
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Text;
+    using System.Xml;
 
 
     using System.ComponentModel.Composition;
@@ -55,6 +56,7 @@ namespace PS_YuvVideoHandler
         /// </summary>
         public YuvVideoHandler()
         {
+            
         }
 
         /// <summary>
@@ -162,6 +164,7 @@ namespace PS_YuvVideoHandler
                 {
                     _propertyView = new PropertiesView();
                     _propertyView.DataContext = vidInfo;
+                   
                 }
                 return _propertyView;
             }
@@ -441,6 +444,7 @@ namespace PS_YuvVideoHandler
             
             return fdata;
         }
+
     }
 
 

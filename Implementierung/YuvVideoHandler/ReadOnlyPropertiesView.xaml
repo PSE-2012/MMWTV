@@ -13,14 +13,14 @@
         </Style>
     </UserControl.Resources>
 
-        <GroupBox Header="Format specific informations" Style="{StaticResource oqatGroupBoxStyle}">
+        <GroupBox Name="gb1" Header="Format spezifische Info" Style="{StaticResource oqatGroupBoxStyle}">
 
             <Grid>    
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Yuv video format: "/>
+                <TextBlock Text="Yuv"/>
                 <TextBlock Text="{Binding yuvFormat}" ></TextBlock>
         
             </Grid>
