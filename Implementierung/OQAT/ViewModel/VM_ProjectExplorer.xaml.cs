@@ -4,7 +4,7 @@
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Text;
-
+    using Microsoft.Win32;
     using Oqat.Model;
     using Oqat.PublicRessources.Model;
     using System.Windows.Controls;
@@ -226,24 +226,33 @@
 
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.DefaultExt = ".csv"; 
+            dlg.Filter = "Comma Seperated Values (.csv)|*.csv"; 
+            Nullable<bool> result = dlg.ShowDialog();
+
             SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
             Video vid = selNode.video;
 
-            String s = "";
-
-
-            for (int j = 0; j < vid.frameMetricValue.Length; j++)
+            if (result == true)
             {
-                for (int i = 0; i < vid.frameMetricValue[i].Length; i++)
+                String s = "";
+
+
+                for (int j = 0; j < vid.frameMetricValue.Length; j++)
                 {
-                    s = s + vid.frameMetricValue[j][i] + " ";
+                    for (int i = 0; i < vid.frameMetricValue[i].Length; i++)
+                    {
+                        s = s + vid.frameMetricValue[j][i] + " ";
+                    }
+                    s = s + System.Environment.NewLine;
                 }
-                s = s + System.Environment.NewLine;
+                String p = dlg.FileName;
+                StreamWriter myFile = new StreamWriter(p);
+                myFile.Write(s);
+                myFile.Close();
             }
-            String p = vid.vidPath + "_data.csv";
-            StreamWriter myFile = new StreamWriter(p);
-            myFile.Write(s);
-            myFile.Close();
+    
         }
     }
 }
