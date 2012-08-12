@@ -48,6 +48,11 @@ namespace Oqat.ViewModel.Macro
         private int oldIndex = -1;
         private delegate Point GetPositionDelegate(IInputElement element);
 
+        /// <summary>
+        /// Method to get current index using the mouse on macroQueue 
+        /// </summary>
+        /// <param name="getPosition">Position of mouse</param>
+        /// <returns>index of macroQueue item</returns>
         private int GetCurrentIndex(GetPositionDelegate getPosition)
         {
             int index = -1;
@@ -64,6 +69,11 @@ namespace Oqat.ViewModel.Macro
             return index;
         }
 
+        /// <summary>
+        /// Method to get a macroQueue item with index
+        /// </summary>
+        /// <param name="index">index of macroQueue item</param>
+        /// <returns>Element the index has pointed</returns>
         private ListViewItem GetListViewItem(int index)
         {
             if (macroTable.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
@@ -86,6 +96,11 @@ namespace Oqat.ViewModel.Macro
             }
         }
 
+        /// <summary>
+        /// Drop method for macroQueue
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">index to drop into</param>
         private void macroTable_Drop(object sender, DragEventArgs e)
         {
             int index = this.GetCurrentIndex(e.GetPosition);
@@ -113,6 +128,11 @@ namespace Oqat.ViewModel.Macro
             }
         }
 
+        /// <summary>
+        /// Method to get item to Drag
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">Mouseposition</param>
         private void macroTable_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             oldIndex = this.GetCurrentIndex(e.GetPosition);

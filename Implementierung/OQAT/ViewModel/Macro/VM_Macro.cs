@@ -56,7 +56,7 @@
         }
 
         /// <summary>
-        /// This is were the results (filter or metric process) are placed in.
+        /// This is were the results of filter process are placed in.
         /// </summary>
         private Video vidResult
         {
@@ -64,12 +64,19 @@
             set;
         }
 
+        /// <summary>
+        /// This is were the results of metric analysis are placed in.
+        /// Every metric has a own video.
+        /// </summary>
         private Video[] arrayVidResult
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Control for Macro in FilterView
+        /// </summary>
         public MacroFilterControl macroFilterControl
         {
             get
@@ -78,6 +85,9 @@
             }
         }
         
+        /// <summary>
+        /// Control for Macro in MetricView
+        /// </summary>
         public MacroMetricControl macroMetricControl
         {
             get
@@ -135,6 +145,9 @@
             }
         }
 
+        /// <summary>
+        /// Starts the process of PM_MacroMetric and PF_MacroFilter and initilize all Data needed.
+        /// </summary>
         public void startProcess()
         {
             if (this.viewType == ViewType.MetricView)
@@ -164,6 +177,11 @@
             }
         }
 
+        /// <summary>
+        /// Will be called if a Plugin with settings has to be added to macroQueue of Filter/Metric 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">A MacroEntry</param>
         public void onEntrySelect(object sender, MementoEventArgs e)
         {
             if (this.viewType == ViewType.FilterView)
