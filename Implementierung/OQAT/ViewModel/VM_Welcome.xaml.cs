@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-
+    using System.IO;
     using Oqat.PublicRessources.Model;
     using System.Windows.Controls;
     using System.Windows;
@@ -35,9 +35,32 @@
         /// <summary>
         /// Constructor.
         /// </summary>
+        /// 
         public VM_Welcome()
         {
             InitializeComponent();
+            projects = new String[15];
+            //memento null referenz exception
+          //  this.setMemento(Caretaker.caretaker.getMemento( Directory.GetCurrentDirectory() +"/VM_Welcome.mem"));
+            foreach(String s in projects){
+                listBox1.Items.Add(s);
+            }
+        }
+
+        String[] projects;
+        private Memento getMemento()
+        {
+            Memento mem = new Memento("VM_Welcome", this.projects);
+            return mem;
+        }
+        private void setMemento(Memento mem)
+        {
+            var obj=(String[])mem.state;
+            if (obj != null)
+            {
+                this.projects = obj;
+            }
+            
         }
 
         private void newPrjCreate_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -64,14 +87,23 @@
                 PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.newProjectCreated,
                     new ProjectEventArgs(exPrj));
             }
-            else
-            {
-                string corruptPrj = "";
-                string caption = "Couldnt open project.";
-                MessageBoxButton button = MessageBoxButton.OK;
-                MessageBoxImage icon = MessageBoxImage.Information;
-                MessageBox.Show(corruptPrj, caption, button, icon);
-            }
+          
+        }
+
+        private void listView1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnOpSelPrj.IsEnabled = true;
+        }
+
+        private void btnOpSelPrj_Click(object sender, RoutedEventArgs e)
+        {
+            //fehlerbehandlung
+            String projectToOpnen = this.listBox1.SelectedItem.ToString();
+            Memento exPrjMem;
+            exPrjMem = Caretaker.caretaker.getMemento(projectToOpnen);
+            Project exPrj = exPrjMem.state as Project;
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.newProjectCreated,
+                new ProjectEventArgs(exPrj));
         }
 
     }
