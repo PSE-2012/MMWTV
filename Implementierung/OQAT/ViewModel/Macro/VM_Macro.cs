@@ -158,7 +158,7 @@
                 //Name new Videos   "analysed" + macroMetric.macroQueue[i].mementoName?? maybe to long, or textboxes
                 for (int i = 0; i < macroMetric.macroQueue.Count; i++)
                 {
-                    arrayVidResult[i] = new Video(false, getNewFileName(vidRef.vidPath, "analysed" + i), vidInfo, this.macroFilter.macroQueue.ToList<MacroEntry>());
+                    arrayVidResult[i] = new Video(true, getNewFileName(vidRef.vidPath, "analysed" + i), vidInfo, this.macroFilter.macroQueue.ToList<MacroEntry>());
                 }
                 this.macroMetric.init(vidRef, vidProc, arrayVidResult);
                 this.macroMetric.analyse(vidRef, vidProc, arrayVidResult);

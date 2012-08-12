@@ -157,17 +157,21 @@ namespace PM_MSE
 
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
-            int rb = propertiesView.getRb();
+           int rb = propertiesView.getRb();
             Memento mem = new Memento(this.namePlugin, rb);
-
+            
             return mem;
         }
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
-            int obj =(int) memento.state;
-           
-            this.propertiesView.setRb(obj)  ;
+
+            Object obj = memento.state;
+
+            var otto = (int)obj;
+            this.propertiesView.setRb(otto);
+            
+         
            
         }
         private void localize(String s)
