@@ -9,6 +9,7 @@
     using Oqat.PublicRessources.Model;
     using System.Windows.Controls;
     using System.Windows;
+    using System.Collections;
     using Microsoft.Win32;
 
     /// <summary>
@@ -36,26 +37,38 @@
         /// Constructor.
         /// </summary>
         /// 
+        ArrayList projects;
+        String msg = "Projekt nicht gefunden.";
         public VM_Welcome()
         {
             InitializeComponent();
-            projects = new String[15];
-            //memento null referenz exception
-          //  this.setMemento(Caretaker.caretaker.getMemento( Directory.GetCurrentDirectory() +"/VM_Welcome.mem"));
-            foreach(String s in projects){
+            projects = new ArrayList();
+            //this.setMemento(Caretaker.caretaker.getMemento( Directory.GetCurrentDirectory() +"/VM_Welcome.mem"));
+            updateListBox();
+        }
+        private void updateListBox(){
+            foreach (String s in projects)
+            {
+                btnOpSelPrj.IsEnabled = false;
+                listBox1.Items.Clear();
                 listBox1.Items.Add(s);
             }
         }
 
-        String[] projects;
+        
         private Memento getMemento()
         {
-            Memento mem = new Memento("VM_Welcome", this.projects);
+            int listboxLenght = 15;
+            if (projects.Count > listboxLenght)
+            {
+                this.projects.RemoveRange(listboxLenght-1, projects.Count - listboxLenght);
+            }
+            Memento mem = new Memento("VM_Welcome.mem", this.projects);
             return mem;
         }
         private void setMemento(Memento mem)
         {
-            var obj=(String[])mem.state;
+            var obj=(ArrayList)mem.state;
             if (obj != null)
             {
                 this.projects = obj;
@@ -69,6 +82,8 @@
             prOpen.Owner = Window.GetWindow(this);
             Nullable<bool> result = prOpen.ShowDialog();
             if ((result != null) & (bool)result)
+                projects.Add(prOpen.pathProject);
+            Caretaker.caretaker.writeMemento(this.getMemento());
                 PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.newProjectCreated, new ProjectEventArgs(prOpen.project));
         }
 
@@ -86,6 +101,8 @@
                 Project exPrj = exPrjMem.state as Project;
                 PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.newProjectCreated,
                     new ProjectEventArgs(exPrj));
+                addProjekt(projects.Contains(dlg.FileName),dlg.FileName);
+               
             }
           
         }
@@ -101,9 +118,43 @@
             String projectToOpnen = this.listBox1.SelectedItem.ToString();
             Memento exPrjMem;
             exPrjMem = Caretaker.caretaker.getMemento(projectToOpnen);
-            Project exPrj = exPrjMem.state as Project;
-            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.newProjectCreated,
-                new ProjectEventArgs(exPrj));
+            if (exPrjMem != null)
+            {
+                Project exPrj = exPrjMem.state as Project;
+                addProjekt(projects.Contains(projectToOpnen), projectToOpnen);
+
+                PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.newProjectCreated,
+                    new ProjectEventArgs(exPrj));
+            }
+            else
+            {
+                MessageBox.Show(msg);
+                
+                projects.Remove(projectToOpnen);
+                listBox1.Items.Clear();
+                updateListBox();
+            }
+        }
+
+
+        private void addProjekt(Boolean b, String s)
+        {
+            if (!b)
+            {
+                projects.Add(s);
+                Caretaker.caretaker.writeMemento(this.getMemento());
+            }
+            else
+            {
+                projects.Remove(s);
+                projects.Add(s);
+                Caretaker.caretaker.writeMemento(this.getMemento());
+            }
+        }
+
+        private void listBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnOpSelPrj.IsEnabled = true;
         }
 
     }
