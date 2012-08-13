@@ -46,16 +46,19 @@
             this.local("VM_Welcome_default.xml");
             projects = new ArrayList();
             
-            //this.setMemento(Caretaker.caretaker.getMemento( Directory.GetCurrentDirectory() +"/VM_Welcome.mem"));
+            this.setMemento(Caretaker.caretaker.getMemento( Directory.GetCurrentDirectory() +"/VM_Welcome.mem"));
             updateListBox();
         }
         private void updateListBox(){
+            btnOpSelPrj.IsEnabled = false;
+            listBox1.Items.Clear();
+            this.projects.Reverse();
             foreach (String s in projects)
             {
-                btnOpSelPrj.IsEnabled = false;
-                listBox1.Items.Clear();
+               
                 listBox1.Items.Add(s);
             }
+            this.projects.Reverse();
         }
 
         
@@ -66,16 +69,20 @@
             {
                 this.projects.RemoveRange(listboxLenght-1, projects.Count - listboxLenght);
             }
-            Memento mem = new Memento("VM_Welcome.mem", this.projects);
+            Memento mem = new Memento("VM_Welcome.mem", this.projects, Directory.GetCurrentDirectory() + "/VM_Welcome.mem");
             return mem;
         }
         private void setMemento(Memento mem)
         {
-            var obj=(ArrayList)mem.state;
-            if (obj != null)
+            if (mem != null)
             {
-                this.projects = obj;
+                var obj = (ArrayList)mem.state;
+                if (obj != null)
+                {
+                    this.projects = obj;
+                }
             }
+          
             
         }
 
@@ -85,9 +92,13 @@
             prOpen.Owner = Window.GetWindow(this);
             Nullable<bool> result = prOpen.ShowDialog();
             if ((result != null) & (bool)result)
-                projects.Add(prOpen.pathProject);
-            Caretaker.caretaker.writeMemento(this.getMemento());
+            {
+                String path = prOpen.pathProject ;
+               
+                projects.Add(path);
+                Caretaker.caretaker.writeMemento(this.getMemento());
                 PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.newProjectCreated, new ProjectEventArgs(prOpen.project));
+            }
         }
 
         private void exPrjOpen_Click(object sender, System.Windows.RoutedEventArgs e)
