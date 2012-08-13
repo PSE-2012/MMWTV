@@ -62,13 +62,13 @@
                 <ListBox  Name="listBox1" Grid.ColumnSpan="3" Grid.RowSpan="3" SelectionChanged="listBox1_SelectionChanged" />
       
                 <WrapPanel  Name="wrapPanel1"  Grid.Column="1" Grid.Row="3" >
-                    <Button Style="{StaticResource welcomeButtonStyle}" Grid.Row="5" Grid.Column="0" x:Name="newPrjCreate_Button" Click="newPrjCreate_Click">Create new project.</Button>
+                    <Button Style="{StaticResource welcomeButtonStyle}" Grid.Row="5" Grid.Column="0" x:Name="newPrjCreate_Button" Click="newPrjCreate_Click">Neues Projekt erstellen</Button>
                 </WrapPanel>
                 <WrapPanel  Name="wrapPanel2"  Grid.Column="2" Grid.Row="3" >
-                    <Button  Style="{StaticResource welcomeButtonStyle}" Grid.Row="5" Grid.Column="1"  Click="exPrjOpen_Click">Open existing project.</Button>
+                    <Button Name="btnEx" Style="{StaticResource welcomeButtonStyle}" Grid.Row="5" Grid.Column="1"  Click="exPrjOpen_Click">Projekt suchen</Button>
                 </WrapPanel>
                 <WrapPanel  Name="wrapPanel3"  Grid.Column="0" Grid.Row="3" >
-                    <Button Name="btnOpSelPrj" Grid.Row="5"  Style="{StaticResource welcomeButtonStyle}" Grid.Column="2"  Content="Open selected Project"   IsEnabled="False" Click="btnOpSelPrj_Click" />
+                    <Button Name="btnOpSelPrj" Grid.Row="5"  Style="{StaticResource welcomeButtonStyle}" Grid.Column="2"  Content="Gewähltes Projekt öffnen"   IsEnabled="False" Click="btnOpSelPrj_Click" />
                 </WrapPanel>
            
         </Grid>

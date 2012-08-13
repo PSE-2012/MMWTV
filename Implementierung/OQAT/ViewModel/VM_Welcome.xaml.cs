@@ -11,6 +11,7 @@
     using System.Windows;
     using System.Collections;
     using Microsoft.Win32;
+    using System.Xml;
 
     /// <summary>
     /// This component is displayed whenever no project is open.
@@ -42,7 +43,9 @@
         public VM_Welcome()
         {
             InitializeComponent();
+            this.local("VM_Welcome_default.xml");
             projects = new ArrayList();
+            
             //this.setMemento(Caretaker.caretaker.getMemento( Directory.GetCurrentDirectory() +"/VM_Welcome.mem"));
             updateListBox();
         }
@@ -157,6 +160,37 @@
             btnOpSelPrj.IsEnabled = true;
         }
 
+
+        private void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[4];
+                String[] t2 = new String[4];
+                for (int i = 0; i < 4; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+
+                msg = t2[3];
+                newPrjCreate_Button.Content = t2[2];
+                btnOpSelPrj.Content = t2[1];
+                btnEx.Content = t2[0];
+
+
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
     }
 }
 
