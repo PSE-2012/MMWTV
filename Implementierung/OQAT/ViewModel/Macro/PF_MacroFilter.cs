@@ -106,7 +106,6 @@ namespace Oqat.ViewModel.Macro
 
         private IVideoHandler refHand;
         private IVideoHandler resultHand;
-        private int BUFFERSIZE; // should be tested with different buffer sizes later
         private int totalFrames;
         private int i;
         private System.Drawing.Bitmap[] resultFrames;
@@ -138,17 +137,6 @@ namespace Oqat.ViewModel.Macro
                     MacroEntryFilter currentFilterEntry = (MacroEntryFilter)currentEntry;
                     // here error handling in case the plugin doesn't implement IFilterOqat
                     mementoProcess(currentMementoEntry);
-                    //int arraycount = resultFrames.Count();
-                    //for (int j = 0; j < arraycount; j++)
-                    //{
-                    //    // TODO: Handling of an entry that is another macrofilter - what to do with the slider values?
-                    //    if ((currentFilterEntry.endFrameRelative / 100) * totalFrames <= (i+j) && (i+j) <= (currentFilterEntry.startFrameRelative / 100) * totalFrames)
-                    //    {
-                    //        currentPluginEntry.setMemento(currentMementoEntry);
-                    //        System.Drawing.Bitmap tempmap = currentPluginEntry.process(resultFrames[j]);
-                    //        resultFrames[j] = tempmap;
-                    //    }
-                    //}
                 }
             }
         }
@@ -159,16 +147,14 @@ namespace Oqat.ViewModel.Macro
         /// <param name="memento">settings of used plugin</param>
         private void mementoProcess(Memento memento)
         {
-            int arraycount = resultFrames.Count();
-            for (int j = 0; j < arraycount; j++) // iterate over all frames to be processed
-            {
-                if ((currentMacroEntry.startFrameRelative / 100) * totalFrames <= (i + j) && (i + j) <= (currentMacroEntry.endFrameRelative / 100) * totalFrames)
+            
+            
+                if ((currentMacroEntry.startFrameRelative / 100) * totalFrames <= i && i <= (currentMacroEntry.endFrameRelative / 100) * totalFrames)
                 {
                     currentPlugin.setMemento(memento);
-                    System.Drawing.Bitmap tempmap = currentPlugin.process(resultFrames[j]);
-                    resultFrames[j] = tempmap;
+                    System.Drawing.Bitmap tempmap = currentPlugin.process(resultFrames[i]);
+                    resultFrames[i] = tempmap;
                 }
-            }
         }
 
         /// <summary>
@@ -180,8 +166,8 @@ namespace Oqat.ViewModel.Macro
         {
             refHand = vidRef.handler;
             resultHand = vidResult.handler;
-            BUFFERSIZE = 255;
             totalFrames = vidRef.vidInfo.frameCount;
+            resultFrames = new System.Drawing.Bitmap[vidRef.vidInfo.frameCount];
             i = 0;
         }
 
@@ -192,23 +178,17 @@ namespace Oqat.ViewModel.Macro
         /// <param name="vidResult">new video after process</param>
         public void process(Video vidRef, Video vidResult)
         {
-            BUFFERSIZE = 127;
             while (i < totalFrames)
             {
-                if ((i + BUFFERSIZE - totalFrames) > 0)
-                {
-                    resultFrames = refHand.getFrames(i, totalFrames - i);
-                }
-                else
-                {
-                    resultFrames = refHand.getFrames(i, BUFFERSIZE); // initialize the first BUFFERSIZE frames to be processed
-                }
+                resultFrames[i] = refHand.getFrame(i);
                 foreach (MacroEntryFilter c in macroQueue)
                 {
                     // here maybe error handling in case the plugin doesn't implement IFilterOqat, although plugin lists has probably checked that already
                     currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.pluginName);
                     currentMemento = PluginManager.pluginManager.getMemento((String)c.pluginName, (String)c.mementoName);
                     currentMacroEntry = (MacroEntryFilter)c;
+
+                    // decide if a macro is used
                     if (currentPlugin is IMacro)
                     {
                         macroEncode(currentMemento);
@@ -218,15 +198,16 @@ namespace Oqat.ViewModel.Macro
                         mementoProcess(currentMemento);
                     }
                 }
-            resultHand.writeFrames(i, resultFrames); // write the processed frames to disk
-            i += BUFFERSIZE;
+            resultHand.writeFrame(i, resultFrames[i]); // write the processed frames to disk 
+            i++;
             }
+            // reset after finished work
             resultFrames = null;
             currentPlugin = null;
             currentMemento = null;
             refHand = null;
             resultHand = null;
-
+            // add to ProjectExplorer
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult));
         }
 

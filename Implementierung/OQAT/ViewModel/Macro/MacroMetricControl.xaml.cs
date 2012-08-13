@@ -161,5 +161,23 @@ namespace Oqat.ViewModel.Macro
         {
             ScrollViewer1.ScrollToVerticalOffset(e.VerticalOffset);
         }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            deleteSelected();
+        }
+
+        /// <summary>
+        /// All selected items in macroQueue will be deleted.
+        /// </summary>
+        private void deleteSelected()
+        {
+            // Selecting multiple entries with ctrl doesn't work anymore ever since drag and drop was implemented. Shift requires double click
+            while (macroTable.SelectedIndex != -1)
+            {
+                int index = macroTable.SelectedIndex;
+                this.macro.macroQueue.RemoveAt(index);
+            }
+        }
     }
 }
