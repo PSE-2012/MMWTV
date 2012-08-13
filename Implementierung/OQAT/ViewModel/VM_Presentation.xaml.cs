@@ -295,7 +295,7 @@ namespace Oqat.ViewModel
             if(this.videoProc == null || 
                 (vtype == ViewType.MetricView && videoRef == null))
             {
-                MessageBox.Show("Bitte wählen Sie zunächst Videos.", "Macro Ausführung nicht möglich");
+                MessageBox.Show(msgBox1, msgBox2);
                 return;
             }
             
