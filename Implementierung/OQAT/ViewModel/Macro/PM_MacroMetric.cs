@@ -29,13 +29,17 @@ namespace Oqat.ViewModel.Macro
     /// </summary>
 	public class PM_MacroMetric : Macro, IMetricOqat
     {
-        string namePlugin
+        public string namePlugin
         {
             get
             {
                 return "PM_MacroMetric";
             }
         }
+        public PluginType type {
+            get {
+                return PluginType.IMetricOqat;
+            }}
         /// <summary>
         /// Metric macroQueue
         /// </summary>
@@ -116,66 +120,66 @@ namespace Oqat.ViewModel.Macro
         /// <param name="vidResult">video results</param>
         public void analyse(Video vidRef, Video vidProc, Video[] vidResult)
         {
-        //    thread = new Thread(new ThreadStart(WorkerThread));
-        //    threadAbort += new threadAbortHandler(onThreadAbort);
-        //    thread.Start();
-        //}
+        ////    thread = new Thread(new ThreadStart(WorkerThread));
+        ////    threadAbort += new threadAbortHandler(onThreadAbort);
+        ////    thread.Start();
+        ////}
 
-        //private void WorkerThread()
-        //{
-            // Warning: the method, implemented this way, does not support having another macrometric inside the list of metrics
-            for (int m = 0; m < macroQueue.Count; m++)
-            {
-                resultFrames = new System.Drawing.Bitmap[vidRef.vidInfo.frameCount];
-                refFrames = new System.Drawing.Bitmap[vidRef.vidInfo.frameCount];
-                procFrames = new System.Drawing.Bitmap[vidProc.vidInfo.frameCount];
+        ////private void WorkerThread()
+        ////{
+        //    // Warning: the method, implemented this way, does not support having another macrometric inside the list of metrics
+        //    for (int m = 0; m < macroQueue.Count; m++)
+        //    {
+        //        resultFrames = new System.Drawing.Bitmap[vidRef.vidInfo.frameCount];
+        //        refFrames = new System.Drawing.Bitmap[vidRef.vidInfo.frameCount];
+        //        procFrames = new System.Drawing.Bitmap[vidProc.vidInfo.frameCount];
 
-                // Define current entry of macroQueue
-                MacroEntryMetric macroEntryMetric = (MacroEntryMetric)macroQueue[m];
-                currentPlugin = (IMetricOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)macroEntryMetric.mementoName);
-                currentMemento = PluginManager.pluginManager.getMemento((String)macroEntryMetric.pluginName, (String)macroEntryMetric.mementoName);
+        //        // Define current entry of macroQueue
+        //        MacroEntryMetric macroEntryMetric = (MacroEntryMetric)macroQueue[m];
+        //        currentPlugin = (IMetricOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)macroEntryMetric.mementoName);
+        //        currentMemento = PluginManager.pluginManager.getMemento((String)macroEntryMetric.pluginName, (String)macroEntryMetric.mementoName);
 
-                vidRes[m].frameMetricValue = new float[totalFrames][];
+        //        vidRes[m].frameMetricValue = new float[totalFrames][];
 
-                while (i < totalFrames)
-                {
-                    refFrames[i] = refHand.getFrame(i);
-                    procFrames[i] = procHand.getFrame(i);
+        //        while (i < totalFrames)
+        //        {
+        //            refFrames[i] = refHand.getFrame(i);
+        //            procFrames[i] = procHand.getFrame(i);
 
-                    if (currentPlugin is IMacro)
-                    {
-                        macroEncode(currentMemento);
-                    }
-                    else
-                    {
-                        mementoAnalyse(currentMemento);
-                    }
+        //            if (currentPlugin is IMacro)
+        //            {
+        //                macroEncode(currentMemento);
+        //            }
+        //            else
+        //            {
+        //                mementoAnalyse(currentMemento);
+        //            }
                      
 
-                    vidRes[m].frameMetricValue[i] = analyseInfo.values; // sets frameMetricValue for the result video of the current metric
-                    resHand[m].writeFrame(i, resultFrames[i]); // write the result frames to disk
-                    i++;
-                }
-                i = 0;
-            }
-            currentPlugin = null;
-            currentMemento = null;
-            refFrames = null;
-            procFrames = null;
-            refHand = null;
-            resHand = null;
-            procHand = null;
-            refFrames = null;
-            procFrames = null;
-            analyseInfo = null;
-            resultFrames = null;
-            //onThreadAbort(this, new EventArgs());
+        //            vidRes[m].frameMetricValue[i] = analyseInfo.values; // sets frameMetricValue for the result video of the current metric
+        //            resHand[m].writeFrame(i, resultFrames[i]); // write the result frames to disk
+        //            i++;
+        //        }
+        //        i = 0;
+        //    }
+        //    currentPlugin = null;
+        //    currentMemento = null;
+        //    refFrames = null;
+        //    procFrames = null;
+        //    refHand = null;
+        //    resHand = null;
+        //    procHand = null;
+        //    refFrames = null;
+        //    procFrames = null;
+        //    analyseInfo = null;
+        //    resultFrames = null;
+        //    //onThreadAbort(this, new EventArgs());
 
-            foreach (Video v in vidResult)
-            {
-                PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished,
-                    new VideoEventArgs(v));
-            }
+        //    foreach (Video v in vidResult)
+        //    {
+        //        PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished,
+        //            new VideoEventArgs(v));
+        //    }
         }
 
         private void mementoAnalyse(Memento memento)

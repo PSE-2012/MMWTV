@@ -10,7 +10,7 @@
     /// Every macro has to implement this interface.
     /// Methods within this interface are used for actual processing (i.e. invoking plugins on a video).
     /// </summary>
-	public interface IMacro
+	public interface IMacro : IPlugin
 	{
 
 	}

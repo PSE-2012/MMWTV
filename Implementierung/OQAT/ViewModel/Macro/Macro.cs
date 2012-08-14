@@ -17,9 +17,9 @@ namespace Oqat.ViewModel.Macro
     /// <summary>
     /// This class implements the IMacro interface, see <see cref="IMacro"/> for further information
     /// </summary>
-    public abstract class Macro : IMacro, IPlugin
+    public abstract class Macro : IMacro
     {
-        string namePlugin
+        public string namePlugin
         {
             get
             {
@@ -27,6 +27,14 @@ namespace Oqat.ViewModel.Macro
             }
         }
 
+        public PluginType type
+        {
+            get
+            {
+                return PluginType.IMacro;
+            }
+        }
+                    
 
         public UserControl macroControl;
         internal List<RangeSelectionChangedEventHandler> delList;

@@ -28,12 +28,17 @@ namespace Oqat.ViewModel.Macro
     /// </summary>
     public class PF_MacroFilter : Macro, IFilterOqat
     {
-        string namePlugin 
+        public string namePlugin 
         {
             get
             {
                 return "PF_MacroFilter";
             }
+        }
+
+        public PluginType type
+        {
+            get { return PluginType.IFilterOqat; }
         }
 
         internal List<RangeSlider> rsl;
@@ -178,37 +183,37 @@ namespace Oqat.ViewModel.Macro
         /// <param name="vidResult">new video after process</param>
         public void process(Video vidRef, Video vidResult)
         {
-            while (i < totalFrames)
-            {
-                resultFrames[i] = refHand.getFrame(i);
-                foreach (MacroEntryFilter c in macroQueue)
-                {
-                    // here maybe error handling in case the plugin doesn't implement IFilterOqat, although plugin lists has probably checked that already
-                    currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.pluginName);
-                    currentMemento = PluginManager.pluginManager.getMemento((String)c.pluginName, (String)c.mementoName);
-                    currentMacroEntry = (MacroEntryFilter)c;
+        //    while (i < totalFrames)
+        //    {
+        //        resultFrames[i] = refHand.getFrame(i);
+        //        foreach (MacroEntryFilter c in macroQueue)
+        //        {
+        //            // here maybe error handling in case the plugin doesn't implement IFilterOqat, although plugin lists has probably checked that already
+        //            currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.pluginName);
+        //            currentMemento = PluginManager.pluginManager.getMemento((String)c.pluginName, (String)c.mementoName);
+        //            currentMacroEntry = (MacroEntryFilter)c;
 
-                    // decide if a macro is used
-                    if (currentPlugin is IMacro)
-                    {
-                        macroEncode(currentMemento);
-                    }
-                    else
-                    {
-                        mementoProcess(currentMemento);
-                    }
-                }
-            resultHand.writeFrame(i, resultFrames[i]); // write the processed frames to disk 
-            i++;
-            }
-            // reset after finished work
-            resultFrames = null;
-            currentPlugin = null;
-            currentMemento = null;
-            refHand = null;
-            resultHand = null;
-            // add to ProjectExplorer
-            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult));
+        //            // decide if a macro is used
+        //            if (currentPlugin is IMacro)
+        //            {
+        //                macroEncode(currentMemento);
+        //            }
+        //            else
+        //            {
+        //                mementoProcess(currentMemento);
+        //            }
+        //        }
+        //    resultHand.writeFrame(i, resultFrames[i]); // write the processed frames to disk 
+        //    i++;
+        //    }
+        //    // reset after finished work
+        //    resultFrames = null;
+        //    currentPlugin = null;
+        //    currentMemento = null;
+        //    refHand = null;
+        //    resultHand = null;
+        //    // add to ProjectExplorer
+        //    PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult));
         }
 
 
@@ -232,7 +237,6 @@ namespace Oqat.ViewModel.Macro
                 this.macroQueue.Add(f);
             }
         }
-
     }
 }
 
