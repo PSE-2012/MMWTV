@@ -179,7 +179,7 @@
             _handler = handler.createVideoHandlerInstance();
             if (this.vidInfo != null)
             {
-                _handler.setVideo(this.vidPath, this.vidInfo);
+                _handler.setReadContext(this.vidPath, this.vidInfo);
             }
 
             return _handler;

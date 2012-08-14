@@ -110,7 +110,7 @@ namespace Oqat.ViewModel.Macro
 
 
         private IVideoHandler refHand;
-        private IVideoHandler resultHand;
+    //   private IVideoHandler resultHand;
         private int totalFrames;
         private int i;
         private System.Drawing.Bitmap[] resultFrames;
@@ -170,7 +170,10 @@ namespace Oqat.ViewModel.Macro
         public void init(Video vidRef, Video vidResult)
         {
             refHand = vidRef.handler;
-            resultHand = vidResult.handler;
+            refHand.setReadContext(vidRef.vidPath, vidRef.vidInfo);
+            refHand.setWriteContext(vidResult.vidPath, vidRef.vidInfo);
+            //resultHand = vidResult.handler;
+            //resultHand.setWriteContext(vidResult.vidPath, vidResult
             totalFrames = vidRef.vidInfo.frameCount;
             resultFrames = new System.Drawing.Bitmap[vidRef.vidInfo.frameCount];
             i = 0;
@@ -183,37 +186,40 @@ namespace Oqat.ViewModel.Macro
         /// <param name="vidResult">new video after process</param>
         public void process(Video vidRef, Video vidResult)
         {
-        //    while (i < totalFrames)
-        //    {
-        //        resultFrames[i] = refHand.getFrame(i);
-        //        foreach (MacroEntryFilter c in macroQueue)
-        //        {
-        //            // here maybe error handling in case the plugin doesn't implement IFilterOqat, although plugin lists has probably checked that already
-        //            currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.pluginName);
-        //            currentMemento = PluginManager.pluginManager.getMemento((String)c.pluginName, (String)c.mementoName);
-        //            currentMacroEntry = (MacroEntryFilter)c;
+            // set reader to begin of the yuv
+            refHand.positionReader = 0;
+            while (i < totalFrames)
+            {
+                resultFrames[i] = refHand.getFrame();
+                foreach (MacroEntryFilter c in macroQueue)
+                {
+                    // here maybe error handling in case the plugin doesn't implement IFilterOqat, although plugin lists has probably checked that already
+                    currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.pluginName);
+                    currentMemento = PluginManager.pluginManager.getMemento((String)c.pluginName, (String)c.mementoName);
+                    currentMacroEntry = (MacroEntryFilter)c;
 
-        //            // decide if a macro is used
-        //            if (currentPlugin is IMacro)
-        //            {
-        //                macroEncode(currentMemento);
-        //            }
-        //            else
-        //            {
-        //                mementoProcess(currentMemento);
-        //            }
-        //        }
-        //    resultHand.writeFrame(i, resultFrames[i]); // write the processed frames to disk 
-        //    i++;
-        //    }
-        //    // reset after finished work
-        //    resultFrames = null;
-        //    currentPlugin = null;
-        //    currentMemento = null;
-        //    refHand = null;
-        //    resultHand = null;
-        //    // add to ProjectExplorer
-        //    PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult));
+                    // decide if a macro is used
+                    if (currentPlugin is IMacro)
+                    {
+                        macroEncode(currentMemento);
+                    }
+                    else
+                    {
+                        mementoProcess(currentMemento);
+                    }
+                }
+                // write the processed frames to disk 
+                i++;
+            }
+            refHand.writeFrames(i, resultFrames);
+            // reset after finished work
+            resultFrames = null;
+            currentPlugin = null;
+            currentMemento = null;
+            refHand = null;
+          //  resultHand = null;
+            // add to ProjectExplorer
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult));
         }
 
 

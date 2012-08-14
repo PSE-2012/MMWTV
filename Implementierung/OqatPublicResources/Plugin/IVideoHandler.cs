@@ -21,7 +21,12 @@ using System.Windows.Controls;
         /// <summary>
         /// A format specific VideoInfo object, see <see cref="IVideoInfo"/> for further information.
         /// </summary>
-		IVideoInfo vidInfo { get; }
+		IVideoInfo readVidInfo { get; }
+
+        /// <summary>
+        /// A format specific VideoInfo object, see <see cref="IVideoInfo"/> for further information.
+        /// </summary>
+        IVideoInfo writeVidInfo { get; }
 
 
         int positionReader
@@ -31,7 +36,8 @@ using System.Windows.Controls;
         }
 
         void flushReader();
-        void flushWriter();
+
+      //  void flushWriter();
 
         /// <summary>
         /// Returns a frame from the currently loaded Video.
@@ -49,12 +55,13 @@ using System.Windows.Controls;
         ///// <returns>Array of frames from the currently loaded Video.</returns>
         //Bitmap[] getFrames(int frameNm, int offset);
 
-        /// <summary>
-        /// Writes a frame to the currently loaded Video.
-        /// </summary>
-        /// <param name="frameNum">The "slot" the given frame will be written in.</param>
-        /// <param name="frame">Frame to write.</param>
-		void writeFrame( Bitmap frame, bool buffer = true);
+        ///// <summary>
+        ///// Writes a frame to the currently loaded Video.
+        ///// </summary>
+        ///// <param name="frameNum">The "slot" the given frame will be written in.</param>
+        ///// <param name="frame">Frame to write.</param>
+        //void writeFrame( Bitmap frame, bool buffer = true);
+        void writeFrames(int frameNum, System.Drawing.Bitmap[] frames);
 
         ///// <summary>
         ///// Nearly the same as writeFrame(int frameNum, Bitman frame) except that
@@ -74,11 +81,20 @@ using System.Windows.Controls;
 
 
         /// <summary>
-        /// Sets a new video file as the context of this handler.
+        /// Sets a new video file as the read context of this handler.
         /// </summary>
         /// <param name="filepath">location of the videofile to read</param>
         /// <param name="info">VideoInfo containing needed information</param>
-        void setVideo(string filepath, IVideoInfo info);
+        void setReadContext(string filepath, IVideoInfo info);
+
+
+        /// <summary>
+        /// Sets a new video file as the write context of this handler.
+        /// </summary>
+        /// <param name="filepath">location of the videofile to read</param>
+        /// <param name="info">VideoInfo containing needed information</param>
+        void setWriteContext(string filepath, IVideoInfo info);
+
 
 
         /// <summary>
@@ -89,6 +105,8 @@ using System.Windows.Controls;
         {
             get;
         }
+
+
         /// <summary>
         /// Indicates whether the video handler has correct data to work on.
         /// </summary>

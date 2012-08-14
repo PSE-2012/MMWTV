@@ -11,9 +11,7 @@
     using System.Collections.ObjectModel;
     using System.Windows.Input;
     using System.Windows;
-    using Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation;
     using System.Windows.Data;
-    using Microsoft.WindowsAPICodePack.Shell;
     using System.IO;
     using System.Windows.Media;
     using System.Collections.Specialized;
