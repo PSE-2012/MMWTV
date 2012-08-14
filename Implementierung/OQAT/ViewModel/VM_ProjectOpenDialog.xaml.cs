@@ -128,7 +128,7 @@ namespace Oqat.ViewModel
             InitializeComponent();
             local("VM_ProjectOpenDialog_default.xml");
             title = "myOqatPrj";
-            pathProject = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            pathProject = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/" +title+ ".oqatPrj";
             description = "";
             this.prjProperties.DataContext = this;
                 
