@@ -16,26 +16,20 @@
         /// <summary>
         /// See <see cref="PresentationPluginType"/> for a complete list.
         /// </summary>
-		PresentationPluginType presentationType { get; }
+        PresentationPluginType presentationType
+        {
+            get;
+        }
 
         /// <summary>
         /// This method will be called if a new Video should be loaded into the plugin.
         /// </summary>
-        /// <param name="sender">The caller</param>
-        /// <param name="vid">Video to load in.</param>
-		void loadVideo(object sender, VideoEventArgs vid);
+        void setVideo(IVideo video);
 
         /// <summary>
-        /// Signals to unload the currently loaded Video.
+        /// Resets the plugin to construction time state
         /// </summary>
-		void unloadVideo();
-
-        /// <summary>
-        /// Resets the plugin i.e. unloadVideo() and flush all buffers.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-		void onFlushPresentationPlugins(object sender, EventArgs e);
+		void flush();
 
 	}
 }
