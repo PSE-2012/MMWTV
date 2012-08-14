@@ -27,6 +27,10 @@ namespace Oqat.ViewModel
     /// </summary>
     public partial class VM_Oqat : Window
     {
+
+        /// <summary>
+        /// Sets the Language Content and reads it from an XML File.
+        /// </summary>
         private void local(String s)
         {
             try
@@ -58,7 +62,9 @@ namespace Oqat.ViewModel
             catch (FileNotFoundException e) { }
             catch (XmlException e) { }
         }
-
+        /// <summary>
+        /// constructor of the PRogramm. initialises all components.
+        /// </summary>
         public VM_Oqat()
         {
             InitializeComponent();

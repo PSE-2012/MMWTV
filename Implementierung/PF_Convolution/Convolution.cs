@@ -50,6 +50,10 @@ namespace PF_Convolution
 
         private VM_Convolution propertiesView;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
+
         public Convolution()
         {
             matrix = new int[3, 3];
@@ -58,16 +62,27 @@ namespace PF_Convolution
             propertiesView.DataContext = this;
         }
 
+        /// <summary>
+        /// Returns a Memento with the current state of the Object.
+        /// </summary>
 
         public Memento getMemento()
         {
             return new Memento(this.namePlugin, this.matrix);
         }
 
+        /// <summary>
+        /// Sets a Memento as the current state of the Object.
+        /// </summary>
+
         public void setMemento(Memento memento)
         {
            this.matrix =(int[,]) memento.state;
         }
+
+        /// <summary>
+        /// Generates the filtered Image.
+        /// </summary>
 
         public Bitmap process(Bitmap frame)
         {

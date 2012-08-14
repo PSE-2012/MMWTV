@@ -24,6 +24,10 @@ namespace PM_PSNR
         private string _namePlugin = "PM_PSNR";
         private PluginType _type = PluginType.IMetricOqat;
 
+
+        /// <summary>
+        /// Method to generate the analysis data.
+        /// </summary>
         public AnalysisInfo analyse(System.Drawing.Bitmap frameRef, System.Drawing.Bitmap frameProc)
         {
             Bitmap resultFrame = new Bitmap(frameRef.Width, frameRef.Height);
@@ -115,12 +119,20 @@ namespace PM_PSNR
             return handlers;
         }
 
+        /// <summary>
+        /// not necesarry method here
+        /// </summary>
+
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
             Memento mem = new Memento(this.namePlugin, this);
 
             return mem;
         }
+
+        /// <summary>
+        /// not necesarry method here
+        /// </summary>
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {

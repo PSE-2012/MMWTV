@@ -25,7 +25,9 @@ namespace PM_MSE
         
         VM_PM_MSE propertiesView;
 
-
+        /// <summary>
+        /// Method to generate the analysis data.
+        /// </summary>
      
         public AnalysisInfo analyse(System.Drawing.Bitmap frameRef, System.Drawing.Bitmap frameProc)
         {
@@ -136,6 +138,11 @@ namespace PM_MSE
                 this._type=value;
             }
         }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+
         public MSE(){
             propertiesView = new VM_PM_MSE();
             localize(_namePlugin + "_default.xml");
@@ -155,6 +162,10 @@ namespace PM_MSE
             return handlers;
         }
 
+        /// <summary>
+        /// Return a Memento with the current state of this.
+        /// </summary>
+
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
            int rb = propertiesView.getRb();
@@ -162,6 +173,10 @@ namespace PM_MSE
             
             return mem;
         }
+
+        /// <summary>
+        /// Sets the memento to the current state of this.
+        /// </summary>
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
@@ -174,6 +189,11 @@ namespace PM_MSE
          
            
         }
+
+        /// <summary>
+        /// Helper method to fit the language. String s is the Name of the Language file.
+        /// </summary>
+
         private void localize(String s)
         {
             propertiesView.local(s);

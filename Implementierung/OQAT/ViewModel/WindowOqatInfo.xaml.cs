@@ -23,6 +23,9 @@ namespace Oqat.ViewModel
             InitializeComponent();
         }
 
+        /// <summary>
+        /// event to call the version number
+        /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.tbVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;

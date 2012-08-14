@@ -28,6 +28,9 @@ namespace Oqat.ViewModel
     {
 
         private List<Video> _videoList;
+        /// <summary>
+        /// list from the videos wich should be imported
+        /// </summary>
         internal List<Video> videoList
         {
             get
@@ -44,7 +47,9 @@ namespace Oqat.ViewModel
         }
         private Dictionary<ClosableTabItem, Video> vidHandlerViews;
 
-
+        /// <summary>
+        /// Method to fit tho local content from the vm to an xml file.
+        /// </summary>
         private void local(String s)
         {
             try
@@ -74,6 +79,11 @@ namespace Oqat.ViewModel
             catch (FileNotFoundException e) { }
             catch (XmlException e) { }
         }
+
+
+        /// <summary>
+        /// construktor 
+        /// </summary>
         public VM_VidImportOptionsDialog(StringCollection vidPathList)
         {
             InitializeComponent();
@@ -95,7 +105,9 @@ namespace Oqat.ViewModel
                     handler = null;
             }    
         }
-
+        /// <summary>
+        /// event to handel taps that should eb closed
+        /// </summary>
         private void TabClosed(object source, RoutedEventArgs args) {
             args.Handled = true;
             ClosableTabItem tabItem = (ClosableTabItem)args.Source;
@@ -109,6 +121,9 @@ namespace Oqat.ViewModel
             }
         }
 
+        /// <summary>
+        /// method to show the video format specific necessary information
+        /// </summary>
         private void presentHandlerView(Video vid)
         {
             var tabItem = new ClosableTabItem();
@@ -119,7 +134,9 @@ namespace Oqat.ViewModel
         }
 
 
-
+        /// <summary>
+        /// event to import videos
+        /// </summary>
         private void btt_Import_Click(object sender, RoutedEventArgs e)
         {
             foreach (Video vid in videoList)
@@ -134,7 +151,9 @@ namespace Oqat.ViewModel
             e.Handled = true;
             this.DialogResult = true;
         }
-
+        /// <summary>
+        /// event to cancel the dialog.
+        /// </summary>
         private void btt_Cancel_Click(object sender, RoutedEventArgs e)
         {
             e.Handled = true;

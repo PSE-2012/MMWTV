@@ -22,6 +22,10 @@ namespace Oqat.Model
 
 
         private ObservableCollection<SmartNode> _smartTree;
+
+        /// <summary>
+        /// get and sets the Smarttree for the VM_Projectexplorer
+        /// </summary>
         public ObservableCollection<SmartNode> smartTree
         {
             get {
@@ -64,11 +68,17 @@ namespace Oqat.Model
                 this.smartTree = smartTree;
         }
 
+        /// <summary>
+        /// return the name
+        /// </summary>
+
         public override string ToString()
         {
             return name;
         }
-
+        /// <summary>
+        /// returns true if obj = this
+        /// </summary>
         public override bool Equals(object obj)
         {
             if (!(obj is SmartNode) || obj == null)
