@@ -23,36 +23,46 @@ using System.Windows.Controls;
         /// </summary>
 		IVideoInfo vidInfo { get; }
 
+
+        int positionReader
+        {
+            get;
+            set;
+        }
+
+        void flushReader();
+        void flushWriter();
+
         /// <summary>
         /// Returns a frame from the currently loaded Video.
         /// </summary>
         /// <param name="frameNm">The frame to return.</param>
         /// <returns>Frame from currently loaded Video.</returns>
-		Bitmap getFrame(int frameNm);
+		Bitmap getFrame(bool buffer = true);
 
-        /// <summary>
-        /// Nearly the same as getFrame(int frameNm) except that
-        /// offset number of frames will be returned.
-        /// </summary>
-        /// <param name="frameNm">The frame to return.</param>
-        /// <param name="offset"Number of frames to return.></param>
-        /// <returns>Array of frames from the currently loaded Video.</returns>
-		Bitmap[] getFrames(int frameNm, int offset);
+        ///// <summary>
+        ///// Nearly the same as getFrame(int frameNm) except that
+        ///// offset number of frames will be returned.
+        ///// </summary>
+        ///// <param name="frameNm">The frame to return.</param>
+        ///// <param name="offset"Number of frames to return.></param>
+        ///// <returns>Array of frames from the currently loaded Video.</returns>
+        //Bitmap[] getFrames(int frameNm, int offset);
 
         /// <summary>
         /// Writes a frame to the currently loaded Video.
         /// </summary>
         /// <param name="frameNum">The "slot" the given frame will be written in.</param>
         /// <param name="frame">Frame to write.</param>
-		void writeFrame(int frameNum, Bitmap frame);
+		void writeFrame( Bitmap frame, bool buffer = true);
 
-        /// <summary>
-        /// Nearly the same as writeFrame(int frameNum, Bitman frame) except that
-        /// a array of frames will be written.
-        /// </summary>
-        /// <param name="frameNum">Slot to place the first frame in.</param>
-        /// <param name="frames">Array of frames to place into the currently loaded video.</param>
-		void writeFrames(int frameNum, Bitmap[] frames);
+        ///// <summary>
+        ///// Nearly the same as writeFrame(int frameNum, Bitman frame) except that
+        ///// a array of frames will be written.
+        ///// </summary>
+        ///// <param name="frameNum">Slot to place the first frame in.</param>
+        ///// <param name="frames">Array of frames to place into the currently loaded video.</param>
+        //void writeFrames(int frameNum, Bitmap[] frames);
 
 
 
