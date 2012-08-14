@@ -16,6 +16,7 @@ using Oqat;
 
 
 using Oqat.PublicRessources.Plugin;
+using Oqat.PublicRessources.Model;
 
 
 using Microsoft.CSharp;
@@ -68,7 +69,7 @@ namespace PP_Diagramm
 
         }
 
-        public void onFlushPresentationPlugins(object sender, EventArgs e)
+        public void flush()
         {
             plotModel.Model = null;
         }
@@ -160,13 +161,13 @@ namespace PP_Diagramm
         }
 
 
-        public void loadVideo(object sender, Oqat.PublicRessources.Model.VideoEventArgs vid) 
+        public void setVideo(IVideo video) 
         {
-            if (vid.video.frameMetricValue != null)
+            if (video.frameMetricValue != null)
             {
                 
 
-                createDataSeries(vid.video.frameMetricValue);
+                createDataSeries(video.frameMetricValue);
             }
             else
             {
