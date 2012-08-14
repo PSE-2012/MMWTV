@@ -128,7 +128,12 @@
 
         private void btnOpSelPrj_Click(object sender, RoutedEventArgs e)
         {
-            //fehlerbehandlung
+            openSelectedProject();
+            
+        }
+
+        private void openSelectedProject()
+        {
             String projectToOpnen = this.listBox1.SelectedItem.ToString();
             Memento exPrjMem;
             exPrjMem = Caretaker.caretaker.getMemento(projectToOpnen);
@@ -143,7 +148,7 @@
             else
             {
                 MessageBox.Show(msg);
-                
+
                 projects.Remove(projectToOpnen);
                 listBox1.Items.Clear();
                 updateListBox();
@@ -201,6 +206,18 @@
             catch (IndexOutOfRangeException e) { }
             catch (FileNotFoundException e) { }
             catch (XmlException e) { }
+        }
+
+        private void listbox1_DoubleKlick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+            {
+
+                if (listBox1.SelectedItem.ToString().Length != 0)
+                {
+                    openSelectedProject();
+                }
+            }
         }
     }
 }
