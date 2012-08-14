@@ -24,7 +24,11 @@ namespace PF_Greyscale
         double redValue;
         double greenValue;
         double blueValue;
-        
+
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public VM_Greyscale()
         {
             InitializeComponent();
@@ -38,12 +42,21 @@ namespace PF_Greyscale
             
         }
 
+
+        /// <summary>
+        /// Listener for data binding
+        /// </summary>
+
         private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             redValue = red.Value;
             greenValue = green.Value;
             blueValue = blue.Value;
         }
+
+        /// <summary>
+        /// Sets the Sliders.
+        /// </summary>
 
         public void changeValue(double r,double g, double b){
             red.Value =r;
@@ -62,6 +75,11 @@ namespace PF_Greyscale
         {
             return blueValue;
         }
+
+        /// <summary>
+        /// Sets the Language Content and reads it from an XML File.
+        /// </summary>
+
         public void local(String s)
         {
             try

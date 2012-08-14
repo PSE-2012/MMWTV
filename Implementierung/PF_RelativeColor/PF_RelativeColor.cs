@@ -25,11 +25,20 @@ namespace PF_RelativeColor
         private PluginType _type = PluginType.IFilterOqat;
         
         VM_RelativeColor propertiesView;
+
+        /// <summary>
+        /// constructor
+        /// </summary>
+
         public RelativeColor()
         {
             propertiesView = new VM_RelativeColor();
             localize(_namePlugin + "_default.xml");
         }
+
+        /// <summary>
+        /// Generates the filtered Image.
+        /// </summary>
 
         public Bitmap process(Bitmap frame)
         {
@@ -105,6 +114,11 @@ namespace PF_RelativeColor
             return handlers;
         }
 
+
+        /// <summary>
+        /// Returns a Memento with the current state of the Object.
+        /// </summary>
+
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
             double[] colorValues= new double[3];
@@ -115,6 +129,10 @@ namespace PF_RelativeColor
 
             return mem;
         }
+
+        /// <summary>
+        /// Sets a Memento as the current state of the Object.
+        /// </summary>
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {

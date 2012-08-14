@@ -25,7 +25,11 @@ namespace PF_RelativeColor
         double redValue;
         double greenValue;
         double blueValue;
-        
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+
         public VM_RelativeColor()
         {
             InitializeComponent();
@@ -39,12 +43,20 @@ namespace PF_RelativeColor
             
         }
 
+        /// <summary>
+        /// Listener for databinding
+        /// </summary>
+
         private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             redValue = red.Value;
             greenValue = green.Value;
             blueValue = blue.Value;
         }
+
+        /// <summary>
+        /// Sets the sliders.
+        /// </summary>
 
         public void changeValue(double r,double g, double b){
             red.Value =r;
@@ -63,6 +75,11 @@ namespace PF_RelativeColor
         {
             return blueValue;
         }
+
+        /// <summary>
+        /// Sets the Language Content and reads it from an XML File.
+        /// </summary>
+
         public void local(String s)
         {
             try

@@ -38,6 +38,10 @@ namespace PF_Invert
         private string _namePlugin = "PF_Invert";
         private PluginType _type = PluginType.IFilterOqat;
 
+        /// <summary>
+        /// Generates the filtered Image.
+        /// </summary>
+
         public Bitmap process(Bitmap frame)
         {
             AForge.Imaging.Filters.Invert filter = new AForge.Imaging.Filters.Invert();
@@ -94,12 +98,21 @@ namespace PF_Invert
             return handlers;
         }
 
+
+        /// <summary>
+        /// Returns a Memento with the current state of the Object.
+        /// </summary>
+
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
             Memento mem = new Memento(this.namePlugin, this);
 
             return mem;
         }
+
+        /// <summary>
+        /// Sets a Memento as the current state of the Object.
+        /// </summary>
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {

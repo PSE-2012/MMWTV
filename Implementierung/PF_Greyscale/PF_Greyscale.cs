@@ -32,6 +32,9 @@ namespace PF_Greyscale
         private PluginType _type = PluginType.IFilterOqat;
         VM_Greyscale propertiesView;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
 
         public Greyscale()
         {
@@ -39,7 +42,9 @@ namespace PF_Greyscale
             propertiesView.local(_namePlugin + "_default.xml");
         
         }
-
+        /// <summary>
+        /// Generates the filtered Image.
+        /// </summary>
         public Bitmap process(Bitmap frame)
         {
             AForge.Imaging.Filters.Grayscale filter = new AForge.Imaging.Filters.Grayscale(propertiesView.getRed(),propertiesView.getGreen(),propertiesView.getBlue());
@@ -86,6 +91,10 @@ namespace PF_Greyscale
             return handlers;
         }
 
+        /// <summary>
+        /// Returns a Memento with the current state of the Object.
+        /// </summary>
+
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
             double[] colorValues = new double[3];
@@ -97,6 +106,10 @@ namespace PF_Greyscale
 
             return mem;
         }
+
+        /// <summary>
+        /// Sets a Memento as the current state of the Object.
+        /// </summary>
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {

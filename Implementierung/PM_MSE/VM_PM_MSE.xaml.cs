@@ -27,6 +27,9 @@ namespace PM_MSE
             InitializeComponent();
         }
 
+        /// <summary>
+        /// returns the value of the Radio Buttons.
+        /// </summary>
         public int getRb()
         {
             int value = 0;
@@ -51,7 +54,9 @@ namespace PM_MSE
 
         }
 
-
+        /// <summary>
+        /// sets the value of the Radio Buttons.
+        /// </summary>
         public void setRb(int i)
         {
             if (i ==0)
@@ -72,6 +77,10 @@ namespace PM_MSE
             }
            
         }
+
+        /// <summary>
+        /// Sets lokal language to a the xml file
+        /// </summary>
         public void local(String s)
         {
             try

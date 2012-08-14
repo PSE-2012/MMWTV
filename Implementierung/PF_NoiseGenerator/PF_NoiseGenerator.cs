@@ -37,6 +37,9 @@ namespace PF_NoiseGenerator
         private PluginType _type = PluginType.IFilterOqat;
         VM_NoiseGenerator propertiesView;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
 
         public NoiseGenerator()
         {
@@ -45,9 +48,13 @@ namespace PF_NoiseGenerator
         
         }
 
+        /// <summary>
+        /// Generates the filtered Image.
+        /// </summary>
+
         public Bitmap process(Bitmap frame)
         {
-            IRandomNumberGenerator generator = new UniformGenerator(new Range(-1*propertiesView.getUp(), propertiesView.getUp()));
+            IRandomNumberGenerator generator = new UniformGenerator(new Range(-1*propertiesView.getValue(), propertiesView.getValue()));
            
             AdditiveNoise filter = new AdditiveNoise(generator);
             Bitmap test = new Bitmap(frame.Width, frame.Height, PixelFormat.Format24bppRgb);
@@ -100,12 +107,20 @@ namespace PF_NoiseGenerator
             return handlers;
         }
 
+        /// <summary>
+        /// Returns a Memento with the current state of the Object.
+        /// </summary>
+
     public Oqat.PublicRessources.Model.Memento getMemento()
         {
-            Memento mem = new Memento(this.namePlugin, this.propertiesView.getUp());
+            Memento mem = new Memento(this.namePlugin, this.propertiesView.getValue());
 
             return mem;
         }
+
+    /// <summary>
+    /// Sets a Memento as the current state of the Object.
+    /// </summary>
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
@@ -115,6 +130,10 @@ namespace PF_NoiseGenerator
             this.propertiesView.changeValue(otto);
           
         }
+
+        /// <summary>
+        /// Helper Method to localize the Object. String s is the name of the language file.
+        /// </summary>
         private void localize(String s)
         {
             propertiesView.local(s);

@@ -23,8 +23,10 @@ namespace PF_NoiseGenerator
     public partial class VM_NoiseGenerator : UserControl
     {
         float uperBorder;
-      
-        
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         
         public VM_NoiseGenerator()
         {
@@ -39,6 +41,10 @@ namespace PF_NoiseGenerator
             
         }
 
+        /// <summary>
+        /// Listener for data Binding
+        /// </summary>
+
         private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             uperBorder = (float)uper.Value;
@@ -46,16 +52,28 @@ namespace PF_NoiseGenerator
            
         }
 
-        public void changeValue(double up){
-            uper.Value =up;
+        /// <summary>
+        /// Sets the Slider of the Properties Views
+        /// </summary>
+
+        public void changeValue(double noise){
+            uper.Value =noise;
           
            
             this.ValueChanged(this,null);
         }
-        public float getUp(){
+
+        /// <summary>
+        /// Gets the Slider of the Properties Views
+        /// </summary>
+
+        public float getValue(){
             return uperBorder;
         }
 
+        /// <summary>
+        /// Sets the Language Content and reads it from an XML File.
+        /// </summary>
         public void local(String s)
         {
            try{

@@ -44,6 +44,10 @@ namespace PP_Diagramm
         }
 
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+
         public Diagramm()
         {
            
@@ -63,12 +67,18 @@ namespace PP_Diagramm
             }
         }
 
+        /// <summary>
+        /// resets the plotModel
+        /// </summary>
         public void unloadVideo()
         {
             plotModel.Model = null;
 
         }
 
+        /// <summary>
+        /// resets the plotModel
+        /// </summary>
         public void flush()
         {
             plotModel.Model = null;
@@ -107,17 +117,24 @@ namespace PP_Diagramm
                 return this;
             }
         }
-         
-   
+
+        /// <summary>
+        /// not necessary method
+        /// </summary>
 
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
             return new Oqat.PublicRessources.Model.Memento("defaultDiagramm", null, "");
         }
-
+        /// <summary>
+        /// not necessary method
+        /// </summary>
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
         }
+        /// <summary>
+        /// Helper method to create content of the Plotmodel
+        /// </summary>
 
         private void createDataSeries(float[][] series)
         {
@@ -160,7 +177,9 @@ namespace PP_Diagramm
             plotModel.Model = plotModel1;
         }
 
-
+        /// <summary>
+        /// loads the Video
+        /// </summary>
         public void setVideo(IVideo video) 
         {
             if (video.frameMetricValue != null)
