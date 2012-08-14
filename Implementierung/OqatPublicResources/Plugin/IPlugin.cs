@@ -16,7 +16,7 @@
     /// [ExportMetadata("type", type)]
     /// [Export(typeof(IPlugin))]
     /// </remarks>
-	public interface IPlugin  : IMemorizable
+	public interface IPlugin  : IMemorizable, IPluginMetadata
 	{
 
         /// <summary>
