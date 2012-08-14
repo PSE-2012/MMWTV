@@ -66,7 +66,7 @@ namespace PS_YuvVideoHandler
             }
 		}
 
-        public int frameSize
+        internal int frameSize
         {
             get
             {
@@ -150,7 +150,7 @@ namespace PS_YuvVideoHandler
 
         public YuvVideoInfo() { }
 
-
+       
 
         public override bool Equals(System.Object obj)
         {

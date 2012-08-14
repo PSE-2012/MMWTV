@@ -2,13 +2,12 @@
 //------------------------------------------------------------------------------
 namespace PS_YuvVideoHandler
 {
-	using Oqat.PublicRessources.Model;
-	using Oqat.PublicRessources.Plugin;
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-    using System.Xml;
+    using Oqat.PublicRessources.Model;
+    using Oqat.PublicRessources.Plugin;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
 
 
     using System.ComponentModel.Composition;
@@ -18,109 +17,126 @@ namespace PS_YuvVideoHandler
     using System.IO;
     using System.Windows.Controls;
 
+    using System.Threading;
+    using System.Collections;
+    using System.ComponentModel;
+    using AForge.Imaging;
+    using System.Diagnostics;
 
     [ExportMetadata("namePlugin", "yuvVideoHandler")]
     [ExportMetadata("type", PluginType.IVideoHandler)]
     [Export(typeof(IPlugin))]
-	public class YuvVideoHandler : IVideoHandler
-	{
-        const int NUMFRAMESINMEM = 5;
-        const int THREADS = 4;
+    public class YuvVideoHandler : IVideoHandler, INotifyPropertyChanged
+    {
 
-        YuvVideoInfo _videoInfo = null;
-        string _path = "";
+        #region general
 
-        private byte[] data = null;
-        int bufferSizeFrames = -1;
+        #region get/set
+        /// <summary>
+        /// Name the plugin exposes to the PluginManager.
+        /// </summary>
+        /// <remarks>
+        /// The name of a videohandler is partially based on a naming 
+        /// convention. In order for the PluginManager to find the corresponding
+        /// handler for a given video format the prefix of the handler
+        /// has to be the corresponding video format name. The
+        /// prefix is "yuv" in this case.
+        /// </remarks>
+        public string namePlugin
+        {
+            get { return "yuvVideoHandler"; }
+        }
 
-        int firstFrameInMem = int.MinValue;
-
-
-        private string path
+        /// <summary>
+        /// Type this plugin exposes to the PluginManager
+        /// </summary>
+        public PluginType type
         {
             get
             {
-                return _path;
+                return PluginType.IVideoHandler;
+            }
+        }
+
+        /// <summary>
+        /// See <see cref="YuvVideoInfo"/> for info.
+        /// </summary>
+        /// <remarks>
+        /// This value has to be set (and consistent)
+        /// in order to perform write/reads. If not
+        /// set correctly the behaviour is undefined.
+        /// If applicable check the consistancy
+        /// and set the <see cref="consistent"/> flag
+        /// accordingly.
+        /// </remarks>
+        private YuvVideoInfo _videoInfo;
+
+        /// <summary>
+        /// Absolute path to this video.
+        /// </summary>
+        private string path;
+
+
+
+        int _frameByteSize = -1;
+        /// <summary>
+        /// This value is the byte wise frame size of the currently 
+        /// set video context. It is computed on the first read
+        /// of this property and will remain (event if 
+        /// not latest) so. To achieve reinitialisation set
+        /// this property to null and it will be reinitilized
+        /// on the next read call.
+        /// </summary>
+        public int frameByteSize
+        {
+            get
+            {
+                if (!(_frameByteSize > 0))
+                {
+                    _frameByteSize = (int)(vidInfo.width * vidInfo.height * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)));
+
+                }
+
+                return _frameByteSize;
             }
             set
             {
-                _path = value;
-                if(_videoInfo != null) _videoInfo.path = _path;
+                _frameByteSize = value;
             }
         }
-       
 
         /// <summary>
-        /// Constructs a YuvVideoHandler without filepath or VideoInfoObject. 
-        /// This instance can be used to display a propertiesview and create a YuvVideoInfo object for example.
+        /// Determines how many (.ca) frames will be read into Memory and how
+        /// many frames has to be within the buffer to start writing to hard disk respectively.
+        /// Do not set this value directly, it will be set according to the
+        /// frameByteSize and the grantedMemory
         /// </summary>
-        public YuvVideoHandler()
-        {
-            
-        }
+        int NUMFRAMESINMEM = 1;
+
+        int _grantedMemory = -1;
 
         /// <summary>
-        /// Returns a new VideoHandler instance.
+        /// A rough indicator on how much memory (in MB) this handler should use
+        /// for writing/reading videos. 
         /// </summary>
-        /// <returns>a new VideoHandler instance</returns>
-        public IVideoHandler createVideoHandlerInstance()
+        /// <remarks>
+        /// This value has to be set by the user, however it will be checked on
+        /// plausibility and adapted accordnigly.
+        /// </remarks>
+        int grantedMemory
         {
-            return new YuvVideoHandler();
-        }
-
-        /// <summary>
-        /// Sets a new video file as the context of this handler.
-        /// </summary>
-        /// <param name="filepath">location of the videofile to read</param>
-        /// <param name="info">VideoInfo containing needed information like resolution and yuv format</param>
-        public void setVideo(string filepath, IVideoInfo info)
-        {
-            vidInfo = info;
-            path = filepath;
-
-            //init buffer
-            if(info != null)
-                initBuffer(NUMFRAMESINMEM);
-        }
-
-
-
-
-        /// <summary>
-        /// Creates the buffer array for the given number of frames.
-        /// </summary>
-        /// <param name="frames">the buffersize in frames of the video of this handler</param>
-        private void initBuffer(int frames)
-        {
-            bufferSizeFrames = frames;
-            data = new byte[(int)(_videoInfo.width * _videoInfo.height * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)) * bufferSizeFrames)];
-        }
-
-
-        #region getter/setter
-
-        /// <summary>
-        /// Returns the relative number of chroma (u or v) to luma (y) samples according to yuv format.
-        /// </summary>
-        /// <param name="format">the yuv format</param>
-        /// <returns>relative number of samples (1, 0.5 or 0.25)</returns>
-        public static float getLum2Chrom(YuvFormat format)
-        {
-            switch (format)
+            get
             {
-                case YuvFormat.YUV444:
-                    return 1.0f;
-                case YuvFormat.YUV422_UYVY:
-                    return 0.5f;
-                case YuvFormat.YUV411_Y41P:
-                    return 0.25f;
-                case YuvFormat.YUV420_IYUV:
-                    return 0.25f;
-                default:
-                    throw new ArgumentException("Invalid YuvFormat set in VideoInfo.");
+                if (_grantedMemory < 0)
+                    _grantedMemory = frameByteSize * 5;
+
+                return _grantedMemory;
+            }
+            set
+            {
+                _grantedMemory = value * (int)(Math.Pow(2.0, 20.0));
             }
         }
-
 
         /// <summary>Gets the current VideoInfo object, if a propertiesView is displayed through 
         /// "setParentControl()" the values are updated to the users settings.</summary>
@@ -144,13 +160,13 @@ namespace PS_YuvVideoHandler
 
         public bool consistent
         {
-            get 
+            get
             {
                 return (vidInfo.frameCount < 0) ? false : true;
             }
         }
 
-        
+
 
         private PropertiesView _propertyView;
         /// <summary>
@@ -183,15 +199,73 @@ namespace PS_YuvVideoHandler
             }
         }
 
+        #endregion
+
+        public YuvVideoHandler()
+        {
+            this.positionReaderLock = new Object();
+        }
 
         /// <summary>
-        ///  Passes a dictionary of eventHandlers this plugin uses to react to events of other modules.
+        /// Returns a new VideoHandler instance.
         /// </summary>
-        /// <returns>a dictionary of event types and their associated delegates this plugin uses to handle them.</returns>
-        public Dictionary<EventType, List<Delegate>> getEventHandlers()
+        /// <returns>
+        /// Note that the returned handler is not initialized
+        /// and is not tracked by the pluginManager, i.e.
+        /// you have to dispose it yourself.
+        /// </returns>
+        public IVideoHandler createVideoHandlerInstance()
         {
-            return new Dictionary<EventType,List<Delegate>>();
+            return new YuvVideoHandler();
         }
+
+        /// <summary>
+        /// Sets a new video file as the context of this handler.
+        /// </summary>
+        /// <param name="filepath">Full path of the video file to initialize this
+        /// handler to.</param>
+        /// <param name="info">VideoInfo containing required informations like resolution and yuv format</param>
+        public void setVideo(string filepath, IVideoInfo info)
+        {
+            // check if values ok (more or less)
+            if (!File.Exists(filepath) || info == null)
+                throw new ArgumentException("Problems occured by switching context to given video." + 
+                    "There could be different causes to this, the first is that the given path does " + 
+                    "not describe a valid yuv video file and the second if the given IVideoInfo object " + 
+                    "is not initialized properly.");
+
+            this.path = filepath;
+            vidInfo = info;
+
+            // Flush has to happen after a VALID vidInfo is set.
+            flushReader();
+            flushWriter();
+
+        }
+
+
+        /// <summary>
+        /// Returns the relative number of chroma (u or v) to luma (y) samples according to yuv format.
+        /// </summary>
+        /// <param name="format">the yuv format</param>
+        /// <returns>relative number of samples (1, 0.5 or 0.25)</returns>
+        public static float getLum2Chrom(YuvFormat format)
+        {
+            switch (format)
+            {
+                case YuvFormat.YUV444:
+                    return 1.0f;
+                case YuvFormat.YUV422_UYVY:
+                    return 0.5f;
+                case YuvFormat.YUV411_Y41P:
+                    return 0.25f;
+                case YuvFormat.YUV420_IYUV:
+                    return 0.25f;
+                default:
+                    throw new ArgumentException("Invalid YuvFormat set in VideoInfo.");
+            }
+        }
+
 
         /// <summary>
         /// Getter for properties to save.
@@ -215,11 +289,352 @@ namespace PS_YuvVideoHandler
         /// </remarks>
         public void setMemento(Memento memento)
         {
-            
+
+        }
+
+        /// <summary>
+        /// cuts val down to a value between 0 and 255
+        /// </summary>
+        private byte clampToByte(double val)
+        {
+            return (byte)((val < 0) ? 0 : ((val > 255) ? 255 : val));
+        }
+
+#endregion
+
+
+        #region read
+
+        #region get/set
+        private Queue _readQueue;
+        /// <summary>
+        /// This queue holds bitmaps produced by the "fillBuffer()" method.
+        /// All bitmaps within this queue represent one frame of
+        /// a corresponding yuvVideo file. It is assured that
+        /// this bimpats are ordered(i.e. first frame comes bevor second and so on).
+        /// </summary>
+        /// <remarks>
+        /// This queue is threadsafe, you do not have to lock it before
+        /// concurrent access. If you lock it your thread would fall
+        /// to a DeadLock state. Furthermore you shoulnt assign
+        /// this property directly (by assigning to _readQueue for example)
+        /// as it would break the threadsafety and result in a DeadLock
+        /// if you are lucky.
+        /// </remarks>
+        private Queue readQueue
+        {
+            get
+            {
+                if (_readQueue == null)
+                {
+                    _readQueue = new Queue(NUMFRAMESINMEM);
+                    _readQueue = Queue.Synchronized(_readQueue);
+                }
+                return _readQueue;
+            }
         }
 
 
-        #endregion
+        private int _readerBuffPos = -1;
+        /// <summary>
+        /// This variable marks the number (whithin the
+        /// yuvVideo accordingly to the <see cref="YuvVideoInfo"/> object)
+        /// last frame which was successfully loaded into the
+        /// readQueue. 
+        /// </summary>
+        /// <remarks>
+        /// Do not meddle with this property as it is the responsibility
+        /// of the currently active readerThread.
+        /// </remarks>
+        private int readerBuffPos
+        {
+            get
+            {
+                return _readerBuffPos;
+            }
+            set
+            {
+                if (value > vidInfo.frameCount)
+                {
+                    #region obsolete
+                    //////////////////////////////////////////////////////////////////
+                    //// reached end of video, the flushProcedure will
+                    //// clean up. It has to be invoked in a different
+                    //// thread because it will stop the readerThread
+                    //// which is usually (and should so) the caller
+                    //// of this property
+                    //waitForFlush.Reset();
+                    //(new Thread(new ThreadStart(flushReader))).Start();
+                    //waitForFlush.WaitOne();
+                    ///////////////////////////////////////////////////////////////////
+                    //
+                    #endregion
+
+                    // Let reader know to quit filling the buffer.
+                    stopReaderThread = true;
+                }
+                else
+                {
+                    _readerBuffPos = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// This flag signals the currently active readerThread(if active)
+        /// to terminate itself.
+        /// </summary>
+        /// <remarks>
+        /// You shouldnt call abort (as described in the corresponding doc entry)
+        /// as the readerThread acquires some locks( i.e. on a file and a the
+        /// <see cref="BitmapData"/> of a <see cref="Bimpap"/>) and couldnt
+        /// release this if you kill it externally.
+        /// </remarks>
+        bool stopReaderThread = false;
+
+
+        object positionReaderLock;
+        private int _positionReader = -1;
+        /// <summary>
+        /// This property holds the number of the frame to be given on
+        /// the nex getFrame() call. If it is set to a number
+        /// less null or greater then vidInfo.frameCount a flush
+        /// process will be initialized (all reader buffers and
+        /// constants will be reseted).
+        /// </summary>
+        public int positionReader
+        {
+            get
+            {
+                if (_positionReader < 0)
+                {
+                    //            flushReader();
+                    _positionReader = 0;
+                }
+                //if (readerThread.ThreadState == System.Threading.ThreadState.Unstarted)
+                //    readerThread.Start();
+
+                return _positionReader;
+            }
+           
+            set
+            {
+
+                lock (positionReaderLock)
+                {
+                    // make sure not to call flushReader if a flush operation is already running
+                    // this is assured with the tryEnter monitor operation.
+                    if ((value != 1 + _positionReader) || (value < 0))
+                    {
+
+                        // once again, flush is invoked within a different Thread
+                        // because the caller could be killed accidently as
+                        // flush tries to clean up thoroughly
+                        waitForFlush.Reset();
+                        Thread flushThread = new Thread(new ThreadStart(flushReader));
+                        flushThread.Name = "flushThread";
+                        flushThread.IsBackground = true;
+                        flushThread.Start();
+                        waitForFlush.WaitOne();
+
+                    }
+                    if (value > vidInfo.frameCount)
+                    {
+                        throw new ArgumentOutOfRangeException("Trying to fetch" +
+                        " a non existing frame.");
+                    }
+                }
+                _positionReader = value;
+            }
+        }
+
+
+#endregion
+
+        private ManualResetEvent _waitForFlush;
+        private ManualResetEvent waitForFlush
+        {
+            get
+            {
+                if (_waitForFlush == null)
+                    _waitForFlush = new ManualResetEvent(false);
+                return  _waitForFlush;
+            }
+        }
+        /// <summary>
+        /// Flushes the current video handler reader context. I.e. buffers,
+        /// position variables and worker threads(reaerThread).
+        /// </summary>
+        /// <remarks>
+        /// Invoke this method within a different thread as
+        /// it could terminate the caller if it is on the
+        /// list of thing to clean up.
+        /// </remarks>
+        public void flushReader()
+        {
+            stopReaderThread = true;
+            readerWaitEvent.Set();
+            Thread.Sleep(10); // should suffice as reader checkes stop flag every frame row.
+            if (readerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+            {
+                try
+                {
+                    readerThread.Join(10);
+                }
+                catch (ThreadStateException)
+                {
+                    // looks like he finished before we could ask, good for him.
+                }
+            }
+            if (readerThread.ThreadState != System.Threading.ThreadState.Stopped
+                && readerThread.ThreadState != System.Threading.ThreadState.StopRequested
+                && readerThread.ThreadState != System.Threading.ThreadState.Unstarted
+                && readerThread.ThreadState != System.Threading.ThreadState.Aborted
+                && readerThread.ThreadState != System.Threading.ThreadState.AbortRequested)
+            {
+                try
+                {
+                    readerThread.Abort();
+                } catch (ThreadStateException) {
+                    // lets hope he cleaned up ;-)
+                }
+            }
+
+            #region obsolete
+            //if (readerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+            //{
+            //    readerWaitEvent.Set();
+
+            //    if (readerThread.ThreadState != System.Threading.ThreadState.Unstarted)
+            //    {
+            //        try
+            //        {
+            //            readerThread.Abort();
+            //        } catch (ThreadStateException) {
+            //            // cant handle this one.. but it shouldnt come this far either.
+            //        }
+            //    }
+
+            //} else if (readerThread.ThreadState == System.Threading.ThreadState.Running) {
+            //    waitReaderStopEvent.Reset();
+            //    readerWaitEvent.Set();
+            //    waitReaderStopEvent.WaitOne();
+            //}
+            //////////////////////////////////////////////////////////////////////////////////////
+            //if ((readerThread.ThreadState == System.Threading.ThreadState.Running) ||
+            //    (readerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin))
+            //    throw new ThreadStateException("YuvVideoHandler problem occured");
+            // shouldnt be neccesary as even 4xHighDefinition frame would be computed
+            // after 5 seconds...
+            ///////////////////
+            //if (readerThread.ThreadState == System.Threading.ThreadState.Running
+            //    || readerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+            //{
+            //    try
+            //    {
+            //        if (readerThread.ThreadState == System.Threading.ThreadState.Running)
+            //            readerThread.Abort();       // if reader not done after 50 ms it is
+            //        // is probably deadLocked...
+            //    }
+            //    catch (ThreadStateException)
+            //    {
+            //        // nothing to do here
+            //    }
+            //    finally
+            //    {
+
+            //        readerThread = null;
+            //    }
+            //}
+            #endregion
+
+
+            
+            readerThread = null;
+            readerWaitEvent.Reset();
+            stopReaderThread = false;
+
+            //has to use the backdoor to prevent
+            //ENDLESS LOOP
+            _positionReader = 0;
+            _readerBuffPos = 0;
+            // dont have to reassign buffPos as it will be
+            // overwritten by a starting readerThread
+
+            /// Triggers reinitialization of this value, important
+            /// if for some unknown reason someone tries
+            /// to change the format and or the WIDTHxHEIGHT
+            /// values (i.e. vidInfo) of the currently loaded
+            /// context.
+            frameByteSize = 0;
+
+            // note: grantedMemory is user provided
+            NUMFRAMESINMEM = grantedMemory / frameByteSize;
+
+            readQueue.Clear();
+
+
+            //signal that flush is done
+            waitForFlush.Set();
+        }
+
+        private Thread _readerThread;
+        private Thread readerThread
+        {
+            get
+            {
+                if ((_readerThread == null) || 
+                    (_readerThread.ThreadState == System.Threading.ThreadState.Stopped) ||
+                    (_readerThread.ThreadState == System.Threading.ThreadState.Aborted))
+                {
+                    _readerThread = new Thread(new ThreadStart(fillBuffer));
+                    _readerThread.Name = "readerThread";
+                }
+
+
+                return _readerThread;
+            }
+            set
+            {
+                _readerThread = value;
+            }
+        }
+
+        private ManualResetEvent _readerWaitEvent;
+        private ManualResetEvent readerWaitEvent
+        {
+            get
+            {
+                if (_readerWaitEvent == null)
+                    _readerWaitEvent = new ManualResetEvent(false);
+
+                return _readerWaitEvent;
+            }
+        }
+        private ManualResetEvent _waitReaderStopEvent;
+        private ManualResetEvent waitReaderStopEvent
+        {
+            get
+            {
+                if (_waitReaderStopEvent == null)
+                    _waitReaderStopEvent = new ManualResetEvent(false);
+
+                return _waitReaderStopEvent;
+            }
+        }
+
+
+        private ManualResetEvent _getFrameWaitEvent;
+        private ManualResetEvent getFrameWaitEvent
+        {
+            get
+            {
+                if (_getFrameWaitEvent == null)
+                    
+                    _getFrameWaitEvent = new ManualResetEvent(false);
+                return _getFrameWaitEvent;
+            }
+        }
 
 
 
@@ -228,103 +643,150 @@ namespace PS_YuvVideoHandler
         /// </summary>
         /// <param name="frameNm">the number of the frame to return</param>
         /// <returns>the selected frame as a RGB Bitmap object</returns>
-        public System.Drawing.Bitmap getFrame(int frameNm)
+        public System.Drawing.Bitmap getFrame(bool buffer = true)
         {
-            if (data == null) initBuffer(NUMFRAMESINMEM);
-
-            if (!Load(frameNm)) return null;
-                
 
 
-            int frameOffset = (frameNm - firstFrameInMem) * ((YuvVideoInfo)vidInfo).frameSize;
-            FrameDataPointers pointers = new FrameDataPointers(_videoInfo);
+            //if (!buffer && NUMFRAMESINMEM > 1)
+            //{
+            //    flushReader();
+            //    NUMFRAMESINMEM = 1;
+            //    var currentPosition = positionReader;
+            //}
+            stopReaderThread = (buffer) ? false : true;
+            getFrameWaitEvent.Reset();
 
-            Bitmap frame = new Bitmap(_videoInfo.width, _videoInfo.height);
-
-            //convert every pixel of the frame from yuv to rgb
-            for (int y = 0; y < _videoInfo.height; y++)
+            if (readerBuffPos < vidInfo.frameCount)
             {
-                for (int x = 0; x < _videoInfo.width; x++)
+                if (((readerBuffPos - positionReader) < (NUMFRAMESINMEM / 2)) || !(readQueue.Count > 0))
                 {
-                    Color col = convertToRGB(data[frameOffset + pointers.y_index], data[frameOffset + pointers.u_index], data[frameOffset+pointers.v_index]);
-                    frame.SetPixel(x, y, col);
-                    
-                    pointers.Next();
+                    readerWaitEvent.Set();
+                    if ((readerThread.ThreadState != System.Threading.ThreadState.Running) &&
+                        (readerThread.ThreadState != System.Threading.ThreadState.WaitSleepJoin))
+                        //readerThread.ThreadState != System.Threading.ThreadState.)
+                        readerThread.Start();
+                }
+
+                if (Math.Abs(readerBuffPos - positionReader) < 2)
+                {
+                    if (positionReader < vidInfo.frameCount)
+                    {
+                        getFrameWaitEvent.Reset();
+                        readerWaitEvent.Set();
+                        getFrameWaitEvent.WaitOne();
+                    }
                 }
             }
-
-            return frame;
+            if (!(positionReader < vidInfo.frameCount))
+            {
+                        // flush
+                        waitForFlush.Reset();
+                        Thread flushThread = new Thread(new ThreadStart(flushReader));
+                        flushThread.Name = "flushThread";
+                        flushThread.IsBackground = true;
+                        flushThread.Start();
+                        waitForFlush.WaitOne();
+                        return null;
+            }
+            positionReader++;
+            return (readQueue.Count > 0)?(Bitmap)readQueue.Dequeue():null;
         }
 
-        /// <summary>
-        ///  Reads and returns the requested frames from the video file. Returns null if the video file cannot be read.
-        /// </summary>
-        /// <param name="frameNm">the number of the first frame to return</param>
-        /// <param name="count">number of frames to get</param>
-        /// <returns>the selected frame as a RGB Bitmap object</returns>
-        public System.Drawing.Bitmap[] getFrames(int frameNm, int count)
+
+        private void fillBuffer()
         {
-            //if buffer is smaller than requested number of frames, resize buffer
-            //if (count > this.bufferSizeFrames) initBuffer(count);
 
-            if (!Load(frameNm)) return null;
-
-            Bitmap[] frames = new Bitmap[count];
-            int n = 0;
-
-            while(n < count)
+            readerBuffPos = positionReader;
+            while (readerBuffPos < vidInfo.frameCount)
             {
-                frames[n] = getFrame(frameNm + n);
-                n++;
 
-                /*
-                for (int i = 0; i < this.THREADS; i++)
+                int offset = readerBuffPos * frameByteSize;
+                int count = NUMFRAMESINMEM - readQueue.Count;
+
+                FileInfo file = new FileInfo(path);
+                if (!file.Exists)
+                    throw new FileNotFoundException();
+
+                byte[] rawData = new byte[frameByteSize * count];
+                using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    //TODO: implement concurrent calls to getFrame()
-                    //Thread MyThread = new Thread(new ThreadStart(getFrameT));
+                    try
+                    {
+                        fs.Seek(frameByteSize * readerBuffPos, SeekOrigin.Begin);
+                        fs.Read(rawData, 0, frameByteSize * count);
+                    }
+                    catch (IOException exc)
+                    {
+                        throw new FileLoadException("Problems occured while trying to load file (" + path + ")" +
+                            " in memory. Given file is either not a valid file or the informations you" +
+                            " provided are incorrect (i.e. resolution).", exc);
+                    }
+                }
+
+                int pixelNum = vidInfo.width * vidInfo.height;
+                int quartSize = vidInfo.width * vidInfo.height / 4;
+
+                int i = 0;
+                while ((i < count) && !(readerBuffPos > vidInfo.frameCount) && !stopReaderThread)
+                {
+
+                    Bitmap _currFrame = new Bitmap(vidInfo.width, vidInfo.height);
+                    BitmapData currFrameData = _currFrame.LockBits(new Rectangle(0, 0, _currFrame.Width, _currFrame.Height),
+                                ImageLockMode.ReadOnly, _currFrame.PixelFormat);
+
+                    try
+                    {
+
+                        int frameOffset = i * frameByteSize + pixelNum;
+                        int pBmpBuffer = (System.Int32)currFrameData.Scan0;
+
+                        for (int y = 0; (y < _currFrame.Height) && !stopReaderThread; y++)
+                        {
+                            int uvCoef = (_currFrame.Width / 2) * (y / 2);
+                            int fastUvCoef = uvCoef + frameOffset;
+                            int offCord = y * _currFrame.Width;
+
+                            for (int x = 0; x < _currFrame.Width; x++)
+                            {
+                                int halfX = x / 2;
+                                int rgb = convertToRGB(
+                                 rawData[offCord + x + fastUvCoef - pixelNum - uvCoef],
+                                 rawData[fastUvCoef + halfX],
+                                 rawData[quartSize + fastUvCoef + halfX]);
+
+                                unsafe
+                                {
+                                    *((System.Int32*)pBmpBuffer) = rgb;
+                                }
+                                pBmpBuffer += 4;
+
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        _currFrame.UnlockBits(currFrameData);
+                    }
+                    readQueue.Enqueue(_currFrame);
+                    getFrameWaitEvent.Set();
+                    readerBuffPos++;
+
+                    i++;
 
                 }
-                */
-            }
-            
 
-            return frames;
+                readerWaitEvent.WaitOne();
+
+                //check for stop request
+                if (stopReaderThread)
+                {
+                    waitReaderStopEvent.Set();
+                    return;
+                }
+                readerWaitEvent.Reset();
+            }
+        //    (new Thread(new ThreadStart(flushReader))).Start();
         }
-
-
-        /// <summary>
-        /// Loads new frames from file into the data array in memory.
-        /// </summary>
-        /// <param name="startFrame">the (zero-based) frame number to start the read.</param>
-        /// <returns>true if loading was successful</returns>
-        private bool Load(int startFrame)
-        {
-            // check if we have to load new data into the buffer
-            if(startFrame >= firstFrameInMem && startFrame < firstFrameInMem + bufferSizeFrames )
-            {
-                //data is already in buffer
-                return true;
-            }
-
-
-            FileStream fs;
-
-            try
-            {
-                fs = new FileStream(path, FileMode.Open);
-                fs.Seek((int)(startFrame * ((YuvVideoInfo)vidInfo).frameSize), SeekOrigin.Begin);
-                fs.Read(data, 0, ((YuvVideoInfo)vidInfo).frameSize * bufferSizeFrames);
-                fs.Close();
-            }
-            catch (Exception) 
-            {
-                return false; 
-            }
-
-            firstFrameInMem = startFrame;
-            return true;
-        }
-
 
 
         /// <summary>
@@ -334,73 +796,166 @@ namespace PS_YuvVideoHandler
         /// <param name="u">chroma (yuv u)</param>
         /// <param name="v">chroma (yuv v)</param>
         /// <returns>a Color with the according RGB values</returns>
-        private System.Drawing.Color convertToRGB(int y, int u, int v)
+        private int convertToRGB(int y, int u, int v)
         {
-            // conversion yuv > rgb according to http://msdn.microsoft.com/en-us/library/ms893078.aspx
-            int c = y - 16;
-            int d = u - 128;
-            int e = v - 128;
+            int yCoefA = (y - 16);
+            double yCoefB = 1.167 * yCoefA;
+            int uCoefA = (u - 128);
+            int vCoefA = (v - 128);
 
-            byte r = clampToByte((298 * c           + 409 * e   + 128) >> 8);
-            byte g = clampToByte((298 * c - 100 * d - 208 * e   + 128) >> 8);
-            byte b = clampToByte((298 * c + 516 * d             + 128) >> 8);
+            int rgb = clampToByte(yCoefB + 1.596 * vCoefA) << 16;                              //r
+            rgb |= clampToByte(1.169 * yCoefA - 0.393 * uCoefA - 0.816 * vCoefA) << 8;        //g
+            rgb |= clampToByte(yCoefB + 2.018 * uCoefA);                                     //b
 
-            return System.Drawing.Color.FromArgb(r, g, b);
+            return rgb;
         }
+
+        #endregion
+
+        #region write
+
+        #region get/set
+        private Queue _writeQueue;
         /// <summary>
-        /// cuts val down to a value between 0 and 255
+        /// This queue holds bitmaps provided by a macroPlugin
+        /// 
+        /// All bitmaps within this queue represent one frame of
+        /// a corresponding yuvVideo file. It HAS(by the caller) to be made safe
+        /// that this bitmaps are ordered (i.e. first frame comes bevor second and so on).
+        /// All frames within this buffer will be written to the path defined in the
+        /// corresponding <see cref="YuvVideoInfo"/> object.
         /// </summary>
-        private byte clampToByte(int val)
+        /// <remarks>
+        /// This queue is threadsafe, you do not have to lock it before
+        /// concurrent access. If you lock it your thread would fall
+        /// to a DeadLock state. Furthermore you shoulnt assign
+        /// this property directly (by assigning to _readQueue for example)
+        /// as it would break the threadsafety and result in a DeadLock
+        /// if you are lucky.
+        /// </remarks>
+
+        private Queue writeQueue
         {
-            return (byte)((val < 0) ? 0 : ((val > 255) ? 255 : val));
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public void writeFrame(int frameNum, System.Drawing.Bitmap frame)
-        {
-            this.writeFrames(frameNum, new Bitmap[] { frame });
-        }
-
-        public void writeFrames(int frameNum, System.Drawing.Bitmap[] frames)
-        {
-            //fill 2 dimensional buffer of data to write with yuv frames
-            byte[][] wdata = new byte[frames.Length][];
-            for (int i = 0; i < frames.Length; i++)
+            get
             {
-                wdata[i] = frameToYUV(frames[i]);
-            }
-
-            FileStream fs;
-            try
-            {
-                fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, ((YuvVideoInfo)vidInfo).frameSize * frames.Length);
-                fs.Seek((int)(frameNum * ((YuvVideoInfo)vidInfo).frameSize), SeekOrigin.Begin);
-
-                for (int i = 0; i < frames.Length; i++)
+                if (_writeQueue == null)
                 {
-                    fs.Write(wdata[i], 0, wdata[i].Length);
+                    _writeQueue = new Queue(NUMFRAMESINMEM);
+                    _writeQueue = Queue.Synchronized(_writeQueue);
                 }
-
-                fs.Close();
-            }
-            catch(IOException e)
-            {
-                //TODO: handle writer exceptions?
-                throw e;
+                return _writeQueue;
             }
         }
 
+        /// <summary>
+        /// This flag signals the currently active writerThread(if active)
+        /// to terminate itself.
+        /// </summary>
+        /// <remarks>
+        /// You shouldnt call abort (as described in the corresponding doc entry)
+        /// as the writerThread acquires some locks( i.e. on a file and a the
+        /// <see cref="BitmapData"/> of a <see cref="Bimpap"/>) and couldnt
+        /// release this if you kill it externally.
+        /// </remarks>
+        bool stopWriterThread = false;
+
+        private int _positionWriter = -1;
+        public int positionWriter
+        {
+            get
+            {
+                if (_positionWriter < 0)
+                {
+                    _positionWriter = 0;
+                    //    writerThread.Start();
+                }
+                return _positionWriter;
+
+            }
+            set
+            {
+                _positionWriter = value;
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// This operation shouldn't (in contrary to the readerFlush which does not
+        /// have many consequences) be used if writing process is
+        /// active as it would (in most cases) result in data loss if
+        /// not worse.
+        /// </summary>
+        /// <remarks>
+        /// Make sure that a writer flush will cause the writer
+        /// to stop writing as soon as possible (usually within the next frame
+        /// to write). If a currently written file is not written completely
+        /// the video will be (it will be tried to..) truncated.
+        /// </remarks>
+        public void flushWriter()
+        {
+        // make sure writer thread is stopped
+            stopWriterThread = true;
+            if (writerThread.ThreadState == System.Threading.ThreadState.Running)
+            {
+                writerThread.Join(50);
+                if (writerThread.ThreadState == System.Threading.ThreadState.Running)
+                    writerThread.Abort();       // if reader not done after 50 ms it is
+                // is probably deadLocked...
+                writerThread = null;
+            }
+            positionWriter = 0;
+
+            /// Triggers reinitialization of this value, important
+            /// if for some unknown reason someone tries
+            /// to change the format and or the WIDTHxHEIGHT
+            /// values (i.e. vidInfo) of the currently loaded
+            /// context.
+            frameByteSize = 0;
+
+            // note: grantedMemory is user provided
+            NUMFRAMESINMEM = grantedMemory / frameByteSize;
+            writeQueue.Clear();
+
+        }
+
+        private Thread _writerThread;
+        private Thread writerThread
+        {
+            get
+            {
+                if (_writerThread == null)
+                {
+                    _writerThread = new Thread(new ThreadStart(emptyBuffer));
+                    _writerThread.Name = "writerThread";
+                }
+                return _writerThread;
+            }
+            set
+            {
+                _writerThread = value;
+            }
+        }
+
+        private ManualResetEvent _writerWaitEvent;
+        private ManualResetEvent writerWaitEvent
+        {
+            get
+            {
+                if (_writerWaitEvent == null)
+                    _writerWaitEvent = new ManualResetEvent(false);
+
+                return _writerWaitEvent;
+            }
+        }
+      
+
+        public void writeFrame(Bitmap frame, bool buffer = true)
+        {
+        }
+        private void emptyBuffer()
+        {
+
+        }
 
         /// <summary>
         /// Converts the given RGB color to yuv format.
@@ -411,9 +966,9 @@ namespace PS_YuvVideoHandler
         {
             byte[] yuv = new byte[3];
             // conversion rgb > yuv according to http://msdn.microsoft.com/en-us/library/ms893078.aspx
-            yuv[0] =(byte)( ((  66 * rgbColor.R + 129 * rgbColor.G +  25 * rgbColor.B + 128) >> 8) +  16);
-            yuv[1] =(byte)( ((-38 * rgbColor.R - 74 * rgbColor.G + 112 * rgbColor.B + 128) >> 8) + 128);
-            yuv[2] =(byte)( ((112 * rgbColor.R - 94 * rgbColor.G - 18 * rgbColor.B + 128) >> 8) + 128);
+            yuv[0] = (byte)(((66 * rgbColor.R + 129 * rgbColor.G + 25 * rgbColor.B + 128) >> 8) + 16);
+            yuv[1] = (byte)(((-38 * rgbColor.R - 74 * rgbColor.G + 112 * rgbColor.B + 128) >> 8) + 128);
+            yuv[2] = (byte)(((112 * rgbColor.R - 94 * rgbColor.G - 18 * rgbColor.B + 128) >> 8) + 128);
 
             return yuv;
         }
@@ -427,12 +982,12 @@ namespace PS_YuvVideoHandler
         {
             byte[] fdata = new byte[((YuvVideoInfo)vidInfo).frameSize];
             FrameDataPointers pointers = new FrameDataPointers(_videoInfo);
-                        
+
             for (int y = 0; y < _videoInfo.height; y++)
             {
                 for (int x = 0; x < _videoInfo.width; x++)
                 {
-                    byte[] col = convertToYUV(frame.GetPixel(x,y));
+                    byte[] col = convertToYUV(frame.GetPixel(x, y));
 
                     fdata[pointers.y_index] = col[0];
                     fdata[pointers.u_index] = col[1];
@@ -441,11 +996,15 @@ namespace PS_YuvVideoHandler
                     pointers.Next();
                 }
             }
-            
+
             return fdata;
         }
 
+        #endregion
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
+
 
 
 
@@ -598,3 +1157,83 @@ namespace PS_YuvVideoHandler
 
 }
 
+//int[] y_Index = new int[vidInfo.height * vidInfo.width];
+//int[] u_Index = new int[vidInfo.height * vidInfo.width];
+//int[] v_Index = new int[vidInfo.height * vidInfo.width];
+//for (int y = 0; y < vidInfo.height * vidInfo.width; y++)
+//{
+
+//    y_Index[y] = pointers.y_index;
+//    u_Index[y] = pointers.u_index;
+//    v_Index[y] = pointers.v_index;
+//    pointers.Next();
+//}
+//var y_Index_Enumerator = y_Index.GetEnumerator();
+//var u_Index_Enumerator = u_Index.GetEnumerator();
+//var v_Index_Enumerator = v_Index.GetEnumerator();
+
+
+// conversion yuv > rgb according to http://msdn.microsoft.com/en-us/library/ms893078.aspx
+//int c = y - 16;
+//int d = u - 128;
+//int e = v - 128;
+
+//byte r = clampToByte((298 * c           + 409 * e   + 128) >> 8);
+//byte g = clampToByte((298 * c - 100 * d - 208 * e   + 128) >> 8);
+//byte b = clampToByte((298 * c + 516 * d             + 128) >> 8);
+//byte r = clampToByte(1.167 * (y - 16) + 1.596 * (v - 128));
+//byte g = clampToByte(1.169 * (y - 16) - 0.393 * (u - 128) - 0.816 * (v - 128));
+//byte b = clampToByte(1.167 * (y - 16) + 2.018 * (u - 128));
+
+//y_Index_Enumerator.MoveNext();
+//u_Index_Enumerator.MoveNext();
+//v_Index_Enumerator.MoveNext();
+
+//                            currCol = convertToRGB(rawData[0],
+//                            rawData[1],
+//                            rawData[2]);
+//                            currCol = convertToRGB(rawData[frameOffset + (int)y_Index_Enumerator.Current],
+//rawData[frameOffset + (int)u_Index_Enumerator.Current],
+//rawData[frameOffset + (int)v_Index_Enumerator.Current]);
+
+//                            currFrame.SetPixel(x, y, currCol);
+
+//currFrame.SetPixel(x, y,
+//    convertToRGB(
+//    rawData[frameOffset + (int)y_Index_Enumerator.Current],
+//    rawData[frameOffset + (int)u_Index_Enumerator.Current],
+//    rawData[frameOffset + (int)v_Index_Enumerator.Current]));
+
+/////////////////////////////////////////////////////////
+
+
+//byte[] rawData = new byte[frameByteSize * count];
+//fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+//fs.Seek(offset, SeekOrigin.Begin);
+
+//if (fs.Read(rawData, 0, count*frameByteSize) == 0)
+//   {
+//    buffPos = vidInfo.frameCount;
+//   break;
+//}
+
+//  byte[,,,] colArray = new byte[NUMFRAMESINMEM + 2,vidInfo.width,vidInfo.height,3];
+
+
+//fs = new FileStream(path, FileMode.Open);
+//fs.Seek(offset, SeekOrigin.Begin);
+
+//if (fs.Read(rawData, 0, rawData.Count()) == 0)
+//    this.readMode = Mode.Idle;
+//fs.Close();
+
+
+//    if (position == 0) {
+//   Stopwatch sw = new Stopwatch();
+//    sw.Start();
+//    fillBuffer();
+//    sw.Stop();
+//    var fps = 150/sw.ElapsedMilliseconds / 1000.0;
+
+//        getFrameWaitEvent.WaitOne();
+//}

@@ -189,17 +189,17 @@ namespace Oqat.ViewModel
                 this.onToggleView(this, new ViewTypeEventArgs(ViewType.MetricView));
 
                 this.videoRef =(IVideo) e.video;
-                this.playerRef.loadVideo(this, e);
+                this.playerRef.setVideo(videoRef);
             }
             else
             {
                 this.videoProc = (IVideo)e.video;
-                this.playerProc.loadVideo(this, e);
+                this.playerProc.setVideo(videoProc);
             }
 
             if (this.vtype == ViewType.AnalyzeView)
             {
-                this.diagram.loadVideo(this, e);
+                this.diagram.setVideo(e.video);
             }
 		}
 
@@ -248,13 +248,13 @@ namespace Oqat.ViewModel
         {
             try
             {
-                this.playerProc.onFlushPresentationPlugins(sender, e);
-                this.playerRef.onFlushPresentationPlugins(sender, e);
-                this.diagram.onFlushPresentationPlugins(sender, e);
+                this.playerProc.flush();
+                this.playerRef.flush();
+                this.diagram.flush();
 
                 foreach (IPresentation p in _custom)
                 {
-                    p.onFlushPresentationPlugins(sender, e);
+                    p.flush();
                 }
             }
             catch (NullReferenceException ex)
