@@ -15,11 +15,48 @@ namespace Oqat.ViewModel
     using System.Windows.Interop;
     using System.Windows.Media;
     using System.ComponentModel;
+    using System.IO;
+    using System.Xml;
     /// <summary>
     /// This component is responsible for creating new or openning existing projects.
     /// </summary>
 	public partial class VM_ProjectOpenDialog : Window, INotifyPropertyChanged
 	{
+
+        private void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[7];
+                String[] t2 = new String[7];
+                for (int i = 0; i < 7; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                bt1.Content = t2[1];
+                bt2.Content = t2[0];
+                gb3.Header = t2[2];
+                gb4.Header = t2[3];
+                btnBrowse.Content = t2[4];
+                tb6.Text = t2[5];
+                this.Title = t2[6];
+                
+
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
+
+
         private string _title;
         public string title
         {
@@ -77,7 +114,9 @@ namespace Oqat.ViewModel
 
         public VM_ProjectOpenDialog(string path = null)
         {
+            
             InitializeComponent();
+            local("VM_ProjectOpenDialog_default.xml");
             title = "myOqatPrj";
             pathProject = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             description = "";

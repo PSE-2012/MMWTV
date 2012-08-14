@@ -12,6 +12,14 @@ namespace Oqat.ViewModel.Macro
     using System.Data;
     using System.Windows.Controls;
     using AC.AvalonControlsLibrary.Controls;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel.Composition;
+    using System.Collections.Specialized;
+    using System.ComponentModel;
+
+    [ExportMetadata("namePlugin", "PF_MacroFilter")]
+    [ExportMetadata("type", PluginType.IFilterOqat)]
+    [Export(typeof(IPlugin))]
 
     /// <summary>
     /// This class is a implementation of IFilterOqat, <see cref="IFilterOqat"/> for further informations.
@@ -20,36 +28,84 @@ namespace Oqat.ViewModel.Macro
     /// </summary>
     public class PF_MacroFilter : Macro, IFilterOqat
     {
-        internal List<RangeSlider> rsl;
-        public MacroFilterControl macroControl;
-
-        public UserControl propertyView
+        string namePlugin 
         {
             get
             {
-                return macroControl;
+                return "PF_MacroFilter";
             }
+        }
+
+        internal List<RangeSlider> rsl;
+        internal ObservableCollection<MacroEntryFilter> macroQueue
+        {
+            get;
+            set;
         }
 
         public PF_MacroFilter()
         {
-            macroQueue = new DataTable();
-            macroQueue.Columns.Add("Start", typeof(Double));
-            macroQueue.Columns.Add("Stop", typeof(Double));
-            macroQueue.Columns.Add("Filter", typeof(String));
-            macroQueue.Columns.Add("Properties", typeof(String));
-            macroQueue.Columns.Add("Macro Entry", typeof(MacroEntryFilter));
+            macroQueue = new ObservableCollection<MacroEntryFilter>();
             rsl = new List<RangeSlider>();
+            this.macroQueue.CollectionChanged += macroQueue_collectionChanged;
+            
+            macroControl = new MacroFilterControl(this);
         }
 
-        public System.Drawing.Bitmap process(System.Drawing.Bitmap frame) // TODO: What should this method actually be used for?
+
+
+        public void addFilter(MementoEventArgs e)
         {
-            throw new NotImplementedException();
+            long startValue = 0;
+            long stopValue = 100;
+            long startValueSlider = 0;
+            long stopValueSlider = 500;
+            MacroEntryFilter mEntryFilter = new MacroEntryFilter(e.pluginKey, e.mementoName, stopValue, startValue);
+            
+            RangeSlider rs = new AC.AvalonControlsLibrary.Controls.RangeSlider();
+            rs.RangeStart = startValueSlider;
+            rs.RangeStop = stopValueSlider;
+            rs.RangeStartSelected = startValueSlider;
+            rs.RangeStopSelected = stopValueSlider;
+            rs.MinRange = 1L;
+            rs.Width = 270; // TODO: changing width at runtime
+            rs.Height = 17.29; // this height fits the height of the data rows in the macro table
+            
+            this.macroQueue.Add(mEntryFilter);
+            int j = this.macroQueue.Count - 1;
+            ((MacroFilterControl)macroControl).addDelegate(rs, j, delList);
+            this.rsl.Add(rs);
+            ((MacroFilterControl)macroControl).updateSliders();
         }
+
+        /// <summary>
+        /// Method to update macroQueue if slider changes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void macroQueue_collectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e != null)
+            {
+                if (e.OldItems != null)
+                    foreach (INotifyPropertyChanged item in e.OldItems)
+                        item.PropertyChanged -= item_PropertyChanged;
+                if (e.NewItems != null)
+                    foreach (INotifyPropertyChanged item in e.NewItems)
+                        item.PropertyChanged += item_PropertyChanged;
+            }
+        }
+
+        private void item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var reset = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+            // this.macroQueue.OnCollectionChanged(reset);
+        }
+
+
 
         private IVideoHandler refHand;
         private IVideoHandler resultHand;
-        private int BUFFERSIZE; // should be tested with different buffer sizes later
         private int totalFrames;
         private int i;
         private System.Drawing.Bitmap[] resultFrames;
@@ -57,13 +113,18 @@ namespace Oqat.ViewModel.Macro
         private Memento currentMemento;
         private MacroEntryFilter currentMacroEntry;
 
+
+        /// <summary>
+        /// Method to split macro in it's Macroentrys
+        /// </summary>
+        /// <param name="memento"></param>
         private void macroEncode(Memento memento)
         {
             currentPlugin = null; // to avoid loading the same plugin twice
             IFilterOqat currentPluginEntry;
             Memento currentMementoEntry;
-            List<MacroEntry> macroEntrys = (List<MacroEntry>)memento.state;
-            foreach (MacroEntry currentEntry in macroEntrys)
+            List<MacroEntryFilter> macroEntrys = (List<MacroEntryFilter>)memento.state;
+            foreach (MacroEntryFilter currentEntry in macroEntrys)
             {
                 currentPluginEntry = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>(currentEntry.pluginName);
                 currentMementoEntry = PluginManager.pluginManager.getMemento(currentEntry.pluginName, currentEntry.mementoName);
@@ -75,62 +136,59 @@ namespace Oqat.ViewModel.Macro
                 {
                     MacroEntryFilter currentFilterEntry = (MacroEntryFilter)currentEntry;
                     // here error handling in case the plugin doesn't implement IFilterOqat
-                    int arraycount = resultFrames.Count();
-                    for (int j = 0; j < arraycount; j++)
-                    {
-                        // TODO: Handling of an entry that is another macrofilter - what to do with the slider values?
-                        if ((currentFilterEntry.startFrameRelative / 100) * totalFrames <= (i+j) && (i+j) <= (currentFilterEntry.endFrameRelative / 100) * totalFrames)
-                        {
-                            currentPluginEntry.setMemento(currentMementoEntry);
-                            System.Drawing.Bitmap tempmap = currentPluginEntry.process(resultFrames[j]);
-                            resultFrames[j] = tempmap;
-                        }
-                    }
+                    mementoProcess(currentMementoEntry);
                 }
             }
         }
 
+        /// <summary>
+        /// Method to assign settings to plugin and write temporary video
+        /// </summary>
+        /// <param name="memento">settings of used plugin</param>
         private void mementoProcess(Memento memento)
         {
-            int arraycount = resultFrames.Count();
-            for (int j = 0; j < arraycount; j++) // iterate over all frames to be processed
-            {
-                if ((currentMacroEntry.startFrameRelative / 100) * totalFrames <= (i + j) && (i + j) <= (currentMacroEntry.endFrameRelative / 100) * totalFrames)
+            
+            
+                if ((currentMacroEntry.startFrameRelative / 100) * totalFrames <= i && i <= (currentMacroEntry.endFrameRelative / 100) * totalFrames)
                 {
                     currentPlugin.setMemento(memento);
-                    System.Drawing.Bitmap tempmap = currentPlugin.process(resultFrames[j]);
-                    resultFrames[j] = tempmap;
+                    System.Drawing.Bitmap tempmap = currentPlugin.process(resultFrames[i]);
+                    resultFrames[i] = tempmap;
                 }
-            }
         }
 
+        /// <summary>
+        /// Method to initialize Data for process
+        /// </summary>
+        /// <param name="vidRef">video to process</param>
+        /// <param name="vidResult">new video after process</param>
         public void init(Video vidRef, Video vidResult)
         {
             refHand = vidRef.handler;
             resultHand = vidResult.handler;
-            BUFFERSIZE = 255;
             totalFrames = vidRef.vidInfo.frameCount;
+            resultFrames = new System.Drawing.Bitmap[vidRef.vidInfo.frameCount];
             i = 0;
         }
 
+        /// <summary>
+        /// Assign frames to macroEncode/mementoProcess and write the result to disk
+        /// </summary>
+        /// <param name="vidRef">video to process</param>
+        /// <param name="vidResult">new video after process</param>
         public void process(Video vidRef, Video vidResult)
         {
             while (i < totalFrames)
             {
-                if ((i + BUFFERSIZE - totalFrames) > 0)
-                {
-                    resultFrames = refHand.getFrames(i, totalFrames - i);
-                }
-                else
-                {
-                    resultFrames = refHand.getFrames(i, BUFFERSIZE); // initialize the first BUFFERSIZE frames to be processed
-                }
-                foreach (DataRow c in macroQueue.Rows)
+                resultFrames[i] = refHand.getFrame(i);
+                foreach (MacroEntryFilter c in macroQueue)
                 {
                     // here maybe error handling in case the plugin doesn't implement IFilterOqat, although plugin lists has probably checked that already
-                    currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c["Filter"]);
-                    currentMemento = PluginManager.pluginManager.getMemento((String)c["Filter"], (String)c["Properties"]);
-                    currentMacroEntry = (MacroEntryFilter)c["Macro Entry"];
+                    currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.pluginName);
+                    currentMemento = PluginManager.pluginManager.getMemento((String)c.pluginName, (String)c.mementoName);
+                    currentMacroEntry = (MacroEntryFilter)c;
+
+                    // decide if a macro is used
                     if (currentPlugin is IMacro)
                     {
                         macroEncode(currentMemento);
@@ -140,68 +198,41 @@ namespace Oqat.ViewModel.Macro
                         mementoProcess(currentMemento);
                     }
                 }
-                resultHand.writeFrames(i, resultFrames); // write the processed frames to disk
-                i += BUFFERSIZE;
+            resultHand.writeFrame(i, resultFrames[i]); // write the processed frames to disk 
+            i++;
             }
+            // reset after finished work
             resultFrames = null;
             currentPlugin = null;
             currentMemento = null;
             refHand = null;
             resultHand = null;
+            // add to ProjectExplorer
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult));
         }
 
-        public string namePlugin
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
 
-        public PluginType type
+        public System.Drawing.Bitmap process(System.Drawing.Bitmap frame) 
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public Dictionary<EventType, List<Delegate>> getEventHandlers()
-        {
+            //TODO: Do we ever use a macro like a filter without checking if it is macro?
             throw new NotImplementedException();
         }
 
-        public PublicRessources.Model.Memento getMemento()
+
+        public override Memento getMemento()
         {
-            throw new NotImplementedException();
+            return new Memento(this.namePlugin, this.macroQueue.ToArray());
         }
 
-        public List<MacroEntry> getPluginMementoList()
+        public override void setMemento(Memento memento)
         {
-            macroEntryList = new List<MacroEntry>();
-            foreach (DataRow c in macroQueue.Rows)
+            this.macroQueue.Clear();
+            foreach(MacroEntryFilter f in ((MacroEntryFilter[])memento.state))
             {
-                MacroEntryFilter newEntry = (MacroEntryFilter)c["Macro Entry"];
-                macroEntryList.Add(newEntry);
+                this.macroQueue.Add(f);
             }
-            return macroEntryList;
-        }
-
-        public void setMemento(PublicRessources.Model.Memento memento)
-        {
-            throw new NotImplementedException();
         }
 
     }
-
 }
 

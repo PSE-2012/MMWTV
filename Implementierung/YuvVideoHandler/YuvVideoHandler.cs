@@ -180,6 +180,7 @@ namespace PS_YuvVideoHandler
                 {
                     _propertyView = new PropertiesView();
                     _propertyView.DataContext = vidInfo;
+                   
                 }
                 return _propertyView;
             }

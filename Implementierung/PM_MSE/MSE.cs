@@ -26,10 +26,7 @@ namespace PM_MSE
         VM_PM_MSE propertiesView;
 
 
-        private int otto()
-        {
-            return 42;
-        }
+     
         public AnalysisInfo analyse(System.Drawing.Bitmap frameRef, System.Drawing.Bitmap frameProc)
         {
 
@@ -141,6 +138,7 @@ namespace PM_MSE
         }
         public MSE(){
             propertiesView = new VM_PM_MSE();
+            localize(_namePlugin + "_default.xml");
            
         }
         public UserControl propertyView
@@ -159,18 +157,27 @@ namespace PM_MSE
 
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
-            int rb = propertiesView.getRb();
+           int rb = propertiesView.getRb();
             Memento mem = new Memento(this.namePlugin, rb);
-
+            
             return mem;
         }
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
-            int obj =(int) memento.state;
+
+            Object obj = memento.state;
+
+            var otto = (int)obj;
+            this.propertiesView.setRb(otto);
+            
+         
            
-            this.propertiesView.setRb(obj)  ;
-           
+        }
+        private void localize(String s)
+        {
+            propertiesView.local(s);
+
         }
     }
 }

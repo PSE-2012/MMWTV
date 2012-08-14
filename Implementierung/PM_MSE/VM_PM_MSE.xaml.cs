@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Xml;
 
 namespace PM_MSE
 {
@@ -69,6 +71,34 @@ namespace PM_MSE
                 rbB.IsChecked = true;
             }
            
+        }
+        public void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[4];
+                String[] t2 = new String[4];
+                for (int i = 0; i < 4; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                rbRGB.Content = t2[0];
+                rbR.Content = t2[1];
+                rbG.Content = t2[2];
+                rbB.Content = t2[3];
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+
         }
     }
 }

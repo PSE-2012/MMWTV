@@ -20,6 +20,7 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
+                
             </Grid.ColumnDefinitions>
             <TreeView Grid.Row="0" Grid.RowSpan="4" x:Name="smartTreeExplorer" ItemsSource="{Binding}"
                       KeyDown="smartTreeExplorer_KeyDown"
@@ -39,18 +40,24 @@
                             </TextBlock.ContextMenu>
                         </TextBlock>
                     </HierarchicalDataTemplate>
+                    <Style TargetType="TreeViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="treeitem_MouseDoubleClicked"/>
+                    </Style>
                 </TreeView.Resources>
             </TreeView>
         <StackPanel Grid.Row="5">
             <StackPanel.DataContext>
                 <Binding ElementName="smartTreeExplorer"  Path="SelectedItem"/>
             </StackPanel.DataContext>
-            <WrapPanel>
-                <Label Content="Title:"/>
+                <WrapPanel>
+                    <Button Content="Analyse Exportieren"  Name="btnExport" Width="116" Visibility="Hidden" Click="btnExport_Click" />
+                </WrapPanel>
+                <WrapPanel>
+                <Label Name="lb1" Content="Titel:"/>
                 <Label  Content="{Binding name}"/>
             </WrapPanel>
             <WrapPanel>
-                <Label Content="Path:"/>
+                <Label Name="lb2" Content="Pfad:"/>
                 <Label Content="{Binding video.vidPath}"/>
             </WrapPanel>
         </StackPanel>

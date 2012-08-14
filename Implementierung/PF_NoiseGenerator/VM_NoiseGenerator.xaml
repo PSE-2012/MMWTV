@@ -3,14 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="142" d:DesignWidth="248">
-    <StackPanel Height="101" Name="stackPanel1" Width="193">
-        <WrapPanel Height="33" Name="wrapPanel1" Width="150">
-            <Label Content="Noise Range" Height="30" Name="label1" Width="120" />
-            <Label Height="30" Width="30" Name="lbBorder" Content="{Binding ElementName=uper, Path=Value}"/>
+             mc:Ignorable="d">
+    <StackPanel  Name="stackPanel1" >
+        <WrapPanel  Name="wrapPanel1" >
+            <Label Content="Noise Range" Name="label1"  />
+            <Label  Name="lbBorder" Content="{Binding ElementName=uper, Path=Value}"/>
         </WrapPanel>
-        <Slider Height="40" Name="uper" Width="150" 
+        <Slider  Name="uper"  
                     Minimum="0"
                    Maximum="250"
                    IsSnapToTickEnabled="True"

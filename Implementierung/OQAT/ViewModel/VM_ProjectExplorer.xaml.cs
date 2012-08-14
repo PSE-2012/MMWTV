@@ -4,7 +4,7 @@
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Text;
-
+    using Microsoft.Win32;
     using Oqat.Model;
     using Oqat.PublicRessources.Model;
     using System.Windows.Controls;
@@ -17,7 +17,7 @@
     using System.IO;
     using System.Windows.Media;
     using System.Collections.Specialized;
-
+    using System.Xml;
 
     /// <summary>
     /// This class is mainly responsible to sync the SmartTree(GUI) with the SmartNodes (Model) and
@@ -26,7 +26,34 @@
 	public partial class VM_ProjectExplorer : UserControl
 	{
 
+        private void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[3];
+                String[] t2 = new String[3];
+                for (int i = 0; i < 3; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                lb1.Content = t2[0];
+                lb2.Content = t2[1];
+                btnExport.Content = t2[2];
 
+
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
         /// <summary>
         /// Reference to the currently active project.
         /// </summary>
@@ -39,6 +66,8 @@
         public VM_ProjectExplorer(Project project)
         {
             InitializeComponent();
+            local("VM_ProjectExplorer_default.xml");
+            PluginManager.macroProcessingFinished += this.onMacroProcessingFinished;
 
             // projectExplorer
             this.project = project;
@@ -52,7 +81,10 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void onVideoClick(object sender, VideoEventArgs e) { }
+        private void onVideoClick(object sender, VideoEventArgs e) 
+        {
+
+        }
 
         private void smartTreeExplorer_KeyDown(object sender, KeyEventArgs e)
         {
@@ -166,6 +198,61 @@
         }
 
 
-	}
-}
+        private void onMacroProcessingFinished(object sender, VideoEventArgs e)
+        {
+            //TODO: find correct parentid
+            project.addNode(e.video, -1);
+        }
 
+        private void treeitem_MouseDoubleClicked(object sender, RoutedEventArgs e)
+        {
+            if (this.smartTreeExplorer.SelectedItem == ((SmartNode)((TreeViewItem)e.Source).Header))
+            {
+                SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
+                PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
+                    new VideoEventArgs(selNode.video));
+                if (selNode.video.isAnalysis == true)
+                {
+                    btnExport.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    btnExport.Visibility = Visibility.Hidden;
+                }
+            }
+
+
+        }
+
+        private void btnExport_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.DefaultExt = ".csv"; 
+            dlg.Filter = "Comma Seperated Values (.csv)|*.csv"; 
+            Nullable<bool> result = dlg.ShowDialog();
+
+            SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
+            Video vid = selNode.video;
+
+            if (result == true)
+            {
+                String s = "";
+
+
+                for (int j = 0; j < vid.frameMetricValue.Length; j++)
+                {
+                    for (int i = 0; i < vid.frameMetricValue[i].Length; i++)
+                    {
+                        s = s + vid.frameMetricValue[j][i] + " ";
+                    }
+                    s = s + System.Environment.NewLine;
+                }
+                String p = dlg.FileName;
+                StreamWriter myFile = new StreamWriter(p);
+                myFile.Write(s);
+                myFile.Close();
+            }
+    
+        }
+    }
+}

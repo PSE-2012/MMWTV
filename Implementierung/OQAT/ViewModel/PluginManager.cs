@@ -253,6 +253,7 @@
         /// All composable parts found by MEF will be placed here.
         /// </summary>
         private DirectoryCatalog pluginCatalog;
+        private AggregateCatalog catalog;
 
         /// <summary>
         /// FileSystemWatcher to monitor changes within the pluginPath folder.
@@ -423,6 +424,9 @@
             try
             {
                 pluginCatalog = new DirectoryCatalog(PLUGIN_PATH);
+                catalog = new AggregateCatalog(
+                    pluginCatalog,
+                    new AssemblyCatalog(System.Reflection.Assembly.GetExecutingAssembly()));
             }
             catch (Exception exc)
             {
@@ -431,7 +435,7 @@
             }
             try
             {
-                pluginContainer = new CompositionContainer(pluginCatalog);
+                pluginContainer = new CompositionContainer(catalog);
                 pluginContainer.ComposeParts(this);
 
                 watcher = new FileSystemWatcher(PLUGIN_PATH);
@@ -593,7 +597,6 @@
         /// Plugin with the given name. Null if Plugin with the name namePlugin was found.</returns>
         private void getMementoList(string namePlugin, out List<Memento> mementoObjects)
         {
-
             if (blackList.ContainsKey(namePlugin) || !memTable.ContainsKey(namePlugin))
             {
                 mementoObjects = null;    // should never come to this, since noone can have plugin names (getPluginNames)
@@ -647,6 +650,8 @@
 
         }
 
+
+        //TODO: add summary and info about exceptions thrown
         /// <summary>
         /// 
         /// </summary>
@@ -673,10 +678,8 @@
                         if (mem.state != null)
                         {
                             memObjects.Add(mem);
-                            
                         }
                         break;
-
                     }
                 }
 

@@ -55,9 +55,9 @@ namespace Oqat.Model
         /// <summary>
         /// Creates a new SmartNode from a given path to a video file.
         /// </summary>
-        public SmartNode(Video vid, int id, int idFather, ObservableCollection<SmartNode> smartTree = null)
+        public SmartNode(IVideo vid, int id, int idFather, ObservableCollection<SmartNode> smartTree = null)
         {
-            this.video = vid;
+            this.video =(Video) vid;
             this.id = id;
             this.idFather = idFather;
             if (smartTree != null)

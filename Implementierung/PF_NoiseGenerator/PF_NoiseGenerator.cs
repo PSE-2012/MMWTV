@@ -11,7 +11,8 @@ namespace PF_NoiseGenerator
     using Oqat.PublicRessources.Model;
     using Oqat.PublicRessources.Plugin;
     using System.Drawing;
- 
+    using System.Xml;
+    using System.IO;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -21,7 +22,7 @@ namespace PF_NoiseGenerator
     using AForge.Math.Random;
 
     using System.Windows.Controls;
-
+    using System.Drawing.Imaging;
 
 
     [ExportMetadata("namePlugin", "PF_NoiseGenerator")]
@@ -40,6 +41,7 @@ namespace PF_NoiseGenerator
         public NoiseGenerator()
         {
             propertiesView = new VM_NoiseGenerator();
+            localize(_namePlugin+"_default.xml");
         
         }
 
@@ -48,7 +50,13 @@ namespace PF_NoiseGenerator
             IRandomNumberGenerator generator = new UniformGenerator(new Range(-1*propertiesView.getUp(), propertiesView.getUp()));
            
             AdditiveNoise filter = new AdditiveNoise(generator);
-          
+            Bitmap test = new Bitmap(frame.Width, frame.Height, PixelFormat.Format24bppRgb);
+
+            Graphics g = Graphics.FromImage(test);
+            g.DrawImage(frame, 0, 0);
+            g.Dispose();
+
+            frame = test;
             filter.ApplyInPlace(frame);
             return frame;
         }
@@ -92,21 +100,26 @@ namespace PF_NoiseGenerator
             return handlers;
         }
 
-        public Oqat.PublicRessources.Model.Memento getMemento()
+    public Oqat.PublicRessources.Model.Memento getMemento()
         {
-            Memento mem = new Memento(this.namePlugin, null);
+            Memento mem = new Memento(this.namePlugin, this.propertiesView.getUp());
 
             return mem;
         }
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
-          //  Object obj = memento.state;
-         //   NoiseGenerator otto = (NoiseGenerator)obj;
-         //   this.propertiesView.changeValue(otto.propertiesView.getUp());
+            
+            Object obj = memento.state;
+            float otto = (float)obj;
+            this.propertiesView.changeValue(otto);
           
         }
+        private void localize(String s)
+        {
+            propertiesView.local(s);
 
+        }
        
     }
 }

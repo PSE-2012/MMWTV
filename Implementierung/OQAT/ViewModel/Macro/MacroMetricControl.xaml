@@ -6,5 +6,32 @@
              mc:Ignorable="d">
 
     <Grid x:Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Row="0" Grid.Column="0" Name="ScrollViewer1" VerticalAlignment="Top" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
+            <Grid>
+                <StackPanel>
+                    <ListView Name ="macroTable" ItemsSource="{Binding macroTable}" HorizontalAlignment="Stretch" FontSize="13" AllowDrop="True" SelectionMode="Extended">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn  Header="Metric Name" DisplayMemberBinding="{Binding pluginName}"/>
+                                <GridViewColumn  Header="Memento Name" DisplayMemberBinding="{Binding mementoName}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Name="deletebutton" Content="Delete Selected Entries" Click="Delete_Click"   HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ></Button>
+        </Grid>
     </Grid>
 </UserControl>

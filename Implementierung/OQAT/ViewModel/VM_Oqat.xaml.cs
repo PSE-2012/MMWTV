@@ -13,8 +13,13 @@ using System.Windows.Shapes;
 
 using Oqat.ViewModel.Macro;
 using Oqat.Model;
+using Oqat.PublicRessources.Model;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+
+using System.IO;
+using System.Xml;
+
 namespace Oqat.ViewModel
 {
     /// <summary>
@@ -22,10 +27,42 @@ namespace Oqat.ViewModel
     /// </summary>
     public partial class VM_Oqat : Window
     {
+        private void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[5];
+                String[] t2 = new String[5];
+                for (int i = 0; i < 5; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                mn1.Header= t2[0];
+                mn2.Header = t2[1];
+                miInfo.Header= t2[2];
+                tabFilter.Header = t2[3];
+              tabMetric.Header= t2[4];
+              
+
+
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
+
         public VM_Oqat()
         {
             InitializeComponent();
-
+            local("VM_Oqat_default.xml");
             // PluginManager is initializet by OqatApp
             PluginManager.OqatNewProjectCreatedHandler += onNewProjectCreated;
             PluginManager.OqatToggleView += onToggleView;
@@ -37,8 +74,13 @@ namespace Oqat.ViewModel
             this.welcomePanel.Children.Add(vM_Welcome);
 
             //  initPluginLists
-            this.vM_PluginsList = new VM_PluginsList();
-            this.pluginListsPanel.Children.Add(this.vM_PluginsList);
+            vM_FilterList = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IFilterOqat);
+            this.tabFilter.Content = vM_FilterList;
+            vM_FilterList.macroLoaded += onMacroFilterLoad;
+
+            vM_MetricList = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IMetricOqat);
+            this.tabMetric.Content = vM_MetricList;
+            vM_MetricList.macroLoaded += onMacroMetricLoad;
 
             //  initPresentation
             this.vM_presentation = new VM_Presentation();
@@ -52,37 +94,32 @@ namespace Oqat.ViewModel
 
 
 
-#region VM fields
+        #region VM fields
 
 
-        private VM_Welcome _vM_Welcome;
         private VM_Welcome vM_Welcome
         {
             get;
             set;
         }
-        private VM_PluginsList _vM_PluginLists;
-        private VM_PluginsList vM_PluginsList
+
+        private VM_PluginsList vM_FilterList
         {
             get;
             set;
         }
-        private VM_ProjectExplorer _vM_ProjectExplorer;
+        private VM_PluginsList vM_MetricList
+        {
+            get;
+            set;
+        }
         private VM_ProjectExplorer vM_ProjectExplorer
         {
             get;
             set;
         }
 
-        private VM_Presentation _vM_Presentation;
         private VM_Presentation vM_presentation
-        {
-            get;
-            set;
-        }
-
-        private VM_Macro _vM_Macro;
-        private VM_Macro vM_Macro
         {
             get;
             set;
@@ -99,6 +136,24 @@ namespace Oqat.ViewModel
 #endregion
 
 
+
+
+        private void onMacroFilterLoad(object sender, MementoEventArgs e)
+        {
+            Memento mem = PluginManager.pluginManager.getMemento(e.pluginKey, e.mementoName);
+            if (mem != null)
+            {
+                vM_presentation.vm_macro.macroFilter.setMemento(mem);
+            }
+        }
+        private void onMacroMetricLoad(object sender, MementoEventArgs e)
+        {
+            Memento mem = PluginManager.pluginManager.getMemento(e.pluginKey, e.mementoName);
+            if (mem != null)
+            {
+                vM_presentation.vm_macro.macroMetric.setMemento(mem);
+            }
+        }
 
 
         public void onNewProjectCreated(object sender, ProjectEventArgs e)
@@ -202,6 +257,18 @@ namespace Oqat.ViewModel
         {
             WindowOqatInfo wi = new WindowOqatInfo();
             wi.ShowDialog();
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewType newv = ViewType.FilterView;
+            if (tabMetric.IsSelected) newv = ViewType.MetricView;
+
+            if (newv != currentView)
+            {
+                PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
+                    new ViewTypeEventArgs(newv));
+            }
         }
 
 

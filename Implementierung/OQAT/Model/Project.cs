@@ -129,7 +129,7 @@
         /// a ArgumentException will be raised.</param>
         /// 
         /// 
-        internal void addNode(Video vid, int idFather) {
+        internal void addNode(IVideo vid, int idFather) {
             // Check arguments for validity.
             if (vid == null)
                 throw new ArgumentException("Given Video object is null.");

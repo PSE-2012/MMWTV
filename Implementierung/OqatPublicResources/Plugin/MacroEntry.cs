@@ -14,8 +14,8 @@
     [Serializable()]
 	public abstract class MacroEntry
 	{
-        private string _pluginName;
-        private string _mementoName;
+        protected string _pluginName;
+        protected string _mementoName;
 
         public string pluginName
         {
@@ -41,9 +41,7 @@
             }
         }
 
-        public MacroEntry()
-        {
-        }
+        
     }
 }
 

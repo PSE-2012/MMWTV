@@ -19,91 +19,67 @@ namespace PF_Convolution
     using System.Windows;
     using System.ComponentModel.Composition;
     using System.Windows.Controls;
+    using System.ComponentModel;
 
     [ExportMetadata("namePlugin", "PF_Convolution")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
     [Export(typeof(IPlugin))]
 
     [Serializable()]
-    public class Convolution : IFilterOqat
+    public class Convolution : IFilterOqat, INotifyPropertyChanged
     {
         private string _namePlugin = "PF_Convolution";
         private PluginType _type= PluginType.IFilterOqat;
-        int[,] matrix = new int[5, 5];
+
+        int[,] _matrix;
+        public int[,] matrix
+        {
+            get
+            {
+                return _matrix;
+            }
+            set
+            {
+                if(_matrix != value)
+                {
+                    _matrix = value;
+                    NotifyPropertyChanged("matrix");
+                }
+            }
+        }
+
         private VM_Convolution propertiesView;
 
         public Convolution()
         {
+            matrix = new int[3, 3];
+
             propertiesView = new VM_Convolution();
-            
-        }
-         bool setMatrix(String[] tbs)
-        {
-            bool success = true;
-            try
-            {
-               
-
-                for (int j = 0; j < 5; j++)
-                {
-                    if((tbs[j].Split(new Char[] { ',' }).Length)==5){
-                    for (int i = 0; i < 5; i++)
-                    {
-                        matrix[j, i] = int.Parse(tbs[j].Split(new Char[] { ',' })[i]);
-
-                    }}else{
-                        propertiesView.resetPanel();
-                        success = false;
-                        j = 42;
-                    }
-                }
-            }
-            catch (FormatException)
-            {
-                propertiesView.resetPanel();
-                success = false;
-              MessageBox.Show("Die eingegebene Matrix enthält ungültige Zeichen.");  
-            }
-            return success;
+            propertiesView.DataContext = this;
         }
 
-         void setPanelView()
-         {
-             String[] tbs = new String[5];
 
-             for (int j = 0; j < 5; j++)
-             {
-                 for (int i = 0; i < 5; i++)
-                 {
-                     tbs[j] = tbs[j]+matrix[j,i];
-                 }
-                 if (j < 4)
-                 {
-                     tbs[j] = tbs[j] + ',';
-                 }
-
-             }
-             propertiesView.setPanel(tbs);
-         }
-
-
-         public Bitmap process(Bitmap frame) 
+        public Memento getMemento()
         {
-            if (setMatrix(propertiesView.getPanel()) == true)
-            {
-                // create filter
-                AForge.Imaging.Filters.Convolution filter = new AForge.Imaging.Filters.Convolution(matrix);
-                // apply the filter
-                filter.ApplyInPlace(frame);
-                
-            }
-            else
-            {
-               //frame = null;
-                
-            } 
+            return new Memento(this.namePlugin, this.matrix);
+        }
+
+        public void setMemento(Memento memento)
+        {
+           this.matrix =(int[,]) memento.state;
+        }
+
+        public Bitmap process(Bitmap frame)
+        {
+            // create filter
+            AForge.Imaging.Filters.Convolution filter = new AForge.Imaging.Filters.Convolution(matrix);
+            // apply the filter
+            filter.ApplyInPlace(frame);
+
             return frame;
         }
+
+
 
         public string namePlugin
         {
@@ -117,8 +93,6 @@ namespace PF_Convolution
                 this._namePlugin = value;
             }
         }
-
-      
 
         public PluginType type
         {
@@ -140,36 +114,15 @@ namespace PF_Convolution
             }
         }
 
-        public Dictionary<EventType, List<Delegate>> getEventHandlers()
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(String info)
         {
-            Dictionary<EventType, List<Delegate>> handlers = new Dictionary<EventType, List<Delegate>>();
-            return handlers;
-        }
-
-        public Memento getMemento()
-        {
-            Memento mem = new Memento(this.namePlugin,this.matrix);
-            
-            return mem;
-        }
-
-        public void setMemento(Memento memento)
-        {
-           Object obj= memento.state;
-
-           var otto = (int[,])obj;
-
-
-            for (int i = 0; i < 5; i++)
+            if (PropertyChanged != null)
             {
-                for( int j = 0; j<5; j++){
-                   this.matrix[i, j] = matrix[i, j];
-                }
-
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-
-            setPanelView();
         }
     }
 }
-

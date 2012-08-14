@@ -31,7 +31,7 @@
             set;
         }
 
-        private PM_MacroMetric macroMetric
+        internal PM_MacroMetric macroMetric
         {
             get;
             set;
@@ -56,7 +56,7 @@
         }
 
         /// <summary>
-        /// This is were the results (filter or metric process) are placed in.
+        /// This is were the results of filter process are placed in.
         /// </summary>
         private Video vidResult
         {
@@ -64,25 +64,35 @@
             set;
         }
 
+        /// <summary>
+        /// This is were the results of metric analysis are placed in.
+        /// Every metric has a own video.
+        /// </summary>
         private Video[] arrayVidResult
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Control for Macro in FilterView
+        /// </summary>
         public MacroFilterControl macroFilterControl
         {
             get
             {
-                return this.macroFilter.macroControl;
+                return this.macroFilter.macroControl as MacroFilterControl;
             }
         }
         
+        /// <summary>
+        /// Control for Macro in MetricView
+        /// </summary>
         public MacroMetricControl macroMetricControl
         {
             get
             {
-                return this.macroMetric.macroControl;
+                return this.macroMetric.macroControl as MacroMetricControl;
             }
         }
 
@@ -104,27 +114,14 @@
             }
         }
 
-        internal delegate void MacroSaveEventHandler(object sender, EntryEventArgs e);
-        internal event MacroSaveEventHandler MacroSave;
-        internal delegate void EntrySelectEventHandler(object sender, EventArgs e);
-        internal event EntrySelectEventHandler EntrySelect;
-        //internal delegate void StartProcessEventHandler(object sender, EventArgs e);
-        //internal event StartProcessEventHandler StartProcess;
-        internal List<RangeSelectionChangedEventHandler> delList;
 
         public VM_Macro()
         {
             PluginManager.OqatToggleView += this.onToggleView;
             PluginManager.macroEntryAdd += this.onEntrySelect;
 
-            MacroSave += new MacroSaveEventHandler(macroSave);
-            //StartProcess += new StartProcessEventHandler(startProcess);
-
-            delList = new List<RangeSelectionChangedEventHandler>();
-            this.macroFilter = new PF_MacroFilter();
-            this.macroMetric = new PM_MacroMetric();
-            this.macroFilter.macroControl = new MacroFilterControl(macroFilter, this);
-            this.macroMetric.macroControl = new MacroMetricControl(macroMetric, this);
+            this.macroFilter =(PF_MacroFilter) PluginManager.pluginManager.getPlugin<IMacro>("PF_MacroFilter");
+            this.macroMetric =(PM_MacroMetric)PluginManager.pluginManager.getPlugin<IMacro>("PM_MacroMetric");
         }
 
         /// <summary>
@@ -148,83 +145,84 @@
             }
         }
 
+        /// <summary>
+        /// Starts the process of PM_MacroMetric and PF_MacroFilter and initilize all Data needed.
+        /// </summary>
         public void startProcess()
         {
             if (this.viewType == ViewType.MetricView)
             {
-                arrayVidResult = new Video[macroMetric.macroQueue.Rows.Count]; // setting paths of result videos?
+                macroMetricControl.macroTable.IsEnabled = false;
+                arrayVidResult = new Video[macroMetric.macroQueue.Count];
+                IVideoInfo vidInfo = (IVideoInfo)vidRef.vidInfo.Clone();
+                //Name new Videos   "analysed" + macroMetric.macroQueue[i].mementoName?? maybe to long, or textboxes
+                for (int i = 0; i < macroMetric.macroQueue.Count; i++)
+                {
+                    arrayVidResult[i] = new Video(true, getNewFileName(vidRef.vidPath, "analysed" + i), vidInfo, this.macroFilter.macroQueue.ToList<MacroEntry>());
+                }
+                this.macroMetric.init(vidRef, vidProc, arrayVidResult);
+                this.macroMetric.analyse(vidRef, vidProc, arrayVidResult);
+                macroMetricControl.macroTable.IsEnabled = true;
             }
             if (this.viewType == ViewType.FilterView)
             {
                 macroFilterControl.macroTable.IsEnabled = false;
                 macroFilterControl.rangeSliders.IsEnabled = false;
-                // TODO: don't forget to enable the table after processing is finished
                 IVideoInfo vidInfo =(IVideoInfo) vidRef.vidInfo.Clone();
-                //TODO: where to save the new video?!?
-                string resultpath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                vidResult = new Video(false, resultpath+"/newvideo.yuv", vidInfo, this.macroFilter.getPluginMementoList());
+                vidResult = new Video(false, getNewFileName(vidRef.vidPath, "filtered"), vidInfo, this.macroFilter.macroQueue.ToList<MacroEntry>());
                 this.macroFilter.init(vidRef, vidResult);
                 this.macroFilter.process(vidRef, vidResult);
-            }
-        }
-
-        public void onEntrySelect(object sender, MementoEventArgs e)
-        {
-            if (this.viewType == ViewType.FilterView)
-            {
-                long startValue = 0;
-                long stopValue = 100;
-                long startValueSlider = 0;
-                long stopValueSlider = 500;
-                MacroEntryFilter mfe = new MacroEntryFilter();
-                mfe.pluginName = e.pluginKey;
-                mfe.mementoName = e.mementoName;
-                mfe.startFrameRelative = startValue;
-                mfe.endFrameRelative = stopValue;
-                // TODO: What does the slider do if the loaded plugin is a Macro Filter? Check for plugin name == "macro"?
-                RangeSlider rs = new AC.AvalonControlsLibrary.Controls.RangeSlider();
-                rs.RangeStart = startValueSlider;
-                rs.RangeStop = stopValueSlider;
-                rs.RangeStartSelected = startValueSlider;
-                rs.RangeStopSelected = stopValueSlider;
-                rs.MinRange = 1L;
-                rs.Width = 270; // TODO: changing width at runtime
-                rs.Height = 17.29; // this height fits the height of the data rows in the macro table
-                this.macroFilter.macroQueue.Rows.Add(startValue, stopValue, mfe.pluginName, mfe.mementoName, mfe);
-                int j = this.macroFilter.macroQueue.Rows.Count - 1;
-                this.macroFilter.macroControl.addDelegate(rs, j, delList);
-                this.macroFilter.rsl.Add(rs);
-                this.macroFilter.macroControl.updateSliders();
-            }
-            if (this.viewType == ViewType.MetricView)
-            {
-
+                macroFilterControl.macroTable.IsEnabled = true;
+                macroFilterControl.rangeSliders.IsEnabled = true;
             }
         }
 
         /// <summary>
-        /// Raised if user wishes to save current macroQueue for later use.
+        /// Will be called if a Plugin with settings has to be added to macroQueue of Filter/Metric 
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e">name the new macro should have.</param>
-        internal void onMacroSave(object sender, EntryEventArgs e)
-        {
-            MacroSave(sender, e);
-        }
-
-        private void macroSave(object sender, EntryEventArgs e)
+        /// <param name="e">A MacroEntry</param>
+        public void onEntrySelect(object sender, MementoEventArgs e)
         {
             if (this.viewType == ViewType.FilterView)
             {
-                //convert datatable macro entry column to list of macroEntrys
-                List<MacroEntry> macroEntryList = this.macroFilter.getPluginMementoList();
-                // save the macro filter
-                this.macroFilter.createNewMemento(macroEntryList, e.Entry);
+                this.macroFilter.addFilter(e);
             }
             if (this.viewType == ViewType.MetricView)
             {
-
+                MacroEntryMetric mEntryMetric = new MacroEntryMetric(e.pluginKey, e.mementoName, this.vidRef, this.vidProc);
+                macroMetric.macroQueue.Add(mEntryMetric);
             }
         }
+
+        /// <summary>
+        /// Generates a new filename, that is not taken yet. If the filename exists a number is added as suffix.
+        /// </summary>
+        /// <param name="originalFile">the originalfile used as base filename</param>
+        /// <param name="suffix">a suffix added to the original filename</param>
+        /// <returns>a filename similar to originalFile that does not exist yet.</returns>
+        private string getNewFileName(string originalFile, string suffix)
+        {
+            string resultpath = "";
+            int i = 0;
+            do
+            {
+                resultpath = System.IO.Path.GetDirectoryName(originalFile)
+                    + "\\" + System.IO.Path.GetFileNameWithoutExtension(originalFile)
+                    + suffix;
+
+                if (i > 0)
+                {
+                    resultpath += i;
+                }
+                i++;
+
+                resultpath += System.IO.Path.GetExtension(originalFile);
+            }
+            while(System.IO.File.Exists(resultpath));
+
+            return resultpath;
+        }
+
     }
 }

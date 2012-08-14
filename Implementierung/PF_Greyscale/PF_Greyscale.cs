@@ -36,6 +36,7 @@ namespace PF_Greyscale
         public Greyscale()
         {
             propertiesView= new VM_Greyscale();
+            propertiesView.local(_namePlugin + "_default.xml");
         
         }
 
@@ -104,7 +105,10 @@ namespace PF_Greyscale
             var otto = (double[])obj;
             this.propertiesView.changeValue(otto[0], otto[1], otto[2]);
         }
-
+        public void local(String s)
+        {
+            propertiesView.local(_namePlugin + s);
+        }
        
     }
 }

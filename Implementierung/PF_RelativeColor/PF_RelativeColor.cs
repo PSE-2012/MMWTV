@@ -28,7 +28,7 @@ namespace PF_RelativeColor
         public RelativeColor()
         {
             propertiesView = new VM_RelativeColor();
-
+            localize(_namePlugin + "_default.xml");
         }
 
         public Bitmap process(Bitmap frame)
@@ -122,6 +122,11 @@ namespace PF_RelativeColor
 
             var otto = (double[])obj;
             this.propertiesView.changeValue(otto[0], otto[1], otto[2]);
+        }
+        private void localize(String s)
+        {
+            propertiesView.local(s);
+
         }
 
     }

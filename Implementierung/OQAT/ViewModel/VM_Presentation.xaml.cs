@@ -15,6 +15,9 @@ using Oqat.PublicRessources.Plugin;
 using Oqat.PublicRessources.Model;
 using Oqat.ViewModel.Macro;
 
+using System.Xml;
+using System.IO;
+
 namespace Oqat.ViewModel
 {
     /// <summary>
@@ -26,49 +29,63 @@ namespace Oqat.ViewModel
         IPresentation _playerProc;
         IPresentation _playerRef;
         IPresentation _diagram;
-        VM_Macro vm_macro;
+        internal VM_Macro vm_macro;
 
-        /// <summary>
-        /// According to the current view type the Presetaion will show or hide some features.
-        /// </summary>
         ViewType vtype;
 
         IVideo videoProc;
         IVideo videoRef;
 
-        //public int playerWidth
-        //{
-        //    get
-        //    {
-        //        if (videoRef != null)
-        //        {
+        String msgBox1= "Bitte wählen Sie zunächst Videos.";
+        String msgBox2 = "Macro Ausführung nicht möglich";
+        private void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[3];
+                String[] t2 = new String[3];
+                for (int i = 0; i < 3; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                bttProcessMacro.Content = t2[0];
+                msgBox1 = t2[1];
+                msgBox2 = t2[2];
 
-        //        }
-        //        return 0;
-        //    }
-        //}
 
-        //public int playerHeight
-        //{
-        //    get
-        //    {
-        //        return 0;
-        //    }
-        //}
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
 
 
         public VM_Presentation()
         {
             InitializeComponent();
-
+            local("VM_Presentation_default.xml");
             PluginManager.OqatToggleView += this.onToggleView;
             PluginManager.videoLoad += this.onVideoLoad;
 
             //init macro
             vm_macro = new VM_Macro();
 
-            //TODO custom PresentationPlugins
+
             this._custom = new List<IPresentation>();
+
+
+            this.gridPlayer1.Children.Add(playerProc.propertyView);
+            this.gridPlayer2.Children.Add(playerRef.propertyView);
+            this.otherPanel.Children.Add(diagram.propertyView);
+            this.gridMacro.Children.Add(vm_macro.propertiesView);
         }
 
 
@@ -147,16 +164,16 @@ namespace Oqat.ViewModel
         /// Such plugins can be visible (user has to choose) in alle ViewTypes where the VM_Presentation is
         /// active, i.e. all except the WelcomeView.
         /// </summary>
-        
-
-
-
-        
 
 
 
 
 
+
+
+
+
+        #region OQAT Events
 
         /// <summary>
         /// This methode will be called if a videoLoad event is raised, i.e. 
@@ -186,8 +203,6 @@ namespace Oqat.ViewModel
             }
 		}
 
-
-
         /// <summary>
         /// This method will be called if the view was toggled.
         /// </summary>
@@ -195,27 +210,29 @@ namespace Oqat.ViewModel
         /// <param name="e"></param>
 		private void onToggleView(object sender, ViewTypeEventArgs e)
 		{
-            //TODO: only hide panels, don't remove them
-
             if (this.vtype == e.viewType)
                 return;
 
             this.vtype = e.viewType;
-            this.resetPanel();
             switch (vtype)
             {
                 case ViewType.FilterView:
-                    this.gridPlayer1.Children.Add(playerProc.propertyView);
-                    this.gridMacro.Children.Add(vm_macro.propertiesView);
+                    this.gridPlayer1.Visibility = System.Windows.Visibility.Visible;
+                    this.gridPlayer2.Visibility = System.Windows.Visibility.Collapsed;
+                    this.otherPanel.Visibility = System.Windows.Visibility.Collapsed;
+                    this.gridMacro.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case ViewType.MetricView:
-                    this.gridPlayer1.Children.Add(playerProc.propertyView);
-                    this.gridPlayer2.Children.Add(playerRef.propertyView);
-                    this.gridMacro.Children.Add(vm_macro.propertiesView);
+                    this.gridPlayer1.Visibility = System.Windows.Visibility.Visible;
+                    this.gridPlayer2.Visibility = System.Windows.Visibility.Visible;
+                    this.otherPanel.Visibility = System.Windows.Visibility.Collapsed;
+                    this.gridMacro.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case ViewType.AnalyzeView:
-                    this.gridPlayer1.Children.Add(playerProc.propertyView);
-                    this.otherPanel.Children.Add(diagram.propertyView);
+                    this.gridPlayer1.Visibility = System.Windows.Visibility.Visible;
+                    this.gridPlayer2.Visibility = System.Windows.Visibility.Visible;
+                    this.otherPanel.Visibility = System.Windows.Visibility.Visible;
+                    this.gridMacro.Visibility = System.Windows.Visibility.Collapsed;
                     break;
             }
 		}
@@ -247,24 +264,10 @@ namespace Oqat.ViewModel
             }
         }
 
-
-        /// <summary>
-        /// Can be used to remove presentation plugins (e.g. PresentationType == Custom) from the VM_Presentation
-        /// view.
-        /// </summary>
-		private void resetPanel()
-		{
-            this.gridPlayer1.Children.Clear();
-            this.gridPlayer2.Children.Clear();
-            this.otherPanel.Children.Clear();
-            this.gridMacro.Children.Clear();
-
-            this.onFlushPresentationPlugins(this, new EventArgs());
-		}
+        #endregion
 
 
-
-
+        #region extraResources
 
         private void showExtraResourceList()
         {
@@ -283,12 +286,16 @@ namespace Oqat.ViewModel
 
         }
 
+        #endregion
+
+
+
         private void bttProcessMacro_Click(object sender, RoutedEventArgs e)
         {
             if(this.videoProc == null || 
                 (vtype == ViewType.MetricView && videoRef == null))
             {
-                MessageBox.Show("Bitte wählen Sie zunächst Videos.", "Macro Ausführung nicht möglich");
+                MessageBox.Show(msgBox1, msgBox2);
                 return;
             }
             

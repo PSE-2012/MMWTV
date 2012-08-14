@@ -94,9 +94,6 @@
     <Compile Include="ViewModel\Macro\MacroMetricControl.xaml.cs">
       <DependentUpon>MacroMetricControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Macro\MacroSaveDialog.xaml.cs">
-      <DependentUpon>MacroSaveDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\VM_PluginsList.xaml.cs">
       <DependentUpon>VM_PluginsList.xaml</DependentUpon>
     </Compile>
@@ -144,10 +141,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ViewModel\Macro\MacroMetricControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewModel\Macro\MacroSaveDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -224,10 +217,6 @@
     <ProjectReference Include="..\WPF_ClosableTabItem\WPF_ClosableTabItem.csproj">
       <Project>{5F6709BE-B477-4C58-B4C0-1735443E6799}</Project>
       <Name>WPF_ClosableTabItem</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YuvVideoHandler\YuvVideoHandler.csproj">
-      <Project>{8DDF1C82-B71A-4CF6-82DE-AFAF282B4F38}</Project>
-      <Name>YuvVideoHandler</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
