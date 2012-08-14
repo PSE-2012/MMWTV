@@ -117,7 +117,7 @@ namespace Oqat.ViewModel.Macro
         private IFilterOqat currentPlugin;
         private Memento currentMemento;
         private MacroEntryFilter currentMacroEntry;
-
+        private bool isMacro;
 
         /// <summary>
         /// Method to split macro in it's Macroentrys
@@ -152,8 +152,6 @@ namespace Oqat.ViewModel.Macro
         /// <param name="memento">settings of used plugin</param>
         private void mementoProcess(Memento memento)
         {
-            
-            
                 if ((currentMacroEntry.startFrameRelative / 100) * totalFrames <= i && i <= (currentMacroEntry.endFrameRelative / 100) * totalFrames)
                 {
                     currentPlugin.setMemento(memento);
@@ -186,20 +184,23 @@ namespace Oqat.ViewModel.Macro
         /// <param name="vidResult">new video after process</param>
         public void process(Video vidRef, Video vidResult)
         {
-            // set reader to begin of the yuv
-            refHand.positionReader = 0;
-            while (i < totalFrames)
+            foreach (MacroEntryFilter c in macroQueue)
             {
-                resultFrames[i] = refHand.getFrame();
-                foreach (MacroEntryFilter c in macroQueue)
+                currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.pluginName);
+                currentMemento = PluginManager.pluginManager.getMemento((String)c.pluginName, (String)c.mementoName);
+                currentMacroEntry = (MacroEntryFilter)c;
+                isMacro = false;
+                // decide if a macro is used
+                if (currentPlugin is IMacro)
                 {
-                    // here maybe error handling in case the plugin doesn't implement IFilterOqat, although plugin lists has probably checked that already
-                    currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.pluginName);
-                    currentMemento = PluginManager.pluginManager.getMemento((String)c.pluginName, (String)c.mementoName);
-                    currentMacroEntry = (MacroEntryFilter)c;
-
-                    // decide if a macro is used
-                    if (currentPlugin is IMacro)
+                    isMacro = true;
+                }
+                // set reader to begin of the yuv
+                refHand.positionReader = 0;
+                while (i < totalFrames)
+                {
+                    resultFrames[i] = refHand.getFrame();
+                    if (isMacro == true)
                     {
                         macroEncode(currentMemento);
                     }
@@ -207,10 +208,12 @@ namespace Oqat.ViewModel.Macro
                     {
                         mementoProcess(currentMemento);
                     }
+                    i++;
                 }
-                // write the processed frames to disk 
-                i++;
+            i = 0;
+            isMacro = false;
             }
+            // write the processed frames to disk 
             refHand.writeFrames(i, resultFrames);
             // reset after finished work
             resultFrames = null;
