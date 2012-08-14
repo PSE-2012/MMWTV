@@ -157,11 +157,6 @@ namespace Oqat.ViewModel.Macro
         }
         //Drag'N'Drop end#
 
-        public void scroll(object sender, ScrollChangedEventArgs e)
-        {
-            ScrollViewer1.ScrollToVerticalOffset(e.VerticalOffset);
-        }
-
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             deleteSelected();

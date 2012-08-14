@@ -189,12 +189,12 @@ namespace Oqat.ViewModel.Macro
         private void macroEncode(Memento MacroMemento)
         {
             currentPlugin = null; // to avoid loading the same plugin twice
-            IFilterOqat currentPluginEntry;
+            IMetricOqat currentPluginEntry;
             Memento currentMementoEntry;
             List<MacroEntryMetric> macroEntrys = (List<MacroEntryMetric>)MacroMemento.state;
             foreach (MacroEntryMetric currentEntry in macroEntrys)
             {
-                currentPluginEntry = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>(currentEntry.pluginName);
+                currentPluginEntry = (IMetricOqat)PluginManager.pluginManager.getPlugin<IPlugin>(currentEntry.pluginName);
                 currentMementoEntry = PluginManager.pluginManager.getMemento(currentEntry.pluginName, currentEntry.mementoName);
                 if (currentPluginEntry is IMacro)
                 {
@@ -203,7 +203,6 @@ namespace Oqat.ViewModel.Macro
                 else
                 {
                     MacroEntryMetric currentFilterEntry = (MacroEntryMetric)currentEntry;
-                    // here error handling in case the plugin doesn't implement IFilterOqat
                     mementoAnalyse(currentMementoEntry);
                 }
             }
