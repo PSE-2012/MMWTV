@@ -113,8 +113,8 @@
             if ((result != null) & (bool)result)
             {
                 String path = prOpen.pathProject ;
-               
-                projects.Add(path);
+                addProjekt(projects.Contains(path), path);
+                
                 Caretaker.caretaker.writeMemento(this.getMemento());
                 PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.newProjectCreated, new ProjectEventArgs(prOpen.project));
             }
