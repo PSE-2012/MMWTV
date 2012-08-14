@@ -38,6 +38,9 @@ namespace Oqat.ViewModel
 
         String msgBox1= "Bitte wählen Sie zunächst Videos.";
         String msgBox2 = "Macro Ausführung nicht möglich";
+        /// <summary>
+        /// method to read local xml file and put the language in the vm.
+        /// </summary>
         private void local(String s)
         {
             try
@@ -67,7 +70,9 @@ namespace Oqat.ViewModel
             catch (XmlException e) { }
         }
 
-
+        /// <summary>
+        /// constructor
+        /// </summary>
         public VM_Presentation()
         {
             InitializeComponent();
@@ -289,7 +294,9 @@ namespace Oqat.ViewModel
         #endregion
 
 
-
+        /// <summary>
+        /// event to signalice the macro to process or analyse the current que
+        /// </summary>
         private void bttProcessMacro_Click(object sender, RoutedEventArgs e)
         {
             if(this.videoProc == null || 

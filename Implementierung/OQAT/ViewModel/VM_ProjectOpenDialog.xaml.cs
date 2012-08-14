@@ -23,6 +23,9 @@ namespace Oqat.ViewModel
 	public partial class VM_ProjectOpenDialog : Window, INotifyPropertyChanged
 	{
 
+        /// <summary>
+        /// method to localize the content of the vm.
+        /// </summary>
         private void local(String s)
         {
             try
@@ -72,6 +75,9 @@ namespace Oqat.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void OnPropertyChanged(string propertyName)
         {
            
@@ -112,6 +118,10 @@ namespace Oqat.ViewModel
             }
         }
 
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public VM_ProjectOpenDialog(string path = null)
         {
             
@@ -123,7 +133,9 @@ namespace Oqat.ViewModel
             this.prjProperties.DataContext = this;
                 
         }
-
+        /// <summary>
+        /// event to open the search dialog
+        /// </summary>
         private void ExplorerBrowser_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog dlg = new SaveFileDialog();

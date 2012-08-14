@@ -33,6 +33,10 @@ namespace Oqat.ViewModel
         String msgText21 = "Speichern nicht möglich.";
         String msgText3 = "Der Name der zu speichernden Einstellungen ist nicht eindeutig.";
         String l2text = "Das momentan aktive Macro";
+
+        /// <summary>
+        /// Sets the Language Content and reads it from an XML File.
+        /// </summary>
         private void local(String s)
         {
             try
@@ -109,7 +113,9 @@ namespace Oqat.ViewModel
 
         Panel panelMacroPropertyViewCurrent;
 
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public VM_PluginsList(PluginType plugintype)
         {
             InitializeComponent();

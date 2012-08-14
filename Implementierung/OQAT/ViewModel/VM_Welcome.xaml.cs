@@ -40,6 +40,10 @@
         /// 
         ArrayList projects;
         String msg = "Projekt nicht gefunden.";
+
+        /// <summary>
+        /// constructor
+        /// </summary>
         public VM_Welcome()
         {
             InitializeComponent();
@@ -49,6 +53,10 @@
             this.setMemento(Caretaker.caretaker.getMemento( Directory.GetCurrentDirectory() +"/VM_Welcome.mem"));
             updateListBox();
         }
+
+        /// <summary>
+        /// helper method tos et the listbox content to the projects attribut.
+        /// </summary>
         private void updateListBox(){
             btnOpSelPrj.IsEnabled = false;
             listBox1.Items.Clear();
@@ -61,6 +69,9 @@
             this.projects.Reverse();
         }
 
+        /// <summary>
+        /// returns the current state as an memento Object
+        /// </summary>
         
         private Memento getMemento()
         {
@@ -72,6 +83,10 @@
             Memento mem = new Memento("VM_Welcome.mem", this.projects, Directory.GetCurrentDirectory() + "/VM_Welcome.mem");
             return mem;
         }
+
+        /// <summary>
+        /// sets mem as current state
+        /// </summary>
         private void setMemento(Memento mem)
         {
             if (mem != null)
@@ -85,6 +100,10 @@
           
             
         }
+
+        /// <summary>
+        /// event to the new Project create Button. calls the VM_projectopendialog to egt the values.
+        /// </summary>
 
         private void newPrjCreate_Click(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -101,6 +120,9 @@
             }
         }
 
+        /// <summary>
+        /// event to the browse button to open a dialog to search for existing projects.
+        /// </summary>
         private void exPrjOpen_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
@@ -121,17 +143,25 @@
           
         }
 
+        /// <summary>
+        /// event to enable the btnOpSelPrj button.
+        /// </summary>
         private void listView1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             btnOpSelPrj.IsEnabled = true;
         }
 
+        /// <summary>
+        /// event to from the btnOpSelPrj button. tries to open the selected project.
+        /// </summary>
         private void btnOpSelPrj_Click(object sender, RoutedEventArgs e)
         {
             openSelectedProject();
             
         }
-
+        /// <summary>
+        /// helper method to open a project from the listbox.
+        /// </summary>
         private void openSelectedProject()
         {
             String projectToOpnen = this.listBox1.SelectedItem.ToString();
@@ -155,7 +185,9 @@
             }
         }
 
-
+        /// <summary>
+        /// helper method to add projects to the memento
+        /// </summary>
         private void addProjekt(Boolean b, String s)
         {
             if (!b)
@@ -171,12 +203,17 @@
             }
         }
 
+        /// <summary>
+        /// event to enable the btnOpSelPrj button.
+        /// </summary>
         private void listBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             btnOpSelPrj.IsEnabled = true;
         }
 
-
+        /// <summary>
+        /// Localize the language to the xml file with the name from s.
+        /// </summary>
         private void local(String s)
         {
             try
@@ -208,6 +245,9 @@
             catch (XmlException e) { }
         }
 
+        /// <summary>
+        /// event to open projects with a double klick
+        /// </summary>
         private void listbox1_DoubleKlick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (listBox1.SelectedItem != null)
