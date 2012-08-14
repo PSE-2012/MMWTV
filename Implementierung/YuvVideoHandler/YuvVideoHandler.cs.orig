@@ -2,12 +2,22 @@
 //------------------------------------------------------------------------------
 namespace PS_YuvVideoHandler
 {
+<<<<<<< HEAD
     using Oqat.PublicRessources.Model;
     using Oqat.PublicRessources.Plugin;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+=======
+	using Oqat.PublicRessources.Model;
+	using Oqat.PublicRessources.Plugin;
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Text;
+    using System.Xml;
+>>>>>>> c4a046c0ac5a7e0c2e18bda137aa67c802350ad0
 
 
     using System.ComponentModel.Composition;
@@ -44,7 +54,11 @@ namespace PS_YuvVideoHandler
         /// </remarks>
         public string namePlugin
         {
+<<<<<<< HEAD
             get { return "yuvVideoHandler"; }
+=======
+            
+>>>>>>> c4a046c0ac5a7e0c2e18bda137aa67c802350ad0
         }
 
         /// <summary>
@@ -69,7 +83,7 @@ namespace PS_YuvVideoHandler
         /// and set the <see cref="consistent"/> flag
         /// accordingly.
         /// </remarks>
-        private YuvVideoInfo _readVideoInfo;
+        private YuvVideoInfo _videoInfo;
 
         /// <summary>
         /// Absolute path to this video.
@@ -93,7 +107,7 @@ namespace PS_YuvVideoHandler
             {
                 if (!(_frameByteSize > 0))
                 {
-                    _frameByteSize = (int)(readVidInfo.width * readVidInfo.height * (1 + 2 * getLum2Chrom(_readVideoInfo.yuvFormat)));
+                    _frameByteSize = (int)(vidInfo.width * vidInfo.height * (1 + 2 * getLum2Chrom(_videoInfo.yuvFormat)));
 
                 }
 
@@ -141,19 +155,19 @@ namespace PS_YuvVideoHandler
         /// <summary>Gets the current VideoInfo object, if a propertiesView is displayed through 
         /// "setParentControl()" the values are updated to the users settings.</summary>
         /// <returns>the current YuvVideoInfo instance of the handled video.</returns>
-        public IVideoInfo readVidInfo
+        public IVideoInfo vidInfo
         {
             get
             {
-                if (_readVideoInfo == null)
-                    _readVideoInfo = new YuvVideoInfo(this.path);
-                return _readVideoInfo;
+                if (_videoInfo == null)
+                    _videoInfo = new YuvVideoInfo(this.path);
+                return _videoInfo;
             }
             private set
             {
                 if (value != null)
                 {
-                    _readVideoInfo = (YuvVideoInfo)value;
+                    _videoInfo = (YuvVideoInfo)value;
                 }
             }
         }
@@ -162,7 +176,7 @@ namespace PS_YuvVideoHandler
         {
             get
             {
-                return (readVidInfo.frameCount < 0) ? false : true;
+                return (vidInfo.frameCount < 0) ? false : true;
             }
         }
 
@@ -179,7 +193,7 @@ namespace PS_YuvVideoHandler
                 if (_propertyView == null)
                 {
                     _propertyView = new PropertiesView();
-                    _propertyView.DataContext = readVidInfo;
+                    _propertyView.DataContext = vidInfo;
                    
                 }
                 return _propertyView;
@@ -193,7 +207,7 @@ namespace PS_YuvVideoHandler
             {
                 if (_readOnlyInfoView == null)
                 {
-                    _readOnlyInfoView = new ReadOnlyPropertiesView(readVidInfo as YuvVideoInfo);
+                    _readOnlyInfoView = new ReadOnlyPropertiesView(vidInfo as YuvVideoInfo);
                 }
                 return _readOnlyInfoView;
             }
@@ -219,29 +233,13 @@ namespace PS_YuvVideoHandler
             return new YuvVideoHandler();
         }
 
-        public void setWriteContext(string filepath, IVideoInfo info)
-        {
-            // check if values ok (more or less)
-            if (info == null)
-                throw new ArgumentException("Problems occured by switching context to given video." +
-                    "There could be different causes to this, the first is that the given path does " +
-                    "not describe a valid yuv video file and the second if the given IVideoInfo object " +
-                    "is not initialized properly.");
-
-            this.writePath = filepath;
-            writeVidInfo = info;
-
-            // Flush has to happen after a VALID vidInfo is set.
-            flushReader();
-        }
-
         /// <summary>
         /// Sets a new video file as the context of this handler.
         /// </summary>
         /// <param name="filepath">Full path of the video file to initialize this
         /// handler to.</param>
         /// <param name="info">VideoInfo containing required informations like resolution and yuv format</param>
-        public void setReadContext(string filepath, IVideoInfo info)
+        public void setVideo(string filepath, IVideoInfo info)
         {
             // check if values ok (more or less)
             if (!File.Exists(filepath) || info == null)
@@ -251,10 +249,11 @@ namespace PS_YuvVideoHandler
                     "is not initialized properly.");
 
             this.path = filepath;
-            readVidInfo = info;
+            vidInfo = info;
 
             // Flush has to happen after a VALID vidInfo is set.
             flushReader();
+            flushWriter();
 
         }
 
@@ -369,7 +368,7 @@ namespace PS_YuvVideoHandler
             }
             set
             {
-                if (value > readVidInfo.frameCount)
+                if (value > vidInfo.frameCount)
                 {
                     #region obsolete
                     //////////////////////////////////////////////////////////////////
@@ -399,6 +398,7 @@ namespace PS_YuvVideoHandler
         /// This flag signals the currently active readerThread(if active)
         /// to terminate itself.
         /// </summary>
+<<<<<<< HEAD
         /// <remarks>
         /// You shouldnt call abort (as described in the corresponding doc entry)
         /// as the readerThread acquires some locks( i.e. on a file and a the
@@ -406,6 +406,15 @@ namespace PS_YuvVideoHandler
         /// release this if you kill it externally.
         /// </remarks>
         bool stopReaderThread = false;
+=======
+        /// <param name="frameNm">the number of the first frame to return</param>
+        /// <param name="count">number of frames to get</param>
+        /// <returns>the selected frame as a RGB Bitmap object</returns>
+        public System.Drawing.Bitmap[] getFrames(int frameNm, int count)
+        {
+            //if buffer is smaller than requested number of frames, resize buffer
+            //if (count > this.bufferSizeFrames) initBuffer(count);
+>>>>>>> c4a046c0ac5a7e0c2e18bda137aa67c802350ad0
 
 
         object positionReaderLock;
@@ -453,7 +462,7 @@ namespace PS_YuvVideoHandler
                         waitForFlush.WaitOne();
 
                     }
-                    if (value > readVidInfo.frameCount)
+                    if (value > vidInfo.frameCount)
                     {
                         throw new ArgumentOutOfRangeException("Trying to fetch" +
                         " a non existing frame.");
@@ -671,7 +680,7 @@ namespace PS_YuvVideoHandler
             stopReaderThread = (buffer) ? false : true;
             getFrameWaitEvent.Reset();
 
-            if (readerBuffPos < readVidInfo.frameCount)
+            if (readerBuffPos < vidInfo.frameCount)
             {
                 if (((readerBuffPos - positionReader) < (NUMFRAMESINMEM / 2)) || !(readQueue.Count > 0))
                 {
@@ -684,7 +693,7 @@ namespace PS_YuvVideoHandler
 
                 if (Math.Abs(readerBuffPos - positionReader) < 2)
                 {
-                    if (positionReader < readVidInfo.frameCount)
+                    if (positionReader < vidInfo.frameCount)
                     {
                         getFrameWaitEvent.Reset();
                         readerWaitEvent.Set();
@@ -692,7 +701,7 @@ namespace PS_YuvVideoHandler
                     }
                 }
             }
-            if (!(positionReader < readVidInfo.frameCount))
+            if (!(positionReader < vidInfo.frameCount))
             {
                         // flush
                         waitForFlush.Reset();
@@ -712,7 +721,7 @@ namespace PS_YuvVideoHandler
         {
 
             readerBuffPos = positionReader;
-            while (readerBuffPos < readVidInfo.frameCount)
+            while (readerBuffPos < vidInfo.frameCount)
             {
 
                 int offset = readerBuffPos * frameByteSize;
@@ -738,14 +747,14 @@ namespace PS_YuvVideoHandler
                     }
                 }
 
-                int pixelNum = readVidInfo.width * readVidInfo.height;
-                int quartSize = readVidInfo.width * readVidInfo.height / 4;
+                int pixelNum = vidInfo.width * vidInfo.height;
+                int quartSize = vidInfo.width * vidInfo.height / 4;
 
                 int i = 0;
-                while ((i < count) && !(readerBuffPos > readVidInfo.frameCount) && !stopReaderThread)
+                while ((i < count) && !(readerBuffPos > vidInfo.frameCount) && !stopReaderThread)
                 {
 
-                    Bitmap _currFrame = new Bitmap(readVidInfo.width, readVidInfo.height);
+                    Bitmap _currFrame = new Bitmap(vidInfo.width, vidInfo.height);
                     BitmapData currFrameData = _currFrame.LockBits(new Rectangle(0, 0, _currFrame.Width, _currFrame.Height),
                                 ImageLockMode.ReadOnly, _currFrame.PixelFormat);
 
@@ -880,8 +889,10 @@ namespace PS_YuvVideoHandler
             get
             {
                 if (_positionWriter < 0)
+                {
                     _positionWriter = 0;
-                
+                    //    writerThread.Start();
+                }
                 return _positionWriter;
 
             }
@@ -962,48 +973,13 @@ namespace PS_YuvVideoHandler
         }
       
 
-        public void writeFrame(bool buffer = true)
+        public void writeFrame(Bitmap frame, bool buffer = true)
         {
-
         }
-
-
         private void emptyBuffer()
         {
 
         }
-
-
-        public void writeFrames(int frameNum, System.Drawing.Bitmap[] frames)
-        {
-            //fill 2 dimensional buffer of data to write with yuv frames
-            byte[][] wdata = new byte[frames.Length][];
-            for (int i = 0; i < frames.Length; i++)
-            {
-                wdata[i] = frameToYUV(frames[i]);
-            }
-
-            FileStream fs;
-            try
-            {
-                fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, ((YuvVideoInfo)writeVidInfo).frameSize * frames.Length);
-                fs.Seek((int)(frameNum * ((YuvVideoInfo)writeVidInfo).frameSize), SeekOrigin.Begin);
-
-                for (int i = 0; i < frames.Length; i++)
-                {
-                    fs.Write(wdata[i], 0, wdata[i].Length);
-                }
-
-                fs.Close();
-            }
-            catch (IOException e)
-            {
-                //TODO: handle writer exceptions?
-                throw e;
-            }
-        }
-
-
 
         /// <summary>
         /// Converts the given RGB color to yuv format.
@@ -1028,12 +1004,12 @@ namespace PS_YuvVideoHandler
         /// <returns>a byte array filled with yuv equivalents of the given frame</returns>
         private byte[] frameToYUV(Bitmap frame)
         {
-            byte[] fdata = new byte[((YuvVideoInfo)writeVidInfo).frameSize];
-            FrameDataPointers pointers = new FrameDataPointers((YuvVideoInfo)writeVidInfo);
+            byte[] fdata = new byte[((YuvVideoInfo)vidInfo).frameSize];
+            FrameDataPointers pointers = new FrameDataPointers(_videoInfo);
 
-            for (int y = 0; y < writeVidInfo.height; y++)
+            for (int y = 0; y < _videoInfo.height; y++)
             {
-                for (int x = 0; x < writeVidInfo.width; x++)
+                for (int x = 0; x < _videoInfo.width; x++)
                 {
                     byte[] col = convertToYUV(frame.GetPixel(x, y));
 
@@ -1048,28 +1024,12 @@ namespace PS_YuvVideoHandler
             return fdata;
         }
 
+<<<<<<< HEAD
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private string writePath;
-
-        private YuvVideoInfo _writeVidInfo;
-        public IVideoInfo writeVidInfo
-        {
-            get
-            {
-                if (_writeVidInfo == null)
-                    _writeVidInfo = new YuvVideoInfo(this.path);
-                return _writeVidInfo;
-            }
-            private set
-            {
-                if (value != null)
-                {
-                    _writeVidInfo = (YuvVideoInfo)value;
-                }
-            }
-        }
+=======
+>>>>>>> c4a046c0ac5a7e0c2e18bda137aa67c802350ad0
     }
 
 

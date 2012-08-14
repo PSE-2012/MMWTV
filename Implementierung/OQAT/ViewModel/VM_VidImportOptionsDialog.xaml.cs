@@ -97,7 +97,7 @@ namespace Oqat.ViewModel
             {
                 video = new Video(false, vidPath);
                 handler = video.handler;
-                handler.setVideo(vidPath, null);
+                handler.setReadContext(vidPath, null);
 
 
                  //   vidHandlerViews.Add(handler.propertyView);
@@ -141,7 +141,7 @@ namespace Oqat.ViewModel
         {
             foreach (Video vid in videoList)
             {
-                vid.vidInfo = vid.handler.vidInfo;
+                vid.vidInfo = vid.handler.readVidInfo;
        
                 if (!vid.handler.consistent)
                 {
