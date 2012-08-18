@@ -24,7 +24,7 @@
         /// <summary>
         /// This method will be called if a new Video should be loaded into the plugin.
         /// </summary>
-        void setVideo(IVideo video);
+        void setVideo(IVideo video, int position = 0);
 
         /// <summary>
         /// Resets the plugin to construction time state

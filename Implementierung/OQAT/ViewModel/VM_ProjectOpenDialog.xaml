@@ -99,13 +99,7 @@
 
         <GroupBox Name="gb4" Grid.Row="1"  Grid.Column="0" Grid.RowSpan="3" Header="Beschreibung" Style="{StaticResource oqatGroupBoxStyle}">
             <TextBox Style="{StaticResource textBoxTransparent}" BorderBrush="Transparent" x:Name="projDescField" MinLines="6" MaxLines="6" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
-                         TextWrapping="Wrap" Text="{Binding description}" Background="#B4275A9F">
-                <TextBox.OpacityMask>
-                    <RadialGradientBrush>
-                        <GradientStop Color="Black" Offset="0.639" />
-                        <GradientStop Color="#B45483C7" Offset="1" />
-                    </RadialGradientBrush>
-                </TextBox.OpacityMask>
+                         TextWrapping="Wrap" Text="{Binding description}" >
             </TextBox>
         </GroupBox>
         <Border Grid.Row="4" BorderThickness="2" CornerRadius="4" Margin="2,2,2,2" Padding="2,2,2,2" BorderBrush="Black">

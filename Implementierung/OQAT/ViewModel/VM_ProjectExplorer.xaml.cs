@@ -117,8 +117,20 @@
                         }
                         
                     }
-                
 
+
+            }
+            else if (e.Data is DataObject && ((DataObject)e.Data).GetDataPresent("SmartNode"))
+            {
+                SmartNode smartNode = ((DataObject)e.Data).GetData("SmartNode") as SmartNode;
+               
+                if (smartNode != null)
+                {
+                    project.rmNode(smartNode.id, false);
+                    project.addNode(smartNode.video, 
+                                (smartTreeExplorer.SelectedItem != null) ?
+                                ((SmartNode)smartTreeExplorer.SelectedItem).id : -1);
+                }
             }
             
 
@@ -132,17 +144,21 @@
         /// </summary>
         /// <param name="element">Elemnt the event occured on.</param>
         /// <returns>The nearest father element of the given UIElement</returns>
-        private TreeViewItem getNearestFather(UIElement element)
+        private T getNearestFather<T>(DependencyObject current)            
+             where T : DependencyObject
         {
             // Walk up the element tree to the nearest tree view item.
-            TreeViewItem container = element as TreeViewItem;
-            while ((container == null) && (element != null))
+            do
             {
-                element = VisualTreeHelper.GetParent(element) as UIElement;
-                container = element as TreeViewItem;
+                if( current is T )
+                {
+                    return (T)current;
+                }
+                current = VisualTreeHelper.GetParent(current);
             }
-            return container;
-         }
+            while (current != null);
+            return null;
+                 }
 
         /// <summary>
         /// This method will be invoked if the user drags a object (i.e. file)
@@ -155,7 +171,7 @@
         {
                 e.Handled = true;
 
-                TreeViewItem smartItem = getNearestFather(e.OriginalSource as UIElement);
+                TreeViewItem smartItem = getNearestFather<TreeViewItem>(e.OriginalSource as DependencyObject);
                 if (smartItem != null)
                 {
                     smartItem.IsSelected = true;
@@ -168,7 +184,7 @@
         {
             //select the TreeViewItem that whose contextmenu was opened
             TextBlock tblock = ((TextBlock)((ContextMenu)((MenuItem)sender).Parent).PlacementTarget);
-            getNearestFather(tblock).IsSelected = true;
+            getNearestFather<TreeViewItem>(tblock).IsSelected = true;
 
             SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad, 
@@ -178,7 +194,7 @@
         {
             //select the TreeViewItem that whose contextmenu was opened
             TextBlock tblock = ((TextBlock)((ContextMenu)((MenuItem)sender).Parent).PlacementTarget);
-            getNearestFather(tblock).IsSelected = true;
+            getNearestFather<TreeViewItem>(tblock).IsSelected = true;
 
             SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
@@ -188,7 +204,7 @@
         {
             //select the TreeViewItem that whose contextmenu was opened
             TextBlock tblock = ((TextBlock)((ContextMenu)((MenuItem)sender).Parent).PlacementTarget);
-            getNearestFather(tblock).IsSelected = true;
+            getNearestFather<TreeViewItem>(tblock).IsSelected = true;
 
             SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
@@ -251,6 +267,60 @@
                 myFile.Close();
             }
     
+        }
+
+        private void smartTreeExplorer_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            e.Handled = true;
+
+            // remove active element, if there was one
+            readOnlyPropViewPanel.Children.Clear();
+            
+            var newSelSmartNode = (SmartNode)e.NewValue;
+            if (newSelSmartNode != null)
+                readOnlyPropViewPanel.Children.Add(newSelSmartNode.video.handler.readOnlyInfoView);
+
+        }
+
+        private void smartTreeExplorer_DragLeave(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+
+            TreeViewItem smartItem = getNearestFather<TreeViewItem>(e.OriginalSource as DependencyObject);
+            if (smartItem != null)
+            {
+                smartItem.IsSelected = false;
+            }
+
+        }
+
+        private Point lastLeftBtnDownPos;
+        private void smartTreeExplorer_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            lastLeftBtnDownPos = e.GetPosition(null);
+        }
+
+        private void smartTreeExplorer_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            Point currMousePos = e.GetPosition(null);
+            Vector diff = lastLeftBtnDownPos - currMousePos;
+
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                TreeView smartTree = sender as TreeView;
+                TreeViewItem treeItem = getNearestFather<TreeViewItem>(e.OriginalSource as DependencyObject);
+                if (treeItem != null)
+                {
+                    SmartNode smartNode = smartTree.ItemContainerGenerator.ItemFromContainer(treeItem) as SmartNode;
+                    if (smartNode != null)
+                    {
+                        DataObject dragData = new DataObject("SmartNode", smartNode);
+                        DragDrop.DoDragDrop(treeItem, dragData, DragDropEffects.Move);
+                    }
+                }
+            }
         }
     }
 }

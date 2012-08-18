@@ -8,6 +8,7 @@
     using System.Drawing;
     using Oqat.PublicRessources.Model;
 using System.Windows.Controls;
+    using System.ComponentModel;
 
 
     /// <summary>
@@ -16,7 +17,7 @@ using System.Windows.Controls;
     /// Third parties can extent the video format support by writing a VideoHandler for
     /// a specific video format.
     /// </summary>
-	public interface IVideoHandler  : IPlugin
+	public interface IVideoHandler  : IPlugin, INotifyPropertyChanged
 	{
         /// <summary>
         /// A format specific VideoInfo object, see <see cref="IVideoInfo"/> for further information.
@@ -95,7 +96,17 @@ using System.Windows.Controls;
         /// <param name="info">VideoInfo containing needed information</param>
         void setWriteContext(string filepath, IVideoInfo info);
 
-
+        /// <summary>
+        /// This method is intended to support you at video import time, as
+        /// both setContext methods would throw exceptions on a given null as the
+        /// vidInfo object but you on the other hand couldnt have such a object.
+        /// 
+        /// Just make sure to display the propertyView to the user and check
+        /// the consistancy flag afterwards, if it is true you can go on and
+        /// add the video to a <see cref="SmartNode"/>.
+        /// </summary>
+        /// <param name="filepath"></param>
+        void setImportContext(string filepath);
 
         /// <summary>
         /// If formatsperific informations are available, they can be presented in this

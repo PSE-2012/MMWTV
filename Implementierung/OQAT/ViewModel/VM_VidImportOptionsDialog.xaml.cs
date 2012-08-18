@@ -97,7 +97,7 @@ namespace Oqat.ViewModel
             {
                 video = new Video(false, vidPath);
                 handler = video.handler;
-                handler.setReadContext(vidPath, null);
+                handler.setImportContext(vidPath);
 
 
                  //   vidHandlerViews.Add(handler.propertyView);

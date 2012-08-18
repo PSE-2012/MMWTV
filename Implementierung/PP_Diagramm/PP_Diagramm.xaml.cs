@@ -180,7 +180,7 @@ namespace PP_Diagramm
         /// <summary>
         /// loads the Video
         /// </summary>
-        public void setVideo(IVideo video) 
+        public void setVideo(IVideo video, int position = 0) 
         {
             if (video.frameMetricValue != null)
             {

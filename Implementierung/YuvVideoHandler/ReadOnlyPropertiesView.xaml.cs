@@ -23,7 +23,7 @@ namespace PS_YuvVideoHandler
         public ReadOnlyPropertiesView(YuvVideoInfo yuvInfo)
         {
             InitializeComponent();
-            if (yuvInfo != null)
+            if (yuvInfo == null)
                 throw new NullReferenceException("Given YuvVideoInfo object is not initialized.");
             this.DataContext = yuvInfo;
         }

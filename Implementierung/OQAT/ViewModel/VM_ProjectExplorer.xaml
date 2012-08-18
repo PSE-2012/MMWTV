@@ -22,7 +22,12 @@
             <TreeView Grid.Row="0" Grid.RowSpan="4" x:Name="smartTreeExplorer" ItemsSource="{Binding}"
                       KeyDown="smartTreeExplorer_KeyDown"
                           DragDrop.Drop="smartTreeExplorer_Drop" AllowDrop="True"
-                          DragDrop.DragEnter="smartTreeExplorer_DragEnter">
+                   
+                          DragDrop.DragEnter="smartTreeExplorer_DragEnter" 
+                      DragDrop.DragLeave="smartTreeExplorer_DragLeave" 
+                      SelectedItemChanged="smartTreeExplorer_SelectedItemChanged"
+                      PreviewMouseLeftButtonDown="smartTreeExplorer_PreviewMouseLeftButtonDown"
+                      PreviewMouseMove="smartTreeExplorer_PreviewMouseMove">
 
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type local:SmartNode}"
@@ -53,11 +58,12 @@
                 <Label Name="lb1" Content="Titel:"/>
                 <Label  Content="{Binding name}"/>
             </WrapPanel>
-            <WrapPanel>
+            <WrapPanel >
                 <Label Name="lb2" Content="Pfad:"/>
-                <Label Content="{Binding video.vidPath}"/>
+                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding video.vidPath}"/>
             </WrapPanel>
-        </StackPanel>
+                <Grid x:Name="readOnlyPropViewPanel" />
+            </StackPanel>
     </Grid>
     </Border>
 </UserControl>

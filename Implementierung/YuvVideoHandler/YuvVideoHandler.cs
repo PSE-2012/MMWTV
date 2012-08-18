@@ -26,7 +26,7 @@ namespace PS_YuvVideoHandler
     [ExportMetadata("namePlugin", "yuvVideoHandler")]
     [ExportMetadata("type", PluginType.IVideoHandler)]
     [Export(typeof(IPlugin))]
-    public class YuvVideoHandler : IVideoHandler, INotifyPropertyChanged
+    public class YuvVideoHandler : IVideoHandler
     {
 
         #region general
@@ -74,7 +74,7 @@ namespace PS_YuvVideoHandler
         /// <summary>
         /// Absolute path to this video.
         /// </summary>
-        private string path;
+        private string readPath;
 
 
 
@@ -91,7 +91,7 @@ namespace PS_YuvVideoHandler
         {
             get
             {
-                if (!(_frameByteSize > 0))
+                if ((consistent) && !(_frameByteSize > 0))
                 {
                     _frameByteSize = (int)(readVidInfo.width * readVidInfo.height * (1 + 2 * getLum2Chrom(_readVideoInfo.yuvFormat)));
 
@@ -146,7 +146,7 @@ namespace PS_YuvVideoHandler
             get
             {
                 if (_readVideoInfo == null)
-                    _readVideoInfo = new YuvVideoInfo(this.path);
+                    _readVideoInfo = new YuvVideoInfo(this.readPath);
                 return _readVideoInfo;
             }
             private set
@@ -231,6 +231,7 @@ namespace PS_YuvVideoHandler
             this.writePath = filepath;
             writeVidInfo = info;
 
+            if(consistent)
             // Flush has to happen after a VALID vidInfo is set.
             flushReader();
         }
@@ -243,19 +244,42 @@ namespace PS_YuvVideoHandler
         /// <param name="info">VideoInfo containing required informations like resolution and yuv format</param>
         public void setReadContext(string filepath, IVideoInfo info)
         {
+
             // check if values ok (more or less)
             if (!File.Exists(filepath) || info == null)
                 throw new ArgumentException("Problems occured by switching context to given video." + 
                     "There could be different causes to this, the first is that the given path does " + 
                     "not describe a valid yuv video file and the second if the given IVideoInfo object " + 
                     "is not initialized properly.");
-
-            this.path = filepath;
+            this.readPath = filepath;
             readVidInfo = info;
 
-            // Flush has to happen after a VALID vidInfo is set.
-            flushReader();
 
+            if (consistent)
+                // Flush has to happen after a VALID vidInfo is set.
+                flushWriter();
+
+        }
+
+
+        /// <summary>
+        /// 
+        /// Use this method with caution, it is intended for a video import procedure only and does
+        /// not imply that the read or write context is set correctly.
+        /// At video import time, there are usually not enough data available to provide a fully fledged
+        /// video info object. Therefore you can set the context with this method, the only thing
+        /// you have to ensure is that the propertyView is displayed to the user. After the user is
+        /// done filling out the vidImport form you should check the consistancy flag to make sure
+        /// all input was legal, however the consistancy flag CANNOT ensure the consistancy to 100 % so
+        /// be prepared ;-).
+        /// </summary>
+        /// <param name="filepath"></param>
+        public void setImportContext(string filepath)
+        {
+            // needs to be preset if calling setReadContext without
+            // a valid info object so one can be constructed.
+            this.readPath = filepath;
+            this.setReadContext(filepath, readVidInfo);
         }
 
 
@@ -460,6 +484,8 @@ namespace PS_YuvVideoHandler
                     }
                 }
                 _positionReader = value;
+                OnPropertyChanged("positionReader");
+                
             }
         }
 
@@ -668,7 +694,7 @@ namespace PS_YuvVideoHandler
             //    NUMFRAMESINMEM = 1;
             //    var currentPosition = positionReader;
             //}
-            stopReaderThread = (buffer) ? false : true;
+            this.buffer = buffer;
             getFrameWaitEvent.Reset();
 
             if (readerBuffPos < readVidInfo.frameCount)
@@ -718,12 +744,12 @@ namespace PS_YuvVideoHandler
                 int offset = readerBuffPos * frameByteSize;
                 int count = NUMFRAMESINMEM - readQueue.Count;
 
-                FileInfo file = new FileInfo(path);
+                FileInfo file = new FileInfo(readPath);
                 if (!file.Exists)
                     throw new FileNotFoundException();
 
                 byte[] rawData = new byte[frameByteSize * count];
-                using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (FileStream fs = new FileStream(readPath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
                     try
                     {
@@ -732,7 +758,7 @@ namespace PS_YuvVideoHandler
                     }
                     catch (IOException exc)
                     {
-                        throw new FileLoadException("Problems occured while trying to load file (" + path + ")" +
+                        throw new FileLoadException("Problems occured while trying to load file (" + readPath + ")" +
                             " in memory. Given file is either not a valid file or the informations you" +
                             " provided are incorrect (i.e. resolution).", exc);
                     }
@@ -787,20 +813,29 @@ namespace PS_YuvVideoHandler
                     readerBuffPos++;
 
                     i++;
+                    if (!buffer)
+                    {
+                        waitReaderStopEvent.Set();
+                        getFrameWaitEvent.Set();
+                        return;
+                    }
 
                 }
 
                 readerWaitEvent.WaitOne();
 
                 //check for stop request
-                if (stopReaderThread)
+                if (stopReaderThread || !buffer)
                 {
                     waitReaderStopEvent.Set();
+                    getFrameWaitEvent.Set();
                     return;
                 }
                 readerWaitEvent.Reset();
             }
         //    (new Thread(new ThreadStart(flushReader))).Start();
+
+            getFrameWaitEvent.Set();
         }
 
 
@@ -986,7 +1021,7 @@ namespace PS_YuvVideoHandler
             FileStream fs;
             try
             {
-                fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, ((YuvVideoInfo)writeVidInfo).frameSize * frames.Length);
+                fs = new FileStream(writePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, ((YuvVideoInfo)writeVidInfo).frameSize * frames.Length);
                 fs.Seek((int)(frameNum * ((YuvVideoInfo)writeVidInfo).frameSize), SeekOrigin.Begin);
 
                 for (int i = 0; i < frames.Length; i++)
@@ -1050,16 +1085,26 @@ namespace PS_YuvVideoHandler
 
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private string writePath;
 
         private YuvVideoInfo _writeVidInfo;
+        private bool buffer;
         public IVideoInfo writeVidInfo
         {
             get
             {
                 if (_writeVidInfo == null)
-                    _writeVidInfo = new YuvVideoInfo(this.path);
+                    _writeVidInfo = new YuvVideoInfo(this.writePath);
                 return _writeVidInfo;
             }
             private set
@@ -1073,7 +1118,7 @@ namespace PS_YuvVideoHandler
     }
 
 
-
+    
 
 
     /// <summary>

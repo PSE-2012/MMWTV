@@ -16,6 +16,7 @@ namespace Oqat.ViewModel.Macro
     using System.ComponentModel.Composition;
     using System.Collections.Specialized;
     using System.ComponentModel;
+    using System.Drawing;
 
     [ExportMetadata("namePlugin", "PF_MacroFilter")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
@@ -208,6 +209,9 @@ namespace Oqat.ViewModel.Macro
                     {
                         mementoProcess(currentMemento);
                     }
+                    Bitmap[] tmp= new Bitmap[1];
+                    tmp[0] = resultFrames[i];
+                    refHand.writeFrames(i, tmp);
                     i++;
                 }
             i = 0;

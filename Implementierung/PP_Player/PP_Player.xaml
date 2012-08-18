@@ -3,15 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PP_Player"
              mc:Ignorable="d" 
              d:DesignHeight="288" d:DesignWidth="352">
+    <UserControl.Resources>
+        <local:intStringConverter x:Key="intStringConv"/>
+        <local:intDoubleConverter x:Key="intDoubleConv"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <Image Grid.Row="0"  x:Name="i" />
-        <Grid Grid.Row="1">
+        <Grid x:Name="playerControls" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <!--start and pause button column-->
                 <ColumnDefinition Width="20"/>
@@ -44,11 +49,16 @@
                 <Image Source="/OqatPublicResources;component/Resources/icons/stop.png"/>
             </Button>
             <TextBox x:Name="jumpToFrameTextBox" Grid.Column="4" KeyUp="return_Click" HorizontalAlignment="Stretch"
-                     Text=""/>
+                     Text="{Binding Mode=OneWay,  Converter={StaticResource intStringConv}}"/>
             <Button x:Name="jumpToFrameButton" Grid.Column="5" Click="jumpToFrame_Click" HorizontalAlignment="Stretch">
                 <Image Source="/OqatPublicResources;component/Resources/icons/stop.png"/>
             </Button>
-            <Slider x:Name="positionSlider" Grid.Column="6"  HorizontalAlignment="Stretch"/>
+            <Slider x:Name="positionSlider" Grid.Column="6"  HorizontalAlignment="Stretch" 
+                    Minimum="0" Value="{Binding Mode=OneWay, Converter={StaticResource intDoubleConv}}"
+                    ValueChanged="positionSlider_ValueChanged"
+                    Thumb.DragStarted="positionSlider_DragStarted"
+                    Thumb.DragCompleted="positionSlider_DragCompleted"/>
+                    
             
         </Grid>
     </Grid>
