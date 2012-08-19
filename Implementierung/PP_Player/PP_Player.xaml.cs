@@ -510,10 +510,12 @@ namespace PP_Player
         private void jumpToFrame_Click(object sender, RoutedEventArgs e)
         {
 
-            int jumpTo;
-            Int32.TryParse(jumpToFrameTextBox.Text, out jumpTo);
-            positionReader = jumpTo;
-            OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));
+            //int jumpTo;
+            //Int32.TryParse(jumpToFrameTextBox.Text, out jumpTo);
+            //positionReader = jumpTo;
+            //OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));
+            OnPropertyChanged(this, new PropertyChangedEventArgs(randomJumpPositionUpdate));
+            
         }
 
         /// <summary>
@@ -526,14 +528,33 @@ namespace PP_Player
             // they will be changed.
             if (Monitor.TryEnter(setVideoContextLock))
             {
+                bool wasPlaying = false;
+                if (pauseButton.IsVisible)
+                {
+                    Pause_Click(null, null);
+                    wasPlaying = true;
+                }
+
                 if (e.PropertyName.Equals(randomJumpPositionUpdate)) // rjpu: randomJumpePositionUpdate
                 {
-                    // no faster way to do this, as the handler buffer is very limited
-                    if ((Math.Abs((int)positionSlider.Value - _positionReader)) > 2)
+                    
+
+                   
+
+                    if ((Math.Abs((int)positionSlider.Value - _positionReader)) < 2)
                     {
-                        Pause_Click(this, null);
+                        int jumpTo;
+                        Int32.TryParse(jumpToFrameTextBox.Text, out jumpTo);
+                        if((Math.Abs(jumpTo- _positionReader) > 1))
+                            setVideo(this.video, jumpTo);
+
+                    } else  {
                         setVideo(this.video, (int)positionSlider.Value);
+
                     }
+
+                    if (wasPlaying)
+                        Play_Click(null, null);
 
                 }
                 else if (e.PropertyName.Equals(nextFramePositionUpdate))// nextFrame jump 
@@ -544,6 +565,7 @@ namespace PP_Player
 
                     // controlled racecondition xD
                     pausePlayTicker.Set();
+                    Thread.Sleep(5);
                     pausePlayTicker.Reset();
 
                 }
@@ -574,7 +596,8 @@ namespace PP_Player
         //private bool dragStarted = false;
         private void positionSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
         {
-            Pause_Click(this, new RoutedEventArgs());
+            if(pauseButton.IsVisible)
+                Pause_Click(this, new RoutedEventArgs());
         }
 
         private void positionSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
@@ -588,6 +611,12 @@ namespace PP_Player
             if (e.HorizontalChange > 1)
                 OnPropertyChanged(this, new PropertyChangedEventArgs(posReadProName));
 
+        }
+
+        private void jumpToFrameTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (pauseButton.IsVisible)
+                Pause_Click(this, new RoutedEventArgs());
         }
     }
 

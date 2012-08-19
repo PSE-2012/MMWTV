@@ -5,9 +5,6 @@ namespace PS_YuvVideoHandler
     using Oqat.PublicRessources.Model;
     using Oqat.PublicRessources.Plugin;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
 
     using System.ComponentModel.Composition;
@@ -20,8 +17,6 @@ namespace PS_YuvVideoHandler
     using System.Threading;
     using System.Collections;
     using System.ComponentModel;
-    using AForge.Imaging;
-    using System.Diagnostics;
 
     [ExportMetadata("namePlugin", "yuvVideoHandler")]
     [ExportMetadata("type", PluginType.IVideoHandler)]
@@ -485,7 +480,6 @@ namespace PS_YuvVideoHandler
                 }
                 _positionReader = value;
                 OnPropertyChanged("positionReader");
-                
             }
         }
 

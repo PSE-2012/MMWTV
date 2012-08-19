@@ -6,10 +6,6 @@
              xmlns:local="clr-namespace:PP_Player"
              mc:Ignorable="d" 
              d:DesignHeight="288" d:DesignWidth="352">
-    <UserControl.Resources>
-        <local:intStringConverter x:Key="intStringConv"/>
-        <local:intDoubleConverter x:Key="intDoubleConv"/>
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -49,7 +45,7 @@
                 <Image Source="/OqatPublicResources;component/Resources/icons/stop.png"/>
             </Button>
             <TextBox x:Name="jumpToFrameTextBox" Grid.Column="4" KeyUp="return_Click" HorizontalAlignment="Stretch"
-                     />
+                   GotFocus="jumpToFrameTextBox_GotFocus"  />
             <!--Text="{Binding Path=positionReader, Mode=OneWay,  Converter={StaticResource intStringConv}}"-->
             <Button x:Name="jumpToFrameButton" Grid.Column="5" Click="jumpToFrame_Click" HorizontalAlignment="Stretch">
                 <Image Source="/OqatPublicResources;component/Resources/icons/stop.png"/>
