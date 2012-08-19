@@ -712,7 +712,7 @@ namespace PS_YuvVideoHandler
                 {
                     if (positionReader < readVidInfo.frameCount)
                     {
-                        getFrameWaitEvent.Reset();
+
                         readerWaitEvent.Set();
                         getFrameWaitEvent.WaitOne();
                     }

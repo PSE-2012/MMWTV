@@ -7,14 +7,14 @@ using System.Windows.Media.Imaging;
 using System.ComponentModel.Composition;
 using Oqat.PublicRessources.Plugin;
 using Oqat.PublicRessources.Model;
-using System.Windows.Forms;
 using System.Threading;
 using System.Drawing;
 using System.ComponentModel;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+
+
 
 namespace PP_Player
 {
@@ -92,13 +92,21 @@ namespace PP_Player
                 pauseButton.Visibility = System.Windows.Visibility.Collapsed;
 
 
-                // controls
-                positionSlider.DataContext = this.positionReader;
-                positionSlider.Maximum = video.vidInfo.frameCount;
-                jumpToFrameTextBox.DataContext = this.positionReader;
-              //  this.playerControls.DataContext = video.vidInfo;
 
-                // register for propertyChanged
+
+                positionSlider.Maximum = video.vidInfo.frameCount;
+                playerControls.DataContext = this;
+
+                Binding jtfReadPosbind = new Binding("positionReader");
+                jtfReadPosbind.Mode = System.Windows.Data.BindingMode.OneWay;
+                jtfReadPosbind.Converter = new intStringConverter();
+                jumpToFrameTextBox.SetBinding(System.Windows.Controls.TextBox.TextProperty, jtfReadPosbind);
+
+
+                Binding slReadPosBind = new Binding("positionReader");
+                slReadPosBind.Mode = System.Windows.Data.BindingMode.OneWay;
+                slReadPosBind.Converter = new intDoubleConverter();
+                positionSlider.SetBinding(System.Windows.Controls.Slider.ValueProperty, slReadPosBind);              
 
                 video.handler.PropertyChanged += OnPropertyChanged;
 
@@ -233,7 +241,7 @@ namespace PP_Player
         ManualResetEvent _pausePlayTicker;
         Bitmap bmpHand;
         BitmapData bmpData;
-        private object getFrameLock;
+     //   private object getFrameLock;
         private object setVideoContextLock;
         private int _positionReader;
 
@@ -299,7 +307,7 @@ namespace PP_Player
 
                 //use dispatcher as "writeToDisplay" need access to backbuffer of our writeableBitmap
                 //wich is set (init) as source of i (image control we use as player, defined in xaml)
-                i.Dispatcher.Invoke(new MethodInvoker(writeToDisplay));
+                i.Dispatcher.Invoke(new System.Windows.Forms.MethodInvoker(writeToDisplay));
 
                 // dispose
                 bmpHand.UnlockBits(bmpData);
@@ -521,7 +529,7 @@ namespace PP_Player
                 if (e.PropertyName.Equals(randomJumpPositionUpdate)) // rjpu: randomJumpePositionUpdate
                 {
                     // no faster way to do this, as the handler buffer is very limited
-                    if ((Math.Abs((int)positionSlider.Value) - _positionReader) > 2)
+                    if ((Math.Abs((int)positionSlider.Value - _positionReader)) > 2)
                     {
                         Pause_Click(this, null);
                         setVideo(this.video, (int)positionSlider.Value);
@@ -539,41 +547,47 @@ namespace PP_Player
                     pausePlayTicker.Reset();
 
                 }
-                else if (e.PropertyName.Equals(posReadProName) && (PropertyChanged != null))
+            }
+            if (sender is IVideoHandler &&
+                    e.PropertyName.Equals(posReadProName) &&
+                    (PropertyChanged != null))
+            {
+                if (_positionReader != video.handler.positionReader)
                 {
                     _positionReader = video.handler.positionReader;
                     PropertyChanged(this, new PropertyChangedEventArgs(e.PropertyName));
                 }
-                else
-                {
-                    throw new Exception("Something went wrong.");
-                }
-
-
             }
 
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void positionSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (!dragStarted)
-            {
-                OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));
-            }
-        }
+        //private void positionSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //{
+        //    if (!dragStarted)
+        //    {
+        //        OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));
+        //    }
+        //}
 
-        private bool dragStarted = false;
+        //private bool dragStarted = false;
         private void positionSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
         {
-            dragStarted = true;
+            Pause_Click(this, new RoutedEventArgs());
         }
 
         private void positionSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
-            this.dragStarted = false;
-            OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));
+            //this.dragStarted = false;
+            OnPropertyChanged(this, new PropertyChangedEventArgs(randomJumpPositionUpdate));
+        }
+
+        private void positionSlider_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+        {
+            if (e.HorizontalChange > 1)
+                OnPropertyChanged(this, new PropertyChangedEventArgs(posReadProName));
+
         }
     }
 
@@ -589,14 +603,16 @@ namespace PP_Player
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            int positionReader;
-            Int32.TryParse(value as string, out positionReader);
-            return positionReader;
+
+            string pos = (System.Convert.ToInt32(value)).ToString();
+            return pos;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-           return ((int)value).ToString();
+            int positionReader;
+            Int32.TryParse(value as string, out positionReader);
+            return positionReader;
         }
     }
 
@@ -604,18 +620,13 @@ namespace PP_Player
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            double conv;
-            if (value != null)
-                conv = (int)value;
-            else
-                conv = 0;
-
+            double conv = System.Convert.ToDouble(value);
             return conv;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            int conv = (int)value;
+            int conv = System.Convert.ToInt32(value);
             return conv;
         }
     }

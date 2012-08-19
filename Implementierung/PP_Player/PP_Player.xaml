@@ -49,15 +49,21 @@
                 <Image Source="/OqatPublicResources;component/Resources/icons/stop.png"/>
             </Button>
             <TextBox x:Name="jumpToFrameTextBox" Grid.Column="4" KeyUp="return_Click" HorizontalAlignment="Stretch"
-                     Text="{Binding Mode=OneWay,  Converter={StaticResource intStringConv}}"/>
+                     />
+            <!--Text="{Binding Path=positionReader, Mode=OneWay,  Converter={StaticResource intStringConv}}"-->
             <Button x:Name="jumpToFrameButton" Grid.Column="5" Click="jumpToFrame_Click" HorizontalAlignment="Stretch">
                 <Image Source="/OqatPublicResources;component/Resources/icons/stop.png"/>
             </Button>
             <Slider x:Name="positionSlider" Grid.Column="6"  HorizontalAlignment="Stretch" 
-                    Minimum="0" Value="{Binding Mode=OneWay, Converter={StaticResource intDoubleConv}}"
-                    ValueChanged="positionSlider_ValueChanged"
+                    Minimum="0" 
                     Thumb.DragStarted="positionSlider_DragStarted"
-                    Thumb.DragCompleted="positionSlider_DragCompleted"/>
+                    Thumb.DragCompleted="positionSlider_DragCompleted"
+                    Thumb.DragDelta="positionSlider_DragDelta"/>
+            <!--ValueChanged="positionSlider_ValueChanged"
+                    
+                    />-->
+                    <!--Value="{Binding Path=positionReader, Mode=OneWay, Converter={StaticResource intDoubleConv}}-->
+
                     
             
         </Grid>
