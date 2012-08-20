@@ -108,13 +108,10 @@ namespace Oqat.ViewModel.Macro
             // this.macroQueue.OnCollectionChanged(reset);
         }
 
-
-
         private IVideoHandler refHand;
-    //   private IVideoHandler resultHand;
         private int totalFrames;
         private int i;
-        private System.Drawing.Bitmap[] resultFrames;
+        private Bitmap resultFrame;
         private IFilterOqat currentPlugin;
         private Memento currentMemento;
         private MacroEntryFilter currentMacroEntry;
@@ -156,8 +153,8 @@ namespace Oqat.ViewModel.Macro
                 if ((currentMacroEntry.startFrameRelative / 100) * totalFrames <= i && i <= (currentMacroEntry.endFrameRelative / 100) * totalFrames)
                 {
                     currentPlugin.setMemento(memento);
-                    System.Drawing.Bitmap tempmap = currentPlugin.process(resultFrames[i]);
-                    resultFrames[i] = tempmap;
+                    System.Drawing.Bitmap tempmap = currentPlugin.process(resultFrame);
+                    resultFrame = tempmap;
                 }
         }
 
@@ -171,10 +168,7 @@ namespace Oqat.ViewModel.Macro
             refHand = vidRef.handler;
             refHand.setReadContext(vidRef.vidPath, vidRef.vidInfo);
             refHand.setWriteContext(vidResult.vidPath, vidRef.vidInfo);
-            //resultHand = vidResult.handler;
-            //resultHand.setWriteContext(vidResult.vidPath, vidResult
             totalFrames = vidRef.vidInfo.frameCount;
-            resultFrames = new System.Drawing.Bitmap[vidRef.vidInfo.frameCount];
             i = 0;
         }
 
@@ -200,7 +194,7 @@ namespace Oqat.ViewModel.Macro
                 refHand.positionReader = 0;
                 while (i < totalFrames)
                 {
-                    resultFrames[i] = refHand.getFrame();
+                    resultFrame = refHand.getFrame();
                     if (isMacro == true)
                     {
                         macroEncode(currentMemento);
@@ -210,21 +204,18 @@ namespace Oqat.ViewModel.Macro
                         mementoProcess(currentMemento);
                     }
                     Bitmap[] tmp= new Bitmap[1];
-                    tmp[0] = resultFrames[i];
+                    tmp[0] = resultFrame;
                     refHand.writeFrames(i, tmp);
                     i++;
                 }
             i = 0;
             isMacro = false;
             }
-            // write the processed frames to disk 
-            refHand.writeFrames(i, resultFrames);
             // reset after finished work
-            resultFrames = null;
+            resultFrame = null;
             currentPlugin = null;
             currentMemento = null;
             refHand = null;
-          //  resultHand = null;
             // add to ProjectExplorer
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult));
         }

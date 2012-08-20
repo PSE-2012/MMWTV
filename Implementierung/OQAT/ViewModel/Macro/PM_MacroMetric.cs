@@ -17,6 +17,7 @@ namespace Oqat.ViewModel.Macro
     using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Threading;
+    using System.Drawing;
 
     [ExportMetadata("namePlugin", "PM_MacroMetric")]
     [ExportMetadata("type", PluginType.IMetricOqat)]
@@ -61,13 +62,12 @@ namespace Oqat.ViewModel.Macro
         private int i;
         private IVideoHandler refHand;
         private IVideoHandler procHand;
-        private IVideoHandler[] resHand;
         private IMetricOqat currentPlugin;
         private Memento currentMemento;
         private AnalysisInfo analyseInfo;
-        private System.Drawing.Bitmap[] refFrames;
-        private System.Drawing.Bitmap[] procFrames;
-        private System.Drawing.Bitmap[] resultFrames;
+        private Bitmap refFrame;
+        private Bitmap procFrame;
+        private Bitmap resultFrame;
         //private Thread thread = null;
         private Video[] vidRes;
         //internal delegate void threadAbortHandler(object sender, EventArgs e);
@@ -101,11 +101,8 @@ namespace Oqat.ViewModel.Macro
             refHand = vidRef.handler;
             procHand = vidProc.handler;
             vidRes = vidResult;
-            resHand = new IVideoHandler[vidRes.Length];
-            for (int k = 0; k < vidRes.Length; k++)
-            {
-                resHand[k] = vidRes[k].handler;
-            }
+            refHand.setReadContext(vidRef.vidPath, vidRef.vidInfo);
+            procHand.setReadContext(vidProc.vidPath, vidProc.vidInfo);
             //TODO: do not allow the analyse if vidRef and vidProc have got a different frame count
             totalFrames = vidRef.vidInfo.frameCount;
             i = 0;
@@ -130,22 +127,18 @@ namespace Oqat.ViewModel.Macro
             // Warning: the method, implemented this way, does not support having another macrometric inside the list of metrics
             for (int m = 0; m < macroQueue.Count; m++)
             {
-                resultFrames = new System.Drawing.Bitmap[vidRef.vidInfo.frameCount];
-                refFrames = new System.Drawing.Bitmap[vidRef.vidInfo.frameCount];
-                procFrames = new System.Drawing.Bitmap[vidProc.vidInfo.frameCount];
-
+                refHand.setWriteContext(vidRes[m].vidPath, vidRef.vidInfo);
                 // Define current entry of macroQueue
                 MacroEntryMetric macroEntryMetric = (MacroEntryMetric)macroQueue[m];
                 currentPlugin = (IMetricOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)macroEntryMetric.mementoName);
                 currentMemento = PluginManager.pluginManager.getMemento((String)macroEntryMetric.pluginName, (String)macroEntryMetric.mementoName);
-
                 vidRes[m].frameMetricValue = new float[totalFrames][];
                 refHand.positionReader = 0;
                 procHand.positionReader = 0;
                 while (i < totalFrames)
                 {
-                    refFrames[i] = refHand.getFrame();
-                    procFrames[i] = procHand.getFrame();
+                    refFrame = refHand.getFrame();
+                    procFrame = procHand.getFrame();
 
                     if (currentPlugin is IMacro)
                     {
@@ -155,26 +148,22 @@ namespace Oqat.ViewModel.Macro
                     {
                         mementoAnalyse(currentMemento);
                     }
-
-
                     vidRes[m].frameMetricValue[i] = analyseInfo.values; // sets frameMetricValue for the result video of the current metric
+                    Bitmap[] tmp = new Bitmap[1];
+                    tmp[0] = resultFrame;
+                    refHand.writeFrames(i, tmp);
                     i++;
                 }
-                resHand[m].writeFrames(i, resultFrames); // write the result frames to disk
-
                 i = 0;
             }
             currentPlugin = null;
             currentMemento = null;
-            refFrames = null;
-            procFrames = null;
             refHand = null;
-            resHand = null;
             procHand = null;
-            refFrames = null;
-            procFrames = null;
             analyseInfo = null;
-            resultFrames = null;
+            refFrame = null;
+            procFrame = null;
+            resultFrame = null;
             //onThreadAbort(this, new EventArgs());
 
             foreach (Video v in vidResult)
@@ -187,14 +176,14 @@ namespace Oqat.ViewModel.Macro
         private void mementoAnalyse(Memento memento)
         {
             currentPlugin.setMemento(memento);
-            analyseInfo = currentPlugin.analyse(refFrames[i], procFrames[i]); // result of the current analysis
-            resultFrames[i] = analyseInfo.frame; // write the result frames
+            analyseInfo = currentPlugin.analyse(refFrame, procFrame); // result of the current analysis
+            resultFrame = analyseInfo.frame; // write the result frames
         }
 
         //TODO macro aufsplitten
         private void macroEncode(Memento MacroMemento)
         {
-            currentPlugin = null; // to avoid loading the same plugin twice
+            /**currentPlugin = null; // to avoid loading the same plugin twice
             IMetricOqat currentPluginEntry;
             Memento currentMementoEntry;
             List<MacroEntryMetric> macroEntrys = (List<MacroEntryMetric>)MacroMemento.state;
@@ -211,7 +200,7 @@ namespace Oqat.ViewModel.Macro
                     MacroEntryMetric currentFilterEntry = (MacroEntryMetric)currentEntry;
                     mementoAnalyse(currentMementoEntry);
                 }
-            }
+            } **/
         }
 
         public override Memento getMemento()
