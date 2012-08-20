@@ -698,8 +698,11 @@ namespace PS_YuvVideoHandler
                     readerWaitEvent.Set();
                     if ((readerThread.ThreadState != System.Threading.ThreadState.Running) &&
                         (readerThread.ThreadState != System.Threading.ThreadState.WaitSleepJoin))
+                    {
                         //readerThread.ThreadState != System.Threading.ThreadState.)
+                        _readerBuffPos = _positionReader;       // avoid racecondition
                         readerThread.Start();
+                    }
                 }
 
                 if (Math.Abs(readerBuffPos - positionReader) < 2)

@@ -28,6 +28,12 @@
                 <ColumnDefinition Width="20"/>
                 <!--sliderBar column-->
                 <ColumnDefinition Width="*"/>
+                <!--slow down button-->
+                <ColumnDefinition Width="20"/>
+                <!--fpsIndicator-->
+                <ColumnDefinition Width="20"/>
+                <!--speed up button-->
+                <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="playButton" Grid.Column="0" Click="Play_Click"  HorizontalAlignment="Left">
                 <Image Source="/OqatPublicResources;component/Resources/icons/play.png" />
@@ -39,22 +45,27 @@
                 <Image Source="/OqatPublicResources;component/Resources/icons/stop.png"/>
             </Button>
             <Button x:Name="previousFrameButton" Grid.Column="2" Click="previousFrame_Click" HorizontalAlignment="Left">
-                <Image Source="/OqatPublicResources;component/Resources/icons/stop.png"/>
+                <Image Source="/OqatPublicResources;component/Resources/icons/previous.png"/>
             </Button>
             <Button x:Name="nextFrameButton" Grid.Column="3" Click="nextFrame_Click" HorizontalAlignment="Left">
-                <Image Source="/OqatPublicResources;component/Resources/icons/stop.png"/>
+                <Image Source="/OqatPublicResources;component/Resources/icons/next.png"/>
             </Button>
             <TextBox x:Name="jumpToFrameTextBox" Grid.Column="4" KeyUp="return_Click" HorizontalAlignment="Stretch"
                    GotFocus="jumpToFrameTextBox_GotFocus"  />
             <!--Text="{Binding Path=positionReader, Mode=OneWay,  Converter={StaticResource intStringConv}}"-->
             <Button x:Name="jumpToFrameButton" Grid.Column="5" Click="jumpToFrame_Click" HorizontalAlignment="Stretch">
-                <Image Source="/OqatPublicResources;component/Resources/icons/stop.png"/>
+                <Image Source="/OqatPublicResources;component/Resources/icons/jumpTo.png"/>
             </Button>
             <Slider x:Name="positionSlider" Grid.Column="6"  HorizontalAlignment="Stretch" 
                     Minimum="0" 
                     Thumb.DragStarted="positionSlider_DragStarted"
                     Thumb.DragCompleted="positionSlider_DragCompleted"
                     Thumb.DragDelta="positionSlider_DragDelta"/>
+            <Button x:Name="slowDownButton" Grid.Column="7" Click="slowDownButton_Click" HorizontalAlignment="Stretch"
+                    Content="-"/>
+            <TextBlock x:Name="fpsIndicatorTextBlock" Grid.Column="8" Text="{Binding fpsIndicatorValue, Mode=OneWay}"/>
+            <Button x:Name="speedUpButton" Grid.Column="9" Click="speedUpButton_Click" HorizontalAlignment="Stretch"
+                    Content="+"/>
             <!--ValueChanged="positionSlider_ValueChanged"
                     
                     />-->

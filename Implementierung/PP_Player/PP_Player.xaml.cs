@@ -181,12 +181,16 @@ namespace PP_Player
             //}
             //double fps = (i /( sum/1000.0));
             #endregion
-  
+            System.Diagnostics.Stopwatch fpsTimer = new System.Diagnostics.Stopwatch();
             while ((video.handler.positionReader < video.vidInfo.frameCount) && !stopPlayTickerThread)
             {
                 pausePlayTicker.WaitOne();
+                fpsTimer.Start();
                 Thread.Sleep(playTickerTimeout);
                 getFrame();
+                fpsTimer.Stop();
+                fpsIndicatorValue = 1000 / (int)fpsTimer.ElapsedMilliseconds;
+                fpsTimer.Reset();
             }
         //    waitPlayTickerThreadStop.Set();
         }
@@ -245,9 +249,29 @@ namespace PP_Player
         private object setVideoContextLock;
         private int _positionReader;
 
+        private int fpsUpdateBlocker = 10;
+        private int _fpsIndicatorValue;
+        public int fpsIndicatorValue
+        {
+            get
+            {
+                return _fpsIndicatorValue;
+            }
+            private set
+            {
+                if (fpsUpdateBlocker-- < 0)
+                {
+                    fpsUpdateBlocker = _fpsIndicatorValue/2;
+                    _fpsIndicatorValue = value;
+                    OnPropertyChanged(this, new PropertyChangedEventArgs(fpsIndProName));
+                }
+            }
+        }
+
         private readonly string randomJumpPositionUpdate = "rjpu";
         private readonly string nextFramePositionUpdate = "nfpu";
         private readonly string posReadProName = "positionReader";
+        private readonly string fpsIndProName = "fpsIndicatorValue";
 
         public int positionReader
         {
@@ -489,8 +513,7 @@ namespace PP_Player
 
         private void previousFrame_Click(object sender, RoutedEventArgs e)
         {
-            OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));   //onPropertyChanged should handle
-                                             // all contingencies
+            OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));
         }
 
         private void nextFrame_Click(object sender, RoutedEventArgs e)
@@ -523,9 +546,13 @@ namespace PP_Player
         /// </summary>
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            // some ugly acronyms you will see here
-            // but fear not, some day to local variables 
-            // they will be changed.
+
+            if (e.PropertyName.Equals(fpsIndProName))
+            {
+                if (PropertyChanged != null)
+                    PropertyChanged(this, e);
+            } else
+
             if (Monitor.TryEnter(setVideoContextLock))
             {
                 bool wasPlaying = false;
@@ -541,12 +568,16 @@ namespace PP_Player
 
                    
 
-                    if ((Math.Abs((int)positionSlider.Value - _positionReader)) < 2)
+                    if ((Math.Abs((int)positionSlider.Value - _positionReader)) < 1)
                     {
                         int jumpTo;
                         Int32.TryParse(jumpToFrameTextBox.Text, out jumpTo);
-                        if((Math.Abs(jumpTo- _positionReader) > 1))
+                        jumpTo -= 2;
+                        if ((Math.Abs(jumpTo - _positionReader) > 0))
+                        {
+                            wasPlaying = false;
                             setVideo(this.video, jumpTo);
+                        }
 
                     } else  {
                         setVideo(this.video, (int)positionSlider.Value);
@@ -617,6 +648,17 @@ namespace PP_Player
         {
             if (pauseButton.IsVisible)
                 Pause_Click(this, new RoutedEventArgs());
+        }
+
+        private void slowDownButton_Click(object sender, RoutedEventArgs e)
+        {
+            playTickerTimeout = (int) (playTickerTimeout * 1.1);
+            
+        }
+
+        private void speedUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            playTickerTimeout = (int)(playTickerTimeout * 0.9);
         }
     }
 
