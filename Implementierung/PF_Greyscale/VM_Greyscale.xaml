@@ -6,7 +6,7 @@
              mc:Ignorable="d">
     <StackPanel Name="stackPanel1" Margin="10">
         <WrapPanel Name="wrapPanel1">
-            <Label Content="Red Value"  Name="label1" />
+            <Label Content="Red Koeffizient"  Name="label1" />
             <Label Name="lbRed"  Width="45" Content="{Binding ElementName=red, Path=Value}"/>
         </WrapPanel>
         <Slider  Name="red"  
@@ -17,7 +17,7 @@
                ValueChanged="ValueChanged"
                 />
         <WrapPanel Name="wrapPanel2">
-            <Label Content="Green Value"  Name="label2"  />
+            <Label Content="Green Koeffizient"  Name="label2"  />
             <Label  Name="lbGreen" Width="45" Content="{Binding ElementName=green, Path=Value}"/>
         </WrapPanel>
         <Slider Name="green"  Minimum="0"
@@ -26,7 +26,7 @@
     TickFrequency="0.0001"
                   ValueChanged="ValueChanged"/>
         <WrapPanel Name="wrapPanel3">
-            <Label Content="Blue Value"  Name="label3" />
+            <Label Content="Blue Koeffizient"  Name="label3" />
             <Label  Name="lbBlue"  Width="45" Content="{Binding ElementName=blue, Path=Value}"/>
         </WrapPanel>
         <Slider Name="blue" 
