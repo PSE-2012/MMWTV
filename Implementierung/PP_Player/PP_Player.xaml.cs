@@ -241,7 +241,20 @@ namespace PP_Player
         WriteableBitmap writeableBitmap;
         bool stopPlayTickerThread = false;
      //   ManualResetEvent _waitPlayTickerThreadStop;
-        int playTickerTimeout = 50;
+        int _playTickerTimeout = 1000/25;
+        int playTickerTimeout
+        {
+            get
+            {
+                return _playTickerTimeout;
+            }
+            set
+            {
+                _playTickerTimeout = (value < 0) ? 10 : ((value > 800)?Timeout.Infinite:value);
+                //refresh fpsIndicator
+                fpsUpdateBlocker = 0;
+            }
+        }
         ManualResetEvent _pausePlayTicker;
         Bitmap bmpHand;
         BitmapData bmpData;
@@ -652,13 +665,13 @@ namespace PP_Player
 
         private void slowDownButton_Click(object sender, RoutedEventArgs e)
         {
-            playTickerTimeout = (int) (playTickerTimeout * 1.1);
+            playTickerTimeout += 1000 / 30;
             
         }
 
         private void speedUpButton_Click(object sender, RoutedEventArgs e)
         {
-            playTickerTimeout = (int)(playTickerTimeout * 0.9);
+            playTickerTimeout -= 1000 / 30;
         }
     }
 
