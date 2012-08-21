@@ -110,7 +110,7 @@ namespace Oqat.ViewModel.Macro
 
         private IVideoHandler refHand;
         private int totalFrames;
-        private int i;
+        private int i = 0;
         private Bitmap resultFrame;
         private IFilterOqat currentPlugin;
         private Memento currentMemento;
@@ -179,6 +179,8 @@ namespace Oqat.ViewModel.Macro
         /// <param name="vidResult">new video after process</param>
         public void process(Video vidRef, Video vidResult)
         {
+            //Progressbar progressbar = new Progressbar();
+            //progressbar.Show();
             foreach (MacroEntryFilter c in macroQueue)
             {
                 currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.pluginName);
@@ -207,15 +209,18 @@ namespace Oqat.ViewModel.Macro
                     tmp[0] = resultFrame;
                     refHand.writeFrames(i, tmp);
                     i++;
+                    // Progressbar.value = i;
                 }
             i = 0;
             isMacro = false;
+            refHand.setReadContext(vidResult.vidPath, vidResult.vidInfo);
             }
             // reset after finished work
             resultFrame = null;
             currentPlugin = null;
             currentMemento = null;
             refHand = null;
+            //progressbar.Close();
             // add to ProjectExplorer
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult));
         }
