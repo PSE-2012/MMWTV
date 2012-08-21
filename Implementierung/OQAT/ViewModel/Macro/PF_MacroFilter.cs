@@ -17,6 +17,8 @@ namespace Oqat.ViewModel.Macro
     using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Drawing;
+    using System.Threading;
+    using System.Diagnostics;
 
     [ExportMetadata("namePlugin", "PF_MacroFilter")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
@@ -105,7 +107,6 @@ namespace Oqat.ViewModel.Macro
         private void item_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var reset = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-            // this.macroQueue.OnCollectionChanged(reset);
         }
 
         private IVideoHandler refHand;
@@ -116,6 +117,9 @@ namespace Oqat.ViewModel.Macro
         private Memento currentMemento;
         private MacroEntryFilter currentMacroEntry;
         private bool isMacro;
+        private double maxprogress;
+        private double progress;
+        private Progressbar progressbar;
 
         /// <summary>
         /// Method to split macro in it's Macroentrys
@@ -170,6 +174,32 @@ namespace Oqat.ViewModel.Macro
             refHand.setWriteContext(vidResult.vidPath, vidRef.vidInfo);
             totalFrames = vidRef.vidInfo.frameCount;
             i = 0;
+            maxprogress = totalFrames * macroQueue.Count;
+        }
+
+        private void ProgressBarThread()
+        {
+            progressbar = new Progressbar();
+            progressbar.progressBar1.Value = 0;
+            progressbar.percent.Text = 0.ToString() + "%";
+            progressbar.Show();
+            double displayedProgress = 0;
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            int wait = 500;
+            while (i < totalFrames)
+            {
+                if (stopwatch.ElapsedMilliseconds >= wait)
+                {
+                    if (progress != displayedProgress)
+                    {
+                        progressbar.progressBar1.Value = progress;
+                        progressbar.percent.Text = progress.ToString() + "%";
+                        displayedProgress = progress;
+                    }
+                }
+                stopwatch.Reset();
+            }
+            progressbar.Close();
         }
 
         /// <summary>
@@ -179,8 +209,9 @@ namespace Oqat.ViewModel.Macro
         /// <param name="vidResult">new video after process</param>
         public void process(Video vidRef, Video vidResult)
         {
-            //Progressbar progressbar = new Progressbar();
-            //progressbar.Show();
+            Thread thread = new Thread(new ThreadStart(ProgressBarThread));
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
             foreach (MacroEntryFilter c in macroQueue)
             {
                 currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.pluginName);
@@ -209,10 +240,11 @@ namespace Oqat.ViewModel.Macro
                     tmp[0] = resultFrame;
                     refHand.writeFrames(i, tmp);
                     i++;
-                    // Progressbar.value = i;
+                    progress += (1 / maxprogress) * 100;
                 }
             i = 0;
             isMacro = false;
+            progressbar.progressBar1.Value = progress;
             refHand.setReadContext(vidResult.vidPath, vidResult.vidInfo);
             }
             // reset after finished work
@@ -220,11 +252,11 @@ namespace Oqat.ViewModel.Macro
             currentPlugin = null;
             currentMemento = null;
             refHand = null;
-            //progressbar.Close();
+            thread.Abort();
+            progressbar = null;
             // add to ProjectExplorer
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult));
         }
-
 
         public System.Drawing.Bitmap process(System.Drawing.Bitmap frame) 
         {
