@@ -48,15 +48,25 @@ namespace PF_Invert
             // apply the filter
             Bitmap test = new Bitmap(frame.Width, frame.Height, PixelFormat.Format24bppRgb);
 
-            Graphics g = Graphics.FromImage(test);
+
+            for (int i = 0; i < frame.Width; i++)
+            {
+                for (int j = 0; j < frame.Height; j++)
+                {
+                    test.SetPixel(i, j, frame.GetPixel(i, j));
+                }
+
+
+            }
+          /*  Graphics g = Graphics.FromImage(test);
             g.DrawImage(frame, 0, 0);
             g.Dispose();
 
-            frame = test;
+            frame = test; */
 
-            filter.ApplyInPlace(frame);
+            filter.ApplyInPlace(test);
            
-            return frame;
+            return test;
         }
 
         public string namePlugin

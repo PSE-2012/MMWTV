@@ -59,13 +59,21 @@ namespace PF_NoiseGenerator
             AdditiveNoise filter = new AdditiveNoise(generator);
             Bitmap test = new Bitmap(frame.Width, frame.Height, PixelFormat.Format24bppRgb);
 
-            Graphics g = Graphics.FromImage(test);
+            for (int i = 0; i < frame.Width; i++)
+            {
+                for (int j = 0; j < frame.Height; j++)
+                {
+                    test.SetPixel(i, j, frame.GetPixel(i, j));
+                }
+            }
+
+        /*    Graphics g = Graphics.FromImage(test);
             g.DrawImage(frame, 0, 0);
             g.Dispose();
 
-            frame = test;
-            filter.ApplyInPlace(frame);
-            return frame;
+            frame = test;*/
+            filter.ApplyInPlace(test);
+            return test;
         }
 
         public string namePlugin
