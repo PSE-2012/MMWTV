@@ -56,6 +56,8 @@ namespace Oqat.ViewModel
                 tabMetric.Header= t2[4];
 
                 //TODO: Header miVidImport
+                //TODO: Header miNewProject
+                //TODO: Header miOpenProject
 
             }
             catch (IndexOutOfRangeException e) { }
@@ -295,6 +297,16 @@ namespace Oqat.ViewModel
                 // Open document 
                 this.vM_ProjectExplorer.importVideos(sc);
             }
+        }
+
+        private void miNewProject_Click(object sender, RoutedEventArgs e)
+        {
+            this.vM_Welcome.createProject();
+        }
+
+        private void miOpenProject_Click(object sender, RoutedEventArgs e)
+        {
+            this.vM_Welcome.openProject();
         }
 
 

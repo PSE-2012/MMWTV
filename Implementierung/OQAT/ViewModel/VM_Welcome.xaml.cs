@@ -107,23 +107,25 @@
 
         private void newPrjCreate_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            createProject();
+        }
+
+        public void createProject()
+        {
             var prOpen = new VM_ProjectOpenDialog();
             prOpen.Owner = Window.GetWindow(this);
             Nullable<bool> result = prOpen.ShowDialog();
             if ((result != null) & (bool)result)
             {
-                String path = prOpen.pathProject ;
+                String path = prOpen.pathProject;
                 addProjekt(projects.Contains(path), path);
-                
+
                 Caretaker.caretaker.writeMemento(this.getMemento());
                 PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.newProjectCreated, new ProjectEventArgs(prOpen.project));
             }
         }
 
-        /// <summary>
-        /// event to the browse button to open a dialog to search for existing projects.
-        /// </summary>
-        private void exPrjOpen_Click(object sender, System.Windows.RoutedEventArgs e)
+        public void openProject()
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.DefaultExt = ".oqatPrj";
@@ -137,10 +139,17 @@
                 Project exPrj = exPrjMem.state as Project;
                 PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.newProjectCreated,
                     new ProjectEventArgs(exPrj));
-                addProjekt(projects.Contains(dlg.FileName),dlg.FileName);
-               
+                addProjekt(projects.Contains(dlg.FileName), dlg.FileName);
+
             }
-          
+        }
+
+        /// <summary>
+        /// event to the browse button to open a dialog to search for existing projects.
+        /// </summary>
+        private void exPrjOpen_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            openProject();
         }
 
         /// <summary>
