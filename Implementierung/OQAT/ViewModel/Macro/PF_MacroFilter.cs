@@ -244,7 +244,6 @@ namespace Oqat.ViewModel.Macro
                 }
             i = 0;
             isMacro = false;
-            progressbar.progressBar1.Value = progress;
             refHand.setReadContext(vidResult.vidPath, vidResult.vidInfo);
             }
             // reset after finished work
