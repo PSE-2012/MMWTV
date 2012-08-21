@@ -53,9 +53,9 @@ namespace Oqat.ViewModel
                 mn2.Header = t2[1];
                 miInfo.Header= t2[2];
                 tabFilter.Header = t2[3];
-              tabMetric.Header= t2[4];
-              
+                tabMetric.Header= t2[4];
 
+                //TODO: Header miVidImport
 
             }
             catch (IndexOutOfRangeException e) { }
@@ -274,6 +274,26 @@ namespace Oqat.ViewModel
             {
                 PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.toggleView,
                     new ViewTypeEventArgs(newv));
+            }
+        }
+
+        private void miVidImport_Click(object sender, RoutedEventArgs e)
+        {
+            // Configure open file dialog box
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.Filter = "Yuv-Videos (.yuv)|*.yuv|All files (*.*)|*.*"; // Filter files by extension 
+            dlg.Multiselect = true;
+
+            // Show open file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process open file dialog box results 
+            if (result == true)
+            {
+                System.Collections.Specialized.StringCollection sc = new System.Collections.Specialized.StringCollection();
+                sc.AddRange(dlg.FileNames);
+                // Open document 
+                this.vM_ProjectExplorer.importVideos(sc);
             }
         }
 
