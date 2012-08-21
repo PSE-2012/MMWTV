@@ -103,22 +103,7 @@
 
                     // ask if user wants to open many windows...
                     StringCollection fileList  = ((DataObject)e.Data).GetFileDropList();
-                    VM_VidImportOptionsDialog vidImp = new VM_VidImportOptionsDialog(fileList);
-                    vidImp.Owner = Window.GetWindow(this);
-                   Nullable<bool> result = vidImp.ShowDialog();
-
-                    if ((result!=null) & (bool)result)
-                    {
-                        foreach (var vid in vidImp.videoList)
-                        {
-                            project.addNode(vid,
-                                (smartTreeExplorer.SelectedItem!= null)?
-                                ((SmartNode)smartTreeExplorer.SelectedItem).id: -1);
-                        }
-                        
-                    }
-
-
+                    importVideos(fileList);
             }
             else if (e.Data is DataObject && ((DataObject)e.Data).GetDataPresent("SmartNode"))
             {
@@ -132,8 +117,28 @@
                                 ((SmartNode)smartTreeExplorer.SelectedItem).id : -1);
                 }
             }
-            
+        }
 
+        /// <summary>
+        /// Imports the videofiles into the smarttree by opening a vidImportOptionsDialog.
+        /// </summary>
+        /// <param name="fileList">the filenames of videos to import.</param>
+        public void importVideos(StringCollection fileList)
+        {
+            VM_VidImportOptionsDialog vidImp = new VM_VidImportOptionsDialog(fileList);
+            vidImp.Owner = Window.GetWindow(this);
+            Nullable<bool> result = vidImp.ShowDialog();
+
+            if ((result != null) & (bool)result)
+            {
+                foreach (var vid in vidImp.videoList)
+                {
+                    project.addNode(vid,
+                        (smartTreeExplorer.SelectedItem != null) ?
+                        ((SmartNode)smartTreeExplorer.SelectedItem).id : -1);
+                }
+
+            }
         }
 
 
