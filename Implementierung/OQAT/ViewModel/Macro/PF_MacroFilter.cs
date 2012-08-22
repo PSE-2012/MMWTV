@@ -60,8 +60,6 @@ namespace Oqat.ViewModel.Macro
             macroControl = new MacroFilterControl(this);
         }
 
-
-
         public void addFilter(MementoEventArgs e)
         {
             long startValue = 0;
@@ -117,7 +115,6 @@ namespace Oqat.ViewModel.Macro
         private Memento currentMemento;
         private MacroEntryFilter currentMacroEntry;
         private bool isMacro;
-        private double maxprogress;
         private double progress;
         private Progressbar progressbar;
 
@@ -174,7 +171,6 @@ namespace Oqat.ViewModel.Macro
             refHand.setWriteContext(vidResult.vidPath, vidRef.vidInfo);
             totalFrames = vidRef.vidInfo.frameCount;
             i = 0;
-            maxprogress = totalFrames * macroQueue.Count;
         }
 
         private void ProgressBarThread()
@@ -212,22 +208,22 @@ namespace Oqat.ViewModel.Macro
             Thread thread = new Thread(new ThreadStart(ProgressBarThread));
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
-            foreach (MacroEntryFilter c in macroQueue)
-            {
-                currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.pluginName);
-                currentMemento = PluginManager.pluginManager.getMemento((String)c.pluginName, (String)c.mementoName);
-                currentMacroEntry = (MacroEntryFilter)c;
-                isMacro = false;
-                // decide if a macro is used
-                if (currentPlugin is IMacro)
-                {
-                    isMacro = true;
-                }
                 // set reader to begin of the yuv
                 refHand.positionReader = 0;
                 while (i < totalFrames)
                 {
                     resultFrame = refHand.getFrame();
+                    foreach (MacroEntryFilter c in macroQueue)
+                    {
+                        currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)c.pluginName);
+                        currentMemento = PluginManager.pluginManager.getMemento((String)c.pluginName, (String)c.mementoName);
+                        currentMacroEntry = (MacroEntryFilter)c;
+                        isMacro = false;
+                        // decide if a macro is used
+                        if (currentPlugin is IMacro)
+                        {
+                            isMacro = true;
+                        } 
                     if (isMacro == true)
                     {
                         macroEncode(currentMemento);
@@ -236,18 +232,16 @@ namespace Oqat.ViewModel.Macro
                     {
                         mementoProcess(currentMemento);
                     }
-                    Bitmap[] tmp= new Bitmap[1];
+                }
+                    Bitmap[] tmp = new Bitmap[1];
                     tmp[0] = resultFrame;
                     refHand.writeFrames(i, tmp);
                     i++;
-                    progress += (1 / maxprogress) * 100;
-                }
-            i = 0;
-            isMacro = false;
-            refHand.setReadContext(vidResult.vidPath, vidResult.vidInfo);
+                    progress += (1 / totalFrames) * 100;
             }
             // reset after finished work
-            refHand.setReadContext(vidRef.vidPath, vidRef.vidInfo);
+            i = 0;
+            isMacro = false;
             resultFrame = null;
             currentPlugin = null;
             currentMemento = null;
@@ -263,7 +257,6 @@ namespace Oqat.ViewModel.Macro
             //TODO: Do we ever use a macro like a filter without checking if it is macro?
             throw new NotImplementedException();
         }
-
 
         public override Memento getMemento()
         {
