@@ -12,6 +12,7 @@
     using System.Collections;
     using Microsoft.Win32;
     using System.Xml;
+    using System.Threading;
 
     /// <summary>
     /// This component is displayed whenever no project is open.
@@ -47,7 +48,7 @@
         public VM_Welcome()
         {
             InitializeComponent();
-            this.local("VM_Welcome_default.xml");
+            this.local("VM_Welcome_" + Thread.CurrentThread.CurrentCulture + ".xml");
             projects = new ArrayList();
             
             this.setMemento(Caretaker.caretaker.getMemento( Directory.GetCurrentDirectory() +"/VM_Welcome.mem"));

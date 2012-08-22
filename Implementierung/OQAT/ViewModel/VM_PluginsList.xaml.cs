@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Threading;
 using Oqat.PublicRessources.Model;
 using Oqat.Model;
 using Oqat.PublicRessources.Plugin;
@@ -119,7 +119,8 @@ namespace Oqat.ViewModel
         public VM_PluginsList(PluginType plugintype)
         {
             InitializeComponent();
-            local("VM_PluginsList_default.xml");
+            
+            local("VM_PluginsList_"+ Thread.CurrentThread.CurrentCulture+".xml");
             this.pluginType = plugintype;
 
             PluginManager.macroEntrySelected += onMacroFilterEntryClicked;

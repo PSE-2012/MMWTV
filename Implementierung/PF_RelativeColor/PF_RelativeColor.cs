@@ -6,7 +6,7 @@ namespace PF_RelativeColor
     using Oqat.PublicRessources.Model;
     using Oqat.PublicRessources.Plugin;
     using System.Drawing;
-   
+    using System.Threading;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -33,7 +33,7 @@ namespace PF_RelativeColor
         public RelativeColor()
         {
             propertiesView = new VM_RelativeColor();
-            localize(_namePlugin + "_default.xml");
+            localize(_namePlugin + "_" + Thread.CurrentThread.CurrentCulture + ".xml");
         }
 
         /// <summary>

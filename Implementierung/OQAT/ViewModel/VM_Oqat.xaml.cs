@@ -10,7 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using System.Threading;
 using Oqat.ViewModel.Macro;
 using Oqat.Model;
 using Oqat.PublicRessources.Model;
@@ -70,7 +70,8 @@ namespace Oqat.ViewModel
         public VM_Oqat()
         {
             InitializeComponent();
-            local("VM_Oqat_default.xml");
+           
+            local("VM_Oqat_" + Thread.CurrentThread.CurrentCulture+".xml");
             // PluginManager is initializet by OqatApp
             PluginManager.OqatNewProjectCreatedHandler += onNewProjectCreated;
             PluginManager.OqatToggleView += onToggleView;

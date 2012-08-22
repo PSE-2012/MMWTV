@@ -11,6 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Xml;
+using System.Threading;
 
 namespace PS_YuvVideoHandler
 {
@@ -26,6 +29,36 @@ namespace PS_YuvVideoHandler
             if (yuvInfo == null)
                 throw new NullReferenceException("Given YuvVideoInfo object is not initialized.");
             this.DataContext = yuvInfo;
+            this.local("YufVideoHandler_" + Thread.CurrentThread.CurrentCulture + ".xml");
+        }
+
+        private void local(string s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[6];
+                String[] t2 = new String[6];
+                for (int i = 0; i < 6; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                gb1.Header = t2[5];
+              
+
+
+
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
         }
        
     }

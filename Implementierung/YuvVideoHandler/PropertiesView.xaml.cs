@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Xml;
+using System.Threading;
 
 namespace PS_YuvVideoHandler
 {
@@ -28,7 +29,7 @@ namespace PS_YuvVideoHandler
 
             initFormatValues();
             this.cb_format.ItemsSource = formatList;
-            this.local("YufVideoHandler_default.xml");
+            this.local("YufVideoHandler_" + Thread.CurrentThread.CurrentCulture + ".xml");
         }
         private void local(String s)
         {
