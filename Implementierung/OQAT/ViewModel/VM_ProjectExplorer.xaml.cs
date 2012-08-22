@@ -46,9 +46,8 @@
                 lb1.Content = t2[0];
                 lb2.Content = t2[1];
                 btnExport.Content = t2[2];
-                
 
-
+                //TODO: miExpAna localisation
             }
             catch (IndexOutOfRangeException e) { }
             catch (FileNotFoundException e) { }
