@@ -181,7 +181,15 @@ namespace Oqat.ViewModel
         /// <param name="e"></param>
 		private void onVideoLoad(object sender, VideoEventArgs e)
 		{
-            if (e.isRefVid)
+            if (e.video.isAnalysis)
+            {
+                this.onToggleView(this, new ViewTypeEventArgs(ViewType.AnalyzeView));
+
+                this.videoProc = (IVideo)e.video;
+                this.playerProc.setVideo(videoProc);
+                this.diagram.setVideo(videoProc);
+            }
+            else if (e.isRefVid)
             {
                 this.onToggleView(this, new ViewTypeEventArgs(ViewType.MetricView));
 
@@ -192,11 +200,6 @@ namespace Oqat.ViewModel
             {
                 this.videoProc = (IVideo)e.video;
                 this.playerProc.setVideo(videoProc);
-            }
-
-            if (this.vtype == ViewType.AnalyzeView)
-            {
-                this.diagram.setVideo(e.video);
             }
 		}
 
@@ -227,7 +230,7 @@ namespace Oqat.ViewModel
                     break;
                 case ViewType.AnalyzeView:
                     this.gridPlayer1.Visibility = System.Windows.Visibility.Visible;
-                    this.gridPlayer2.Visibility = System.Windows.Visibility.Visible;
+                    this.gridPlayer2.Visibility = System.Windows.Visibility.Collapsed;
                     this.otherPanel.Visibility = System.Windows.Visibility.Visible;
                     this.gridMacro.Visibility = System.Windows.Visibility.Collapsed;
                     break;
