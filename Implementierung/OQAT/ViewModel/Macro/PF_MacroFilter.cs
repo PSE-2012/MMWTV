@@ -247,6 +247,7 @@ namespace Oqat.ViewModel.Macro
             refHand.setReadContext(vidResult.vidPath, vidResult.vidInfo);
             }
             // reset after finished work
+            refHand.setReadContext(vidRef.vidPath, vidRef.vidInfo);
             resultFrame = null;
             currentPlugin = null;
             currentMemento = null;

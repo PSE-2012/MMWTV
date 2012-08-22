@@ -160,7 +160,7 @@
                 {
                     arrayVidResult[i] = new Video(true, getNewFileName(vidRef.vidPath, "analysed" + i), vidInfo, this.macroFilter.macroQueue.ToList<MacroEntry>());
                 }
-                this.macroMetric.init(vidRef, vidProc, arrayVidResult);
+                //this.macroMetric.init(vidRef, vidProc, arrayVidResult);
                 this.macroMetric.analyse(vidRef, vidProc, arrayVidResult);
                 macroMetricControl.macroTable.IsEnabled = true;
             }
