@@ -11,7 +11,7 @@ namespace PF_Greyscale
     using Oqat.PublicRessources.Model;
     using Oqat.PublicRessources.Plugin;
     using System.Drawing;
-   
+    using System.Threading;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -39,7 +39,7 @@ namespace PF_Greyscale
         public Greyscale()
         {
             propertiesView= new VM_Greyscale();
-            propertiesView.local(_namePlugin + "_default.xml");
+            propertiesView.local(_namePlugin + "_" + Thread.CurrentThread.CurrentCulture+".xml");
         
         }
         /// <summary>

@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using Oqat.PublicRessources.Plugin;
 using Oqat.PublicRessources.Model;
 using Oqat.ViewModel.Macro;
-
+using System.Threading;
 using System.Xml;
 using System.IO;
 
@@ -68,7 +68,7 @@ namespace Oqat.ViewModel
         public VM_Presentation()
         {
             InitializeComponent();
-            local("VM_Presentation_default.xml");
+            local("VM_Presentation_" + Thread.CurrentThread.CurrentCulture + ".xml");
             PluginManager.OqatToggleView += this.onToggleView;
             PluginManager.videoLoad += this.onVideoLoad;
 

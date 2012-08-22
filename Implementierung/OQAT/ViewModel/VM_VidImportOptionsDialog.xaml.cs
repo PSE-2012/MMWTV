@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Threading;
 using Oqat.Model;
 using Oqat.PublicRessources.Plugin;
 using WPF_ClosableTabItem;
@@ -87,7 +87,7 @@ namespace Oqat.ViewModel
         public VM_VidImportOptionsDialog(StringCollection vidPathList)
         {
             InitializeComponent();
-            local("VM_VidImportOptionsDialog_default.xml");
+            local("VM_VidImportOptionsDialog_" + Thread.CurrentThread.CurrentCulture + ".xml");
      //       this.vidHandlerViews = new List<UserControl>();
             this.vidHandlerViews = new Dictionary<ClosableTabItem, Video>();
             Video video;

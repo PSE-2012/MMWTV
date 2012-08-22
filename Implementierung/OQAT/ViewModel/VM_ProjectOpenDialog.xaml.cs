@@ -2,7 +2,7 @@
 {
 	using System;
     using System.Windows;
-
+    using System.Threading;
     using Oqat.Model;
     using Microsoft.Win32;
     using System.Runtime.InteropServices;
@@ -120,7 +120,7 @@
         {
             
             InitializeComponent();
-            local("VM_ProjectOpenDialog_default.xml");
+            local("VM_ProjectOpenDialog_" + Thread.CurrentThread.CurrentCulture + ".xml");
             title = "myOqatPrj";
             pathProject = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/" +title+ ".oqatPrj";
             description = "";

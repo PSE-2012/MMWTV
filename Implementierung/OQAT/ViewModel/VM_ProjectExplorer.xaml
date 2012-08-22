@@ -34,7 +34,7 @@
                                               ItemsSource="{Binding smartTree}">
                         <TextBlock Text="{Binding Path=name}">
                             <TextBlock.ContextMenu>
-                                <ContextMenu StaysOpen="true">
+                                <ContextMenu Name="cm" StaysOpen="true">
                                     <MenuItem Header="auswählen" x:Name="miLoadProc" Click="miLoadProc_Click"/>
                                     <MenuItem Header="als Referenz auswählen" x:Name="miLoadRef" Click="miLoadRef_Click"/>
                                     <MenuItem Header="Analyse anzeigen" x:Name="miLoadAna" Click="miLoadAna_Click" IsEnabled="{Binding Path=video.isAnalysis}"/>

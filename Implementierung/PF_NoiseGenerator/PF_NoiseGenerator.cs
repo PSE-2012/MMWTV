@@ -20,7 +20,7 @@ namespace PF_NoiseGenerator
     using System.ComponentModel.Composition;
     using AForge.Imaging.Filters;
     using AForge.Math.Random;
-
+    using System.Threading;
     using System.Windows.Controls;
     using System.Drawing.Imaging;
 
@@ -44,7 +44,7 @@ namespace PF_NoiseGenerator
         public NoiseGenerator()
         {
             propertiesView = new VM_NoiseGenerator();
-            localize(_namePlugin+"_default.xml");
+            localize(_namePlugin + "_" + Thread.CurrentThread.CurrentCulture + ".xml");
         
         }
 

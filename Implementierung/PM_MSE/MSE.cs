@@ -13,7 +13,7 @@ namespace PM_MSE
     using System.ComponentModel.Composition;
     using Oqat.PublicRessources.Model;
     using System.Windows.Controls;
-
+    using System.Threading;
     [ExportMetadata("namePlugin", "PM_MSE")]
     [ExportMetadata("type", PluginType.IMetricOqat)]
     [Export(typeof(IPlugin))]
@@ -145,7 +145,7 @@ namespace PM_MSE
 
         public MSE(){
             propertiesView = new VM_PM_MSE();
-            localize(_namePlugin + "_default.xml");
+            localize(_namePlugin + "_" + Thread.CurrentThread.CurrentCulture + ".xml");
            
         }
         public UserControl propertyView

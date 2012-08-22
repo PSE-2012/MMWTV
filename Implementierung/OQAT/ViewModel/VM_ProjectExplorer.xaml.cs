@@ -16,6 +16,7 @@
     using System.Windows.Media;
     using System.Collections.Specialized;
     using System.Xml;
+    using System.Threading;
 
     /// <summary>
     /// This class is mainly responsible to sync the SmartTree(GUI) with the SmartNodes (Model) and
@@ -32,9 +33,9 @@
                 XmlTextReader reader = new XmlTextReader(sFilename);
                 reader.Read();
                 reader.Read();
-                String[] t = new String[3];
-                String[] t2 = new String[3];
-                for (int i = 0; i < 3; i++)
+                String[] t = new String[6];
+                String[] t2 = new String[6];
+                for (int i = 0; i < 6; i++)
                 {
                     reader.Read();
                     reader.Read();
@@ -45,6 +46,7 @@
                 lb1.Content = t2[0];
                 lb2.Content = t2[1];
                 btnExport.Content = t2[2];
+                
 
 
             }
@@ -64,7 +66,7 @@
         public VM_ProjectExplorer(Project project)
         {
             InitializeComponent();
-            local("VM_ProjectExplorer_default.xml");
+            local("VM_ProjectExplorer_" + Thread.CurrentThread.CurrentCulture + ".xml");
             PluginManager.macroProcessingFinished += this.onMacroProcessingFinished;
 
             // projectExplorer
