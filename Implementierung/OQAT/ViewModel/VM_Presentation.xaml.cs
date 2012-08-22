@@ -305,5 +305,39 @@ namespace Oqat.ViewModel
             vm_macro.startProcess();
         }
 
+        private void gridPlayer_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent("SmartNode") || sender == e.Source)
+            {
+                e.Effects = DragDropEffects.None;
+            }
+            else
+            {
+                e.Effects = DragDropEffects.Link;
+            }
+        }
+
+        private void gridPlayer_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("SmartNode"))
+            {
+                Oqat.Model.Video vid = (e.Data.GetData("SmartNode") as Oqat.Model.SmartNode).video;
+                switch (((Grid)sender).Name)
+                {
+                    case "gridPlayer1":
+                        this.videoProc = (IVideo)vid;
+                        this.playerProc.setVideo(vid);
+                        break;
+                    case "gridPlayer2":
+                        this.videoRef = (IVideo)vid;
+                        this.playerRef.setVideo(vid);
+                        break;
+                    case "otherPanel":
+                        this.diagram.setVideo(vid);
+                        break;
+                }
+            }
+        }
+
     }
 }

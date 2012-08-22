@@ -74,18 +74,6 @@
             smartTreeExplorer.DataContext = project.smartTree;
         }
 
-
-        /// <summary>
-        /// If the user clicks a entry out of the SmartTree the <see cref="IVideoInfo"/> object contents (size, history..)
-        /// of the corresponding Video (smartNode) are displayed in the lower part of the smartTree.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void onVideoClick(object sender, VideoEventArgs e) 
-        {
-
-        }
-
         private void smartTreeExplorer_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)

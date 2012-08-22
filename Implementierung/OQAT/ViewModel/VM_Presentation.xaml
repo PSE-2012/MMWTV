@@ -17,10 +17,10 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0" x:Name="gridPlayer1" Margin="10"/>
-                <Grid Grid.Column="1" x:Name="gridPlayer2" Margin="10"/>
+                <Grid Grid.Column="0" x:Name="gridPlayer1" Margin="10" AllowDrop="True" DragEnter="gridPlayer_DragEnter" Drop="gridPlayer_Drop"/>
+            <Grid Grid.Column="1" x:Name="gridPlayer2" Margin="10" AllowDrop="True" DragEnter="gridPlayer_DragEnter" Drop="gridPlayer_Drop"/>
         </Grid>
-        <Grid Grid.Row="1" x:Name="otherPanel" Margin="10"/>
+        <Grid Grid.Row="1" x:Name="otherPanel" Margin="10" AllowDrop="True" DragEnter="gridPlayer_DragEnter" Drop="gridPlayer_Drop"/>
         
         <StackPanel Grid.Row="2" x:Name="gridMacro" Margin="10">
             <WrapPanel>
