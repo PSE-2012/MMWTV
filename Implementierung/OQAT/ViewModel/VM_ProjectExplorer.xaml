@@ -48,18 +48,18 @@
             <StackPanel.DataContext>
                 <Binding ElementName="smartTreeExplorer"  Path="SelectedItem"/>
             </StackPanel.DataContext>
-                <WrapPanel>
+                <WrapPanel Margin="5">
                     <Button Content="Analyse Exportieren"  Name="btnExport" Visibility="Hidden" Click="btnExport_Click" />
                 </WrapPanel>
-                <WrapPanel>
-                <Label Name="lb1" Content="Titel:"/>
-                <Label  Content="{Binding name}"/>
-            </WrapPanel>
-            <WrapPanel >
-                <Label Name="lb2" Content="Pfad:"/>
-                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding video.vidPath}" TextWrapping="Wrap"/>
-            </WrapPanel>
-                <Grid x:Name="readOnlyPropViewPanel" />
+                <WrapPanel Margin="5">
+                    <Label Name="lb1" Content="Titel:"/>
+                    <Label  Content="{Binding name}"/>
+                </WrapPanel>
+                <WrapPanel Margin="5">
+                    <Label Name="lb2" Content="Pfad:"/>
+                    <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding video.vidPath}" TextWrapping="Wrap"/>
+                </WrapPanel>
+                <Grid x:Name="readOnlyPropViewPanel" Margin="5"/>
             </StackPanel>
     </Grid>
     </Border>
