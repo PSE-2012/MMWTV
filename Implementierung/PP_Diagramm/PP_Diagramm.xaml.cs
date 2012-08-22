@@ -32,11 +32,17 @@ namespace PP_Diagramm
     [ExportMetadata("type", PluginType.IPresentation)]
     [Export(typeof(IPlugin))]
   
-    public partial class Diagramm :UserControl ,IPresentation   
+    public partial class Diagramm : UserControl ,IPresentation   
     {
-        private PresentationPluginType _presentationType=PresentationPluginType.Diagram;
+        private PresentationPluginType _presentationType = PresentationPluginType.Diagram;
         private string _namePlugin = "PP_Diagramm";
         private PluginType _type = PluginType.IPresentation;
+
+        private PlotModel MyPlotModel
+        {
+            get;
+            set;
+        }
 
         public object Clone()
         {
@@ -44,14 +50,8 @@ namespace PP_Diagramm
         }
 
 
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-
         public Diagramm()
         {
-           
-         
             InitializeComponent();
         }
 
@@ -138,43 +138,39 @@ namespace PP_Diagramm
 
         private void createDataSeries(float[][] series)
         {
-
-
             var plotModel1 = new PlotModel();
             plotModel1.LegendSymbolLength = 24;
-            plotModel1.Title = "";
+
             var linearAxis1 = new LinearAxis();
             linearAxis1.Position = AxisPosition.Bottom;
             plotModel1.Axes.Add(linearAxis1);
             var linearAxis2 = new LinearAxis();
             plotModel1.Axes.Add(linearAxis2);
 
+            StemSeries[] oxySeries = new StemSeries[series[0].Length];
+            for (int i = 0; i < oxySeries.Length; i++ )
+            {
+                oxySeries[i] = new StemSeries();
+                oxySeries[i].MarkerSize = 2;
+                //oxySeries[i].MarkerStroke = OxyColors.White;
+                //oxySeries[i].MarkerStrokeThickness = 1.5;
+                oxySeries[i].MarkerType = MarkerType.Circle;
+                oxySeries[i].StrokeThickness = 0.1;
+            }
 
             for (int j = 0; j < series.Length; j++)
-            {
-                float[] einDimArray = series[j];
-
-                var stemSeries1 = new StemSeries();
-                stemSeries1.MarkerSize = 4;
-                stemSeries1.MarkerStroke = OxyColors.White;
-                stemSeries1.MarkerStrokeThickness = 1.5;
-                stemSeries1.MarkerType = MarkerType.Circle;
-
-                for (int i = 0; i < series[j].Length; i++)
+            { //for each frame
+                for (int i = 0; i < oxySeries.Length; i++)
                 {
-                    stemSeries1.Points.Add(new DataPoint(i, series[j][i]));
+                    oxySeries[i].Points.Add(new DataPoint(j, series[j][i]));
                 }
-
-                plotModel1.Series.Add(stemSeries1);
             }
-           
-            
 
-
-            
-           
-            
-            plotModel.Model = plotModel1;
+            foreach(Series s in oxySeries)
+            {
+                plotModel1.Series.Add(s);
+            }
+            this.plotModel.Model = plotModel1;
         }
 
         /// <summary>
@@ -184,8 +180,6 @@ namespace PP_Diagramm
         {
             if (video.frameMetricValue != null)
             {
-                
-
                 createDataSeries(video.frameMetricValue);
             }
             else

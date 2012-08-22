@@ -181,7 +181,15 @@ namespace Oqat.ViewModel
         /// <param name="e"></param>
 		private void onVideoLoad(object sender, VideoEventArgs e)
 		{
-            if (e.isRefVid)
+            if (e.video.isAnalysis)
+            {
+                this.onToggleView(this, new ViewTypeEventArgs(ViewType.AnalyzeView));
+
+                this.videoProc = (IVideo)e.video;
+                this.playerProc.setVideo(videoProc);
+                this.diagram.setVideo(videoProc);
+            }
+            else if (e.isRefVid)
             {
                 this.onToggleView(this, new ViewTypeEventArgs(ViewType.MetricView));
 
@@ -192,11 +200,6 @@ namespace Oqat.ViewModel
             {
                 this.videoProc = (IVideo)e.video;
                 this.playerProc.setVideo(videoProc);
-            }
-
-            if (this.vtype == ViewType.AnalyzeView)
-            {
-                this.diagram.setVideo(e.video);
             }
 		}
 
@@ -227,7 +230,7 @@ namespace Oqat.ViewModel
                     break;
                 case ViewType.AnalyzeView:
                     this.gridPlayer1.Visibility = System.Windows.Visibility.Visible;
-                    this.gridPlayer2.Visibility = System.Windows.Visibility.Visible;
+                    this.gridPlayer2.Visibility = System.Windows.Visibility.Collapsed;
                     this.otherPanel.Visibility = System.Windows.Visibility.Visible;
                     this.gridMacro.Visibility = System.Windows.Visibility.Collapsed;
                     break;
@@ -303,6 +306,40 @@ namespace Oqat.ViewModel
             vm_macro.vidRef = (Oqat.Model.Video) this.videoProc;
 
             vm_macro.startProcess();
+        }
+
+        private void gridPlayer_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent("SmartNode") || sender == e.Source)
+            {
+                e.Effects = DragDropEffects.None;
+            }
+            else
+            {
+                e.Effects = DragDropEffects.Link;
+            }
+        }
+
+        private void gridPlayer_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("SmartNode"))
+            {
+                Oqat.Model.Video vid = (e.Data.GetData("SmartNode") as Oqat.Model.SmartNode).video;
+                switch (((Grid)sender).Name)
+                {
+                    case "gridPlayer1":
+                        this.videoProc = (IVideo)vid;
+                        this.playerProc.setVideo(vid);
+                        break;
+                    case "gridPlayer2":
+                        this.videoRef = (IVideo)vid;
+                        this.playerRef.setVideo(vid);
+                        break;
+                    case "otherPanel":
+                        this.diagram.setVideo(vid);
+                        break;
+                }
+            }
         }
 
     }
