@@ -39,9 +39,9 @@ namespace Oqat.ViewModel
                 XmlTextReader reader = new XmlTextReader(sFilename);
                 reader.Read();
                 reader.Read();
-                String[] t = new String[5];
-                String[] t2 = new String[5];
-                for (int i = 0; i < 5; i++)
+                String[] t = new String[8];
+                String[] t2 = new String[8];
+                for (int i = 0; i < 8; i++)
                 {
                     reader.Read();
                     reader.Read();
@@ -54,7 +54,9 @@ namespace Oqat.ViewModel
                 miInfo.Header= t2[2];
                 tabFilter.Header = t2[3];
                 tabMetric.Header= t2[4];
-
+                miVidImport.Header = t2[5];
+                miNewProject.Header = t2[6];
+                miOpenProject.Header = t2[7];
                 //TODO: Header miVidImport
                 //TODO: Header miNewProject
                 //TODO: Header miOpenProject
