@@ -169,7 +169,12 @@ namespace Oqat.ViewModel.Macro
             vidRes[nextMetric].frameMetricValue = new float[totalFrames][];
             refHand.positionReader = 0;
             procHand.positionReader = 0;
-            metric.setMemento(memento);
+            if (currentPlugin.propertyView != null)
+            {
+                currPluginRef = metric;
+                currMemRef = memento;
+                setProcessingMementoHelper();
+            }
 
             //analyse video
             while (i < totalFrames)

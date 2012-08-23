@@ -19,6 +19,7 @@ namespace Oqat.ViewModel.Macro
     using System.Drawing;
     using System.Threading;
     using System.Diagnostics;
+    using System.Windows.Forms;
 
     [ExportMetadata("namePlugin", "PF_MacroFilter")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
@@ -153,7 +154,13 @@ namespace Oqat.ViewModel.Macro
         {
                 if ((currentMacroEntry.startFrameRelative / 100) * totalFrames <= i && i <= (currentMacroEntry.endFrameRelative / 100) * totalFrames)
                 {
-                    currentPlugin.setMemento(memento);
+                    if (currentPlugin.propertyView != null)
+                    {
+                        currPluginRef = currentPlugin;
+                        currMemRef = memento;
+                        setProcessingMementoHelper();
+                    }
+
                     System.Drawing.Bitmap tempmap = currentPlugin.process(resultFrame);
                     resultFrame = tempmap;
                 }

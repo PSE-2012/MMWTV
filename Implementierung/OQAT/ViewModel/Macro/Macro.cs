@@ -54,6 +54,17 @@ namespace Oqat.ViewModel.Macro
             }
         }
 
+        protected IPlugin currPluginRef;
+        protected Memento currMemRef;
+        protected void setProcessingMementoHelper()
+        {
+            if (!currPluginRef.propertyView.Dispatcher.CheckAccess())
+            {
+                currPluginRef.propertyView.Dispatcher.Invoke(new System.Windows.Forms.MethodInvoker(setProcessingMementoHelper));
+                return;
+            }
+            currPluginRef.setMemento(currMemRef);
+        }
 
         /// <summary>
         /// Get a Macro Memento
