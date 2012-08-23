@@ -28,13 +28,13 @@
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type local:SmartNode}"
                                               ItemsSource="{Binding smartTree}">
-                        <TextBlock Text="{Binding Path=name}">
+                        <TextBlock  Text="{Binding Path=name}">
                             <TextBlock.ContextMenu>
-                                <ContextMenu Name="cm" StaysOpen="true">
-                                    <MenuItem Header="auswählen" x:Name="miLoadProc" Click="miLoadProc_Click"/>
-                                    <MenuItem Header="als Referenz auswählen" x:Name="miLoadRef" Click="miLoadRef_Click"/>
-                                    <MenuItem Header="Analyse anzeigen" x:Name="miLoadAna" Click="miLoadAna_Click" IsEnabled="{Binding Path=video.isAnalysis}"/>
-                                    <MenuItem Header="Analyse exportieren" x:Name="miExpAna" Click="btnExport_Click" IsEnabled="{Binding Path=video.isAnalysis}"/>
+                                <ContextMenu  Name="cm" StaysOpen="true">
+                                    <MenuItem  Header="{DynamicResource proc}" x:Name="miLoadProc" Click="miLoadProc_Click"/>
+                                    <MenuItem Header="{DynamicResource ref}" x:Name="miLoadRef" Click="miLoadRef_Click"/>
+                                    <MenuItem Header="{DynamicResource ana}" x:Name="miLoadAna" Click="miLoadAna_Click" IsEnabled="{Binding Path=video.isAnalysis}"/>
+                                    <MenuItem Header="{DynamicResource exp}" x:Name="miExpAna" Click="btnExport_Click" IsEnabled="{Binding Path=video.isAnalysis}"/>
                                 </ContextMenu>
                             </TextBlock.ContextMenu>
                         </TextBlock>

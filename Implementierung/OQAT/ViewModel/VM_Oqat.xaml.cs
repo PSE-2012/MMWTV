@@ -57,9 +57,7 @@ namespace Oqat.ViewModel
                 miVidImport.Header = t2[5];
                 miNewProject.Header = t2[6];
                 miOpenProject.Header = t2[7];
-                //TODO: Header miVidImport
-                //TODO: Header miNewProject
-                //TODO: Header miOpenProject
+              
 
             }
             catch (IndexOutOfRangeException e) { }
