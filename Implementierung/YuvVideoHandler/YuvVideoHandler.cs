@@ -17,6 +17,7 @@ namespace PS_YuvVideoHandler
     using System.Threading;
     using System.Collections;
     using System.ComponentModel;
+using System.Collections.Generic;
 
     [ExportMetadata("namePlugin", "yuvVideoHandler")]
     [ExportMetadata("type", PluginType.IVideoHandler)]
@@ -693,7 +694,7 @@ namespace PS_YuvVideoHandler
 
             if (readerBuffPos < readVidInfo.frameCount)
             {
-                if (((readerBuffPos - positionReader) < (NUMFRAMESINMEM / 2)) || !(readQueue.Count > 0))
+                if (((readerBuffPos - positionReader) < (NUMFRAMESINMEM/4)) || !(readQueue.Count > 0))
                 {
                     readerWaitEvent.Set();
                     if ((readerThread.ThreadState != System.Threading.ThreadState.Running) &&
@@ -730,7 +731,7 @@ namespace PS_YuvVideoHandler
             return (readQueue.Count > 0)?(Bitmap)readQueue.Dequeue():null;
         }
 
-
+       
         private void fillBuffer()
         {
 
@@ -765,58 +766,83 @@ namespace PS_YuvVideoHandler
                 int quartSize = readVidInfo.width * readVidInfo.height / 4;
 
                 int i = 0;
+                extractBitmapContext[] ctxArray = new extractBitmapContext[count];
                 while ((i < count) && !(readerBuffPos > readVidInfo.frameCount) && !stopReaderThread)
                 {
 
-                    Bitmap _currFrame = new Bitmap(readVidInfo.width, readVidInfo.height);
-                    BitmapData currFrameData = _currFrame.LockBits(new Rectangle(0, 0, _currFrame.Width, _currFrame.Height),
-                                ImageLockMode.ReadOnly, _currFrame.PixelFormat);
 
-                    try
-                    {
+                    #region trySomething
+                //    Bitmap _currFrame = new Bitmap(readVidInfo.width, readVidInfo.height);
+                //    BitmapData currFrameData = _currFrame.LockBits(new Rectangle(0, 0, _currFrame.Width, _currFrame.Height),
+                //                ImageLockMode.ReadOnly, _currFrame.PixelFormat);
 
-                        int frameOffset = i * frameByteSize + pixelNum;
-                        int pBmpBuffer = (System.Int32)currFrameData.Scan0;
+                //    try
+                //    {
 
-                        for (int y = 0; (y < _currFrame.Height) && !stopReaderThread; y++)
-                        {
-                            int uvCoef = (_currFrame.Width / 2) * (y / 2);
-                            int fastUvCoef = uvCoef + frameOffset;
-                            int offCord = y * _currFrame.Width;
+                //        int frameOffset = i * frameByteSize + pixelNum;
+                //        int pBmpBuffer = (System.Int32)currFrameData.Scan0;
 
-                            for (int x = 0; x < _currFrame.Width; x++)
-                            {
-                                int halfX = x / 2;
-                                int rgb = convertToRGB(
-                                 rawData[offCord + x + fastUvCoef - pixelNum - uvCoef],
-                                 rawData[fastUvCoef + halfX],
-                                 rawData[quartSize + fastUvCoef + halfX]);
+                //        for (int y = 0; (y < _currFrame.Height) && !stopReaderThread; y++)
+                //        {
+                //            int uvCoef = (_currFrame.Width / 2) * (y / 2);
+                //            int fastUvCoef = uvCoef + frameOffset;
+                //            int offCord = y * _currFrame.Width;
 
-                                unsafe
-                                {
-                                    *((System.Int32*)pBmpBuffer) = rgb;
-                                }
-                                pBmpBuffer += 4;
+                //            for (int x = 0; x < _currFrame.Width; x++)
+                //            {
+                //                int halfX = x / 2;
+                //                int rgb = convertToRGB(
+                //                 rawData[offCord + x + fastUvCoef - pixelNum - uvCoef],
+                //                 rawData[fastUvCoef + halfX],
+                //                 rawData[quartSize + fastUvCoef + halfX]);
 
-                            }
-                        }
-                    }
-                    finally
-                    {
-                        _currFrame.UnlockBits(currFrameData);
-                    }
-                    readQueue.Enqueue(_currFrame);
-                    getFrameWaitEvent.Set();
-                    readerBuffPos++;
+                //                unsafe
+                //                {
+                //                    *((System.Int32*)pBmpBuffer) = rgb;
+                //                }
+                //                pBmpBuffer += 4;
 
+                //            }
+                //        }
+                //    }
+                //    finally
+                //    {
+                //        _currFrame.UnlockBits(currFrameData);
+                //    }
+                //    readQueue.Enqueue(_currFrame);
+                //    getFrameWaitEvent.Set();
+                //    readerBuffPos++;
+
+                //    i++;
+                //    if (!buffer)
+                //    {
+                //        waitReaderStopEvent.Set();
+                //        getFrameWaitEvent.Set();
+                //        return;
+                //    }
+
+                    int frameOffset = i * frameByteSize + pixelNum;
+                    ctxArray[i] = new extractBitmapContext(i, rawData, frameOffset, quartSize, pixelNum);
+                    ctxArray[i].doneEvent.Reset();
+                    ThreadPool.QueueUserWorkItem(extractBmp, ctxArray[i]);
                     i++;
                     if (!buffer)
                     {
                         waitReaderStopEvent.Set();
-                        getFrameWaitEvent.Set();
-                        return;
+                        break;
                     }
+                }
+                    #endregion
 
+                foreach (var entry in ctxArray)
+                {
+                    if (entry != null)
+                    {
+                        entry.doneEvent.WaitOne();
+                        readQueue.Enqueue(entry._currFrame);
+                        getFrameWaitEvent.Set();
+                        readerBuffPos++;
+                    }
                 }
 
                 readerWaitEvent.WaitOne();
@@ -833,6 +859,50 @@ namespace PS_YuvVideoHandler
         //    (new Thread(new ThreadStart(flushReader))).Start();
 
             getFrameWaitEvent.Set();
+        }
+
+        private void extractBmp(object extractContext)
+        {
+            extractBitmapContext ctx = (extractBitmapContext)extractContext;
+            
+            ctx._currFrame = new Bitmap(readVidInfo.width, readVidInfo.height);
+            BitmapData currFrameData = ctx._currFrame.LockBits(new Rectangle(0, 0, ctx._currFrame.Width, ctx._currFrame.Height),
+                        ImageLockMode.ReadOnly, ctx._currFrame.PixelFormat);
+
+            try
+            {
+               
+                int pBmpBuffer = (System.Int32)currFrameData.Scan0;
+
+                for (int y = 0; (y < ctx._currFrame.Height) && !stopReaderThread; y++)
+                {
+                    int uvCoef = (ctx._currFrame.Width / 2) * (y / 2);
+                    int fastUvCoef = uvCoef + ctx.frameOffset;
+                    int offCord = y * ctx._currFrame.Width;
+
+                    for (int x = 0; x < ctx._currFrame.Width; x++)
+                    {
+                        int halfX = x / 2;
+                        int rgb = convertToRGB(
+                         ctx.data[offCord + x + fastUvCoef - ctx.pixelNum - uvCoef],
+                         ctx.data[fastUvCoef + halfX],
+                         ctx.data[ctx.quartSize + fastUvCoef + halfX]);
+
+                        unsafe
+                        {
+                            *((System.Int32*)pBmpBuffer) = rgb;
+                        }
+                        pBmpBuffer += 4;
+
+                    }
+                }
+            }
+            finally
+            {
+                ctx._currFrame.UnlockBits(currFrameData);
+                ctx.doneEvent.Set();
+            }
+            
         }
 
 
@@ -1115,6 +1185,26 @@ namespace PS_YuvVideoHandler
     }
 
 
+    internal class extractBitmapContext
+    {
+        internal int position;
+        internal int quartSize;
+        internal int frameOffset;
+        internal Bitmap _currFrame;
+        internal byte[] data;
+        internal int pixelNum;
+        internal ManualResetEvent doneEvent;
+        public extractBitmapContext(int position, byte[] data, int frameOffset, int quartSize, int pixelNum)
+        {
+            this.position = position;
+            this.data = data;
+            this.frameOffset = frameOffset;
+            this.quartSize = quartSize;
+            this.pixelNum = pixelNum;
+            this.doneEvent = new ManualResetEvent(true);
+            
+        }
+    }
     
 
 
