@@ -135,7 +135,7 @@ namespace Oqat.ViewModel.Macro
             {
                 // Define current entry of macroQueue
                 MacroEntryMetric macroEntryMetric = (MacroEntryMetric)macroQueue[nextMetric];
-                currentPlugin = (IMetricOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)macroEntryMetric.mementoName);
+                currentPlugin = (IMetricOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)macroEntryMetric.pluginName);
                 currentMemento = PluginManager.pluginManager.getMemento((String)macroEntryMetric.pluginName, (String)macroEntryMetric.mementoName);
                 //check if macro
                 if (currentPlugin is IMacro)
@@ -228,7 +228,7 @@ namespace Oqat.ViewModel.Macro
         //        refHand.setWriteContext(vidRes[m].vidPath, vidRef.vidInfo);
         //        // Define current entry of macroQueue
         //        MacroEntryMetric macroEntryMetric = (MacroEntryMetric)macroQueue[m];
-        //        currentPlugin = (IMetricOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)macroEntryMetric.mementoName);
+        //        currentPlugin = (IMetricOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)macroEntryMetric.pluginName);
         //        currentMemento = PluginManager.pluginManager.getMemento((String)macroEntryMetric.pluginName, (String)macroEntryMetric.mementoName);
         //        vidRes[m].frameMetricValue = new float[totalFrames][];
         //        refHand.positionReader = 0;
