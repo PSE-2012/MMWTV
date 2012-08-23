@@ -329,6 +329,9 @@ namespace Oqat.ViewModel
             {
                 e.Effects = DragDropEffects.Link;
             }
+
+            System.Windows.Media.BrushConverter bc = new System.Windows.Media.BrushConverter();
+            ((Grid)sender).Background = (System.Windows.Media.Brush)bc.ConvertFrom("#cccccc");
         }
 
         private void gridPlayer_Drop(object sender, DragEventArgs e)
@@ -351,6 +354,12 @@ namespace Oqat.ViewModel
                         break;
                 }
             }
+        }
+
+        private void gridPlayer_DragLeave(object sender, DragEventArgs e)
+        {
+            System.Windows.Media.BrushConverter bc = new System.Windows.Media.BrushConverter();
+            ((Grid)sender).Background = (System.Windows.Media.Brush)bc.ConvertFrom("#eeeeee");
         }
 
     }

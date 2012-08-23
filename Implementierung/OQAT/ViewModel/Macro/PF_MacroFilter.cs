@@ -117,7 +117,6 @@ namespace Oqat.ViewModel.Macro
         private MacroEntryFilter currentMacroEntry;
         private bool isMacro;
         private double progress;
-        private Progressbar progressbar;
 
         /// <summary>
         /// Method to split macro in it's Macroentrys
@@ -180,31 +179,6 @@ namespace Oqat.ViewModel.Macro
             i = 0;
         }
 
-        private void ProgressBarThread()
-        {
-            progressbar = new Progressbar();
-            progressbar.progressBar1.Value = 0;
-            progressbar.percent.Text = 0.ToString() + "%";
-            progressbar.Show();
-            double displayedProgress = 0;
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            int wait = 500;
-            while (i < totalFrames)
-            {
-                if (stopwatch.ElapsedMilliseconds >= wait)
-                {
-                    if (progress != displayedProgress)
-                    {
-                        progressbar.progressBar1.Value = progress;
-                        progressbar.percent.Text = progress.ToString() + "%";
-                        displayedProgress = progress;
-                    }
-                }
-                stopwatch.Reset();
-            }
-            progressbar.Close();
-        }
-
         /// <summary>
         /// Assign frames to macroEncode/mementoProcess and write the result to disk
         /// </summary>
@@ -212,9 +186,10 @@ namespace Oqat.ViewModel.Macro
         /// <param name="vidResult">new video after process</param>
         public void process(Video vidRef, int idRef, Video vidResult)
         {
-            Thread thread = new Thread(new ThreadStart(ProgressBarThread));
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
+            MacroFilterControl mfc = (MacroFilterControl)macroControl;
+            //Thread thread = new Thread(new ThreadStart(ProgressBarThread));
+            //thread.SetApartmentState(ApartmentState.STA);
+            //thread.Start();
                 // set reader to begin of the yuv
                 refHand.positionReader = 0;
                 while (i < totalFrames)
@@ -245,16 +220,18 @@ namespace Oqat.ViewModel.Macro
                     refHand.writeFrames(i, tmp);
                     i++;
                     progress += (1 / totalFrames) * 100;
+                    mfc.progressBar.Value = progress;
+                    mfc.percent.Text = progress.ToString() + "%";
             }
-            // reset after finished work
+           // reset after finished work
+             //   mfc.progressBar.Value = 0;
+             //   mfc.percent.Text = "";
             i = 0;
             isMacro = false;
             resultFrame = null;
             currentPlugin = null;
             currentMemento = null;
             refHand = null;
-            thread.Abort();
-            progressbar = null;
             // add to ProjectExplorer
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult, idRef));
         }

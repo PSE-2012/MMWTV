@@ -33,9 +33,9 @@
                 XmlTextReader reader = new XmlTextReader(sFilename);
                 reader.Read();
                 reader.Read();
-                String[] t = new String[6];
-                String[] t2 = new String[6];
-                for (int i = 0; i < 6; i++)
+                String[] t = new String[7];
+                String[] t2 = new String[7];
+                for (int i = 0; i < 7; i++)
                 {
                     reader.Read();
                     reader.Read();
@@ -46,8 +46,12 @@
                 lb1.Content = t2[0];
                 lb2.Content = t2[1];
                 btnExport.Content = t2[2];
+                this.Resources["proc"] = t2[3];
+                this.Resources["ref"] = t2[4];
+                this.Resources["ana"] = t2[5];
+                this.Resources["exp"] = t2[6];
 
-                //TODO: miExpAna localisation
+              
             }
             catch (IndexOutOfRangeException e) { }
             catch (FileNotFoundException e) { }
@@ -65,12 +69,17 @@
         public VM_ProjectExplorer(Project project)
         {
             InitializeComponent();
+            this.Resources["proc"] = "Video auswählen";
+            this.Resources["ref"] = "als Referenz auswählen";
+            this.Resources["ana"] = "Analyse anzeigen";
+            this.Resources["exp"] = "Analyse exportieren";
             local("VM_ProjectExplorer_" + Thread.CurrentThread.CurrentCulture + ".xml");
             PluginManager.macroProcessingFinished += this.onMacroProcessingFinished;
 
             // projectExplorer
             this.project = project;
             smartTreeExplorer.DataContext = project.smartTree;
+
         }
 
         private void smartTreeExplorer_KeyDown(object sender, KeyEventArgs e)
