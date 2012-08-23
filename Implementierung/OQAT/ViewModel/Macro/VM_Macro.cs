@@ -202,34 +202,41 @@ using System.Windows.Forms;
         private void enableMetricControl() {
                  if (!macroMetricControl.Dispatcher.CheckAccess())
                  {
-                     macroMetricControl.macroTable.Dispatcher.Invoke(new MethodInvoker(enableMetricControl));
+                     macroMetricControl.Dispatcher.Invoke(new MethodInvoker(enableMetricControl));
                      return;
                  }
                  macroMetricControl.macroTable.IsEnabled = true;
+                 macroMetricControl.ScrollViewer1.IsEnabled = true;
+          
         }
         private void disableMetricControl() {
-                 if (!macroMetricControl.macroTable.Dispatcher.CheckAccess())
+                 if (!macroMetricControl.Dispatcher.CheckAccess())
                  {
-                     macroMetricControl.macroTable.Dispatcher.Invoke(new MethodInvoker(disableMetricControl));
+                     macroMetricControl.Dispatcher.Invoke(new MethodInvoker(disableMetricControl));
                      return;
                  }
                  macroMetricControl.macroTable.IsEnabled = false;
+                 macroMetricControl.ScrollViewer1.IsEnabled = false;
         }
         private void enableFilterControl() {
-                if (!macroFilterControl.macroTable.Dispatcher.CheckAccess())
+                if (!macroFilterControl.Dispatcher.CheckAccess())
                  {
-                     macroFilterControl.macroTable.Dispatcher.Invoke(new MethodInvoker(enableFilterControl));
+                     macroFilterControl.Dispatcher.Invoke(new MethodInvoker(enableFilterControl));
                      return;
                  }
                 macroFilterControl.macroTable.IsEnabled = true;
+                macroFilterControl.ScrollViewer1.IsEnabled = true;
+                macroFilterControl.ScrollViewer2.IsEnabled = true;
         }
         private void disableFilterControl() {
-            if (!macroFilterControl.macroTable.Dispatcher.CheckAccess())
+            if (!macroFilterControl.Dispatcher.CheckAccess())
                  {
-                     macroFilterControl.macroTable.Dispatcher.Invoke(new MethodInvoker(disableFilterControl));
+                     macroFilterControl.Dispatcher.Invoke(new MethodInvoker(disableFilterControl));
                      return;
                  }
             macroFilterControl.macroTable.IsEnabled = false;
+            macroFilterControl.ScrollViewer1.IsEnabled = false;
+            macroFilterControl.ScrollViewer2.IsEnabled = false;
         }
 
 #endregion
