@@ -201,35 +201,35 @@ using System.Windows.Forms;
 #region callDispatcherHelper 
         private void enableMetricControl() {
                  if (!macroMetricControl.Dispatcher.CheckAccess())
-                 {   
-                     macroMetricControl.Dispatcher.Invoke(new MethodInvoker(enableMetricControl));
+                 {
+                     macroMetricControl.macroTable.Dispatcher.Invoke(new MethodInvoker(enableMetricControl));
                      return;
                  }
-            macroMetricControl.IsEnabled = true;
+                 macroMetricControl.macroTable.IsEnabled = true;
         }
         private void disableMetricControl() {
-                 if (!macroMetricControl.Dispatcher.CheckAccess())
-                 {   
-                     macroMetricControl.Dispatcher.Invoke(new MethodInvoker(disableMetricControl));
+                 if (!macroMetricControl.macroTable.Dispatcher.CheckAccess())
+                 {
+                     macroMetricControl.macroTable.Dispatcher.Invoke(new MethodInvoker(disableMetricControl));
                      return;
                  }
-            macroMetricControl.IsEnabled=false;
+                 macroMetricControl.macroTable.IsEnabled = false;
         }
         private void enableFilterControl() {
-                if (!macroFilterControl.Dispatcher.CheckAccess())
-                 {   
-                     macroFilterControl.Dispatcher.Invoke(new MethodInvoker(enableFilterControl));
+                if (!macroFilterControl.macroTable.Dispatcher.CheckAccess())
+                 {
+                     macroFilterControl.macroTable.Dispatcher.Invoke(new MethodInvoker(enableFilterControl));
                      return;
                  }
-            macroFilterControl.IsEnabled=true;
+                macroFilterControl.macroTable.IsEnabled = true;
         }
         private void disableFilterControl() {
-                if (!macroFilterControl.Dispatcher.CheckAccess())
-                 {   
-                     macroFilterControl.Dispatcher.Invoke(new MethodInvoker(disableFilterControl));
+            if (!macroFilterControl.macroTable.Dispatcher.CheckAccess())
+                 {
+                     macroFilterControl.macroTable.Dispatcher.Invoke(new MethodInvoker(disableFilterControl));
                      return;
                  }
-            macroFilterControl.IsEnabled=false;
+            macroFilterControl.macroTable.IsEnabled = false;
         }
 
 #endregion

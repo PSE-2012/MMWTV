@@ -20,6 +20,7 @@ namespace Oqat.ViewModel.Macro
     using System.Threading;
     using System.Diagnostics;
     using System.Windows.Forms;
+    using System.Windows.Threading;
 
     [ExportMetadata("namePlugin", "PF_MacroFilter")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
@@ -219,10 +220,14 @@ namespace Oqat.ViewModel.Macro
                     tmp[0] = resultFrame;
                     refHand.writeFrames(i, tmp);
                     i++;
-                    progress += (1 / totalFrames) * 100;
-                    mfc.progressBar.Value = progress;
-                    mfc.percent.Text = progress.ToString() + "%";
+
+                    progress += (1.0 / totalFrames) * 100;
+                    
+                    updateProgressBar();
+                    //mfc.progressBar.Value = progress;
+                    //mfc.percent.Text = progress.ToString() + "%";
             }
+
            // reset after finished work
              //   mfc.progressBar.Value = 0;
              //   mfc.percent.Text = "";
@@ -234,6 +239,29 @@ namespace Oqat.ViewModel.Macro
             refHand = null;
             // add to ProjectExplorer
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult, idRef));
+        }
+
+        private void updateProgressBar()
+        {
+          
+
+                if (!((MacroFilterControl)macroControl).Dispatcher.CheckAccess())
+                {
+                    ((MacroFilterControl)macroControl).Dispatcher.Invoke(
+                        new System.Windows.Forms.MethodInvoker(updateProgressBar));
+                    return;
+                }
+                //else if (!((MacroFilterControl)macroControl).progressBar.IsEnabled) {
+                //    ((MacroFilterControl)macroControl).progressBar.IsEnabled = true;
+                //    ((MacroFilterControl)macroControl).percent.IsEnabled = true;
+                //}
+
+                if (Math.Abs(((MacroFilterControl)macroControl).progressBar.Value - progress) > 1)
+                {
+                    ((MacroFilterControl)macroControl).progressBar.Value = (int)progress;
+                    ((MacroFilterControl)macroControl).percent.Text = ((int)progress).ToString() + "%";
+                }
+
         }
 
         public System.Drawing.Bitmap process(System.Drawing.Bitmap frame) 
