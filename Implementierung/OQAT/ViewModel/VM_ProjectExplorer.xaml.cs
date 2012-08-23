@@ -182,7 +182,7 @@
 
             SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad, 
-                new VideoEventArgs(selNode.video));
+                new VideoEventArgs(selNode.video, selNode.id));
         }
         private void miLoadRef_Click(object sender, RoutedEventArgs e)
         {
@@ -192,7 +192,7 @@
 
             SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
-                new VideoEventArgs(selNode.video, true));
+                new VideoEventArgs(selNode.video,selNode.id, true));
         }
         private void miLoadProc_Click(object sender, RoutedEventArgs e)
         {
@@ -202,14 +202,14 @@
 
             SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
-                new VideoEventArgs(selNode.video, false));
+                new VideoEventArgs(selNode.video,selNode.id,  false));
         }
 
 
         private void onMacroProcessingFinished(object sender, VideoEventArgs e)
         {
             //TODO: find correct parentid
-            project.addNode(e.video, -1);
+            project.addNode(e.video, e.id);
         }
 
         private void treeitem_MouseDoubleClicked(object sender, RoutedEventArgs e)
@@ -218,7 +218,7 @@
             {
                 SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
                 PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
-                    new VideoEventArgs(selNode.video));
+                    new VideoEventArgs(selNode.video, selNode.id));
                 if (selNode.video.isAnalysis == true)
                 {
                     btnExport.Visibility = Visibility.Visible;

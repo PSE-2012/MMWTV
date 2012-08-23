@@ -118,7 +118,7 @@ namespace Oqat.ViewModel.Macro
         /// <param name="vidProc">second video</param>
         /// <param name="vidResult">video results</param> 
 
-        public void analyse(Video vidRef, Video vidProc, Video[] vidResult)
+        public void analyse(Video vidRef, Video vidProc, int idProc, Video[] vidResult)
         {
             //init Data
             refHand = vidRef.handler;
@@ -145,7 +145,7 @@ namespace Oqat.ViewModel.Macro
                 else
                 {
                     
-                    videoAnalyse(currentPlugin, currentMemento, vidRef.vidInfo);
+                    videoAnalyse(currentPlugin, currentMemento, vidRef.vidInfo, idProc);
                 }
                 nextMetric++;
             }
@@ -161,7 +161,7 @@ namespace Oqat.ViewModel.Macro
             //onThreadAbort(this, new EventArgs());
         }
 
-        private void videoAnalyse(IMetricOqat metric, Memento memento, IVideoInfo vidInfo)
+        private void videoAnalyse(IMetricOqat metric, Memento memento, IVideoInfo vidInfo, int idProc)
         {
             //init first frame, 
             int i = 0;
@@ -189,7 +189,7 @@ namespace Oqat.ViewModel.Macro
             //tell PluginManager work is done
             //TODO macroAnalysedFinished (one video)
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished,
-                    new VideoEventArgs(vidRes[nextMetric]));
+                    new VideoEventArgs(vidRes[nextMetric], idProc));
         }
         //TODO macro aufsplitten
         private void macroEncode(Memento MacroMemento)

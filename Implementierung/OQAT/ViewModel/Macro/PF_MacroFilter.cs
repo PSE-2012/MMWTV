@@ -203,7 +203,7 @@ namespace Oqat.ViewModel.Macro
         /// </summary>
         /// <param name="vidRef">video to process</param>
         /// <param name="vidResult">new video after process</param>
-        public void process(Video vidRef, Video vidResult)
+        public void process(Video vidRef, int idRef, Video vidResult)
         {
             Thread thread = new Thread(new ThreadStart(ProgressBarThread));
             thread.SetApartmentState(ApartmentState.STA);
@@ -249,7 +249,7 @@ namespace Oqat.ViewModel.Macro
             thread.Abort();
             progressbar = null;
             // add to ProjectExplorer
-            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult));
+            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult, idRef));
         }
 
         public System.Drawing.Bitmap process(System.Drawing.Bitmap frame) 

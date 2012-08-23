@@ -18,7 +18,7 @@
         /// The property isRefVideo defaults to false.
         /// </summary>
         /// <param name="video">the video object for these eventArgs</param>
-        public VideoEventArgs(IVideo video) : this(video, false)
+        public VideoEventArgs(IVideo video, int id) : this(video, id, false)
         {
         }
         /// <summary>
@@ -26,10 +26,12 @@
         /// </summary>
         /// <param name="video">the video object for these eventArgs</param>
         /// <param name="isRef">status wether this video is passed as a reference video</param>
-        public VideoEventArgs(IVideo video, bool isRef)
+        /// <param name="id">A unique id to identify the given Video within a SmartTree.</param>
+        public VideoEventArgs(IVideo video, int id, bool isRef)
         {
             this._video = video;
             this._isRefVid = isRef;
+            this.id = id;
         }
 
 
@@ -59,6 +61,8 @@
                 _isRefVid = value;
             }
 		}
+
+        public int id;
 	}
 }
 

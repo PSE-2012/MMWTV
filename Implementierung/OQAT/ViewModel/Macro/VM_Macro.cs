@@ -45,6 +45,7 @@
             get;
             set;
         }
+        public int idRef;
 
         /// <summary>
         /// Currently selected processed video.
@@ -54,6 +55,7 @@
             get;
             set;
         }
+        public int idProc;
 
         /// <summary>
         /// This is were the results of filter process are placed in.
@@ -161,7 +163,7 @@
                     arrayVidResult[i] = new Video(true, getNewFileName(vidRef.vidPath, "analysed" + i), vidInfo, this.macroFilter.macroQueue.ToList<MacroEntry>());
                 }
                 //this.macroMetric.init(vidRef, vidProc, arrayVidResult);
-                this.macroMetric.analyse(vidRef, vidProc, arrayVidResult);
+                this.macroMetric.analyse(vidRef, vidProc,this.idProc, arrayVidResult);
                 macroMetricControl.macroTable.IsEnabled = true;
             }
             if (this.viewType == ViewType.FilterView)
@@ -171,7 +173,7 @@
                 IVideoInfo vidInfo =(IVideoInfo) vidRef.vidInfo.Clone();
                 vidResult = new Video(false, getNewFileName(vidRef.vidPath, "filtered"), vidInfo, this.macroFilter.macroQueue.ToList<MacroEntry>());
                 this.macroFilter.init(vidRef, vidResult);
-                this.macroFilter.process(vidRef, vidResult);
+                this.macroFilter.process(vidRef,this.idRef, vidResult);
                 macroFilterControl.macroTable.IsEnabled = true;
                 macroFilterControl.rangeSliders.IsEnabled = true;
             }

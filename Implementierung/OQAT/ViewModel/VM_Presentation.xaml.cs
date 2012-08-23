@@ -26,10 +26,15 @@ namespace Oqat.ViewModel
         ViewType vtype;
 
         IVideo videoProc;
+        int idProc;
         IVideo videoRef;
+        int idRef;
 
         String msgBox1= "Bitte wählen Sie zunächst Videos.";
         String msgBox2 = "Macro Ausführung nicht möglich";
+
+
+        #region eyeCancer
         /// <summary>
         /// method to read local xml file and put the language in the vm.
         /// </summary>
@@ -61,6 +66,7 @@ namespace Oqat.ViewModel
             catch (FileNotFoundException e) { }
             catch (XmlException e) { }
         }
+        #endregion
 
         /// <summary>
         /// constructor
@@ -194,11 +200,13 @@ namespace Oqat.ViewModel
                 this.onToggleView(this, new ViewTypeEventArgs(ViewType.MetricView));
 
                 this.videoRef =(IVideo) e.video;
+                this.idRef = e.id;
                 this.playerRef.setVideo(videoRef);
             }
             else
             {
                 this.videoProc = (IVideo)e.video;
+                this.idProc = e.id;
                 this.playerProc.setVideo(videoProc);
             }
 		}
@@ -303,7 +311,10 @@ namespace Oqat.ViewModel
             
             //TODO: seems like the naming proc vs. ref was understood the other way round in macro
             vm_macro.vidProc = (Oqat.Model.Video) this.videoRef;
+            vm_macro.idProc = this.idRef;
+
             vm_macro.vidRef = (Oqat.Model.Video) this.videoProc;
+            vm_macro.idRef = this.idProc;
 
             vm_macro.startProcess();
         }
