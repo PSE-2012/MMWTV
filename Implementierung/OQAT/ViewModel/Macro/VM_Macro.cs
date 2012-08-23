@@ -12,6 +12,8 @@
     using System.Windows.Controls;
     using System.Windows.Data;
     using AC.AvalonControlsLibrary.Controls;
+    using System.Threading;
+using System.Windows.Forms;
 
     /// <summary>
     /// This components provides the user a way to coordinate choosen filters or metrics (from the <see cref="PluginLists"/>)
@@ -152,9 +154,23 @@
         /// </summary>
         public void startProcess()
         {
+            Thread actProcessThread = new Thread(new ThreadStart(actProcess));
+            actProcessThread.Name = "macroProcessingThread";
+            actProcessThread.Priority = ThreadPriority.Highest;
+            actProcessThread.Start();
+        }
+
+        private void actProcess()
+        {
+            // if (!i.Dispatcher.CheckAccess())
+            // {   
+            //     i.Dispatcher.Invoke(new MethodInvoker(init));
+            //     return;
+            // }
             if (this.viewType == ViewType.MetricView)
             {
-                macroMetricControl.macroTable.IsEnabled = false;
+                //macroMetricControl.macroTable.IsEnabled = false;            // call dispatcher
+                disableMetricControl();
                 arrayVidResult = new Video[macroMetric.macroQueue.Count];
                 IVideoInfo vidInfo = (IVideoInfo)vidRef.vidInfo.Clone();
                 //Name new Videos   "analysed" + macroMetric.macroQueue[i].mementoName?? maybe to long, or textboxes
@@ -163,21 +179,62 @@
                     arrayVidResult[i] = new Video(true, getNewFileName(vidRef.vidPath, "analysed" + i), vidInfo, this.macroFilter.macroQueue.ToList<MacroEntry>());
                 }
                 //this.macroMetric.init(vidRef, vidProc, arrayVidResult);
-                this.macroMetric.analyse(vidRef, vidProc,this.idProc, arrayVidResult);
-                macroMetricControl.macroTable.IsEnabled = true;
+                this.macroMetric.analyse(vidRef, vidProc, this.idProc, arrayVidResult);
+                //macroMetricControl.macroTable.IsEnabled = true;             // call dispatcher
+                enableMetricControl();
             }
             if (this.viewType == ViewType.FilterView)
             {
-                macroFilterControl.macroTable.IsEnabled = false;
-                macroFilterControl.rangeSliders.IsEnabled = false;
-                IVideoInfo vidInfo =(IVideoInfo) vidRef.vidInfo.Clone();
+                //macroFilterControl.macroTable.IsEnabled = false;            // call dispatcher
+                //macroFilterControl.rangeSliders.IsEnabled = false;           // call dispatcher on rangeSliders
+                disableFilterControl();
+                IVideoInfo vidInfo = (IVideoInfo)vidRef.vidInfo.Clone();
                 vidResult = new Video(false, getNewFileName(vidRef.vidPath, "filtered"), vidInfo, this.macroFilter.macroQueue.ToList<MacroEntry>());
                 this.macroFilter.init(vidRef, vidResult);
-                this.macroFilter.process(vidRef,this.idRef, vidResult);
-                macroFilterControl.macroTable.IsEnabled = true;
-                macroFilterControl.rangeSliders.IsEnabled = true;
+                this.macroFilter.process(vidRef, this.idRef, vidResult);
+                //macroFilterControl.macroTable.IsEnabled = true;              // call dispatcher
+                //macroFilterControl.rangeSliders.IsEnabled = true;            // call dispatcher
+                enableFilterControl();
             }
         }
+
+#region callDispatcherHelper 
+        private void enableMetricControl() {
+                 if (!macroMetricControl.Dispatcher.CheckAccess())
+                 {   
+                     macroMetricControl.Dispatcher.Invoke(new MethodInvoker(enableMetricControl));
+                     return;
+                 }
+            macroMetricControl.IsEnabled = true;
+        }
+        private void disableMetricControl() {
+                 if (!macroMetricControl.Dispatcher.CheckAccess())
+                 {   
+                     macroMetricControl.Dispatcher.Invoke(new MethodInvoker(disableMetricControl));
+                     return;
+                 }
+            macroMetricControl.IsEnabled=false;
+        }
+        private void enableFilterControl() {
+                if (!macroFilterControl.Dispatcher.CheckAccess())
+                 {   
+                     macroFilterControl.Dispatcher.Invoke(new MethodInvoker(enableFilterControl));
+                     return;
+                 }
+            macroFilterControl.IsEnabled=true;
+        }
+        private void disableFilterControl() {
+                if (!macroFilterControl.Dispatcher.CheckAccess())
+                 {   
+                     macroFilterControl.Dispatcher.Invoke(new MethodInvoker(disableFilterControl));
+                     return;
+                 }
+            macroFilterControl.IsEnabled=false;
+        }
+
+#endregion
+
+      
 
         /// <summary>
         /// Will be called if a Plugin with settings has to be added to macroQueue of Filter/Metric 
