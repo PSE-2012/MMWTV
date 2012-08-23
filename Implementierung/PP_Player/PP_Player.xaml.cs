@@ -189,7 +189,7 @@ namespace PP_Player
                 Thread.Sleep(playTickerTimeout);
                 getFrame();
                 fpsTimer.Stop();
-                fpsIndicatorValue = 1000 / (int)fpsTimer.ElapsedMilliseconds;
+                fpsIndicatorValue = 1000 / (int)((fpsTimer.ElapsedMilliseconds > 0)?fpsTimer.ElapsedMilliseconds:1);
                 fpsTimer.Reset();
             }
         //    waitPlayTickerThreadStop.Set();
@@ -665,13 +665,13 @@ namespace PP_Player
 
         private void slowDownButton_Click(object sender, RoutedEventArgs e)
         {
-            playTickerTimeout += 1000 / 30;
+            playTickerTimeout += 10;
             
         }
 
         private void speedUpButton_Click(object sender, RoutedEventArgs e)
         {
-            playTickerTimeout -= 1000 / 30;
+            playTickerTimeout -= 10;
         }
     }
 
