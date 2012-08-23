@@ -217,8 +217,20 @@
 
         private void onMacroProcessingFinished(object sender, VideoEventArgs e)
         {
-            //TODO: find correct parentid
-            project.addNode(e.video, e.id);
+            dispVideoEventArgs = e;
+            actProjectAdd();
+        }
+        VideoEventArgs dispVideoEventArgs;
+        private void actProjectAdd()
+        {
+            if (!this.smartTreeExplorer.Dispatcher.CheckAccess())
+            {
+                this.smartTreeExplorer.Dispatcher.Invoke(
+                        new System.Windows.Forms.MethodInvoker(actProjectAdd));
+                return;
+            }
+
+                project.addNode(dispVideoEventArgs.video, dispVideoEventArgs.id);
         }
 
         private void treeitem_MouseDoubleClicked(object sender, RoutedEventArgs e)
