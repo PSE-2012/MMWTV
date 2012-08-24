@@ -152,6 +152,8 @@ namespace Oqat.ViewModel.Macro
         /// <param name="memento">settings of used plugin</param>
         private void mementoProcess(Memento memento)
         {
+            currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)currentMacroEntry.pluginName);
+            currentMemento = PluginManager.pluginManager.getMemento((String)currentMacroEntry.pluginName, (String)currentMacroEntry.mementoName);
                 if ((currentMacroEntry.startFrameRelative / 100) * totalFrames <= i && i <= (currentMacroEntry.endFrameRelative / 100) * totalFrames)
                 {
                     if (currentPlugin.propertyView != null)
@@ -160,7 +162,6 @@ namespace Oqat.ViewModel.Macro
                         currMemRef = memento;
                         setProcessingMementoHelper();
                     }
-
                     System.Drawing.Bitmap tempmap = currentPlugin.process(resultFrame);
                     resultFrame = tempmap;
                 }
@@ -271,6 +272,7 @@ namespace Oqat.ViewModel.Macro
         public override void setMemento(Memento memento)
         {
             this.macroQueue.Clear();
+
             foreach(MacroEntryFilter f in ((List<MacroEntryFilter>)memento.state))
             {
                 this.macroQueue.Add(f);
