@@ -20,8 +20,8 @@
                     <ListView Name ="macroTable" ItemsSource="{Binding macroTable}" HorizontalAlignment="Stretch" FontSize="13" AllowDrop="True" SelectionMode="Extended">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn  Header="Metric Name" DisplayMemberBinding="{Binding pluginName}"/>
-                                <GridViewColumn  Header="Memento Name" DisplayMemberBinding="{Binding mementoName}"/>
+                                <GridViewColumn x:Name="hd5" Header="Metric Name" DisplayMemberBinding="{Binding pluginName}"/>
+                                <GridViewColumn x:Name="hd2" Header="Memento Name" DisplayMemberBinding="{Binding mementoName}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -32,14 +32,14 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Name="deletebutton" Content="Delete Selected Entries" Click="Delete_Click"   HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ></Button>
+            <Button Grid.Column="0" Name="deletebutton" Content="Gewählten Eintrag löschen" Click="Delete_Click"   HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ></Button>
         </Grid>
         <Grid Grid.Row="2">
             <StatusBar Name="sbar" 
            VerticalAlignment="Bottom" Height="32">
 
                 <StatusBarItem>
-                    <TextBlock>Processing Video</TextBlock>
+                    <TextBlock x:Name="tb1">Verarbeite Video</TextBlock>
                 </StatusBarItem>
                 <StatusBarItem>
                     <ProgressBar Width="170" Height="20"

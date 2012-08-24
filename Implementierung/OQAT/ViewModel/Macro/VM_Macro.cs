@@ -176,7 +176,9 @@ using System.Windows.Forms;
                 //Name new Videos   "analysed" + macroMetric.macroQueue[i].mementoName?? maybe to long, or textboxes
                 for (int i = 0; i < macroMetric.macroQueue.Count; i++)
                 {
-                    arrayVidResult[i] = new Video(true, getNewFileName(vidRef.vidPath, "analysed" + i), vidInfo, this.macroFilter.macroQueue.ToList<MacroEntry>());
+                    List<MacroEntry> tmp = new List<MacroEntry>();     
+                    tmp.Add(this.macroMetric.macroQueue[i]);
+                    arrayVidResult[i] = new Video(true, getNewFileName(vidRef.vidPath, "analysed" + i), vidInfo, tmp);
                 }
                 //this.macroMetric.init(vidRef, vidProc, arrayVidResult);
                 this.macroMetric.analyse(vidRef, vidProc, this.idProc, arrayVidResult);

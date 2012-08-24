@@ -19,11 +19,19 @@ using AC.AvalonControlsLibrary.Controls;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Threading;
+using System.Xml;
+using System.IO;
 
 namespace Oqat.ViewModel.Macro
 {
     public partial class MacroFilterControl : UserControl
     {
+
+
+
+
+
         public PF_MacroFilter macro
         {
             get;
@@ -35,6 +43,7 @@ namespace Oqat.ViewModel.Macro
         public void scroll(object sender, ScrollChangedEventArgs e)
         {
             ScrollViewer2.ScrollToVerticalOffset(e.VerticalOffset);
+            
         }
 
         public void scroll2(object sender, ScrollChangedEventArgs e)
@@ -45,7 +54,7 @@ namespace Oqat.ViewModel.Macro
         public MacroFilterControl(PF_MacroFilter macro)
         {
             InitializeComponent();
-
+            local("VM_Macro_" + Thread.CurrentThread.CurrentCulture + ".xml");
             this.macro = macro;
             this.DataContext = this.macro;
 
@@ -221,7 +230,7 @@ namespace Oqat.ViewModel.Macro
         {
             GridView gvs = new GridView(); // since we can't figure out a way to set the DisplayMemberBinding of the GridViewColumn
             GridViewColumn gvsColumn = new GridViewColumn(); // in a way that the slider is visible, we rebuild the GridViewColumn after we add/delete an entry
-            gvsColumn.Header = "Frames Relative";
+            gvsColumn.Header = gvsColumnHd;
             gvs.Columns.Add(gvsColumn);
             rangeSliders.View = gvs;
             rangeSliders.DataContext = this.macro.rsl;
@@ -290,6 +299,46 @@ namespace Oqat.ViewModel.Macro
                 this.macro.macroQueue.RemoveAt(index);
             }
         }
+        #region eyeCancer
+        /// <summary>
+        /// method to read local xml file and put the language in the vm.
+        /// </summary>
+        /// 
+        String gvsColumnHd ="Relativ zu den Frames";
+        private void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[6];
+                String[] t2 = new String[6];
+                for (int i = 0; i < 6; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                hd1.Header = t2[0];
+                hd2.Header = t2[1];
+                hd3.Header = t2[2];
+                hd4.Header = t2[3];
+                tb1.Text = t2[4];
+                deletebutton.Content = t2[5];
+                gvsColumnHd = t2[6];
 
+
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
+        #endregion
+
+        
     }
 }
