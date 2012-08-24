@@ -1,10 +1,10 @@
 ﻿namespace Oqat.ViewModel.Macro
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-	using Oqat.ViewModel;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using Oqat.ViewModel;
     using Oqat.PublicRessources.Model;
     using Oqat.PublicRessources.Plugin;
     using Oqat.Model;
@@ -13,7 +13,7 @@
     using System.Windows.Data;
     using AC.AvalonControlsLibrary.Controls;
     using System.Threading;
-using System.Windows.Forms;
+    using System.Windows.Forms;
 
     /// <summary>
     /// This components provides the user a way to coordinate choosen filters or metrics (from the <see cref="PluginLists"/>)
@@ -72,7 +72,7 @@ using System.Windows.Forms;
         /// This is were the results of metric analysis are placed in.
         /// Every metric has a own video.
         /// </summary>
-        private Video[] arrayVidResult
+        private List<Video> listVidResult
         {
             get;
             set;
@@ -88,7 +88,7 @@ using System.Windows.Forms;
                 return this.macroFilter.macroControl as MacroFilterControl;
             }
         }
-        
+
         /// <summary>
         /// Control for Macro in MetricView
         /// </summary>
@@ -124,8 +124,8 @@ using System.Windows.Forms;
             PluginManager.OqatToggleView += this.onToggleView;
             PluginManager.macroEntryAdd += this.onEntrySelect;
 
-            this.macroFilter =(PF_MacroFilter) PluginManager.pluginManager.getPlugin<IMacro>("PF_MacroFilter");
-            this.macroMetric =(PM_MacroMetric)PluginManager.pluginManager.getPlugin<IMacro>("PM_MacroMetric");
+            this.macroFilter = (PF_MacroFilter)PluginManager.pluginManager.getPlugin<IMacro>("PF_MacroFilter");
+            this.macroMetric = (PM_MacroMetric)PluginManager.pluginManager.getPlugin<IMacro>("PM_MacroMetric");
         }
 
         /// <summary>
@@ -160,6 +160,30 @@ using System.Windows.Forms;
             actProcessThread.Start();
         }
 
+        private void addMacroMetricEntry(MacroEntryMetric entry)
+        {
+            IVideoInfo vidInfo = (IVideoInfo)vidRef.vidInfo.Clone();
+            int suffix = 0;
+            Memento currentMemento = PluginManager.pluginManager.getMemento(
+                (String)entry.pluginName, (String)entry.mementoName);
+
+            foreach (MacroEntryMetric macroEntry in (List<MacroEntryMetric>)currentMemento.state)
+            {
+                if (entry.pluginName == "PM_MacroMetric")
+                {
+                    addMacroMetricEntry(macroEntry);
+                }
+                else
+                {
+                    suffix++;
+                    List<MacroEntry> tmp = new List<MacroEntry>();
+                    tmp.Add(macroEntry);
+                    listVidResult.Add(new Video(true, getNewFileName(vidRef.vidPath, "analysed" + entry.pluginName
+                        + entry.mementoName + suffix), vidInfo, tmp));
+                }
+            }
+        }
+
         private void actProcess()
         {
             // if (!i.Dispatcher.CheckAccess())
@@ -171,17 +195,25 @@ using System.Windows.Forms;
             {
                 //macroMetricControl.macroTable.IsEnabled = false;            // call dispatcher
                 disableMetricControl();
-                arrayVidResult = new Video[macroMetric.macroQueue.Count];
+                listVidResult = new List<Video>();
+
                 IVideoInfo vidInfo = (IVideoInfo)vidRef.vidInfo.Clone();
                 //Name new Videos   "analysed" + macroMetric.macroQueue[i].mementoName?? maybe to long, or textboxes
-                for (int i = 0; i < macroMetric.macroQueue.Count; i++)
+                foreach (MacroEntryMetric entry in macroMetric.macroQueue)
                 {
-                    List<MacroEntry> tmp = new List<MacroEntry>();     
-                    tmp.Add(this.macroMetric.macroQueue[i]);
-                    arrayVidResult[i] = new Video(true, getNewFileName(vidRef.vidPath, "analysed" + i), vidInfo, tmp);
+                    //if (entry.pluginName == "PM_MacroMetric")
+                    //{
+                    //    addMacroMetricEntry(entry);
+                    //}
+                    //else
+                    //{
+                    List<MacroEntry> tmp = new List<MacroEntry>();
+                    tmp.Add(entry);
+                    listVidResult.Add(new Video(true, getNewFileName(vidRef.vidPath, "analysed" + entry.pluginName + entry.mementoName), vidInfo, tmp));
+                    //}
                 }
                 //this.macroMetric.init(vidRef, vidProc, arrayVidResult);
-                this.macroMetric.analyse(vidRef, vidProc, this.idProc, arrayVidResult);
+                this.macroMetric.analyse(vidRef, vidProc, this.idProc, listVidResult);
                 //macroMetricControl.macroTable.IsEnabled = true;             // call dispatcher
                 enableMetricControl();
             }
@@ -200,43 +232,47 @@ using System.Windows.Forms;
             }
         }
 
-#region callDispatcherHelper 
-        private void enableMetricControl() {
-                 if (!macroMetricControl.Dispatcher.CheckAccess())
-                 {
-                     macroMetricControl.macroTable.Dispatcher.Invoke(new MethodInvoker(enableMetricControl));
-                     return;
-                 }
-                 macroMetricControl.macroTable.IsEnabled = true;
+        #region callDispatcherHelper
+        private void enableMetricControl()
+        {
+            if (!macroMetricControl.Dispatcher.CheckAccess())
+            {
+                macroMetricControl.macroTable.Dispatcher.Invoke(new MethodInvoker(enableMetricControl));
+                return;
+            }
+            macroMetricControl.macroTable.IsEnabled = true;
         }
-        private void disableMetricControl() {
-                 if (!macroMetricControl.macroTable.Dispatcher.CheckAccess())
-                 {
-                     macroMetricControl.macroTable.Dispatcher.Invoke(new MethodInvoker(disableMetricControl));
-                     return;
-                 }
-                 macroMetricControl.macroTable.IsEnabled = false;
+        private void disableMetricControl()
+        {
+            if (!macroMetricControl.macroTable.Dispatcher.CheckAccess())
+            {
+                macroMetricControl.macroTable.Dispatcher.Invoke(new MethodInvoker(disableMetricControl));
+                return;
+            }
+            macroMetricControl.macroTable.IsEnabled = false;
         }
-        private void enableFilterControl() {
-                if (!macroFilterControl.macroTable.Dispatcher.CheckAccess())
-                 {
-                     macroFilterControl.macroTable.Dispatcher.Invoke(new MethodInvoker(enableFilterControl));
-                     return;
-                 }
-                macroFilterControl.macroTable.IsEnabled = true;
-        }
-        private void disableFilterControl() {
+        private void enableFilterControl()
+        {
             if (!macroFilterControl.macroTable.Dispatcher.CheckAccess())
-                 {
-                     macroFilterControl.macroTable.Dispatcher.Invoke(new MethodInvoker(disableFilterControl));
-                     return;
-                 }
+            {
+                macroFilterControl.macroTable.Dispatcher.Invoke(new MethodInvoker(enableFilterControl));
+                return;
+            }
+            macroFilterControl.macroTable.IsEnabled = true;
+        }
+        private void disableFilterControl()
+        {
+            if (!macroFilterControl.macroTable.Dispatcher.CheckAccess())
+            {
+                macroFilterControl.macroTable.Dispatcher.Invoke(new MethodInvoker(disableFilterControl));
+                return;
+            }
             macroFilterControl.macroTable.IsEnabled = false;
         }
 
-#endregion
+        #endregion
 
-      
+
 
         /// <summary>
         /// Will be called if a Plugin with settings has to be added to macroQueue of Filter/Metric 
@@ -280,7 +316,7 @@ using System.Windows.Forms;
 
                 resultpath += System.IO.Path.GetExtension(originalFile);
             }
-            while(System.IO.File.Exists(resultpath));
+            while (System.IO.File.Exists(resultpath));
 
             return resultpath;
         }
