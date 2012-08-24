@@ -9,6 +9,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -32,6 +33,24 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Name="deletebutton" Content="Delete Selected Entries" Click="Delete_Click"   HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ></Button>
+        </Grid>
+        <Grid Grid.Row="2">
+            <StatusBar Name="sbar" 
+           VerticalAlignment="Bottom" Height="32">
+
+                <StatusBarItem>
+                    <TextBlock>Processing Video</TextBlock>
+                </StatusBarItem>
+                <StatusBarItem>
+                    <ProgressBar Width="170" Height="20"
+                 Name="progressBar">
+
+                    </ProgressBar>
+                </StatusBarItem>
+                <StatusBarItem>
+                    <TextBlock Name="percent" Width="50"></TextBlock>
+                </StatusBarItem>
+            </StatusBar>
         </Grid>
     </Grid>
 </UserControl>
