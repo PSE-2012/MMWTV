@@ -197,19 +197,51 @@ namespace Oqat.ViewModel
             }
             else if (e.isRefVid)
             {
-                this.onToggleView(this, new ViewTypeEventArgs(ViewType.MetricView));
+                if (isCompatibleVideo(e.video, this.videoProc))
+                {
+                    this.onToggleView(this, new ViewTypeEventArgs(ViewType.MetricView));
 
-                this.videoRef =(IVideo) e.video;
-                this.idRef = e.id;
-                this.playerRef.setVideo(videoRef);
+                    this.videoRef = (IVideo)e.video;
+                    this.idRef = e.id;
+                    this.playerRef.setVideo(videoRef);
+                }
             }
             else
             {
-                this.videoProc = (IVideo)e.video;
-                this.idProc = e.id;
-                this.playerProc.setVideo(videoProc);
+                if(vtype != ViewType.MetricView || isCompatibleVideo(e.video, this.videoRef))
+                {
+                    this.videoProc = (IVideo)e.video;
+                    this.idProc = e.id;
+                    this.playerProc.setVideo(videoProc);
+                }
             }
 		}
+
+        /// <summary>
+        /// check if video is compatible with other, already loaded video. 
+        /// (e.g. has same dimensions as the one to be compared to)
+        /// </summary>
+        private bool isCompatibleVideo(IVideo vid1, IVideo vid2)
+        {
+            if (vid1 != null && vid2 != null)
+            {
+                if(vid1 == vid2) 
+                {
+                    //video should only be loaded once
+                    MessageBox.Show("Das Video wurde bereits geladen und kann nicht mehrfach hinzugefügt werden.", "Video bereits geladen");
+                    return false;
+                }
+
+                if (vid1.vidInfo.height != vid2.vidInfo.height
+                    || vid1.vidInfo.width != vid2.vidInfo.width
+                    || vid1.vidInfo.frameCount != vid2.vidInfo.frameCount)
+                {
+                    MessageBox.Show("Das Video muss gleiche Framezahl und Abmessungen haben, um mit dem vorhanden Video verglichen zu werden.", "Video nicht kompatibel");
+                    return false;
+                }
+            }
+            return true;
+        }
 
         /// <summary>
         /// This method will be called if the view was toggled.
