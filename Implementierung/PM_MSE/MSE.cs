@@ -38,6 +38,8 @@ namespace PM_MSE
             double summeG = 0;
             double summeB = 0;
 
+            int rb = (propertiesView.getRb());
+      
 
            float[] resultValues = new float[4];
           
@@ -77,7 +79,7 @@ namespace PM_MSE
                         summeG = summeG +newGrun;
                         summeB = summeB +newBlau;
 
-                        switch (propertiesView.getRb())
+                        switch (rb)
                         {
                             case 0:
                                 newPixel = (((alphaProc + alphaRef) / 2) << 24) | (newRot << 16) | (newGrun << 8) | newBlau;
