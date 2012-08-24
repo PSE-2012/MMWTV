@@ -169,7 +169,7 @@
 
             foreach (MacroEntryMetric macroEntry in (List<MacroEntryMetric>)currentMemento.state)
             {
-                if (entry.pluginName == "PM_MacroMetric")
+                if (entry.pluginName.Equals("PM_MacroMetric"))
                 {
                     addMacroMetricEntry(macroEntry);
                 }
@@ -201,7 +201,7 @@
                 //Name new Videos   "analysed" + macroMetric.macroQueue[i].mementoName?? maybe to long, or textboxes
                 foreach (MacroEntryMetric entry in macroMetric.macroQueue)
                 {
-                    //if (entry.pluginName == "PM_MacroMetric")
+                    //if (entry.pluginName.Equals("PM_MacroMetric"))
                     //{
                     //    addMacroMetricEntry(entry);
                     //}
