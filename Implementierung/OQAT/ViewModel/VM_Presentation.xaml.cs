@@ -189,7 +189,7 @@ namespace Oqat.ViewModel
 		{
             if (e.video.isAnalysis)
             {
-                this.onToggleView(this, new ViewTypeEventArgs(ViewType.AnalyzeView));
+                PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(ViewType.AnalyzeView));
 
                 this.videoProc = (IVideo)e.video;
                 this.playerProc.setVideo(videoProc);
@@ -199,7 +199,7 @@ namespace Oqat.ViewModel
             {
                 if (isCompatibleVideo(e.video, this.videoProc))
                 {
-                    this.onToggleView(this, new ViewTypeEventArgs(ViewType.MetricView));
+                    PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(ViewType.MetricView));
 
                     this.videoRef = (IVideo)e.video;
                     this.idRef = e.id;
