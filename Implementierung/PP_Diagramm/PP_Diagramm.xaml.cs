@@ -136,11 +136,11 @@ namespace PP_Diagramm
         /// Helper method to create content of the Plotmodel
         /// </summary>
 
-        private void createDataSeries(float[][] series)
+        private void createDataSeries(float[][] series,String pluginname)
         {
             var plotModel1 = new PlotModel();
             plotModel1.LegendSymbolLength = 24;
-
+            plotModel1.Title = pluginname;
             var linearAxis1 = new LinearAxis();
             linearAxis1.Position = AxisPosition.Bottom;
             plotModel1.Axes.Add(linearAxis1);
@@ -180,7 +180,17 @@ namespace PP_Diagramm
         {
             if (video.frameMetricValue != null)
             {
-                createDataSeries(video.frameMetricValue);
+                string plugin;
+                try
+                {
+                    plugin = video.processedBy[0].pluginName;
+                    
+                }
+                catch (Exception e)
+                {
+                    plugin = "";
+                }
+                createDataSeries(video.frameMetricValue,plugin);
             }
             else
             {
