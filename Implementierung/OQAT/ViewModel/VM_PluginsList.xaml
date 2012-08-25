@@ -37,6 +37,7 @@
             </Grid.RowDefinitions>
             
             <ScrollViewer Grid.Row="0"  Name="gridPluginProperties" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+                        
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -59,7 +60,9 @@
                 </Button>
             </Grid> 
         </Grid>
-        
+        <TextBlock Grid.Row="2" Name="tbNoSettings" TextWrapping="Wrap" Visibility="Collapsed">Dieses Plugin hat keine Einstellungsmöglichkeiten.</TextBlock>
+
+
         <StackPanel Grid.Row="2" Name="panelMacroProp">
             <TextBlock Name="tb1" TextWrapping="Wrap">Nur das momentan gesetzte Macro kann bearbeitet und kopiert werden.</TextBlock>
             <Button Name="bt2" Click="bttLoadAsMacro_Click">als Macro laden</Button>

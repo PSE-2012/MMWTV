@@ -16,6 +16,9 @@ using Oqat.PublicRessources.Model;
 using System.Data;
 using System.Collections.ObjectModel;
 using System.Windows.Controls.Primitives;
+using System.Xml;
+using System.IO;
+using System.Threading;
 
 
 namespace Oqat.ViewModel.Macro
@@ -34,7 +37,7 @@ namespace Oqat.ViewModel.Macro
         public MacroMetricControl(PM_MacroMetric macro)
         {
             InitializeComponent();
-
+            local("VM_Macro_" + Thread.CurrentThread.CurrentCulture + ".xml");
             this.macro = macro;
             this.DataContext = this.macro;
 
@@ -42,6 +45,7 @@ namespace Oqat.ViewModel.Macro
 
             macroTable.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(macroTable_MouseLeftButtonDown);
             macroTable.Drop += new DragEventHandler(macroTable_Drop);
+            local("VM_Macro_" + Thread.CurrentThread.CurrentCulture + ".xml");
         }
 
         //Drag'N'Drop start#
@@ -174,5 +178,40 @@ namespace Oqat.ViewModel.Macro
                 this.macro.macroQueue.RemoveAt(index);
             }
         }
+        #region eyeCancer
+        /// <summary>
+        /// method to read local xml file and put the language in the vm.
+        /// </summary>
+        private void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                String[] t = new String[8];
+                String[] t2 = new String[8];
+                for (int i = 0; i < 8; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                }
+                hd5.Header = t2[7];
+                hd2.Header = t2[1];
+               
+                tb1.Text = t2[4];
+                deletebutton.Content = t2[5];
+
+
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
+        #endregion
     }
 }

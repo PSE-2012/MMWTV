@@ -152,6 +152,8 @@ namespace Oqat.ViewModel.Macro
         /// <param name="memento">settings of used plugin</param>
         private void mementoProcess(Memento memento)
         {
+            currentPlugin = (IFilterOqat)PluginManager.pluginManager.getPlugin<IPlugin>((String)currentMacroEntry.pluginName);
+            currentMemento = PluginManager.pluginManager.getMemento((String)currentMacroEntry.pluginName, (String)currentMacroEntry.mementoName);
                 if ((currentMacroEntry.startFrameRelative / 100) * totalFrames <= i && i <= (currentMacroEntry.endFrameRelative / 100) * totalFrames)
                 {
                     if (currentPlugin.propertyView != null)
@@ -160,7 +162,6 @@ namespace Oqat.ViewModel.Macro
                         currMemRef = memento;
                         setProcessingMementoHelper();
                     }
-
                     System.Drawing.Bitmap tempmap = currentPlugin.process(resultFrame);
                     resultFrame = tempmap;
                 }
@@ -188,9 +189,6 @@ namespace Oqat.ViewModel.Macro
         public void process(Video vidRef, int idRef, Video vidResult)
         {
             MacroFilterControl mfc = (MacroFilterControl)macroControl;
-            //Thread thread = new Thread(new ThreadStart(ProgressBarThread));
-            //thread.SetApartmentState(ApartmentState.STA);
-            //thread.Start();
                 // set reader to begin of the yuv
                 refHand.positionReader = 0;
                 while (i < totalFrames)
@@ -220,17 +218,13 @@ namespace Oqat.ViewModel.Macro
                     tmp[0] = resultFrame;
                     refHand.writeFrames(i, tmp);
                     i++;
-
                     progress += (1.0 / totalFrames) * 100;
-                    
                     updateProgressBar();
-                    //mfc.progressBar.Value = progress;
-                    //mfc.percent.Text = progress.ToString() + "%";
             }
 
            // reset after finished work
-             //   mfc.progressBar.Value = 0;
-             //   mfc.percent.Text = "";
+             mfc.progressBar.Value = 0;
+             mfc.percent.Text = "";
             i = 0;
             isMacro = false;
             resultFrame = null;
@@ -272,13 +266,14 @@ namespace Oqat.ViewModel.Macro
 
         public override Memento getMemento()
         {
-            return new Memento(this.namePlugin, this.macroQueue.ToArray());
+            return new Memento(this.namePlugin, this.macroQueue.ToList());
         }
 
         public override void setMemento(Memento memento)
         {
             this.macroQueue.Clear();
-            foreach(MacroEntryFilter f in ((MacroEntryFilter[])memento.state))
+
+            foreach(MacroEntryFilter f in ((List<MacroEntryFilter>)memento.state))
             {
                 this.macroQueue.Add(f);
             }

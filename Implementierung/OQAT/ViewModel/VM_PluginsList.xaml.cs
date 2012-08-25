@@ -65,6 +65,8 @@ namespace Oqat.ViewModel
                 msgText21 = t2[7];
                 msgText3 = t2[8];
 
+                //TODO: tbNoSettings.Text lokalisieren
+
 
             }
             catch (IndexOutOfRangeException e) { }
@@ -196,14 +198,17 @@ namespace Oqat.ViewModel
         private void updatePropertiesView()
         {
             if (selectedPVM == null)
-            {
+            {   //no Plugin is selected
                 this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
                 this.bttAddToMacro.Visibility = System.Windows.Visibility.Collapsed;
                 return;
             }
+
+            //default visibility
             this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
             this.bttAddToMacro.Visibility = System.Windows.Visibility.Visible;
             panelMacroProp.Visibility = System.Windows.Visibility.Collapsed;
+            this.tbNoSettings.Visibility = System.Windows.Visibility.Collapsed;
 
 
             
@@ -246,6 +251,11 @@ namespace Oqat.ViewModel
                 || (selectedPlugin is IMacro && selectedPVM != activeMacroPVM))
             {
                 this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
+
+                if (gridPluginProperties.Content == null)
+                {
+                    tbNoSettings.Visibility = System.Windows.Visibility.Visible;
+                }
             }
         }
 

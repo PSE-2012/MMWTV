@@ -232,6 +232,44 @@
             }
         }
 
+<<<<<<< HEAD
+#region callDispatcherHelper 
+        private void enableMetricControl() {
+                 if (!macroMetricControl.Dispatcher.CheckAccess())
+                 {
+                     macroMetricControl.Dispatcher.Invoke(new MethodInvoker(enableMetricControl));
+                     return;
+                 }
+                 macroMetricControl.macroTable.IsEnabled = true;
+                 macroMetricControl.ScrollViewer1.IsEnabled = true;
+          
+        }
+        private void disableMetricControl() {
+                 if (!macroMetricControl.Dispatcher.CheckAccess())
+                 {
+                     macroMetricControl.Dispatcher.Invoke(new MethodInvoker(disableMetricControl));
+                     return;
+                 }
+                 macroMetricControl.macroTable.IsEnabled = false;
+                 macroMetricControl.ScrollViewer1.IsEnabled = false;
+        }
+        private void enableFilterControl() {
+                if (!macroFilterControl.Dispatcher.CheckAccess())
+                 {
+                     macroFilterControl.Dispatcher.Invoke(new MethodInvoker(enableFilterControl));
+                     return;
+                 }
+                macroFilterControl.macroTable.IsEnabled = true;
+                macroFilterControl.ScrollViewer1.IsEnabled = true;
+                macroFilterControl.ScrollViewer2.IsEnabled = true;
+        }
+        private void disableFilterControl() {
+            if (!macroFilterControl.Dispatcher.CheckAccess())
+                 {
+                     macroFilterControl.Dispatcher.Invoke(new MethodInvoker(disableFilterControl));
+                     return;
+                 }
+=======
         #region callDispatcherHelper
         private void enableMetricControl()
         {
@@ -241,8 +279,6 @@
                 return;
             }
             macroMetricControl.macroTable.IsEnabled = true;
-                 macroMetricControl.ScrollViewer1.IsEnabled = true;
-          
         }
         private void disableMetricControl()
         {
@@ -252,7 +288,6 @@
                 return;
             }
             macroMetricControl.macroTable.IsEnabled = false;
-                 macroMetricControl.ScrollViewer1.IsEnabled = false;
         }
         private void enableFilterControl()
         {
@@ -262,8 +297,6 @@
                 return;
             }
             macroFilterControl.macroTable.IsEnabled = true;
-                macroFilterControl.ScrollViewer1.IsEnabled = true;
-                macroFilterControl.ScrollViewer2.IsEnabled = true;
         }
         private void disableFilterControl()
         {
@@ -272,7 +305,10 @@
                 macroFilterControl.macroTable.Dispatcher.Invoke(new MethodInvoker(disableFilterControl));
                 return;
             }
+>>>>>>> 55011ec83f8a9f7b86f5c23327897f52e0f6fc82
             macroFilterControl.macroTable.IsEnabled = false;
+            macroFilterControl.ScrollViewer1.IsEnabled = false;
+            macroFilterControl.ScrollViewer2.IsEnabled = false;
         }
 
         #endregion

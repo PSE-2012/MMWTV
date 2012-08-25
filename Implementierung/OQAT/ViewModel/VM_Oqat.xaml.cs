@@ -204,7 +204,15 @@ namespace Oqat.ViewModel
                         runningAppPanel.Visibility = Visibility.Collapsed;
                         break;
                     case ViewType.MetricView:
+                        this.tabMetric.IsSelected = true;
+                        welcomePanel.Visibility = Visibility.Collapsed;
+                        runningAppPanel.Visibility = Visibility.Visible;
+                        break;
                     case ViewType.FilterView:
+                        this.tabFilter.IsSelected = true;
+                        welcomePanel.Visibility = Visibility.Collapsed;
+                        runningAppPanel.Visibility = Visibility.Visible;
+                        break;
                     case ViewType.AnalyzeView:
                         welcomePanel.Visibility = Visibility.Collapsed;
                         runningAppPanel.Visibility = Visibility.Visible;
