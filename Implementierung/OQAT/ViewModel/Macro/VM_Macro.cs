@@ -156,7 +156,6 @@
         {
             Thread actProcessThread = new Thread(new ThreadStart(actProcess));
             actProcessThread.Name = "macroProcessingThread";
-            actProcessThread.Priority = ThreadPriority.Highest;
             actProcessThread.Start();
         }
 
