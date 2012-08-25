@@ -694,7 +694,7 @@ using System.Collections.Generic;
 
             if (readerBuffPos < readVidInfo.frameCount)
             {
-                if (((readerBuffPos - positionReader) < (NUMFRAMESINMEM/4)) || !(readQueue.Count > 0))
+                if (((readerBuffPos - positionReader) < (NUMFRAMESINMEM)) || !(readQueue.Count > 0))
                 {
                     readerWaitEvent.Set();
                     if ((readerThread.ThreadState != System.Threading.ThreadState.Running) &&
@@ -706,7 +706,7 @@ using System.Collections.Generic;
                     }
                 }
 
-                if (Math.Abs(readerBuffPos - positionReader) < 2)
+                if (Math.Abs(readerBuffPos - positionReader) < 1)
                 {
                     if (positionReader < readVidInfo.frameCount)
                     {
@@ -730,6 +730,8 @@ using System.Collections.Generic;
             positionReader++;
             return (readQueue.Count > 0)?(Bitmap)readQueue.Dequeue():null;
         }
+
+
 
        
         private void fillBuffer()
@@ -838,13 +840,14 @@ using System.Collections.Generic;
                 {
                     if (entry != null)
                     {
+                        
                         entry.doneEvent.WaitOne();
                         readQueue.Enqueue(entry._currFrame);
                         getFrameWaitEvent.Set();
                         readerBuffPos++;
                     }
                 }
-
+                if(Math.Abs(_readerBuffPos - readerBuffPos) < NUMFRAMESINMEM)
                 readerWaitEvent.WaitOne();
 
                 //check for stop request
