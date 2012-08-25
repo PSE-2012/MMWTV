@@ -223,8 +223,9 @@ namespace Oqat.ViewModel.Macro
             }
 
            // reset after finished work
-             mfc.progressBar.Value = 0;
-             mfc.percent.Text = "";
+           //  mfc.progressBar.Value = 0;
+           //  mfc.percent.Text = "";
+                flushProgressBar();
             i = 0;
             isMacro = false;
             resultFrame = null;
@@ -233,6 +234,18 @@ namespace Oqat.ViewModel.Macro
             refHand = null;
             // add to ProjectExplorer
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.macroProcessingFinished, new VideoEventArgs(vidResult, idRef));
+        }
+
+        private void flushProgressBar()
+        {
+             MacroFilterControl mfc = (MacroFilterControl)macroControl;
+             if (!mfc.Dispatcher.CheckAccess())
+             {
+                 mfc.Dispatcher.Invoke(new MethodInvoker(flushProgressBar));
+                 return;
+             }
+             mfc.progressBar.Value = 0;
+             mfc.percent.Text = "0";
         }
 
         private void updateProgressBar()
