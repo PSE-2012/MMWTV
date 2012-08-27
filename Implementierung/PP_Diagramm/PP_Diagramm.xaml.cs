@@ -176,7 +176,7 @@ namespace PP_Diagramm
         /// <remarks>Not implemented!</remarks>
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
-            throw new NotImplementedException();
+            return new Memento("PP_Diagramm",this);
         }
         /// <summary>
         /// Loads the settings from the given memento.
@@ -184,7 +184,7 @@ namespace PP_Diagramm
         /// <remarks>Not implemented!</remarks>
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
-            throw new NotImplementedException();
+            
         }
 
         
