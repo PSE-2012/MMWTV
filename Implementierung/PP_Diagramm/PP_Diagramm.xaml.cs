@@ -54,7 +54,7 @@ namespace PP_Diagramm
         {
             get
             {
-                return "PP_Diagramm";
+                return "PP_Diagram";
             }
         }
 
