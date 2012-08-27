@@ -20,6 +20,7 @@ using System.ComponentModel;
 
 using System.IO;
 using System.Xml;
+using System.Globalization;
 
 namespace Oqat.ViewModel
 {
@@ -205,7 +206,7 @@ namespace Oqat.ViewModel
             }
 
             //default visibility
-            this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
+            this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
             this.bttAddToMacro.Visibility = System.Windows.Visibility.Visible;
             panelMacroProp.Visibility = System.Windows.Visibility.Collapsed;
             this.tbNoSettings.Visibility = System.Windows.Visibility.Collapsed;
@@ -218,6 +219,7 @@ namespace Oqat.ViewModel
                 if(selectedPVM == activeMacroPVM)
                 {
                     this.gridPluginProperties.Content = panelMacroPropertyViewCurrent;
+                    this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
                 {
@@ -240,8 +242,13 @@ namespace Oqat.ViewModel
                         //remove the broken entry
                         selectedPVM.parent.children.Remove(selectedPVM);
                     }
+                    this.gridPluginProperties.Content = selectedPlugin.propertyView;
+                    this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
                 }
-                this.gridPluginProperties.Content = selectedPlugin.propertyView;
+                else
+                {
+                    this.gridPluginProperties.Visibility = System.Windows.Visibility.Collapsed;
+                }
             }
 
             
@@ -252,7 +259,7 @@ namespace Oqat.ViewModel
             {
                 this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
 
-                if (gridPluginProperties.Content == null)
+                if (selectedPlugin.propertyView == null)
                 {
                     tbNoSettings.Visibility = System.Windows.Visibility.Visible;
                 }
@@ -307,18 +314,10 @@ namespace Oqat.ViewModel
         /// <returns>Returns true if the memento was successfully saved.</returns>
         private bool mementoSave(PluginViewModel memento)
         {
-            //if plugin (no memento) itself is selected, copy it
+            //if plugin (no memento) itself is selected, change the
             if (!memento.isMemento)
             {
-                if (selectedPlugin.propertyView != null)
-                {
-                    return mementoCopy(memento);
-                }
-                else
-                {
-                    //if there are no settings in propertyView, don't copy the plugin as memento
-                    return true;
-                }
+                return false;
             }
 
 
@@ -349,7 +348,7 @@ namespace Oqat.ViewModel
             {
                 Memento m = new Memento(memento.name, null);
                 PluginManager.pluginManager.addMemento(memento.parent.name, m);
-
+                
                 memento.name = mem.name;
             }
 
@@ -365,6 +364,8 @@ namespace Oqat.ViewModel
         /// <param name="memento"></param>
         private void mementoAddToMacro(PluginViewModel memento)
         {
+            if (memento == null) return;
+
             if (mementoSave(memento))
             {
                 PluginManager.pluginManager.raiseEvent(EventType.macroEntryAdd,
@@ -592,5 +593,39 @@ namespace Oqat.ViewModel
 
      
 
+    }
+
+
+
+
+
+    
+
+    [ValueConversion(typeof(bool), typeof(Visibility))]
+    public class BoolToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (((bool)value))
+            {
+                return Visibility.Visible;
+            }
+            else
+            {
+                return Visibility.Collapsed;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (((Visibility)value) == Visibility.Visible)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
