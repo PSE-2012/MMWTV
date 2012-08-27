@@ -24,10 +24,10 @@ namespace PP_Player
     [ExportMetadata("namePlugin", "PP_Player")]
     [ExportMetadata("type", PluginType.IPresentation)]
     [Export(typeof(IPlugin))]
-    public partial class PP_Player : System.Windows.Controls.UserControl, IPresentation, ICloneable, INotifyPropertyChanged
+    public partial class Player : System.Windows.Controls.UserControl, IPresentation, ICloneable, INotifyPropertyChanged
     {
 
-        public PP_Player()
+        public Player()
         {
             InitializeComponent();
 
@@ -41,7 +41,7 @@ namespace PP_Player
 
         public object Clone()
         {
-            return new PP_Player();
+            return new Player();
         }
 
         public PresentationPluginType presentationType
