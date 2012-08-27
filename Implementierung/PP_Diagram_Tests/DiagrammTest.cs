@@ -230,8 +230,6 @@ namespace PP_Diagram_Tests
         ///Test "setMemento"
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(NotImplementedException),
-            "Method was implemented. Please adapt the unittest.")]
         public void setMementoTest()
         {
             Diagramm target = new Diagramm(); // TODO: Passenden Wert initialisieren
@@ -253,7 +251,10 @@ namespace PP_Diagram_Tests
             Memento actual;
             actual = target.getMemento();
 
-            Assert.AreEqual(expected, actual, "Has Memento for PP_Diagram been implemented? Adapt testcode!");
+            Assert.IsNotNull(actual, "Memento could not be loaded");
+            Assert.AreEqual(expected.name, actual.name);
+            Assert.AreEqual(expected.mementoPath, actual.mementoPath);
+            Assert.AreEqual(expected.state, actual.state, "Has Memento for PP_Diagram been implemented? Adapt testcode!");
         }
 
         /// <summary>
