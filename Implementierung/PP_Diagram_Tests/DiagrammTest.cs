@@ -237,20 +237,23 @@ namespace PP_Diagram_Tests
             Diagramm target = new Diagramm(); // TODO: Passenden Wert initialisieren
             Memento memento = null; // TODO: Passenden Wert initialisieren
             target.setMemento(memento);
+
+            //setMemento has not been implemented
+            //if it should be used in the future, adapt this testcode!
         }
 
         /// <summary>
         ///Test "getMemento"
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(NotImplementedException),
-            "Method was implemented. Please adapt the unittest.")]
         public void getMementoTest()
         {
-            Diagramm target = new Diagramm(); // TODO: Passenden Wert initialisieren
-            Memento expected = null; // TODO: Passenden Wert initialisieren
+            Diagramm target = new Diagramm();
+            Memento expected = new Memento("Diagram_settings", null);
             Memento actual;
             actual = target.getMemento();
+
+            Assert.AreEqual(expected, actual, "Has Memento for PP_Diagram been implemented? Adapt testcode!");
         }
 
         /// <summary>
