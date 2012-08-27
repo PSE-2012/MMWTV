@@ -205,65 +205,68 @@ namespace Oqat.ViewModel
                 return;
             }
 
-            //default visibility
-            this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
-            this.bttAddToMacro.Visibility = System.Windows.Visibility.Visible;
-            panelMacroProp.Visibility = System.Windows.Visibility.Collapsed;
-            this.tbNoSettings.Visibility = System.Windows.Visibility.Collapsed;
 
-
-            
-            selectedPlugin = PluginManager.pluginManager.getPlugin<IPlugin>(selectedPVM.parent.name);
-            if (selectedPlugin is IMacro)
-            {
-                if(selectedPVM == activeMacroPVM)
-                {
-                    this.gridPluginProperties.Content = panelMacroPropertyViewCurrent;
-                    this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
-                }
-                else
-                {
-                    panelMacroProp.Visibility = System.Windows.Visibility.Visible;
-                }
+            if (!selectedPVM.isMemento)
+            { //parentnode
+                this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
+                this.bttAddToMacro.Visibility = System.Windows.Visibility.Collapsed;
+                panelMacroProp.Visibility = System.Windows.Visibility.Collapsed;
+                this.tbNoSettings.Visibility = System.Windows.Visibility.Collapsed;
             }
             else
-            {
-                if (selectedPVM.isMemento)
-                {
+            { //real memento
+                selectedPlugin = PluginManager.pluginManager.getPlugin<IPlugin>(selectedPVM.parent.name);
+
+                if (selectedPlugin is IMacro)
+                { //macro
+                    if (selectedPVM == activeMacroPVM)
+                    {
+                        this.gridPluginProperties.Content = panelMacroPropertyViewCurrent;
+                        this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
+                    }
+                    else
+                    {
+                        panelMacroProp.Visibility = System.Windows.Visibility.Visible;
+                    }
+                }
+                else
+                { //filter/metric
                     Memento m = PluginManager.pluginManager.getMemento(selectedPVM.parent.name, selectedPVM.name);
                     if (m != null)
                     {
                         selectedPlugin.setMemento(m);
+                        this.gridPluginProperties.Content = selectedPlugin.propertyView;
+                        this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
                     }
                     else
-                    {
+                    { //memento can't be found
+
                         MessageBox.Show(msgText1);
 
                         //remove the broken entry
                         selectedPVM.parent.children.Remove(selectedPVM);
                     }
-                    this.gridPluginProperties.Content = selectedPlugin.propertyView;
-                    this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
                 }
-                else
+
+
+                this.bttAddToMacro.Visibility = System.Windows.Visibility.Visible;
+
+                this.tbMementoName.Text = selectedPVM.name;
+                if (gridPluginProperties.Content == null
+                    || (selectedPlugin is IMacro && selectedPVM != activeMacroPVM))
                 {
-                    this.gridPluginProperties.Visibility = System.Windows.Visibility.Collapsed;
+                    this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
+
+                    if (selectedPlugin.propertyView == null)
+                    {
+                        tbNoSettings.Visibility = System.Windows.Visibility.Visible;
+                    }
                 }
             }
 
-            
-            
-            this.tbMementoName.Text = selectedPVM.name;
-            if (gridPluginProperties.Content == null
-                || (selectedPlugin is IMacro && selectedPVM != activeMacroPVM))
-            {
-                this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
 
-                if (selectedPlugin.propertyView == null)
-                {
-                    tbNoSettings.Visibility = System.Windows.Visibility.Visible;
-                }
-            }
+            
+            
         }
 
 
