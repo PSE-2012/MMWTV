@@ -91,7 +91,7 @@
         /// <param name="path"></param> Path to the project folder.
         /// <param name="vidList"></param> List of videos belonging to the project.
         /// <param name="description"></param> Description of the project.
-		internal Project(string name, string path, string description, List<Video> vidList = null)
+		internal Project(string name, string path, string description )
 		{
             this.idLock = new Object();
             this.name = name;
@@ -100,13 +100,7 @@
             this.smartTree = new ObservableCollection<SmartNode>();
             this.smartIndex = new Dictionary<int, SmartNode>();
 
-            if ((vidList != null) && (vidList.Count > 0))
-            {
-                foreach (Video vid in vidList)
-                {
-                    addNode(vid, 0);
-                }
-            }
+           
             saveProject();
 		}
 
@@ -182,7 +176,7 @@
 
             smartIndex.Remove(id);
 
-            if ((toRmNode.smartTree.Count > 0) & !force)
+            if ((toRmNode.smartTree.Count > 0) && !force)
              {
                 int idFathersFather = (father != null) ? father.id : -1;
                  foreach (SmartNode i in toRmNode.smartTree)
