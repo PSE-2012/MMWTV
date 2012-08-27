@@ -239,8 +239,6 @@ namespace OQAT_Tests
         ///Test "writeMemento": folder does not exist
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentException),
-            "Writing to not existing folder was allowed.")]
         public void writeMementoTest_noFolder()
         {
             Caretaker target = Caretaker_Accessor.caretaker;
@@ -250,6 +248,9 @@ namespace OQAT_Tests
             expected.mementoPath = fileName;
 
             target.writeMemento(expected);
+
+            Assert.IsFalse(File.Exists(fileName), "New folder was created for memento. This might be unwanted behavior or a security risk.");
+            //exception is thrown, caught and passed to OQAT ErrorConsole
         }
 
         /// <summary>
