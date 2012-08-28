@@ -77,6 +77,7 @@ namespace Oqat.ViewModel
                 /// cannot recover if someone messed within the pluginFolder
                 raiseEvent(EventType.failure, new ErrorEventArgs(exc));
             }
+
             try
             {
                 pluginContainer = new CompositionContainer(catalog);
@@ -150,7 +151,7 @@ namespace Oqat.ViewModel
 
         /// <summary>
         /// Checks the PLUGIN_PATH folder for consistancy, i.e. violations of oqat plugin conventions
-        /// and adds name and crime  of illegal plugins to the blackList.
+        /// and adds name and crime of illegal plugins to the blackList.
         /// </summary>
         private bool consistencyCheck()
         {
@@ -176,11 +177,12 @@ namespace Oqat.ViewModel
                 }
 
                 if (files != null)
+                {
                     foreach (string file in files)
                     {
                         if (Path.GetExtension(file).Equals(".dll"))
                         {
-                            Lazy<IPlugin, IPluginMetadata>  tmpPlugin;
+                            Lazy<IPlugin, IPluginMetadata> tmpPlugin;
                             try
                             {
                                 tmpPlugin = (new PluginSandbox(file)).tmpPlugin;
@@ -188,21 +190,19 @@ namespace Oqat.ViewModel
                             catch (Exception exc)
                             {
                                 errorsOcured = true;
-                                
+
                                 /// Provide a delete dialogue ?
                                 /// Maybe set on a ignoreList ( not the Blacklist)
-                                raiseEvent(EventType.info, new ErrorEventArgs( new Exception("Uncompatible Plugin" + 
+                                raiseEvent(EventType.info, new ErrorEventArgs(new Exception("Uncompatible Plugin" +
                                " was found in the Pluginfolder: " + file, exc)));
                                 continue;
                             }
-                            
+
                             List<ErrorEventArgs> tmpList = new List<ErrorEventArgs>();
-                           
+
                             try
                             {
-
                                 tmpDictionary.Add(tmpPlugin.Metadata.namePlugin, tmpPlugin.GetHashCode());
-
 
                                 if (!checkIfPluginTypeIsValid(tmpPlugin.Value, tmpPlugin.Metadata.type))
                                 {
@@ -223,6 +223,7 @@ namespace Oqat.ViewModel
                                 raiseEvent(EventType.info, new ErrorEventArgs(exc));
                                 errorsOcured = true;
                             }
+
                             int tmpHashCode;
                             foreach (string entry in tmpDictionary.Keys)
                             {
@@ -245,6 +246,7 @@ namespace Oqat.ViewModel
                             }
                         }
                     }
+                }
             }
             List<ErrorEventArgs> errorList = new List<ErrorEventArgs>();
             foreach (string entry in blackList.Keys)
@@ -337,10 +339,7 @@ namespace Oqat.ViewModel
             }
         }
 
-
-        
-
-#endregion
+        #endregion
 
 
         #region getPlugins
@@ -379,7 +378,7 @@ namespace Oqat.ViewModel
                                     select i.Metadata.namePlugin);
         }
 
-#endregion
+        #endregion
 
 
         #region PluginMementos
@@ -490,7 +489,6 @@ namespace Oqat.ViewModel
         /// null if no corresponding plugin was found.</returns>
         internal virtual List<String> getMementoNames(string namePlugin)
         {
-
             List<string> nameList = new List<string>();
             List<Memento> tmpMemList;
             getMementoList(namePlugin, out tmpMemList);
@@ -503,7 +501,6 @@ namespace Oqat.ViewModel
                 nameList = null;
 
             return nameList;
-
         }
 
 
@@ -537,8 +534,6 @@ namespace Oqat.ViewModel
                         break;
                     }
                 }
-
-
             }
             else
             {
