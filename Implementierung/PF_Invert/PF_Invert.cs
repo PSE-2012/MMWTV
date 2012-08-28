@@ -116,7 +116,6 @@ namespace PF_Invert
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
             Memento mem = new Memento(this.namePlugin, this);
-
             return mem;
         }
 
