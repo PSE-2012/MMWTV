@@ -190,6 +190,64 @@ namespace OQAT_Tests
             Assert.AreEqual(this.AssertMethod3ExpectedValues.UITestoqatPrjListItemExists, uITestoqatPrjListItem.Exists);
         }
         
+        /// <summary>
+        /// projectOpendialogtest3 - Verwenden Sie "projectOpendialogtest3Params", um Parameter an diese Methode zu übergeben.
+        /// </summary>
+        public void projectOpendialogtest3()
+        {
+            #region Variable Declarations
+            WpfButton uINeuesProjekterstelleButton = this.UIObjectiveQualityAsseWindow.UIItemCustom.UINeuesProjekterstelleButton;
+            WpfButton uIProjekterstellenButton = this.UINeuesProjekterstelleWindow.UIProjekterstellenButton;
+            WpfButton uISchließenButton = this.UIObjectiveQualityAsseWindow.UIObjectiveQualityAsseTitleBar.UISchließenButton;
+            WpfEdit uITbTitelEdit = this.UINeuesProjekterstelleWindow.UITitelundPfadwählenGroup.UITbTitelEdit;
+            WinWindow uIObjectiveQualityAsseWindow2 = this.UIObjectiveQualityAsseWindow2;
+            #endregion
+
+            // "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
+            ApplicationUnderTest uIObjectiveQualityAsseWindow = ApplicationUnderTest.Launch(this.projectOpendialogtest3Params.UIObjectiveQualityAsseWindowExePath, this.projectOpendialogtest3Params.UIObjectiveQualityAsseWindowAlternateExePath);
+
+            // Klicken "Neues Projekt erstellen" Schaltfläche
+            Mouse.Click(uINeuesProjekterstelleButton, new Point(70, 17));
+
+            // Klicken "Projekt erstellen" Schaltfläche
+            Mouse.Click(uIProjekterstellenButton, new Point(193, 18));
+
+            // Klicken "Schließen" Schaltfläche
+            Mouse.Click(uISchließenButton, new Point(29, 12));
+
+            // "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
+            ApplicationUnderTest uIObjectiveQualityAsseWindow1 = ApplicationUnderTest.Launch(this.projectOpendialogtest3Params.UIObjectiveQualityAsseWindowExePath1, this.projectOpendialogtest3Params.UIObjectiveQualityAsseWindowAlternateExePath1);
+
+            // Klicken "Neues Projekt erstellen" Schaltfläche
+            Mouse.Click(uINeuesProjekterstelleButton, new Point(68, 6));
+
+            // "test1" in "tbTitel" Textfeld eingeben
+            uITbTitelEdit.Text = this.projectOpendialogtest3Params.UITbTitelEditText;
+
+            // Klicken "Projekt erstellen" Schaltfläche
+            Mouse.Click(uIProjekterstellenButton, new Point(243, 8));
+
+            // Klicken "Objective Quality Assessment Toolkit" Fenster
+            Mouse.Click(uIObjectiveQualityAsseWindow2, new Point(1077, 5));
+        }
+        
+        /// <summary>
+        /// AssertMethod4 - Verwenden Sie "AssertMethod4ExpectedValues", um Parameter an diese Methode zu übergeben.
+        /// </summary>
+        public void AssertMethod4()
+        {
+            #region Variable Declarations
+            WinListItem uIMyOqatPrjoqatPrjListItem = this.UIGRILLEDSHEEPWindow.UIItemWindow.UIElementansichtList.UIMyOqatPrjoqatPrjListItem;
+            WinListItem uITest1oqatPrjListItem = this.UIGRILLEDSHEEPWindow.UIItemWindow.UIElementansichtList.UITest1oqatPrjListItem;
+            #endregion
+
+            // Überprüfen, ob Eigenschaft von "myOqatPrj.oqatPrj"-Listenelement Exists True entspricht
+            Assert.AreEqual(this.AssertMethod4ExpectedValues.UIMyOqatPrjoqatPrjListItemExists, uIMyOqatPrjoqatPrjListItem.Exists);
+
+            // Überprüfen, ob Eigenschaft von "test1.oqatPrj"-Listenelement Exists True entspricht
+            Assert.AreEqual(this.AssertMethod4ExpectedValues.UITest1oqatPrjListItemExists, uITest1oqatPrjListItem.Exists);
+        }
+        
         #region Properties
         public virtual projectcreateParams projectcreateParams
         {
@@ -275,6 +333,30 @@ namespace OQAT_Tests
             }
         }
         
+        public virtual projectOpendialogtest3Params projectOpendialogtest3Params
+        {
+            get
+            {
+                if ((this.mprojectOpendialogtest3Params == null))
+                {
+                    this.mprojectOpendialogtest3Params = new projectOpendialogtest3Params();
+                }
+                return this.mprojectOpendialogtest3Params;
+            }
+        }
+        
+        public virtual AssertMethod4ExpectedValues AssertMethod4ExpectedValues
+        {
+            get
+            {
+                if ((this.mAssertMethod4ExpectedValues == null))
+                {
+                    this.mAssertMethod4ExpectedValues = new AssertMethod4ExpectedValues();
+                }
+                return this.mAssertMethod4ExpectedValues;
+            }
+        }
+        
         public UIObjectiveQualityAsseWindow UIObjectiveQualityAsseWindow
         {
             get
@@ -334,6 +416,30 @@ namespace OQAT_Tests
                 return this.mUIProgramManagerWindow;
             }
         }
+        
+        public UIObjectiveQualityAsseWindow2 UIObjectiveQualityAsseWindow2
+        {
+            get
+            {
+                if ((this.mUIObjectiveQualityAsseWindow2 == null))
+                {
+                    this.mUIObjectiveQualityAsseWindow2 = new UIObjectiveQualityAsseWindow2();
+                }
+                return this.mUIObjectiveQualityAsseWindow2;
+            }
+        }
+        
+        public UIGRILLEDSHEEPWindow UIGRILLEDSHEEPWindow
+        {
+            get
+            {
+                if ((this.mUIGRILLEDSHEEPWindow == null))
+                {
+                    this.mUIGRILLEDSHEEPWindow = new UIGRILLEDSHEEPWindow();
+                }
+                return this.mUIGRILLEDSHEEPWindow;
+            }
+        }
         #endregion
         
         #region Fields
@@ -351,6 +457,10 @@ namespace OQAT_Tests
         
         private AssertMethod3ExpectedValues mAssertMethod3ExpectedValues;
         
+        private projectOpendialogtest3Params mprojectOpendialogtest3Params;
+        
+        private AssertMethod4ExpectedValues mAssertMethod4ExpectedValues;
+        
         private UIObjectiveQualityAsseWindow mUIObjectiveQualityAsseWindow;
         
         private UINeuesProjekterstelleWindow mUINeuesProjekterstelleWindow;
@@ -360,6 +470,10 @@ namespace OQAT_Tests
         private UIÖffnenWindow mUIÖffnenWindow;
         
         private UIProgramManagerWindow mUIProgramManagerWindow;
+        
+        private UIObjectiveQualityAsseWindow2 mUIObjectiveQualityAsseWindow2;
+        
+        private UIGRILLEDSHEEPWindow mUIGRILLEDSHEEPWindow;
         #endregion
     }
     
@@ -513,6 +627,61 @@ namespace OQAT_Tests
         #endregion
     }
     
+    /// <summary>
+    /// An "projectOpendialogtest3" zu übergebende Parameter
+    /// </summary>
+    [GeneratedCode("Test-Generator für codierte UI", "10.0.30319.1")]
+    public class projectOpendialogtest3Params
+    {
+        
+        #region Fields
+        /// <summary>
+        /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
+        /// </summary>
+        public string UIObjectiveQualityAsseWindowExePath = "C:\\Users\\GRILLEDSHEEP\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        
+        /// <summary>
+        /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
+        /// </summary>
+        public string UIObjectiveQualityAsseWindowAlternateExePath = "%USERPROFILE%\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        
+        /// <summary>
+        /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
+        /// </summary>
+        public string UIObjectiveQualityAsseWindowExePath1 = "C:\\Users\\GRILLEDSHEEP\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        
+        /// <summary>
+        /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
+        /// </summary>
+        public string UIObjectiveQualityAsseWindowAlternateExePath1 = "%USERPROFILE%\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        
+        /// <summary>
+        /// "test1" in "tbTitel" Textfeld eingeben
+        /// </summary>
+        public string UITbTitelEditText = "test1";
+        #endregion
+    }
+    
+    /// <summary>
+    /// An "AssertMethod4" zu übergebende Parameter
+    /// </summary>
+    [GeneratedCode("Test-Generator für codierte UI", "10.0.30319.1")]
+    public class AssertMethod4ExpectedValues
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Überprüfen, ob Eigenschaft von "myOqatPrj.oqatPrj"-Listenelement Exists True entspricht
+        /// </summary>
+        public bool UIMyOqatPrjoqatPrjListItemExists = true;
+        
+        /// <summary>
+        /// Überprüfen, ob Eigenschaft von "test1.oqatPrj"-Listenelement Exists True entspricht
+        /// </summary>
+        public bool UITest1oqatPrjListItemExists = true;
+        #endregion
+    }
+    
     [GeneratedCode("Test-Generator für codierte UI", "10.0.30319.1")]
     public class UIObjectiveQualityAsseWindow : WpfWindow
     {
@@ -538,10 +707,24 @@ namespace OQAT_Tests
                 return this.mUIItemCustom;
             }
         }
+        
+        public UIObjectiveQualityAsseTitleBar UIObjectiveQualityAsseTitleBar
+        {
+            get
+            {
+                if ((this.mUIObjectiveQualityAsseTitleBar == null))
+                {
+                    this.mUIObjectiveQualityAsseTitleBar = new UIObjectiveQualityAsseTitleBar(this);
+                }
+                return this.mUIObjectiveQualityAsseTitleBar;
+            }
+        }
         #endregion
         
         #region Fields
         private UIItemCustom mUIItemCustom;
+        
+        private UIObjectiveQualityAsseTitleBar mUIObjectiveQualityAsseTitleBar;
         #endregion
     }
     
@@ -596,6 +779,42 @@ namespace OQAT_Tests
         private WpfButton mUINeuesProjekterstelleButton;
         
         private WpfButton mUIProjektsuchenButton;
+        #endregion
+    }
+    
+    [GeneratedCode("Test-Generator für codierte UI", "10.0.30319.1")]
+    public class UIObjectiveQualityAsseTitleBar : WpfTitleBar
+    {
+        
+        public UIObjectiveQualityAsseTitleBar(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Suchkriterien
+            this.SearchProperties[WpfTitleBar.PropertyNames.AutomationId] = "TitleBar";
+            this.WindowTitles.Add("Objective Quality Assessment Toolkit");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfButton UISchließenButton
+        {
+            get
+            {
+                if ((this.mUISchließenButton == null))
+                {
+                    this.mUISchließenButton = new WpfButton(this);
+                    #region Suchkriterien
+                    this.mUISchließenButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "Close";
+                    this.mUISchließenButton.WindowTitles.Add("Objective Quality Assessment Toolkit");
+                    #endregion
+                }
+                return this.mUISchließenButton;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfButton mUISchließenButton;
         #endregion
     }
     
@@ -722,12 +941,30 @@ namespace OQAT_Tests
                 return this.mUITitelText;
             }
         }
+        
+        public WpfEdit UITbTitelEdit
+        {
+            get
+            {
+                if ((this.mUITbTitelEdit == null))
+                {
+                    this.mUITbTitelEdit = new WpfEdit(this);
+                    #region Suchkriterien
+                    this.mUITbTitelEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "tbTitel";
+                    this.mUITbTitelEdit.WindowTitles.Add("Neues Projekt erstellen.");
+                    #endregion
+                }
+                return this.mUITbTitelEdit;
+            }
+        }
         #endregion
         
         #region Fields
         private WpfButton mUIBrowseButton;
         
         private UITitelText mUITitelText;
+        
+        private WpfEdit mUITbTitelEdit;
         #endregion
     }
     
@@ -1071,6 +1308,139 @@ namespace OQAT_Tests
         private WinListItem mUIOttooqatPrjListItem;
         
         private WinListItem mUITestoqatPrjListItem;
+        #endregion
+    }
+    
+    [GeneratedCode("Test-Generator für codierte UI", "10.0.30319.1")]
+    public class UIObjectiveQualityAsseWindow2 : WinWindow
+    {
+        
+        public UIObjectiveQualityAsseWindow2()
+        {
+            #region Suchkriterien
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Objective Quality Assessment Toolkit";
+            this.SearchProperties.Add(new PropertyExpression(WinWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
+            this.WindowTitles.Add("Objective Quality Assessment Toolkit");
+            #endregion
+        }
+    }
+    
+    [GeneratedCode("Test-Generator für codierte UI", "10.0.30319.1")]
+    public class UIGRILLEDSHEEPWindow : WinWindow
+    {
+        
+        public UIGRILLEDSHEEPWindow()
+        {
+            #region Suchkriterien
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "GRILLEDSHEEP";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "CabinetWClass";
+            this.WindowTitles.Add("GRILLEDSHEEP");
+            #endregion
+        }
+        
+        #region Properties
+        public UIItemWindow UIItemWindow
+        {
+            get
+            {
+                if ((this.mUIItemWindow == null))
+                {
+                    this.mUIItemWindow = new UIItemWindow(this);
+                }
+                return this.mUIItemWindow;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIItemWindow mUIItemWindow;
+        #endregion
+    }
+    
+    [GeneratedCode("Test-Generator für codierte UI", "10.0.30319.1")]
+    public class UIItemWindow : WinWindow
+    {
+        
+        public UIItemWindow(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Suchkriterien
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Elementansicht";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "DirectUIHWND";
+            this.WindowTitles.Add("GRILLEDSHEEP");
+            #endregion
+        }
+        
+        #region Properties
+        public UIElementansichtList UIElementansichtList
+        {
+            get
+            {
+                if ((this.mUIElementansichtList == null))
+                {
+                    this.mUIElementansichtList = new UIElementansichtList(this);
+                }
+                return this.mUIElementansichtList;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIElementansichtList mUIElementansichtList;
+        #endregion
+    }
+    
+    [GeneratedCode("Test-Generator für codierte UI", "10.0.30319.1")]
+    public class UIElementansichtList : WinList
+    {
+        
+        public UIElementansichtList(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Suchkriterien
+            this.SearchProperties[WinList.PropertyNames.Name] = "Elementansicht";
+            this.WindowTitles.Add("GRILLEDSHEEP");
+            #endregion
+        }
+        
+        #region Properties
+        public WinListItem UIMyOqatPrjoqatPrjListItem
+        {
+            get
+            {
+                if ((this.mUIMyOqatPrjoqatPrjListItem == null))
+                {
+                    this.mUIMyOqatPrjoqatPrjListItem = new WinListItem(this);
+                    #region Suchkriterien
+                    this.mUIMyOqatPrjoqatPrjListItem.SearchProperties[WinListItem.PropertyNames.Name] = "myOqatPrj.oqatPrj";
+                    this.mUIMyOqatPrjoqatPrjListItem.WindowTitles.Add("GRILLEDSHEEP");
+                    #endregion
+                }
+                return this.mUIMyOqatPrjoqatPrjListItem;
+            }
+        }
+        
+        public WinListItem UITest1oqatPrjListItem
+        {
+            get
+            {
+                if ((this.mUITest1oqatPrjListItem == null))
+                {
+                    this.mUITest1oqatPrjListItem = new WinListItem(this);
+                    #region Suchkriterien
+                    this.mUITest1oqatPrjListItem.SearchProperties[WinListItem.PropertyNames.Name] = "test1.oqatPrj";
+                    this.mUITest1oqatPrjListItem.WindowTitles.Add("GRILLEDSHEEP");
+                    #endregion
+                }
+                return this.mUITest1oqatPrjListItem;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WinListItem mUIMyOqatPrjoqatPrjListItem;
+        
+        private WinListItem mUITest1oqatPrjListItem;
         #endregion
     }
 }
