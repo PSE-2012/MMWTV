@@ -78,9 +78,9 @@ namespace OQAT_Tests
                 "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
             bool isana = false;
             Video target = new Video(false, path, info, null);
-            Assert.AreEqual(target.vidPath, path);
-            Assert.AreEqual(target.isAnalysis, isana);
-            Assert.AreEqual(target.vidInfo, info);
+            Assert.AreEqual(path, target.vidPath);
+            Assert.AreEqual(isana, target.isAnalysis);
+            Assert.AreEqual(info, target.vidInfo);
             Dictionary<PresentationPluginType, System.Collections.Generic.List<string>> er = new System.Collections.Generic.Dictionary<PresentationPluginType, System.Collections.Generic.List<string>>();
             List<string> li = new List<string>();
             li.Add("testcustom");
@@ -90,8 +90,8 @@ namespace OQAT_Tests
             target.frameMetricValue = metrics;
             List<MacroEntry> macros = new List<MacroEntry>();
             target.processedBy = macros;
-            Assert.AreEqual(target.processedBy, macros);
-            Assert.AreEqual(target.extraResources, er);
+            Assert.AreEqual(macros, target.processedBy);
+            Assert.AreEqual(er, target.extraResources);
         }
 
         /// <summary>
