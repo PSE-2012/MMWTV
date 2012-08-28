@@ -141,6 +141,55 @@ namespace OQAT_Tests
             Assert.AreEqual(this.AssertMethod2ExpectedValues.UITestoqatPrjListItemDisplayText, uITestoqatPrjListItem.DisplayText);
         }
         
+        /// <summary>
+        /// CancelbuttonProjectOpendialog - Verwenden Sie "CancelbuttonProjectOpendialogParams", um Parameter an diese Methode zu übergeben.
+        /// </summary>
+        public void CancelbuttonProjectOpendialog()
+        {
+            #region Variable Declarations
+            WpfButton uINeuesProjekterstelleButton = this.UIObjectiveQualityAsseWindow.UIItemCustom.UINeuesProjekterstelleButton;
+            WpfEdit uIItemEdit = this.UINeuesProjekterstelleWindow.UITitelundPfadwählenGroup.UITitelText.UIItemEdit;
+            WpfButton uIBrowseButton = this.UINeuesProjekterstelleWindow.UITitelundPfadwählenGroup.UIBrowseButton;
+            WinButton uISpeichernButton = this.UISpeichernunterWindow.UISpeichernWindow.UISpeichernButton;
+            WpfEdit uIProjDescFieldEdit = this.UINeuesProjekterstelleWindow.UIBeschreibungGroup.UIProjDescFieldEdit;
+            WpfButton uIAbbrechenButton = this.UINeuesProjekterstelleWindow.UIAbbrechenButton;
+            #endregion
+
+            // "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
+            ApplicationUnderTest uIObjectiveQualityAsseWindow = ApplicationUnderTest.Launch(this.CancelbuttonProjectOpendialogParams.UIObjectiveQualityAsseWindowExePath, this.CancelbuttonProjectOpendialogParams.UIObjectiveQualityAsseWindowAlternateExePath);
+
+            // Klicken "Neues Projekt erstellen" Schaltfläche
+            Mouse.Click(uINeuesProjekterstelleButton, new Point(128, 13));
+
+            // "test" in erstes Textfeld neben "Titel:" Beschriftung eingeben
+            uIItemEdit.Text = this.CancelbuttonProjectOpendialogParams.UIItemEditText;
+
+            // Klicken "Browse" Schaltfläche
+            Mouse.Click(uIBrowseButton, new Point(81, 52));
+
+            // Klicken "&Speichern" Schaltfläche
+            Mouse.Click(uISpeichernButton, new Point(56, 20));
+
+            // "Hallo" in "projDescField" Textfeld eingeben
+            uIProjDescFieldEdit.Text = this.CancelbuttonProjectOpendialogParams.UIProjDescFieldEditText;
+
+            // Klicken "Abbrechen" Schaltfläche
+            Mouse.Click(uIAbbrechenButton, new Point(362, 30));
+        }
+        
+        /// <summary>
+        /// AssertMethod3 - Verwenden Sie "AssertMethod3ExpectedValues", um Parameter an diese Methode zu übergeben.
+        /// </summary>
+        public void AssertMethod3()
+        {
+            #region Variable Declarations
+            WinListItem uITestoqatPrjListItem = this.UIProgramManagerWindow.UIDesktopList.UITestoqatPrjListItem;
+            #endregion
+
+            // Überprüfen, ob Eigenschaft von "test.oqatPrj"-Listenelement Exists false entspricht
+            Assert.AreEqual(this.AssertMethod3ExpectedValues.UITestoqatPrjListItemExists, uITestoqatPrjListItem.Exists);
+        }
+        
         #region Properties
         public virtual projectcreateParams projectcreateParams
         {
@@ -199,6 +248,30 @@ namespace OQAT_Tests
                     this.mAssertMethod2ExpectedValues = new AssertMethod2ExpectedValues();
                 }
                 return this.mAssertMethod2ExpectedValues;
+            }
+        }
+        
+        public virtual CancelbuttonProjectOpendialogParams CancelbuttonProjectOpendialogParams
+        {
+            get
+            {
+                if ((this.mCancelbuttonProjectOpendialogParams == null))
+                {
+                    this.mCancelbuttonProjectOpendialogParams = new CancelbuttonProjectOpendialogParams();
+                }
+                return this.mCancelbuttonProjectOpendialogParams;
+            }
+        }
+        
+        public virtual AssertMethod3ExpectedValues AssertMethod3ExpectedValues
+        {
+            get
+            {
+                if ((this.mAssertMethod3ExpectedValues == null))
+                {
+                    this.mAssertMethod3ExpectedValues = new AssertMethod3ExpectedValues();
+                }
+                return this.mAssertMethod3ExpectedValues;
             }
         }
         
@@ -273,6 +346,10 @@ namespace OQAT_Tests
         private AssertMethod1ExpectedValues mAssertMethod1ExpectedValues;
         
         private AssertMethod2ExpectedValues mAssertMethod2ExpectedValues;
+        
+        private CancelbuttonProjectOpendialogParams mCancelbuttonProjectOpendialogParams;
+        
+        private AssertMethod3ExpectedValues mAssertMethod3ExpectedValues;
         
         private UIObjectiveQualityAsseWindow mUIObjectiveQualityAsseWindow;
         
@@ -388,6 +465,51 @@ namespace OQAT_Tests
         /// Überprüfen, ob Eigenschaft von "test.oqatPrj"-Listenelement DisplayText test.oqatPrj entspricht
         /// </summary>
         public string UITestoqatPrjListItemDisplayText = "test.oqatPrj";
+        #endregion
+    }
+    
+    /// <summary>
+    /// An "CancelbuttonProjectOpendialog" zu übergebende Parameter
+    /// </summary>
+    [GeneratedCode("Test-Generator für codierte UI", "10.0.30319.1")]
+    public class CancelbuttonProjectOpendialogParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
+        /// </summary>
+        public string UIObjectiveQualityAsseWindowExePath = "C:\\Users\\GRILLEDSHEEP\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        
+        /// <summary>
+        /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
+        /// </summary>
+        public string UIObjectiveQualityAsseWindowAlternateExePath = "%USERPROFILE%\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        
+        /// <summary>
+        /// "test" in erstes Textfeld neben "Titel:" Beschriftung eingeben
+        /// </summary>
+        public string UIItemEditText = "test";
+        
+        /// <summary>
+        /// "Hallo" in "projDescField" Textfeld eingeben
+        /// </summary>
+        public string UIProjDescFieldEditText = "Hallo";
+        #endregion
+    }
+    
+    /// <summary>
+    /// An "AssertMethod3" zu übergebende Parameter
+    /// </summary>
+    [GeneratedCode("Test-Generator für codierte UI", "10.0.30319.1")]
+    public class AssertMethod3ExpectedValues
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Überprüfen, ob Eigenschaft von "test.oqatPrj"-Listenelement Exists false entspricht
+        /// </summary>
+        public bool UITestoqatPrjListItemExists = false;
         #endregion
     }
     
