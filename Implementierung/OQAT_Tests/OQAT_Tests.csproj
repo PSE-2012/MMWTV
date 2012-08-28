@@ -35,9 +35,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Controls, Version=2.2.4.0, Culture=neutral, PublicKeyToken=a8ac264d1dc6b9d9, processorArchitecture=MSIL" />
-    <Reference Include="AForge.Imaging, Version=2.2.4.0, Culture=neutral, PublicKeyToken=ba8ddea9676ca48b, processorArchitecture=MSIL" />
-    <Reference Include="AForge.Imaging.Formats, Version=2.2.4.0, Culture=neutral, PublicKeyToken=8065ed5a639199a0, processorArchitecture=MSIL" />
-    <Reference Include="AForge.Imaging.IPPrototyper, Version=1.0.1.1, Culture=neutral, PublicKeyToken=c6e9a6d4c86d47e7, processorArchitecture=MSIL" />
     <Reference Include="AForge.Video, Version=2.2.4.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL" />
     <Reference Include="AvalonControlsLibrary, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
@@ -89,7 +86,6 @@
     <Compile Include="Projectopendialog3.cs" />
     <Compile Include="Projectopendialog1.cs" />
     <Compile Include="Projectopendialog2.cs" />
-    <Compile Include="InvertTest.cs" />
     <Compile Include="PluginManagerTest.cs" />
     <Compile Include="ProjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,6 +97,9 @@
       <DependentUpon>UIMap.uitest</DependentUpon>
     </Compile>
     <Compile Include="VideoTest.cs" />
+    <Compile Include="VideoInfoTest.cs" />
+<Compile Include="VideoHandlerTest.cs" />
+<Compile Include="VidImportDialogTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OqatPublicResources\OqatPublicResources.csproj">
@@ -110,10 +109,6 @@
     <ProjectReference Include="..\OQAT\OQAT.csproj">
       <Project>{B138D4F9-F3DB-45C3-B9B8-2FC79AEB425D}</Project>
       <Name>OQAT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PF_Invert\PF_Invert.csproj">
-      <Project>{0F859789-F28E-40B5-AB32-5F2ED008457D}</Project>
-      <Name>PF_Invert</Name>
     </ProjectReference>
     <ProjectReference Include="..\WPF_ClosableTabItem\WPF_ClosableTabItem.csproj">
       <Project>{5F6709BE-B477-4C58-B4C0-1735443E6799}</Project>
