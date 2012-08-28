@@ -26,8 +26,6 @@ namespace PF_Greyscale
     [Serializable()]
     public class Greyscale : IFilterOqat
     {
-
-
         private string _namePlugin = "PF_Greyscale";
         private PluginType _type = PluginType.IFilterOqat;
         VM_Greyscale propertiesView;
@@ -35,20 +33,26 @@ namespace PF_Greyscale
         /// <summary>
         /// constructor
         /// </summary>
-
         public Greyscale()
         {
-            propertiesView= new VM_Greyscale();
+            propertiesView = new VM_Greyscale();
             propertiesView.local(_namePlugin + "_" + Thread.CurrentThread.CurrentCulture+".xml");
-        
         }
         /// <summary>
         /// Generates the filtered Image.
         /// </summary>
         public Bitmap process(Bitmap frame)
         {
-            AForge.Imaging.Filters.Grayscale filter = new AForge.Imaging.Filters.Grayscale(propertiesView.getRed(),propertiesView.getGreen(),propertiesView.getBlue());
-            Bitmap grayImage = filter.Apply(frame);
+            Bitmap grayImage;
+            if (frame != null)
+            {
+                AForge.Imaging.Filters.Grayscale filter = new AForge.Imaging.Filters.Grayscale(propertiesView.getRed(), propertiesView.getGreen(), propertiesView.getBlue());
+                grayImage = filter.Apply(frame);
+            }
+            else
+            {
+                grayImage = null;
+            }
             return grayImage;
         }
 
@@ -94,30 +98,29 @@ namespace PF_Greyscale
         /// <summary>
         /// Returns a Memento with the current state of the Object.
         /// </summary>
-
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
             double[] colorValues = new double[3];
             colorValues[0] = this.propertiesView.getRed();
             colorValues[1] = this.propertiesView.getGreen();
             colorValues[2] = this.propertiesView.getBlue();
-
-            Memento mem = new Memento(this.namePlugin + "_properties", colorValues);
-
-            return mem;
+            return new Memento(this.namePlugin + "_properties", colorValues);
         }
 
         /// <summary>
         /// Sets a Memento as the current state of the Object.
         /// </summary>
-
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
-            Object obj = memento.state;
-
-            var otto = (double[])obj;
-            this.propertiesView.changeValue(otto[0], otto[1], otto[2]);
+            if (memento.state is double[])
+            {
+                Object obj = memento.state;
+                var colorValues = (double[])obj;
+                this.propertiesView.changeValue(colorValues[0], colorValues[1], colorValues[2]);
+            }
+            
         }
+
         public void local(String s)
         {
             propertiesView.local(_namePlugin + s);
