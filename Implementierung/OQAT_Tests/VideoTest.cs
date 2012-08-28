@@ -8,8 +8,6 @@ using System.Collections.Generic;
 
 namespace OQAT_Tests
 {
-    
-    
     /// <summary>
     ///Dies ist eine Testklasse für "VideoTest" und soll
     ///alle VideoTest Komponententests enthalten.
@@ -17,8 +15,6 @@ namespace OQAT_Tests
     [TestClass()]
     public class VideoTest
     {
-
-
         private TestContext testContextInstance;
 
         /// <summary>
@@ -67,107 +63,52 @@ namespace OQAT_Tests
         //
         #endregion
 
-
-        ///// <summary>
-        /////Ein Test für "getMemento"
-        /////</summary>
-        //[TestMethod()]
-        //public void getMementoTest()
-        //{
-        //    YuvVideoInfo info = new YuvVideoInfo();
-        //    info.height = 200;
-        //    info.width = 100;
-        //    info.yuvFormat = YuvFormat.YUV420_IYUV;
-
-        //    string path = "mypath";
-        //    bool isana = true;
-
-        //    Video target = new Video(isana, path, info);
-
-        //    Dictionary<PresentationPluginType, System.Collections.Generic.List<string>> er = new System.Collections.Generic.Dictionary<PresentationPluginType, System.Collections.Generic.List<string>>();
-        //    List<string> li = new List<string>();
-        //    li.Add("testcustom");
-        //    er.Add(PresentationPluginType.Custom, li);
-        //    target.extraResources = er;
-
-        //    float[][] metrics = new float[][] { new float[] { 1, 2, 3, 4, 5 } };
-        //    target.frameMetricValue = metrics;
-        //    List<MacroEntry> macros = new List<MacroEntry>();
-        //    target.processedBy = macros;
-
-        //    Memento actual;
-        //    actual = target.getMemento();
-
-        //    Video vidmem = (Video)actual.state;
-
-        //    Assert.AreEqual(vidmem.vidPath, path);
-        //    Assert.AreEqual(vidmem.isAnalysis, isana);
-        //    Assert.AreEqual(vidmem.extraResources, er);
-        //    Assert.AreEqual(vidmem.frameMetricValue, metrics);
-        //    Assert.AreEqual(vidmem.processedBy, macros);
-        //    Assert.AreEqual(vidmem.vidInfo, info);
-        //}
-
-        ///// <summary>
-        /////Ein Test für "setMemento"
-        /////</summary>
-        //[TestMethod()]
-        //public void setMementoTest()
-        //{
-        //    Video target = new Video(true, "bla", null);
-            
-            
-            
-        //    YuvVideoInfo info = new YuvVideoInfo();
-        //    info.height = 200;
-        //    info.width = 100;
-        //    info.yuvFormat = YuvFormat.YUV420_IYUV;
-
-        //    string path = "mypath";
-        //    bool isana = true;
-
-        //    Video refv = new Video(isana, path, info);
-
-        //    Dictionary<PresentationPluginType, System.Collections.Generic.List<string>> er = new System.Collections.Generic.Dictionary<PresentationPluginType, System.Collections.Generic.List<string>>();
-        //    List<string> li = new List<string>();
-        //    li.Add("testcustom");
-        //    er.Add(PresentationPluginType.Custom, li);
-        //    refv.extraResources = er;
-
-        //    float[][] metrics = new float[][] { new float[] { 1, 2, 3, 4, 5 } };
-        //    refv.frameMetricValue = metrics;
-        //    List<MacroEntry> macros = new List<MacroEntry>();
-        //    refv.processedBy = macros;
-
-        //    Memento mem_input = refv.getMemento();
-
-        //    //TODO: use Cartaker to write and read the memento - only this might show real problems
-
-        //    target.setMemento(mem_input);
-
-        //    Assert.AreEqual(target.vidPath, path);
-        //    Assert.AreEqual(target.isAnalysis, isana);
-        //    Assert.AreEqual(target.extraResources, er);
-        //    Assert.AreEqual(target.frameMetricValue, metrics);
-        //    Assert.AreEqual(target.processedBy, macros);
-        //    Assert.AreEqual(target.vidInfo, info);
-        //}
-
+        /// <summary>
+        ///A test for the constructor of Video, as well as all public
+        ///getters and setters.
+        ///</summary>
+        [TestMethod()]
+        public void constructorTest()
+        {
+            YuvVideoInfo info = new YuvVideoInfo();
+            info.width = 352;
+            info.height = 288;
+            info.yuvFormat = YuvFormat.YUV420_IYUV;
+            string path =
+                "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
+            bool isana = false;
+            Video target = new Video(false, path, info, null);
+            Assert.AreEqual(target.vidPath, path);
+            Assert.AreEqual(target.isAnalysis, isana);
+            Assert.AreEqual(target.vidInfo, info);
+            Dictionary<PresentationPluginType, System.Collections.Generic.List<string>> er = new System.Collections.Generic.Dictionary<PresentationPluginType, System.Collections.Generic.List<string>>();
+            List<string> li = new List<string>();
+            li.Add("testcustom");
+            er.Add(PresentationPluginType.Custom, li);
+            target.extraResources = er;
+            float[][] metrics = new float[][] { new float[] { 1, 2, 3, 4, 5 } };
+            target.frameMetricValue = metrics;
+            List<MacroEntry> macros = new List<MacroEntry>();
+            target.processedBy = macros;
+            Assert.AreEqual(target.processedBy, macros);
+            Assert.AreEqual(target.extraResources, er);
+        }
 
         /// <summary>
-        ///Ein Test für "getVideoHandler"
+        ///A test for "getVideoHandler"
         ///</summary>
         [TestMethod()]
         public void getVideoHandlerTest()
         {
-            //Video target = new Video(); // TODO: Passenden Wert initialisieren
-            //IVideoHandler expected = null; // TODO: Passenden Wert initialisieren
-            //IVideoHandler actual;
-            //actual = target.getVideoHandler();
-            //Assert.AreEqual(expected, actual);
-            //Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
+            YuvVideoInfo info = new YuvVideoInfo("D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv");
+            string path = 
+                "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
+            Video target = new Video(false, path, info, null);
+            IVideoHandler expected = new YuvVideoHandler();
+            expected.setReadContext(path, info);
+            IVideoHandler actual = target.handler;
+            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
         }
-
-        
     }
 }
