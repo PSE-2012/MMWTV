@@ -12,13 +12,13 @@ namespace OQAT_Tests
     [TestClass]
     public class VideoHandlerTest
     {
-        /// <summary>
+        ///<summary>
         ///Tests setting of the read context, as well as some basic properties
         ///</summary>
         [TestMethod]
         public void readContextTest()
         {
-            YuvVideoHandler yvh = new YuvVideoHandler();
+        YuvVideoHandler yvh = new YuvVideoHandler();
             Assert.AreEqual("yuvVideoHandler", yvh.namePlugin);
             Assert.AreEqual(PluginType.IVideoHandler, yvh.type);
             string path =
@@ -119,5 +119,21 @@ namespace OQAT_Tests
                 i++;
             }
         }
+
+        /**[TestMethod]
+        public void writeFramesTest()
+        {
+            YuvVideoHandler yvh = new YuvVideoHandler();
+            string readPath =
+                "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
+            YuvVideoInfo info = new YuvVideoInfo(readPath);
+            yvh.setReadContext(path, info); // write context cannot be set without a valid read context
+            string writePath =
+                "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif_copy.yuv";
+            YuvVideoInfo writeinfo = new YuvVideoInfo(writePath);
+            yvh.setWriteContext(writepath, writeinfo);
+            System.Drawing.Bitmap[] frames = new System.Drawing.Bitmap[20];
+            yvh.writeFrames(4, frames);
+        } **/
     }
 }
