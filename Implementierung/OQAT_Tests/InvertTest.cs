@@ -9,12 +9,15 @@ using System.Windows.Controls;
 
 namespace OQAT_Tests
 {
-
-
+    
+    
+    /// <summary>
+    ///Dies ist eine Testklasse für "InvertTest" und soll
+    ///alle InvertTest Komponententests enthalten.
+    ///</summary>
     [TestClass()]
     public class InvertTest
     {
-
         private static Bitmap testBitmap;
         private static Bitmap processedBitmap;
         private static Memento testMemento;
@@ -137,36 +140,6 @@ namespace OQAT_Tests
             Assert.IsTrue(actual is Memento, "Mememento is not set at the start.");
         }
 
-        ///// <summary>
-        /////Ein Test für "getMemento"
-        /////</summary>
-        //[TestMethod()]
-        //public void getMementoTest()
-        //{
-        //    Invert target = new Invert(); // TODO: Passenden Wert initialisieren
-        //    Memento expected = null; // TODO: Passenden Wert initialisieren
-        //    Memento actual;
-        //    actual = target.getMemento();
-        //    Assert.AreEqual(expected, actual);
-        //    Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
-        //}
-
-
-        ///// <summary>
-        /////Ein Test für "process"
-        /////</summary>
-        //[TestMethod()]
-        //public void processTest()
-        //{
-        //    Invert target = new Invert(); // TODO: Passenden Wert initialisieren
-        //    Bitmap frame = null; // TODO: Passenden Wert initialisieren
-        //    Bitmap expected = null; // TODO: Passenden Wert initialisieren
-        //    Bitmap actual;
-        //    actual = target.process(frame);
-        //    Assert.AreEqual(expected, actual);
-        //    Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
-        //}
-
         /// <summary>
         ///Test "process": does return inverted Bitmap
         ///</summary>
@@ -217,10 +190,8 @@ namespace OQAT_Tests
             Bitmap frame = null;
             Bitmap expected = null;
             Bitmap actual;
-            //BUG process kann nicht mit null umgehen
             actual = target.process(frame);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("BUG process kann nicht mit null umgehen.");
+            Assert.AreEqual(expected, actual, "process can not handle null.");
         }
 
         /// <summary>
@@ -234,20 +205,8 @@ namespace OQAT_Tests
             Bitmap expected = new Bitmap(15, 15);
             Bitmap actual;
             actual = target.process(frame);
-            Assert.AreNotEqual(expected, actual);
+            Assert.AreEqual(expected.GetPixel(5, 5), expected.GetPixel(5, 5));
         }
-
-        ///// <summary>
-        /////Ein Test für "setMemento"
-        /////</summary>
-        //[TestMethod()]
-        //public void setMementoTest()
-        //{
-        //    Invert target = new Invert(); // TODO: Passenden Wert initialisieren
-        //    Memento memento = null; // TODO: Passenden Wert initialisieren
-        //    target.setMemento(memento);
-        //    Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
-        //}
 
         /// <summary>
         ///Test "setMemento": empty Memento
@@ -272,7 +231,7 @@ namespace OQAT_Tests
             List<Memento> memList = new List<Memento>();
             Memento memento = new Memento("PF_Invert", memList);
             target.setMemento(memento);
-            Assert.IsTrue(target.getMemento().state is Invert);//???
+            Assert.IsTrue(target.getMemento().state is Invert, "Invert doesn't care about Memento's, it does not need any.");
         }
 
         /// <summary>
