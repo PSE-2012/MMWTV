@@ -18,6 +18,7 @@
             </Grid.ColumnDefinitions>
             <TreeView Grid.Row="0" Grid.RowSpan="4" x:Name="smartTreeExplorer" ItemsSource="{Binding}"
                       KeyDown="smartTreeExplorer_KeyDown"
+                      MouseDown="smartTreeExplorer_MouseDown"
                           DragDrop.Drop="smartTreeExplorer_Drop" AllowDrop="True"
                    
                           DragDrop.DragEnter="smartTreeExplorer_DragEnter" 
