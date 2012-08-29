@@ -42,6 +42,8 @@ namespace OQAT_Tests
             YuvVideoInfo info = new YuvVideoInfo(
                 "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv");
             Assert.AreEqual(150, info.frameCount);
+            YuvVideoInfo falseInfo = new YuvVideoInfo("D:\\bla_cif.yuv");
+            Assert.AreEqual(-1, falseInfo.frameCount);
         }
     }
 }

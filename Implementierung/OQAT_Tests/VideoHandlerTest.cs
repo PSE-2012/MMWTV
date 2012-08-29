@@ -18,7 +18,7 @@ namespace OQAT_Tests
         [TestMethod]
         public void readContextTest()
         {
-        YuvVideoHandler yvh = new YuvVideoHandler();
+            YuvVideoHandler yvh = new YuvVideoHandler();
             Assert.AreEqual("yuvVideoHandler", yvh.namePlugin);
             Assert.AreEqual(PluginType.IVideoHandler, yvh.type);
             string path =
@@ -28,6 +28,35 @@ namespace OQAT_Tests
             Assert.AreEqual(info, yvh.readVidInfo);
             Assert.IsNotNull(yvh.frameByteSize);
             Assert.IsTrue(yvh.consistent);
+            string falsePath = "\\bla_cif.yuv";
+            YuvVideoInfo falseInfo = new YuvVideoInfo(falsePath);
+            try
+            {
+                yvh.setReadContext(falsePath, falseInfo);
+                Assert.Fail("no exception thrown");
+            }
+            catch (Exception ex)
+            {
+
+            }
+            try
+            {
+                yvh.setReadContext(falsePath, info);
+                Assert.Fail("no exception thrown");
+            }
+            catch (Exception ex)
+            {
+
+            }
+            try
+            {
+                yvh.setReadContext(path, falseInfo);
+                Assert.Fail("no exception thrown");
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         /// <summary>
@@ -45,8 +74,21 @@ namespace OQAT_Tests
             Assert.AreEqual(info, yvh.readVidInfo);
             Assert.IsNotNull(yvh.frameByteSize);
             Assert.IsTrue(yvh.consistent);
+            string falsePath = "\\bla_cif.yuv";
+            try
+            {
+                yvh.setImportContext(falsePath);
+                Assert.Fail("no exception thrown");
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
+        ///<summary>
+        ///Get/setmemento test
+        ///</summary>
         [TestMethod]
         public void mementoTest()
         {
@@ -57,6 +99,9 @@ namespace OQAT_Tests
             Assert.AreEqual("MementoStub", mem.name);
         }
 
+        ///<summary>
+        ///Write context test
+        ///</summary>
         [TestMethod]
         public void writeContextTest()
         {
@@ -64,19 +109,59 @@ namespace OQAT_Tests
             string path =
                 "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
             YuvVideoInfo info = new YuvVideoInfo(path);
+            try
+            {
+                yvh.setWriteContext(path, info);
+                Assert.Fail("no exception thrown");
+            }
+            catch (Exception ex)
+            {
+
+            }
             yvh.setReadContext(path, info); // write context cannot be set without a valid read context
             yvh.setWriteContext(path, info);
             Assert.AreEqual(info, yvh.writeVidInfo);
             Assert.IsTrue(yvh.consistent);
+            string falsePath = "\\bla_cif.yuv";
+            YuvVideoInfo falseInfo = new YuvVideoInfo(falsePath);
+            try
+            {
+                yvh.setWriteContext(falsePath, falseInfo);
+                Assert.Fail("no exception thrown");
+            }
+            catch (Exception ex)
+            {
+
+            }
+            try
+            {
+                yvh.setWriteContext(falsePath, info);
+                Assert.Fail("no exception thrown");
+            }
+            catch (Exception ex)
+            {
+
+            }
+            try
+            {
+                yvh.setWriteContext(path, falseInfo);
+                Assert.Fail("no exception thrown");
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
+        ///<summary>
+        ///Tests flushing of current reader context
+        ///</summary>
         [TestMethod]
         public void flushReaderTest()
         {
             YuvVideoHandler yvh = new YuvVideoHandler();
             string path =
                 "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
-            YuvVideoInfo info = new YuvVideoInfo(path);
             yvh.setImportContext(path);
             int oldFrameByteSize = yvh.frameByteSize;
             yvh.flushReader();
@@ -84,6 +169,36 @@ namespace OQAT_Tests
             Assert.AreEqual(0, yvh.positionReader);
         }
 
+        ///<summary>
+        ///Tests flushing of current write context
+        ///</summary>
+        [TestMethod]
+        public void flushWriterTest()
+        {
+            YuvVideoHandler yvh = new YuvVideoHandler();
+            string path =
+                "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
+            YuvVideoInfo info = new YuvVideoInfo(path);
+            yvh.setReadContext(path, info); // write context cannot be set without a valid read context
+            string writePath =
+                "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif_copy.yuv";
+            YuvVideoInfo writeinfo = new YuvVideoInfo(writePath);
+            yvh.setWriteContext(writePath, writeinfo);
+            int oldFrameByteSize = yvh.frameByteSize;
+            yvh.flushWriter();
+            Assert.AreEqual(oldFrameByteSize, yvh.frameByteSize);
+            Assert.AreEqual(0, yvh.positionReader);
+            System.Drawing.Bitmap testframe = yvh.getFrame();
+            System.Drawing.Bitmap[] frames = new System.Drawing.Bitmap[1];
+            frames[0] = testframe;
+            yvh.writeFrames(4, frames);
+            yvh.flushWriter();
+            yvh.writeFrames(4, frames);
+        }
+
+        ///<summary>
+        ///Tests reading of frames
+        ///</summary>
         [TestMethod]
         public void getFrameTest()
         {
@@ -120,20 +235,47 @@ namespace OQAT_Tests
             }
         }
 
-        /**[TestMethod]
+        ///<summary>
+        ///Tests writing of frames
+        ///</summary>
+        [TestMethod]
         public void writeFramesTest()
         {
             YuvVideoHandler yvh = new YuvVideoHandler();
             string readPath =
                 "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
             YuvVideoInfo info = new YuvVideoInfo(readPath);
-            yvh.setReadContext(path, info); // write context cannot be set without a valid read context
+            yvh.setReadContext(readPath, info); // write context cannot be set without a valid read context
             string writePath =
                 "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif_copy.yuv";
             YuvVideoInfo writeinfo = new YuvVideoInfo(writePath);
-            yvh.setWriteContext(writepath, writeinfo);
+            yvh.setWriteContext(writePath, writeinfo);
+            System.Drawing.Bitmap testframe = yvh.getFrame();
             System.Drawing.Bitmap[] frames = new System.Drawing.Bitmap[20];
+            for (int i = 0; i < frames.Length; i++)
+            {
+                frames[i] = testframe;
+            }
             yvh.writeFrames(4, frames);
-        } **/
+            yvh.writeFrames(151, frames); // is > totalFrames for bus_cif.yuv
+            try
+            {
+                yvh.writeFrames(-1, frames);
+                Assert.Fail("no exception thrown");
+            }
+            catch (Exception ex)
+            {
+
+            }
+            try
+            {
+            yvh.writeFrames(3, new System.Drawing.Bitmap[3]);
+            Assert.Fail("no exception thrown");
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
     }
 }

@@ -15,24 +15,6 @@ namespace OQAT_Tests
     [TestClass()]
     public class VideoTest
     {
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Ruft den Testkontext auf, der Informationen
-        ///über und Funktionalität für den aktuellen Testlauf bietet, oder legt diesen fest.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
         #region Zusätzliche Testattribute
         // 
         //Sie können beim Verfassen Ihrer Tests die folgenden zusätzlichen Attribute verwenden:
@@ -95,7 +77,7 @@ namespace OQAT_Tests
         }
 
         /// <summary>
-        ///A test for "getVideoHandler"
+        ///A test for "getVideoHandler" - test not working yet
         ///</summary>
         [TestMethod()]
         public void getVideoHandlerTest()
@@ -108,7 +90,19 @@ namespace OQAT_Tests
             expected.setReadContext(path, info);
             IVideoHandler actual = target.handler;
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
+            YuvVideoInfo falseInfo = new YuvVideoInfo("D\\bla_cif.yuv");
+            string falsePath =
+                "D\\bla_cif.yuv";
+            Video falseTarget = new Video(false, falsePath, falseInfo, null);
+            try
+            {
+                IVideoHandler falseHandler = falseTarget.handler;
+                Assert.Fail("no exception thrown");
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }
