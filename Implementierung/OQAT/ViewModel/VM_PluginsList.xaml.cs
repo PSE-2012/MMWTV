@@ -198,22 +198,12 @@ namespace Oqat.ViewModel
        
         private void updatePropertiesView()
         {
-            if (selectedPVM == null)
-            {   //no Plugin is selected
-                this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
-                this.bttAddToMacro.Visibility = System.Windows.Visibility.Collapsed;
-                return;
-            }
+            this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
+            this.bttAddToMacro.Visibility = System.Windows.Visibility.Collapsed;
+            this.panelMacroProp.Visibility = System.Windows.Visibility.Collapsed;
+            this.tbNoSettings.Visibility = System.Windows.Visibility.Collapsed;
 
-
-            if (!selectedPVM.isMemento)
-            { //parentnode
-                this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
-                this.bttAddToMacro.Visibility = System.Windows.Visibility.Collapsed;
-                panelMacroProp.Visibility = System.Windows.Visibility.Collapsed;
-                this.tbNoSettings.Visibility = System.Windows.Visibility.Collapsed;
-            }
-            else
+            if(selectedPVM.isMemento)
             { //real memento
                 selectedPlugin = PluginManager.pluginManager.getPlugin<IPlugin>(selectedPVM.parent.name);
 
