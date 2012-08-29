@@ -488,12 +488,12 @@ namespace OQAT_Tests
         /// <summary>
         /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
         /// </summary>
-        public string UIObjectiveQualityAsseWindowExePath = "C:\\Users\\GRILLEDSHEEP\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        public string UIObjectiveQualityAsseWindowExePath = "%USERPROFILE%\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
         
         /// <summary>
         /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
         /// </summary>
-        public string UIObjectiveQualityAsseWindowAlternateExePath = "%USERPROFILE%\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        public string UIObjectiveQualityAsseWindowAlternateExePath = "%USERPROFILE%\\Eigene Dateien\\PSE\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
         
         /// <summary>
         /// "test.oqatPrj" in "Dateiname:" Kombinationsfeld auswählen
@@ -523,12 +523,12 @@ namespace OQAT_Tests
         /// <summary>
         /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
         /// </summary>
-        public string UIObjectiveQualityAsseWindowExePath = "C:\\Users\\GRILLEDSHEEP\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        public string UIObjectiveQualityAsseWindowExePath = "%USERPROFILE%\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
         
         /// <summary>
         /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
         /// </summary>
-        public string UIObjectiveQualityAsseWindowAlternateExePath = "%USERPROFILE%\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        public string UIObjectiveQualityAsseWindowAlternateExePath = "%USERPROFILE%\\Eigene Dateien\\PSE\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
         #endregion
     }
     
@@ -593,12 +593,12 @@ namespace OQAT_Tests
         /// <summary>
         /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
         /// </summary>
-        public string UIObjectiveQualityAsseWindowExePath = "C:\\Users\\GRILLEDSHEEP\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        public string UIObjectiveQualityAsseWindowExePath = "%USERPROFILE%\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
         
         /// <summary>
         /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
         /// </summary>
-        public string UIObjectiveQualityAsseWindowAlternateExePath = "%USERPROFILE%\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        public string UIObjectiveQualityAsseWindowAlternateExePath = "%USERPROFILE%\\Eigene Dateien\\PSE\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
         
         /// <summary>
         /// "test" in erstes Textfeld neben "Titel:" Beschriftung eingeben
@@ -638,22 +638,22 @@ namespace OQAT_Tests
         /// <summary>
         /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
         /// </summary>
-        public string UIObjectiveQualityAsseWindowExePath = "C:\\Users\\GRILLEDSHEEP\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        public string UIObjectiveQualityAsseWindowExePath = "%USERPROFILE%\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
         
         /// <summary>
         /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
         /// </summary>
-        public string UIObjectiveQualityAsseWindowAlternateExePath = "%USERPROFILE%\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        public string UIObjectiveQualityAsseWindowAlternateExePath = "%USERPROFILE%\\Eigene Dateien\\PSE\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
         
         /// <summary>
         /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
         /// </summary>
-        public string UIObjectiveQualityAsseWindowExePath1 = "C:\\Users\\GRILLEDSHEEP\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        public string UIObjectiveQualityAsseWindowExePath1 = "%USERPROFILE%\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
         
         /// <summary>
         /// "%USERPROFILE%\MMWTV\Implementierung\OQAT\bin\Debug\OQAT.exe" starten
         /// </summary>
-        public string UIObjectiveQualityAsseWindowAlternateExePath1 = "%USERPROFILE%\\MMWTV\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
+        public string UIObjectiveQualityAsseWindowAlternateExePath1 = "%USERPROFILE%\\Eigene Dateien\\PSE\\Implementierung\\OQAT\\bin\\Debug\\OQAT.exe";
         
         /// <summary>
         /// "test1" in "tbTitel" Textfeld eingeben
