@@ -1,0 +1,1349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner"
+  dslVersion="1.0.0.0"
+  Id="43b24e11-4d34-47e0-b833-6600d4e67d75"
+  name="Modelle" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
+      <profileInstance
+        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
+        name="StandardProfileL2" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="29349502-908c-4fda-9054-c48619c59ed0">
+      <profileInstance
+        Id="532ea607-fb19-44b8-8502-3351b05452be"
+        name="StandardProfileL3" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <subsystem
+        Id="003c2bde-c44e-487f-a8c3-5113d717c4a3"
+        name="Projektverwaltung"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="5b82afef-d90a-4431-b6b3-f97be2f0ff6a"
+        name="Benutzer"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="bbaee5ed-1624-44fe-b83c-cf329d3b62bd"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="Projekt erstellen"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="c8be3458-9036-41b5-b01e-9d8fb9ffdf68"
+              LastKnownName="Projekt erstellen"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="285dc985-453d-4408-bf7a-cb1d47a350b5"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="7614ff97-6ad5-410a-a11a-5341fea963dc"
+                  name="Projekt erstellen"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="8878ea10-a4f2-4bc3-8162-913e99277e3a"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="Projekt bearbeiten"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="e108e79f-3137-450b-818d-e50d5ea42ed0"
+              LastKnownName="Projekt bearbeiten"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="85624687-3015-446a-a3fb-34a46f401ea0"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="651c755d-9685-4fcb-b919-ec2307607f08"
+                  name="Projekt bearbeiten"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="c0ab4829-2525-425c-a689-aee5fc017b5d"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="Projekt speichern"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="09c2aff3-9f59-4c5a-8bce-337457315907"
+              LastKnownName="Projekt speichern"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8e4882a7-bced-48f5-8a6d-c9df77917ae7"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d606e411-0086-4893-8063-e29638cbdd3a"
+                  name="Projekt speichern"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="57100b7b-e933-4c61-b1d7-98a0da8f69ad"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="Projekt laden"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="0d0a2709-b947-4ded-979c-ae4d9fbc1f91"
+              LastKnownName="Projekt laden"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2f9d3ee1-1029-497a-88ff-59bc6d78ba9c"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="243cc5c8-9b9f-45a0-bb48-64a2bef8492c"
+                  name="Projekt laden"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="42710474-375c-49c0-889d-42f4aae5a615"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="zuletzt genutzte Projekte anzeigen"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="7abd9a04-ff07-4613-9e23-d277de021e3e"
+              LastKnownName="zuletzt genutzte Projekte anzeigen"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0db4c489-dfd8-4bfb-8cb3-38adf6565459"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="cf4505f5-7e7f-4c4e-9358-6652a8ba41c5"
+                  name="zuletzt genutzte Projekte anzeigen"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="1cc972ee-ae5d-42ba-83b3-89f4a7184ce7"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="Filter auswählen"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="f7bb04dc-4b3c-4ca6-b13c-8b8f7e0c2431"
+              LastKnownName="Filter auswählen"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b4f33108-c66d-404f-be0c-1e16d7741ecf"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="124d7b2d-7397-41ff-8363-53b31d2da868"
+                  name="Filter auswählen"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="0f6b588d-f806-4e34-9965-b9d3a31f6b90"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="Video hinzufügen"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="2c4facd1-6255-44d9-876c-172c88ed672b"
+              LastKnownName="Video hinzufügen"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="96ffbada-272a-42e7-a095-3285b809e544"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b91b9973-fd77-4a81-8d2a-4c46ac6a1ff1"
+                  name="Video hinzufügen"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="842781b6-b874-46f6-ae10-5cdf116b140e"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="Filter anwenden"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="c8fc0f86-a1c6-447f-906a-35a2ae2d81c9"
+              LastKnownName="Filter anwenden"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="6d1a8301-55a3-4995-bdb3-65482ce6f9df"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="61b1b33a-a149-4b6c-80a8-4db867dad9cb"
+                  name="Filter anwenden"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="7dc12cee-d51c-4239-9076-ef4a1e2dc3b5"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="Reihenfolge von Filtern ändern"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="9207c249-344d-4520-85c6-4e68690891c9"
+              LastKnownName="Reihenfolge von Filtern ändern"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1a0df174-6ea4-4f7d-8d0b-6a8b60f29926"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="efd67d65-d023-42f8-8118-9878b06a6f77"
+                  name="Reihenfolge von Filtern ändern"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="c1b4d053-9308-40c6-acb1-479107d121ac"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="Filter-Einstellungen als &quot;Meta-Filter&quot; speichern"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="575de650-650e-4255-930e-4283476c7f94"
+              LastKnownName="Filter-Einstellungen und Reihenfolge als &quot;Meta-Filter&quot; speichern"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="eceafb22-2b7b-4f18-987f-1aa37ce02940"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8fd57e08-fd53-4bb9-bfff-afe1b30708d3"
+                  name="Filter-Einstellungen als &quot;Meta-Filter&quot; speichern"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="3b7b0570-7f46-486e-ab1c-8e7e1aa48993"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="Videos auswählen"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="b8156cb8-1c1d-4cb3-a5cc-6415c2c0d35b"
+              LastKnownName="Videos auswählen"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="fdc1f686-3dd8-4f0e-bff4-266f75aa705f"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="90f024e3-a540-4ec8-b9b2-23110191b4ad"
+                  name="Videos auswählen"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="4a98a149-c496-4003-adf1-c8bcddb31515"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="Metriken auswählen"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="527bc2d6-6fd8-4165-9f23-e5d4cf260afa"
+              LastKnownName="Metriken auswählen"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="7fb782eb-b4ce-4965-b747-1125ef1b7c9e"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="95ef22ee-403e-423f-82cd-2c6594c91115"
+                  name="Metriken auswählen"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="f6ff353a-0b58-4c97-bfea-0e889a5f3df5"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="Analyse starten"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="b6c799b9-ddaa-4974-8585-e969e5d71bb4"
+              LastKnownName="Analyse starten"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b2a31517-2f4a-4c5e-b095-803530f3cc34"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="07fc3339-46c8-4e16-ba71-adb86267b599"
+                  name="Analyse starten"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="4ed86c3d-ff4e-450c-8906-c5b3d92780a6"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="Ergebnisse ansehen"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="b01f6566-11b2-46a6-b95a-723f3a02dd55"
+              LastKnownName="Ergebnisse ansehen"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="ed54c497-c262-450b-b54e-96e584c5faf4"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="5ee10264-9dc8-4f82-ae8e-e82c24138e01"
+                  name="Ergebnisse ansehen"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="bcb31dbe-cb43-4cd5-8490-a5ef4b66f036"
+            isDerived="false"
+            sourceEndRoleName="Benutzer"
+            targetEndRoleName="Ergebnisse exportieren"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="3da5ecc9-64bc-4bd6-adb8-21d967509663"
+              LastKnownName="Ergebnisse exportieren"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="7df5ab4e-4faa-460b-8e76-d16a8a1729be"
+                  name="Benutzer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b610e20d-0d84-46da-9125-13fd3b29c8f3"
+                  name="Ergebnisse exportieren"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="c8be3458-9036-41b5-b01e-9d8fb9ffdf68"
+        name="Projekt erstellen"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="003c2bde-c44e-487f-a8c3-5113d717c4a3"
+            LastKnownName="Projektverwaltung"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="09c2aff3-9f59-4c5a-8bce-337457315907"
+        name="Projekt speichern"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="003c2bde-c44e-487f-a8c3-5113d717c4a3"
+            LastKnownName="Projektverwaltung"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="0d0a2709-b947-4ded-979c-ae4d9fbc1f91"
+        name="Projekt laden"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="003c2bde-c44e-487f-a8c3-5113d717c4a3"
+            LastKnownName="Projektverwaltung"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e108e79f-3137-450b-818d-e50d5ea42ed0"
+        name="Projekt bearbeiten"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="003c2bde-c44e-487f-a8c3-5113d717c4a3"
+            LastKnownName="Projektverwaltung"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="7abd9a04-ff07-4613-9e23-d277de021e3e"
+        name="zuletzt genutzte Projekte anzeigen"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="003c2bde-c44e-487f-a8c3-5113d717c4a3"
+            LastKnownName="Projektverwaltung"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="f026435f-e16c-40a3-8b26-433dd28e99a9"
+        name="Vorbearbeitung"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="f7bb04dc-4b3c-4ca6-b13c-8b8f7e0c2431"
+        name="Filter auswählen"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="f026435f-e16c-40a3-8b26-433dd28e99a9"
+            LastKnownName="Vorbearbeitung"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="8208d75e-737e-45f0-a5aa-2969600ab772"
+        name="Filter-Parameter einstellen"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="7bbd3257-53fb-49e8-96b7-bd9979f2082e">
+            <useCaseMoniker
+              Id="f7bb04dc-4b3c-4ca6-b13c-8b8f7e0c2431"
+              LastKnownName="Filter auswählen"
+              LastKnownLocation="Modelle.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="f026435f-e16c-40a3-8b26-433dd28e99a9"
+            LastKnownName="Vorbearbeitung"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="c8fc0f86-a1c6-447f-906a-35a2ae2d81c9"
+        name="Filter anwenden"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="28372b3a-fa5d-4747-a2d4-d146fa38b176">
+            <useCaseMoniker
+              Id="771e2b24-8d9e-4e0a-9a64-b8d2364d0b3c"
+              LastKnownName="Video generieren"
+              LastKnownLocation="Modelle.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="f026435f-e16c-40a3-8b26-433dd28e99a9"
+            LastKnownName="Vorbearbeitung"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="718f5bc6-80f6-4b2b-b6c3-c8b633316510"
+        name="Fortschritt anzeigen"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="f026435f-e16c-40a3-8b26-433dd28e99a9"
+            LastKnownName="Vorbearbeitung"
+            LastKnownLocation="Modelle.uml" />
+          <subsystemMoniker
+            Id="22aaea7d-d80e-4930-835e-adab4d377e58"
+            LastKnownName="Analyse"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="771e2b24-8d9e-4e0a-9a64-b8d2364d0b3c"
+        name="Video generieren"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="1b57c687-29d4-4b40-8ea3-6cdead8e5f37">
+            <useCaseMoniker
+              Id="718f5bc6-80f6-4b2b-b6c3-c8b633316510"
+              LastKnownName="Fortschritt anzeigen"
+              LastKnownLocation="Modelle.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="f026435f-e16c-40a3-8b26-433dd28e99a9"
+            LastKnownName="Vorbearbeitung"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="62215ec9-3ac3-49c2-93d1-5a2a80f65136"
+        name="OQAT"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="f4c983e7-96f6-4545-95de-0c7c618034ac"
+            isDerived="false"
+            sourceEndRoleName="OQAT"
+            targetEndRoleName="Fortschritt anzeigen"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="718f5bc6-80f6-4b2b-b6c3-c8b633316510"
+              LastKnownName="Fortschritt anzeigen"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="00b8b1dd-9909-450e-9fd8-4ba5299ee04f"
+                  name="OQAT"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f37b7bf0-c4b1-4bab-8950-f4fa839ae35f"
+                  name="Fortschritt anzeigen"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="4740dc69-819d-4b94-8fab-acd60196917a"
+            isDerived="false"
+            sourceEndRoleName="OQAT"
+            targetEndRoleName="Video generieren"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="771e2b24-8d9e-4e0a-9a64-b8d2364d0b3c"
+              LastKnownName="Video generieren"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="05441e3f-382b-43c1-83a9-096b9dd136a8"
+                  name="OQAT"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f21ca158-619f-4308-938a-e59826e33b10"
+                  name="Video generieren"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="f20e2b75-a2b6-4ed2-b808-1eb52610e00a"
+            isDerived="false"
+            sourceEndRoleName="OQAT"
+            targetEndRoleName="Videos analysieren"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="fd583131-d1a8-4664-bc15-19f311167669"
+              LastKnownName="Videos analysieren"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8695e2b5-9e35-4c0d-9855-bd8621f1f7e0"
+                  name="OQAT"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0cd52ee9-f1ea-4428-899c-4741827798be"
+                  name="Videos analysieren"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="28cf9e85-791e-47ba-963d-62da2b6f81ab"
+            isDerived="false"
+            sourceEndRoleName="OQAT"
+            targetEndRoleName="Overlay-Darstellung"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="212e7ce3-d5da-41cd-9c81-a6cc8f1462c8"
+              LastKnownName="Overlay-Darstellung"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b6fd4508-c8de-4d17-a817-29a34cdc272d"
+                  name="OQAT"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1d33c295-353d-4b35-8e51-c4b010198aef"
+                  name="Overlay-Darstellung"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="293846c5-0c14-4ef4-a151-3bdd235f1094"
+            isDerived="false"
+            sourceEndRoleName="OQAT"
+            targetEndRoleName="Diagramm-Darstellung"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="ab500b6e-779f-4f08-9e49-2f4c42120979"
+              LastKnownName="Diagramm-Darstellung"
+              LastKnownLocation="Modelle.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="11b5a5e0-e76c-4f91-b8e4-060d297fe05c"
+                  name="OQAT"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2f6804e0-e62b-4ad4-bf5a-3fa21917793e"
+                  name="Diagramm-Darstellung"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="2c4facd1-6255-44d9-876c-172c88ed672b"
+        name="Video hinzufügen"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="f026435f-e16c-40a3-8b26-433dd28e99a9"
+            LastKnownName="Vorbearbeitung"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="9207c249-344d-4520-85c6-4e68690891c9"
+        name="Reihenfolge von Filtern ändern"
+        isAbstract="false"
+        isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="d15a2909-7b71-4afb-93d8-a87befe8348c">
+            <useCaseMoniker
+              Id="f7bb04dc-4b3c-4ca6-b13c-8b8f7e0c2431"
+              LastKnownName="Filter auswählen"
+              LastKnownLocation="Modelle.uml" />
+          </dependency>
+        </suppliersInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="f026435f-e16c-40a3-8b26-433dd28e99a9"
+            LastKnownName="Vorbearbeitung"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="575de650-650e-4255-930e-4283476c7f94"
+        name="Filter-Einstellungen und Reihenfolge als &quot;Meta-Filter&quot; speichern"
+        isAbstract="false"
+        isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="55576fa4-e4a8-46b7-a412-9ca97be817bb">
+            <useCaseMoniker
+              Id="f7bb04dc-4b3c-4ca6-b13c-8b8f7e0c2431"
+              LastKnownName="Filter auswählen"
+              LastKnownLocation="Modelle.uml" />
+          </dependency>
+        </suppliersInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="f026435f-e16c-40a3-8b26-433dd28e99a9"
+            LastKnownName="Vorbearbeitung"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="22aaea7d-d80e-4930-835e-adab4d377e58"
+        name="Analyse"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="b8156cb8-1c1d-4cb3-a5cc-6415c2c0d35b"
+        name="Videos auswählen"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="22aaea7d-d80e-4930-835e-adab4d377e58"
+            LastKnownName="Analyse"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="527bc2d6-6fd8-4165-9f23-e5d4cf260afa"
+        name="Metriken auswählen"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="22aaea7d-d80e-4930-835e-adab4d377e58"
+            LastKnownName="Analyse"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="b12c2775-7807-4cc6-aeef-82c8a3ec30bc"
+        name="Metrik-Parameter einstellen"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="90fb16d8-e7a2-43b2-804a-f8281ede6c3f">
+            <useCaseMoniker
+              Id="527bc2d6-6fd8-4165-9f23-e5d4cf260afa"
+              LastKnownName="Metriken auswählen"
+              LastKnownLocation="Modelle.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="22aaea7d-d80e-4930-835e-adab4d377e58"
+            LastKnownName="Analyse"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="b6c799b9-ddaa-4974-8585-e969e5d71bb4"
+        name="Analyse starten"
+        isAbstract="false"
+        isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="7e48ae7a-0164-4f53-aae5-1f145e7caaa8">
+            <useCaseMoniker
+              Id="527bc2d6-6fd8-4165-9f23-e5d4cf260afa"
+              LastKnownName="Metriken auswählen"
+              LastKnownLocation="Modelle.uml" />
+          </dependency>
+          <dependency
+            Id="d7bc2fbd-e415-4dfa-afcc-5b35e6618f27">
+            <useCaseMoniker
+              Id="b8156cb8-1c1d-4cb3-a5cc-6415c2c0d35b"
+              LastKnownName="Videos auswählen"
+              LastKnownLocation="Modelle.uml" />
+          </dependency>
+        </suppliersInternal>
+        <additions>
+          <include
+            Id="76756f4a-07f2-4851-84fb-d793e983b67e">
+            <useCaseMoniker
+              Id="fd583131-d1a8-4664-bc15-19f311167669"
+              LastKnownName="Videos analysieren"
+              LastKnownLocation="Modelle.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="22aaea7d-d80e-4930-835e-adab4d377e58"
+            LastKnownName="Analyse"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="fd583131-d1a8-4664-bc15-19f311167669"
+        name="Videos analysieren"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="156283a9-d7de-484d-836c-6e0e6be84875">
+            <useCaseMoniker
+              Id="718f5bc6-80f6-4b2b-b6c3-c8b633316510"
+              LastKnownName="Fortschritt anzeigen"
+              LastKnownLocation="Modelle.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="22aaea7d-d80e-4930-835e-adab4d377e58"
+            LastKnownName="Analyse"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="b01f6566-11b2-46a6-b95a-723f3a02dd55"
+        name="Ergebnisse ansehen"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="22aaea7d-d80e-4930-835e-adab4d377e58"
+            LastKnownName="Analyse"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="212e7ce3-d5da-41cd-9c81-a6cc8f1462c8"
+        name="Overlay-Darstellung"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="52a2edca-849f-4c7b-9760-2fe23765d4b9"
+            isSubstitutable="false">
+            <useCaseMoniker
+              Id="b01f6566-11b2-46a6-b95a-723f3a02dd55"
+              LastKnownName="Ergebnisse ansehen"
+              LastKnownLocation="Modelle.uml" />
+          </generalization>
+        </generalsInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="22aaea7d-d80e-4930-835e-adab4d377e58"
+            LastKnownName="Analyse"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="ab500b6e-779f-4f08-9e49-2f4c42120979"
+        name="Diagramm-Darstellung"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="4480b3cb-f553-46d7-a5cc-a4287818c7e1"
+            isSubstitutable="false">
+            <useCaseMoniker
+              Id="b01f6566-11b2-46a6-b95a-723f3a02dd55"
+              LastKnownName="Ergebnisse ansehen"
+              LastKnownLocation="Modelle.uml" />
+          </generalization>
+        </generalsInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="22aaea7d-d80e-4930-835e-adab4d377e58"
+            LastKnownName="Analyse"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="3da5ecc9-64bc-4bd6-adb8-21d967509663"
+        name="Ergebnisse exportieren"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="22aaea7d-d80e-4930-835e-adab4d377e58"
+            LastKnownName="Analyse"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e9498571-b515-4e67-8e14-3fcb55c8a27a"
+        name="Vorschau anzeigen"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="b8aed5f5-82a0-4ac5-afe7-a1afa912447f">
+            <useCaseMoniker
+              Id="f7bb04dc-4b3c-4ca6-b13c-8b8f7e0c2431"
+              LastKnownName="Filter auswählen"
+              LastKnownLocation="Modelle.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="f026435f-e16c-40a3-8b26-433dd28e99a9"
+            LastKnownName="Vorbearbeitung"
+            LastKnownLocation="Modelle.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="2562c084-fbba-4727-9dd8-48571dbb4c0f"
+        LastKnownName="Model"
+        LastKnownLocation="Package_1521.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="ee58fdf4-5f5c-474b-b8ba-51c8db62b7bb"
+        LastKnownName="ViewModel"
+        LastKnownLocation="Package1_1521.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="0c0fe1f8-c3e6-49b9-894a-e801138bbb1e"
+        LastKnownName="View"
+        LastKnownLocation="Package2_1521.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="681fcf47-1cd2-4aad-ae18-74610105997c"
+        name="Interface1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="5d53b20d-dcbb-42dc-9253-fb529afe26bc"
+        name="Component1"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="2a6c9d4c-6035-45e1-8634-833dc78ceedb"
+        name="Enumeration1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>

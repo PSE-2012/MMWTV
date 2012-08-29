@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="ff75adf9-4cfc-4ed0-8274-746de0bcf0d4" name="Vorbearbeitung" linkedPackageId="a51bb54b-32de-43f6-ab40-090452c24427" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <profileInstances>
+    <packageHasProfileInstances Id="ad89fcda-4cfb-40d6-98e0-e58072f7414a">
+      <profileInstance Id="c78928f1-9ed8-448f-97a2-1a1eb00413a2" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="61a24476-2edc-4f6e-9af8-2f330ee04c4c">
+      <profileInstance Id="56927fc9-cece-4a60-8503-58ab6d811605" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="8041b5db-dd92-4eb6-baa3-670cbc3255a0" name="Vorbearbeitung" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="f026435f-e16c-40a3-8b26-433dd28e99a9" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="6563c2a6-aa91-4e61-af37-81c7611a3f65" name="Benutzer" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="5b82afef-d90a-4431-b6b3-f97be2f0ff6a" />
+        <targetEnds>
+          <association Id="ba396b1b-5954-4d78-92b5-e5a43d6e23e3" isDerived="false" sourceEndRoleName="Benutzer" targetEndRoleName="Filter auswählen" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="5d1b3c3e-a0cb-445a-942a-2f4efa331d81" LastKnownName="Filter auswählen" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="50bf9d6a-a002-47c5-8a38-6bcef122a72a" name="Benutzer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="b4f33108-c66d-404f-be0c-1e16d7741ecf" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5edc7e86-839f-4ee5-bede-3f02a2ffd3df" name="Filter auswählen" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="124d7b2d-7397-41ff-8363-53b31d2da868" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="1cc972ee-ae5d-42ba-83b3-89f4a7184ce7" />
+          </association>
+          <association Id="db2c613f-ac5c-47f9-8624-abb5a73f78b4" isDerived="false" sourceEndRoleName="Benutzer" targetEndRoleName="Video hinzufügen" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="9acc3562-42e7-4bd5-b443-1e049126ca41" LastKnownName="Video hinzufügen" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="180afaa9-3822-4e86-b999-9b137f9d0edf" name="Benutzer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="96ffbada-272a-42e7-a095-3285b809e544" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="622156ad-bfb9-404a-88ed-3e246266cf3c" name="Video hinzufügen" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="b91b9973-fd77-4a81-8d2a-4c46ac6a1ff1" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="0f6b588d-f806-4e34-9965-b9d3a31f6b90" />
+          </association>
+          <association Id="da1e27e4-e4c8-4e09-b7a1-c798736ab15a" isDerived="false" sourceEndRoleName="Benutzer" targetEndRoleName="Filter anwenden" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="6edd8da3-6084-45d4-b647-a36ff20e3d3e" LastKnownName="Filter anwenden" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b81efebd-37e0-4f5b-909d-79e8afc9b4a4" name="Benutzer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="6d1a8301-55a3-4995-bdb3-65482ce6f9df" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="245065a4-599e-45cb-8e5a-ee98149cc5a5" name="Filter anwenden" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="61b1b33a-a149-4b6c-80a8-4db867dad9cb" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="842781b6-b874-46f6-ae10-5cdf116b140e" />
+          </association>
+          <association Id="96ad325d-568d-483f-9fb3-e3bfd5c78a34" isDerived="false" sourceEndRoleName="Benutzer" targetEndRoleName="Reihenfolge von Filtern ändern" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="d0c0c984-012a-4adf-ac3b-3f3e08b82477" LastKnownName="Reihenfolge von Filtern ändern" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="3906db37-8f4f-4c43-b4cf-6557dc78e6ee" name="Benutzer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="1a0df174-6ea4-4f7d-8d0b-6a8b60f29926" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="706cfd5c-5519-40a5-a83e-bf786a952311" name="Reihenfolge von Filtern ändern" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="efd67d65-d023-42f8-8118-9878b06a6f77" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="7dc12cee-d51c-4239-9076-ef4a1e2dc3b5" />
+          </association>
+          <association Id="019317b9-4465-4cbf-9d7f-dad7609a9214" isDerived="false" sourceEndRoleName="Benutzer" targetEndRoleName="Filter-Einstellungen als &quot;Meta-Filter&quot; speichern" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="f0329af5-8ec1-470a-a40e-7d0d08d7ce55" LastKnownName="Filter-Einstellungen und Reihenfolge als &quot;Meta-Filter&quot; speichern" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="41feacec-524d-435a-a102-8154e9618cc6" name="Benutzer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="eceafb22-2b7b-4f18-987f-1aa37ce02940" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="56cc1e10-3eb2-4323-a0b0-7cd1d716d1e7" name="Filter-Einstellungen als &quot;Meta-Filter&quot; speichern" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="8fd57e08-fd53-4bb9-bfff-afe1b30708d3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="c1b4d053-9308-40c6-acb1-479107d121ac" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <packageHasNamedElement>
+      <useCase Id="5d1b3c3e-a0cb-445a-942a-2f4efa331d81" name="Filter auswählen" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="f7bb04dc-4b3c-4ca6-b13c-8b8f7e0c2431" />
+        <subjects>
+          <subsystemMoniker Id="8041b5db-dd92-4eb6-baa3-670cbc3255a0" LastKnownName="Vorbearbeitung" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="4ae44f85-accc-434e-9482-81b5fdc7f078" name="Filter-Parameter einstellen" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="8208d75e-737e-45f0-a5aa-2969600ab772" />
+        <extendedCases>
+          <extend Id="438e56c7-5255-45c0-bc8b-53740fd083e1">
+            <useCaseMoniker Id="5d1b3c3e-a0cb-445a-942a-2f4efa331d81" LastKnownName="Filter auswählen" />
+            <elementDefinition Id="7bbd3257-53fb-49e8-96b7-bd9979f2082e" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="8041b5db-dd92-4eb6-baa3-670cbc3255a0" LastKnownName="Vorbearbeitung" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="6edd8da3-6084-45d4-b647-a36ff20e3d3e" name="Filter anwenden" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="c8fc0f86-a1c6-447f-906a-35a2ae2d81c9" />
+        <additions>
+          <include Id="8b83efcd-5f6a-4477-b8e9-7b2869f1ebfd">
+            <useCaseMoniker Id="a9ee14fe-6c3d-46d9-b6c0-5520047cf263" LastKnownName="Video generieren" />
+            <elementDefinition Id="28372b3a-fa5d-4747-a2d4-d146fa38b176" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="8041b5db-dd92-4eb6-baa3-670cbc3255a0" LastKnownName="Vorbearbeitung" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="83a98c17-fb49-499b-be94-3ba9e81979ce" name="Fortschritt anzeigen" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="718f5bc6-80f6-4b2b-b6c3-c8b633316510" />
+        <subjects>
+          <subsystemMoniker Id="8041b5db-dd92-4eb6-baa3-670cbc3255a0" LastKnownName="Vorbearbeitung" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="a9ee14fe-6c3d-46d9-b6c0-5520047cf263" name="Video generieren" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="771e2b24-8d9e-4e0a-9a64-b8d2364d0b3c" />
+        <additions>
+          <include Id="eb889ffd-7be3-4a85-a2fa-d37d8dd6b4e7">
+            <useCaseMoniker Id="83a98c17-fb49-499b-be94-3ba9e81979ce" LastKnownName="Fortschritt anzeigen" />
+            <elementDefinition Id="1b57c687-29d4-4b40-8ea3-6cdead8e5f37" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="8041b5db-dd92-4eb6-baa3-670cbc3255a0" LastKnownName="Vorbearbeitung" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <useCaseModelRootHasTypes>
+      <actor Id="69965457-6793-435e-b00a-fc542a1b8842" name="OQAT" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="62215ec9-3ac3-49c2-93d1-5a2a80f65136" />
+        <targetEnds>
+          <association Id="a66d608c-47d6-4157-8c9c-16e5a1c81c27" isDerived="false" sourceEndRoleName="OQAT" targetEndRoleName="Fortschritt anzeigen" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="83a98c17-fb49-499b-be94-3ba9e81979ce" LastKnownName="Fortschritt anzeigen" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5592abfb-68d9-472c-aaa8-7925a3e0685a" name="OQAT" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="00b8b1dd-9909-450e-9fd8-4ba5299ee04f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ac4cc442-a3a2-4d1c-8e75-cc69fb8fcf60" name="Fortschritt anzeigen" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f37b7bf0-c4b1-4bab-8950-f4fa839ae35f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="f4c983e7-96f6-4545-95de-0c7c618034ac" />
+          </association>
+          <association Id="3bdc7d87-163a-471e-bbb4-2ef6f739eda3" isDerived="false" sourceEndRoleName="OQAT" targetEndRoleName="Video generieren" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="a9ee14fe-6c3d-46d9-b6c0-5520047cf263" LastKnownName="Video generieren" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a2168d86-f08a-4ed4-951e-c7da625ceaeb" name="OQAT" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="05441e3f-382b-43c1-83a9-096b9dd136a8" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="26a17dbb-4adc-4f16-bd14-91b31c16365f" name="Video generieren" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f21ca158-619f-4308-938a-e59826e33b10" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="4740dc69-819d-4b94-8fab-acd60196917a" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <packageHasNamedElement>
+      <useCase Id="9acc3562-42e7-4bd5-b443-1e049126ca41" name="Video hinzufügen" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="2c4facd1-6255-44d9-876c-172c88ed672b" />
+        <subjects>
+          <subsystemMoniker Id="8041b5db-dd92-4eb6-baa3-670cbc3255a0" LastKnownName="Vorbearbeitung" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="d0c0c984-012a-4adf-ac3b-3f3e08b82477" name="Reihenfolge von Filtern ändern" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="9207c249-344d-4520-85c6-4e68690891c9" />
+        <suppliersInternal>
+          <dependency Id="05cc5bf8-5498-4531-8e6f-86087e4500a2">
+            <useCaseMoniker Id="5d1b3c3e-a0cb-445a-942a-2f4efa331d81" LastKnownName="Filter auswählen" />
+            <elementDefinition Id="d15a2909-7b71-4afb-93d8-a87befe8348c" />
+          </dependency>
+        </suppliersInternal>
+        <subjects>
+          <subsystemMoniker Id="8041b5db-dd92-4eb6-baa3-670cbc3255a0" LastKnownName="Vorbearbeitung" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="f0329af5-8ec1-470a-a40e-7d0d08d7ce55" name="Filter-Einstellungen und Reihenfolge als &quot;Meta-Filter&quot; speichern" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="575de650-650e-4255-930e-4283476c7f94" />
+        <suppliersInternal>
+          <dependency Id="b5e7fddf-d98a-4675-ae02-f7cada8108ce">
+            <useCaseMoniker Id="5d1b3c3e-a0cb-445a-942a-2f4efa331d81" LastKnownName="Filter auswählen" />
+            <elementDefinition Id="55576fa4-e4a8-46b7-a412-9ca97be817bb" />
+          </dependency>
+        </suppliersInternal>
+        <subjects>
+          <subsystemMoniker Id="8041b5db-dd92-4eb6-baa3-670cbc3255a0" LastKnownName="Vorbearbeitung" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="c05a9582-13c3-4377-81b0-df50666b4bbd" name="Vorschau anzeigen" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e9498571-b515-4e67-8e14-3fcb55c8a27a" />
+        <extendedCases>
+          <extend Id="10addef2-7dd0-4ee8-a884-f020dc65e37c">
+            <useCaseMoniker Id="5d1b3c3e-a0cb-445a-942a-2f4efa331d81" LastKnownName="Filter auswählen" />
+            <elementDefinition Id="b8aed5f5-82a0-4ac5-afe7-a1afa912447f" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="8041b5db-dd92-4eb6-baa3-670cbc3255a0" LastKnownName="Vorbearbeitung" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="a51bb54b-32de-43f6-ab40-090452c24427" name="Modelle">
+    <elementDefinition Id="43b24e11-4d34-47e0-b833-6600d4e67d75" />
+  </package>
+</useCaseModelRoot>
