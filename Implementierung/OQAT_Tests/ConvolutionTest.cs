@@ -120,19 +120,6 @@ namespace OQAT_Tests
         }
 
         /// <summary>
-        ///Test "NotifyPropertyChanged"
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("PF_Convolution.dll")]
-        public void NotifyPropertyChangedTest()
-        {
-            Convolution_Accessor target = new Convolution_Accessor();
-            string info = string.Empty; // TODO: Passenden Wert initialisieren
-            target.NotifyPropertyChanged(info);
-            Assert.Inconclusive("Eine private Methode, soll diese getestet werden?");
-        }
-
-        /// <summary>
         ///Test "getMemento": start Mememento is set.
         ///</summary>
         [TestMethod()]

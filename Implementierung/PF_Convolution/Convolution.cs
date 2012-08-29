@@ -31,6 +31,8 @@ namespace PF_Convolution
         private string _namePlugin = "PF_Convolution";
         private PluginType _type= PluginType.IFilterOqat;
 
+        const int MIN_DIM = 3;
+        const int MAX_DIM = 25;
         int[,] _matrix;
         public int[,] matrix
         {
@@ -42,7 +44,34 @@ namespace PF_Convolution
             {
                 if(_matrix != value)
                 {
-                    _matrix = value;
+                    //matrix needs quadratic and in limited dimensions for AForge filter
+                    if (value.GetLength(0) != value.GetLength(1) || value.GetLength(0) < MIN_DIM || value.GetLength(0) > MAX_DIM)
+                    {
+                        //dimensions not valid, need to fix
+
+                        int dim = value.GetLength(0);
+                        if (value.GetLength(1) > dim) dim = value.GetLength(1);
+
+                        //a valid matrix for convolutionfilter has to be between 3 and 25
+                        if (dim < MIN_DIM) dim = MIN_DIM;
+                        else if (dim > MAX_DIM) dim = MAX_DIM;
+
+                        _matrix = new int[dim, dim];
+
+                        for (int i = 0; (i < value.GetLength(0) && i < MAX_DIM); i++)
+                        {
+
+                            for (int j = 0; (j < value.GetLength(1) && j < MAX_DIM); j++)
+                            {
+                                _matrix[i, j] = value[i, j];
+                            }
+                        }
+                    }
+                    else
+                    {
+                        _matrix = value;
+                    }
+
                     NotifyPropertyChanged("matrix");
                 }
             }
@@ -73,7 +102,10 @@ namespace PF_Convolution
         /// </summary>
         public void setMemento(Memento memento)
         {
-           this.matrix = (int[,]) memento.state;
+            if (!(memento.state is int[,]))
+                return;
+
+            this.matrix = (int[,]) memento.state;
         }
 
         /// <summary>

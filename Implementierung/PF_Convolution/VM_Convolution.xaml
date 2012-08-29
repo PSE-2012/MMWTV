@@ -10,8 +10,15 @@
         <Grid.Resources>
             <l:IntMatrixConverter x:Key="matrixConverter" />
         </Grid.Resources>
-        
+
         <TextBox Height="100" Width="100" TextWrapping="Wrap" AcceptsReturn="True"
-                 Text="{Binding matrix, Converter={StaticResource matrixConverter}, Mode=TwoWay}"/>
+                 Text="{Binding matrix, Converter={StaticResource matrixConverter}, Mode=TwoWay}">
+            <TextBox.ToolTip>
+                <StackPanel>
+                    <TextBlock>Geben Sie eine Matrix an. Zeilen und Leerzeichen trennen Einträge.</TextBlock>
+                    <TextBlock>Die Matrix muss quadratisch und mit Dimension zwischen 3 und 25 sein.</TextBlock>
+                </StackPanel>
+            </TextBox.ToolTip>
+        </TextBox>
     </Grid>
 </UserControl>
