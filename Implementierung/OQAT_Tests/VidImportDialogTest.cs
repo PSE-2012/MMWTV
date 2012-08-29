@@ -9,11 +9,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace OQAT_Tests
 {
     /// <summary>
-    /// Not working yet
+    /// Test class for VM_VidImportOptionsDialog
     /// </summary>
     [TestClass]
     public class VidImportDialogTest
     {
+        /// <summary>
+        /// Not working yet
+        /// </summary>
         [TestMethod]
         public void constructorTest()
         {

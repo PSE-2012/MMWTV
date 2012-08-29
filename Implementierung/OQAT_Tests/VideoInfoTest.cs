@@ -7,9 +7,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace OQAT_Tests
 {
+    ///<summary>
+    ///Class for testing YUV VideoInfo
+    ///</summary>
     [TestClass]
     public class VideoInfoTest
     {
+        ///<summary>
+        ///Constructor test
+        ///</summary>
         [TestMethod]
         public void constructorTest()
         {
@@ -25,6 +31,9 @@ namespace OQAT_Tests
             Assert.IsTrue(info1.Equals(info2));
         }
 
+        ///<summary>
+        ///Test for the clone method
+        ///</summary>
         [TestMethod]
         public void cloneTest()
         {
@@ -36,6 +45,9 @@ namespace OQAT_Tests
             Assert.AreEqual(info1.yuvFormat, info2.yuvFormat);
         }
 
+        ///<summary>
+        ///Checks if frame count is calculated correctly
+        ///</summary>
         [TestMethod]
         public void frameCountTest()
         {

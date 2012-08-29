@@ -9,6 +9,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace OQAT_Tests
 {
+    ///<summary>
+    ///Class for testing YUV VideoHandler
+    ///</summary>
     [TestClass]
     public class VideoHandlerTest
     {
@@ -209,6 +212,16 @@ namespace OQAT_Tests
             yvh.setImportContext(path);
             int i = 0;
             System.Drawing.Bitmap testframe;
+            try
+            {
+                yvh.positionReader = 500;
+                testframe = yvh.getFrame();
+                Assert.Fail("no exception thrown");
+            }
+            catch (Exception ex)
+            {
+
+            }
             yvh.positionReader = 0;
             while (i < yvh.readVidInfo.frameCount)
             {

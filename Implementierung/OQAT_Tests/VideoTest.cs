@@ -9,42 +9,11 @@ using System.Collections.Generic;
 namespace OQAT_Tests
 {
     /// <summary>
-    ///Dies ist eine Testklasse für "VideoTest" und soll
-    ///alle VideoTest Komponententests enthalten.
+    /// Test class for Video
     ///</summary>
     [TestClass()]
     public class VideoTest
     {
-        #region Zusätzliche Testattribute
-        // 
-        //Sie können beim Verfassen Ihrer Tests die folgenden zusätzlichen Attribute verwenden:
-        //
-        //Mit ClassInitialize führen Sie Code aus, bevor Sie den ersten Test in der Klasse ausführen.
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //Mit ClassCleanup führen Sie Code aus, nachdem alle Tests in einer Klasse ausgeführt wurden.
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //Mit TestInitialize können Sie vor jedem einzelnen Test Code ausführen.
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //Mit TestCleanup können Sie nach jedem einzelnen Test Code ausführen.
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-        #endregion
-
         /// <summary>
         ///A test for the constructor of Video, as well as all public
         ///getters and setters.
