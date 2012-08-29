@@ -175,20 +175,6 @@ namespace OQAT_Tests
         }
 
         /// <summary>
-        ///Test "getEventHandlers"
-        ///</summary>
-        [TestMethod()]
-        public void getEventHandlersTest()
-        {
-            MSE target = new MSE(); // TODO: Passenden Wert initialisieren
-            Dictionary<EventType, List<Delegate>> expected = null; // TODO: Passenden Wert initialisieren
-            Dictionary<EventType, List<Delegate>> actual;
-            actual = target.getEventHandlers();
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
-        }
-
-        /// <summary>
         ///Test "getMemento": start Mememento is set.
         ///</summary>
         [TestMethod()]
@@ -209,7 +195,7 @@ namespace OQAT_Tests
         [DeploymentItem("PM_MSE.dll")]
         public void localizeTest()
         {
-            MSE_Accessor target = new MSE_Accessor(); // TODO: Passenden Wert initialisieren
+            MSE_Accessor target = new MSE_Accessor();
             string s = string.Empty; // TODO: Passenden Wert initialisieren
             target.localize(s);
             Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
@@ -225,17 +211,6 @@ namespace OQAT_Tests
             Memento memento = new Memento("MSE", 2);
             target.setMemento(memento);
             Assert.AreEqual(target.propertiesView.getRb(), 2, "propertiesView Radio Button could not be set.");
-        }
-
-        /// <summary>
-        ///Test "setMemento": null Memento
-        ///</summary>
-        [TestMethod()]
-        public void setMementoTest_null()
-        {
-            MSE target = new MSE();
-            Memento memento = null;
-            target.setMemento(memento);
         }
 
         /// <summary>
@@ -286,10 +261,9 @@ namespace OQAT_Tests
         [TestMethod()]
         public void propertyViewTest()
         {
-            MSE target = new MSE(); // TODO: Passenden Wert initialisieren
+            MSE target = new MSE();
             UserControl actual;
             actual = target.propertyView;
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
         }
 
         /// <summary>
