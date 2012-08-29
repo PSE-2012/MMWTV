@@ -86,13 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CaretakerTest.cs" />
-    <Compile Include="ConvolutionTest.cs" />
-    <Compile Include="GreyscaleTest.cs" />
+    <Compile Include="CodedUITest1.cs" />
+    <Compile Include="CodedUITest2.cs" />
     <Compile Include="InvertTest.cs" />
-    <Compile Include="MSETest.cs" />
-    <Compile Include="Projectopendialog3.cs" />
-    <Compile Include="Projectopendialog1.cs" />
-    <Compile Include="Projectopendialog2.cs" />
     <Compile Include="PluginManagerTest.cs" />
     <Compile Include="ProjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,8 +101,8 @@
     </Compile>
     <Compile Include="VideoTest.cs" />
     <Compile Include="VideoInfoTest.cs" />
-    <Compile Include="VideoHandlerTest.cs" />
-    <Compile Include="VidImportDialogTest.cs" />
+<Compile Include="VideoHandlerTest.cs" />
+<Compile Include="VidImportDialogTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OqatPublicResources\OqatPublicResources.csproj">
@@ -117,21 +113,9 @@
       <Project>{B138D4F9-F3DB-45C3-B9B8-2FC79AEB425D}</Project>
       <Name>OQAT</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PF_Convolution\PF_Convolution.csproj">
-      <Project>{709E3390-F79E-4711-9E32-DB76D9232193}</Project>
-      <Name>PF_Convolution</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PF_Greyscale\PF_Greyscale.csproj">
-      <Project>{12606421-905F-4753-AC70-BD7228F1DC6B}</Project>
-      <Name>PF_Greyscale</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PF_Invert\PF_Invert.csproj">
       <Project>{0F859789-F28E-40B5-AB32-5F2ED008457D}</Project>
       <Name>PF_Invert</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PM_MSE\PM_MSE.csproj">
-      <Project>{974A471B-AB6E-440A-9154-F8FCF4E7A38D}</Project>
-      <Name>PM_MSE</Name>
     </ProjectReference>
     <ProjectReference Include="..\WPF_ClosableTabItem\WPF_ClosableTabItem.csproj">
       <Project>{5F6709BE-B477-4C58-B4C0-1735443E6799}</Project>
@@ -149,8 +133,6 @@
     <Shadow Include="Testverweise\Oqat.accessor" />
   </ItemGroup>
   <ItemGroup>
-    <Shadow Include="Testverweise\PF_Convolution.accessor" />
-    <Shadow Include="Testverweise\PM_MSE.accessor" />
     <None Include="UIMap.uitest" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

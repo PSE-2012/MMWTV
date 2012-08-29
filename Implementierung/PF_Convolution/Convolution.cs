@@ -53,11 +53,9 @@ namespace PF_Convolution
         /// <summary>
         /// constructor
         /// </summary>
-
         public Convolution()
         {
             matrix = new int[3, 3];
-
             propertiesView = new VM_Convolution();
             propertiesView.DataContext = this;
         }
@@ -65,7 +63,6 @@ namespace PF_Convolution
         /// <summary>
         /// Returns a Memento with the current state of the Object.
         /// </summary>
-
         public Memento getMemento()
         {
             return new Memento(this.namePlugin, this.matrix);
@@ -74,27 +71,22 @@ namespace PF_Convolution
         /// <summary>
         /// Sets a Memento as the current state of the Object.
         /// </summary>
-
         public void setMemento(Memento memento)
         {
-           this.matrix =(int[,]) memento.state;
+           this.matrix = (int[,]) memento.state;
         }
 
         /// <summary>
         /// Generates the filtered Image.
         /// </summary>
-
         public Bitmap process(Bitmap frame)
         {
             // create filter
             AForge.Imaging.Filters.Convolution filter = new AForge.Imaging.Filters.Convolution(matrix);
             // apply the filter
             filter.ApplyInPlace(frame);
-
             return frame;
         }
-
-
 
         public string namePlugin
         {
@@ -128,7 +120,6 @@ namespace PF_Convolution
                 return this.propertiesView;
             }
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 

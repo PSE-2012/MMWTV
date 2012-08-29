@@ -1,4 +1,4 @@
-﻿using PF_Invert;
+﻿using PF_Greyscale;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Oqat.PublicRessources.Plugin;
@@ -12,15 +12,17 @@ namespace OQAT_Tests
     
     
     /// <summary>
-    ///Dies ist eine Testklasse für "InvertTest" und soll
-    ///alle InvertTest Komponententests enthalten.
+    ///Dies ist eine Testklasse für "GreyscaleTest" und soll
+    ///alle GreyscaleTest Komponententests enthalten.
     ///</summary>
     [TestClass()]
-    public class InvertTest
+    public class GreyscaleTest
     {
         private static Bitmap testBitmap;
         private static Bitmap processedBitmap;
-        private static Memento testMemento;
+        private static Memento original;
+        private static Memento fullGrey;
+        private static int testPixel = 50;
 
         private TestContext testContextInstance;
 
@@ -48,9 +50,8 @@ namespace OQAT_Tests
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
         {
-            Invert inv = new Invert();
-            testMemento = new Memento("PF_Invert", inv);
-            testBitmap = new Bitmap(100, 100);
+            Greyscale conv = new Greyscale();
+            testBitmap = new Bitmap(testPixel, testPixel);
             for (int height = 0; height < testBitmap.Height; height++)
             {
                 for (int width = 0; width < testBitmap.Width; width++)
@@ -66,22 +67,34 @@ namespace OQAT_Tests
                     testBitmap.SetPixel(width, height, Color.Blue);
                 }
             }
-            processedBitmap = inv.process(testBitmap);
-        }
 
+            //create greyscale
+            double[] newColorValues = new double[3];
+            for (int i = 0; i < newColorValues.GetLength(0); i++)
+            {
+                newColorValues[i] = 1;
+            }
+            fullGrey = new Memento("Blur", newColorValues);
+
+            //get greyscaled Bitmap
+            original = conv.getMemento();
+            conv.setMemento(fullGrey);
+            processedBitmap = conv.process(testBitmap);
+            conv.setMemento(original);
+        }
+        //
         //Mit ClassCleanup führen Sie Code aus, nachdem alle Tests in einer Klasse ausgeführt wurden.
         //[ClassCleanup()]
         //public static void MyClassCleanup()
         //{
-
         //}
-
+        //
         //Mit TestInitialize können Sie vor jedem einzelnen Test Code ausführen.
         //[TestInitialize()]
         //public void MyTestInitialize()
         //{
         //}
-
+        //
         //Mit TestCleanup können Sie nach jedem einzelnen Test Code ausführen.
         //[TestCleanup()]
         //public void MyTestCleanup()
@@ -92,14 +105,13 @@ namespace OQAT_Tests
 
 
         /// <summary>
-        ///Ein Test für "Invert-Konstruktor"
+        ///Ein Test für "Greyscale-Konstruktor"
         ///</summary>
         [TestMethod()]
-        public void InvertConstructorTest()
+        public void GreyscaleConstructorTest()
         {
-            Invert target = new Invert();
-            Assert.IsTrue(target is Invert, "The returned object is not a valid Invert instance.");
-            //TODO überprüfen ob Invert nur einmal existieren darf?
+            Greyscale target = new Greyscale();
+            Assert.IsTrue(target is Greyscale, "The returned object is not a valid Convolution instance.");
         }
 
         /// <summary>
@@ -108,76 +120,43 @@ namespace OQAT_Tests
         [TestMethod()]
         public void getEventHandlersTest()
         {
-            Invert target = new Invert(); // TODO: Passenden Wert initialisieren
+            Greyscale target = new Greyscale(); // TODO: Passenden Wert initialisieren
             Dictionary<EventType, List<Delegate>> expected = null; // TODO: Passenden Wert initialisieren
             Dictionary<EventType, List<Delegate>> actual;
             actual = target.getEventHandlers();
-            Assert.AreNotEqual(expected, actual);
+            Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
         }
 
         /// <summary>
-        ///Test "getMemento"
+        ///Ein Test für "getMemento"
         ///</summary>
         [TestMethod()]
         public void getMementoTest()
         {
-            Invert target = new Invert();
+            Greyscale target = new Greyscale();
+            Memento expected = original;
             Memento actual;
             actual = target.getMemento();
-            Assert.IsTrue(actual.state is Invert, "State object of the beginning Memento is not Invert");
-        }
-
-        /// <summary>
-        ///Test "getMemento": memento is set at the beginning
-        ///</summary>
-        [TestMethod()]
-        public void getMementoTest_isMemento()
-        {
-            Invert target = new Invert();
-            Memento actual;
-            actual = target.getMemento();
-            Assert.IsTrue(actual is Memento, "Mememento is not set at the start.");
-        }
-
-        /// <summary>
-        ///Test "process": does return inverted Bitmap
-        ///</summary>
-        [TestMethod()]
-        public void processTest()
-        {
-            Bitmap frame = testBitmap;
-            Invert target = new Invert();
-            Bitmap expected = processedBitmap;
-            Bitmap actual;
-            actual = target.process(frame);
-            for (int height = 0; height < expected.Height; height++)
+            double[] expectedColor = (double[])expected.state;
+            double[] actualColor = (double[])actual.state;
+            for (int colorValue = 0; colorValue < expectedColor.GetLength(0); colorValue++)
             {
-                for (int width = 0; width < expected.Width; width++)
-                {
-                    Assert.AreEqual(expected.GetPixel(height, width), actual.GetPixel(height, width));
-                }
+                Assert.AreEqual(expectedColor[colorValue], actualColor[colorValue], "");
             }
+            Assert.AreEqual(expected.name, actual.name);
         }
 
         /// <summary>
-        ///Test "process": doesn't return same Bitmap
+        ///Ein Test für "local"
         ///</summary>
         [TestMethod()]
-        public void processTest_notSameBitmap()
+        public void localTest()
         {
-            Invert target = new Invert();
-            Bitmap frame = new Bitmap(testBitmap);
-            Bitmap expected = new Bitmap(testBitmap);
-            Bitmap actual;
-            actual = target.process(frame);
-            for (int height = 0; height < expected.Height; height++)
-            {
-                for (int width = 0; width < expected.Width; width++)
-                {
-                    Assert.AreNotEqual(expected.GetPixel(height, width), actual.GetPixel(height, width));
-                }
-            }
+            Greyscale target = new Greyscale(); // TODO: Passenden Wert initialisieren
+            string s = string.Empty; // TODO: Passenden Wert initialisieren
+            target.local(s);
+            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
 
         /// <summary>
@@ -186,12 +165,12 @@ namespace OQAT_Tests
         [TestMethod()]
         public void processTest_null()
         {
-            Invert target = new Invert();
+            Greyscale target = new Greyscale();
             Bitmap frame = null;
             Bitmap expected = null;
             Bitmap actual;
             actual = target.process(frame);
-            Assert.AreEqual(expected, actual, "process can not handle null.");
+            Assert.AreEqual(expected, actual, "Process can not handle null.");
         }
 
         /// <summary>
@@ -200,48 +179,70 @@ namespace OQAT_Tests
         [TestMethod()]
         public void processTest_empty()
         {
-            Invert target = new Invert();
-            Bitmap frame = new Bitmap(15, 15);
-            Bitmap expected = new Bitmap(15, 15);
+            Greyscale target = new Greyscale();
+            Bitmap frame = new Bitmap(testPixel, testPixel);
+            Bitmap expected = new Bitmap(testPixel, testPixel);
             Bitmap actual;
             actual = target.process(frame);
-            Assert.AreEqual(expected.GetPixel(5, 5), expected.GetPixel(5, 5));
+            for (int width = 0; width < expected.Width; width++)
+            {
+                for (int hight = 0; hight < expected.Height; hight++)
+                {
+                    Assert.AreEqual(expected.GetPixel(width, hight), expected.GetPixel(width, hight), "Process does not work properly. Bitmap was empty and should be empty. ");
+                }
+            }
+
         }
 
         /// <summary>
-        ///Test "setMemento": empty Memento
+        ///Test "setMemento"
         ///</summary>
         [TestMethod()]
-        public void setMementoTest_empty()
+        public void setMementoTest()
         {
-            Invert target = new Invert();
-            Memento memento = null;
-            Memento expected = memento;
-            target.setMemento(expected);
-            Assert.AreEqual(expected, null);
-        }
-
-        /// <summary>
-        ///Test "setMemento": not Invert Memento
-        ///</summary>
-        [TestMethod()]
-        public void setMementoTest_notMemento()
-        {
-            Invert target = new Invert();
-            List<Memento> memList = new List<Memento>();
-            Memento memento = new Memento("PF_Invert", memList);
+            Greyscale target = new Greyscale();
+            Memento memento = fullGrey;
             target.setMemento(memento);
-            Assert.IsTrue(target.getMemento().state is Invert, "Invert doesn't care about Memento's, it does not need any.");
+            double[] expectedColorValues = (double[])target.getMemento().state;
+            for (int colorValue = 0; colorValue < expectedColorValues.GetLength(0); colorValue++)
+            {
+                Assert.AreEqual(expectedColorValues[colorValue], 1, "Setting the Memento did not work. ");
+            }
         }
 
         /// <summary>
-        ///Test "namePlugin"
+        ///Test"setMemento": null Memento
+        ///</summary>
+        [TestMethod()]
+        public void setMementoTest_null()
+        {
+            Greyscale target = new Greyscale();
+            Memento memento = null;
+            target.setMemento(memento);
+            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden. ");
+        }
+
+        /// <summary>
+        ///Test "setMemento": Memento.state is not a double
+        ///</summary>
+        [TestMethod()]
+        public void setMementoTest_notDouble()
+        {
+            Greyscale target = new Greyscale();
+            List<Memento> memList = new List<Memento>();
+            Memento memento = new Memento("NOTDOUBLE", memList);
+            target.setMemento(memento);
+            Assert.IsTrue(target.getMemento().state is double[], "Memento state should be a double[]. ");
+        }
+
+        /// <summary>
+        ///Ein Test für "namePlugin"
         ///</summary>
         [TestMethod()]
         public void namePluginTest()
         {
-            Invert target = new Invert();
-            string expected = "PF_Invert";
+            Greyscale target = new Greyscale();
+            string expected = "PF_Greyscale";
             string actual;
             target.namePlugin = expected;
             actual = target.namePlugin;
@@ -254,11 +255,10 @@ namespace OQAT_Tests
         [TestMethod()]
         public void propertyViewTest()
         {
-            Invert target = new Invert();
+            Greyscale target = new Greyscale(); // TODO: Passenden Wert initialisieren
             UserControl actual;
-            UserControl expected = null;
             actual = target.propertyView;
-            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace OQAT_Tests
         [TestMethod()]
         public void typeTest()
         {
-            Invert target = new Invert();
+            Greyscale target = new Greyscale();
             PluginType expected = PluginType.IFilterOqat;
             PluginType actual;
             target.type = expected;

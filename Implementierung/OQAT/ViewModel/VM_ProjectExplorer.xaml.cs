@@ -111,7 +111,7 @@
                 {
                     project.rmNode(smartNode.id, false);
                     project.addNode(smartNode.video, 
-                                (smartTreeExplorer.SelectedItem != null) ?
+                                (smartTreeExplorer.SelectedItem != null&&validSelection) ?
                                 ((SmartNode)smartTreeExplorer.SelectedItem).id : -1);
                 }
             }
@@ -132,7 +132,7 @@
                 foreach (var vid in vidImp.videoList)
                 {
                     project.addNode(vid,
-                        (smartTreeExplorer.SelectedItem != null) ?
+                        (smartTreeExplorer.SelectedItem != null&&validSelection) ?
                         ((SmartNode)smartTreeExplorer.SelectedItem).id : -1);
                 }
 
@@ -287,7 +287,7 @@
         private void smartTreeExplorer_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             e.Handled = true;
-
+            validSelection = true;
             // remove active element, if there was one
             readOnlyPropViewPanel.Children.Clear();
             
@@ -336,6 +336,12 @@
                     }
                 }
             }
+        }
+
+        bool validSelection = false;
+        private void smartTreeExplorer_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            validSelection = false;
         }
     }
 
