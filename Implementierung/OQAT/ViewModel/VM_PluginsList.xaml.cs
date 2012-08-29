@@ -299,8 +299,14 @@ namespace Oqat.ViewModel
         {
             if (!memento.isMemento)
             {
-                //if a root element (a plugin itself) was selected, don't delete
-                //the changes in the proptertyView are only temporary anyway
+                //if a root element (a plugin itself) was selected there is nothing to be deleted
+                return;
+            }
+
+            if (memento.parent.children.Count <= 1)
+            {
+                //don't delete the last memento so there is always one to copy and create new mementos
+                MessageBox.Show("Das letzte Memento dieses Plugins kann nicht gelöscht werden.");
                 return;
             }
 
