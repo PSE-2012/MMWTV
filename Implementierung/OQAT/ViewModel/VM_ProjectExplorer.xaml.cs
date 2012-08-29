@@ -342,6 +342,7 @@
         private void smartTreeExplorer_MouseDown(object sender, MouseButtonEventArgs e)
         {
             validSelection = false;
+        
         }
     }
 
