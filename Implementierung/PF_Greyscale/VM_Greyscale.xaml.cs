@@ -97,6 +97,10 @@ namespace PF_Greyscale
                     t[i] = reader.Name;
                     reader.MoveToNextAttribute();
                     t2[i] = reader.Value;
+                    if (t2[i] == "")
+                    {
+                        throw new XmlException("datei nicht lang genug");
+                    }
                 }
                 label1.Content = t2[0];
                 label2.Content = t2[1];
