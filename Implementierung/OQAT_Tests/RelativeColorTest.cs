@@ -1,4 +1,4 @@
-﻿using PF_Greyscale;
+﻿using PF_RelativeColor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Oqat.PublicRessources.Plugin;
@@ -12,16 +12,16 @@ namespace OQAT_Tests
     
     
     /// <summary>
-    ///Dies ist eine Testklasse für "GreyscaleTest" und soll
-    ///alle GreyscaleTest Komponententests enthalten.
+    ///Dies ist eine Testklasse für "RelativeColorTest" und soll
+    ///alle RelativeColorTest Komponententests enthalten.
     ///</summary>
     [TestClass()]
-    public class GreyscaleTest
+    public class RelativeColorTest
     {
         private static Bitmap testBitmap;
         private static Bitmap processedBitmap;
         private static Memento original;
-        private static Memento fullGrey;
+        private static Memento doubleColor;
         private static int testPixel = 50;
 
         private TestContext testContextInstance;
@@ -50,7 +50,7 @@ namespace OQAT_Tests
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
         {
-            Greyscale conv = new Greyscale();
+            RelativeColor relCol = new RelativeColor();
             testBitmap = new Bitmap(testPixel, testPixel);
             for (int height = 0; height < testBitmap.Height; height++)
             {
@@ -72,15 +72,15 @@ namespace OQAT_Tests
             double[] newColorValues = new double[3];
             for (int i = 0; i < newColorValues.GetLength(0); i++)
             {
-                newColorValues[i] = 1;
+                newColorValues[i] = 2;
             }
-            fullGrey = new Memento("Blur", newColorValues);
+            doubleColor = new Memento("2xColor", newColorValues);
 
             //get greyscaled Bitmap
-            original = conv.getMemento();
-            conv.setMemento(fullGrey);
-            processedBitmap = conv.process(testBitmap);
-            conv.setMemento(original);
+            original = relCol.getMemento();
+            relCol.setMemento(doubleColor);
+            processedBitmap = relCol.process(testBitmap);
+            relCol.setMemento(original);
         }
         //
         //Mit ClassCleanup führen Sie Code aus, nachdem alle Tests in einer Klasse ausgeführt wurden.
@@ -105,44 +105,43 @@ namespace OQAT_Tests
 
 
         /// <summary>
-        ///Ein Test für "Greyscale-Konstruktor"
+        ///Ein Test für "RelativeColor-Konstruktor"
         ///</summary>
         [TestMethod()]
-        public void GreyscaleConstructorTest()
+        public void RelativeColorConstructorTest()
         {
-            Greyscale target = new Greyscale();
-            Assert.IsTrue(target is Greyscale, "The returned object is not a valid Convolution instance.");
+            RelativeColor target = new RelativeColor();
+            Assert.IsTrue(target is RelativeColor, "The returned object is not a valid Invert instance.");
         }
 
-
         /// <summary>
-        ///Ein Test für "getMemento"
+        ///Test "getMemento"
         ///</summary>
         [TestMethod()]
         public void getMementoTest()
         {
-            Greyscale target = new Greyscale();
+            RelativeColor target = new RelativeColor();
             Memento expected = original;
             Memento actual;
             actual = target.getMemento();
-            double[] expectedColor = (double[])expected.state;
-            double[] actualColor = (double[])actual.state;
-            for (int colorValue = 0; colorValue < expectedColor.GetLength(0); colorValue++)
+            double[] expectedColorValues = (double[])expected.state;
+            double[] actualColorValues = (double[])actual.state;
+            for (int color = 0; color < actualColorValues.GetLength(0); color++)
             {
-                Assert.AreEqual(expectedColor[colorValue], actualColor[colorValue], "");
+                Assert.AreEqual(expectedColorValues[color], actualColorValues[color]);
             }
-            Assert.AreEqual(expected.name, actual.name);
         }
 
         /// <summary>
-        ///Ein Test für "local"
+        ///Ein Test für "localize"
         ///</summary>
         [TestMethod()]
-        public void localTest()
+        [DeploymentItem("PF_RelativeColor.dll")]
+        public void localizeTest()
         {
-            Greyscale target = new Greyscale(); // TODO: Passenden Wert initialisieren
+            RelativeColor_Accessor target = new RelativeColor_Accessor(); // TODO: Passenden Wert initialisieren
             string s = string.Empty; // TODO: Passenden Wert initialisieren
-            target.local(s);
+            target.localize(s);
             Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
 
@@ -152,7 +151,7 @@ namespace OQAT_Tests
         [TestMethod()]
         public void processTest()
         {
-            Greyscale target = new Greyscale();
+            RelativeColor target = new RelativeColor();
             Bitmap frame = testBitmap;
             Bitmap expected = processedBitmap;
             Bitmap actual;
@@ -166,13 +165,15 @@ namespace OQAT_Tests
             }
         }
 
+
+
         /// <summary>
         ///Test "process": empty Bitmap
         ///</summary>
         [TestMethod()]
         public void processTest_empty()
         {
-            Greyscale target = new Greyscale();
+            RelativeColor target = new RelativeColor();
             Bitmap frame = new Bitmap(testPixel, testPixel);
             Bitmap expected = new Bitmap(testPixel, testPixel);
             Bitmap actual;
@@ -192,24 +193,24 @@ namespace OQAT_Tests
         [TestMethod()]
         public void setMementoTest()
         {
-            Greyscale target = new Greyscale();
-            Memento memento = fullGrey;
+            RelativeColor target = new RelativeColor();
+            Memento memento = doubleColor;
             target.setMemento(memento);
             double[] expectedColorValues = (double[])target.getMemento().state;
             for (int colorValue = 0; colorValue < expectedColorValues.GetLength(0); colorValue++)
             {
-                Assert.AreEqual(expectedColorValues[colorValue], 1, "Setting the Memento did not work. ");
+                Assert.AreEqual(expectedColorValues[colorValue], 2, "Setting the Memento did not work. ");
             }
         }
 
         /// <summary>
-        ///Ein Test für "namePlugin"
+        ///Test "namePlugin"
         ///</summary>
         [TestMethod()]
         public void namePluginTest()
         {
-            Greyscale target = new Greyscale();
-            string expected = "PF_Greyscale";
+            RelativeColor target = new RelativeColor();
+            string expected = "PF_RelativeColor";
             string actual;
             target.namePlugin = expected;
             actual = target.namePlugin;
@@ -217,23 +218,23 @@ namespace OQAT_Tests
         }
 
         /// <summary>
-        ///Ein Test für "propertyView"
+        ///Test "propertyView"
         ///</summary>
         [TestMethod()]
         public void propertyViewTest()
         {
-            Greyscale target = new Greyscale();
+            RelativeColor target = new RelativeColor();
             UserControl actual;
             actual = target.propertyView;
         }
 
         /// <summary>
-        ///Ein Test für "type"
+        ///Test "type"
         ///</summary>
         [TestMethod()]
         public void typeTest()
         {
-            Greyscale target = new Greyscale();
+            RelativeColor target = new RelativeColor();
             PluginType expected = PluginType.IFilterOqat;
             PluginType actual;
             target.type = expected;

@@ -5,7 +5,6 @@ using Oqat.PublicRessources.Model;
 using System.Drawing;
 using System.Windows.Controls;
 using Oqat.PublicRessources.Plugin;
-using System.Collections.Generic;
 
 namespace OQAT_Tests
 {
@@ -20,7 +19,7 @@ namespace OQAT_Tests
     {
         private static Bitmap testBitmap;
         private static Bitmap processedBitmap;
-        private static Memento testMemento;
+        private static Memento original;
         private static int[,] matrix;
         private static Memento blur;
         private static int testPixel = 50;
@@ -52,7 +51,6 @@ namespace OQAT_Tests
         public static void MyClassInitialize(TestContext testContext)
         {
             Convolution conv = new Convolution();
-            testMemento = new Memento("PF_Convolution", new int[3, 3]);
             testBitmap = new Bitmap(testPixel, testPixel);
             for (int height = 0; height < testBitmap.Height; height++)
             {
@@ -82,7 +80,7 @@ namespace OQAT_Tests
             }
             blur = new Memento("Blur", matrix);
             //get blured Bitmap
-            Memento original = conv.getMemento();
+            original = conv.getMemento();
             conv.setMemento(blur);
             processedBitmap = conv.process(testBitmap);
             conv.setMemento(original);
@@ -126,7 +124,7 @@ namespace OQAT_Tests
         public void getMementoTest_start()
         {
             Convolution target = new Convolution();
-            Memento expected = testMemento;
+            Memento expected = original;
             Memento actual;
             actual = target.getMemento();
             int[,] matrixExpected = (int[,])expected.state;
@@ -169,8 +167,8 @@ namespace OQAT_Tests
         public void setMementoTest()
         {
             Convolution target = new Convolution();
-            int[,] expectedMatrix = new int[5, 5];
-            Memento memento = new Memento("Conv", new int[5, 5]);
+            int[,] expectedMatrix = new int[6, 6];
+            Memento memento = new Memento("Conv", new int[6, 6]);
             target.setMemento(memento);
             Assert.IsTrue(target.matrix is int[,], "Memento.state is not a Matrix.");
             int[,] actualMatrix = (int[,])target.getMemento().state;
@@ -181,20 +179,6 @@ namespace OQAT_Tests
                     Assert.AreEqual(expectedMatrix[dim1, dim2], actualMatrix[dim1, dim2], "Matrix is not expected matrix.");
                 }
             }
-
-        }
-
-        /// <summary>
-        ///Test "setMemento": state of memento is not Matrix
-        ///</summary>
-        [TestMethod()]
-        public void setMementoTest_notConvMatrix()
-        {
-            Convolution target = new Convolution();
-            List<Memento> memList = new List<Memento>();
-            Memento memento = new Memento("Conv", memList);
-            target.setMemento(memento);
-            Assert.IsTrue(target.matrix is int[,], "Memento.state should be a Matrix.");
         }
 
         /// <summary>

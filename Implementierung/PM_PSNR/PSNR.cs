@@ -3,8 +3,6 @@
 namespace PM_PSNR
 {
     using Oqat.PublicRessources.Plugin;
-
-
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -55,7 +53,8 @@ namespace PM_PSNR
                     int rotRef = colorRef.R;
                     int grunRef = colorRef.G;
                     int blauRef = colorRef.B;
-                    //rgb
+
+                    //RGB
                     int newRot = (int)Math.Pow((rotProc - rotRef), 2);
                     int newGrun = (int)Math.Pow((grunProc - grunRef), 2);
                     int newBlau = (int)Math.Pow((blauProc - blauRef), 2);
@@ -69,15 +68,16 @@ namespace PM_PSNR
 
             float mse = (float)summe / (frameProc.Height * frameProc.Width*3);
 
-            if(0<=mse&&mse<=1){
+            if(0<=mse&&mse<=1)
+            {
                 resultValues[0] = -1;
-            } else{
+            }
+            else
+            {
                 resultValues[0] = (float)(20*Math.Log10(255)-10*Math.Log10(mse));
             }
 
             AnalysisInfo analyse = new AnalysisInfo(resultFrame, resultValues);
-
-
             return analyse;
         }
 
@@ -113,36 +113,19 @@ namespace PM_PSNR
             }
         }
 
-        public Dictionary<EventType, List<Delegate>> getEventHandlers()
-        {
-            Dictionary<EventType, List<Delegate>> handlers = new Dictionary<EventType, List<Delegate>>();
-            return handlers;
-        }
-
         /// <summary>
         /// not necesarry method here
         /// </summary>
-
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
             Memento mem = new Memento(this.namePlugin, this);
-
             return mem;
         }
 
         /// <summary>
         /// not necesarry method here
         /// </summary>
-
-        public void setMemento(Oqat.PublicRessources.Model.Memento memento)
-        {
-            
-        }
-
-        public PSNR()
-        {
-
-        }
+        public void setMemento(Oqat.PublicRessources.Model.Memento memento) { }
     }
 }
 

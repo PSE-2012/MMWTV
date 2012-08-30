@@ -12,7 +12,6 @@ using System.Drawing;
 using System.ComponentModel;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-using System.Windows.Data;
 
 
 
@@ -545,13 +544,7 @@ namespace PP_Player
 
         private void jumpToFrame_Click(object sender, RoutedEventArgs e)
         {
-
-            //int jumpTo;
-            //Int32.TryParse(jumpToFrameTextBox.Text, out jumpTo);
-            //positionReader = jumpTo;
-            //OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));
             OnPropertyChanged(this, new PropertyChangedEventArgs(randomJumpPositionUpdate));
-            
         }
 
         /// <summary>
@@ -629,14 +622,6 @@ namespace PP_Player
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //private void positionSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        //{
-        //    if (!dragStarted)
-        //    {
-        //        OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));
-        //    }
-        //}
-
         //private bool dragStarted = false;
         private void positionSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
         {
@@ -674,14 +659,6 @@ namespace PP_Player
             playTickerTimeout -= 10;
         }
     }
-
-    //internal class SliderIgnoreDrag : Slider
-    //{
-    //    protected override void onThumbDragDelta(DragDeltaEventArgs e)
-    //    {
-    //        // ignore
-    //    }
-    //}
 
     internal class intStringConverter: IValueConverter
     {

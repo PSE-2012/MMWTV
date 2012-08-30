@@ -103,20 +103,6 @@ namespace OQAT_Tests
         }
 
         /// <summary>
-        ///Ein Test für "getEventHandlers"
-        ///</summary>
-        [TestMethod()]
-        public void getEventHandlersTest()
-        {
-            Invert target = new Invert(); // TODO: Passenden Wert initialisieren
-            Dictionary<EventType, List<Delegate>> expected = null; // TODO: Passenden Wert initialisieren
-            Dictionary<EventType, List<Delegate>> actual;
-            actual = target.getEventHandlers();
-            Assert.AreNotEqual(expected, actual);
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
-        }
-
-        /// <summary>
         ///Test "getMemento"
         ///</summary>
         [TestMethod()]
@@ -178,20 +164,6 @@ namespace OQAT_Tests
                     Assert.AreNotEqual(expected.GetPixel(height, width), actual.GetPixel(height, width));
                 }
             }
-        }
-
-        /// <summary>
-        ///Test "process": null Bitmap
-        ///</summary>
-        [TestMethod()]
-        public void processTest_null()
-        {
-            Invert target = new Invert();
-            Bitmap frame = null;
-            Bitmap expected = null;
-            Bitmap actual;
-            actual = target.process(frame);
-            Assert.AreEqual(expected, actual, "process can not handle null.");
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using PF_Greyscale;
+﻿using PF_NoiseGenerator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Oqat.PublicRessources.Plugin;
@@ -12,17 +12,16 @@ namespace OQAT_Tests
     
     
     /// <summary>
-    ///Dies ist eine Testklasse für "GreyscaleTest" und soll
-    ///alle GreyscaleTest Komponententests enthalten.
+    ///Dies ist eine Testklasse für "NoiseGeneratorTest" und soll
+    ///alle NoiseGeneratorTest Komponententests enthalten.
     ///</summary>
     [TestClass()]
-    public class GreyscaleTest
+    public class NoiseGeneratorTest
     {
         private static Bitmap testBitmap;
-        private static Bitmap processedBitmap;
-        private static Memento original;
-        private static Memento fullGrey;
         private static int testPixel = 50;
+        private static Memento original;
+        private static Memento testNoise;
 
         private TestContext testContextInstance;
 
@@ -50,7 +49,8 @@ namespace OQAT_Tests
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
         {
-            Greyscale conv = new Greyscale();
+            NoiseGenerator noiGen = new NoiseGenerator();
+            original = noiGen.getMemento();
             testBitmap = new Bitmap(testPixel, testPixel);
             for (int height = 0; height < testBitmap.Height; height++)
             {
@@ -67,20 +67,7 @@ namespace OQAT_Tests
                     testBitmap.SetPixel(width, height, Color.Blue);
                 }
             }
-
-            //create greyscale
-            double[] newColorValues = new double[3];
-            for (int i = 0; i < newColorValues.GetLength(0); i++)
-            {
-                newColorValues[i] = 1;
-            }
-            fullGrey = new Memento("Blur", newColorValues);
-
-            //get greyscaled Bitmap
-            original = conv.getMemento();
-            conv.setMemento(fullGrey);
-            processedBitmap = conv.process(testBitmap);
-            conv.setMemento(original);
+            testNoise = new Memento("test", 5.1F);
         }
         //
         //Mit ClassCleanup führen Sie Code aus, nachdem alle Tests in einer Klasse ausgeführt wurden.
@@ -105,15 +92,14 @@ namespace OQAT_Tests
 
 
         /// <summary>
-        ///Ein Test für "Greyscale-Konstruktor"
+        ///Ein Test für "NoiseGenerator-Konstruktor"
         ///</summary>
         [TestMethod()]
-        public void GreyscaleConstructorTest()
+        public void NoiseGeneratorConstructorTest()
         {
-            Greyscale target = new Greyscale();
-            Assert.IsTrue(target is Greyscale, "The returned object is not a valid Convolution instance.");
+            NoiseGenerator target = new NoiseGenerator();
+            Assert.IsTrue(target is NoiseGenerator, "The returned object is not a valid NoiseGenerator instance.");
         }
-
 
         /// <summary>
         ///Ein Test für "getMemento"
@@ -121,28 +107,25 @@ namespace OQAT_Tests
         [TestMethod()]
         public void getMementoTest()
         {
-            Greyscale target = new Greyscale();
+            NoiseGenerator target = new NoiseGenerator();
             Memento expected = original;
             Memento actual;
             actual = target.getMemento();
-            double[] expectedColor = (double[])expected.state;
-            double[] actualColor = (double[])actual.state;
-            for (int colorValue = 0; colorValue < expectedColor.GetLength(0); colorValue++)
-            {
-                Assert.AreEqual(expectedColor[colorValue], actualColor[colorValue], "");
-            }
-            Assert.AreEqual(expected.name, actual.name);
+            float expectedMean = (float)expected.state;
+            float actualMean = (float)actual.state;
+            Assert.AreEqual(expectedMean, actualMean);
         }
 
         /// <summary>
-        ///Ein Test für "local"
+        ///Ein Test für "localize"
         ///</summary>
         [TestMethod()]
-        public void localTest()
+        [DeploymentItem("PF_NoiseGenerator.dll")]
+        public void localizeTest()
         {
-            Greyscale target = new Greyscale(); // TODO: Passenden Wert initialisieren
+            NoiseGenerator_Accessor target = new NoiseGenerator_Accessor();
             string s = string.Empty; // TODO: Passenden Wert initialisieren
-            target.local(s);
+            target.localize(s);
             Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
 
@@ -152,54 +135,37 @@ namespace OQAT_Tests
         [TestMethod()]
         public void processTest()
         {
-            Greyscale target = new Greyscale();
+            NoiseGenerator target = new NoiseGenerator();
             Bitmap frame = testBitmap;
-            Bitmap expected = processedBitmap;
+            float expectedMean = (float)target.getMemento().state;
             Bitmap actual;
             actual = target.process(frame);
-            for (int width = 0; width < expected.Width; width++)
+            float actualMean = 0;
+            for (int height = 0; height < actual.Height; height++)
             {
-                for (int hight = 0; hight < expected.Height; hight++)
+                for (int width = 0; width < actual.Width; width++)
                 {
-                    Assert.AreEqual(expected.GetPixel(width, hight), expected.GetPixel(width, hight), "Process working randomly. ");
+                    if (!frame.GetPixel(width, height).Equals(actual.GetPixel(width, height)))
+                    {
+                        actualMean++;
+                    }
                 }
             }
+            Assert.AreEqual(expectedMean, actualMean, "Process does not work with mean. ");
         }
 
         /// <summary>
-        ///Test "process": empty Bitmap
-        ///</summary>
-        [TestMethod()]
-        public void processTest_empty()
-        {
-            Greyscale target = new Greyscale();
-            Bitmap frame = new Bitmap(testPixel, testPixel);
-            Bitmap expected = new Bitmap(testPixel, testPixel);
-            Bitmap actual;
-            actual = target.process(frame);
-            for (int width = 0; width < expected.Width; width++)
-            {
-                for (int hight = 0; hight < expected.Height; hight++)
-                {
-                    Assert.AreEqual(expected.GetPixel(width, hight), expected.GetPixel(width, hight), "Process does not work properly. Bitmap was empty and should be empty. ");
-                }
-            }
-        }
-
-        /// <summary>
-        ///Test "setMemento"
+        ///Ein Test für "setMemento"
         ///</summary>
         [TestMethod()]
         public void setMementoTest()
         {
-            Greyscale target = new Greyscale();
-            Memento memento = fullGrey;
+            NoiseGenerator target = new NoiseGenerator();
+            Memento memento = testNoise;
             target.setMemento(memento);
-            double[] expectedColorValues = (double[])target.getMemento().state;
-            for (int colorValue = 0; colorValue < expectedColorValues.GetLength(0); colorValue++)
-            {
-                Assert.AreEqual(expectedColorValues[colorValue], 1, "Setting the Memento did not work. ");
-            }
+            float actualMean = (float)target.getMemento().state;
+            float expectedMean = (float)memento.state;
+            Assert.AreEqual(expectedMean, actualMean, "Memento was not set right. ");
         }
 
         /// <summary>
@@ -208,8 +174,8 @@ namespace OQAT_Tests
         [TestMethod()]
         public void namePluginTest()
         {
-            Greyscale target = new Greyscale();
-            string expected = "PF_Greyscale";
+            NoiseGenerator target = new NoiseGenerator();
+            string expected = "PF_NoiseGenerator";
             string actual;
             target.namePlugin = expected;
             actual = target.namePlugin;
@@ -222,7 +188,7 @@ namespace OQAT_Tests
         [TestMethod()]
         public void propertyViewTest()
         {
-            Greyscale target = new Greyscale();
+            NoiseGenerator target = new NoiseGenerator();
             UserControl actual;
             actual = target.propertyView;
         }
@@ -233,7 +199,7 @@ namespace OQAT_Tests
         [TestMethod()]
         public void typeTest()
         {
-            Greyscale target = new Greyscale();
+            NoiseGenerator target = new NoiseGenerator();
             PluginType expected = PluginType.IFilterOqat;
             PluginType actual;
             target.type = expected;
