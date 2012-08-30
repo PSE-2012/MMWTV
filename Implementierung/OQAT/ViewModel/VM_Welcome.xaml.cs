@@ -50,7 +50,6 @@
             InitializeComponent();
             this.local("VM_Welcome_" + Thread.CurrentThread.CurrentCulture + ".xml");
             projects = new ArrayList();
-            
             this.setMemento(Caretaker.caretaker.getMemento( Directory.GetCurrentDirectory() +"/VM_Welcome.mem"));
             updateListBox();
         }
@@ -246,13 +245,10 @@
                         throw new XmlException("datei nicht lang genug");
                     }
                 }
-
                 msg = t2[3];
                 newPrjCreate_Button.Content = t2[2];
                 btnOpSelPrj.Content = t2[1];
                 btnEx.Content = t2[0];
-
-
             }
             catch (IndexOutOfRangeException e) { }
             catch (FileNotFoundException e) { }
@@ -266,7 +262,6 @@
         {
             if (listBox1.SelectedItem != null)
             {
-
                 if (listBox1.SelectedItem.ToString().Length != 0)
                 {
                     openSelectedProject();
