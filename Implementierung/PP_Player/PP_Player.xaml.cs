@@ -24,7 +24,7 @@ namespace PP_Player
     [ExportMetadata("namePlugin", "PP_Player")]
     [ExportMetadata("type", PluginType.IPresentation)]
     [Export(typeof(IPlugin))]
-    public partial class PP_Player : System.Windows.Controls.UserControl, IPresentation, ICloneable, INotifyPropertyChanged
+    public partial class PP_Player : System.Windows.Controls.UserControl, IPresentation, INotifyPropertyChanged
     {
 
         public PP_Player()
@@ -37,11 +37,6 @@ namespace PP_Player
             stopPlayTickerThread = false;
             setVideoContextLock = new Object();
 
-        }
-
-        public object Clone()
-        {
-            return new PP_Player();
         }
 
         public PresentationPluginType presentationType
@@ -673,15 +668,12 @@ namespace PP_Player
         {
             playTickerTimeout -= 10;
         }
-    }
 
-    //internal class SliderIgnoreDrag : Slider
-    //{
-    //    protected override void onThumbDragDelta(DragDeltaEventArgs e)
-    //    {
-    //        // ignore
-    //    }
-    //}
+        public IPlugin createExtraPluginInstance()
+        {
+            return new PP_Player();
+        }
+    }
 
     internal class intStringConverter: IValueConverter
     {

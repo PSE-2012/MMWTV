@@ -44,11 +44,6 @@ namespace PP_Diagramm
             set;
         }
 
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
-
 
         public Diagramm()
         {
@@ -197,6 +192,11 @@ namespace PP_Diagramm
                 System.ArgumentException illegalArgumentException = new System.ArgumentException("frameMetricValue ==NULL");
                 throw illegalArgumentException;
             }
+        }
+
+        public IPlugin createExtraPluginInstance()
+        {
+            return new Diagramm();
         }
     }
 }

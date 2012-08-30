@@ -139,9 +139,9 @@ namespace PM_PSNR
             
         }
 
-        public PSNR()
+        public IPlugin createExtraPluginInstance()
         {
-
+            return new PSNR();
         }
     }
 }

@@ -201,6 +201,11 @@ namespace PM_MSE
             propertiesView.local(s);
 
         }
+
+        public IPlugin createExtraPluginInstance()
+        {
+            return new MSE();
+        }
     }
 }
 

@@ -139,5 +139,10 @@ namespace PF_Convolution
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
+        public IPlugin createExtraPluginInstance()
+        {
+            return new Convolution();
+        }
     }
 }
