@@ -140,10 +140,9 @@ namespace OQAT_Tests
         [TestMethod()]
         public void localTest()
         {
-            Greyscale target = new Greyscale(); // TODO: Passenden Wert initialisieren
-            string s = string.Empty; // TODO: Passenden Wert initialisieren
+            Greyscale target = new Greyscale();
+            string s = "test";
             target.local(s);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
 
         /// <summary>
