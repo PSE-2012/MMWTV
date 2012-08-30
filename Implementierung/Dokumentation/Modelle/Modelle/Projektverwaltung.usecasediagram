@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="aba80fb3-8a5f-44ec-9def-4767793f646a" name="Projektverwaltung" linkedPackageId="a537c8fe-c9b4-4344-91aa-76badf6c804e" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <profileInstances>
+    <packageHasProfileInstances Id="f075aa0b-7d52-45ee-8634-6a10ae1a5b5e">
+      <profileInstance Id="010bdaaf-06d3-496f-a3e5-0a528cbfc858" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="39747b4d-4be9-4cbb-9ea7-9e6de7ff1515">
+      <profileInstance Id="a34e44c8-1b87-4926-9c55-ddf3ddd7311c" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="dcffc55d-9742-449f-8cfb-c05b0cdf7bf2" name="Projektverwaltung" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="003c2bde-c44e-487f-a8c3-5113d717c4a3" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="6e6932bd-01bb-4d45-ac00-36d79fc41060" name="Benutzer" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="5b82afef-d90a-4431-b6b3-f97be2f0ff6a" />
+        <targetEnds>
+          <association Id="e9046777-10e3-4336-8c10-14f1e2d0924c" isDerived="false" sourceEndRoleName="Benutzer" targetEndRoleName="Projekt erstellen" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="c23bc4fc-ff05-4349-83ea-b573cf07fc27" LastKnownName="Projekt erstellen" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="4aded9b9-3f88-4b89-a23d-1a8299959622" name="Benutzer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="285dc985-453d-4408-bf7a-cb1d47a350b5" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="20081e77-e16a-45ac-b8d6-7e8301644a84" name="Projekt erstellen" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="7614ff97-6ad5-410a-a11a-5341fea963dc" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="bbaee5ed-1624-44fe-b83c-cf329d3b62bd" />
+          </association>
+          <association Id="c29d7c22-5954-4761-bb63-aa0af4ffca5a" isDerived="false" sourceEndRoleName="Benutzer" targetEndRoleName="Projekt bearbeiten" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="8c03037c-3d0d-4e01-ab83-0938db0b5159" LastKnownName="Projekt bearbeiten" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="650168a4-548a-4f07-aa12-2cda640d8fda" name="Benutzer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="85624687-3015-446a-a3fb-34a46f401ea0" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ec753989-f456-4a8b-ae37-fccdd87db98f" name="Projekt bearbeiten" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="651c755d-9685-4fcb-b919-ec2307607f08" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="8878ea10-a4f2-4bc3-8162-913e99277e3a" />
+          </association>
+          <association Id="0a7733c5-3949-4a29-89dd-77f778a5b160" isDerived="false" sourceEndRoleName="Benutzer" targetEndRoleName="Projekt speichern" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="a724007a-86b0-4ce3-88e7-6a943936aa99" LastKnownName="Projekt speichern" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f950c597-67bd-4230-80f8-ca49a0e90cf8" name="Benutzer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="8e4882a7-bced-48f5-8a6d-c9df77917ae7" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7493ea84-0030-4441-913f-4a9c96b6a83c" name="Projekt speichern" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="d606e411-0086-4893-8063-e29638cbdd3a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="c0ab4829-2525-425c-a689-aee5fc017b5d" />
+          </association>
+          <association Id="d634d1a9-4433-4628-b92c-173b5eb4616d" isDerived="false" sourceEndRoleName="Benutzer" targetEndRoleName="Projekt laden" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="1a0fde1d-4f2c-4fe0-a558-d2d50c716188" LastKnownName="Projekt laden" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d8d25433-0a89-4979-838c-d6dd814a2891" name="Benutzer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="2f9d3ee1-1029-497a-88ff-59bc6d78ba9c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="704a90ed-a5a6-4b3d-88f2-17fa3f877e62" name="Projekt laden" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="243cc5c8-9b9f-45a0-bb48-64a2bef8492c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="57100b7b-e933-4c61-b1d7-98a0da8f69ad" />
+          </association>
+          <association Id="18b7ca39-f011-4b78-b8ee-70b5e4182ef2" isDerived="false" sourceEndRoleName="Benutzer" targetEndRoleName="zuletzt genutzte Projekte anzeigen" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="63eb6b10-05bc-45c1-91ed-b682b63d7a0d" LastKnownName="zuletzt genutzte Projekte anzeigen" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="82abc9c8-6152-44d3-9051-18bcbc983ff2" name="Benutzer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="0db4c489-dfd8-4bfb-8cb3-38adf6565459" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e36c6162-2066-491c-b71a-25a1ad4cd82e" name="zuletzt genutzte Projekte anzeigen" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="cf4505f5-7e7f-4c4e-9358-6652a8ba41c5" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="42710474-375c-49c0-889d-42f4aae5a615" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <packageHasNamedElement>
+      <useCase Id="c23bc4fc-ff05-4349-83ea-b573cf07fc27" name="Projekt erstellen" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="c8be3458-9036-41b5-b01e-9d8fb9ffdf68" />
+        <subjects>
+          <subsystemMoniker Id="dcffc55d-9742-449f-8cfb-c05b0cdf7bf2" LastKnownName="Projektverwaltung" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="a724007a-86b0-4ce3-88e7-6a943936aa99" name="Projekt speichern" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="09c2aff3-9f59-4c5a-8bce-337457315907" />
+        <subjects>
+          <subsystemMoniker Id="dcffc55d-9742-449f-8cfb-c05b0cdf7bf2" LastKnownName="Projektverwaltung" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="1a0fde1d-4f2c-4fe0-a558-d2d50c716188" name="Projekt laden" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="0d0a2709-b947-4ded-979c-ae4d9fbc1f91" />
+        <subjects>
+          <subsystemMoniker Id="dcffc55d-9742-449f-8cfb-c05b0cdf7bf2" LastKnownName="Projektverwaltung" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="8c03037c-3d0d-4e01-ab83-0938db0b5159" name="Projekt bearbeiten" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e108e79f-3137-450b-818d-e50d5ea42ed0" />
+        <subjects>
+          <subsystemMoniker Id="dcffc55d-9742-449f-8cfb-c05b0cdf7bf2" LastKnownName="Projektverwaltung" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="63eb6b10-05bc-45c1-91ed-b682b63d7a0d" name="zuletzt genutzte Projekte anzeigen" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="7abd9a04-ff07-4613-9e23-d277de021e3e" />
+        <subjects>
+          <subsystemMoniker Id="dcffc55d-9742-449f-8cfb-c05b0cdf7bf2" LastKnownName="Projektverwaltung" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="a537c8fe-c9b4-4344-91aa-76badf6c804e" name="Modelle">
+    <elementDefinition Id="43b24e11-4d34-47e0-b833-6600d4e67d75" />
+  </package>
+</useCaseModelRoot>
