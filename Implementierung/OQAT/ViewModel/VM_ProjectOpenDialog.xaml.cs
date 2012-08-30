@@ -168,6 +168,11 @@
                  pathProject = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +"\\" +title+ ".oqatPrj";
             }
 
+            if (!pathProject.EndsWith(".oqatPrj"))
+            {
+                pathProject = pathProject+".oqatPrj";
+            }
+
                 project = new Project(tbTitel.Text, pathProject, description);
                 this.DialogResult = true;
             
