@@ -23,7 +23,7 @@
         private float[][] _metricValues;
         private Dictionary<PresentationPluginType, List<string>> _extraResources;
 
-        private List<MacroEntry> _processedBy;
+        private List<IMacroEntry> _processedBy;
 
 
         /// <summary>
@@ -35,13 +35,14 @@
         /// <param name="processedBy">a list of MacroEntries describing through which operations this video was created.</param>
         /// <remarks>Note that optional parameters are used (for vidInfo and processedBy). If you do not
         /// need them just dont mention them in the invocation, else see <see cref="http://msdn.microsoft.com/de-de/library/dd264739.aspx"/>
-        public Video(bool isAnalysis, string vidPath, IVideoInfo vidInfo = null,List<MacroEntry> processedBy = null)
+        /// </remarks>
+        public Video(bool isAnalysis, string vidPath, IVideoInfo vidInfo = null,List<IMacroEntry> processedBy = null)
         {
             this.isAnalysis = isAnalysis;
             this.vidPath = vidPath;
             
             this.vidInfo =vidInfo;
-            this.processedBy = (processedBy != null) ? processedBy: new List<MacroEntry>();
+            this.processedBy = processedBy;
         }
 
 
@@ -117,7 +118,7 @@
         /// Returns a list of filters (or a metric) the video has been processed by.
         /// If this is a reference video an empty list is returned.
         /// </summary>
-		public List<MacroEntry> processedBy
+		public List<IMacroEntry> processedBy
 		{
             get
             {
@@ -145,7 +146,7 @@
 		}
 
 
-        [NonSerialized]
+        [field:NonSerialized]
         private IVideoHandler _handler;
         public IVideoHandler handler
         {
@@ -176,8 +177,8 @@
                 //PluginManager.pluginManager.raiseEvent(EventType.panic, 
                 //    new ErrorEventArgs(new Exception("No such ")));
 
-            _handler = handler.createVideoHandlerInstance();
-            if (this.vidInfo != null)
+            _handler = handler.createExtraPluginInstance() as IVideoHandler;
+            if ((this.vidInfo != null) && (File.Exists(vidPath)))
             {
                 _handler.setReadContext(this.vidPath, this.vidInfo);
             }
@@ -185,6 +186,12 @@
             return _handler;
 		}
 
+
+
+        public IVideoHandler getExtraHandler()
+        {
+            return getVideoHandler();
+        }
     }
 }
 
