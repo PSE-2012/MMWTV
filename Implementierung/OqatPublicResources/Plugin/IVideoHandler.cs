@@ -29,6 +29,7 @@ using System.Windows.Controls;
         /// </summary>
         IVideoInfo writeVidInfo { get; }
 
+        string readPath { get; }
 
         int positionReader
         {
@@ -38,7 +39,7 @@ using System.Windows.Controls;
 
         void flushReader();
 
-      //  void flushWriter();
+        void flushWriter();
 
         /// <summary>
         /// Returns a frame from the currently loaded Video.
@@ -71,14 +72,6 @@ using System.Windows.Controls;
         ///// <param name="frameNum">Slot to place the first frame in.</param>
         ///// <param name="frames">Array of frames to place into the currently loaded video.</param>
         //void writeFrames(int frameNum, Bitmap[] frames);
-
-
-
-        /// <summary>
-        /// Returns a new VideoHandler instance.
-        /// </summary>
-        /// <returns>a new VideoHandler instance</returns>
-        IVideoHandler createVideoHandlerInstance();
 
 
         /// <summary>

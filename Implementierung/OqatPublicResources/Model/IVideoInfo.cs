@@ -9,7 +9,7 @@
     public interface IVideoInfo : ICloneable
 	{
         string videoCodecName { get; }
-        int frameCount { get;  }
+        int frameCount { get; set; }
         int width { get;  }
         int height { get;  }
 

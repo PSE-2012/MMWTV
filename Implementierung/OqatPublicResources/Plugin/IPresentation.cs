@@ -11,7 +11,7 @@
     /// This interface has to be implemented in order to be recognized
     /// as a PresentationPlugin ( Pluginmanager)
     /// </summary>
-    public interface IPresentation : IPlugin, ICloneable
+    public interface IPresentation : IPlugin
 	{
         /// <summary>
         /// See <see cref="PresentationPluginType"/> for a complete list.
