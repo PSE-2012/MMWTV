@@ -15,6 +15,8 @@ namespace OQAT_Tests
     {
         private static string path =
             "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
+        private static int framecount = 150; 
+        //frame count of the video referenced by the above path
 
         ///<summary>
         ///Constructor test
@@ -53,7 +55,7 @@ namespace OQAT_Tests
         public void frameCountTest()
         {
             YuvVideoInfo info = new YuvVideoInfo(path);
-            Assert.AreEqual(150, info.frameCount);
+            Assert.AreEqual(framecount, info.frameCount);
             YuvVideoInfo falseInfo = new YuvVideoInfo("D:\\bla_cif.yuv");
             Assert.AreEqual(-1, falseInfo.frameCount);
         }

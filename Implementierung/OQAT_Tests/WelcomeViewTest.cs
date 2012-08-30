@@ -5,6 +5,7 @@ using System.Linq;
 using Oqat.ViewModel;
 using Oqat.PublicRessources.Model;
 using Oqat.Model;
+using System.Collections;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -31,7 +32,7 @@ namespace OQAT_Tests
             welcome.projects.Add("2");
             welcome.projects.Add("3");
             welcome.updateListBox();
-            Assert.AreEqual("3", (string) welcome.listBox1.Items[0]);
+            Assert.AreEqual("3", (string)welcome.listBox1.Items[0]);
             Assert.AreEqual("2", (string)welcome.listBox1.Items[1]);
             Assert.AreEqual("1", (string)welcome.listBox1.Items[2]);
         }
@@ -58,7 +59,21 @@ namespace OQAT_Tests
         public void mementoTest()
         {
             VM_Welcome_Accessor welcome = new VM_Welcome_Accessor();
-            
+            ArrayList state = new ArrayList();
+            for (int i = 0; i < 17; i++)
+            {
+                state.Add(i.ToString());
+            }
+            Memento mem = new Memento("testmem", state);
+            welcome.setMemento(mem);
+            ArrayList projectList = (ArrayList)welcome.getMemento().state;
+            Assert.AreEqual(15, projectList.Count);
+            // if project list contains more than 15 projects,
+            // first in first out is done until project list contains 15
+            for (int i = 0; i < 15; i++)
+            {
+                Assert.AreEqual((i+2).ToString(), projectList[i]);
+            }
         }
     }
 }

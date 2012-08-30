@@ -36,14 +36,14 @@
         private void onSelectProject(object sender, EventArgs e) { }
 
         /// <summary>
-        /// Constructor.
+        /// Constructor
         /// </summary>
         /// 
         ArrayList projects;
         String msg = "Projekt nicht gefunden.";
 
         /// <summary>
-        /// constructor
+        /// Constructor
         /// </summary>
         public VM_Welcome()
         {
@@ -56,7 +56,7 @@
         }
 
         /// <summary>
-        /// helper method tos et the listbox content to the projects attribut.
+        /// Helper method to set the listbox content to the projects attribute.
         /// </summary>
         private void updateListBox(){
             btnOpSelPrj.IsEnabled = false;
@@ -71,22 +71,22 @@
         }
 
         /// <summary>
-        /// returns the current state as an memento Object
+        /// Returns the current state as a Memento Object
         /// </summary>
         
         private Memento getMemento()
         {
-            int listboxLenght = 15;
-            if (projects.Count > listboxLenght)
+            int listboxLength = 15;
+            if (projects.Count > listboxLength)
             {
-                this.projects.RemoveRange(listboxLenght-1, projects.Count - listboxLenght);
+                this.projects.RemoveRange(0, projects.Count - listboxLength);
             }
             Memento mem = new Memento("VM_Welcome.mem", this.projects, Directory.GetCurrentDirectory() + "/VM_Welcome.mem");
             return mem;
         }
 
         /// <summary>
-        /// sets mem as current state
+        /// Sets mem as current state
         /// </summary>
         private void setMemento(Memento mem)
         {
@@ -97,20 +97,20 @@
                 {
                     this.projects = obj;
                 }
-            }
-          
-            
+            } 
         }
 
         /// <summary>
-        /// event to the new Project create Button. calls the VM_projectopendialog to egt the values.
+        /// Event to the new Project create Button. Calls the VM_projectopendialog to get the values.
         /// </summary>
-
         private void newPrjCreate_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             createProject();
         }
 
+        /// <summary>
+        /// Opens a dialog for creating a new project
+        /// </summary>
         public void createProject()
         {
             var prOpen = new VM_ProjectOpenDialog();
@@ -120,18 +120,19 @@
             {
                 String path = prOpen.pathProject;
                 addProjekt(projects.Contains(path), path);
-
                 Caretaker.caretaker.writeMemento(this.getMemento());
                 PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.newProjectCreated, new ProjectEventArgs(prOpen.project));
             }
         }
 
+        /// <summary>
+        /// Opens a file dialog for opening a project
+        /// </summary>
         public void openProject()
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.DefaultExt = ".oqatPrj";
             dlg.Filter = "OQAT projects (.oqatPrj)|*.oqatPrj";
-
             Nullable<bool> result = dlg.ShowDialog();
             Memento exPrjMem;
             if (result == true)
@@ -141,12 +142,11 @@
                 PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.newProjectCreated,
                     new ProjectEventArgs(exPrj));
                 addProjekt(projects.Contains(dlg.FileName), dlg.FileName);
-
             }
         }
 
         /// <summary>
-        /// event to the browse button to open a dialog to search for existing projects.
+        /// Event to the browse button to open a dialog to search for existing projects.
         /// </summary>
         private void exPrjOpen_Click(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -154,7 +154,7 @@
         }
 
         /// <summary>
-        /// event to enable the btnOpSelPrj button.
+        /// Event to enable the btnOpSelPrj button.
         /// </summary>
         private void listView1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -162,7 +162,7 @@
         }
 
         /// <summary>
-        /// event to from the btnOpSelPrj button. tries to open the selected project.
+        /// Event for clicking the btnOpSelPrj button. Tries to open the selected project.
         /// </summary>
         private void btnOpSelPrj_Click(object sender, RoutedEventArgs e)
         {
@@ -170,7 +170,7 @@
             
         }
         /// <summary>
-        /// helper method to open a project from the listbox.
+        /// Helper method to open a project from the listbox.
         /// </summary>
         private void openSelectedProject()
         {
@@ -196,7 +196,7 @@
         }
 
         /// <summary>
-        /// helper method to add projects to the memento
+        /// Helper method to add projects to the memento
         /// </summary>
         private void addProjekt(Boolean b, String s)
         {
@@ -214,7 +214,7 @@
         }
 
         /// <summary>
-        /// event to enable the btnOpSelPrj button.
+        /// Event to enable the btnOpSelPrj button.
         /// </summary>
         private void listBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -260,7 +260,7 @@
         }
 
         /// <summary>
-        /// event to open projects with a double klick
+        /// Event to open projects with a double click
         /// </summary>
         private void listbox1_DoubleKlick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
