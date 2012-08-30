@@ -139,10 +139,9 @@ namespace OQAT_Tests
         [DeploymentItem("PF_RelativeColor.dll")]
         public void localizeTest()
         {
-            RelativeColor_Accessor target = new RelativeColor_Accessor(); // TODO: Passenden Wert initialisieren
-            string s = string.Empty; // TODO: Passenden Wert initialisieren
+            RelativeColor_Accessor target = new RelativeColor_Accessor();
+            string s = "test";
             target.localize(s);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
 
         /// <summary>

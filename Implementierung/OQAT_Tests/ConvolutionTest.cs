@@ -182,36 +182,6 @@ namespace OQAT_Tests
         }
 
         /// <summary>
-        ///Test"setMemento": Matrix is not a square
-        ///</summary>
-        [TestMethod()]
-        public void setMementoTest_notSquareMatrix()
-        {
-            Convolution target = new Convolution();
-            Memento memento = new Memento("Conv", new int[3, 4]);
-            target.setMemento(memento);
-            Assert.IsTrue(target.matrix.GetLength(0) == target.matrix.GetLength(1), "Matrix is not square.");
-        }
-
-        /// <summary>
-        ///Test "setMemento": Invalid kernel size.
-        ///</summary>
-        [TestMethod()]
-        public void setMementoTest_MatrixSize()
-        {
-            Convolution target = new Convolution();
-            //Matrix size to small
-            Memento memento = new Memento("Conv", new int[2, 2]);
-            target.setMemento(memento);
-            Assert.IsTrue((target.matrix.GetLength(0) > 2) && (target.matrix.GetLength(1) > 2), "Invalid kernel size. Matrix has to be 2 < squarelength < 26.");
-
-            //Matrix size to big
-            memento = new Memento("Conv", new int[26, 26]);
-            target.setMemento(memento);
-            Assert.IsTrue((target.matrix.GetLength(0) < 26) && (target.matrix.GetLength(1) < 26), "Invalid kernel size. Matrix has to be 2 < squarelength < 26.");
-        }
-
-        /// <summary>
         ///              0 0 0
         ///Test "matrix" 0 0 0 is set as matrix at start.
         ///              0 0 0

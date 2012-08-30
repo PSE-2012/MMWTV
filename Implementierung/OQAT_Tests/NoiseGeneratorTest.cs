@@ -124,9 +124,8 @@ namespace OQAT_Tests
         public void localizeTest()
         {
             NoiseGenerator_Accessor target = new NoiseGenerator_Accessor();
-            string s = string.Empty; // TODO: Passenden Wert initialisieren
+            string s = "test";
             target.localize(s);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
 
         /// <summary>

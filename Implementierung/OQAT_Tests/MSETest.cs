@@ -196,7 +196,7 @@ namespace OQAT_Tests
         public void localizeTest()
         {
             MSE_Accessor target = new MSE_Accessor();
-            string s = "care"; // TODO: Passenden Wert initialisieren
+            string s = "test";
             target.localize(s);
         }
 

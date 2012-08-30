@@ -138,9 +138,10 @@ namespace PF_RelativeColor
         {
             Object obj = memento.state;
 
-            var otto = (double[])obj;
-            this.propertiesView.changeValue(otto[0], otto[1], otto[2]);
+            var colorValues = (double[])obj;
+            this.propertiesView.changeValue(colorValues[0], colorValues[1], colorValues[2]);
         }
+
         private void localize(String s)
         {
             propertiesView.local(s);
