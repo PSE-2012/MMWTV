@@ -13,6 +13,9 @@ namespace OQAT_Tests
     [TestClass]
     public class VideoInfoTest
     {
+        private static string path =
+            "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
+
         ///<summary>
         ///Constructor test
         ///</summary>
@@ -23,8 +26,7 @@ namespace OQAT_Tests
             info1.width = 352;
             info1.height = 288;
             info1.yuvFormat = YuvFormat.YUV420_IYUV;
-            YuvVideoInfo info2 = new YuvVideoInfo(
-                "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv");
+            YuvVideoInfo info2 = new YuvVideoInfo(path);
             Assert.AreEqual(info1.width, info2.width);
             Assert.AreEqual(info1.height, info2.height);
             Assert.AreEqual(info1.yuvFormat, info2.yuvFormat);
@@ -37,8 +39,7 @@ namespace OQAT_Tests
         [TestMethod]
         public void cloneTest()
         {
-            YuvVideoInfo info2 = new YuvVideoInfo(
-                "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv");
+            YuvVideoInfo info2 = new YuvVideoInfo(path);
             YuvVideoInfo info1 = (YuvVideoInfo)info2.Clone();
             Assert.AreEqual(info1.width, info2.width);
             Assert.AreEqual(info1.height, info2.height);
@@ -51,8 +52,7 @@ namespace OQAT_Tests
         [TestMethod]
         public void frameCountTest()
         {
-            YuvVideoInfo info = new YuvVideoInfo(
-                "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv");
+            YuvVideoInfo info = new YuvVideoInfo(path);
             Assert.AreEqual(150, info.frameCount);
             YuvVideoInfo falseInfo = new YuvVideoInfo("D:\\bla_cif.yuv");
             Assert.AreEqual(-1, falseInfo.frameCount);

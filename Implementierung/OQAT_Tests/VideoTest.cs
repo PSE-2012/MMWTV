@@ -14,6 +14,9 @@ namespace OQAT_Tests
     [TestClass()]
     public class VideoTest
     {
+        private static string path =
+            "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
+
         /// <summary>
         ///A test for the constructor of Video, as well as all public
         ///getters and setters.
@@ -25,8 +28,6 @@ namespace OQAT_Tests
             info.width = 352;
             info.height = 288;
             info.yuvFormat = YuvFormat.YUV420_IYUV;
-            string path =
-                "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
             bool isana = false;
             Video target = new Video(false, path, info, null);
             Assert.AreEqual(path, target.vidPath);
@@ -46,14 +47,12 @@ namespace OQAT_Tests
         }
 
         /// <summary>
-        ///A test for "getVideoHandler" - test not working yet
+        ///A test for "getVideoHandler" - not working yet
         ///</summary>
         [TestMethod()]
         public void getVideoHandlerTest()
         {
-            YuvVideoInfo info = new YuvVideoInfo("D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv");
-            string path = 
-                "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
+            YuvVideoInfo info = new YuvVideoInfo(path);
             Video target = new Video(false, path, info, null);
             IVideoHandler expected = new YuvVideoHandler();
             expected.setReadContext(path, info);
