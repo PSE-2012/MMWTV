@@ -148,6 +148,11 @@ namespace PF_RelativeColor
 
         }
 
+        public IPlugin createExtraPluginInstance()
+        {
+            return new RelativeColor();
+        }
+
     }
 }
 

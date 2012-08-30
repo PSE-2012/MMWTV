@@ -76,6 +76,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>..\..\lib\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="OqatApp.xaml">
@@ -86,11 +89,15 @@
     <Compile Include="Model\Video.cs" />
     <Compile Include="ViewModel\EntryEventArgs.cs" />
     <Compile Include="ViewModel\ExtraResourceEventArgs.cs" />
-    <Compile Include="ViewModel\Macro\MacroFilterControl.xaml.cs">
-      <DependentUpon>MacroFilterControl.xaml</DependentUpon>
+    <Compile Include="ViewModel\Macro\DragInsertAdorner.cs" />
+    <Compile Include="ViewModel\Macro\HighLight_Adorner.cs" />
+    <Compile Include="ViewModel\Macro\Macro.cs" />
+    <Compile Include="ViewModel\Macro\MacroEntry.cs" />
+    <Compile Include="ViewModel\Macro\MacroEntry_Control.xaml.cs">
+      <DependentUpon>MacroEntry_Control.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Macro\MacroMetricControl.xaml.cs">
-      <DependentUpon>MacroMetricControl.xaml</DependentUpon>
+    <Compile Include="ViewModel\Macro\Macro_PropertyView.xaml.cs">
+      <DependentUpon>Macro_PropertyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\VM_PluginsList.xaml.cs">
       <DependentUpon>VM_PluginsList.xaml</DependentUpon>
@@ -98,10 +105,6 @@
     <Compile Include="ViewModel\VM_Welcome.xaml.cs">
       <DependentUpon>VM_Welcome.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Macro\Macro.cs" />
-    <Compile Include="ViewModel\Macro\PF_MacroFilter.cs" />
-    <Compile Include="ViewModel\Macro\PM_MacroMetric.cs" />
-    <Compile Include="ViewModel\Macro\VM_Macro.cs" />
     <Compile Include="ViewModel\MementoListMemento.cs" />
     <Compile Include="ViewModel\PluginManager.cs" />
     <Compile Include="ViewModel\PluginSandbox.cs" />
@@ -134,13 +137,13 @@
     <Compile Include="ViewModel\WindowOqatInfo.xaml.cs">
       <DependentUpon>WindowOqatInfo.xaml</DependentUpon>
     </Compile>
-    <Page Include="ViewModel\Macro\MacroFilterControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="ViewModel\Macro\MacroEntry_Control.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewModel\Macro\MacroMetricControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="ViewModel\Macro\Macro_PropertyView.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewModel\VM_PluginsList.xaml">
       <SubType>Designer</SubType>

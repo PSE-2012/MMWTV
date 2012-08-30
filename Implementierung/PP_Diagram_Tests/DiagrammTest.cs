@@ -6,6 +6,7 @@ using Oqat.Model;
 using Oqat.PublicRessources.Model;
 using Oqat.PublicRessources.Plugin;
 using System.Windows.Controls;
+using Oqat.ViewModel.MacroPlugin;
 
 namespace PP_Diagram_Tests
 {
@@ -89,7 +90,7 @@ namespace PP_Diagram_Tests
         {
             Diagramm target = new Diagramm();
             object actual;
-            actual = target.Clone();
+            actual = target.createExtraPluginInstance();
 
             Assert.AreNotSame(target, actual, "Cloned diagram is same object as origin.");
         }
@@ -117,8 +118,8 @@ namespace PP_Diagram_Tests
             bool isAnalysis = true;
             string vidPath = "";
             IVideoInfo vinfo = null;
-            List<MacroEntry> processedBy = new List<MacroEntry>();
-            MacroEntryMetric macroEntry = new MacroEntryMetric("TestPlugin", "TestMemento", null, null);
+            List<IMacroEntry> processedBy = new List<IMacroEntry>();
+            Oqat.ViewModel.MacroPlugin.MacroEntry macroEntry = new Oqat.ViewModel.MacroPlugin.MacroEntry("TestPlugin",PluginType.IMetricOqat ,"TestMemento");
             processedBy.Add(macroEntry);
             Video video = new Video(isAnalysis, vidPath, vinfo, processedBy);
 
@@ -136,8 +137,8 @@ namespace PP_Diagram_Tests
             bool isAnalysis = true;
             string vidPath = "";
             IVideoInfo vinfo = null;
-            List<MacroEntry> processedBy = new List<MacroEntry>();
-            MacroEntryMetric macroEntry = new MacroEntryMetric("TestPlugin", "TestMemento", null, null);
+            List<IMacroEntry> processedBy = new List<IMacroEntry>();
+            MacroEntry macroEntry = new MacroEntry("TestPlugin",PluginType.IMetricOqat ,"TestMemento");
             processedBy.Add(macroEntry);
             Video video = new Video(isAnalysis, vidPath, vinfo, processedBy);
 
@@ -162,8 +163,8 @@ namespace PP_Diagram_Tests
             bool isAnalysis = true;
             string vidPath = "";
             IVideoInfo vinfo = null;
-            List<MacroEntry> processedBy = new List<MacroEntry>();
-            MacroEntryMetric macroEntry = new MacroEntryMetric("TestPlugin", "TestMemento", null, null);
+            List<IMacroEntry> processedBy = new List<IMacroEntry>();
+            MacroEntry macroEntry = new MacroEntry("TestPlugin",PluginType.IMetricOqat ,"TestMemento");
             processedBy.Add(macroEntry);
             Video video = new Video(isAnalysis, vidPath, vinfo, processedBy);
 
@@ -191,7 +192,7 @@ namespace PP_Diagram_Tests
             bool isAnalysis = true;
             string vidPath = "";
             IVideoInfo vinfo = null;
-            List<MacroEntry> processedBy = null;
+            List<IMacroEntry> processedBy = null;
             Video video = new Video(isAnalysis, vidPath, vinfo, processedBy);
 
             float[][] data = new float[2][];
@@ -213,7 +214,7 @@ namespace PP_Diagram_Tests
             bool isAnalysis = true;
             string vidPath = "";
             IVideoInfo vinfo = null;
-            List<MacroEntry> processedBy = new List<MacroEntry>();
+            List<IMacroEntry> processedBy = new List<IMacroEntry>();
             Video video = new Video(isAnalysis, vidPath, vinfo, processedBy);
 
             float[][] data = new float[2][];

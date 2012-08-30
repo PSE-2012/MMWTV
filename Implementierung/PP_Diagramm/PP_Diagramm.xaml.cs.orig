@@ -29,10 +29,25 @@ namespace PP_Diagramm
     [Export(typeof(IPlugin))]
     public partial class Diagramm : UserControl ,IPresentation   
     {
-        public Diagramm(){
+<<<<<<< HEAD
+        private PresentationPluginType _presentationType = PresentationPluginType.Diagram;
+        private string _namePlugin = "PP_Diagramm";
+        private PluginType _type = PluginType.IPresentation;
+
+        private PlotModel MyPlotModel
+        {
+            get;
+            set;
+        }
+
+=======
+        public Diagramm()
+        {
             InitializeComponent();
         }
+
         #region getter/setter
+>>>>>>> 7fec8224ac813cfd2a669bad9a48fff167bf3d24
 
         private PlotModel MyPlotModel
         {
@@ -177,6 +192,13 @@ namespace PP_Diagramm
             return new Memento("Diagram_settings", null);
             //throw new NotImplementedException();
         }
+<<<<<<< HEAD
+
+        public IPlugin createExtraPluginInstance()
+        {
+            return new Diagramm();
+        }
+=======
         /// <summary>
         /// Loads the settings from the given memento.
         /// </summary>
@@ -186,11 +208,7 @@ namespace PP_Diagramm
             //throw new NotImplementedException();
         }
 
-        public IPlugin createExtraPluginInstance()
-        {
-            return new Diagramm();
-        }
-
         
+>>>>>>> 7fec8224ac813cfd2a669bad9a48fff167bf3d24
     }
 }

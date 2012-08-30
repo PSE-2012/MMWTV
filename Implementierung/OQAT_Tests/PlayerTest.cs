@@ -107,7 +107,7 @@ namespace OQAT_Tests
         {
             Player target = new Player();
             object actual;
-            actual = target.Clone();
+            actual = target.createExtraPluginInstance();
             Assert.IsTrue(actual is Player, "The returned object is not a valid Player instance. ");
         }
 

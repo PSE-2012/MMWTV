@@ -125,6 +125,11 @@ namespace PF_Greyscale
         {
             propertiesView.local(_namePlugin + s);
         }
+
+        public IPlugin createExtraPluginInstance()
+        {
+            return new Greyscale();
+        }
        
     }
 }

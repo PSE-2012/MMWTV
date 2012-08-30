@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
-using Oqat.ViewModel.Macro;
+using Oqat.ViewModel.MacroPlugin;
 using Oqat.Model;
 using Oqat.PublicRessources.Model;
 using System.Runtime.InteropServices;
@@ -85,11 +85,11 @@ namespace Oqat.ViewModel
             //  initPluginLists
             vM_FilterList = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IFilterOqat);
             this.tabFilter.Content = vM_FilterList;
-            vM_FilterList.macroLoaded += onMacroFilterLoad;
+           // vM_FilterList.macroLoaded += onMacroFilterLoad;
 
             vM_MetricList = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IMetricOqat);
             this.tabMetric.Content = vM_MetricList;
-            vM_MetricList.macroLoaded += onMacroMetricLoad;
+           // vM_MetricList.macroLoaded += onMacroMetricLoad;
 
             //  initPresentation
             this.vM_presentation = new VM_Presentation();
@@ -145,25 +145,24 @@ namespace Oqat.ViewModel
 #endregion
 
 
-
-
-        private void onMacroFilterLoad(object sender, MementoEventArgs e)
-        {
-            Memento mem = PluginManager.pluginManager.getMemento(e.pluginKey, e.mementoName);
-            if (mem != null)
-            {
-                vM_presentation.vm_macro.macroFilter.setMemento(mem);
-            }
-        }
-        private void onMacroMetricLoad(object sender, MementoEventArgs e)
-        {
-            Memento mem = PluginManager.pluginManager.getMemento(e.pluginKey, e.mementoName);
-            if (mem != null)
-            {
-                vM_presentation.vm_macro.macroMetric.setMemento(mem);
-            }
-        }
-
+        #region obsolete
+        //private void onMacroFilterLoad(object sender, MementoEventArgs e)
+        //{
+        //    Memento mem = PluginManager.pluginManager.getMemento(e.pluginKey, e.mementoName);
+        //    if (mem != null)
+        //    {
+        //        vM_presentation.macro.macroFilter.setMemento(mem);
+        //    }
+        //}
+        //private void onMacroMetricLoad(object sender, MementoEventArgs e)
+        //{
+        //    Memento mem = PluginManager.pluginManager.getMemento(e.pluginKey, e.mementoName);
+        //    if (mem != null)
+        //    {
+        //        vM_presentation.macro.macroMetric.setMemento(mem);
+        //    }
+        //}
+        #endregion
 
         public void onNewProjectCreated(object sender, ProjectEventArgs e)
         {

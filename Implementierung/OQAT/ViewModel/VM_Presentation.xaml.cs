@@ -5,10 +5,11 @@ using System.Windows.Controls;
 
 using Oqat.PublicRessources.Plugin;
 using Oqat.PublicRessources.Model;
-using Oqat.ViewModel.Macro;
 using System.Threading;
 using System.Xml;
 using System.IO;
+
+using Oqat.ViewModel.MacroPlugin;
 
 namespace Oqat.ViewModel
 {
@@ -21,7 +22,8 @@ namespace Oqat.ViewModel
         IPresentation _playerProc;
         IPresentation _playerRef;
         IPresentation _diagram;
-        internal VM_Macro vm_macro;
+        internal Macro macro;
+        
 
         ViewType vtype;
 
@@ -60,7 +62,7 @@ namespace Oqat.ViewModel
                         throw new XmlException("datei nicht lang genug");
                     }
                 }
-                bttProcessMacro.Content = t2[0];
+               // bttProcessMacro.Content = t2[0];
                 msgBox1 = t2[1];
                 msgBox2 = t2[2];
 
@@ -83,16 +85,16 @@ namespace Oqat.ViewModel
             PluginManager.videoLoad += this.onVideoLoad;
 
             //init macro
-            vm_macro = new VM_Macro();
+            macro = new Macro();
 
 
             this._custom = new List<IPresentation>();
 
 
-            this.gridPlayer1.Children.Add(playerProc.propertyView);
-            this.gridPlayer2.Children.Add(playerRef.propertyView);
+            this.gridPlayer1.Children.Add(playerRef.propertyView);
+            this.gridPlayer2.Children.Add(playerProc.propertyView);
             this.otherPanel.Children.Add(diagram.propertyView);
-            this.gridMacro.Children.Add(vm_macro.propertiesView);
+            this.gridMacro.Children.Add(macro.propertyView);
         }
 
 
@@ -130,7 +132,7 @@ namespace Oqat.ViewModel
             {
                 if (_playerRef == null)
                 {
-                    _playerRef =(IPresentation) PluginManager.pluginManager.getPlugin<IPresentation>("PP_Player").Clone();
+                    _playerRef =(IPresentation) PluginManager.pluginManager.getPlugin<IPresentation>("PP_Player").createExtraPluginInstance();
 
                     if (_playerRef == null)
                     {
@@ -201,24 +203,84 @@ namespace Oqat.ViewModel
             }
             else if (e.isRefVid)
             {
-                if (isCompatibleVideo(e.video, this.videoProc))
+                if (((vtype == ViewType.MetricView) && (isCompatibleVideo(e.video, this.videoProc)))
+                    || (vtype == ViewType.FilterView))
                 {
-                    PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(ViewType.MetricView));
 
                     this.videoRef = (IVideo)e.video;
                     this.idRef = e.id;
                     this.playerRef.setVideo(videoRef);
+
+                    if (vtype == ViewType.FilterView)
+                    {
+                        this.videoProc = null;
+                        this.idProc = -1;
+                        this.playerProc.flush();
+                    }
                 }
             }
             else
             {
-                if(vtype != ViewType.MetricView || isCompatibleVideo(e.video, this.videoRef))
+                if(isCompatibleVideo(e.video, this.videoRef))
                 {
+                    if (vtype != ViewType.MetricView)  
+                        PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(ViewType.MetricView));
+
                     this.videoProc = (IVideo)e.video;
                     this.idProc = e.id;
                     this.playerProc.setVideo(videoProc);
                 }
             }
+
+                        if (vtype == ViewType.FilterView)
+                        {
+                            if (videoRef != null)
+                                macro.setFilterContext(idRef, videoRef);
+                        }
+                        else if (vtype == ViewType.MetricView)
+                        {
+                            if(isCompatibleVideo(videoRef, videoProc))
+                                macro.setMetricContext(videoRef, idProc, videoProc);
+                        }
+     
+            //if (e.video.isAnalysis)
+            //{
+            //    PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(ViewType.AnalyzeView));
+
+            //    this.videoProc = (IVideo)e.video;
+            //    this.playerProc.setVideo(videoProc);
+            //    this.diagram.setVideo(videoProc);
+            //}
+            //else if (e.isRefVid)
+            //{
+            //    if (isCompatibleVideo(e.video, this.videoProc))
+            //    {
+            //        PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(ViewType.MetricView));
+
+            //        this.videoRef = (IVideo)e.video;
+            //        this.idRef = e.id;
+            //        this.playerRef.setVideo(videoRef);
+            //    }
+            //}
+            //else
+            //{
+            //    if(vtype != ViewType.MetricView || isCompatibleVideo(e.video, this.videoRef))
+            //    {
+            //        this.videoProc = (IVideo)e.video;
+            //        this.idProc = e.id;
+            //        this.playerProc.setVideo(videoProc);
+
+            //        this.macro.setFilterContext(this.idProc, this.videoProc);
+            //    }
+            //}
+
+
+            //    //TODO: seems like the naming proc vs. ref was understood the other way round in macro
+            //    macro.vidProc = (Oqat.Model.Video) this.videoRef;
+            //    macro.idProc = this.idRef;
+
+            //    macro.vidRef = (Oqat.Model.Video) this.videoProc;
+            //    macro.idRef = this.idProc;
 		}
 
         /// <summary>
@@ -294,6 +356,7 @@ namespace Oqat.ViewModel
                 this.playerProc.flush();
                 this.playerRef.flush();
                 this.diagram.flush();
+                this.macro.flush();
 
                 foreach (IPresentation p in _custom)
                 {
@@ -331,28 +394,33 @@ namespace Oqat.ViewModel
 
         #endregion
 
+        #region obsolete
+        //Is there a explanation for why presentation is providing such buttons around ?
 
-        /// <summary>
-        /// event to signalice the macro to process or analyse the current que
-        /// </summary>
-        private void bttProcessMacro_Click(object sender, RoutedEventArgs e)
-        {
-            if(this.videoProc == null || 
-                (vtype == ViewType.MetricView && videoRef == null))
-            {
-                MessageBox.Show(msgBox1, msgBox2);
-                return;
-            }
+        ///// <summary>
+        ///// event to signalice the macro to process or analyse the current que
+        ///// </summary>
+        //private void bttProcessMacro_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if(this.videoProc == null || 
+        //        (vtype == ViewType.MetricView && videoRef == null))
+        //    {
+        //        MessageBox.Show(msgBox1, msgBox2);
+        //        return;
+        //    }
             
-            //TODO: seems like the naming proc vs. ref was understood the other way round in macro
-            vm_macro.vidProc = (Oqat.Model.Video) this.videoRef;
-            vm_macro.idProc = this.idRef;
+        //    macro.
 
-            vm_macro.vidRef = (Oqat.Model.Video) this.videoProc;
-            vm_macro.idRef = this.idProc;
+        //    //TODO: seems like the naming proc vs. ref was understood the other way round in macro
+        //    macro.vidProc = (Oqat.Model.Video) this.videoRef;
+        //    macro.idProc = this.idRef;
 
-            vm_macro.startProcess();
-        }
+        //    macro.vidRef = (Oqat.Model.Video) this.videoProc;
+        //    macro.idRef = this.idProc;
+
+        //    macro.startProcess();
+        //}
+        #endregion
 
         private void gridPlayer_DragEnter(object sender, DragEventArgs e)
         {

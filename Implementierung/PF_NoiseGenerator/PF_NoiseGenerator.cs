@@ -23,13 +23,15 @@ namespace PF_NoiseGenerator
     using System.Threading;
     using System.Windows.Controls;
     using System.Drawing.Imaging;
+    using System.Windows.Threading;
+    using System.ComponentModel;
 
 
     [ExportMetadata("namePlugin", "PF_NoiseGenerator")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
     [Export(typeof(IPlugin))]
     [Serializable()]
-    public class NoiseGenerator : IFilterOqat
+    public class NoiseGenerator : IFilterOqat, INotifyPropertyChanged
     {
 
 
@@ -43,9 +45,6 @@ namespace PF_NoiseGenerator
 
         public NoiseGenerator()
         {
-            propertiesView = new VM_NoiseGenerator();
-            localize(_namePlugin + "_" + Thread.CurrentThread.CurrentCulture + ".xml");
-        
         }
 
         /// <summary>
@@ -54,7 +53,7 @@ namespace PF_NoiseGenerator
 
         public Bitmap process(Bitmap frame)
         {
-            IRandomNumberGenerator generator = new UniformGenerator(new Range(-1*propertiesView.getValue(), propertiesView.getValue()));
+            IRandomNumberGenerator generator = new UniformGenerator(new Range(-1*noise, noise));
            
             AdditiveNoise filter = new AdditiveNoise(generator);
             Bitmap test = new Bitmap(frame.Width, frame.Height, PixelFormat.Format24bppRgb);
@@ -105,6 +104,12 @@ namespace PF_NoiseGenerator
         {
             get
             {
+                if (propertiesView == null)
+                {
+                        this.propertiesView = new VM_NoiseGenerator();
+                        this.propertyView.DataContext = this;
+                        localize(_namePlugin + "_" + Thread.CurrentThread.CurrentCulture + ".xml");   
+                }
                 return propertiesView;
             }
         }
@@ -121,7 +126,7 @@ namespace PF_NoiseGenerator
 
     public Oqat.PublicRessources.Model.Memento getMemento()
         {
-            Memento mem = new Memento(this.namePlugin, this.propertiesView.getValue());
+            Memento mem = new Memento(this.namePlugin, noise);
 
             return mem;
         }
@@ -129,15 +134,30 @@ namespace PF_NoiseGenerator
     /// <summary>
     /// Sets a Memento as the current state of the Object.
     /// </summary>
-
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
             
             Object obj = memento.state;
-            float otto = (float)obj;
-            this.propertiesView.changeValue(otto);
-          
+            noise = (float)obj;
         }
+
+        private float _noise;
+        public float noise
+        {
+            get {
+                return _noise;
+            }
+            set {
+                _noise = value;
+                NotifyPropertyChanged("noise");
+            }
+        }
+
+        private void NotifyPropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+        } 
 
         /// <summary>
         /// Helper Method to localize the Object. String s is the name of the language file.
@@ -147,7 +167,14 @@ namespace PF_NoiseGenerator
             propertiesView.local(s);
 
         }
-       
+
+        public IPlugin createExtraPluginInstance()
+        {
+            return new NoiseGenerator();
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
 

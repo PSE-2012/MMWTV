@@ -211,7 +211,7 @@
 
             SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
             PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
-                new VideoEventArgs(selNode.video,selNode.id,  false));
+                new VideoEventArgs(selNode.video,selNode.id));
         }
 
 
@@ -239,7 +239,7 @@
             {
                 SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
                 PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
-                    new VideoEventArgs(selNode.video, selNode.id));
+                    new VideoEventArgs(selNode.video, selNode.id, true));
                 if (selNode.video.isAnalysis == true)
                 {
                     btnExport.Visibility = Visibility.Visible;

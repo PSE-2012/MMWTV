@@ -49,7 +49,7 @@ namespace Oqat.PublicRessources.Model
         /// Returns a list of filters (or a metric) the video has been processed by.
         /// If this is a reference video an empty list is returned.
         /// </summary>
-		List<MacroEntry> processedBy
+		List<IMacroEntry> processedBy
 		{
             get;
 		}
@@ -80,5 +80,14 @@ namespace Oqat.PublicRessources.Model
         ///// </summary>
         ///// <returns>a memento that contains the current state of this video object</returns>
         //Memento getMemento();
+
+
+
+
+        /// <summary>
+        /// Note that each call on this function will result in a different handler !
+        /// </summary>
+        /// <returns></returns>
+        IVideoHandler getExtraHandler();
     }
 }

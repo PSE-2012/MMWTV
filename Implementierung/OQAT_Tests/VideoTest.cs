@@ -40,7 +40,7 @@ namespace OQAT_Tests
             target.extraResources = er;
             float[][] metrics = new float[][] { new float[] { 1, 2, 3, 4, 5 } };
             target.frameMetricValue = metrics;
-            List<MacroEntry> macros = new List<MacroEntry>();
+            List<IMacroEntry> macros = new List<IMacroEntry>();
             target.processedBy = macros;
             Assert.AreEqual(macros, target.processedBy);
             Assert.AreEqual(er, target.extraResources);

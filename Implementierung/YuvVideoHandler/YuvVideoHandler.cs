@@ -70,7 +70,11 @@ using System.Collections.Generic;
         /// <summary>
         /// Absolute path to this video.
         /// </summary>
-        private string readPath;
+        public string readPath
+        {
+            get;
+            private set;
+        }
 
 
 
@@ -210,7 +214,7 @@ using System.Collections.Generic;
         /// and is not tracked by the pluginManager, i.e.
         /// you have to dispose it yourself.
         /// </returns>
-        public IVideoHandler createVideoHandlerInstance()
+        public IPlugin createExtraPluginInstance()
         {
             return new YuvVideoHandler();
         }
@@ -227,9 +231,9 @@ using System.Collections.Generic;
             this.writePath = filepath;
             writeVidInfo = info;
 
-            if(consistent)
-            // Flush has to happen after a VALID vidInfo is set.
-            flushReader();
+            //if(consistent)
+            //// Flush has to happen after a VALID vidInfo is set.
+            //flushReader();
         }
 
         /// <summary>
@@ -251,9 +255,9 @@ using System.Collections.Generic;
             readVidInfo = info;
 
 
-            if (consistent)
-                // Flush has to happen after a VALID vidInfo is set.
-                flushWriter();
+            //if (consistent)
+            //    // Flush has to happen after a VALID vidInfo is set.
+            //    flushWriter();
 
         }
 
@@ -697,8 +701,7 @@ using System.Collections.Generic;
                 if (((readerBuffPos - positionReader) < (NUMFRAMESINMEM)) || !(readQueue.Count > 0))
                 {
                     readerWaitEvent.Set();
-                    if ((readerThread.ThreadState != System.Threading.ThreadState.Running) &&
-                        (readerThread.ThreadState != System.Threading.ThreadState.WaitSleepJoin))
+                    if (readerThread.ThreadState == ThreadState.Unstarted)
                     {
                         //readerThread.ThreadState != System.Threading.ThreadState.)
                         _readerBuffPos = _positionReader;       // avoid racecondition
@@ -1011,28 +1014,28 @@ using System.Collections.Generic;
         /// </remarks>
         public void flushWriter()
         {
-        // make sure writer thread is stopped
-            stopWriterThread = true;
-            if (writerThread.ThreadState == System.Threading.ThreadState.Running)
-            {
-                writerThread.Join(50);
-                if (writerThread.ThreadState == System.Threading.ThreadState.Running)
-                    writerThread.Abort();       // if reader not done after 50 ms it is
-                // is probably deadLocked...
-                writerThread = null;
-            }
-            positionWriter = 0;
+        //// make sure writer thread is stopped
+        //    stopWriterThread = true;
+        //    if (writerThread.ThreadState == System.Threading.ThreadState.Running)
+        //    {
+        //        writerThread.Join(50);
+        //        if (writerThread.ThreadState == System.Threading.ThreadState.Running)
+        //            writerThread.Abort();       // if reader not done after 50 ms it is
+        //        // is probably deadLocked...
+        //        writerThread = null;
+        //    }
+        //    positionWriter = 0;
 
-            /// Triggers reinitialization of this value, important
-            /// if for some unknown reason someone tries
-            /// to change the format and or the WIDTHxHEIGHT
-            /// values (i.e. vidInfo) of the currently loaded
-            /// context.
-            frameByteSize = 0;
+        //    /// Triggers reinitialization of this value, important
+        //    /// if for some unknown reason someone tries
+        //    /// to change the format and or the WIDTHxHEIGHT
+        //    /// values (i.e. vidInfo) of the currently loaded
+        //    /// context.
+        //    frameByteSize = 0;
 
-            // note: grantedMemory is user provided
-            NUMFRAMESINMEM = grantedMemory / frameByteSize;
-            writeQueue.Clear();
+        //    // note: grantedMemory is user provided
+        //    NUMFRAMESINMEM = grantedMemory / frameByteSize;
+        //    writeQueue.Clear();
 
         }
 

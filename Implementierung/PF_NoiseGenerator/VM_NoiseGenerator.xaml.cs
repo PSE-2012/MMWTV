@@ -32,44 +32,39 @@ namespace PF_NoiseGenerator
         {
             InitializeComponent();
            
-            uper.Value =0;
-           
-            
-            uperBorder = (float)uper.Value;
-           
-            
-            
+            //uper.Value =0;
+            //uperBorder = (float)uper.Value; 
         }
 
-        /// <summary>
-        /// Listener for data Binding
-        /// </summary>
+        ///// <summary>
+        ///// Listener for data Binding
+        ///// </summary>
 
-        private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            uperBorder = (float)uper.Value;
+        //private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //{
+        //    uperBorder = (float)uper.Value;
             
            
-        }
+        //}
 
-        /// <summary>
-        /// Sets the Slider of the Properties Views
-        /// </summary>
+        ///// <summary>
+        ///// Sets the Slider of the Properties Views
+        ///// </summary>
 
-        public void changeValue(double noise){
-            uper.Value =noise;
+        //public void changeValue(double noise){
+        //    uper.Value =noise;
           
            
-            this.ValueChanged(this,null);
-        }
+        //    this.ValueChanged(this,null);
+        //}
 
-        /// <summary>
-        /// Gets the Slider of the Properties Views
-        /// </summary>
+        ///// <summary>
+        ///// Gets the Slider of the Properties Views
+        ///// </summary>
 
-        public float getValue(){
-            return uperBorder;
-        }
+        //public float getValue(){
+        //    return uperBorder;
+        //}
 
         /// <summary>
         /// Sets the Language Content and reads it from an XML File.

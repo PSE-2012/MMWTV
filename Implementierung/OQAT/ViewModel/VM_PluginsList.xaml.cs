@@ -126,7 +126,7 @@ namespace Oqat.ViewModel
             local("VM_PluginsList_"+ Thread.CurrentThread.CurrentCulture+".xml");
             this.pluginType = plugintype;
 
-            PluginManager.macroEntrySelected += onMacroFilterEntryClicked;
+           // PluginManager.macroEntrySelected += onMacroFilterEntryClicked;
 
             loadPluginLists();
             this.treePlugins.ItemsSource = pluginList;
@@ -446,6 +446,66 @@ namespace Oqat.ViewModel
         private void bttSwitchToCurrentMacro_Click(object sender, RoutedEventArgs e)
         {
             activeMacroPVM.selected = true;
+        }
+
+        Point dragOrigin;
+        private void treePlugins_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            dragOrigin = e.GetPosition(null);
+        }
+
+        private void treePlugins_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                var mousePos = e.GetPosition(null);
+                var diff = dragOrigin - mousePos;
+                if (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance
+                || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
+                {
+                    var treeView = sender as TreeView;
+                    var treeViewItem =
+                        getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource);
+
+                    if (treeView == null || treeViewItem == null)
+                        return;
+
+                    var selItem = treeView.SelectedItem as PluginViewModel;
+                    if (selItem == null)
+                        return;
+
+                    if(!selItem.isMemento)
+                        return;
+
+
+                    MementoEventArgs dragData = new MementoEventArgs(selItem.name, selItem.parent.name);
+
+                    DragDrop.DoDragDrop(treeViewItem, dragData, DragDropEffects.Move);
+                }
+            }
+        }
+
+        /// <summary>
+        /// If a bubbling event occured it may be not on the element we
+        /// need, therefore this method walks along the tree until
+        /// a sought element (smartTree item) is found and returns it.
+        /// </summary>
+        /// <param name="element">Elemnt the event occured on.</param>
+        /// <returns>The nearest father element of the given UIElement</returns>
+        private T getNearestFather<T>(DependencyObject current)
+             where T : DependencyObject
+        {
+            // Walk up the element tree to the nearest tree view item.
+            do
+            {
+                if (current is T)
+                {
+                    return (T)current;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+            while (current != null);
+            return null;
         }
 
     }

@@ -8,8 +8,8 @@
     
     <Grid>
         <Grid x:Name="welcomePanel"/>
-        <DockPanel x:Name="runningAppPanel" Visibility="Collapsed">
-            <Grid x:Name="menuPanel" DockPanel.Dock="Top">
+        <DockPanel x:Name="runningAppPanel" Visibility="Collapsed" VerticalAlignment="Stretch">
+            <Grid x:Name="menuPanel" DockPanel.Dock="Top" Height="Auto">
                 <Menu>
                     <MenuItem Name="mn1" Header="Projekt">
                         <MenuItem Name="miNewProject" Header="Neues Projekt" Click="miNewProject_Click"></MenuItem>

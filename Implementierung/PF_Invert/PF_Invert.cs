@@ -122,6 +122,11 @@ namespace PF_Invert
         {
             
         }
+
+        public IPlugin createExtraPluginInstance()
+        {
+            return new Invert();
+        }
     }
 }
 
