@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="Oqat.ViewModel.MacroPlugin.Macro_PropertyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             
+             xmlns:local="clr-namespace:Oqat.ViewModel.MacroPlugin"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             x:Name="self"
+             Visibility="{Binding inactiveVisibility, Mode=OneWay}"
+             IsEnabled="{Binding inactiveActiveState, Mode=OneWay}">
+    <Grid x:Name="macroTreeViewGrid" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="0,2,0,2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="45"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="startProcessing" Visibility="{Binding readOnlyVisibility}" 
+                    x:FieldModifier="internal" Grid.Column="0" Margin="0,0,2,0" Content="apply" 
+                    IsEnabled="{Binding readOnlyActiveState}"/>
+           
+            <Button x:Name="cancelProcessing" Visibility="{Binding readOnlyVisibility}" 
+                    x:FieldModifier="internal" Grid.Column="1" Margin="0,0,2,0" Content="cancel"
+                    IsEnabled="{Binding readOnlyActiveState}"/>
+           
+            <Button x:Name="clearEntries" Visibility="{Binding readOnlyVisibility}" 
+                    x:FieldModifier="internal" Grid.Column="2" Margin="0,0,2,0" Content="clear"
+                    IsEnabled="{Binding readOnlyActiveState}"/>
+           
+            <CheckBox x:Name="previewCheckBox" Visibility="{Binding filterModeVisibility}" 
+                      IsEnabled="{Binding filterModeActiveState}"
+                      x:FieldModifier="internal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,2,0"/>
+            
+            <TextBlock x:Name="previewText" Visibility="{Binding filterModeVisibility}" 
+                       IsEnabled="{Binding filterModeState}"
+                       Text="preview" Grid.Column="4" VerticalAlignment="Center"/>
+
+        </Grid>
+        <ProgressBar x:Name="progressBar" Grid.Row="1" Margin="0,0,0,5"/>
+
+        <TreeView x:Name="MacroEntryTreeView" Grid.Row="2" ItemsSource="{Binding macroEntries}"
+                  AllowDrop="True" ScrollViewer.CanContentScroll="True" 
+                  ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type local:MacroEntry}"
+                                              ItemsSource="{Binding macroEntries}">
+
+                    <local:MacroEntry_Control DataContext="{Binding Mode=OneWay}"
+                                             AllowDrop="True"  Margin="0,5,0,5" />
+
+                    <!--Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeView}, AncestorLevel=1}, Path=ActualWidth}"-->
+
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+    </Grid>
+</UserControl>

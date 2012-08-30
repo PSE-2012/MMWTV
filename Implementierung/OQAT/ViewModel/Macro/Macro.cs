@@ -1,86 +1,1299 @@
-﻿//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-namespace Oqat.ViewModel.Macro
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Oqat.PublicRessources.Plugin;
+using Oqat.PublicRessources.Model;
+using System.Windows.Controls;
+using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
+using System.Windows;
+using System.Reflection;
+using System.ComponentModel;
+using System.Threading;
+using System.Drawing;
+
+using Oqat.ViewModel;
+using Oqat.Model;
+using System.IO;
+using System.Windows.Threading;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Documents;
+
+namespace Oqat.ViewModel.MacroPlugin
 {
-	using Oqat.PublicRessources.Plugin;
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-    using System.Windows.Controls;
-    using Oqat.PublicRessources.Model;
-    using Oqat.Model;
-    using System.Data;
-    using AC.AvalonControlsLibrary.Controls;
-    using System.Collections.ObjectModel;
+    [ExportMetadata("namePlugin", "Macro")]
+    [ExportMetadata("type", PluginType.IMacro)]
+    [Export(typeof(IPlugin))]
 
-    /// <summary>
-    /// This class implements the IMacro interface, see <see cref="IMacro"/> for further information
-    /// </summary>
-    public abstract class Macro : IMacro
+    class Macro : IMacro
     {
-        public string namePlugin
-        {
-            get
-            {
-                return "Macro";
-            }
-        }
 
-        public PluginType type
-        {
-            get
-            {
-                return PluginType.IMacro;
-            }
-        }
-                    
+        // the root macroEntry
+        public MacroEntry macroEntry
+        { get; private set; }
 
-        public UserControl macroControl;
-        internal List<RangeSelectionChangedEventHandler> delList;
 
-        public Macro()
-        {
-            delList = new List<RangeSelectionChangedEventHandler>();
-        }
+        private ViewType viewType;
 
-        
+        [field:NonSerialized]
+        private Macro_PropertyView _propertyView;
 
         public UserControl propertyView
         {
             get
             {
-                return macroControl;
+                return _propertyView;
             }
-        }
-
-        protected IPlugin currPluginRef;
-        protected Memento currMemRef;
-        protected void setProcessingMementoHelper()
-        {
-            if (!currPluginRef.propertyView.Dispatcher.CheckAccess())
+            set
             {
-                currPluginRef.propertyView.Dispatcher.Invoke(new System.Windows.Forms.MethodInvoker(setProcessingMementoHelper));
-                return;
+                _propertyView = value as Macro_PropertyView;
             }
-            currPluginRef.setMemento(currMemRef);
+        }
+        public Macro()
+        {
+            // init first entry
+            this.macroEntry = new MacroEntry(this.namePlugin, PluginType.IMacro, "anonymousMacro");
+            this.macroEntry.frameCount = 100;
+            this.macroEntry.startFrameAbs = 0;
+            this.macroEntry.endFrameAbs = 100;
+
+
+            seqMacroEntryList = new List<MacroEntry>();
+
+
+            propertyView = new Macro_PropertyView(this.macroEntry.macroEntries);
+            (propertyView as Macro_PropertyView).cancelProcessing.Click += onCancelButtonClick;
+            (propertyView as Macro_PropertyView).clearEntries.Click += onClearButtonClick;
+
+          //  (propertyView as Macro_PropertyView).MacroEntryTreeView.DragEnter += new DragEventHandler(MacroEntryTreeView_DragEnter);
+            (propertyView as Macro_PropertyView).MacroEntryTreeView.PreviewDragEnter += new DragEventHandler(MacroEntryTreeView_PreviewDragEnter);
+            (propertyView as Macro_PropertyView).MacroEntryTreeView.DragLeave += new DragEventHandler(MacroEntryTreeView_DragLeave);
+            (propertyView as Macro_PropertyView).MacroEntryTreeView.PreviewDrop +=new DragEventHandler(MacroEntryTreeView_PreviewDrop);
+            (propertyView as Macro_PropertyView).MacroEntryTreeView.PreviewMouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(MacroEntryTreeView_PreviewMouseLeftButtonDown);
+            (propertyView as Macro_PropertyView).MacroEntryTreeView.PreviewMouseMove += new System.Windows.Input.MouseEventHandler(MacroEntryTreeView_PreviewMouseMove);
+            (propertyView as Macro_PropertyView).MacroEntryTreeView.KeyDown +=new KeyEventHandler(MacroEntryTreeView_KeyDown);
+            (propertyView as Macro_PropertyView).MacroEntryTreeView.PreviewMouseLeftButtonUp +=new MouseButtonEventHandler(MacroEntryTreeView_PreviewMouseLeftButtonUp);
+            (propertyView as Macro_PropertyView).MacroEntryTreeView.PreviewDragOver += new DragEventHandler(MacroEntryTreeView_PreviewDragOver);
+            //(propertyView as Macro_PropertyView).MouseLeave +=new MouseEventHandler(Macro_MouseLeave);
+            //(propertyView as Macro_PropertyView).MouseEnter +=new MouseEventHandler(Macro_MouseEnter);
+            PluginManager.macroEntryAdd += this.addMacroEntry;
+            PluginManager.OqatToggleView += onToggleView;
+
+
+            dragControl = new MacroEntry_Control();
+        }
+        private System.Windows.Point startPoint;
+        private bool isMouseDown = false;
+        private bool isDragging = false;
+        private MacroEntry dragData;
+        private MacroEntry_Control dragControl;
+        //private bool mouseWithinControl = fal;
+
+        //private void Macro_MouseEnter(object sender, MouseEventArgs e)
+        //{
+        //    mouseWithinControl = true;
+        //    DetachAdorner(drInsAdorner, propertiesViewAdornerLayer); 
+        //}
+        //private void Macro_MouseLeave(object sender, MouseEventArgs e)
+        //{
+        //    mouseWithinControl = false;
+        //   DetachAdorner(drInsAdorner, propertiesViewAdornerLayer);
+        //}
+
+        TreeViewItem dragSourceTrItem;
+        private void MacroEntryTreeView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
+            ItemsControl itemsControl = sender as ItemsControl;
+            if (sender != null)
+            {
+                var treeViewItem =
+                    getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource);
+
+                if (itemsControl == null || treeViewItem == null)
+                    return;
+
+                // opaque (source) draggedItem
+                treeViewItem.Opacity = opacityDragSourceItem;
+
+                dragData = treeViewItem.DataContext as MacroEntry;
+                if (dragData != null)
+                {
+                    isMouseDown = true;
+                    dragSourceTrItem = treeViewItem;
+                    startPoint = e.GetPosition(itemsControl);
+                }
+            }
+        }
+
+        private void MacroEntryTreeView_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (isMouseDown)
+            {
+                ItemsControl itemsControl = sender as ItemsControl;
+                var mousePos = e.GetPosition(itemsControl);
+                var diff = startPoint - mousePos;
+
+                if (!isDragging && ((Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance
+                    || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)))
+                {
+                    if (dragData.GetType() != typeof(MacroEntry))
+                        return;
+
+                    isDragging = true;
+                    DataObject dObject = new DataObject(macroEntry.GetType(), dragData);
+                  //  itemsControl.AllowDrop = false;
+
+                    resetMacroTreeViewSelections();
+
+                    DragDrop.DoDragDrop(_propertyView.MacroEntryTreeView, dObject,DragDropEffects.Copy | DragDropEffects.Move);
+
+                    ResetState();
+
+                    //_propertyView.MacroEntryTreeView.ItemContainerGenerator.ContainerFromItem(_propertyView.
+
+                    //var treeViewItem =
+                    //    getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource);
+
+                    //if (treeView == null || treeViewItem == null)
+                    //    return;
+
+                    //var entry = treeView.SelectedItem as MacroEntry;
+                    //if (entry == null)
+                    //    return;
+
+                    //var dragData = new DataObject(entry);
+                    
+
+                }
+            }
+        }
+
+        private void ResetState()
+        {
+            isMouseDown = false;
+            isDragging = false;
+            dragSourceTrItem.Opacity = 1;
+            dragSourceTrItem = null;
+         //   dragData = null;
+          //  itemsControl.AllowDrop = true;
+        }
+
+        private void MacroEntryTreeView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                var treeView = sender as TreeView;
+                var treeViewItem = getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource);
+
+                if ((treeView == null) || (treeViewItem == null))
+                    return;
+
+                var itemToRemove = treeViewItem.DataContext as MacroEntry;
+
+                if (itemToRemove == null)
+                    return;
+
+                removeMacroEntry(itemToRemove);
+
+            }
+        }
+
+
+        private void MacroEntryTreeView_PreviewMouseLeftButtonUp(object sender, MouseEventArgs e)
+        {
+            ResetState();
+          //  DetachDragAdorner();
+           e.Handled = true;
         }
 
         /// <summary>
-        /// Get a Macro Memento
+        /// If a bubbling event occured it may be not on the element we
+        /// need, therefore this method walks along the tree until
+        /// a sought element (smartTree item) is found and returns it.
         /// </summary>
-        /// <returns>A Macro Memento</returns>
-        public abstract Memento getMemento();
+        /// <param name="element">Elemnt the event occured on.</param>
+        /// <returns>The nearest father element of the given UIElement</returns>
+        private T getNearestFather<T>(DependencyObject current)
+             where T : DependencyObject
+        {
+            // Walk up the element tree to the nearest tree view item.
+            do
+            {
+                if (current is T)
+                {
+                    return (T)current;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+            while (current != null);
+            return null;
+        }
+        private AdornerLayer propertiesViewAdornerLayer;
+        private DragInsertAdorner drInsAdorner;
+        private void MacroEntryTreeView_PreviewDragEnter(object sender, DragEventArgs e)
+        {
 
+            bool contains = false;
+            try {
+            contains = propertiesViewAdornerLayer.GetAdorners(_propertyView.MacroEntryTreeView).Contains(drInsAdorner);
+            } catch{}
+
+            if (!contains)
+            {
+                if (e.Data.GetDataPresent(typeof(MacroEntry)))
+                {
+
+                    //init dragInsert adorner
+                    var pos = e.GetPosition(_propertyView.MacroEntryTreeView);
+                    initializeDragInsertAdorner(_propertyView.MacroEntryTreeView, dragData, pos);
+
+                    //set opacity on (source) dragged item
+
+
+
+                    //initHighLight adorner
+                    var trItem = getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource) as TreeViewItem;
+                    if(trItem != null) {
+
+
+                        var newPosition = getReslTrItemPos(_propertyView.MacroEntryTreeView, trItem);
+
+                        double yOffset;
+                        System.Windows.Size size;
+
+                        getHighLightSizeOffset(trItem, e, out yOffset, out size);
+                        newPosition.Y += yOffset;
+
+
+                        initializeHighLightAdorner(_propertyView.MacroEntryTreeView, pos, opacityHighLight, size);
+                    }
+                }
+            }
+                
+            e.Handled = true;
+
+        }
+
+       // DrawingVisualHost highLightRect;
+        double opacityHighLight = 0.1;
+        double opacityDragInsertControl = 1;
+        double opacityDragSourceItem = 0.5;
+
+        private void initializeHighLightAdorner(UIElement adornedElemnt, System.Windows.Point position, double opacity,System.Windows.Size size)
+        {
+            if (propertiesViewAdornerLayer == null)
+                propertiesViewAdornerLayer = AdornerLayer.GetAdornerLayer(adornedElemnt);
+
+            //if (highLightRect == null)
+            //{
+            //    //// create visual content to show on screen
+            //    //DrawingVisual drawingVisual = new DrawingVisual();
+            //    //DrawingContext drawingContext = drawingVisual.RenderOpen();
+            //    //Rect rect = new Rect(size);
+            //    //Rectangle recfdat = new Rectangle(position, size);
+            //    //recfdat.Dra
+
+            //    //drawingContext.DrawRectangle(System.Windows.SystemColors.HighlightBrush, (System.Windows.Media.Pen)null, rect);
+            //   // drawingContext.DrawRectangle(System.Windows.Media.Brushes.Black, (System.Windows.Media.Pen)null, rect);
+
+            //   // drawingVisual.Opacity = opacity;
+
+            //   // highLightRect = new DrawingVisualHost(drawingVisual);
+            //}
+
+
+            highLightAdorner = new HighLight_Adorner(adornedElemnt, position, size,opacityHighLight, propertiesViewAdornerLayer);
+                highLightAdorner.IsHitTestVisible = false;
+
+
+            
+
+
+        }
+
+        private void initializeDragInsertAdorner(UIElement uiElement, Object data, System.Windows.Point position)
+        {
+            if(propertiesViewAdornerLayer == null) 
+                propertiesViewAdornerLayer = AdornerLayer.GetAdornerLayer(uiElement);
+                if (dragControl.DataContext != data)
+                {
+                    dragControl = new MacroEntry_Control();
+                    dragControl.DataContext = data as MacroEntry;
+                }
+              //  macroControlCopy.startEndFrameSlider.Visibility = Visibility.Collapsed;
+                dragControl.Opacity = opacityDragInsertControl;
+                drInsAdorner = new DragInsertAdorner(uiElement, position, dragControl, propertiesViewAdornerLayer);
+                drInsAdorner.IsHitTestVisible = false;
+        }
+
+        private HighLight_Adorner highLightAdorner;
+
+        // if drop operation on nonMacro entrys is performed
+        // the drop date will be dropped at --successorIndex;
+        //or as last entry if dropTarget is no treeViewItem
+        int successorIndex = -1;
+        private void MacroEntryTreeView_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(MacroEntry)))
+            {
+                TreeViewItem trItem = getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource);
+         
+                var addornContainter = propertiesViewAdornerLayer.GetAdorners(_propertyView.MacroEntryTreeView);
+                if (addornContainter.Contains(drInsAdorner))
+                {
+                    drInsAdorner.UpdatePosition(e.GetPosition(_propertyView.MacroEntryTreeView).X, e.GetPosition(_propertyView.MacroEntryTreeView).Y);
+                }
+
+                if (trItem != null)
+                {
+                    if (addornContainter.Contains(highLightAdorner))
+                    {
+
+                        var newPosition = getReslTrItemPos(_propertyView.MacroEntryTreeView, trItem);
+
+                        double yOffset;
+                        System.Windows.Size size;
+
+                        getHighLightSizeOffset(trItem, e, out yOffset, out size);
+                        newPosition.Y += yOffset;
+
+                        highLightAdorner.UpdateSizePosition(newPosition, size);
+                    }
+                }
+                //else
+                //{
+                //    successorIndex = -1;
+                //}
+               
+            }
+            e.Handled = true;
+        }
+
+        private void getHighLightSizeOffset(TreeViewItem trItem, DragEventArgs e, 
+            out double yOffset, out System.Windows.Size size)
+        {
+            var trItemPos = getReslTrItemPos(_propertyView.MacroEntryTreeView, trItem);
+            int relPosInd = IsSlightlyAbove(trItemPos, e.GetPosition(trItem), trItem.ActualHeight);
+            if (relPosInd > 0)
+            {
+                yOffset = 5 * -2  + 2;
+                size = new System.Windows.Size(trItem.Width, 5 * 2 - 4);
+            }
+            else if (relPosInd < 0)
+            {
+                yOffset = 5 * 2 - 2;
+                size = new System.Windows.Size(trItem.Width, 5 * 2 - 4);
+            }
+            else
+            {
+                yOffset = 0;
+                size = trItem.RenderSize;
+            }
+            
+        }
+
+        private System.Windows.Point getReslTrItemPos(TreeView trView, TreeViewItem trItem)
+        {
+            GeneralTransform genTrans = trItem.TransformToAncestor(trView);
+            System.Windows.Point newPosition = genTrans.Transform(new System.Windows.Point(0, 0));
+            return newPosition;
+        }
+
+        private void DetachAdorner(Adorner adorner, AdornerLayer adornerLayer)
+        {
+            try { adornerLayer.Remove(adorner); }
+            catch { }
+        }
+
+        private void MacroEntryTreeView_DragLeave(object sender, DragEventArgs e)
+        {
+            //var trView = sender as TreeView;
+            //if (trView == null)
+                DetachAdorner(drInsAdorner, propertiesViewAdornerLayer);
+                DetachAdorner(highLightAdorner, propertiesViewAdornerLayer);
+             
+            
+            
+
+            e.Handled = true;
+          
+        }
+
+        private void resetMacroTreeViewSelections()
+        {
+            var selItem = _propertyView.MacroEntryTreeView.SelectedItem;
+
+            if (selItem != null)
+                (_propertyView.MacroEntryTreeView.ItemContainerGenerator.ContainerFromItem(selItem) as TreeViewItem).IsSelected = false;
+
+        }
+
+        //true => slightly above
+        //false => slightly below
+        //slightly => a third of ActualHeight
+        private static int IsSlightlyAbove(System.Windows.Point parentPosition, 
+                                                System.Windows.Point mousePosition,
+                                            double parentHeight)
+        {
+
+            int result = 0;
+
+            double parentY = parentHeight / 3;
+            double mouseY = mousePosition.Y;
+
+
+            if (mouseY > parentY * 2)
+            {
+                result = -1;
+            }
+            else if (mouseY > parentY)
+            {
+                result = 0;
+            }
+            else
+            {
+                result = 1;
+            }
+
+            return result;
+            }
+
+
+        private int getInsertIndex(DragEventArgs e, TreeViewItem trItem, out TreeViewItem dropTarget) {
+
+            dropTarget = null;
+            // get Rel trItem postion
+            var trItemPos = getReslTrItemPos(_propertyView.MacroEntryTreeView, trItem);
+
+            int relPosInd = IsSlightlyAbove(trItemPos, e.GetPosition(trItem), trItem.ActualHeight);
+
+            int insertAtIndex = -1; // drop at toplevel as last child
+
+            //check relative drop position
+
+            if (relPosInd > 0) // drop above dropTarget  
+            {
+               insertAtIndex =  getNextHigherItem(out dropTarget, trItem);
+            }
+            else if ((relPosInd == 0)
+                && (trItem.DataContext as MacroEntry).type == PluginType.IMacro) // try to drop within the target (only if dropTarget is macro, else -> drop below)
+            {
+                dropTarget = trItem;
+            }
+            else if (relPosInd < 0) // drop below dropTarget
+            {
+                 insertAtIndex =  getNextLowerItem(out dropTarget, trItem);
+            }
+
+            return insertAtIndex;
+        }
+
+
+        private int getNextHigherItem(out TreeViewItem nextHigher, TreeViewItem supposedDropTarget)
+        {
+            int index = -1;
+            if (supposedDropTarget.Parent != null)
+            {
+                nextHigher = null;
+            }
+            else // topLevel -> set trItem to null and return inserIndex
+            {
+                nextHigher = null;
+                index = _propertyView.MacroEntryTreeView.ItemContainerGenerator.IndexFromContainer(supposedDropTarget);
+
+            }
+
+            return index;
+        }
+
+        private int getNextLowerItem(out TreeViewItem nextLower, TreeViewItem supposedDropTarget)
+        {
+            int index = -1;
+            if (supposedDropTarget.Parent != null)
+            {
+                nextLower = null;
+            }
+            else // topLevel -> set trItem to null and return inserIndex
+            {
+                nextLower = null;
+                index = _propertyView.MacroEntryTreeView.ItemContainerGenerator.IndexFromContainer(supposedDropTarget);
+                index++;
+
+            }
+            
+            return index;
+        }
+
+
+        private void MacroEntryTreeView_PreviewDrop(object sender, DragEventArgs e)
+        {
+            // data to drop
+            MacroEntry dropEntry = null;
+            MacroEntry entryToDropIn = null;
+            bool moveOperation = false;
+            if (e.Data.GetDataPresent(typeof(MacroEntry)))
+            {
+                dropEntry = e.Data.GetData(typeof(MacroEntry)) as MacroEntry;
+                moveOperation = true;
+            }
+
+            else if (e.Data.GetDataPresent(typeof(MementoEventArgs)))
+            {
+                dropEntry = constructMacroFromMementoArg(e.Data.GetData(typeof(MementoEventArgs)) as MementoEventArgs);
+                moveOperation = false;
+            }
+
+
+            if (dropEntry != null)
+            {
+                var treeViewItem =
+                        getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource);
+
+                if (moveOperation)
+                { //move operation(macro initialized)
+
+                    // var treeView = sender as TreeView;
+                    //if (treeView != null)
+                    //{
+
+                    if (treeViewItem != dragSourceTrItem)
+                    {
+
+                        if (treeViewItem != null)
+                        {
+                            // entryToDropIn = treeViewItem.DataContext as MacroEntry;
+                            TreeViewItem dropTarget;
+                            var insertIndex = getInsertIndex(e, treeViewItem, out dropTarget);
+
+                            if(dropTarget == null) // insert at toplevel
+                            {
+                                
+                                moveMacroEntry(dropEntry, this.macroEntry, insertIndex);
+                            }
+                            else
+                            {
+                                entryToDropIn = dropTarget.DataContext as MacroEntry;
+                                moveMacroEntry(dropEntry, entryToDropIn, insertIndex);
+                            }
+
+                        }
+                        else // no dropTarget -> move at topLeven (as last child)
+                        {
+                            moveMacroEntry(dropEntry, this.macroEntry);
+                        }
+                    }
+                }
+                else
+                {
+                    //drop operation (pluginList initilized)
+
+                    if (treeViewItem != null)
+                    {
+                        // entryToDropIn = treeViewItem.DataContext as MacroEntry;
+                        TreeViewItem dropTarget;
+                        var insertIndex = getInsertIndex(e, treeViewItem, out dropTarget);
+
+                        entryToDropIn = dropTarget.DataContext as MacroEntry;
+
+                        if (entryToDropIn == null) // insert at toplevel
+                        {
+                            addMacroEntry(dropEntry, this.macroEntry, insertIndex);
+                        }
+                        else
+                        {
+                            addMacroEntry(dropEntry, entryToDropIn, insertIndex);
+                        }
+
+                    }
+                    else // no dropTarget -> move at topLeven (as last child)
+                    {
+                        addMacroEntry(dropEntry, this.macroEntry);
+                      
+                    }
+                }
+ 
+                }
+      
+            #region obsolete
+            //if (e.Data.GetDataPresent(typeof(MacroEntry)))
+            //{
+
+
+
+            //    var treeView = sender as TreeView;
+            //    var treeViewItem =
+            //        getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource);
+
+            //    if (treeView != null && treeViewItem != null)
+            //    {
+
+
+            //        var entryToDropIn = treeViewItem.DataContext as MacroEntry;
+
+            //        moveMacroEntry(dropEntry, entryToDropIn);
+            //    }
+
+            //}
+            //else if (e.Data.GetDataPresent(typeof(MementoEventArgs)))
+            //{
+            //    var treeView = sender as TreeView;
+            //    var treeViewItem = getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource);
+            //    if (treeViewItem != null)
+            //    {
+            //        addMacroEntry(treeViewItem.DataContext as MacroEntry,
+            //            e.Data.GetData(typeof(MementoEventArgs)) as MementoEventArgs);
+            //    }
+            //    else
+            //    {
+            //        addMacroEntry(this, e.Data.GetData(typeof(MementoEventArgs)) as MementoEventArgs);
+            //    }
+            //    DetachDragAdorner();
+
+            //}
+
+
+            //if (e.Data.GetDataPresent(typeof(MacroEntry)))
+            //{
+            //    var dropEntry = e.Data.GetData(typeof(MacroEntry)) as MacroEntry;
+
+
+            //    var treeView = sender as TreeView;
+            //    var treeViewItem =
+            //        getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource);
+
+            //    if (treeView != null && treeViewItem != null)
+            //    {
+
+
+            //        var entryToDropIn = treeViewItem.DataContext as MacroEntry;
+
+            //        moveMacroEntry(dropEntry, entryToDropIn);
+            //    }
+
+            //}
+            //else if (e.Data.GetDataPresent(typeof(MementoEventArgs)))
+            //{
+            //    var treeView = sender as TreeView;
+            //    var treeViewItem = getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource);
+            //    if (treeViewItem != null)
+            //    {
+            //        addMacroEntry(treeViewItem.DataContext as MacroEntry,
+            //            e.Data.GetData(typeof(MementoEventArgs)) as MementoEventArgs);
+            //    }
+            //    else
+            //    {
+            //        addMacroEntry(this, e.Data.GetData(typeof(MementoEventArgs)) as MementoEventArgs);
+            //    }
+            //    DetachDragAdorner();
+
+            //}
+            //else
+            //{
+            //   e.Effects = DragDropEffects.None;
+            //}
+            #endregion
+
+            DetachAdorner(drInsAdorner, propertiesViewAdornerLayer);
+            DetachAdorner(highLightAdorner, propertiesViewAdornerLayer);
+            e.Handled = true;
+            //  propertyView.Refresh();
+        }
+
+        private void removeMacroEntry(MacroEntry entry)
+        {
+            lock (this.macroEntry)
+            {
+                if (macroEntry.macroEntries.Contains(entry))
+                {
+                    macroEntry.macroEntries.Remove(entry);
+
+                }
+                else
+                {
+
+                    foreach (var listEntry in seqMacroEntryList)
+                    {
+                        if (listEntry.macroEntries.Contains(entry))
+                        {
+                            listEntry.macroEntries.Remove(entry);
+                            break;
+                        }
+                    }
+                }
+                
+                seqMacroEntryList.Clear();
+                recursiveFilterExplorer(macroEntry, seqMacroEntryList);
+            }
+        }
+
+        private void addMacroEntry(MacroEntry child, MacroEntry father, int index = -1) {
+                        lock (this.macroEntry)
+            {
+                if (father == null) // child is new TL macro
+                {
+                    macroEntry.mementoName = child.mementoName;
+
+                    // these are alway default for topLevel macros
+                    //macroEntry.startFrameAbs = child.startFrameAbs;
+                    //macroEntry.endFrameAbs = child.endFrameAbs;
+                    macroEntry.macroEntries.Clear();
+                    macroEntry.macroEntries.Concat(child.macroEntries);
+                }
+                else
+                {
+                    if(index <0) {
+                        father.macroEntries.Add(child);
+                    } else {
+                        father.macroEntries.Insert(index, child);
+                    }
+                }
+                seqMacroEntryList.Clear();
+                recursiveFilterExplorer(macroEntry, seqMacroEntryList);
+            }
+        }
+
+        private void moveMacroEntry(MacroEntry toMoveMacro, MacroEntry target, int index = -1)
+        {
+            removeMacroEntry(toMoveMacro);
+
+            addMacroEntry(toMoveMacro, target, index);
+
+        }
+
+        private void onToggleView(object sender, ViewTypeEventArgs e)
+        {
+            if (e.viewType == viewType)
+                return;
+
+            viewType = e.viewType;
+            switch (viewType)
+            {
+                case ViewType.FilterView:
+                    _propertyView.inactive = false;
+                    _propertyView.filterMode = true;
+                    flush();
+                    break;
+                case ViewType.MetricView:
+                    _propertyView.inactive = false;
+                    _propertyView.filterMode = false;
+                    flush();
+                    break;    
+                default:
+                    _propertyView.inactive = true;
+                    break;
+            }
+        }
+
+        public Memento getMemento()
+        {
+            return new Memento(macroEntry.mementoName, macroEntry as IMacroEntry);
+        }
+
+
+        public void setMemento(PublicRessources.Model.Memento memento)
+        {
+        }
+
+        public virtual string namePlugin
+        {
+            get { return "Macro"; }
+        }
+
+
+        public virtual PluginType type
+        {
+            get { return PluginType.IMacro; }
+        }
+
+        public UserControl readOnlyPropertiesView
+        {
+            get 
+            { 
+                return (propertyView as Macro_PropertyView).getReadOnlyVersion(); 
+            }
+        }
+
+        #region fields
+
+        private List<MacroEntry> seqMacroEntryList;
+
+        private IVideoHandler handRef;
+        private IVideoHandler handProc;
+        private Video vidRes;
+        //private List<Video> vidRes
+        //{
+        //    get
+        //    {
+        //        if (_vidRes == null)
+        //            _vidRes = new List<Video>();
+        //        return _vidRes;
+        //    }
+        //    set
+        //    {
+        //        _vidRes = value;
+        //    }
+        //}
+        private int idRes;
+
+        private Thread worker;
+        private string workerName;
+        private bool workerCancel = false;
+
+        #endregion
+
+
+        public void setFilterContext(int idRef, IVideo vidRef)
+        {
+            flush();
+
+            this.idRes = idRef;
+            handRef = vidRef.getExtraHandler();
+
+            // construct result video and init handler writing context
+            var tmpVidInfo = handRef.readVidInfo.Clone() as IVideoInfo;
+            Video vidRes = new  Video(isAnalysis:false,
+                vidPath:findValidVidPath(vidRef.vidPath, this.macroEntry.mementoName),
+                vidInfo:tmpVidInfo);
+
+
+            this.vidRes = vidRes;
+            handRef.setWriteContext(vidRes.vidPath, vidRes.vidInfo);
+            
+
+            (propertyView as Macro_PropertyView).filterMode = true;
+
+            this.macroEntry.frameCount = handRef.readVidInfo.frameCount;
+          //  updateFrameCount(handRef.readVidInfo.frameCount);
+
+            RemoveClickEvent((propertyView as Macro_PropertyView).startProcessing);
+            (propertyView as Macro_PropertyView).startProcessing.Click += onStartFilterProcessButtonClick;
+        }
+
+        public void setMetricContext(IVideo vidRef, int idProc, IVideo vidProc)
+        {
+         
+            flush();
+            
+            this.idRes = idProc;
+            if (vidRef != null)
+            {
+                handRef = vidRef.getExtraHandler();
+                
+            }
+            if (vidProc != null)
+            {
+                handProc = vidProc.getExtraHandler();
+            }
+
+
+            (propertyView as Macro_PropertyView).filterMode = false;
+            RemoveClickEvent((propertyView as Macro_PropertyView).startProcessing);
+            if ((handRef != null) && (handProc != null))
+                (propertyView as Macro_PropertyView).startProcessing.Click += onStartMetricProcessButtonClick;
+        }
+
+        public void addMacroEntry(object sender, MementoEventArgs e)
+        {
+            addMacroEntry(e, macroEntry);
+        }
+
+        public void addMacroEntry(MementoEventArgs e, MacroEntry father, int index = -1)
+        {
+            var entryToAdd = constructMacroFromMementoArg(e);
+
+
+            if ((entryToAdd.type == PluginType.IMacro) && (this.macroEntry.macroEntries.Count() == 0))
+                addMacroEntry(entryToAdd, null);
+
+            else    
+                addMacroEntry(entryToAdd, father, index);
+        }
+
+
+
+        private MacroEntry constructMacroFromMementoArg(MementoEventArgs e)
+        {
+
+            PluginType entryType = PluginManager.pluginManager.getPlugin<IPlugin>(e.pluginKey).type;
+            MacroEntry entryToAdd;
+            if (entryType != PluginType.IMacro)
+            {
+                entryToAdd = new MacroEntry(e.pluginKey, entryType, e.mementoName);
+                entryToAdd.frameCount = this.macroEntry.frameCount;       
+            }
+            else
+            {
+                var tmpMem = PluginManager.pluginManager.getMemento(e.pluginKey, e.mementoName);
+                entryToAdd = tmpMem.state as MacroEntry;
+            }
+
+            return entryToAdd;
+        }
+
+
+        //private void addMacroEntry(MacroEntry parent, MementoEventArgs e)
+        //{
+        //    MacroEntry entry = new MacroEntry(e.pluginKey,
+        //        PluginManager.pluginManager.getPlugin<IPlugin>(e.pluginKey).type, e.mementoName);
+
+        //    entry.frameCount = this.macroEntry.frameCount;
+           
+
+
+        //    if ((macroEntry.macroEntries.Count != 0) || (entry.type != PluginType.IMacro))
+        //    {
+        //        if (entry.type != PluginType.IMacro)
+        //        {
+        //            // new plugin will be set as active on 0-100 
+        //            entry.startFrameAbs = 0;
+        //            entry.endFrameAbs = 100;
+        //        }
+
+        //        addMacroEntry(entry, parent);
+                
+        //    }
+        //    else 
+        //    {
+        //        var tmpMem =  PluginManager.pluginManager.getMemento(entry.pluginName, entry.mementoName);
+        //        var newTLmacro = tmpMem.state as MacroEntry;
+
+        //        this.macroEntry.mementoName = newTLmacro.mementoName;
+        //        addMacroEntry(newTLmacro, null);
+        //    }
+        //}
+
+        private void onStartFilterProcessButtonClick(object sender, RoutedEventArgs e) {
+            e.Handled = true;
+          //  disableControlWhileProcessing();
+            worker = new Thread(new ThreadStart(filterProcess));
+            worker.Name = workerName + "filter";
+            worker.Start();
+        }
+ 
+        private void filterProcess()
+        {
+            
+
+            while (handRef.positionReader < handRef.readVidInfo.frameCount)
+            {
+                Bitmap bmp = handRef.getFrame();
+
+                foreach (var filterEntry in seqMacroEntryList)
+                {
+                    if (!(filterEntry.startFrameAbs > handRef.positionReader)
+                        && (filterEntry.endFrameAbs > handRef.positionReader))
+                    {
+                        try
+                        {
+                            IFilterOqat actPlugin = PluginManager.pluginManager.getPlugin<IFilterOqat>(filterEntry.pluginName)
+                                as IFilterOqat;
+                            actPlugin = actPlugin.createExtraPluginInstance() as IFilterOqat;
+                            actPlugin.setMemento(PluginManager.pluginManager.getMemento(
+                                filterEntry.pluginName, filterEntry.mementoName));
+                            bmp = actPlugin.process(bmp);
+
+                        }
+                        catch (Exception)  
+                        {
+                            //TODO
+                            // set plugin to blackList if something went wrong
+                        }
+                    }
+                }
+                var tmpBmpArray = new Bitmap[1];
+                tmpBmpArray[0] = bmp;
+                handRef.writeFrames(handRef.positionReader, tmpBmpArray);
+            }
+
+                PluginManager.pluginManager.raiseEvent(
+                    EventType.macroProcessingFinished,new VideoEventArgs(this.vidRes, this.idRes)) ;
+                   
+            
+
+        }
+
+        //private IPlugin getExtraPluginInstance(IPlugin plugin)
+        //{
+            
+        //}
+
+        private void recursiveFilterExplorer(MacroEntry entry, List<MacroEntry> seqMacroList)
+        {
+
+            foreach (var subEntry in entry.macroEntries)
+            {
+                    if (subEntry.type != PluginType.IMacro)
+                    {
+                        seqMacroList.Add(subEntry);
+                    }
+                    else
+                    {
+                        // go down to first found filter
+                        recursiveFilterExplorer(subEntry, seqMacroList);
+                    }
+            }
+        }
+
+        private void metricProcess()
+        {
+            List<metricResultContext> seqMacroEntryList = new List<metricResultContext>();
+            recursiveMetricExplorer(this.macroEntry, seqMacroEntryList);
+            // handlerList has to be made during setContext phase
+            
+            //
+      
+            //
+            while (handRef.positionReader < handRef.readVidInfo.frameCount)
+            {
+                Bitmap bmpRef = handRef.getFrame();
+                Bitmap bmpProc = handProc.getFrame();
+       
+                foreach (var subEntry in seqMacroEntryList)
+                {
+                    // check if set as active
+                    if (!(subEntry.entry.startFrameAbs > handRef.positionReader)
+                        && (subEntry.entry.endFrameAbs > handRef.positionReader))
+                    {
+                        // init plugin
+                        IMetricOqat curPlugin =
+                            PluginManager.pluginManager.getPlugin<IMetricOqat>(
+                            subEntry.entry.pluginName).createExtraPluginInstance() as IMetricOqat;
+
+                        curPlugin.setMemento(PluginManager.pluginManager.getMemento(
+                            subEntry.entry.pluginName,subEntry.entry.mementoName));
+                        
+                        var info = curPlugin.analyse(bmpRef, bmpProc);
+
+                        // write acquired frame
+                        (subEntry.vidRes as Video).frameMetricValue[
+                            handRef.positionReader - subEntry.entry.startFrameAbs] = info.values;
+                        var tmpArray = new Bitmap[1];
+                        tmpArray[0] = info.frame;
+                        subEntry.handRes.writeFrames(handRef.positionReader - (int)subEntry.entry.startFrameAbs, tmpArray);
+                      
+                    }
+                }
+            }
+
+            
+            foreach (var subEntry in seqMacroEntryList)
+            {
+                PluginManager.pluginManager.raiseEvent(
+                    EventType.macroProcessingFinished, new VideoEventArgs(subEntry.vidRes, this.idRes));
+            }
+        }
+
+        struct metricResultContext
+        {
+            public IVideo vidRes;
+            public IVideoHandler handRes;
+            public MacroEntry entry;
+        }
+
+        private void recursiveMetricExplorer(MacroEntry entry, List<metricResultContext> seqMacroEntryList)
+        {
+            foreach (var subEntry in entry.macroEntries)
+            {
+                    if (subEntry.type != PluginType.IMacro)
+                    {
+                        metricResultContext metResContext;
+                        metResContext.entry = subEntry;
+                        string path;
+
+                    
+                       
+                        if (subEntry.path != null)
+                            path = subEntry.path;
+                        else
+                        {
+                            path = findValidVidPath(handProc.readPath, subEntry.pluginName);
+                           
+                        }
+                    
+
+                        var tmpEntryList = new List<IMacroEntry>();
+                        tmpEntryList.Add(subEntry);
+
+                        var tmpVidInfo = handProc.readVidInfo.Clone() as IVideoInfo;
+                        tmpVidInfo.frameCount =(int)(subEntry.endFrameAbs - subEntry.startFrameAbs);
+
+                        metResContext.vidRes = new Video(isAnalysis:true, 
+                                                        vidPath:path, 
+                                                        vidInfo:tmpVidInfo,
+                                                        processedBy:tmpEntryList);
+
+                        (metResContext.vidRes as Video).frameMetricValue = new float[metResContext.vidRes.vidInfo.frameCount][];
+                        metResContext.handRes = metResContext.vidRes.getExtraHandler();
+                        metResContext.handRes.setWriteContext(metResContext.vidRes.vidPath, metResContext.vidRes.vidInfo);
+                        seqMacroEntryList.Add(metResContext);
+                    }
+                    else
+                    {
+                        // go down to first found non macro
+                        recursiveMetricExplorer(subEntry, seqMacroEntryList);
+                    }
+            }
+            
+        }
+
+        private string findValidVidPath(string possiblePath, string suffix)
+        {
+            string path = "";
+
+
+                string ext = Path.GetExtension(possiblePath);
+                path = Path.GetDirectoryName(possiblePath) + Path.GetFileNameWithoutExtension(possiblePath);
+                bool pathValid = false;
+                int n = 0;
+                string counter = "";
+                while (!pathValid)
+                {
+                    if (n > 0)
+                        counter = n.ToString();
+
+                    string tmpPath = path + "\\" + suffix + counter + ext;
+                    if (!File.Exists(tmpPath))
+                    {
+                        pathValid = true;
+                        path = tmpPath;
+                    }
+                    else
+                        n++;
+                
+                }
+                return path;
+        }
+        
+
+        //private void disableControlWhileProcessing()
+        //{
+        //}
+
+        //private void enableControlAfterProcessing()
+        //{
+        //}
+
+
+        private void onStartMetricProcessButtonClick(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+         //   disableControlWhileProcessing();
+            worker = new Thread(new ThreadStart(metricProcess));
+            worker.Name = workerName + "metric";
+            worker.Start();
+        }
+
+        private void onCancelButtonClick(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void onClearButtonClick(object sender, RoutedEventArgs e)
+        {
+        }
+
+        #region removeClickEvents
         /// <summary>
-        /// Set a Macro Memento
+        /// Gets the list of routed event handlers subscribed to the specified routed event.
         /// </summary>
-        /// <param name="memento">The Memento that should be set as Macro Memento</param>
-        public abstract void setMemento(Memento memento);
+        /// <param name="element">The UI element on which the event is defined.</param>
+        /// <param name="routedEvent">The routed event for which to retrieve the event handlers.</param>
+        /// <returns>The list of subscribed routed event handlers.</returns>
+        public static RoutedEventHandlerInfo[] GetRoutedEventHandlers(UIElement element, RoutedEvent routedEvent)
+        {
+            // Get the EventHandlersStore instance which holds event handlers for the specified element.
+            // The EventHandlersStore class is declared as internal.
+            var eventHandlersStoreProperty = typeof(UIElement).GetProperty(
+                "EventHandlersStore", BindingFlags.Instance | BindingFlags.NonPublic);
+            object eventHandlersStore = eventHandlersStoreProperty.GetValue(element, null);
+            if (eventHandlersStore == null)
+                return null;
+                // Invoke the GetRoutedEventHandlers method on the EventHandlersStore instance 
+                // for getting an array of the subscribed event handlers.
+                var getRoutedEventHandlers = eventHandlersStore.GetType().GetMethod(
+                    "GetRoutedEventHandlers", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                var routedEventHandlers = (RoutedEventHandlerInfo[])getRoutedEventHandlers.Invoke(
+                    eventHandlersStore, new object[] { routedEvent });
+            
+            return routedEventHandlers;
+        }
+
+        private void RemoveClickEvent(Button b)
+        {
+            
+            var routedEventHandlers = GetRoutedEventHandlers(b, ButtonBase.ClickEvent);
+            if(routedEventHandlers != null) 
+                foreach (var routedEventHandler in routedEventHandlers)
+                    b.Click -= (RoutedEventHandler)routedEventHandler.Handler;
+        }
+        #endregion
+
+        public void flush()
+        {
+            if (handProc != null)
+            {
+                handProc.flushReader();
+                handProc.flushWriter();
+                handProc = null;
+            }
+
+            if (handRef != null)
+            {
+                handRef.flushReader();
+                handRef.flushWriter();
+                handRef = null;
+            }
+            this.macroEntry.macroEntries.Clear();
+            this.macroEntry.mementoName = "anonymousMacro";
+            this.macroEntry.frameCount = 100;
+            this.macroEntry.startFrameAbs = 0;
+            this.macroEntry.endFrameAbs = 100;
+
+        }
 
 
+        public IPlugin createExtraPluginInstance()
+        {
+            return new Macro();
+        }
     }
+
+    //public static class ExtensionMethods
+    //{
+
+    //    private static Action EmptyDelegate = delegate() { };
+
+
+    //    public static void Refresh(this UIElement uiElement)
+    //    {
+    //        uiElement.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
+    //    }
+    //}
+
+    public class DrawingVisualHost : FrameworkElement
+    {
+        private DrawingVisual drawingVisual;
+
+        public DrawingVisualHost(DrawingVisual drawingVisual) : base()
+        {
+            this.drawingVisual = drawingVisual;
+        }
+
+        // EllipseAndRectangle instance is our only visual child
+        protected override Visual GetVisualChild(int index)
+        {
+            return drawingVisual;
+        }
+
+        protected override int VisualChildrenCount
+        {
+            get
+            {
+                return 1;
+            }
+        }
+    }
+
 }
-
-
-

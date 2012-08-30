@@ -28,6 +28,8 @@
             get;
         }
 
+        IPlugin createExtraPluginInstance();
+
 
 	}
 }
