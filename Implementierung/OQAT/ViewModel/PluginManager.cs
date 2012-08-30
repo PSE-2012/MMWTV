@@ -567,8 +567,15 @@
             memTable = new SortedDictionary<string, List<Memento>>();
             foreach (var pl in pluginTable)
             {
-                
-                    var tmp = Caretaker.caretaker.getMemento(getMementoSavePath(pl.Metadata.namePlugin));
+                Memento tmp;
+                try
+                {
+                    tmp = Caretaker.caretaker.getMemento(getMementoSavePath(pl.Metadata.namePlugin));
+                }
+                catch (Exception)
+                {
+                    tmp = null;
+                }
                     if (tmp == null) // no memento exists
                     {
                         var memToAdd = pl.Value.getMemento();
