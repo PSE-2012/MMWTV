@@ -99,7 +99,12 @@ namespace PM_MSE
                     t[i] = reader.Name;
                     reader.MoveToNextAttribute();
                     t2[i] = reader.Value;
+                    if (t2[i] == "")
+                    {
+                        throw new XmlException ("datei nicht lang genug");
+                    }
                 }
+                
                 rbRGB.Content = t2[0];
                 rbR.Content = t2[1];
                 rbG.Content = t2[2];

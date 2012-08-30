@@ -322,6 +322,10 @@ namespace Oqat.ViewModel.Macro
                     t[i] = reader.Name;
                     reader.MoveToNextAttribute();
                     t2[i] = reader.Value;
+                    if (t2[i] == "")
+                    {
+                        throw new XmlException("datei nicht lang genug");
+                    }
                 }
                 hd1.Header = t2[0];
                 hd2.Header = t2[1];
