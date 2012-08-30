@@ -11,11 +11,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 using Oqat.PublicRessources.Plugin;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-
+using System.Threading;
+using System.Windows.Threading;
 namespace Oqat.ViewModel.MacroPlugin
 {
     /// <summary>
@@ -34,6 +36,47 @@ namespace Oqat.ViewModel.MacroPlugin
             self.DataContext = this;
         }
 
+        private int _frameCount;
+        public int frameCount
+        {
+            get{
+                return _frameCount;
+               }
+
+            set
+            {
+                _frameCount = value;
+                NotifyPropertyChanged("frameCount");
+            }
+        
+        }
+
+
+        private bool _activeState;
+        public bool activeState
+        {
+            get
+            {
+                return _activeState;
+            }
+            set
+            {
+                _activeState = value;
+                NotifyPropertyChanged("activeState");
+                NotifyPropertyChanged("activeStateVisibility");
+            }
+        }
+
+        public Visibility activeStateVisibility
+        {
+            get
+            {
+                if (activeState)
+                    return Visibility.Visible;
+                else
+                    return Visibility.Collapsed;
+            }
+        }
 
         private bool _filterMode = true;
         public bool filterMode
@@ -59,36 +102,33 @@ namespace Oqat.ViewModel.MacroPlugin
             }
         }
 
-        private bool _inactive;
-        public bool inactive
+        private bool _processing;
+        public bool processing
         {
             get
             {
-                return _inactive;
+                return _processing;
             }
             set
             {
-                _inactive = value;
-                NotifyPropertyChanged("inactive");
+                if (value != _processing)
+                {
+                    _processing = value;
+                    NotifyPropertyChanged("processing");
+                }
             }
         }
 
-        public bool inactiveActiveState
+        private double _processingStateValue;
+        public double processingStateValue
         {
-            get { return !inactive; }
-        }
-
-        public Visibility inactiveVisibility
-        {
-            get
+            get { return _processingStateValue; }
+            set
             {
-                if (!inactive)
-                    return System.Windows.Visibility.Visible;
-                else
-                    return System.Windows.Visibility.Collapsed;
+                _processingStateValue = value;
+                NotifyPropertyChanged("processingStateValue");
             }
         }
-
         public Visibility filterModeVisibility
         {
             get
@@ -136,8 +176,16 @@ namespace Oqat.ViewModel.MacroPlugin
         private void NotifyPropertyChanged(string property)
         {
             if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(property));
+            {
+                if (OqatApp.uiDispatcher.CheckAccess())
+
+                    PropertyChanged(this, new PropertyChangedEventArgs(property));
+
+                else
+                    OqatApp.uiDispatcher.BeginInvoke(new Action<string>(NotifyPropertyChanged), property);
+            }
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
       

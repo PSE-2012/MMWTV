@@ -1,18 +1,16 @@
-﻿//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Oqat.PublicRessources.Model;
+using Oqat.PublicRessources.Plugin;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using Oqat.ViewModel;
+
 namespace Oqat.Model
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-    using Oqat.PublicRessources.Model;
-    using Oqat.PublicRessources.Plugin;
-    using System.IO;
-    using System.Runtime.Serialization;
-    using System.Runtime.Serialization.Formatters.Binary;
-    using Oqat.ViewModel;
-
 	/// <summary>
 	/// This class is the Model for the Caretaker, which is responsible for saving
     /// or loading the state of an object (Memento) to and from the hard disk drive,
@@ -33,7 +31,7 @@ namespace Oqat.Model
 
 
         /// <summary>
-        /// The Caretaker Singelton instance.
+        /// The Caretaker Singleton instance.
         /// </summary>
         private static Caretaker _caretaker;
 
@@ -52,12 +50,8 @@ namespace Oqat.Model
                     {
                        _caretaker = new Caretaker();
                     }
-                return _caretaker;
+                    return _caretaker;
                 }
-            }
-            private set
-            {
-                _caretaker = value;
             }
         }
 
@@ -81,13 +75,23 @@ namespace Oqat.Model
                 //Reading files and creates a list of mementos
                 Stream stream;
   
-                    stream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                    //using binary format
-                    BinaryFormatter bFormatter = new BinaryFormatter();
-                    bFormatter.Binder = new OqatSerializationBinder();
+                stream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                //using binary format
+                BinaryFormatter bFormatter = new BinaryFormatter();
+                bFormatter.Binder = new OqatSerializationBinder();
+
+                try
+                {
                     objectToSerialize = (Memento)bFormatter.Deserialize(stream);
+                }
+                catch(SerializationException ex)
+                {
                     stream.Close();
-                
+                    PluginManager.pluginManager.raiseEvent(EventType.failure, new ErrorEventArgs(ex));
+                    return null;
+                }
+
+                stream.Close();
             }
             return objectToSerialize;
 		}
@@ -96,7 +100,6 @@ namespace Oqat.Model
         /// Saves newly created Memento to the hard disk drive.
         /// /// <param name="objectToSerialize">The Memento</param> 
         /// </summary>
-
         public virtual void writeMemento(Memento objectToSerialize)
         {
             try
@@ -111,7 +114,7 @@ namespace Oqat.Model
             }
             catch (Exception exc)
             {
-                PluginManager.pluginManager.raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                PluginManager.pluginManager.raiseEvent(EventType.failure, new ErrorEventArgs(exc));
             }
             
         }

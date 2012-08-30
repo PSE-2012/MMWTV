@@ -3,14 +3,50 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             
+             xmlns:extToolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=WPFToolkit.Extended"
              xmlns:local="clr-namespace:Oqat.ViewModel.MacroPlugin"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             x:Name="self"
-             Visibility="{Binding inactiveVisibility, Mode=OneWay}"
-             IsEnabled="{Binding inactiveActiveState, Mode=OneWay}">
-    <Grid x:Name="macroTreeViewGrid" >
+             Visibility="{Binding inactive}"
+             x:Name="self">
+
+    
+        <extToolkit:BusyIndicator x:Name="buisyIndicator" IsBusy="{Binding processing, Mode=OneWay}"
+                                  DisplayAfter="0">
+        <extToolkit:BusyIndicator.BusyContentTemplate>
+            <DataTemplate>
+                <StackPanel Margin="4">
+                    <TextBlock Text="Processing frames." FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <StackPanel Margin="4">
+                        <TextBlock Text="fdfdsafdsafdsfa"/>
+                        <ProgressBar  Height="15"/>
+                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Pause" HorizontalAlignment="Right" Margin="0 0 2 0"/>
+                        <Button Grid.Column="1" Content="Cancel" HorizontalAlignment="Left" Margin="2 0 0 0"/>
+                    </Grid>
+                </StackPanel>
+            </DataTemplate>
+        </extToolkit:BusyIndicator.BusyContentTemplate>
+        <extToolkit:BusyIndicator.OverlayStyle>
+            <Style TargetType="Rectangle">
+                <Setter Property="Fill" Value="#ffffeeee"/>
+            </Style>
+        </extToolkit:BusyIndicator.OverlayStyle>
+        <extToolkit:BusyIndicator.ProgressBarStyle>
+            <Style TargetType="ProgressBar">
+                <Setter Property="IsIndeterminate" Value="True"/>
+                <Setter Property="Visibility" Value="Collapsed"/>
+                <Setter Property="Value" Value="{Binding processingStateValue, Mode=OneWay}"/>
+                <Setter Property="Maximum" Value="{Binding frameCount, Mode=OneWay}"/>
+                
+            </Style>
+        </extToolkit:BusyIndicator.ProgressBarStyle>
+            <Grid x:Name="macroTreeViewGrid" >
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="20"/>
@@ -28,13 +64,9 @@
             <Button x:Name="startProcessing" Visibility="{Binding readOnlyVisibility}" 
                     x:FieldModifier="internal" Grid.Column="0" Margin="0,0,2,0" Content="apply" 
                     IsEnabled="{Binding readOnlyActiveState}"/>
-           
-            <Button x:Name="cancelProcessing" Visibility="{Binding readOnlyVisibility}" 
-                    x:FieldModifier="internal" Grid.Column="1" Margin="0,0,2,0" Content="cancel"
-                    IsEnabled="{Binding readOnlyActiveState}"/>
-           
+
             <Button x:Name="clearEntries" Visibility="{Binding readOnlyVisibility}" 
-                    x:FieldModifier="internal" Grid.Column="2" Margin="0,0,2,0" Content="clear"
+                    x:FieldModifier="internal" Grid.Column="1" Margin="0,0,2,0" Content="clear"
                     IsEnabled="{Binding readOnlyActiveState}"/>
            
             <CheckBox x:Name="previewCheckBox" Visibility="{Binding filterModeVisibility}" 
@@ -46,9 +78,9 @@
                        Text="preview" Grid.Column="4" VerticalAlignment="Center"/>
 
         </Grid>
-        <ProgressBar x:Name="progressBar" Grid.Row="1" Margin="0,0,0,5"/>
+        <!--<ProgressBar x:Name="progressBar" Grid.Row="1" Margin="0,0,0,5"/>-->
 
-        <TreeView x:Name="MacroEntryTreeView" Grid.Row="2" ItemsSource="{Binding macroEntries}"
+            <TreeView x:Name="MacroEntryTreeView" Grid.Row="2" ItemsSource="{Binding macroEntries}"
                   AllowDrop="True" ScrollViewer.CanContentScroll="True" 
                   ScrollViewer.VerticalScrollBarVisibility="Auto" 
                   ScrollViewer.HorizontalScrollBarVisibility="Auto">
@@ -65,4 +97,7 @@
             </TreeView.Resources>
         </TreeView>
     </Grid>
+            
+            
+    </extToolkit:BusyIndicator>
 </UserControl>

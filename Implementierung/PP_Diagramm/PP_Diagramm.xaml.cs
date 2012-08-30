@@ -13,12 +13,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OxyPlot;
 using Oqat;
-
-
 using Oqat.PublicRessources.Plugin;
 using Oqat.PublicRessources.Model;
-
-
 using Microsoft.CSharp;
 using System.ComponentModel.Composition;
 
@@ -31,12 +27,12 @@ namespace PP_Diagramm
     [ExportMetadata("namePlugin", "PP_Diagram")]
     [ExportMetadata("type", PluginType.IPresentation)]
     [Export(typeof(IPlugin))]
-  
     public partial class Diagramm : UserControl ,IPresentation   
     {
-        private PresentationPluginType _presentationType = PresentationPluginType.Diagram;
-        private string _namePlugin = "PP_Diagramm";
-        private PluginType _type = PluginType.IPresentation;
+        public Diagramm(){
+            InitializeComponent();
+        }
+        #region getter/setter
 
         private PlotModel MyPlotModel
         {
@@ -44,50 +40,19 @@ namespace PP_Diagramm
             set;
         }
 
-
-        public Diagramm()
-        {
-            InitializeComponent();
-        }
-
         public PresentationPluginType presentationType
         {
             get
             {
-                return _presentationType;
+                return PresentationPluginType.Diagram;
             }
-            set
-            {
-               _presentationType= value;
-            }
-        }
-
-        /// <summary>
-        /// resets the plotModel
-        /// </summary>
-        public void unloadVideo()
-        {
-            plotModel.Model = null;
-
-        }
-
-        /// <summary>
-        /// resets the plotModel
-        /// </summary>
-        public void flush()
-        {
-            plotModel.Model = null;
         }
 
         public string namePlugin
         {
             get
             {
-                return _namePlugin;
-            }
-            set
-            {
-                _namePlugin = value;
+                return "PP_Diagram";
             }
         }
 
@@ -95,15 +60,9 @@ namespace PP_Diagramm
         {
             get
             {
-                return _type;
-            }
-            set
-            {
-                _type = value;
+                return PluginType.IPresentation;
             }
         }
-
-
 
         public UserControl propertyView
         {
@@ -113,25 +72,55 @@ namespace PP_Diagramm
             }
         }
 
-        /// <summary>
-        /// not necessary method
-        /// </summary>
+        #endregion
 
-        public Oqat.PublicRessources.Model.Memento getMemento()
-        {
-            return new Oqat.PublicRessources.Model.Memento("defaultDiagramm", null, "");
-        }
+
         /// <summary>
-        /// not necessary method
+        /// Returns a new instance of Diagram Presentation.
         /// </summary>
-        public void setMemento(Oqat.PublicRessources.Model.Memento memento)
+        /// <returns></returns>
+        public object Clone()
         {
+            return new Diagramm();
         }
+
+
+        /// <summary>
+        /// Loads the given video to display its metric data.
+        /// </summary>
+        /// <param name="video">video to load metric results from.</param>
+        /// <param name="position">framenumber to focus - not used</param>
+        /// <exception cref="IllegalArgumentException">thrown if video is null</exception>
+        public void setVideo(IVideo video, int position = 0)
+        {
+            if (video == null)
+                throw new ArgumentException("Video to load must not be null.");
+
+            if (video.frameMetricValue != null)
+            {
+                string plugin;
+                try
+                {
+                    plugin = video.processedBy[0].pluginName;
+
+                }
+                catch (Exception e)
+                {
+                    plugin = "";
+                }
+                createDataSeries(video.frameMetricValue, plugin);
+            }
+            else
+            {
+                //ignore setVideo request, if video has no metric data
+                //throw new System.ArgumentException("frameMetricValue ==NULL");
+            }
+        }
+
         /// <summary>
         /// Helper method to create content of the Plotmodel
         /// </summary>
-
-        private void createDataSeries(float[][] series,String pluginname)
+        private void createDataSeries(float[][] series, String pluginname)
         {
             var plotModel1 = new PlotModel();
             plotModel1.LegendSymbolLength = 24;
@@ -143,7 +132,7 @@ namespace PP_Diagramm
             plotModel1.Axes.Add(linearAxis2);
 
             StemSeries[] oxySeries = new StemSeries[series[0].Length];
-            for (int i = 0; i < oxySeries.Length; i++ )
+            for (int i = 0; i < oxySeries.Length; i++)
             {
                 oxySeries[i] = new StemSeries();
                 oxySeries[i].MarkerSize = 2;
@@ -161,7 +150,7 @@ namespace PP_Diagramm
                 }
             }
 
-            foreach(Series s in oxySeries)
+            foreach (Series s in oxySeries)
             {
                 plotModel1.Series.Add(s);
             }
@@ -169,34 +158,39 @@ namespace PP_Diagramm
         }
 
         /// <summary>
-        /// loads the Video
+        /// Resets the plotModel
         /// </summary>
-        public void setVideo(IVideo video, int position = 0) 
+        public void flush()
         {
-            if (video.frameMetricValue != null)
-            {
-                string plugin;
-                try
-                {
-                    plugin = video.processedBy[0].pluginName;
-                    
-                }
-                catch (Exception e)
-                {
-                    plugin = "";
-                }
-                createDataSeries(video.frameMetricValue,plugin);
-            }
-            else
-            {
-                System.ArgumentException illegalArgumentException = new System.ArgumentException("frameMetricValue ==NULL");
-                throw illegalArgumentException;
-            }
+            plotModel.Model = null;
+        }
+
+        
+
+        /// <summary>
+        /// Creates a memento saving the current settings.
+        /// </summary>
+        /// <returns>Memento containing the current settings</returns>
+        /// <remarks>Not implemented!</remarks>
+        public Oqat.PublicRessources.Model.Memento getMemento()
+        {
+            return new Memento("Diagram_settings", null);
+            //throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Loads the settings from the given memento.
+        /// </summary>
+        /// <remarks>Not implemented!</remarks>
+        public void setMemento(Oqat.PublicRessources.Model.Memento memento)
+        {
+            //throw new NotImplementedException();
         }
 
         public IPlugin createExtraPluginInstance()
         {
             return new Diagramm();
         }
+
+        
     }
 }

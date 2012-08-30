@@ -57,6 +57,10 @@ namespace Oqat.ViewModel
                     t[i] = reader.Name;
                     reader.MoveToNextAttribute();
                     t2[i] = reader.Value;
+                    if (t2[i] == "")
+                    {
+                        throw new XmlException("datei nicht lang genug");
+                    }
                 }
                // bttProcessMacro.Content = t2[0];
                 msgBox1 = t2[1];
@@ -341,12 +345,11 @@ namespace Oqat.ViewModel
         
 
         /// <summary>
-        /// Will be called if the view was toggled. This methode
-        /// does things like detaching a video from the player and diagram.
+        /// Does things like detaching a video from the player and diagram and reseting all presentations.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void onFlushPresentationPlugins(object sender, EventArgs e) 
+        public void flush() 
         {
             try
             {

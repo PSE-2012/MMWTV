@@ -20,6 +20,7 @@ using System.ComponentModel;
 
 using System.IO;
 using System.Xml;
+using System.Globalization;
 
 namespace Oqat.ViewModel
 {
@@ -197,66 +198,65 @@ namespace Oqat.ViewModel
        
         private void updatePropertiesView()
         {
-            if (selectedPVM == null)
-            {   //no Plugin is selected
-                this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
-                this.bttAddToMacro.Visibility = System.Windows.Visibility.Collapsed;
-                return;
-            }
-
-            //default visibility
-            this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
-            this.bttAddToMacro.Visibility = System.Windows.Visibility.Visible;
-            panelMacroProp.Visibility = System.Windows.Visibility.Collapsed;
+            this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
+            this.bttAddToMacro.Visibility = System.Windows.Visibility.Collapsed;
+            this.panelMacroProp.Visibility = System.Windows.Visibility.Collapsed;
             this.tbNoSettings.Visibility = System.Windows.Visibility.Collapsed;
 
+            if(selectedPVM.isMemento)
+            { //real memento
+                selectedPlugin = PluginManager.pluginManager.getPlugin<IPlugin>(selectedPVM.parent.name);
 
-            
-            selectedPlugin = PluginManager.pluginManager.getPlugin<IPlugin>(selectedPVM.parent.name);
-            if (selectedPlugin is IMacro)
-            {
-                if(selectedPVM == activeMacroPVM)
-                {
-                    this.gridPluginProperties.Content = panelMacroPropertyViewCurrent;
+                if (selectedPlugin is IMacro)
+                { //macro
+                    if (selectedPVM == activeMacroPVM)
+                    {
+                        this.gridPluginProperties.Content = panelMacroPropertyViewCurrent;
+                        this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
+                    }
+                    else
+                    {
+                        panelMacroProp.Visibility = System.Windows.Visibility.Visible;
+                    }
                 }
                 else
-                {
-                    panelMacroProp.Visibility = System.Windows.Visibility.Visible;
-                }
-            }
-            else
-            {
-                if (selectedPVM.isMemento)
-                {
+                { //filter/metric
                     Memento m = PluginManager.pluginManager.getMemento(selectedPVM.parent.name, selectedPVM.name);
                     if (m != null)
                     {
                         selectedPlugin.setMemento(m);
+                        this.gridPluginProperties.Content = selectedPlugin.propertyView;
+                        this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
                     }
                     else
-                    {
+                    { //memento can't be found
+
                         MessageBox.Show(msgText1);
 
                         //remove the broken entry
                         selectedPVM.parent.children.Remove(selectedPVM);
                     }
                 }
-                this.gridPluginProperties.Content = selectedPlugin.propertyView;
-            }
 
-            
-            
-            this.tbMementoName.Text = selectedPVM.name;
-            if (gridPluginProperties.Content == null
-                || (selectedPlugin is IMacro && selectedPVM != activeMacroPVM))
-            {
-                this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
 
-                if (gridPluginProperties.Content == null)
+                this.bttAddToMacro.Visibility = System.Windows.Visibility.Visible;
+
+                this.tbMementoName.Text = selectedPVM.name;
+                if (gridPluginProperties.Content == null
+                    || (selectedPlugin is IMacro && selectedPVM != activeMacroPVM))
                 {
-                    tbNoSettings.Visibility = System.Windows.Visibility.Visible;
+                    this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
+
+                    if (selectedPlugin.propertyView == null)
+                    {
+                        tbNoSettings.Visibility = System.Windows.Visibility.Visible;
+                    }
                 }
             }
+
+
+            
+            
         }
 
 
@@ -289,8 +289,14 @@ namespace Oqat.ViewModel
         {
             if (!memento.isMemento)
             {
-                //if a root element (a plugin itself) was selected, don't delete
-                //the changes in the proptertyView are only temporary anyway
+                //if a root element (a plugin itself) was selected there is nothing to be deleted
+                return;
+            }
+
+            if (memento.parent.children.Count <= 1)
+            {
+                //don't delete the last memento so there is always one to copy and create new mementos
+                MessageBox.Show("Das letzte Memento dieses Plugins kann nicht gelöscht werden.");
                 return;
             }
 
@@ -307,18 +313,10 @@ namespace Oqat.ViewModel
         /// <returns>Returns true if the memento was successfully saved.</returns>
         private bool mementoSave(PluginViewModel memento)
         {
-            //if plugin (no memento) itself is selected, copy it
+            //if plugin (no memento) itself is selected, change the
             if (!memento.isMemento)
             {
-                if (selectedPlugin.propertyView != null)
-                {
-                    return mementoCopy(memento);
-                }
-                else
-                {
-                    //if there are no settings in propertyView, don't copy the plugin as memento
-                    return true;
-                }
+                return false;
             }
 
 
@@ -349,7 +347,7 @@ namespace Oqat.ViewModel
             {
                 Memento m = new Memento(memento.name, null);
                 PluginManager.pluginManager.addMemento(memento.parent.name, m);
-
+                
                 memento.name = mem.name;
             }
 
@@ -365,6 +363,8 @@ namespace Oqat.ViewModel
         /// <param name="memento"></param>
         private void mementoAddToMacro(PluginViewModel memento)
         {
+            if (memento == null) return;
+
             if (mementoSave(memento))
             {
                 PluginManager.pluginManager.raiseEvent(EventType.macroEntryAdd,
@@ -652,5 +652,39 @@ namespace Oqat.ViewModel
 
      
 
+    }
+
+
+
+
+
+    
+
+    [ValueConversion(typeof(bool), typeof(Visibility))]
+    public class BoolToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (((bool)value))
+            {
+                return Visibility.Visible;
+            }
+            else
+            {
+                return Visibility.Collapsed;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (((Visibility)value) == Visibility.Visible)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

@@ -89,7 +89,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Name="tb5" Height="11" VerticalAlignment="Top">Titel:</TextBlock>
-                <TextBox Style="{StaticResource textBoxTransparent}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Text="{Binding title}"/>
+                <TextBox Name="tbTitel"  Style="{StaticResource textBoxTransparent}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Text="{Binding title}"/>
 
                 <TextBlock Name="tb6" Grid.Column="0" Grid.Row="1">Pfad:</TextBlock>
                 <TextBox  Style="{StaticResource textBoxTransparent}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Text="{Binding pathProject, Mode=TwoWay}" />

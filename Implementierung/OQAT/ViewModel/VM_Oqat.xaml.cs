@@ -266,6 +266,7 @@ namespace Oqat.ViewModel
 
         private void vm_Oqat_Closed(object sender, EventArgs e)
         {
+            this.vM_presentation.flush();
             Application.Current.Shutdown();
         }
 

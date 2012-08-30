@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,11 +34,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge, Version=2.2.4.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL" />
     <Reference Include="AForge.Controls, Version=2.2.4.0, Culture=neutral, PublicKeyToken=a8ac264d1dc6b9d9, processorArchitecture=MSIL" />
+    <Reference Include="AForge.Imaging, Version=2.2.4.0, Culture=neutral, PublicKeyToken=ba8ddea9676ca48b, processorArchitecture=MSIL" />
+    <Reference Include="AForge.Imaging.Formats, Version=2.2.4.0, Culture=neutral, PublicKeyToken=8065ed5a639199a0, processorArchitecture=MSIL" />
+    <Reference Include="AForge.Imaging.IPPrototyper, Version=1.0.1.1, Culture=neutral, PublicKeyToken=c6e9a6d4c86d47e7, processorArchitecture=MSIL" />
+    <Reference Include="AForge.Math, Version=2.2.4.0, Culture=neutral, PublicKeyToken=abba2e25397ee8c9, processorArchitecture=MSIL" />
     <Reference Include="AForge.Video, Version=2.2.4.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL" />
     <Reference Include="AvalonControlsLibrary, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack.Shell">
       <HintPath>..\..\lib\Windows API Code Pack 1.1\binaries\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
@@ -56,7 +78,9 @@
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
@@ -64,10 +88,32 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CaretakerTest.cs" />
+    <Compile Include="ConvolutionTest.cs" />
+    <Compile Include="GreyscaleTest.cs" />
+    <Compile Include="InvertTest.cs" />
+    <Compile Include="MSETest.cs" />
+    <Compile Include="NoiseGeneratorTest.cs" />
+    <Compile Include="PlayerTest.cs" />
+    <Compile Include="Projectopendialog3.cs" />
+    <Compile Include="Projectopendialog1.cs" />
+    <Compile Include="Projectopendialog2.cs" />
     <Compile Include="PluginManagerTest.cs" />
     <Compile Include="ProjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PSNRTest.cs" />
+    <Compile Include="RelativeColorTest.cs" />
+    <Compile Include="SmartNodeTest.cs" />
+    <Compile Include="UIMap.cs">
+      <DependentUpon>UIMap.uitest</DependentUpon>
+    </Compile>
+    <Compile Include="UIMap.Designer.cs">
+      <DependentUpon>UIMap.uitest</DependentUpon>
+    </Compile>
     <Compile Include="VideoTest.cs" />
+    <Compile Include="VideoInfoTest.cs" />
+    <Compile Include="VideoHandlerTest.cs" />
+    <Compile Include="VidImportDialogTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OqatPublicResources\OqatPublicResources.csproj">
@@ -78,6 +124,38 @@
       <Project>{B138D4F9-F3DB-45C3-B9B8-2FC79AEB425D}</Project>
       <Name>OQAT</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PF_Convolution\PF_Convolution.csproj">
+      <Project>{709E3390-F79E-4711-9E32-DB76D9232193}</Project>
+      <Name>PF_Convolution</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PF_Greyscale\PF_Greyscale.csproj">
+      <Project>{12606421-905F-4753-AC70-BD7228F1DC6B}</Project>
+      <Name>PF_Greyscale</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PF_Invert\PF_Invert.csproj">
+      <Project>{0F859789-F28E-40B5-AB32-5F2ED008457D}</Project>
+      <Name>PF_Invert</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PF_NoiseGenerator\PF_NoiseGenerator.csproj">
+      <Project>{F07CACB8-6CB1-4956-BA42-994154F7DD5C}</Project>
+      <Name>PF_NoiseGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PF_RelativeColor\PF_RelativeColor.csproj">
+      <Project>{AED4E5FE-2413-40DF-B874-246091A4DD04}</Project>
+      <Name>PF_RelativeColor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PM_MSE\PM_MSE.csproj">
+      <Project>{974A471B-AB6E-440A-9154-F8FCF4E7A38D}</Project>
+      <Name>PM_MSE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PM_PSNR\PM_PSNR.csproj">
+      <Project>{4A736CFE-5F5C-42A0-BFEC-B73932AFAFE5}</Project>
+      <Name>PM_PSNR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PP_Player\PP_Player.csproj">
+      <Project>{044C062C-9475-4B68-AF61-26B2F64A3CC5}</Project>
+      <Name>PP_Player</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WPF_ClosableTabItem\WPF_ClosableTabItem.csproj">
       <Project>{5F6709BE-B477-4C58-B4C0-1735443E6799}</Project>
       <Name>WPF_ClosableTabItem</Name>
@@ -87,9 +165,19 @@
       <Name>YuvVideoHandler</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Shadow Include="Testverweise\OQAT1.accessor" />
+  </ItemGroup>
   <ItemGroup>
     <Shadow Include="Testverweise\Oqat.accessor" />
+  </ItemGroup>
+  <ItemGroup>
+    <Shadow Include="Testverweise\PF_Convolution.accessor" />
+    <Shadow Include="Testverweise\PM_MSE.accessor" />
+    <Shadow Include="Testverweise\PP_Player.accessor" />
+    <Shadow Include="Testverweise\PF_RelativeColor.accessor" />
+    <Shadow Include="Testverweise\PF_NoiseGenerator.accessor" />
+    <None Include="UIMap.uitest" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -84,6 +84,10 @@ namespace PF_NoiseGenerator
                     t[0] = reader.Name;
                     reader.MoveToNextAttribute();
                     t2[0] = reader.Value;
+                    if (t2[0] == "")
+                    {
+                        throw new XmlException("datei nicht lang genug");
+                    }
                 
                 label1.Content = t2[0];
            }

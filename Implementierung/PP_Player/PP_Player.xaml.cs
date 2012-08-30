@@ -12,7 +12,6 @@ using System.Drawing;
 using System.ComponentModel;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-using System.Windows.Data;
 
 
 
@@ -24,10 +23,10 @@ namespace PP_Player
     [ExportMetadata("namePlugin", "PP_Player")]
     [ExportMetadata("type", PluginType.IPresentation)]
     [Export(typeof(IPlugin))]
-    public partial class PP_Player : System.Windows.Controls.UserControl, IPresentation, INotifyPropertyChanged
+    public partial class Player : System.Windows.Controls.UserControl, IPresentation, INotifyPropertyChanged
     {
 
-        public PP_Player()
+        public Player()
         {
             InitializeComponent();
 
@@ -540,13 +539,7 @@ namespace PP_Player
 
         private void jumpToFrame_Click(object sender, RoutedEventArgs e)
         {
-
-            //int jumpTo;
-            //Int32.TryParse(jumpToFrameTextBox.Text, out jumpTo);
-            //positionReader = jumpTo;
-            //OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));
             OnPropertyChanged(this, new PropertyChangedEventArgs(randomJumpPositionUpdate));
-            
         }
 
         /// <summary>
@@ -624,14 +617,6 @@ namespace PP_Player
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //private void positionSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        //{
-        //    if (!dragStarted)
-        //    {
-        //        OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));
-        //    }
-        //}
-
         //private bool dragStarted = false;
         private void positionSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
         {
@@ -671,10 +656,9 @@ namespace PP_Player
 
         public IPlugin createExtraPluginInstance()
         {
-            return new PP_Player();
+            return new Player();
         }
     }
-
     internal class intStringConverter: IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

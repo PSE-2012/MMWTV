@@ -7,11 +7,7 @@
 namespace PF_Invert
 {
     using AForge;
-
-
     using Oqat;
-
-
     using Oqat.PublicRessources.Model;
     using Oqat.PublicRessources.Plugin;
     using Oqat.PublicRessources;
@@ -41,31 +37,32 @@ namespace PF_Invert
         /// <summary>
         /// Generates the filtered Image.
         /// </summary>
-
         public Bitmap process(Bitmap frame)
         {
-            AForge.Imaging.Filters.Invert filter = new AForge.Imaging.Filters.Invert();
-            // apply the filter
-            Bitmap test = new Bitmap(frame.Width, frame.Height, PixelFormat.Format24bppRgb);
-
-
-            for (int i = 0; i < frame.Width; i++)
+            Bitmap test = null;
+            if (frame != null)
             {
-                for (int j = 0; j < frame.Height; j++)
+                AForge.Imaging.Filters.Invert filter = new AForge.Imaging.Filters.Invert();
+                // apply the filter
+                test = new Bitmap(frame.Width, frame.Height, PixelFormat.Format24bppRgb);
+
+
+                for (int i = 0; i < frame.Width; i++)
                 {
-                    test.SetPixel(i, j, frame.GetPixel(i, j));
+                    for (int j = 0; j < frame.Height; j++)
+                    {
+                        test.SetPixel(i, j, frame.GetPixel(i, j));
+                    }
+
+
                 }
+                /*  Graphics g = Graphics.FromImage(test);
+                  g.DrawImage(frame, 0, 0);
+                  g.Dispose();
 
-
+                  frame = test; */
+                filter.ApplyInPlace(test);
             }
-          /*  Graphics g = Graphics.FromImage(test);
-            g.DrawImage(frame, 0, 0);
-            g.Dispose();
-
-            frame = test; */
-
-            filter.ApplyInPlace(test);
-           
             return test;
         }
 
@@ -112,18 +109,15 @@ namespace PF_Invert
         /// <summary>
         /// Returns a Memento with the current state of the Object.
         /// </summary>
-
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
             Memento mem = new Memento(this.namePlugin, this);
-
             return mem;
         }
 
         /// <summary>
         /// Sets a Memento as the current state of the Object.
         /// </summary>
-
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
             

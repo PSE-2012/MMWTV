@@ -66,7 +66,8 @@ namespace Oqat.ViewModel.MacroPlugin
 
 
             propertyView = new Macro_PropertyView(this.macroEntry.macroEntries);
-            (propertyView as Macro_PropertyView).cancelProcessing.Click += onCancelButtonClick;
+            _propertyView.frameCount = this.macroEntry.frameCount;
+         //   (propertyView as Macro_PropertyView).cancelProcessing.Click += onCancelButtonClick;
             (propertyView as Macro_PropertyView).clearEntries.Click += onClearButtonClick;
 
           //  (propertyView as Macro_PropertyView).MacroEntryTreeView.DragEnter += new DragEventHandler(MacroEntryTreeView_DragEnter);
@@ -91,28 +92,22 @@ namespace Oqat.ViewModel.MacroPlugin
         private bool isDragging = false;
         private MacroEntry dragData;
         private MacroEntry_Control dragControl;
-        //private bool mouseWithinControl = fal;
-
-        //private void Macro_MouseEnter(object sender, MouseEventArgs e)
-        //{
-        //    mouseWithinControl = true;
-        //    DetachAdorner(drInsAdorner, propertiesViewAdornerLayer); 
-        //}
-        //private void Macro_MouseLeave(object sender, MouseEventArgs e)
-        //{
-        //    mouseWithinControl = false;
-        //   DetachAdorner(drInsAdorner, propertiesViewAdornerLayer);
-        //}
 
         TreeViewItem dragSourceTrItem;
         private void MacroEntryTreeView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
-            ItemsControl itemsControl = sender as ItemsControl;
-            if (sender != null)
+
+            TreeView trView = sender as TreeView;
+
+            AC.AvalonControlsLibrary.Controls.RangeSlider rSlider = 
+                getNearestFather<AC.AvalonControlsLibrary.Controls.RangeSlider>((DependencyObject)e.OriginalSource) 
+                as AC.AvalonControlsLibrary.Controls.RangeSlider;
+
+            if ((sender != null) && (rSlider == null))
             {
                 var treeViewItem =
                     getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource);
 
-                if (itemsControl == null || treeViewItem == null)
+                if (trView == null || treeViewItem == null)
                     return;
 
                 // opaque (source) draggedItem
@@ -123,8 +118,9 @@ namespace Oqat.ViewModel.MacroPlugin
                 {
                     isMouseDown = true;
                     dragSourceTrItem = treeViewItem;
-                    startPoint = e.GetPosition(itemsControl);
+                    startPoint = e.GetPosition(trView);
                 }
+                e.Handled = true;
             }
         }
 
@@ -175,8 +171,11 @@ namespace Oqat.ViewModel.MacroPlugin
         {
             isMouseDown = false;
             isDragging = false;
-            dragSourceTrItem.Opacity = 1;
-            dragSourceTrItem = null;
+            if (dragSourceTrItem != null)
+            {
+                dragSourceTrItem.Opacity = 1;
+                dragSourceTrItem = null;
+            }
          //   dragData = null;
           //  itemsControl.AllowDrop = true;
         }
@@ -772,17 +771,17 @@ namespace Oqat.ViewModel.MacroPlugin
             switch (viewType)
             {
                 case ViewType.FilterView:
-                    _propertyView.inactive = false;
+                    _propertyView.activeState = false;
                     _propertyView.filterMode = true;
                     flush();
                     break;
                 case ViewType.MetricView:
-                    _propertyView.inactive = false;
+                    _propertyView.activeState = false;
                     _propertyView.filterMode = false;
                     flush();
                     break;    
                 default:
-                    _propertyView.inactive = true;
+                    _propertyView.activeState = true;
                     break;
             }
         }
@@ -866,6 +865,7 @@ namespace Oqat.ViewModel.MacroPlugin
             (propertyView as Macro_PropertyView).filterMode = true;
 
             this.macroEntry.frameCount = handRef.readVidInfo.frameCount;
+            _propertyView.frameCount = this.macroEntry.frameCount;
           //  updateFrameCount(handRef.readVidInfo.frameCount);
 
             RemoveClickEvent((propertyView as Macro_PropertyView).startProcessing);
@@ -934,40 +934,13 @@ namespace Oqat.ViewModel.MacroPlugin
         }
 
 
-        //private void addMacroEntry(MacroEntry parent, MementoEventArgs e)
-        //{
-        //    MacroEntry entry = new MacroEntry(e.pluginKey,
-        //        PluginManager.pluginManager.getPlugin<IPlugin>(e.pluginKey).type, e.mementoName);
-
-        //    entry.frameCount = this.macroEntry.frameCount;
-           
-
-
-        //    if ((macroEntry.macroEntries.Count != 0) || (entry.type != PluginType.IMacro))
-        //    {
-        //        if (entry.type != PluginType.IMacro)
-        //        {
-        //            // new plugin will be set as active on 0-100 
-        //            entry.startFrameAbs = 0;
-        //            entry.endFrameAbs = 100;
-        //        }
-
-        //        addMacroEntry(entry, parent);
-                
-        //    }
-        //    else 
-        //    {
-        //        var tmpMem =  PluginManager.pluginManager.getMemento(entry.pluginName, entry.mementoName);
-        //        var newTLmacro = tmpMem.state as MacroEntry;
-
-        //        this.macroEntry.mementoName = newTLmacro.mementoName;
-        //        addMacroEntry(newTLmacro, null);
-        //    }
-        //}
-
+       
         private void onStartFilterProcessButtonClick(object sender, RoutedEventArgs e) {
             e.Handled = true;
-          //  disableControlWhileProcessing();
+
+            _propertyView.processingStateValue = 0;
+            _propertyView.processing = true;
+
             worker = new Thread(new ThreadStart(filterProcess));
             worker.Name = workerName + "filter";
             worker.Start();
@@ -1006,7 +979,13 @@ namespace Oqat.ViewModel.MacroPlugin
                 var tmpBmpArray = new Bitmap[1];
                 tmpBmpArray[0] = bmp;
                 handRef.writeFrames(handRef.positionReader, tmpBmpArray);
+
+                // update buisyIndicator
+                _propertyView.processingStateValue = handRef.positionReader;
             }
+
+            // turn off buisyIndicator
+            _propertyView.processing = false;
 
                 PluginManager.pluginManager.raiseEvent(
                     EventType.macroProcessingFinished,new VideoEventArgs(this.vidRes, this.idRes)) ;
@@ -1154,7 +1133,7 @@ namespace Oqat.ViewModel.MacroPlugin
                     if (n > 0)
                         counter = n.ToString();
 
-                    string tmpPath = path + "\\" + suffix + counter + ext;
+                    string tmpPath = path + suffix + counter + ext;
                     if (!File.Exists(tmpPath))
                     {
                         pathValid = true;

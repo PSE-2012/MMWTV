@@ -67,6 +67,10 @@ namespace Oqat.ViewModel
                     t[i] = reader.Name;
                     reader.MoveToNextAttribute();
                     t2[i] = reader.Value;
+                    if (t2[i] == "")
+                    {
+                        throw new XmlException("datei nicht lang genug");
+                    }
                 }
                 this.Title = t2[0];
                 btt_Import.Content = t2[1];

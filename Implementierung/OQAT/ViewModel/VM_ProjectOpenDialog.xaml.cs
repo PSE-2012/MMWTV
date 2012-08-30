@@ -37,6 +37,10 @@
                     t[i] = reader.Name;
                     reader.MoveToNextAttribute();
                     t2[i] = reader.Value;
+                    if (t2[i] == "")
+                    {
+                        throw new XmlException("datei nicht lang genug");
+                    }
                 }
                 bt1.Content = t2[1];
                 bt2.Content = t2[0];
@@ -74,10 +78,20 @@
         /// </summary>
         private void OnPropertyChanged(string propertyName)
         {
-           
+
 
             if (PropertyChanged != null)
+            {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                if (title == "")
+                {
+                    bt1.IsEnabled = false;
+                }
+                else
+                {
+                    bt1.IsEnabled = true;
+                }
+            }
         }
         private string _pathProject;
         public string pathProject {
@@ -122,7 +136,7 @@
             InitializeComponent();
             local("VM_ProjectOpenDialog_" + Thread.CurrentThread.CurrentCulture + ".xml");
             title = "myOqatPrj";
-            pathProject = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/" +title+ ".oqatPrj";
+            pathProject = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +"\\" +title+ ".oqatPrj";
             description = "";
             this.prjProperties.DataContext = this;
                 
@@ -141,13 +155,22 @@
             if (result == true)
             {
                 pathProject = dlg.FileName;
+                String[] tmp = pathProject.Split(new Char[] {'\\'});
+                String tmp2 = tmp[tmp.Length-1];
+                title = tmp2.Substring(0,tmp2.Length-8);
             }
         }
 
         private void buildProject_Click(object sender, RoutedEventArgs e)
         {
-            project = new Project(title, pathProject, description);
-            this.DialogResult = true;
+           
+            if(!pathProject.Contains(title)){
+                 pathProject = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +"\\" +title+ ".oqatPrj";
+            }
+
+                project = new Project(tbTitel.Text, pathProject, description);
+                this.DialogResult = true;
+            
         }
 
 
