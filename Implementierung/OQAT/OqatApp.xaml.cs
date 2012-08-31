@@ -19,12 +19,10 @@ namespace Oqat
             private set;
         }
 
-        internal static System.Windows.Threading.Dispatcher uiDispatcher;
         
         OqatApp()
         {
             errorConsole = new WindowErrorConsole();
-            uiDispatcher = Current.Dispatcher;
             initPluginManager();
         }
 
