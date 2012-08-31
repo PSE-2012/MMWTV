@@ -46,10 +46,13 @@ namespace Oqat.ViewModel.MacroPlugin
             get { return false; }
         }
 
-        private ViewType viewType;
+        
 
         [field:NonSerialized]
         private Macro_PropertyView _propertyView;
+
+
+        private ViewType viewType;
 
         public UserControl propertyView
         {
@@ -57,7 +60,7 @@ namespace Oqat.ViewModel.MacroPlugin
             {
                 return _propertyView;
             }
-            set
+            private set
             {
                 _propertyView = value as Macro_PropertyView;
             }
@@ -615,10 +618,12 @@ namespace Oqat.ViewModel.MacroPlugin
                         }
 
                     }
-                    else // no dropTarget -> move at topLeven (as last child)
+                    else // no dropTarget -> move at topLeven
                     {
-                        addMacroEntry(dropEntry, this.macroEntry);
-                      
+                        if((this.macroEntry.macroEntries.Count < 1) && (dropEntry.type == PluginType.IMacro))
+                            addMacroEntry(dropEntry, null);
+                        else
+                            addMacroEntry(dropEntry, this.macroEntry);
                     }
                 }
  
@@ -702,9 +707,11 @@ namespace Oqat.ViewModel.MacroPlugin
             //   e.Effects = DragDropEffects.None;
             //}
             #endregion
-
-            DetachAdorner(drInsAdorner, propertiesViewAdornerLayer);
-            DetachAdorner(highLightAdorner, propertiesViewAdornerLayer);
+            if (dropEntry != null)
+            {
+                DetachAdorner(drInsAdorner, propertiesViewAdornerLayer);
+                DetachAdorner(highLightAdorner, propertiesViewAdornerLayer);
+            }
             e.Handled = true;
             //  propertyView.Refresh();
         }
@@ -747,7 +754,8 @@ namespace Oqat.ViewModel.MacroPlugin
                     //macroEntry.startFrameAbs = child.startFrameAbs;
                     //macroEntry.endFrameAbs = child.endFrameAbs;
                     macroEntry.macroEntries.Clear();
-                    macroEntry.macroEntries.Concat(child.macroEntries);
+                    macroEntry.macroEntries = (macroEntry.macroEntries.Concat(child.macroEntries)) 
+                        as ObservableCollection<MacroEntry>;
                 }
                 else
                 {
@@ -759,6 +767,14 @@ namespace Oqat.ViewModel.MacroPlugin
                 }
             }
         }
+        //// couldnt come up with a better name,
+        //// the reason why we are not using 
+        //private void concatCollection<T>(Collection<T> first, Collection<T> second)
+        //{
+
+        //}
+        
+       
 
         private void moveMacroEntry(MacroEntry toMoveMacro, MacroEntry target, int index = -1)
         {
@@ -794,12 +810,25 @@ namespace Oqat.ViewModel.MacroPlugin
 
         public Memento getMemento()
         {
-            return new Memento(macroEntry.mementoName, macroEntry as IMacroEntry);
+            if (this.macroEntry.macroEntries.Count > 0)
+                return new Memento(macroEntry.mementoName, macroEntry as IMacroEntry);
+            else
+                return new Memento(macroEntry.mementoName, null);
         }
 
 
         public void setMemento(PublicRessources.Model.Memento memento)
         {
+            var newTLMacroEnry = memento.state as MacroEntry;
+
+            Debug.Assert(newTLMacroEnry != null);
+            Debug.Assert(newTLMacroEnry.mementoName.Equals(memento.name));
+            Debug.Assert(newTLMacroEnry.macroEntries.Count > 0);
+
+            flush();
+            addMacroEntry(newTLMacroEnry, null);
+        
+            
         }
 
         public virtual string namePlugin
@@ -813,11 +842,15 @@ namespace Oqat.ViewModel.MacroPlugin
             get { return PluginType.IMacro; }
         }
 
+        // this will not only return a readOnlyView but actually
+        // set the (only one view exists at a time) view to readOnly mode
         public UserControl readOnlyPropertiesView
         {
             get 
-            { 
-                return (propertyView as Macro_PropertyView).getReadOnlyVersion(); 
+            {
+                _propertyView.readOnly = true;
+
+                return this.propertyView; 
             }
         }
 
@@ -883,6 +916,8 @@ namespace Oqat.ViewModel.MacroPlugin
             //if ((handRef != null) && (handProc != null))
             //    (propertyView as Macro_PropertyView).startProcessing.Click += onStartMetricProcessButtonClick;
         }
+
+
 
         public void addMacroEntry(object sender, MementoEventArgs e)
         {

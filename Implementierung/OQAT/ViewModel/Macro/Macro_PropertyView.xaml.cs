@@ -171,10 +171,6 @@ namespace Oqat.ViewModel.MacroPlugin
             }
         }
 
-        internal UserControl getReadOnlyVersion()
-        {
-            throw new NotImplementedException();
-        }
 
         private void NotifyPropertyChanged(string property)
         {
