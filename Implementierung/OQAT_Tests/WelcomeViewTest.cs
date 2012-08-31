@@ -13,7 +13,7 @@ namespace OQAT_Tests
 {
     /// <summary>
     /// Class for testing the Welcome View.
-    /// Missing some very minor test cases, like double click selection.
+    /// Missing some minor cases, like double click selection or localisation.
     /// </summary>
     [TestClass]
     public class WelcomeViewTest
@@ -53,6 +53,9 @@ namespace OQAT_Tests
         public void addProjectTest()
         {
             VM_Welcome_Accessor welcome = new VM_Welcome_Accessor();
+            welcome.projects.Clear();
+            // something goes wrong when running all tests at once if you
+            // don't clear the list, not sure where the problem is
             int projectCount = welcome.projects.Count;
             welcome.newPrjCreate_Click(this, null);
             // create new project manually

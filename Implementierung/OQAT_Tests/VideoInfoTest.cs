@@ -33,6 +33,15 @@ namespace OQAT_Tests
             Assert.AreEqual(info1.height, info2.height);
             Assert.AreEqual(info1.yuvFormat, info2.yuvFormat);
             Assert.IsTrue(info1.Equals(info2));
+            try
+            {
+                YuvVideoInfo falseInfo = new YuvVideoInfo("D:\\bla_cif.yuv");
+                Assert.Fail("no exception thrown");
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         ///<summary>
@@ -56,8 +65,6 @@ namespace OQAT_Tests
         {
             YuvVideoInfo info = new YuvVideoInfo(path);
             Assert.AreEqual(framecount, info.frameCount);
-            YuvVideoInfo falseInfo = new YuvVideoInfo("D:\\bla_cif.yuv");
-            Assert.AreEqual(-1, falseInfo.frameCount);
         }
     }
 }

@@ -28,9 +28,9 @@
                 XmlTextReader reader = new XmlTextReader(sFilename);
                 reader.Read();
                 reader.Read();
-                String[] t = new String[7];
-                String[] t2 = new String[7];
-                for (int i = 0; i < 7; i++)
+                String[] t = new String[8];
+                String[] t2 = new String[8];
+                for (int i = 0; i < 8; i++)
                 {
                     reader.Read();
                     reader.Read();
@@ -49,7 +49,7 @@
                 btnBrowse.Content = t2[4];
                 tb6.Text = t2[5];
                 this.Title = t2[6];
-                
+                msgboxovverid = t2[7];
 
             }
             catch (IndexOutOfRangeException e) { }
@@ -161,21 +161,34 @@
             }
         }
 
+        string msgboxovverid ="Datei existiert. Überschreiben?";
+        string msgboxoverrid2 = "";
+        
+       
         private void buildProject_Click(object sender, RoutedEventArgs e)
         {
-           
+           MessageBoxResult writethrough =MessageBoxResult.Yes;
             if(!pathProject.Contains(title)){
                  pathProject = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +"\\" +title+ ".oqatPrj";
             }
+
 
             if (!pathProject.EndsWith(".oqatPrj"))
             {
                 pathProject = pathProject+".oqatPrj";
             }
 
+            if (File.Exists(pathProject))
+            {
+                writethrough = MessageBox.Show(msgboxovverid,
+            msgboxoverrid2, MessageBoxButton.YesNo);
+            }
+
+            if (writethrough == MessageBoxResult.Yes)
+            {
                 project = new Project(tbTitel.Text, pathProject, description);
                 this.DialogResult = true;
-            
+            }
         }
 
 
