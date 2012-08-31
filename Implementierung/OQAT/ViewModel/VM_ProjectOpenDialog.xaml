@@ -92,7 +92,7 @@
                 <TextBox Name="tbTitel"  Style="{StaticResource textBoxTransparent}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Text="{Binding title}"/>
 
                 <TextBlock Name="tb6" Grid.Column="0" Grid.Row="1">Pfad:</TextBlock>
-                <TextBox  Style="{StaticResource textBoxTransparent}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Text="{Binding pathProject, Mode=TwoWay}" />
+                <TextBox IsEnabled="False" IsReadOnly="True" Style="{StaticResource textBoxTransparent}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Text="{Binding pathProject, Mode=TwoWay}" />
                 <Button Name="btnBrowse" Grid.Column="4" Grid.Row="1" Click="ExplorerBrowser_Click">Browse</Button>
             </Grid>
         </GroupBox>
