@@ -924,7 +924,7 @@ namespace Oqat.ViewModel.MacroPlugin
             addMacroEntry(e, macroEntry);
         }
 
-        public void addMacroEntry(MementoEventArgs e, MacroEntry father, int index = -1)
+        private void addMacroEntry(MementoEventArgs e, MacroEntry father, int index = -1)
         {
             var entryToAdd = constructMacroFromMementoArg(e);
 
@@ -1012,7 +1012,7 @@ namespace Oqat.ViewModel.MacroPlugin
             else
             {
                 PluginManager.pluginManager.raiseEvent(
-                EventType.macroProcessingFinished, new VideoEventArgs(this.vidRes, this.idRes));
+                    EventType.macroProcessingFinished, new VideoEventArgs(this.vidRes, this.idRes));
             }
         }
 

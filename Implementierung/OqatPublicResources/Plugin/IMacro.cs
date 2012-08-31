@@ -5,7 +5,7 @@
 	using System.Linq;
 	using System.Text;
     using System.Windows.Controls;
-
+    using Oqat.PublicRessources.Model;
 
     /// <summary>
     /// Every macro has to implement this interface.
@@ -17,6 +17,11 @@
         {
             get;
         }
+
+        void addMacroEntry(object sender, MementoEventArgs e);
+
+        void setFilterContext(int idRef, IVideo vidRef);
+        void setMetricContext(IVideo vidRef, int idProc, IVideo vidProc);
 	}
 }
 
