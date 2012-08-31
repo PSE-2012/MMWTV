@@ -11,6 +11,7 @@ namespace Oqat.PublicRessources.Plugin
     /// Sample export:
     ///     [ExportMetadata("namePlugin", "FilterPlugin")]
     ///     [ExportMetadata("type", PluginType.Filter)]
+    ///     [ExportMetadata("threadSafe", false)]
     /// </summary>
         public interface IPluginMetadata
         {
@@ -28,5 +29,21 @@ namespace Oqat.PublicRessources.Plugin
             /// will ignore this plugin.
             /// </summary>
             PluginType type { get; }
+
+            /// <summary>
+            /// Indicates whether a given plugin is threadsafe and is set to "true" if it is. If it is set
+            /// to false, the pluginManager will enforce that no instance of a as not threadsafe marked plugin
+            /// is used by more than one thread.
+            /// </summary>
+            /// <remarks>
+            /// Note that <see cref="createPluginInstance"/> has to be implemented in order for this feateure to work properly.
+            /// If a plugin is not marked as threadsafe but "createPluginInstance" does not return a working copy
+            /// the corresponding plugin will be set on the blackList.
+            /// 
+            /// </remarks>
+            bool threadSafe
+            {
+                get;
+            }
         }
 }

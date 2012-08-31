@@ -22,6 +22,7 @@ namespace PP_Player
     /// </summary>
     [ExportMetadata("namePlugin", "PP_Player")]
     [ExportMetadata("type", PluginType.IPresentation)]
+     [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     public partial class Player : System.Windows.Controls.UserControl, IPresentation, INotifyPropertyChanged
     {
@@ -100,7 +101,7 @@ namespace PP_Player
                 Binding slReadPosBind = new Binding("positionReader");
                 slReadPosBind.Mode = System.Windows.Data.BindingMode.OneWay;
                 slReadPosBind.Converter = new intDoubleConverter();
-                positionSlider.SetBinding(System.Windows.Controls.Slider.ValueProperty, slReadPosBind);              
+                positionSlider.SetBinding(System.Windows.Controls.Slider.ValueProperty, slReadPosBind);
 
                 video.handler.PropertyChanged += OnPropertyChanged;
 
@@ -111,13 +112,14 @@ namespace PP_Player
                 // prepare playTickerThread + Sync
                 stopPlayTickerThread = false;
                 pausePlayTicker.Reset();
-            //    waitPlayTickerThreadStop.Set();
-                if(playTickerThread.ThreadState != System.Threading.ThreadState.Running)
+                //    waitPlayTickerThreadStop.Set();
+                if (playTickerThread.ThreadState != System.Threading.ThreadState.Running)
                     playTickerThread.Start();
             }
         }
 
-        public void flush() {
+        public void flush()
+        {
             stopPlayTickerThread = true;
             pausePlayTicker.Set();      // allow to go one if blocked so playTicker can stop
             Thread.Sleep(playTickerTimeout);
@@ -150,7 +152,7 @@ namespace PP_Player
             this.i.Source = null;
         }
 
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -183,13 +185,13 @@ namespace PP_Player
                 Thread.Sleep(playTickerTimeout);
                 getFrame();
                 fpsTimer.Stop();
-                fpsIndicatorValue = 1000 / (int)((fpsTimer.ElapsedMilliseconds > 0)?fpsTimer.ElapsedMilliseconds:1);
+                fpsIndicatorValue = 1000 / (int)((fpsTimer.ElapsedMilliseconds > 0) ? fpsTimer.ElapsedMilliseconds : 1);
                 fpsTimer.Reset();
             }
-        //    waitPlayTickerThreadStop.Set();
+            //    waitPlayTickerThreadStop.Set();
         }
 
-        private  ManualResetEvent pausePlayTicker
+        private ManualResetEvent pausePlayTicker
         {
             get
             {
@@ -234,8 +236,8 @@ namespace PP_Player
         IVideo video;
         WriteableBitmap writeableBitmap;
         bool stopPlayTickerThread = false;
-     //   ManualResetEvent _waitPlayTickerThreadStop;
-        int _playTickerTimeout = 1000/25;
+        //   ManualResetEvent _waitPlayTickerThreadStop;
+        int _playTickerTimeout = 1000 / 25;
         int playTickerTimeout
         {
             get
@@ -244,7 +246,7 @@ namespace PP_Player
             }
             set
             {
-                _playTickerTimeout = (value < 0) ? 10 : ((value > 800)?Timeout.Infinite:value);
+                _playTickerTimeout = (value < 0) ? 10 : ((value > 800) ? Timeout.Infinite : value);
                 //refresh fpsIndicator
                 fpsUpdateBlocker = 0;
             }
@@ -252,7 +254,7 @@ namespace PP_Player
         ManualResetEvent _pausePlayTicker;
         Bitmap bmpHand;
         BitmapData bmpData;
-     //   private object getFrameLock;
+        //   private object getFrameLock;
         private object setVideoContextLock;
         private int _positionReader;
 
@@ -268,7 +270,7 @@ namespace PP_Player
             {
                 if (fpsUpdateBlocker-- < 0)
                 {
-                    fpsUpdateBlocker = _fpsIndicatorValue/2;
+                    fpsUpdateBlocker = _fpsIndicatorValue / 2;
                     _fpsIndicatorValue = value;
                     OnPropertyChanged(this, new PropertyChangedEventArgs(fpsIndProName));
                 }
@@ -293,7 +295,7 @@ namespace PP_Player
                     _positionReader = value;
                     OnPropertyChanged(null, new PropertyChangedEventArgs(posReadProName));
                 }
-                
+
             }
         }
 
@@ -319,7 +321,7 @@ namespace PP_Player
                 stopPlayTickerThread = true;
                 return;
             }
-           
+
             /// it is not possible (ok, I dont know how to do it ;-)
             /// to come along without this.
             /// The problem occurs if for some reason
@@ -361,14 +363,18 @@ namespace PP_Player
                 CopyMemory(writeableBitmap.BackBuffer,
                         bmpData.Scan0,
                         (System.Int32)writeableBitmap.Height * writeableBitmap.BackBufferStride);
-            } catch (AccessViolationException) {
+            }
+            catch (AccessViolationException)
+            {
                 // cant handle it, see comment within getFrame method
-            } finally {
+            }
+            finally
+            {
 
-            // Specify the area of the bitmap that changed.
-            writeableBitmap.AddDirtyRect(new Int32Rect(0, 0, bmpData.Width, bmpData.Height));
-            // Release the back buffer and make it available for display.
-            writeableBitmap.Unlock();
+                // Specify the area of the bitmap that changed.
+                writeableBitmap.AddDirtyRect(new Int32Rect(0, 0, bmpData.Width, bmpData.Height));
+                // Release the back buffer and make it available for display.
+                writeableBitmap.Unlock();
             }
         }
 
@@ -376,8 +382,8 @@ namespace PP_Player
         [DllImport("Kernel32.dll", EntryPoint = "RtlMoveMemory")]
         public static extern void CopyMemory(IntPtr Destination, IntPtr Source, System.Int32 Length);
 
-   
-            #region obsolete
+
+        #region obsolete
         //public void flush()
         //{
 
@@ -411,55 +417,55 @@ namespace PP_Player
         //        }
         //    }
 
-            //if(playTickerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin) {
-            //     playTickerThread.Join(playTickerTimeout);
-            //     if (playTickerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
-            //     {
-            //         try
-            //         {
-            //             playTickerThread.Abort();
-            //         }
-            //         catch (ThreadStateException)
-            //         {
-            //             // cant handle this one, let hope all resources were cleaned up..
-            //         }
-            //     }
-            //} else if (playTickerThread.ThreadState == System.Threading.ThreadState.Running)
-            //{
-            //    // allow  to go on if blocked
-            //    pausePlayTicker.Set();
-            //}
-            //if ((playTickerThread.ThreadState == System.Threading.ThreadState.Running)
-            //    || (playTickerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin))
-            //{
-            //    // let know to terminate himself
-                
-            //    waitPlayTickerThreadStop.Reset();
-            //    // allow to go on if blocked
-            //    pausePlayTicker.Set();
-            //    waitPlayTickerThreadStop.WaitOne(playTickerTimeout);
-            //    #region obsolete
-            //    //try
-            //    //{
-            //    //    playTickerThread.Join(1000);
-            //    //    if (playTickerThread.ThreadState == System.Threading.ThreadState.Running)
-            //    //    {
-            //    //        playTickerThread.Abort();
-            //    //    }
-            //    //}
-            //    //catch (ThreadStateException)
-            //    //{
-            //    //    //should never come to this..
-            //    //}
-            //    //finally
-            //    //{
-            //    #endregion
-                
-            //    pausePlayTicker.Reset();
-            //    playTickerThread = null;
-            //    //}
+        //if(playTickerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin) {
+        //     playTickerThread.Join(playTickerTimeout);
+        //     if (playTickerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+        //     {
+        //         try
+        //         {
+        //             playTickerThread.Abort();
+        //         }
+        //         catch (ThreadStateException)
+        //         {
+        //             // cant handle this one, let hope all resources were cleaned up..
+        //         }
+        //     }
+        //} else if (playTickerThread.ThreadState == System.Threading.ThreadState.Running)
+        //{
+        //    // allow  to go on if blocked
+        //    pausePlayTicker.Set();
+        //}
+        //if ((playTickerThread.ThreadState == System.Threading.ThreadState.Running)
+        //    || (playTickerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin))
+        //{
+        //    // let know to terminate himself
 
-            //}
+        //    waitPlayTickerThreadStop.Reset();
+        //    // allow to go on if blocked
+        //    pausePlayTicker.Set();
+        //    waitPlayTickerThreadStop.WaitOne(playTickerTimeout);
+        //    #region obsolete
+        //    //try
+        //    //{
+        //    //    playTickerThread.Join(1000);
+        //    //    if (playTickerThread.ThreadState == System.Threading.ThreadState.Running)
+        //    //    {
+        //    //        playTickerThread.Abort();
+        //    //    }
+        //    //}
+        //    //catch (ThreadStateException)
+        //    //{
+        //    //    //should never come to this..
+        //    //}
+        //    //finally
+        //    //{
+        //    #endregion
+
+        //    pausePlayTicker.Reset();
+        //    playTickerThread = null;
+        //    //}
+
+        //}
 
         //    playTickerThread = null;
         //    stopPlayTickerThread = false;
@@ -467,15 +473,16 @@ namespace PP_Player
         //    this.i.Source = null;
         //    this.video = null;
         //}
-            #endregion
+        #endregion
 
 
 
         public System.Windows.Controls.UserControl propertyView
         {
-            get { 
-                return this; 
-                }
+            get
+            {
+                return this;
+            }
         }
 
         public Oqat.PublicRessources.Model.Memento getMemento()
@@ -485,7 +492,7 @@ namespace PP_Player
 
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
-            
+
         }
 
         public string namePlugin
@@ -507,15 +514,15 @@ namespace PP_Player
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            pausePlayTicker.Set(); 
+            pausePlayTicker.Set();
             playButton.Visibility = System.Windows.Visibility.Collapsed;
             pauseButton.Visibility = System.Windows.Visibility.Visible;
-            
+
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-            setVideo(this.video,0);
+            setVideo(this.video, 0);
         }
 
         private void previousFrame_Click(object sender, RoutedEventArgs e)
@@ -552,56 +559,59 @@ namespace PP_Player
             {
                 if (PropertyChanged != null)
                     PropertyChanged(this, e);
-            } else
+            }
+            else
 
-            if (Monitor.TryEnter(setVideoContextLock))
-            {
-                bool wasPlaying = false;
-                if (pauseButton.IsVisible)
+                if (Monitor.TryEnter(setVideoContextLock))
                 {
-                    Pause_Click(null, null);
-                    wasPlaying = true;
-                }
-
-                if (e.PropertyName.Equals(randomJumpPositionUpdate)) // rjpu: randomJumpePositionUpdate
-                {
-                    
-
-                   
-
-                    if ((Math.Abs((int)positionSlider.Value - _positionReader)) < 1)
+                    bool wasPlaying = false;
+                    if (pauseButton.IsVisible)
                     {
-                        int jumpTo;
-                        Int32.TryParse(jumpToFrameTextBox.Text, out jumpTo);
-                        jumpTo -= 2;
-                        if ((Math.Abs(jumpTo - _positionReader) > 0))
-                        {
-                            wasPlaying = false;
-                            setVideo(this.video, jumpTo);
-                        }
-
-                    } else  {
-                        setVideo(this.video, (int)positionSlider.Value);
-
+                        Pause_Click(null, null);
+                        wasPlaying = true;
                     }
 
-                    if (wasPlaying)
-                        Play_Click(null, null);
+                    if (e.PropertyName.Equals(randomJumpPositionUpdate)) // rjpu: randomJumpePositionUpdate
+                    {
 
+
+
+
+                        if ((Math.Abs((int)positionSlider.Value - _positionReader)) < 1)
+                        {
+                            int jumpTo;
+                            Int32.TryParse(jumpToFrameTextBox.Text, out jumpTo);
+                            jumpTo -= 2;
+                            if ((Math.Abs(jumpTo - _positionReader) > 0))
+                            {
+                                wasPlaying = false;
+                                setVideo(this.video, jumpTo);
+                            }
+
+                        }
+                        else
+                        {
+                            setVideo(this.video, (int)positionSlider.Value);
+
+                        }
+
+                        if (wasPlaying)
+                            Play_Click(null, null);
+
+                    }
+                    else if (e.PropertyName.Equals(nextFramePositionUpdate))// nextFrame jump 
+                    {
+                        if ((playTickerThread.ThreadState == System.Threading.ThreadState.Running)
+                            || pauseButton.IsVisible)
+                            Pause_Click(this, null);
+
+                        // controlled racecondition xD
+                        pausePlayTicker.Set();
+                        Thread.Sleep(5);
+                        pausePlayTicker.Reset();
+
+                    }
                 }
-                else if (e.PropertyName.Equals(nextFramePositionUpdate))// nextFrame jump 
-                {
-                    if ((playTickerThread.ThreadState == System.Threading.ThreadState.Running)
-                        || pauseButton.IsVisible)
-                        Pause_Click(this, null);
-
-                    // controlled racecondition xD
-                    pausePlayTicker.Set();
-                    Thread.Sleep(5);
-                    pausePlayTicker.Reset();
-
-                }
-            }
             if (sender is IVideoHandler &&
                     e.PropertyName.Equals(posReadProName) &&
                     (PropertyChanged != null))
@@ -620,7 +630,7 @@ namespace PP_Player
         //private bool dragStarted = false;
         private void positionSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
         {
-            if(pauseButton.IsVisible)
+            if (pauseButton.IsVisible)
                 Pause_Click(this, new RoutedEventArgs());
         }
 
@@ -646,7 +656,7 @@ namespace PP_Player
         private void slowDownButton_Click(object sender, RoutedEventArgs e)
         {
             playTickerTimeout += 10;
-            
+
         }
 
         private void speedUpButton_Click(object sender, RoutedEventArgs e)
@@ -658,8 +668,14 @@ namespace PP_Player
         {
             return new Player();
         }
+
+
+       public bool threadSafe
+        {
+            get { return false; }
+        }
     }
-    internal class intStringConverter: IValueConverter
+    internal class intStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

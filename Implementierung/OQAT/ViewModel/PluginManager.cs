@@ -9,6 +9,7 @@ using System.ComponentModel.Composition.Hosting;
 
 using Oqat.PublicRessources.Model;
 using Oqat.PublicRessources.Plugin;
+using System.Diagnostics;
 
 
 namespace Oqat.ViewModel
@@ -359,7 +360,23 @@ namespace Oqat.ViewModel
                     && !blackList.ContainsKey(i.Metadata.namePlugin))
                 {
                     if (i.Value is T)
-                        return (T)i.Value;
+                    {
+                        if (i.Metadata.threadSafe)
+                        {
+                            return (T)i.Value;
+                        }
+                        else
+                        {
+                            var copy = i.Value.createExtraPluginInstance();
+
+                            Debug.Assert(copy != i.Value, i.Metadata.namePlugin + 
+                                " hasnt implemented the IPlugin member \"createExtraPluginInstance\" " + 
+                                "correctly, this member returns the same plugin " + 
+                                "despite the fact that it is marked as not thredSafe");
+
+                            return (T)copy;
+                        }
+                    }
                 }
             }
             return default(T);

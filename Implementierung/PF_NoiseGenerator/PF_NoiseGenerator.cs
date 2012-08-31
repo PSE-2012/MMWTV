@@ -29,6 +29,7 @@ namespace PF_NoiseGenerator
 
     [ExportMetadata("namePlugin", "PF_NoiseGenerator")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
+    [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     [Serializable()]
     public class NoiseGenerator : IFilterOqat, INotifyPropertyChanged
@@ -39,14 +40,10 @@ namespace PF_NoiseGenerator
         private PluginType _type = PluginType.IFilterOqat;
         VM_NoiseGenerator propertiesView;
 
-        /// <summary>
-        /// constructor
-        /// </summary>
-
-        public NoiseGenerator()
+        public bool threadSafe
         {
+            get { return false; }
         }
-
         /// <summary>
         /// Generates the filtered Image.
         /// </summary>
