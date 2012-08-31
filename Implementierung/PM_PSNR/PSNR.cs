@@ -15,13 +15,13 @@ namespace PM_PSNR
 
     [ExportMetadata("namePlugin", "PM_PSNR")]
     [ExportMetadata("type", PluginType.IMetricOqat)]
+    [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     [Serializable()]
 	public class PSNR :  IMetricOqat
 	{
         private string _namePlugin = "PM_PSNR";
         private PluginType _type = PluginType.IMetricOqat;
-
 
         /// <summary>
         /// Method to generate the analysis data.
@@ -130,6 +130,13 @@ namespace PM_PSNR
         {
             return new PSNR();
         }
+
+        public bool threadSafe
+        {
+            get { return false; }
+        }
+
+        public PSNR() { }
     }
 }
 

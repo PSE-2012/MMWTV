@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Threading;
 using Oqat.PublicRessources.Model;
-using Oqat.Model;
 using Oqat.PublicRessources.Plugin;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -145,9 +140,10 @@ namespace Oqat.ViewModel
         private void loadPluginLists()
         {
             _pluginList = new ObservableCollection<PluginViewModel>();
-
+            var plList = PluginManager.pluginManager.getPluginNames(pluginType);
+            plList =  plList.Concat(PluginManager.pluginManager.getPluginNames(PluginType.IMacro)).ToList();
             
-            foreach (string name in PluginManager.pluginManager.getPluginNames(pluginType))
+            foreach (string name in plList)
             {
                 PluginViewModel pl = new PluginViewModel(name);
 
@@ -593,7 +589,7 @@ namespace Oqat.ViewModel
             }
         }
 
-        bool _expanded;
+        bool _expanded = true;
         public bool expanded
         {
             get

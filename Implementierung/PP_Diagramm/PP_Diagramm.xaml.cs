@@ -26,12 +26,19 @@ namespace PP_Diagramm
     /// 
     [ExportMetadata("namePlugin", "PP_Diagram")]
     [ExportMetadata("type", PluginType.IPresentation)]
+    [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     public partial class Diagramm : UserControl ,IPresentation   
     {
         public Diagramm(){
             InitializeComponent();
         }
+
+        public bool threadSafe
+        {
+            get { return false; }
+        }
+
         #region getter/setter
 
         private PlotModel MyPlotModel

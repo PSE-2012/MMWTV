@@ -1,23 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Xceed.Wpf.Toolkit;
 
-using Oqat.PublicRessources.Plugin;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Threading;
-using System.Windows.Threading;
 namespace Oqat.ViewModel.MacroPlugin
 {
     /// <summary>
@@ -36,20 +22,20 @@ namespace Oqat.ViewModel.MacroPlugin
             self.DataContext = this;
         }
 
-        private int _frameCount;
-        public int frameCount
-        {
-            get{
-                return _frameCount;
-               }
+       // private int _frameCount;
+        //public int frameCount
+        //{
+        //    get{
+        //        return _frameCount;
+        //       }
 
-            set
-            {
-                _frameCount = value;
-                NotifyPropertyChanged("frameCount");
-            }
+        //    set
+        //    {
+        //        _frameCount = value;
+        //        NotifyPropertyChanged("frameCount");
+        //    }
         
-        }
+        //}
 
 
         private bool _activeState;
@@ -115,10 +101,27 @@ namespace Oqat.ViewModel.MacroPlugin
                 {
                     _processing = value;
                     NotifyPropertyChanged("processing");
+                    NotifyPropertyChanged("processingStateMessage");
                 }
             }
         }
 
+        private string _processingStateMessage;
+        public string processingStateMessage
+        {
+           
+            get
+            {
+                return _processingStateMessage;
+            }
+            set
+            {
+                _processingStateMessage = value;
+                NotifyPropertyChanged("processingStateMessage");
+            }
+        }
+
+        
         private double _processingStateValue;
         public double processingStateValue
         {
@@ -168,22 +171,11 @@ namespace Oqat.ViewModel.MacroPlugin
             }
         }
 
-        internal UserControl getReadOnlyVersion()
-        {
-            throw new NotImplementedException();
-        }
 
         private void NotifyPropertyChanged(string property)
         {
             if (PropertyChanged != null)
-            {
-                if (OqatApp.uiDispatcher.CheckAccess())
-
                     PropertyChanged(this, new PropertyChangedEventArgs(property));
-
-                else
-                    OqatApp.uiDispatcher.BeginInvoke(new Action<string>(NotifyPropertyChanged), property);
-            }
         }
 
 
@@ -191,53 +183,55 @@ namespace Oqat.ViewModel.MacroPlugin
       
     }
 
-
+#region obsolete
     #region unusedTreeViewHack
 
-    class StretchingTreeView : TreeView
-    {
-        protected override DependencyObject GetContainerForItemOverride()
-        {
-            return new StretchingTreeViewItem();
-        }
+    //class StretchingTreeView : TreeView
+    //{
+    //    protected override DependencyObject GetContainerForItemOverride()
+    //    {
+    //        return new StretchingTreeViewItem();
+    //    }
 
-        protected override bool IsItemItsOwnContainerOverride(object item)
-        {
-            return item is StretchingTreeViewItem;
-        }
-    }
+    //    protected override bool IsItemItsOwnContainerOverride(object item)
+    //    {
+    //        return item is StretchingTreeViewItem;
+    //    }
+    //}
 
-    class StretchingTreeViewItem : TreeViewItem
-    {
-        public StretchingTreeViewItem()
-        {
-            this.Loaded += new RoutedEventHandler(StretchingTreeViewItem_Loaded);
-        }
+    //class StretchingTreeViewItem : TreeViewItem
+    //{
+    //    public StretchingTreeViewItem()
+    //    {
+    //        this.Loaded += new RoutedEventHandler(StretchingTreeViewItem_Loaded);
+    //    }
 
-        private void StretchingTreeViewItem_Loaded(object sender, RoutedEventArgs e)
-        {
-            // The purpose of this code is to stretch the Header Content all the way accross the TreeView. 
-            if (this.VisualChildrenCount > 0)
-            {
-                Grid grid = this.GetVisualChild(0) as Grid;
-                if (grid != null && grid.ColumnDefinitions.Count == 3)
-                {
-                    // Remove the middle column which is set to Auto and let it get replaced with the 
-                    // last column that is set to Star.
-                    grid.ColumnDefinitions.RemoveAt(1);
-                }
-            }
-        }
+    //    private void StretchingTreeViewItem_Loaded(object sender, RoutedEventArgs e)
+    //    {
+    //        // The purpose of this code is to stretch the Header Content all the way accross the TreeView. 
+    //        if (this.VisualChildrenCount > 0)
+    //        {
+    //            Grid grid = this.GetVisualChild(0) as Grid;
+    //            if (grid != null && grid.ColumnDefinitions.Count == 3)
+    //            {
+    //                // Remove the middle column which is set to Auto and let it get replaced with the 
+    //                // last column that is set to Star.
+    //                grid.ColumnDefinitions.RemoveAt(1);
+    //            }
+    //        }
+    //    }
 
-        protected override DependencyObject GetContainerForItemOverride()
-        {
-            return new StretchingTreeViewItem();
-        }
+    //    protected override DependencyObject GetContainerForItemOverride()
+    //    {
+    //        return new StretchingTreeViewItem();
+    //    }
 
-        protected override bool IsItemItsOwnContainerOverride(object item)
-        {
-            return item is StretchingTreeViewItem;
-        }
-    }
+    //    protected override bool IsItemItsOwnContainerOverride(object item)
+    //    {
+    //        return item is StretchingTreeViewItem;
+    //    }
+    //}
     #endregion
+#endregion
+
 }

@@ -2,11 +2,9 @@
 //------------------------------------------------------------------------------
 namespace PM_MSE
 {
-	using Oqat.PublicRessources.Plugin;
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
+    using Oqat.PublicRessources.Plugin;
+    using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.ComponentModel.Composition;
     using Oqat.PublicRessources.Model;
@@ -14,10 +12,11 @@ namespace PM_MSE
     using System.Threading;
     [ExportMetadata("namePlugin", "PM_MSE")]
     [ExportMetadata("type", PluginType.IMetricOqat)]
+    [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     [Serializable()]
-	public class MSE : IMetricOqat
-	{
+    public class MSE : IMetricOqat
+    {
         private string _namePlugin = "PM_MSE";
         private PluginType _type = PluginType.IMetricOqat;
         public double sum;
@@ -105,7 +104,7 @@ namespace PM_MSE
         {
             get
             {
-               return _namePlugin;
+                return _namePlugin;
             }
             set
             {
@@ -121,7 +120,7 @@ namespace PM_MSE
             }
             set
             {
-                this._type=value;
+                this._type = value;
             }
         }
 
@@ -182,6 +181,10 @@ namespace PM_MSE
         public IPlugin createExtraPluginInstance()
         {
             return new MSE();
+        }
+        public bool threadSafe
+        {
+            get { return false; }
         }
     }
 }

@@ -26,10 +26,15 @@ namespace PF_Invert
 
     [ExportMetadata("namePlugin", "PF_Invert")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
+     [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     [Serializable()]
 	public class Invert : IFilterOqat
 	{
+        public bool threadSafe
+        {
+            get { return false; }
+        }
 
         private string _namePlugin = "PF_Invert";
         private PluginType _type = PluginType.IFilterOqat;

@@ -21,6 +21,7 @@ using System.Collections.Generic;
 
     [ExportMetadata("namePlugin", "yuvVideoHandler")]
     [ExportMetadata("type", PluginType.IVideoHandler)]
+    [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     public class YuvVideoHandler : IVideoHandler
     {
@@ -41,6 +42,11 @@ using System.Collections.Generic;
         public string namePlugin
         {
             get { return "yuvVideoHandler"; }
+        }
+
+        public bool threadSafe
+        {
+            get { return false; }
         }
 
         /// <summary>

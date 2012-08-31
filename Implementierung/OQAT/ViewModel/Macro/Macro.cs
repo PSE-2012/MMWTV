@@ -22,25 +22,37 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Documents;
+using System.Diagnostics;
 
 namespace Oqat.ViewModel.MacroPlugin
 {
     [ExportMetadata("namePlugin", "Macro")]
     [ExportMetadata("type", PluginType.IMacro)]
+    [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
 
     class Macro : IMacro
     {
 
-        // the root macroEntry
-        public MacroEntry macroEntry
-        { get; private set; }
+        /// <summary>
+        /// This is the TopLevel macro. All processing
+        /// is happening inside this macro, 
+        /// </summary>
+        private MacroEntry macroEntry
+        { get; set; }
 
+        public bool threadSafe
+        {
+            get { return false; }
+        }
 
-        private ViewType viewType;
+        
 
         [field:NonSerialized]
         private Macro_PropertyView _propertyView;
+
+
+        private ViewType viewType;
 
         public UserControl propertyView
         {
@@ -48,7 +60,7 @@ namespace Oqat.ViewModel.MacroPlugin
             {
                 return _propertyView;
             }
-            set
+            private set
             {
                 _propertyView = value as Macro_PropertyView;
             }
@@ -61,26 +73,25 @@ namespace Oqat.ViewModel.MacroPlugin
             this.macroEntry.startFrameAbs = 0;
             this.macroEntry.endFrameAbs = 100;
 
-
-            seqMacroEntryList = new List<MacroEntry>();
+ 
+          // seqMacroEntryList = new List<MacroEntry>();
 
 
             propertyView = new Macro_PropertyView(this.macroEntry.macroEntries);
-            _propertyView.frameCount = this.macroEntry.frameCount;
          //   (propertyView as Macro_PropertyView).cancelProcessing.Click += onCancelButtonClick;
             (propertyView as Macro_PropertyView).clearEntries.Click += onClearButtonClick;
 
-          //  (propertyView as Macro_PropertyView).MacroEntryTreeView.DragEnter += new DragEventHandler(MacroEntryTreeView_DragEnter);
-            (propertyView as Macro_PropertyView).MacroEntryTreeView.PreviewDragEnter += new DragEventHandler(MacroEntryTreeView_PreviewDragEnter);
-            (propertyView as Macro_PropertyView).MacroEntryTreeView.DragLeave += new DragEventHandler(MacroEntryTreeView_DragLeave);
-            (propertyView as Macro_PropertyView).MacroEntryTreeView.PreviewDrop +=new DragEventHandler(MacroEntryTreeView_PreviewDrop);
-            (propertyView as Macro_PropertyView).MacroEntryTreeView.PreviewMouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(MacroEntryTreeView_PreviewMouseLeftButtonDown);
-            (propertyView as Macro_PropertyView).MacroEntryTreeView.PreviewMouseMove += new System.Windows.Input.MouseEventHandler(MacroEntryTreeView_PreviewMouseMove);
-            (propertyView as Macro_PropertyView).MacroEntryTreeView.KeyDown +=new KeyEventHandler(MacroEntryTreeView_KeyDown);
-            (propertyView as Macro_PropertyView).MacroEntryTreeView.PreviewMouseLeftButtonUp +=new MouseButtonEventHandler(MacroEntryTreeView_PreviewMouseLeftButtonUp);
-            (propertyView as Macro_PropertyView).MacroEntryTreeView.PreviewDragOver += new DragEventHandler(MacroEntryTreeView_PreviewDragOver);
-            //(propertyView as Macro_PropertyView).MouseLeave +=new MouseEventHandler(Macro_MouseLeave);
-            //(propertyView as Macro_PropertyView).MouseEnter +=new MouseEventHandler(Macro_MouseEnter);
+
+            _propertyView.MacroEntryTreeView.PreviewDragEnter += new DragEventHandler(MacroEntryTreeView_PreviewDragEnter);
+            _propertyView.MacroEntryTreeView.DragLeave += new DragEventHandler(MacroEntryTreeView_DragLeave);
+            _propertyView.MacroEntryTreeView.PreviewDrop += new DragEventHandler(MacroEntryTreeView_PreviewDrop);
+            _propertyView.MacroEntryTreeView.PreviewMouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(MacroEntryTreeView_PreviewMouseLeftButtonDown);
+            _propertyView.MacroEntryTreeView.PreviewMouseMove += new System.Windows.Input.MouseEventHandler(MacroEntryTreeView_PreviewMouseMove);
+            _propertyView.MacroEntryTreeView.KeyDown += new KeyEventHandler(MacroEntryTreeView_KeyDown);
+            _propertyView.MacroEntryTreeView.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(MacroEntryTreeView_PreviewMouseLeftButtonUp);
+            _propertyView.MacroEntryTreeView.PreviewDragOver += new DragEventHandler(MacroEntryTreeView_PreviewDragOver);
+            _propertyView.startProcessing.Click += onStartProcessButtonClick;
+
             PluginManager.macroEntryAdd += this.addMacroEntry;
             PluginManager.OqatToggleView += onToggleView;
 
@@ -607,10 +618,12 @@ namespace Oqat.ViewModel.MacroPlugin
                         }
 
                     }
-                    else // no dropTarget -> move at topLeven (as last child)
+                    else // no dropTarget -> move at topLeven
                     {
-                        addMacroEntry(dropEntry, this.macroEntry);
-                      
+                        if((this.macroEntry.macroEntries.Count < 1) && (dropEntry.type == PluginType.IMacro))
+                            addMacroEntry(dropEntry, null);
+                        else
+                            addMacroEntry(dropEntry, this.macroEntry);
                     }
                 }
  
@@ -694,15 +707,18 @@ namespace Oqat.ViewModel.MacroPlugin
             //   e.Effects = DragDropEffects.None;
             //}
             #endregion
-
-            DetachAdorner(drInsAdorner, propertiesViewAdornerLayer);
-            DetachAdorner(highLightAdorner, propertiesViewAdornerLayer);
+            if (dropEntry != null)
+            {
+                DetachAdorner(drInsAdorner, propertiesViewAdornerLayer);
+                DetachAdorner(highLightAdorner, propertiesViewAdornerLayer);
+            }
             e.Handled = true;
             //  propertyView.Refresh();
         }
 
         private void removeMacroEntry(MacroEntry entry)
         {
+           
             lock (this.macroEntry)
             {
                 if (macroEntry.macroEntries.Contains(entry))
@@ -712,6 +728,8 @@ namespace Oqat.ViewModel.MacroPlugin
                 }
                 else
                 {
+                    List<MacroEntry> seqMacroEntryList = new List<MacroEntry>();
+                    recursiveFilterExplorer(this.macroEntry, seqMacroEntryList);
 
                     foreach (var listEntry in seqMacroEntryList)
                     {
@@ -722,9 +740,6 @@ namespace Oqat.ViewModel.MacroPlugin
                         }
                     }
                 }
-                
-                seqMacroEntryList.Clear();
-                recursiveFilterExplorer(macroEntry, seqMacroEntryList);
             }
         }
 
@@ -739,7 +754,8 @@ namespace Oqat.ViewModel.MacroPlugin
                     //macroEntry.startFrameAbs = child.startFrameAbs;
                     //macroEntry.endFrameAbs = child.endFrameAbs;
                     macroEntry.macroEntries.Clear();
-                    macroEntry.macroEntries.Concat(child.macroEntries);
+                    macroEntry.macroEntries = (macroEntry.macroEntries.Concat(child.macroEntries)) 
+                        as ObservableCollection<MacroEntry>;
                 }
                 else
                 {
@@ -749,10 +765,16 @@ namespace Oqat.ViewModel.MacroPlugin
                         father.macroEntries.Insert(index, child);
                     }
                 }
-                seqMacroEntryList.Clear();
-                recursiveFilterExplorer(macroEntry, seqMacroEntryList);
             }
         }
+        //// couldnt come up with a better name,
+        //// the reason why we are not using 
+        //private void concatCollection<T>(Collection<T> first, Collection<T> second)
+        //{
+
+        //}
+        
+       
 
         private void moveMacroEntry(MacroEntry toMoveMacro, MacroEntry target, int index = -1)
         {
@@ -788,12 +810,25 @@ namespace Oqat.ViewModel.MacroPlugin
 
         public Memento getMemento()
         {
-            return new Memento(macroEntry.mementoName, macroEntry as IMacroEntry);
+            if (this.macroEntry.macroEntries.Count > 0)
+                return new Memento(macroEntry.mementoName, macroEntry as IMacroEntry);
+            else
+                return new Memento(macroEntry.mementoName, null);
         }
 
 
         public void setMemento(PublicRessources.Model.Memento memento)
         {
+            var newTLMacroEnry = memento.state as MacroEntry;
+
+            Debug.Assert(newTLMacroEnry != null);
+            Debug.Assert(newTLMacroEnry.mementoName.Equals(memento.name));
+            Debug.Assert(newTLMacroEnry.macroEntries.Count > 0);
+
+            flush();
+            addMacroEntry(newTLMacroEnry, null);
+        
+            
         }
 
         public virtual string namePlugin
@@ -807,39 +842,28 @@ namespace Oqat.ViewModel.MacroPlugin
             get { return PluginType.IMacro; }
         }
 
+        // this will not only return a readOnlyView but actually
+        // set the (only one view exists at a time) view to readOnly mode
         public UserControl readOnlyPropertiesView
         {
             get 
-            { 
-                return (propertyView as Macro_PropertyView).getReadOnlyVersion(); 
+            {
+                _propertyView.readOnly = true;
+
+                return this.propertyView; 
             }
         }
 
         #region fields
 
-        private List<MacroEntry> seqMacroEntryList;
+       // private List<MacroEntry> seqMacroEntryList;
 
         private IVideoHandler handRef;
         private IVideoHandler handProc;
         private Video vidRes;
-        //private List<Video> vidRes
-        //{
-        //    get
-        //    {
-        //        if (_vidRes == null)
-        //            _vidRes = new List<Video>();
-        //        return _vidRes;
-        //    }
-        //    set
-        //    {
-        //        _vidRes = value;
-        //    }
-        //}
         private int idRes;
 
-        private Thread worker;
-        private string workerName;
-        private bool workerCancel = false;
+        private BackgroundWorker worker;
 
         #endregion
 
@@ -865,11 +889,9 @@ namespace Oqat.ViewModel.MacroPlugin
             (propertyView as Macro_PropertyView).filterMode = true;
 
             this.macroEntry.frameCount = handRef.readVidInfo.frameCount;
-            _propertyView.frameCount = this.macroEntry.frameCount;
-          //  updateFrameCount(handRef.readVidInfo.frameCount);
 
-            RemoveClickEvent((propertyView as Macro_PropertyView).startProcessing);
-            (propertyView as Macro_PropertyView).startProcessing.Click += onStartFilterProcessButtonClick;
+            //RemoveClickEvent((propertyView as Macro_PropertyView).startProcessing);
+            
         }
 
         public void setMetricContext(IVideo vidRef, int idProc, IVideo vidProc)
@@ -890,10 +912,12 @@ namespace Oqat.ViewModel.MacroPlugin
 
 
             (propertyView as Macro_PropertyView).filterMode = false;
-            RemoveClickEvent((propertyView as Macro_PropertyView).startProcessing);
-            if ((handRef != null) && (handProc != null))
-                (propertyView as Macro_PropertyView).startProcessing.Click += onStartMetricProcessButtonClick;
+           // RemoveClickEvent((propertyView as Macro_PropertyView).startProcessing);
+            //if ((handRef != null) && (handProc != null))
+            //    (propertyView as Macro_PropertyView).startProcessing.Click += onStartMetricProcessButtonClick;
         }
+
+
 
         public void addMacroEntry(object sender, MementoEventArgs e)
         {
@@ -935,20 +959,91 @@ namespace Oqat.ViewModel.MacroPlugin
 
 
        
-        private void onStartFilterProcessButtonClick(object sender, RoutedEventArgs e) {
+        private void onStartProcessButtonClick(object sender, RoutedEventArgs e) {
             e.Handled = true;
+
 
             _propertyView.processingStateValue = 0;
             _propertyView.processing = true;
 
-            worker = new Thread(new ThreadStart(filterProcess));
-            worker.Name = workerName + "filter";
-            worker.Start();
+
+            worker = new BackgroundWorker();
+
+            worker.WorkerReportsProgress = true;
+            worker.WorkerSupportsCancellation = true;
+
+            if (_propertyView.filterMode)
+            {
+                worker.DoWork += filterProcess;
+                worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(filterProcessCompleted);
+            }
+            else
+            {
+                worker.DoWork += metricProcess;
+                worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(metricProcessCompleted);
+
+            }
+
+            worker.ProgressChanged += delegate(object s, ProgressChangedEventArgs args)
+            {
+                Debug.Assert(_propertyView.MacroEntryTreeView.Dispatcher.CheckAccess());
+                _propertyView.MacroEntryTreeView.Dispatcher.VerifyAccess();
+
+                _propertyView.processingStateValue = args.ProgressPercentage;
+                _propertyView.processingStateMessage = "Processed " + this.handRef.positionReader + " of " + this.macroEntry.frameCount + " frames.";
+
+            };
+
+
+            worker.RunWorkerAsync();
+        }
+
+        private void filterProcessCompleted(object s, RunWorkerCompletedEventArgs e)
+        {
+            _propertyView.processing = false;
+            if (e.Cancelled == true)
+            {
+                //cancelled
+            }
+            else if (e.Error != null)
+            {
+                //error + e.Error.Message;
+            }
+            else
+            {
+                PluginManager.pluginManager.raiseEvent(
+                EventType.macroProcessingFinished, new VideoEventArgs(this.vidRes, this.idRes));
+            }
+        }
+
+        private void metricProcessCompleted(object s, RunWorkerCompletedEventArgs e)
+        {
+            _propertyView.processing = false;
+            if (e.Cancelled == true)
+            {
+                //cancelled
+            }
+            else if (e.Error != null)
+            {
+                //error + e.Error.Message;
+            }
+            else
+            {
+                Debug.Assert(e.Result is List<metricResultContext>);
+
+                foreach (var subEntry in e.Result as List<metricResultContext>)
+                {
+                    PluginManager.pluginManager.raiseEvent(
+                        EventType.macroProcessingFinished, new VideoEventArgs(subEntry.vidRes, this.idRes));
+                }
+            }
         }
  
-        private void filterProcess()
+        private void filterProcess(object s, DoWorkEventArgs e)
         {
-            
+
+            List<MacroEntry> seqMacroEntryList = new List<MacroEntry>();
+            recursiveFilterExplorer(this.macroEntry, seqMacroEntryList);
 
             while (handRef.positionReader < handRef.readVidInfo.frameCount)
             {
@@ -956,6 +1051,7 @@ namespace Oqat.ViewModel.MacroPlugin
 
                 foreach (var filterEntry in seqMacroEntryList)
                 {
+
                     if (!(filterEntry.startFrameAbs > handRef.positionReader)
                         && (filterEntry.endFrameAbs > handRef.positionReader))
                     {
@@ -980,28 +1076,28 @@ namespace Oqat.ViewModel.MacroPlugin
                 tmpBmpArray[0] = bmp;
                 handRef.writeFrames(handRef.positionReader, tmpBmpArray);
 
-                // update buisyIndicator
-                _propertyView.processingStateValue = handRef.positionReader;
+                if (worker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                else
+                {
+                    worker.ReportProgress((int)(handRef.positionReader / ( macroEntry.frameCount / 100.0)));
+                }
             }
 
-            // turn off buisyIndicator
-            _propertyView.processing = false;
 
-                PluginManager.pluginManager.raiseEvent(
-                    EventType.macroProcessingFinished,new VideoEventArgs(this.vidRes, this.idRes)) ;
+
                    
             
 
         }
 
-        //private IPlugin getExtraPluginInstance(IPlugin plugin)
-        //{
-            
-        //}
-
+      
         private void recursiveFilterExplorer(MacroEntry entry, List<MacroEntry> seqMacroList)
         {
-
+            Debug.Assert(seqMacroList != null, "seqMacroList is null");
             foreach (var subEntry in entry.macroEntries)
             {
                     if (subEntry.type != PluginType.IMacro)
@@ -1016,21 +1112,19 @@ namespace Oqat.ViewModel.MacroPlugin
             }
         }
 
-        private void metricProcess()
+        private void metricProcess(object s, DoWorkEventArgs e)
         {
-            List<metricResultContext> seqMacroEntryList = new List<metricResultContext>();
-            recursiveMetricExplorer(this.macroEntry, seqMacroEntryList);
-            // handlerList has to be made during setContext phase
+
+            List<metricResultContext> seqMetricResultCtxList = new List<metricResultContext>();
             
-            //
-      
-            //
+            recursiveMetricExplorer(this.macroEntry, seqMetricResultCtxList);
+
             while (handRef.positionReader < handRef.readVidInfo.frameCount)
             {
                 Bitmap bmpRef = handRef.getFrame();
                 Bitmap bmpProc = handProc.getFrame();
        
-                foreach (var subEntry in seqMacroEntryList)
+                foreach (var subEntry in seqMetricResultCtxList)
                 {
                     // check if set as active
                     if (!(subEntry.entry.startFrameAbs > handRef.positionReader)
@@ -1055,14 +1149,24 @@ namespace Oqat.ViewModel.MacroPlugin
                       
                     }
                 }
-            }
+                if (worker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                else
+                {
+                    worker.ReportProgress((int)(handRef.positionReader / macroEntry.frameCount / 100.0));
+                }
 
-            
-            foreach (var subEntry in seqMacroEntryList)
-            {
-                PluginManager.pluginManager.raiseEvent(
-                    EventType.macroProcessingFinished, new VideoEventArgs(subEntry.vidRes, this.idRes));
             }
+            e.Result = seqMetricResultCtxList;
+            
+            //foreach (var subEntry in seqMacroEntryList)
+            //{
+            //    PluginManager.pluginManager.raiseEvent(
+            //        EventType.macroProcessingFinished, new VideoEventArgs(subEntry.vidRes, this.idRes));
+            //}
         }
 
         struct metricResultContext
@@ -1074,6 +1178,7 @@ namespace Oqat.ViewModel.MacroPlugin
 
         private void recursiveMetricExplorer(MacroEntry entry, List<metricResultContext> seqMacroEntryList)
         {
+            Debug.Assert(seqMacroEntryList != null, "Given seqMacroEntryList is null.");
             foreach (var subEntry in entry.macroEntries)
             {
                     if (subEntry.type != PluginType.IMacro)
@@ -1156,14 +1261,14 @@ namespace Oqat.ViewModel.MacroPlugin
         //}
 
 
-        private void onStartMetricProcessButtonClick(object sender, RoutedEventArgs e)
-        {
-            e.Handled = true;
-         //   disableControlWhileProcessing();
-            worker = new Thread(new ThreadStart(metricProcess));
-            worker.Name = workerName + "metric";
-            worker.Start();
-        }
+        //private void onStartMetricProcessButtonClick(object sender, RoutedEventArgs e)
+        //{
+        // //   e.Handled = true;
+        // ////   disableControlWhileProcessing();
+        // //   worker = new Thread(new ThreadStart(metricProcess));
+        // //   worker.Name = workerName + "metric";
+        // //   worker.Start();
+        //}
 
         private void onCancelButtonClick(object sender, RoutedEventArgs e)
         {
@@ -1173,40 +1278,71 @@ namespace Oqat.ViewModel.MacroPlugin
         {
         }
 
-        #region removeClickEvents
-        /// <summary>
-        /// Gets the list of routed event handlers subscribed to the specified routed event.
-        /// </summary>
-        /// <param name="element">The UI element on which the event is defined.</param>
-        /// <param name="routedEvent">The routed event for which to retrieve the event handlers.</param>
-        /// <returns>The list of subscribed routed event handlers.</returns>
-        public static RoutedEventHandlerInfo[] GetRoutedEventHandlers(UIElement element, RoutedEvent routedEvent)
-        {
-            // Get the EventHandlersStore instance which holds event handlers for the specified element.
-            // The EventHandlersStore class is declared as internal.
-            var eventHandlersStoreProperty = typeof(UIElement).GetProperty(
-                "EventHandlersStore", BindingFlags.Instance | BindingFlags.NonPublic);
-            object eventHandlersStore = eventHandlersStoreProperty.GetValue(element, null);
-            if (eventHandlersStore == null)
-                return null;
-                // Invoke the GetRoutedEventHandlers method on the EventHandlersStore instance 
-                // for getting an array of the subscribed event handlers.
-                var getRoutedEventHandlers = eventHandlersStore.GetType().GetMethod(
-                    "GetRoutedEventHandlers", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                var routedEventHandlers = (RoutedEventHandlerInfo[])getRoutedEventHandlers.Invoke(
-                    eventHandlersStore, new object[] { routedEvent });
-            
-            return routedEventHandlers;
-        }
 
-        private void RemoveClickEvent(Button b)
-        {
+        #region obsolete
+        #region removeClickEvents
+        ///// <summary>
+        ///// Gets the list of routed event handlers subscribed to the specified routed event.
+        ///// </summary>
+        ///// <param name="element">The UI element on which the event is defined.</param>
+        ///// <param name="routedEvent">The routed event for which to retrieve the event handlers.</param>
+        ///// <returns>The list of subscribed routed event handlers.</returns>
+        //public static RoutedEventHandlerInfo[] GetRoutedEventHandlers(UIElement element, RoutedEvent routedEvent)
+        //{
+        //    // Get the EventHandlersStore instance which holds event handlers for the specified element.
+        //    // The EventHandlersStore class is declared as internal.
+        //    var eventHandlersStoreProperty = typeof(UIElement).GetProperty(
+        //        "EventHandlersStore", BindingFlags.Instance | BindingFlags.NonPublic);
+        //    object eventHandlersStore = eventHandlersStoreProperty.GetValue(element, null);
+        //    if (eventHandlersStore == null)
+        //        return null;
+        //        // Invoke the GetRoutedEventHandlers method on the EventHandlersStore instance 
+        //        // for getting an array of the subscribed event handlers.
+        //        var getRoutedEventHandlers = eventHandlersStore.GetType().GetMethod(
+        //            "GetRoutedEventHandlers", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        //        var routedEventHandlers = (RoutedEventHandlerInfo[])getRoutedEventHandlers.Invoke(
+        //            eventHandlersStore, new object[] { routedEvent });
             
-            var routedEventHandlers = GetRoutedEventHandlers(b, ButtonBase.ClickEvent);
-            if(routedEventHandlers != null) 
-                foreach (var routedEventHandler in routedEventHandlers)
-                    b.Click -= (RoutedEventHandler)routedEventHandler.Handler;
-        }
+        //    return routedEventHandlers;
+        //}
+
+        //private void RemoveClickEvent(Button b)
+        //{
+            
+        //    var routedEventHandlers = GetRoutedEventHandlers(b, ButtonBase.ClickEvent);
+        //    if(routedEventHandlers != null) 
+        //        foreach (var routedEventHandler in routedEventHandlers)
+        //            b.Click -= (RoutedEventHandler)routedEventHandler.Handler;
+        //}
+        #endregion
+
+        #region drawingVisualHost
+        //public class DrawingVisualHost : FrameworkElement
+        //{
+        //    private DrawingVisual drawingVisual;
+
+        //    public DrawingVisualHost(DrawingVisual drawingVisual)
+        //        : base()
+        //    {
+        //        this.drawingVisual = drawingVisual;
+        //    }
+
+        //    // EllipseAndRectangle instance is our only visual child
+        //    protected override Visual GetVisualChild(int index)
+        //    {
+        //        return drawingVisual;
+        //    }
+
+        //    protected override int VisualChildrenCount
+        //    {
+        //        get
+        //        {
+        //            return 1;
+        //        }
+        //    }
+        //}
+        #endregion
+
         #endregion
 
         public void flush()
@@ -1239,40 +1375,5 @@ namespace Oqat.ViewModel.MacroPlugin
         }
     }
 
-    //public static class ExtensionMethods
-    //{
-
-    //    private static Action EmptyDelegate = delegate() { };
-
-
-    //    public static void Refresh(this UIElement uiElement)
-    //    {
-    //        uiElement.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
-    //    }
-    //}
-
-    public class DrawingVisualHost : FrameworkElement
-    {
-        private DrawingVisual drawingVisual;
-
-        public DrawingVisualHost(DrawingVisual drawingVisual) : base()
-        {
-            this.drawingVisual = drawingVisual;
-        }
-
-        // EllipseAndRectangle instance is our only visual child
-        protected override Visual GetVisualChild(int index)
-        {
-            return drawingVisual;
-        }
-
-        protected override int VisualChildrenCount
-        {
-            get
-            {
-                return 1;
-            }
-        }
-    }
 
 }

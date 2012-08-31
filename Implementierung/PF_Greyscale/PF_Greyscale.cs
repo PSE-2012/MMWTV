@@ -22,10 +22,15 @@ namespace PF_Greyscale
 
     [ExportMetadata("namePlugin", "PF_Greyscale")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
+    [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     [Serializable()]
     public class Greyscale : IFilterOqat
     {
+        public bool threadSafe
+        {
+            get { return false; }
+        }
         private string _namePlugin = "PF_Greyscale";
         private PluginType _type = PluginType.IFilterOqat;
         VM_Greyscale propertiesView;

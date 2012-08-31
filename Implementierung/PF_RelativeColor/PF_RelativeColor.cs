@@ -17,6 +17,7 @@ namespace PF_RelativeColor
 
     [ExportMetadata("namePlugin", "PF_RelativeColor")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
+    [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     [Serializable()]
 	public class RelativeColor : IFilterOqat
@@ -151,6 +152,11 @@ namespace PF_RelativeColor
         public IPlugin createExtraPluginInstance()
         {
             return new RelativeColor();
+        }
+
+        public bool threadSafe
+        {
+            get { return false; }
         }
 
     }

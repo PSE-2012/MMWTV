@@ -23,11 +23,17 @@ namespace PF_Convolution
 
     [ExportMetadata("namePlugin", "PF_Convolution")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
+    [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
 
     [Serializable()]
     public class Convolution : IFilterOqat, INotifyPropertyChanged
     {
+
+        public bool threadSafe
+        {
+            get { return false; }
+        }
         private string _namePlugin = "PF_Convolution";
         private PluginType _type= PluginType.IFilterOqat;
 
