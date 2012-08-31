@@ -10,16 +10,15 @@
              Visibility="{Binding inactive}"
              x:Name="self">
 
-    
-        <extToolkit:BusyIndicator x:Name="buisyIndicator" IsBusy="{Binding processing, Mode=OneWay}"
-                                  DisplayAfter="0">
+
+    <extToolkit:BusyIndicator x:Name="buisyIndicator" IsBusy="{Binding processing, Mode=OneWay}" BusyContent="{Binding}" >
         <extToolkit:BusyIndicator.BusyContentTemplate>
             <DataTemplate>
                 <StackPanel Margin="4">
-                    <TextBlock Text="Processing frames." FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Please wait.." FontWeight="Bold" HorizontalAlignment="Center"/>
                     <StackPanel Margin="4">
-                        <TextBlock Text="fdfdsafdsafdsfa"/>
-                        <ProgressBar  Height="15"/>
+                        <TextBlock Text="{Binding processingStateMessage, Mode=OneWay}"/>
+                        <ProgressBar Value="{Binding processingStateValue, Mode=OneWay}"  Height="15"/>
                     </StackPanel>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -34,19 +33,19 @@
         </extToolkit:BusyIndicator.BusyContentTemplate>
         <extToolkit:BusyIndicator.OverlayStyle>
             <Style TargetType="Rectangle">
-                <Setter Property="Fill" Value="#ffffeeee"/>
+                <Setter Property="Fill" Value="#8FE8E8E8"/>
+                
             </Style>
         </extToolkit:BusyIndicator.OverlayStyle>
         <extToolkit:BusyIndicator.ProgressBarStyle>
             <Style TargetType="ProgressBar">
-                <Setter Property="IsIndeterminate" Value="True"/>
+                
                 <Setter Property="Visibility" Value="Collapsed"/>
-                <Setter Property="Value" Value="{Binding processingStateValue, Mode=OneWay}"/>
-                <Setter Property="Maximum" Value="{Binding frameCount, Mode=OneWay}"/>
                 
             </Style>
         </extToolkit:BusyIndicator.ProgressBarStyle>
-            <Grid x:Name="macroTreeViewGrid" >
+        <ContentControl >
+        <Grid x:Name="macroTreeViewGrid" >
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="20"/>
@@ -97,7 +96,7 @@
             </TreeView.Resources>
         </TreeView>
     </Grid>
-            
-            
+        </ContentControl>
+
     </extToolkit:BusyIndicator>
 </UserControl>
