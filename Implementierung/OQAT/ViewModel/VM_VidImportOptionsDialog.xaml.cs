@@ -112,7 +112,7 @@ namespace Oqat.ViewModel
                     presentHandlerView(video);
                     handler = null;
                 }
-                     catch (Exception e)
+                     catch (FileFormatException e)
                      {
                          if (msgboxShwon == false)
                          {
