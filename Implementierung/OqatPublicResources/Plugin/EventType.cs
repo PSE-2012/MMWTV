@@ -18,9 +18,9 @@ namespace Oqat.PublicRessources.Plugin
         /// </summary>
 		videoLoad,
         /// <summary>
-        /// Will be raised if a plugin has detected the changes in his current memento.
+        /// Will be raised if user clicks on the save or saveAs button of the currently diplayed macroPlugin.
         /// </summary>
-		saveMacroCreated,
+		saveMacro,
 
         /// <summary>
         /// Will be raised if a new video object was created ( VM_VideoImportDialog).

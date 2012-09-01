@@ -583,8 +583,8 @@ namespace Oqat.ViewModel
         internal static event videoLoadHandler videoLoad;
         internal delegate void macroEntrySelectedHandler(object sender, MementoEventArgs e);
         internal static event macroEntrySelectedHandler macroEntrySelected;
-        internal delegate void newMementoCreatedHandler(object sender, MementoEventArgs e);
-        internal static event newMementoCreatedHandler newMementoCreated;
+        internal delegate void saveMacroHandler(object sender, MementoEventArgs e);
+        internal static event saveMacroHandler saveMacro;
         internal delegate void newProjectCreatedHandler(object sender, ProjectEventArgs e);
         internal static event newProjectCreatedHandler OqatNewProjectCreatedHandler;
         internal delegate void toggleViewHandler(object sender, ViewTypeEventArgs e);
@@ -638,11 +638,11 @@ namespace Oqat.ViewModel
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
-                case EventType.saveMacroCreated:
+                case EventType.saveMacro:
                     try
                     {
-                        if (newMementoCreated != null)
-                            newMementoCreated(this, (MementoEventArgs)e);
+                        if (saveMacro != null)
+                            saveMacro(this, (MementoEventArgs)e);
                     }
                     catch (Exception exc)
                     {
@@ -726,7 +726,6 @@ namespace Oqat.ViewModel
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
-
             }
         }
 

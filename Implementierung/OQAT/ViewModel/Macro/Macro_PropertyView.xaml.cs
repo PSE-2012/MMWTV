@@ -36,21 +36,6 @@ namespace Oqat.ViewModel.MacroPlugin
             dragControl = new MacroEntry_Control();
         }
 
-       // private int _frameCount;
-        //internal int frameCount
-        //{
-        //    get{
-        //        return _frameCount;
-        //       }
-
-        //    set
-        //    {
-        //        _frameCount = value;
-        //        NotifyPropertyChanged("frameCount");
-        //    }
-        
-        //}
-
 
         private bool _activeState;
         public bool activeState
@@ -90,6 +75,14 @@ namespace Oqat.ViewModel.MacroPlugin
             }
         }
 
+        public bool allowDrop
+        {
+            get
+            {
+                return !readOnly;
+            }
+        }
+
         private bool _readOnly = false;
         public bool readOnly
         {
@@ -98,6 +91,7 @@ namespace Oqat.ViewModel.MacroPlugin
             }
             set {
                 _readOnly = value;
+                NotifyPropertyChanged("allowDrop");
                 NotifyPropertyChanged("readOnlyVisibility");
                 NotifyPropertyChanged("readOnlyActiveState");
             }
@@ -757,6 +751,17 @@ namespace Oqat.ViewModel.MacroPlugin
         {
             e.Handled = true;
             macroViewDelegates.startProcessing();
+        }
+
+
+        private void saveMacro_Click(object sender, RoutedEventArgs e)
+        {
+            PluginManager.pluginManager.raiseEvent(EventType.saveMacro
+        }
+
+        private void saveMacroAs_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
     }
