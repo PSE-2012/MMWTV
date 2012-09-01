@@ -298,25 +298,26 @@ namespace OQAT_Tests
 
 
 
-        ///// <summary>
-        /////Test "addMacroEntry" EventHandler
-        /////</summary>
-        //[TestMethod()]
-        //public void addMacroEntryTest_eventhandler()
-        //{
-        //    string mementoname = "testmemento";
+        /// <summary>
+        ///Test "addMacroEntry" EventHandler
+        ///</summary>
+        [TestMethod()]
+        public void addMacroEntryTest_eventhandler()
+        {
+            string mementoname = "testmemento";
 
-        //    PluginManagerTest.TestHelper(new string[] {"PF_Invert.dll"});
-        //    Oqat.ViewModel.PluginManager.pluginManager.addMemento("PF_Invert", new Memento(mementoname, new PF_Invert.Invert().getMemento()));
+            PluginManagerTest.TestHelper(new string[] { "PF_Invert.dll" });
+            Oqat.ViewModel.PluginManager_Accessor pluginManager = new Oqat.ViewModel.PluginManager_Accessor();
+            pluginManager.addMemento("PF_Invert", new Memento(mementoname, new PF_Invert.Invert().getMemento()));
 
-        //    Macro_Accessor target = new Macro_Accessor();
-        //    object sender = null;
-        //    MementoEventArgs e = new MementoEventArgs(mementoname, "PF_Invert");
-        //    target.addMacroEntry(sender, e);
+            Macro_Accessor target = new Macro_Accessor();
+            object sender = null;
+            MementoEventArgs e = new MementoEventArgs(mementoname, "PF_Invert");
+            target.addMacroEntry(sender, e);
 
-        //    Assert.AreEqual(1, target.rootEntry.macroEntries.Count, "No macroentry was added.");
-        //    Assert.AreEqual(mementoname, target.rootEntry.macroEntries[0].mementoName, "Macroentry not added by event.");
-        //}
+            Assert.AreEqual(1, target.rootEntry.macroEntries.Count, "No macroentry was added.");
+            Assert.AreEqual(mementoname, target.rootEntry.macroEntries[0].mementoName, "Macroentry not added by event.");
+        }
 
         /// <summary>
         ///Test "removeMacroEntry": non existent
