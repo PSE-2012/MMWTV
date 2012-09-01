@@ -18,13 +18,14 @@
             </Grid.ColumnDefinitions>
             <TreeView Grid.Row="0" x:Name="smartTreeExplorer" ItemsSource="{Binding}"
                       KeyDown="smartTreeExplorer_KeyDown"
-                      MouseDown="smartTreeExplorer_MouseDown"
-                          DragDrop.Drop="smartTreeExplorer_Drop" AllowDrop="True"
+                    
+                          DragDrop.Drop="smartTreeExplorer_PreviewDrop" AllowDrop="True"
                    
-                          DragDrop.DragEnter="smartTreeExplorer_DragEnter" 
-                      DragDrop.DragLeave="smartTreeExplorer_DragLeave" 
+                          DragDrop.PreviewDragEnter="smartTreeExplorer_PreviewDragEnter" 
+                      DragDrop.PreviewDragLeave="smartTreeExplorer_PreviewDragLeave" 
                       SelectedItemChanged="smartTreeExplorer_SelectedItemChanged"
                       PreviewMouseLeftButtonDown="smartTreeExplorer_PreviewMouseLeftButtonDown"
+                      PreviewMouseLeftButtonUp="smartTreeExplorer_PreviewMouseLeftButtonUp"
                       PreviewMouseMove="smartTreeExplorer_PreviewMouseMove">
 
                 <TreeView.Resources>
