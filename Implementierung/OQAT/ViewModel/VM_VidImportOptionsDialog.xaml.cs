@@ -50,6 +50,7 @@ namespace Oqat.ViewModel
         /// <summary>
         /// Method to fit tho local content from the vm to an xml file.
         /// </summary>
+        string videoerror = "Es wurde versucht ein unbekanntes Format einzulesen";
         private void local(String s)
         {
             try
@@ -58,9 +59,9 @@ namespace Oqat.ViewModel
                 XmlTextReader reader = new XmlTextReader(sFilename);
                 reader.Read();
                 reader.Read();
-                String[] t = new String[3];
-                String[] t2 = new String[3];
-                for (int i = 0; i < 3; i++)
+                String[] t = new String[4];
+                String[] t2 = new String[4];
+                for (int i = 0; i < 4; i++)
                 {
                     reader.Read();
                     reader.Read();
@@ -75,7 +76,7 @@ namespace Oqat.ViewModel
                 this.Title = t2[0];
                 btt_Import.Content = t2[1];
                 btt_Cancel.Content = t2[2];
-               
+                videoerror = t2[3];
 
 
             }
@@ -97,17 +98,30 @@ namespace Oqat.ViewModel
             Video video;
             IVideoHandler handler;
 
-            foreach (string vidPath in vidPathList)
+            bool msgboxShwon = false;
+                foreach (string vidPath in vidPathList)
+                {
+                     try
             {
-                video = new Video(false, vidPath);
-                handler = video.handler;
-                handler.setImportContext(vidPath);
+                    video = new Video(false, vidPath);
+                    handler = video.handler;
+                    handler.setImportContext(vidPath);
 
 
-                 //   vidHandlerViews.Add(handler.propertyView);
+                    //   vidHandlerViews.Add(handler.propertyView);
                     presentHandlerView(video);
                     handler = null;
-            }    
+                }
+                     catch (Exception e)
+                     {
+                         if (msgboxShwon == false)
+                         {
+                             MessageBox.Show(videoerror);
+                             msgboxShwon = true;
+                         }
+                     }
+            }
+          
         }
         /// <summary>
         /// event to handel taps that should eb closed
