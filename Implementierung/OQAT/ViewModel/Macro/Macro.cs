@@ -534,7 +534,43 @@ namespace Oqat.ViewModel.MacroPlugin
         private void clearMacroEntryList() { }
         private void cancelProcessing() { }
         private void pauseProcessing() { }
-        private void startProcessing() { }
+        private void startProcessing() {
+
+
+            _propertyView.processingStateValue = 0;
+            _propertyView.processing = true;
+
+
+            worker = new BackgroundWorker();
+
+            worker.WorkerReportsProgress = true;
+            worker.WorkerSupportsCancellation = true;
+
+            if (_propertyView.filterMode)
+            {
+                worker.DoWork += filterProcess;
+                worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(filterProcessCompleted);
+            }
+            else
+            {
+                worker.DoWork += metricProcess;
+                worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(metricProcessCompleted);
+
+            }
+
+            worker.ProgressChanged += delegate(object s, ProgressChangedEventArgs args)
+            {
+                Debug.Assert(_propertyView.MacroEntryTreeView.Dispatcher.CheckAccess());
+                _propertyView.MacroEntryTreeView.Dispatcher.VerifyAccess();
+
+                _propertyView.processingStateValue = args.ProgressPercentage;
+                _propertyView.processingStateMessage = "Processed " + this.handRef.positionReader + " of " + this.rootEntry.frameCount + " frames.";
+
+            };
+
+
+            worker.RunWorkerAsync();
+        }
         #endregion
         private void onToggleView(object sender, ViewTypeEventArgs e)
         {
@@ -584,44 +620,6 @@ namespace Oqat.ViewModel.MacroPlugin
             }
 
             return entryToAdd;
-        }
-
-
-       
-        private void onStartProcessButtonClick() {
-            _propertyView.processingStateValue = 0;
-            _propertyView.processing = true;
-
-
-            worker = new BackgroundWorker();
-
-            worker.WorkerReportsProgress = true;
-            worker.WorkerSupportsCancellation = true;
-
-            if (_propertyView.filterMode)
-            {
-                worker.DoWork += filterProcess;
-                worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(filterProcessCompleted);
-            }
-            else
-            {
-                worker.DoWork += metricProcess;
-                worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(metricProcessCompleted);
-
-            }
-
-            worker.ProgressChanged += delegate(object s, ProgressChangedEventArgs args)
-            {
-                Debug.Assert(_propertyView.MacroEntryTreeView.Dispatcher.CheckAccess());
-                _propertyView.MacroEntryTreeView.Dispatcher.VerifyAccess();
-
-                _propertyView.processingStateValue = args.ProgressPercentage;
-                _propertyView.processingStateMessage = "Processed " + this.handRef.positionReader + " of " + this.rootEntry.frameCount + " frames.";
-
-            };
-
-
-            worker.RunWorkerAsync();
         }
 
      
