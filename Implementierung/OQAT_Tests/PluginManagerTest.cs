@@ -24,8 +24,8 @@ namespace OQAT_Tests
     public class PluginManagerTest
     {
 
-        private static string testPluginPath;
-        private static string currentPath;
+        public static string testPluginPath = PluginManager.PLUGIN_PATH + "\\..\\..\\..\\..\\OQAT_Tests\\TestData\\testPlugins";
+        private static string currentPath = PluginManager.PLUGIN_PATH;
 
         private TestContext testContextInstance;
 
@@ -53,11 +53,6 @@ namespace OQAT_Tests
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
         {
-            PluginManager_Accessor pm = new PluginManager_Accessor();
-
-            testPluginPath = pm.PLUGIN_PATH + "\\..\\..\\..\\..\\OQAT_Tests\\TestData\\testPlugins";
-            currentPath = pm.PLUGIN_PATH;
-
             if (!Directory.Exists(currentPath))
                 Directory.CreateDirectory(currentPath);
         }
@@ -90,7 +85,7 @@ namespace OQAT_Tests
 
 
 
-        private void TestHelper(string[] plugins)
+        public static void TestHelper(string[] plugins)
         {
             if (!Directory.Exists(currentPath))
                 Directory.CreateDirectory(currentPath);
@@ -144,7 +139,7 @@ namespace OQAT_Tests
 
             PluginManager_Accessor target = new PluginManager_Accessor();
 
-            Assert.IsTrue(Directory.Exists(target.PLUGIN_PATH), "Plugin directory was not created.");
+            Assert.IsTrue(Directory.Exists(PluginManager.PLUGIN_PATH), "Plugin directory was not created.");
         }
 
         /// <summary>

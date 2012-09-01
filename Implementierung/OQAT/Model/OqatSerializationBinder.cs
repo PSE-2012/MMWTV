@@ -15,10 +15,10 @@ namespace Oqat.Model
         public override Type BindToType(string assemblyName, string typeName)
         {      
 
-            string[] knwonExtAssemblies =  Directory.GetFiles(PluginManager.pluginManager.PLUGIN_PATH);
+            string[] knwonExtAssemblies =  Directory.GetFiles(PluginManager.PLUGIN_PATH);
 
             var assemblys = from i in AppDomain.CurrentDomain.GetAssemblies()
-                        where !i.IsDynamic && Path.GetDirectoryName(i.Location).Equals(PluginManager.pluginManager.PLUGIN_PATH)
+                        where !i.IsDynamic && Path.GetDirectoryName(i.Location).Equals(PluginManager.PLUGIN_PATH)
                         && i.GetType(typeName) != null
                         select i.GetType(typeName);
             return assemblys.FirstOrDefault();
