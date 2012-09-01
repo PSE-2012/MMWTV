@@ -58,27 +58,36 @@
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="20"/>
-                <ColumnDefinition Width="45"/>
-            </Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
             <Button x:Name="startProcessing" Visibility="{Binding readOnlyVisibility}" 
                      Grid.Column="0" Margin="0,0,2,0" Content="apply" 
                     Click="startProcessing_Click"
                     IsEnabled="{Binding readOnlyActiveState}"/>
 
             <Button x:Name="clearEntries" Visibility="{Binding readOnlyVisibility}" 
-                     Grid.Column="1" Margin="0,0,2,0" Content="clear"
+                     Grid.Column="1" Margin="0,0,2,0" Content="clear entries"
                     IsEnabled="{Binding readOnlyActiveState}"
                     Click="clearEntries_Click"/>
            
             <CheckBox x:Name="previewCheckBox" Visibility="{Binding filterModeVisibility}" 
                       IsEnabled="{Binding filterModeActiveState}"
-                      HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,2,0"/>
+                      HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="2" Margin="0,0,2,0"/>
             
             <TextBlock x:Name="previewText" Visibility="{Binding filterModeVisibility}" 
                        IsEnabled="{Binding filterModeActiveState}"
-                       Text="preview" Grid.Column="4" VerticalAlignment="Center"/>
+                       Text="preview" Grid.Column="3" VerticalAlignment="Center"/>
+                <Separator Grid.Column="4" />
+                <Button x:Name="saveMacro" Visibility="{Binding readOnlyVisibility}"
+                    Grid.Column="5" IsEnabled="{Binding readOnlyActiveState}"
+                    Margin="0,0,2,0" Content="save" Click="saveMacro_Click" />
+                <Button x:Name="saveMacroAs" Visibility="{Binding readOnlyVisibility}"
+                    Grid.Column="5" IsEnabled="{Binding readOnlyActiveState}"
+                    Margin="0,0,2,0" Content="save as" Click="saveMacroAs_Click" />
 
-        </Grid>
+            </Grid>
         <!--<ProgressBar x:Name="progressBar" Grid.Row="1" Margin="0,0,0,5"/>-->
 
             <TreeView x:Name="MacroEntryTreeView" Grid.Row="2" ItemsSource="{Binding macroEntries}"
