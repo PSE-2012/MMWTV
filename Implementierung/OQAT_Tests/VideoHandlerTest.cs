@@ -6,19 +6,50 @@ using PS_YuvVideoHandler;
 using Oqat.PublicRessources.Plugin;
 using Oqat.PublicRessources.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 
 namespace OQAT_Tests
 {
+
+
+
     ///<summary>
     ///Class for testing YUV VideoHandler
     ///</summary>
     [TestClass]
     public class VideoHandlerTest
     {
-        private static string readPath =
-            "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
-        private static string writePath =
-            "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif_copy.yuv";
+        private static string readPath;
+        private static string writePath;
+
+        private static string sampleVideosPath;
+        private static string[] sampleVideos;
+        private TestContext testContextInstance;
+        private static string plPathSolution;
+        private static string testDataPath;
+
+        [ClassInitialize()]
+        public static void MyClassInitialize(TestContext testContext)
+        {
+
+            plPathSolution = testContext.TestRunDirectory + "\\..\\..\\Oqat\\bin\\Debug\\Plugins";
+            sampleVideosPath = testContext.TestDir + "\\..\\..\\Oqat_Tests\\TestData\\sampleVideos";
+            string[] plugins = Directory.GetFiles(plPathSolution, "*.dll");
+
+
+            sampleVideos = Directory.GetFiles(sampleVideosPath, "*.yuv");
+            readPath = sampleVideos[0];
+            writePath = Path.GetDirectoryName(readPath) + Path.GetFileNameWithoutExtension(readPath) + "_Copy.yuv";
+
+            // we are not testing 
+            if (!Directory.Exists(testContext.TestRunDirectory + "\\Out\\Plugins"))
+                Directory.CreateDirectory(testContext.TestRunDirectory + "\\Out\\Plugins");
+
+            foreach (string s in plugins)
+            {
+                File.Copy(s, testContext.TestRunDirectory + "\\Out\\Plugins\\" + Path.GetFileName(s));
+            }
+        }
 
         ///<summary>
         ///Tests setting of the read context, as well as some basic properties

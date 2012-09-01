@@ -42,6 +42,10 @@
                     t[i] = reader.Name;
                     reader.MoveToNextAttribute();
                     t2[i] = reader.Value;
+                    if (t2[i] == "")
+                    {
+                        throw new XmlException("datei nicht lang genug");
+                    }
                 }
                 lb1.Content = t2[0];
                 lb2.Content = t2[1];
