@@ -369,7 +369,8 @@ namespace Oqat.ViewModel
                         {
                             var copy = i.Value.createExtraPluginInstance();
 
-                            Debug.Assert(copy != i.Value, i.Metadata.namePlugin + 
+                            if(copy == i.Value)
+                                throw new NotImplementedException(i.Metadata.namePlugin + 
                                 " hasnt implemented the IPlugin member \"createExtraPluginInstance\" " + 
                                 "correctly, this member returns the same plugin " + 
                                 "despite the fact that it is marked as not thredSafe");
@@ -637,7 +638,7 @@ namespace Oqat.ViewModel
                         raiseEvent(EventType.info, new ErrorEventArgs(exc));
                     }
                     break;
-                case EventType.newMementoCreated:
+                case EventType.saveMacroCreated:
                     try
                     {
                         if (newMementoCreated != null)
