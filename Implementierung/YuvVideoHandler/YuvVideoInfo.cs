@@ -180,7 +180,7 @@ namespace PS_YuvVideoHandler
         public YuvVideoInfo(string path)
         {
             if (!File.Exists(path))
-                throw new ArgumentNullException("Given path does not refer to a video file.");
+                throw new ArgumentException("Given path does not refer to a video file.");
 
             _path = path;
 
