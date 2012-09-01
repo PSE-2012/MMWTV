@@ -93,9 +93,19 @@
 
         }
 
-        private void smartTreeExplorer_Drop(object sender, DragEventArgs e)
+        private void smartTreeExplorer_PreviewDrop(object sender, DragEventArgs e)
         {
             e.Handled = true;
+
+            
+
+            //select item to drop in if there is one
+            var dropInItem = (getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource));
+            SmartNode dropInNode = null;
+            if (dropInItem != null)
+                dropInNode = dropInItem.DataContext as SmartNode;
+
+       
             if (e.Data is DataObject && ((DataObject)e.Data).ContainsFileDropList())
             {
 
@@ -107,12 +117,14 @@
             {
                 SmartNode smartNode = ((DataObject)e.Data).GetData("SmartNode") as SmartNode;
                
-                if (smartNode != null)
+                if ((smartNode != null) && (smartNode != dropInNode))
                 {
                     project.rmNode(smartNode.id, false);
-                    project.addNode(smartNode.video, 
-                                (smartTreeExplorer.SelectedItem != null&&validSelection) ?
-                                ((SmartNode)smartTreeExplorer.SelectedItem).id : -1);
+
+                    if(dropInNode != null)
+                    project.addNode(smartNode.video, dropInNode.id);
+                    else
+                        project.addNode(smartNode.video,-1);//add at topLevel
                 }
             }
         }
@@ -131,9 +143,7 @@
             {
                 foreach (var vid in vidImp.videoList)
                 {
-                    project.addNode(vid,
-                        (smartTreeExplorer.SelectedItem != null&&validSelection) ?
-                        ((SmartNode)smartTreeExplorer.SelectedItem).id : -1);
+                    project.addNode(vid,-1);
                 }
 
             }
@@ -170,16 +180,14 @@
         /// </summary>
         /// <param name="sender">The Element on wich the drag event occured.</param>
         /// <param name="e">DragEventArgs</param>
-        private void smartTreeExplorer_DragEnter(object sender, DragEventArgs e)
+        private void smartTreeExplorer_PreviewDragEnter(object sender, DragEventArgs e)
         {
                 e.Handled = true;
 
                 TreeViewItem smartItem = getNearestFather<TreeViewItem>(e.OriginalSource as DependencyObject);
                 if (smartItem != null)
-                {
-                    smartItem.IsSelected = true;
                     smartItem.IsExpanded = true;
-                }
+                
 
         }
 
@@ -217,21 +225,22 @@
 
         private void onMacroProcessingFinished(object sender, VideoEventArgs e)
         {
-            dispVideoEventArgs = e;
-            actProjectAdd();
+            project.addNode(e.video, e.id);
+            //dispVideoEventArgs = e;
+            //actProjectAdd();
         }
-        VideoEventArgs dispVideoEventArgs;
-        private void actProjectAdd()
-        {
-            if (!this.smartTreeExplorer.Dispatcher.CheckAccess())
-            {
-                this.smartTreeExplorer.Dispatcher.Invoke(
-                        new System.Windows.Forms.MethodInvoker(actProjectAdd));
-                return;
-            }
+        //VideoEventArgs dispVideoEventArgs;
+        //private void actProjectAdd()
+        //{
+        //    if (!this.smartTreeExplorer.Dispatcher.CheckAccess())
+        //    {
+        //        this.smartTreeExplorer.Dispatcher.Invoke(
+        //                new System.Windows.Forms.MethodInvoker(actProjectAdd));
+        //        return;
+        //    }
 
-                project.addNode(dispVideoEventArgs.video, dispVideoEventArgs.id);
-        }
+        //        project.addNode(dispVideoEventArgs.video, dispVideoEventArgs.id);
+        //}
 
         private void treeitem_MouseDoubleClicked(object sender, RoutedEventArgs e)
         {
@@ -287,7 +296,6 @@
         private void smartTreeExplorer_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             e.Handled = true;
-            validSelection = true;
             // remove active element, if there was one
             readOnlyPropViewPanel.Children.Clear();
             
@@ -297,22 +305,27 @@
 
         }
 
-        private void smartTreeExplorer_DragLeave(object sender, DragEventArgs e)
+        private void smartTreeExplorer_PreviewDragLeave(object sender, DragEventArgs e)
         {
-            e.Handled = true;
-
-            TreeViewItem smartItem = getNearestFather<TreeViewItem>(e.OriginalSource as DependencyObject);
-            if (smartItem != null)
-            {
-                smartItem.IsSelected = false;
-            }
-
+           // e.Handled = true;
         }
 
+        private bool isMouseDown = false;
+        private bool isDragging = false;
         private Point lastLeftBtnDownPos;
         private void smartTreeExplorer_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            //e.Handled = true;
+
             lastLeftBtnDownPos = e.GetPosition(null);
+            isMouseDown = true;
+        }
+
+        private void smartTreeExplorer_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+           // e.Handled = true;
+            isDragging = false;
+            isMouseDown = false;
         }
 
         private void smartTreeExplorer_PreviewMouseMove(object sender, MouseEventArgs e)
@@ -320,29 +333,25 @@
             Point currMousePos = e.GetPosition(null);
             Vector diff = lastLeftBtnDownPos - currMousePos;
 
-            if (e.LeftButton == MouseButtonState.Pressed &&
+            if (isMouseDown && !isDragging &&
                 (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                 Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
             {
+                isDragging = true;
                 TreeView smartTree = sender as TreeView;
                 TreeViewItem treeItem = getNearestFather<TreeViewItem>(e.OriginalSource as DependencyObject);
                 if (treeItem != null)
                 {
-                    SmartNode smartNode = smartTree.ItemContainerGenerator.ItemFromContainer(treeItem) as SmartNode;
+                    SmartNode smartNode = treeItem.DataContext as SmartNode;
                     if (smartNode != null)
                     {
                         DataObject dragData = new DataObject("SmartNode", smartNode);
                         DragDrop.DoDragDrop(treeItem, dragData, DragDropEffects.Move);
+                        isDragging = false;
+                        isMouseDown = false;
                     }
                 }
             }
-        }
-
-        bool validSelection = false;
-        private void smartTreeExplorer_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            validSelection = false;
-        
         }
     }
 

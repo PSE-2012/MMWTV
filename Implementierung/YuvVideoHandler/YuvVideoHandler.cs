@@ -1,6 +1,4 @@
-﻿//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-namespace PS_YuvVideoHandler
+﻿namespace PS_YuvVideoHandler
 {
     using Oqat.PublicRessources.Model;
     using Oqat.PublicRessources.Plugin;
@@ -35,7 +33,7 @@ using System.Collections.Generic;
         /// <remarks>
         /// The name of a videohandler is partially based on a naming 
         /// convention. In order for the PluginManager to find the corresponding
-        /// handler for a given video format the prefix of the handler
+        /// handler for a given video format, the prefix of the handler
         /// has to be the corresponding video format name. The
         /// prefix is "yuv" in this case.
         /// </remarks>
@@ -44,6 +42,13 @@ using System.Collections.Generic;
             get { return "yuvVideoHandler"; }
         }
 
+        /// <summary>
+        /// The Yuv video handler is not threadsafe, but there are
+        /// situations where you would want to use one handler 
+        /// by more than one component (preview processing).
+        /// 
+        /// See <see cref="IPluginMetadata"/> for details.
+        /// </summary>
         public bool threadSafe
         {
             get { return false; }
@@ -97,11 +102,7 @@ using System.Collections.Generic;
         {
             get
             {
-                if ((consistent) && !(_frameByteSize > 0))
-                {
                     _frameByteSize = (int)(readVidInfo.width * readVidInfo.height * (1 + 2 * getLum2Chrom(_readVideoInfo.yuvFormat)));
-
-                }
 
                 return _frameByteSize;
             }
@@ -123,11 +124,14 @@ using System.Collections.Generic;
 
         /// <summary>
         /// A rough indicator on how much memory (in MB) this handler should use
-        /// for writing/reading videos. 
+        /// for writing/reading videos. Note that this property is only set for
+        /// one handler (read OR write context). If you lets say set it to 100 mb
+        /// and start a analysis operation you could easily end up with 300 mb (extra to oqat
+        /// standart memory consumption).
         /// </summary>
         /// <remarks>
         /// This value has to be set by the user, however it will be checked on
-        /// plausibility and adapted accordnigly.
+        /// plausibility and adapted accordnigly. 
         /// </remarks>
         int grantedMemory
         {
@@ -168,6 +172,16 @@ using System.Collections.Generic;
         {
             get
             {
+                var curReadFileInfo = new FileInfo(readPath);
+                var actualReadFileSize = curReadFileInfo.Length;
+                
+                // if we divide the actual filesize by the framebytesize
+                // value, we can expect a integer.
+
+                long divideResult = actualReadFileSize / frameByteSize;
+                if ((frameByteSize * divideResult) != actualReadFileSize)
+                    return  false;
+                
                 return (readVidInfo.frameCount < 0) ? false : true;
             }
         }
