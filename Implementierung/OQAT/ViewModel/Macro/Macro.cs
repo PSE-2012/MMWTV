@@ -363,16 +363,19 @@ namespace Oqat.ViewModel.MacroPlugin
 
         public void setMemento(PublicRessources.Model.Memento memento)
         {
-            var newTLMacroEnry = memento.state as MacroEntry;
+            if (memento == null)
+                throw new ArgumentNullException();
 
-            Debug.Assert(newTLMacroEnry != null);
-            Debug.Assert(newTLMacroEnry.mementoName.Equals(memento.name));
-            Debug.Assert(newTLMacroEnry.macroEntries.Count > 0);
+            if (memento.state != null && memento.state is MacroEntry)
+            {
+                MacroEntry newTLMacroEnry = memento.state as MacroEntry;
 
-            flush();
-            addMacroEntry(newTLMacroEnry, null);
+                //Debug.Assert(newTLMacroEnry.mementoName.Equals(memento.name));
+                //Debug.Assert(newTLMacroEnry.macroEntries.Count > 0);
 
-
+                flush();
+                addMacroEntry(newTLMacroEnry, null);
+            }
         }
 
         public virtual string namePlugin
