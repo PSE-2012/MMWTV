@@ -87,7 +87,7 @@ namespace Oqat.Model
             SmartNode node = obj as SmartNode;
 
             if (!this.name.Equals(node.name) || this.idFather!=node.idFather || this.id!=node.id
-                || this.smartTree.Count != node.smartTree.Count)
+                || this.smartTree.Count != node.smartTree.Count||!this.video.Equals(node.video))
                 return false;
 
             for (int i = 0; i < this.smartTree.Count; i++)
