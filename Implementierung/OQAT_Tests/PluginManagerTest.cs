@@ -181,10 +181,10 @@ namespace OQAT_Tests
             ////assert: no exceptions
 
             ////try to get a different plugin
-            //IPlugin plugin = target.getPlugin<IPlugin>("PF_Greyscale");
+            //IPlugin plugin = target.getPlugin<IPlugin>("Greyscale");
             //Assert.IsNotNull(plugin);
 
-            //IPlugin pluginBroken = target.getPlugin<IPlugin>("PF_Invert");
+            //IPlugin pluginBroken = target.getPlugin<IPlugin>("Invert");
             //Assert.IsNull(pluginBroken);
 
             Assert.Inconclusive("Test deactivated, so it does not break other tests. Please run this test alone.");
@@ -202,10 +202,10 @@ namespace OQAT_Tests
             //PluginManager_Accessor target = new PluginManager_Accessor();
 
             ////try to get a different plugin
-            //IPlugin plugin = target.getPlugin<IPlugin>("PF_Greyscale");
+            //IPlugin plugin = target.getPlugin<IPlugin>("Greyscale");
             //Assert.IsNotNull(plugin);
 
-            //IPlugin pluginBroken = target.getPlugin<IPlugin>("PF_Invert");
+            //IPlugin pluginBroken = target.getPlugin<IPlugin>("Invert");
             //Assert.IsNull(pluginBroken);
 
             Assert.Inconclusive("Test deactivated, so it does not break other tests. Please run this test alone.");
@@ -222,8 +222,8 @@ namespace OQAT_Tests
 
             PluginManager_Accessor target = new PluginManager_Accessor();
 
-            IPlugin plugin = target.getPlugin<IPlugin>("PM_MSE");
-            IPlugin plugin2 = target.getPlugin<IPlugin>("PM_PSNR");
+            IPlugin plugin = target.getPlugin<IPlugin>("MSE");
+            IPlugin plugin2 = target.getPlugin<IPlugin>("PSNR");
 
             Assert.IsNotNull(plugin);
             Assert.IsNotNull(plugin2);
@@ -239,12 +239,12 @@ namespace OQAT_Tests
         {
             PluginManager_Accessor target = new PluginManager_Accessor();
 
-            IPlugin before = target.getPlugin<IPlugin>("PF_RelativeColor");
+            IPlugin before = target.getPlugin<IPlugin>("RelativeColor");
             Assert.IsNull(before, "Inconclusive: Plugin already available before adding dll.");
 
             TestHelper(new string[] { "PF_RelativeColor.dll" });
 
-            IPlugin plugin = target.getPlugin<IPlugin>("PF_RelativeColor");
+            IPlugin plugin = target.getPlugin<IPlugin>("RelativeColor");
             Assert.IsNotNull(plugin, "Plugin was not loaded properly");
         }
 
@@ -259,7 +259,7 @@ namespace OQAT_Tests
 
             PluginManager_Accessor target = new PluginManager_Accessor();
 
-            IPlugin plugin = target.getPlugin<IPlugin>("PF_Greyscale");
+            IPlugin plugin = target.getPlugin<IPlugin>("Greyscale");
             Assert.IsNotNull(plugin, "Plugin was not loaded properly");
             //wether it is loaded twice does not really matter
         }
@@ -460,7 +460,7 @@ namespace OQAT_Tests
             TestHelper(new string[] { "PM_MSE.dll" });
 
             PluginManager_Accessor target = new PluginManager_Accessor();
-            string namePlugin = "PM_MSE";
+            string namePlugin = "MSE";
             string nameMemento = "testMementoOverwrite";
             object valueMemento = 42;
             Memento mem = new Memento(nameMemento, valueMemento);
@@ -484,7 +484,7 @@ namespace OQAT_Tests
             TestHelper(new string[] { "PM_MSE.dll" });
 
             PluginManager_Accessor target = new PluginManager_Accessor();
-            string namePlugin = "PM_MSE";
+            string namePlugin = "MSE";
             string nameMemento = "testMementoMore";
             object valueMemento = 42;
             Memento mem = new Memento(nameMemento, valueMemento);
@@ -557,7 +557,7 @@ namespace OQAT_Tests
             TestHelper(new string[] { "PM_PSNR.dll" });
 
             PluginManager_Accessor target = new PluginManager_Accessor();
-            string namePlugin = "PM_PSNR";
+            string namePlugin = "PSNR";
             List<string> actual;
             actual = target.getMementoNames(namePlugin);
 
@@ -574,7 +574,7 @@ namespace OQAT_Tests
             TestHelper(new string[] { "PM_MSE.dll" });
 
             PluginManager_Accessor target = new PluginManager_Accessor();
-            string namePlugin = "PM_MSE";
+            string namePlugin = "MSE";
             string nameMemento = "MementoNamesMemento";
             Memento mem = new Memento(nameMemento, 42);
             target.addMemento(namePlugin, mem);
@@ -597,7 +597,7 @@ namespace OQAT_Tests
             TestHelper(new string[] { "PM_MSE.dll" });
 
             PluginManager_Accessor target = new PluginManager_Accessor();
-            string namePlugin = "PM_MSE";
+            string namePlugin = "MSE";
             string nameMemento = null;
             Memento actual = target.getMemento(namePlugin, nameMemento);
             Assert.IsNull(actual);
@@ -612,7 +612,7 @@ namespace OQAT_Tests
             TestHelper(new string[] { "PM_MSE.dll" });
 
             PluginManager_Accessor target = new PluginManager_Accessor();
-            string namePlugin = "PM_MSE";
+            string namePlugin = "MSE";
             string nameMemento = "";
             Memento actual = target.getMemento(namePlugin, nameMemento);
             Assert.IsNull(actual);
@@ -627,7 +627,7 @@ namespace OQAT_Tests
             TestHelper(new string[] { "PM_MSE.dll" });
 
             PluginManager_Accessor target = new PluginManager_Accessor();
-            string namePlugin = "PM_MSE";
+            string namePlugin = "MSE";
             string nameMemento = "testMementoNotExisting";
             Memento actual = target.getMemento(namePlugin, nameMemento);
             Assert.IsNull(actual);

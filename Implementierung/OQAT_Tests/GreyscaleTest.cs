@@ -208,7 +208,7 @@ namespace OQAT_Tests
         public void namePluginTest()
         {
             Greyscale target = new Greyscale();
-            string expected = "PF_Greyscale";
+            string expected = "Greyscale";
             string actual;
             target.namePlugin = expected;
             actual = target.namePlugin;

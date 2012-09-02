@@ -1,27 +1,23 @@
-﻿//------------------------------------------------------------------------------
+﻿using Oqat;
+using Oqat.PublicRessources.Model;
+using Oqat.PublicRessources.Plugin;
+using Oqat.PublicRessources;
 
-//------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Drawing;
+using AForge.Imaging;
+using System.Windows;
+using System.ComponentModel.Composition;
+using System.Windows.Controls;
+using System.ComponentModel;
+
 namespace PF_Convolution
 {
-    using Oqat;
-    
-  
-    using Oqat.PublicRessources.Model;
-    using Oqat.PublicRessources.Plugin;
-    using Oqat.PublicRessources;
- 
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Drawing;
-    using AForge.Imaging;
-    using System.Windows;
-    using System.ComponentModel.Composition;
-    using System.Windows.Controls;
-    using System.ComponentModel;
 
-    [ExportMetadata("namePlugin", "PF_Convolution")]
+    [ExportMetadata("namePlugin", "Convolution")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
     [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
@@ -34,7 +30,7 @@ namespace PF_Convolution
         {
             get { return false; }
         }
-        private string _namePlugin = "PF_Convolution";
+        private string _namePlugin = "Convolution";
         private PluginType _type= PluginType.IFilterOqat;
 
         int[,] _matrix;

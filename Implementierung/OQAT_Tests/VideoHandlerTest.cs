@@ -47,7 +47,9 @@ namespace OQAT_Tests
 
             foreach (string s in plugins)
             {
-                File.Copy(s, testContext.TestRunDirectory + "\\Out\\Plugins\\" + Path.GetFileName(s));
+                string targetpath = testContext.TestRunDirectory + "\\Out\\Plugins\\" + Path.GetFileName(s);
+                if(!File.Exists(targetpath))
+                    File.Copy(s, targetpath);
             }
         }
 

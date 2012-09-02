@@ -1,28 +1,27 @@
-﻿//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
+﻿using Oqat;
+using Oqat.PublicRessources.Model;
+using Oqat.PublicRessources.Plugin;
+using System.Drawing;
+using System.Threading;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel.Composition;
+using System.Windows.Controls;
+
+
 namespace PF_RelativeColor
 {
-    using Oqat;
-    using Oqat.PublicRessources.Model;
-    using Oqat.PublicRessources.Plugin;
-    using System.Drawing;
-    using System.Threading;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.ComponentModel.Composition;
-    using System.Windows.Controls;
 
-
-    [ExportMetadata("namePlugin", "PF_RelativeColor")]
+    [ExportMetadata("namePlugin", "RelativeColor")]
     [ExportMetadata("type", PluginType.IFilterOqat)]
     [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     [Serializable()]
 	public class RelativeColor : IFilterOqat
 	{
-        private string _namePlugin = "PF_RelativeColor";
+        private string _namePlugin = "RelativeColor";
         private PluginType _type = PluginType.IFilterOqat;
         
         VM_RelativeColor propertiesView;

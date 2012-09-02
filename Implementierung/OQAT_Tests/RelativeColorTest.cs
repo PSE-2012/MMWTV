@@ -209,7 +209,7 @@ namespace OQAT_Tests
         public void namePluginTest()
         {
             RelativeColor target = new RelativeColor();
-            string expected = "PF_RelativeColor";
+            string expected = "RelativeColor";
             string actual;
             target.namePlugin = expected;
             actual = target.namePlugin;

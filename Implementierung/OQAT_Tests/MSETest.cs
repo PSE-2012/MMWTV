@@ -181,7 +181,7 @@ namespace OQAT_Tests
         public void getMementoTest()
         {
             MSE target = new MSE();
-            Memento expected = new Memento("PM_MSE", 0);
+            Memento expected = new Memento("MSE", 0);
             Memento actual;
             actual = target.getMemento();
             Assert.AreEqual(expected.state, actual.state);
@@ -247,7 +247,7 @@ namespace OQAT_Tests
         public void namePluginTest()
         {
             MSE target = new MSE();
-            string expected = "PM_MSE";
+            string expected = "MSE";
             string actual;
             target.namePlugin = expected;
             actual = target.namePlugin;

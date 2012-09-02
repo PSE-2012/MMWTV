@@ -308,11 +308,11 @@ namespace OQAT_Tests
 
             PluginManagerTest.TestHelper(new string[] { "PF_Invert.dll" });
             Oqat.ViewModel.PluginManager_Accessor pluginManager = new Oqat.ViewModel.PluginManager_Accessor();
-            pluginManager.addMemento("PF_Invert", new Memento(mementoname, new PF_Invert.Invert().getMemento()));
+            pluginManager.addMemento("Invert", new Memento(mementoname, new PF_Invert.Invert().getMemento()));
 
             Macro_Accessor target = new Macro_Accessor();
             object sender = null;
-            MementoEventArgs e = new MementoEventArgs(mementoname, "PF_Invert");
+            MementoEventArgs e = new MementoEventArgs(mementoname, "Invert");
             target.addMacroEntry(sender, e);
 
             Assert.AreEqual(1, target.rootEntry.macroEntries.Count, "No macroentry was added.");
