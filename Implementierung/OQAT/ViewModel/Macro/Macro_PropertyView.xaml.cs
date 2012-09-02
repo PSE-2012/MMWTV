@@ -232,7 +232,7 @@ namespace Oqat.ViewModel.MacroPlugin
                     dragSourceTrItem = treeViewItem;
                     startPoint = e.GetPosition(trView);
                 }
-                e.Handled = true;
+               
             }
         }
 

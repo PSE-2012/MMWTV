@@ -360,11 +360,15 @@ namespace Oqat.ViewModel
             Memento mem;
 
             if (getMemento_Delegate == null)
+            {
                 mem = selectedPlugin.getMemento();
+                mem.name = this.tbMementoName.Text;
+            }
             else
                 mem = getMemento_Delegate();
 
-            mem.name = this.tbMementoName.Text;
+ 
+            
 
             //adding a new memento
             PluginManager.pluginManager.addMemento(memento.parent.name, mem);
