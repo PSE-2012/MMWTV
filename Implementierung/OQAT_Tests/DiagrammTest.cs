@@ -84,7 +84,7 @@ namespace OQAT_Tests
         }
 
         /// <summary>
-        ///Test "Clone"
+        ///Test "createExtraPluginInstance"
         ///</summary>
         [TestMethod()]
         public void CloneTest()
@@ -92,6 +92,19 @@ namespace OQAT_Tests
             Diagramm target = new Diagramm();
             object actual;
             actual = target.createExtraPluginInstance();
+
+            Assert.AreNotSame(target, actual, "Created diagram instance is same object as origin.");
+        }
+
+        /// <summary>
+        ///Test "Clone"
+        ///</summary>
+        [TestMethod()]
+        public void CloneTest1()
+        {
+            Diagramm target = new Diagramm();
+            object actual;
+            actual = target.Clone();
 
             Assert.AreNotSame(target, actual, "Cloned diagram is same object as origin.");
         }
@@ -311,5 +324,21 @@ namespace OQAT_Tests
 
             Assert.AreEqual<string>("PP_Diagram", actual);
         }
+
+        /// <summary>
+        ///Ein Test für "threadSafe"
+        ///</summary>
+        [TestMethod()]
+        public void threadSafeTest()
+        {
+            Diagramm target = new Diagramm();
+            bool expected = false;
+            bool actual;
+            actual = target.threadSafe;
+
+            Assert.AreEqual<bool>(expected, actual);
+        }
+
+        
     }
 }
