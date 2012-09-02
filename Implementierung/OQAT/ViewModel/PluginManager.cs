@@ -452,14 +452,29 @@ namespace Oqat.ViewModel
                 }
                     if (tmp == null) // no memento exists
                     {
-                        var memToAdd = pl.Value.getMemento();
-                        var memListToAdd = new List<Memento>();
-                        memListToAdd.Add(memToAdd);
-                        memTable.Add(pl.Metadata.namePlugin, memListToAdd);
-                        saveRequired = true;
+                        Memento memToAdd;
+                        try
+                        {
+                            memToAdd = pl.Value.getMemento();
+                        }
+                        catch (Exception exc)
+                        {
+                            blackList.Add(pl.Metadata.namePlugin, new List<ErrorEventArgs>() { new ErrorEventArgs(exc) });
+                            break;
+                        }
+
+                        if (memToAdd != null)
+                        {
+                            var memListToAdd = new List<Memento>();
+                            memListToAdd.Add(memToAdd);
+                            memTable.Add(pl.Metadata.namePlugin, memListToAdd);
+                            saveRequired = true;
+                        }
+                        
                     }
                     else
                     {
+                        
                         var readMemento = (List<Memento>)tmp.state;
                         memTable.Add(pl.Metadata.namePlugin, readMemento);
                     }
@@ -520,7 +535,8 @@ namespace Oqat.ViewModel
             if (tmpMemList != null)
                 foreach (Memento i in tmpMemList)
                 {
-                    nameList.Add(i.name);
+                    if(i!=null) 
+                        nameList.Add(i.name);
                 }
             else
                 nameList = null;
@@ -539,7 +555,9 @@ namespace Oqat.ViewModel
         {
             List<string> memNames = getMementoNames(namePlugin);
             if (memNames == null)
-                throw new ArgumentException("Plugin: " + namePlugin + " is unknown.");
+                memNames = new List<string>();
+                // it does not mean that there is no plugin, just that there is no memento so far.
+              // throw new ArgumentException("Plugin: " + namePlugin + " is unknown.");
 
             List<Memento> memObjects;
             getMementoList(namePlugin, out memObjects);
@@ -581,18 +599,23 @@ namespace Oqat.ViewModel
 
         internal delegate void videoLoadHandler(object sender, VideoEventArgs e);
         internal static event videoLoadHandler videoLoad;
-        internal delegate void macroEntrySelectedHandler(object sender, MementoEventArgs e);
-        internal static event macroEntrySelectedHandler macroEntrySelected;
-        internal delegate void saveMacroHandler(object sender, MementoEventArgs e);
-        internal static event saveMacroHandler saveMacro;
+
+        internal delegate void macroProcessingFinishedHandler(object sender, VideoEventArgs e);
+        internal static event macroProcessingFinishedHandler macroProcessingFinished;
+
+        internal delegate void mementoArgsEventHandler(object sender, MementoEventArgs e);
+        internal static event mementoArgsEventHandler macroEntrySelected;
+        internal static event mementoArgsEventHandler saveMacro;
+        internal static event mementoArgsEventHandler saveMacroAs;
+        internal static event mementoArgsEventHandler setMacroMemento;
+        internal static event mementoArgsEventHandler macroEntryAdd;
+
         internal delegate void newProjectCreatedHandler(object sender, ProjectEventArgs e);
         internal static event newProjectCreatedHandler OqatNewProjectCreatedHandler;
         internal delegate void toggleViewHandler(object sender, ViewTypeEventArgs e);
         internal static event toggleViewHandler OqatToggleView;
-        internal delegate void macroEntryAddHandler(object sender, MementoEventArgs e);
-        internal static event macroEntryAddHandler macroEntryAdd;
-        internal delegate void macroProcessingFinishedHandler(object sender, VideoEventArgs e);
-        internal static event macroProcessingFinishedHandler macroProcessingFinished;
+ 
+
 
 
         /// <summary>
@@ -643,6 +666,28 @@ namespace Oqat.ViewModel
                     {
                         if (saveMacro != null)
                             saveMacro(this, (MementoEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.saveMacroAs:
+                    try
+                    {
+                        if (saveMacroAs != null)
+                            saveMacroAs(this, (MementoEventArgs)e);
+                    }
+                    catch (Exception exc)
+                    {
+                        raiseEvent(EventType.info, new ErrorEventArgs(exc));
+                    }
+                    break;
+                case EventType.setMacroMemento:
+                    try
+                    {
+                        if (setMacroMemento != null)
+                            setMacroMemento(this, (MementoEventArgs)e);
                     }
                     catch (Exception exc)
                     {

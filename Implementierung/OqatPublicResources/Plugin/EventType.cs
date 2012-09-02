@@ -17,11 +17,22 @@ namespace Oqat.PublicRessources.Plugin
         /// to load into a player.
         /// </summary>
 		videoLoad,
+
         /// <summary>
-        /// Will be raised if user clicks on the save or saveAs button of the currently diplayed macroPlugin.
+        /// Will be raised if user clicks on the save button of the currently diplayed macroPlugin.
         /// </summary>
 		saveMacro,
 
+        /// <summary>
+        /// Will be raised if user clicks on the saveAs button of the currently diplayed macroPlugin.
+        /// </summary>
+        saveMacroAs,
+        /// <summary>
+        /// Will be raised if the VM_PluginsList wants to set a new memento (and by this flushing the existing one)
+        /// on the macro plugin. All macro plugins could catch such an event, but only the active one (the one
+        /// VM_Presentation has) will.
+        /// </summary>
+        setMacroMemento,
         /// <summary>
         /// Will be raised if a new video object was created ( VM_VideoImportDialog).
         /// </summary>
