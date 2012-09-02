@@ -33,9 +33,10 @@
                 XmlTextReader reader = new XmlTextReader(sFilename);
                 reader.Read();
                 reader.Read();
-                String[] t = new String[7];
-                String[] t2 = new String[7];
-                for (int i = 0; i < 7; i++)
+                int count = 10;
+                String[] t = new String[count];
+                String[] t2 = new String[count];
+                for (int i = 0; i < count; i++)
                 {
                     reader.Read();
                     reader.Read();
@@ -54,6 +55,9 @@
                 this.Resources["ref"] = t2[4];
                 this.Resources["ana"] = t2[5];
                 this.Resources["exp"] = t2[6];
+                importconsiserror = t2[7];
+                notfound1 = t2[8];
+                notfound2 = t2[9];
             }
             catch (IndexOutOfRangeException e) { }
             catch (FileNotFoundException e) { }
@@ -131,18 +135,26 @@
         /// Imports the videofiles into the smarttree by opening a vidImportOptionsDialog.
         /// </summary>
         /// <param name="fileList">the filenames of videos to import.</param>
+        string importconsiserror = "Mindestens eine Videodatei ist kaputt";
         public void importVideos(StringCollection fileList)
         {
-            VM_VidImportOptionsDialog vidImp = new VM_VidImportOptionsDialog(fileList);
-            vidImp.Owner = Window.GetWindow(this);
-            Nullable<bool> result = vidImp.ShowDialog();
-
-            if ((result != null) & (bool)result)
+            try
             {
-                foreach (var vid in vidImp.videoList)
+                VM_VidImportOptionsDialog vidImp = new VM_VidImportOptionsDialog(fileList);
+                vidImp.Owner = Window.GetWindow(this);
+                Nullable<bool> result = vidImp.ShowDialog();
+
+                if ((result != null) & (bool)result)
                 {
-                    project.addNode(vid,-1);
+                    foreach (var vid in vidImp.videoList)
+                    {
+                        project.addNode(vid, -1);
+                    }
                 }
+            }
+            catch (FileFormatException e)
+            {
+                MessageBox.Show(importconsiserror);
             }
         }
 
@@ -358,12 +370,14 @@
             }
         }
 
+        string notfound1="Die Videodatei konnte nicht gefunden werden, soll das Video aus dem Projekt entfernt werden?";
+        string notfound2 = "Datei nicht gefunden";
         private bool videoCheck(SmartNode node)
         {
             //check if videofile still exists
             if (!File.Exists(node.video.vidPath))
             {
-                MessageBoxResult result = MessageBox.Show("Die Videodatei konnte nicht gefunden werden, soll das Video aus dem Projekt entfernt werden?", "Datei nicht gefunden", MessageBoxButton.YesNo);
+                MessageBoxResult result = MessageBox.Show(notfound1,notfound2 , MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
                     project.rmNode(node.id, false);

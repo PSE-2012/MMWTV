@@ -163,7 +163,7 @@ namespace Oqat.ViewModel
        
                 if (!vid.handler.consistent)
                 {
-                    throw new Exception("Check your input, inconsistencies were detected.");
+                    throw new FileFormatException("Consistens Check fail");
                 }
             }
             e.Handled = true;
