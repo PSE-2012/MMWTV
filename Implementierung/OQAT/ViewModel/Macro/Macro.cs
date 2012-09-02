@@ -45,6 +45,7 @@ namespace Oqat.ViewModel.MacroPlugin
                                                     registerOnMacroEventsHelper);
             
             propertyView = new Macro_PropertyView(this.rootEntry, macroViewDelegates);
+            registeredLock = new Object();
             
             _propertyView.readOnly = false;
             
@@ -52,23 +53,26 @@ namespace Oqat.ViewModel.MacroPlugin
         
         }
 
-        private bool registered;
+        private int registered = 0;
+        private object registeredLock;
         private void registerOnMacroEventsHelper() {
-            if (!registered)
+            lock(registeredLock) {
+            if (!_propertyView.readOnly && registered < 1)
             {
                
                 PluginManager.macroEntryAdd += this.addMacroEntry;
                 PluginManager.OqatToggleView += onToggleView;
                 PluginManager.setMacroMemento += setMemento;
-                registered = true;
+                registered++;
             }
-            else if(registered)
+            else if(_propertyView.readOnly && registered > 0)
             {
                 PluginManager.macroEntryAdd -= this.addMacroEntry;
                 PluginManager.OqatToggleView -= onToggleView;
                 PluginManager.setMacroMemento -= setMemento;
-                registered = false;
+                registered--;
             }
+        }
         }
 
 #region fieldsProperties
@@ -387,6 +391,9 @@ namespace Oqat.ViewModel.MacroPlugin
             if (memento == null)
                 throw new ArgumentNullException("Given memento is null.");
 
+             var newTLMacroEnry = memento.state as MacroEntry;
+
+
             if (newTLMacroEnry == null)
                 throw new ArgumentNullException("Given state object is null.");
 
@@ -397,10 +404,11 @@ namespace Oqat.ViewModel.MacroPlugin
                 throw new ArgumentException("Given memento shows inconsistencies. Name of top level macro does not equal to" +
                                             "the memento name.");
                 flush();
-            }
+            
             addMacroEntry(newTLMacroEnry, null);
            
         }
+
         private string originallTlMacroName = "";
 
         public virtual string namePlugin
@@ -534,8 +542,7 @@ namespace Oqat.ViewModel.MacroPlugin
                     //macroEntry.startFrameAbs = child.startFrameAbs;
                     //macroEntry.endFrameAbs = child.endFrameAbs;
                     clearMacroEntryList();
-                    rootEntry.macroEntries = (rootEntry.macroEntries.Concat(child.macroEntries))
-                        as ObservableCollection<MacroEntry>;
+                    concatObsCollInplace(rootEntry.macroEntries, child.macroEntries);
                 }
                 else
                 {
@@ -550,6 +557,14 @@ namespace Oqat.ViewModel.MacroPlugin
                 }
             }
         }
+        private void concatObsCollInplace(ObservableCollection<MacroEntry> first, ObservableCollection<MacroEntry> second)
+        {
+            foreach (var entry in second)
+            {
+                first.Add(entry);
+            }
+        }
+
         private void moveMacroEntry(MacroEntry toMoveMacro, MacroEntry target, int index = -1)
         {
             removeMacroEntry(toMoveMacro);

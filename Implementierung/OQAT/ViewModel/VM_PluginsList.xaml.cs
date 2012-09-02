@@ -230,7 +230,7 @@ namespace Oqat.ViewModel
                     //}
                     //else
                     //{
-                        panelMacroProp.Visibility = System.Windows.Visibility.Visible;
+                //        panelMacroProp.Visibility = System.Windows.Visibility.Visible;
                    // }
                 }
                 else
@@ -256,7 +256,7 @@ namespace Oqat.ViewModel
                 if (gridPluginProperties.Content == null
                     || (selectedPlugin is IMacro)) //&& selectedPVM != activeMacroPVM))
                 {
-                    this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
+           //         this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
 
                     if (!(selectedPlugin is IMacro))
                     {
