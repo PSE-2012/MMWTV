@@ -31,10 +31,24 @@ namespace Oqat.PublicRessources.Model
 			private set;
 		}
 
-        public MementoEventArgs(string mementoName, string pluginKey)
+        public string previousMementoName
+        {
+            get;
+            private set;
+        }
+
+        public Memento memento;
+
+        public delegate Memento getMemento_Delegate();
+        public getMemento_Delegate getMemDel;
+
+        public MementoEventArgs(string mementoName, string pluginKey, string previousMementoname = "", getMemento_Delegate getMemDel = null, Memento memento = null)
         {
             this.mementoName = mementoName;
             this.pluginKey = pluginKey;
+            this.getMemDel = getMemDel;
+            this.memento = memento;
+            this.previousMementoName = previousMementoname;
         }
 
 	}

@@ -55,9 +55,9 @@ namespace Oqat.ViewModel
                         throw new XmlException("datei nicht lang genug");
                     }
                 }
-                tb1.Text = t2[0];
+               // tb1.Text = t2[0];
                 bt2.Content = t2[1];
-                bt3.Content = t2[2];
+               // bt3.Content = t2[2];
                 bttAddToMacro.Content = t2[3];
                 l2text = t2[4];
                 msgText1 = t2[5];
@@ -93,28 +93,30 @@ namespace Oqat.ViewModel
                 return (PluginViewModel)this.treePlugins.SelectedItem;
             }
         }
-        PluginViewModel _activeMacroPVM;
-        PluginViewModel activeMacroPVM
-        {
-            get
-            {
-                if (_activeMacroPVM == null)
-                {
-                    //select parent MacroPlugin (always last entry in list)
-                    _activeMacroPVM = pluginList.Last();
-                }
-                return _activeMacroPVM;
-            }
-            set
-            {
-                _activeMacroPVM = value;
-            }
-        }
+        IMacro presentationMacro;
+
+        //PluginViewModel _activeMacroPVM;
+        //PluginViewModel activeMacroPVM
+        //{
+        //    get
+        //    {
+        //        if (_activeMacroPVM == null)
+        //        {
+        //            //select parent MacroPlugin (always last entry in list)
+        //            _activeMacroPVM = pluginList.Last();
+        //        }
+        //        return _activeMacroPVM;
+        //    }
+        //    set
+        //    {
+        //        _activeMacroPVM = value;
+        //    }
+        //}
 
         public delegate void macroLoadHandler(object sender, MementoEventArgs e);
         public event macroLoadHandler macroLoaded;
 
-        Panel panelMacroPropertyViewCurrent;
+       // Panel panelMacroPropertyViewCurrent;
 
         /// <summary>
         /// Constructor
@@ -126,16 +128,18 @@ namespace Oqat.ViewModel
             local("VM_PluginsList_"+ Thread.CurrentThread.CurrentCulture+".xml");
             this.pluginType = plugintype;
 
-           // PluginManager.macroEntrySelected += onMacroFilterEntryClicked;
+            PluginManager.macroEntrySelected += onMacroFilterEntryClicked;
+            PluginManager.saveMacro += onMacroSave;
+            PluginManager.saveMacroAs += onMacroSaveAs;
 
             loadPluginLists();
             this.treePlugins.ItemsSource = pluginList;
 
-            panelMacroPropertyViewCurrent = new StackPanel();
-                TextBlock l2 = new TextBlock();
-                l2.Text = l2text;
-                l2.TextAlignment = TextAlignment.Center;
-            panelMacroPropertyViewCurrent.Children.Add(l2);
+            //panelMacroPropertyViewCurrent = new StackPanel();
+            //    TextBlock l2 = new TextBlock();
+            //    l2.Text = l2text;
+            //    l2.TextAlignment = TextAlignment.Center;
+            //panelMacroPropertyViewCurrent.Children.Add(l2);
             
         }
 
@@ -157,7 +161,8 @@ namespace Oqat.ViewModel
                 {
                     foreach (string m in mementos)
                     {
-                        pl.children.Add(new PluginViewModel(m, pl));
+                        if(m!="") // no invisible entries allowed
+                            pl.children.Add(new PluginViewModel(m, pl));
                     }
                 }
 
@@ -180,12 +185,13 @@ namespace Oqat.ViewModel
                 if (p.parent.name == pluginName)
                 {
                     if (mementoName == null) return p.parent;
-
+                    if ((p.children == null) || (p.children.Count() < 1)) return p.parent;
                     foreach (PluginViewModel pc in p.children)
                     {
                         if (pc.name == mementoName)
                             return pc;
                     }
+                    return p.parent;
                 }
             }
 
@@ -207,50 +213,57 @@ namespace Oqat.ViewModel
             if(selectedPVM.isMemento)
             { //real memento
                 selectedPlugin = PluginManager.pluginManager.getPlugin<IPlugin>(selectedPVM.parent.name);
+                Memento m = PluginManager.pluginManager.getMemento(selectedPVM.parent.name, selectedPVM.name);
+                                    if (m != null)
+                    {
 
+                       
                 if (selectedPlugin is IMacro)
                 { //macro
-                    if (selectedPVM == activeMacroPVM)
-                    {
-                        this.gridPluginProperties.Content = panelMacroPropertyViewCurrent;
-                        this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
-                    }
-                    else
-                    {
-                        panelMacroProp.Visibility = System.Windows.Visibility.Visible;
-                    }
+                 //   if (selectedPVM == activeMacroPVM)
+                //    {
+                    selectedPlugin.setMemento(m);
+
+                    this.gridPluginProperties.Content = (selectedPlugin as IMacro).readOnlyPropertiesView;
+
+                    //    this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
+                    //}
+                    //else
+                    //{
+                //        panelMacroProp.Visibility = System.Windows.Visibility.Visible;
+                   // }
                 }
                 else
                 { //filter/metric
-                    Memento m = PluginManager.pluginManager.getMemento(selectedPVM.parent.name, selectedPVM.name);
-                    if (m != null)
-                    {
-                        selectedPlugin.setMemento(m);
-                        this.gridPluginProperties.Content = selectedPlugin.propertyView;
-                        this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
-                    }
-                    else
-                    { //memento can't be found
-
-                        MessageBox.Show(msgText1);
-
-                        //remove the broken entry
-                        selectedPVM.parent.children.Remove(selectedPVM);
-                    }
+                    selectedPlugin.setMemento(m);
+                    this.gridPluginProperties.Content = selectedPlugin.propertyView;
                 }
+                this.panelMementoSave.Visibility = System.Windows.Visibility.Visible;
+                    }
+                                    else
+                                    { //memento can't be found
+
+                                        MessageBox.Show(msgText1);
+
+                                        //remove the broken entry
+                                        selectedPVM.parent.children.Remove(selectedPVM);
+                                    }
 
 
                 this.bttAddToMacro.Visibility = System.Windows.Visibility.Visible;
 
                 this.tbMementoName.Text = selectedPVM.name;
                 if (gridPluginProperties.Content == null
-                    || (selectedPlugin is IMacro && selectedPVM != activeMacroPVM))
+                    || (selectedPlugin is IMacro)) //&& selectedPVM != activeMacroPVM))
                 {
-                    this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
+           //         this.panelMementoSave.Visibility = System.Windows.Visibility.Collapsed;
 
-                    if (selectedPlugin.propertyView == null)
+                    if (!(selectedPlugin is IMacro))
                     {
-                        tbNoSettings.Visibility = System.Windows.Visibility.Visible;
+                        if (selectedPlugin.propertyView == null)
+                        {
+                            tbNoSettings.Visibility = System.Windows.Visibility.Visible;
+                        }
                     }
                 }
             }
@@ -264,23 +277,31 @@ namespace Oqat.ViewModel
         /// <summary>
         /// Copies the selected memento internally.
         /// </summary>
-        private bool mementoCopy(PluginViewModel memento)
+        private bool mementoSaveAs(PluginViewModel memento, MementoEventArgs.getMemento_Delegate getMemento_Delegate = null)
         {
             //find available new name
-            string name = this.tbMementoName.Text;
-            int nameext = 1;
-            while (findPVM(memento.parent.name, (name + nameext)) != null)
+            string oldName = memento.name;
+            string newName = this.tbMementoName.Text;
+            //int nameext = 1;
+            //while (findPVM(memento.parent.name, (name + nameext)) != null)
+            //{
+            //    nameext++;
+            //}
+            //name = name + nameext;
+            if (findPVM(memento.parent.name, newName) != memento.parent)
             {
-                nameext++;
+                //the new memento's name is already taken
+                System.Windows.MessageBox.Show(msgText3, msgText21);
+                return false;
             }
-            name = name + nameext;
-            this.tbMementoName.Text = name;
+
+            this.tbMementoName.Text = newName;
 
 
-            PluginViewModel copymem = new PluginViewModel(name, memento.parent);
+            PluginViewModel copymem = new PluginViewModel(newName, memento.parent);
             memento.parent.children.Add(copymem);
 
-            return mementoSave(copymem);
+            return mementoSave(copymem, getMemento_Delegate);
         }
 
         /// <summary>
@@ -312,7 +333,7 @@ namespace Oqat.ViewModel
         /// Saves the current settings permanently to the given memento.
         /// </summary>
         /// <returns>Returns true if the memento was successfully saved.</returns>
-        private bool mementoSave(PluginViewModel memento)
+        private bool mementoSave(PluginViewModel memento, MementoEventArgs.getMemento_Delegate getMemento_Delegate = null)
         {
             //if plugin (no memento) itself is selected, change the
             if (!memento.isMemento)
@@ -322,22 +343,27 @@ namespace Oqat.ViewModel
 
 
             bool renaming = (memento.name != this.tbMementoName.Text);
-
+            var nameAmbiguityCheck = findPVM(memento.parent.name, this.tbMementoName.Text);
             //check memento naming
             if (this.tbMementoName.Text == "")
             {
                 System.Windows.MessageBox.Show(msgText2,msgText21);
                 return false;
             }
-            else if (renaming && findPVM(memento.parent.name, this.tbMementoName.Text) != null)
+            else if (renaming && findPVM(memento.parent.name, this.tbMementoName.Text) != memento.parent)
             {
                 //the new memento's name is already taken
                 System.Windows.MessageBox.Show(msgText3, msgText21);
                 return false;
             }
 
+            Memento mem;
 
-            Memento mem = selectedPlugin.getMemento();
+            if (getMemento_Delegate == null)
+                mem = selectedPlugin.getMemento();
+            else
+                mem = getMemento_Delegate();
+
             mem.name = this.tbMementoName.Text;
 
             //adding a new memento
@@ -353,7 +379,6 @@ namespace Oqat.ViewModel
             }
 
             //focus the saved memento
-            if (selectedPlugin is IMacro) activeMacroPVM = memento;
             memento.selected = true;
             return true;
         }
@@ -366,11 +391,35 @@ namespace Oqat.ViewModel
         {
             if (memento == null) return;
 
-            if (mementoSave(memento))
-            {
+            //if (mementoSave(memento))
+            //{
                 PluginManager.pluginManager.raiseEvent(EventType.macroEntryAdd,
                     new MementoEventArgs(this.tbMementoName.Text, memento.parent.name));
+            //}
+        }
+
+        private void onMacroSave(object sender, MementoEventArgs e) {
+
+            PluginViewModel plVm;
+            if(e.previousMementoName == "") { //just save
+                plVm = findPVM(e.pluginKey, e.mementoName);
+                if (plVm == null)
+                    throw new ArgumentException("No such memento: " + e.mementoName + " found!");
+            } else { // rename and save
+                plVm = findPVM(e.pluginKey, e.previousMementoName);
+                if (plVm == null)
+                    throw new ArgumentException("No such memento: " + e.previousMementoName + " found!");   
             }
+            this.tbMementoName.Text = e.mementoName;
+            if (!mementoSave(plVm, e.getMemDel))
+                throw new ArgumentException("Specified memento name is ambigous, try an another one.");
+           
+        }
+
+        private void onMacroSaveAs(object sender, MementoEventArgs e) {
+            PluginViewModel plVm = new PluginViewModel(e.previousMementoName, findPVM(e.pluginKey, null));
+            this.tbMementoName.Text = e.mementoName;
+            mementoSaveAs(plVm, e.getMemDel);
         }
 
         /// <summary>
@@ -381,8 +430,8 @@ namespace Oqat.ViewModel
         {
             if (!memento.isMemento) return;
 
-            macroLoaded(this, new MementoEventArgs(selectedPVM.name, selectedPVM.parent.name));
-            activeMacroPVM = selectedPVM;
+            //macroLoaded(this, new MementoEventArgs(selectedPVM.name, selectedPVM.parent.name));
+           // activeMacroPVM = selectedPVM;
             updatePropertiesView();
         }
 
@@ -416,9 +465,9 @@ namespace Oqat.ViewModel
             mementoSave(selectedPVM);
         }
 
-        private void bttCopyMemento_Click(object sender, RoutedEventArgs e)
+        private void bttSaveAsMemento_Click(object sender, RoutedEventArgs e)
         {
-            mementoCopy(selectedPVM);
+            mementoSaveAs(selectedPVM);
         }
 
         private void bttDeleteMemento_Click(object sender, RoutedEventArgs e)
@@ -444,10 +493,10 @@ namespace Oqat.ViewModel
             mementoLoadAsMacro(selectedPVM);
         }
 
-        private void bttSwitchToCurrentMacro_Click(object sender, RoutedEventArgs e)
-        {
-            activeMacroPVM.selected = true;
-        }
+        //private void bttSwitchToCurrentMacro_Click(object sender, RoutedEventArgs e)
+        //{
+        //    activeMacroPVM.selected = true;
+        //}
 
         Point dragOrigin;
         private void treePlugins_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -581,7 +630,7 @@ namespace Oqat.ViewModel
             }
             set
             {
-                if (value != selected)
+                if (value != _selected)
                 {
                     _selected = value;
                     NotifyPropertyChanged("selected");

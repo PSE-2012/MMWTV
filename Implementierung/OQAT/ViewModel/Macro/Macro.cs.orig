@@ -45,7 +45,6 @@ namespace Oqat.ViewModel.MacroPlugin
                                                     registerOnMacroEventsHelper);
             
             propertyView = new Macro_PropertyView(this.rootEntry, macroViewDelegates);
-            registeredLock = new Object();
             
             _propertyView.readOnly = false;
             
@@ -53,26 +52,23 @@ namespace Oqat.ViewModel.MacroPlugin
         
         }
 
-        private int registered = 0;
-        private object registeredLock;
+        private bool registered;
         private void registerOnMacroEventsHelper() {
-            lock(registeredLock) {
-            if (!_propertyView.readOnly && registered < 1)
+            if (!registered)
             {
                
                 PluginManager.macroEntryAdd += this.addMacroEntry;
                 PluginManager.OqatToggleView += onToggleView;
                 PluginManager.setMacroMemento += setMemento;
-                registered++;
+                registered = true;
             }
-            else if(_propertyView.readOnly && registered > 0)
+            else if(registered)
             {
                 PluginManager.macroEntryAdd -= this.addMacroEntry;
                 PluginManager.OqatToggleView -= onToggleView;
                 PluginManager.setMacroMemento -= setMemento;
-                registered--;
+                registered = false;
             }
-        }
         }
 
 #region fieldsProperties
@@ -389,26 +385,35 @@ namespace Oqat.ViewModel.MacroPlugin
         public void setMemento(PublicRessources.Model.Memento memento)
         {
             if (memento == null)
+<<<<<<< HEAD
                 throw new ArgumentNullException("Given memento is null.");
-
-             var newTLMacroEnry = memento.state as MacroEntry;
-
+            var newTLMacroEnry = memento.state as MacroEntry;
 
             if (newTLMacroEnry == null)
                 throw new ArgumentNullException("Given state object is null.");
 
-                //Debug.Assert(newTLMacroEnry.mementoName.Equals(memento.name));
-                //Debug.Assert(newTLMacroEnry.macroEntries.Count > 0);
-
             if (newTLMacroEnry.mementoName != memento.name)
                 throw new ArgumentException("Given memento shows inconsistencies. Name of top level macro does not equal to" +
                                             "the memento name.");
-                flush();
-            
+            flush();
+
             addMacroEntry(newTLMacroEnry, null);
            
-        }
+=======
+                throw new ArgumentNullException();
 
+            if (memento.state != null && memento.state is MacroEntry)
+            {
+                MacroEntry newTLMacroEnry = memento.state as MacroEntry;
+
+                //Debug.Assert(newTLMacroEnry.mementoName.Equals(memento.name));
+                //Debug.Assert(newTLMacroEnry.macroEntries.Count > 0);
+
+                flush();
+                addMacroEntry(newTLMacroEnry, null);
+            }
+>>>>>>> 6b86aa8be2bad20b9bf4b3408ec754fc143f108e
+        }
         private string originallTlMacroName = "";
 
         public virtual string namePlugin
@@ -542,7 +547,8 @@ namespace Oqat.ViewModel.MacroPlugin
                     //macroEntry.startFrameAbs = child.startFrameAbs;
                     //macroEntry.endFrameAbs = child.endFrameAbs;
                     clearMacroEntryList();
-                    concatObsCollInplace(rootEntry.macroEntries, child.macroEntries);
+                    rootEntry.macroEntries = (rootEntry.macroEntries.Concat(child.macroEntries))
+                        as ObservableCollection<MacroEntry>;
                 }
                 else
                 {
@@ -557,14 +563,6 @@ namespace Oqat.ViewModel.MacroPlugin
                 }
             }
         }
-        private void concatObsCollInplace(ObservableCollection<MacroEntry> first, ObservableCollection<MacroEntry> second)
-        {
-            foreach (var entry in second)
-            {
-                first.Add(entry);
-            }
-        }
-
         private void moveMacroEntry(MacroEntry toMoveMacro, MacroEntry target, int index = -1)
         {
             removeMacroEntry(toMoveMacro);
