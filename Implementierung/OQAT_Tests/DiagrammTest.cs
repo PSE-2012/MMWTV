@@ -8,7 +8,7 @@ using Oqat.PublicRessources.Plugin;
 using System.Windows.Controls;
 using Oqat.ViewModel.MacroPlugin;
 
-namespace PP_Diagram_Tests
+namespace OQAT_Tests
 {
     
     
@@ -70,6 +70,7 @@ namespace PP_Diagram_Tests
         #endregion
 
 
+
         /// <summary>
         ///Test flushing a new Diagram
         ///</summary>
@@ -119,7 +120,7 @@ namespace PP_Diagram_Tests
             string vidPath = "";
             IVideoInfo vinfo = null;
             List<IMacroEntry> processedBy = new List<IMacroEntry>();
-            Oqat.ViewModel.MacroPlugin.MacroEntry macroEntry = new Oqat.ViewModel.MacroPlugin.MacroEntry("TestPlugin",PluginType.IMetricOqat ,"TestMemento");
+            Oqat.ViewModel.MacroPlugin.MacroEntry macroEntry = new Oqat.ViewModel.MacroPlugin.MacroEntry("TestPlugin", PluginType.IMetricOqat, "TestMemento");
             processedBy.Add(macroEntry);
             Video video = new Video(isAnalysis, vidPath, vinfo, processedBy);
 
@@ -138,7 +139,7 @@ namespace PP_Diagram_Tests
             string vidPath = "";
             IVideoInfo vinfo = null;
             List<IMacroEntry> processedBy = new List<IMacroEntry>();
-            MacroEntry macroEntry = new MacroEntry("TestPlugin",PluginType.IMetricOqat ,"TestMemento");
+            MacroEntry macroEntry = new MacroEntry("TestPlugin", PluginType.IMetricOqat, "TestMemento");
             processedBy.Add(macroEntry);
             Video video = new Video(isAnalysis, vidPath, vinfo, processedBy);
 
@@ -164,7 +165,7 @@ namespace PP_Diagram_Tests
             string vidPath = "";
             IVideoInfo vinfo = null;
             List<IMacroEntry> processedBy = new List<IMacroEntry>();
-            MacroEntry macroEntry = new MacroEntry("TestPlugin",PluginType.IMetricOqat ,"TestMemento");
+            MacroEntry macroEntry = new MacroEntry("TestPlugin", PluginType.IMetricOqat, "TestMemento");
             processedBy.Add(macroEntry);
             Video video = new Video(isAnalysis, vidPath, vinfo, processedBy);
 

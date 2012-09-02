@@ -63,6 +63,12 @@
     <Reference Include="Microsoft.WindowsAPICodePack.Shell">
       <HintPath>..\..\lib\Windows API Code Pack 1.1\binaries\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
+    <Reference Include="OxyPlot">
+      <HintPath>..\PP_Diagramm\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf">
+      <HintPath>..\PP_Diagramm\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="PresentationFramework.Aero" />
@@ -91,6 +97,7 @@
   <ItemGroup>
     <Compile Include="CaretakerTest.cs" />
     <Compile Include="ConvolutionTest.cs" />
+    <Compile Include="DiagrammTest.cs" />
     <Compile Include="GreyscaleTest.cs" />
     <Compile Include="InvertTest.cs" />
     <Compile Include="MacroTest.cs" />
@@ -145,6 +152,10 @@
     <ProjectReference Include="..\PM_PSNR\PM_PSNR.csproj">
       <Project>{4A736CFE-5F5C-42A0-BFEC-B73932AFAFE5}</Project>
       <Name>PM_PSNR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PP_Diagramm\PP_Diagramm.csproj">
+      <Project>{9A62AAE3-961C-47F4-BFB1-B3568F233AF5}</Project>
+      <Name>PP_Diagramm</Name>
     </ProjectReference>
     <ProjectReference Include="..\PP_Player\PP_Player.csproj">
       <Project>{044C062C-9475-4B68-AF61-26B2F64A3CC5}</Project>
