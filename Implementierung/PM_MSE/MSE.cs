@@ -1,23 +1,23 @@
-﻿//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
+﻿using Oqat.PublicRessources.Plugin;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.ComponentModel.Composition;
+using Oqat.PublicRessources.Model;
+using System.Windows.Controls;
+using System.Threading;
+
 namespace PM_MSE
 {
-    using Oqat.PublicRessources.Plugin;
-    using System;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.ComponentModel.Composition;
-    using Oqat.PublicRessources.Model;
-    using System.Windows.Controls;
-    using System.Threading;
-    [ExportMetadata("namePlugin", "PM_MSE")]
+    
+    [ExportMetadata("namePlugin", "MSE")]
     [ExportMetadata("type", PluginType.IMetricOqat)]
     [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     [Serializable()]
     public class MSE : IMetricOqat
     {
-        private string _namePlugin = "PM_MSE";
+        private string _namePlugin = "MSE";
         private PluginType _type = PluginType.IMetricOqat;
         public double sum;
         public double sumR;

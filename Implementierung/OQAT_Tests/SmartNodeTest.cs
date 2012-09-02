@@ -101,17 +101,18 @@ namespace OQAT_Tests
             int id = 5; 
             int idFather = 4;
            
-            ObservableCollection<SmartNode> smartTree = null; 
+            ObservableCollection<SmartNode> smartTree = new ObservableCollection<SmartNode>();
+            smartTree.Add(new SmartNode(vid,7,3));
             SmartNode target = new SmartNode(vid, id, idFather, smartTree);
             Assert.AreEqual(target.id, 5);
             Assert.AreEqual(target.idFather, 4);
             Assert.AreEqual(target.video.vidPath, "test/test.yuv");
             Assert.AreNotEqual(target.smartTree, null);
-            Assert.AreEqual(target.smartTree.Count, 0);
+            Assert.AreEqual(target.smartTree.Count, 1);
              SmartNode target2 = new SmartNode(vid2, 7, 6,null);
-             Assert.AreEqual(target.smartTree.Count, 0);
+             Assert.AreEqual(target2.smartTree.Count, 0);
              target.smartTree.Add(target2);
-             Assert.AreEqual(target.smartTree.Count, 1);
+             Assert.AreEqual(target.smartTree.Count, 2);
             //test von to String + name methode
              Assert.AreEqual(target.ToString(), "test");
              Assert.AreNotEqual(target2.ToString(), "test");

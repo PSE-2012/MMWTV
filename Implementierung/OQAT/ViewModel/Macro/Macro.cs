@@ -386,16 +386,18 @@ namespace Oqat.ViewModel.MacroPlugin
         {
             if (memento == null)
                 throw new ArgumentNullException("Given memento is null.");
-            var newTLMacroEnry = memento.state as MacroEntry;
 
             if (newTLMacroEnry == null)
                 throw new ArgumentNullException("Given state object is null.");
 
+                //Debug.Assert(newTLMacroEnry.mementoName.Equals(memento.name));
+                //Debug.Assert(newTLMacroEnry.macroEntries.Count > 0);
+
             if (newTLMacroEnry.mementoName != memento.name)
                 throw new ArgumentException("Given memento shows inconsistencies. Name of top level macro does not equal to" +
                                             "the memento name.");
-            flush();
-
+                flush();
+            }
             addMacroEntry(newTLMacroEnry, null);
            
         }

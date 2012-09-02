@@ -56,7 +56,6 @@ namespace Oqat.ViewModel
         /// </summary>
         private PluginManager()
         {
-            PLUGIN_PATH = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(PluginManager)).Location) + "\\Plugins";
             if (!System.IO.Directory.Exists(PLUGIN_PATH))
             {
                 System.IO.Directory.CreateDirectory(PLUGIN_PATH);
@@ -122,7 +121,7 @@ namespace Oqat.ViewModel
         /// and will be set to "Plugins" (relative to the codebase of the assembly 
         /// PluginManager class is in, i.e. "C:\Oqat\Plugins" if oqat.exe is in "C:\Oqat").
         /// </remarks>
-        public readonly string PLUGIN_PATH;
+        public static readonly string PLUGIN_PATH = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(PluginManager)).Location) + "\\Plugins";
 
         /// <summary>
         /// In this Dictionary PluginManager holds references to all known plugins.

@@ -33,15 +33,20 @@
                 XmlTextReader reader = new XmlTextReader(sFilename);
                 reader.Read();
                 reader.Read();
-                String[] t = new String[7];
-                String[] t2 = new String[7];
-                for (int i = 0; i < 7; i++)
+                int count = 10;
+                String[] t = new String[count];
+                String[] t2 = new String[count];
+                for (int i = 0; i < count; i++)
                 {
                     reader.Read();
                     reader.Read();
                     t[i] = reader.Name;
                     reader.MoveToNextAttribute();
                     t2[i] = reader.Value;
+                    if (t2[i] == "")
+                    {
+                        throw new XmlException("datei nicht lang genug");
+                    }
                 }
                 lb1.Content = t2[0];
                 lb2.Content = t2[1];
@@ -50,8 +55,9 @@
                 this.Resources["ref"] = t2[4];
                 this.Resources["ana"] = t2[5];
                 this.Resources["exp"] = t2[6];
-
-              
+                importconsiserror = t2[7];
+                notfound1 = t2[8];
+                notfound2 = t2[9];
             }
             catch (IndexOutOfRangeException e) { }
             catch (FileNotFoundException e) { }
@@ -79,7 +85,6 @@
             // projectExplorer
             this.project = project;
             smartTreeExplorer.DataContext = project.smartTree;
-
         }
 
         private void smartTreeExplorer_KeyDown(object sender, KeyEventArgs e)
@@ -90,14 +95,11 @@
                 SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
                 project.rmNode(selNode.id, false);
             }
-
         }
 
         private void smartTreeExplorer_PreviewDrop(object sender, DragEventArgs e)
         {
             e.Handled = true;
-
-            
 
             //select item to drop in if there is one
             var dropInItem = (getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource));
@@ -133,20 +135,26 @@
         /// Imports the videofiles into the smarttree by opening a vidImportOptionsDialog.
         /// </summary>
         /// <param name="fileList">the filenames of videos to import.</param>
+        string importconsiserror = "Mindestens eine Videodatei ist kaputt";
         public void importVideos(StringCollection fileList)
         {
-            VM_VidImportOptionsDialog vidImp = new VM_VidImportOptionsDialog(fileList);
-            vidImp.Owner = Window.GetWindow(this);
-            Nullable<bool> result = vidImp.ShowDialog();
+           
+                VM_VidImportOptionsDialog vidImp = new VM_VidImportOptionsDialog(fileList);
+                vidImp.Owner = Window.GetWindow(this);
+                Nullable<bool> result = vidImp.ShowDialog();
 
-            if ((result != null) & (bool)result)
-            {
-                foreach (var vid in vidImp.videoList)
+                if ((result != null) & (bool)result)
                 {
-                    project.addNode(vid,-1);
+                    foreach (var vid in vidImp.videoList)
+                    {
+                        project.addNode(vid, -1);
+                    }
                 }
-
-            }
+                if (!(bool)result)
+                {
+                    MessageBox.Show(importconsiserror);
+                }
+            
         }
 
 
@@ -171,7 +179,7 @@
             }
             while (current != null);
             return null;
-                 }
+        }
 
         /// <summary>
         /// This method will be invoked if the user drags a object (i.e. file)
@@ -198,8 +206,7 @@
             getNearestFather<TreeViewItem>(tblock).IsSelected = true;
 
             SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
-            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad, 
-                new VideoEventArgs(selNode.video, selNode.id));
+            loadVideo(selNode);
         }
         private void miLoadRef_Click(object sender, RoutedEventArgs e)
         {
@@ -208,8 +215,7 @@
             getNearestFather<TreeViewItem>(tblock).IsSelected = true;
 
             SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
-            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
-                new VideoEventArgs(selNode.video,selNode.id, true));
+            loadVideo(selNode, true);
         }
         private void miLoadProc_Click(object sender, RoutedEventArgs e)
         {
@@ -218,8 +224,7 @@
             getNearestFather<TreeViewItem>(tblock).IsSelected = true;
 
             SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
-            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
-                new VideoEventArgs(selNode.video,selNode.id));
+            loadVideo(selNode);
         }
 
 
@@ -247,8 +252,7 @@
             if (this.smartTreeExplorer.SelectedItem == ((SmartNode)((TreeViewItem)e.Source).Header))
             {
                 SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
-                PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
-                    new VideoEventArgs(selNode.video, selNode.id, true));
+                loadVideo(selNode, false);
                 if (selNode.video.isAnalysis == true)
                 {
                     btnExport.Visibility = Visibility.Visible;
@@ -258,8 +262,6 @@
                     btnExport.Visibility = Visibility.Hidden;
                 }
             }
-
-
         }
 
         private void btnExport_Click(object sender, RoutedEventArgs e)
@@ -300,9 +302,8 @@
             readOnlyPropViewPanel.Children.Clear();
             
             var newSelSmartNode = (SmartNode)e.NewValue;
-            if (newSelSmartNode != null)
+            if (newSelSmartNode != null && videoCheck(newSelSmartNode))
                 readOnlyPropViewPanel.Children.Add(newSelSmartNode.video.handler.readOnlyInfoView);
-
         }
 
         private void smartTreeExplorer_PreviewDragLeave(object sender, DragEventArgs e)
@@ -353,6 +354,44 @@
                 }
             }
         }
+
+
+
+
+
+
+        private void loadVideo(SmartNode node, bool isRef = false)
+        {
+            if(videoCheck(node))
+            {
+                PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
+                    new VideoEventArgs(node.video, node.id, isRef));
+            }
+        }
+
+        string notfound1="Die Videodatei konnte nicht gefunden werden, soll das Video aus dem Projekt entfernt werden?";
+        string notfound2 = "Datei nicht gefunden";
+        private bool videoCheck(SmartNode node)
+        {
+            //check if videofile still exists
+            if (!File.Exists(node.video.vidPath))
+            {
+                MessageBoxResult result = MessageBox.Show(notfound1,notfound2 , MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    project.rmNode(node.id, false);
+                }
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+
+
+
     }
 
     public class NegatingConverter : IValueConverter
@@ -372,5 +411,4 @@
             throw new NotSupportedException();
         }
     }
-
 }

@@ -210,7 +210,7 @@ namespace OQAT_Tests
         public void namePluginTest()
         {
             Convolution target = new Convolution();
-            string expected = "PF_Convolution";
+            string expected = "Convolution";
             string actual;
             target.namePlugin = expected;
             actual = target.namePlugin;

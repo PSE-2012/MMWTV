@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d">
+    
     <UserControl.Resources>
         <Style x:Key="oqatGroupBoxStyle" TargetType="GroupBox">
             <Setter Property="Padding" Value="2,2,2,2" />
@@ -13,16 +14,18 @@
         </Style>
     </UserControl.Resources>
 
-        <GroupBox Name="gb1" Header="Format spezifische Info" Style="{StaticResource oqatGroupBoxStyle}">
+    <GroupBox Name="gb1" Header="Format spezifische Info" Style="{StaticResource oqatGroupBoxStyle}">
+        <Grid>    
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-            <Grid>    
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="Yuv"/>
-                <TextBlock Text="{Binding yuvFormat}" ></TextBlock>
-        
-            </Grid>
-        </GroupBox>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Yuv"/>
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding yuvFormat}"></TextBlock>
+        </Grid>
+    </GroupBox>
 </UserControl>

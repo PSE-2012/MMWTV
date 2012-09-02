@@ -48,6 +48,10 @@ namespace Oqat.ViewModel
                     t[i] = reader.Name;
                     reader.MoveToNextAttribute();
                     t2[i] = reader.Value;
+                    if (t2[i] == "")
+                    {
+                        throw new XmlException("datei nicht lang genug");
+                    }
                 }
                 mn1.Header= t2[0];
                 mn2.Header = t2[1];

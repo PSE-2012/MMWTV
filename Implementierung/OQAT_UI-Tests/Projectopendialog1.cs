@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.TestTools.UITest.Extension;
 using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 
 
-namespace OQAT_Tests
+namespace OQAT_UITests
 {
     /// <summary>
     /// Zusammenfassungsbeschreibung für CodedUITest1

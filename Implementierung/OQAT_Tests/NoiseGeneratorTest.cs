@@ -174,7 +174,7 @@ namespace OQAT_Tests
         public void namePluginTest()
         {
             NoiseGenerator target = new NoiseGenerator();
-            string expected = "PF_NoiseGenerator";
+            string expected = "NoiseGenerator";
             string actual;
             target.namePlugin = expected;
             actual = target.namePlugin;

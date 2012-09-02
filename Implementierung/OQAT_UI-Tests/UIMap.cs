@@ -1,4 +1,4 @@
-﻿namespace OQAT_Tests
+﻿namespace OQAT_UITests
 {
     using System;
     using System.Collections.Generic;

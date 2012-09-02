@@ -1,2 +1,136 @@
 \chapter{Automatisierte Tests}
+Fast alle Teile des Projekts wurden mit Hilfe von automatisierten Komponententests (unit tests) getestet. Im folgenden eine Übersicht über die Testfälle aller Komponenten, sowie Statistiken über die erreichte Codeabdeckung.
+Im Zusammenhang mit den beschriebenen Tests werden auch damit entdeckte und behobene Fehler dargestellt.
 
+\section{PluginManager}
+
+\paragraph*{Testfälle}
+\begin{itemize}
+\item pluginManager singleton getter
+\item Initialization: no PluginDir
+\item Initialization: invalid dll
+\item Initialization: valid dll, no plugin
+\item Initialization: plugin dll, outdated interface IPlugin
+\item Initialization: plugin dll, outdated interface IFilterOqat
+\item Initialization: add plugins
+\item Initialization: add Plugin dll after loading
+\item Initialization: add duplicate Plugin
+
+\item getPluginNames: ok
+\item getPluginNames: empty list
+\item getPlugin: IPlugin + name null
+\item getPlugin: IPlugin + name empty
+\item getPlugin: IPlugin + name not existing
+\item getPlugin: IPlugin + name existing
+\item getPlugin: detail interface + name existing
+\item getPlugin: name existing for different type
+
+\item addMemento: pluginname null
+\item addMemento: no plugin
+\item addMemento: overwrite existing memento
+\item addMemento: add several memento
+\item getMementoNames: pluginname null
+\item getMementoNames: pluginname empty
+\item getMementoNames: pluginname unknown
+\item getMementoNames: no Memento for plugin
+\item getMementoNames: mementos listed
+
+\item getMemento: mementoname null
+\item getMemento: mementoname empty
+\item getMemento: memento not existing
+\item getMemento: pluginname null
+\item getMemento: pluginname empty
+\item getMemento: pluginname unknown
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+73\% automatisiert
+
+\paragraph*{gefundene Probleme}
+\begin{itemize}
+\item beschädigte Plugins werden nicht korrekt ausgefiltert
+\item nach Initialisierung des PluginManagers hinzugefügte Plugins werden nicht nachgeladen
+\end{itemize}
+
+
+
+
+
+
+\section{Caretaker}
+
+\paragraph*{Testfälle}
+\begin{itemize}
+\item caretaker singleton getter
+\item getMemento: path null
+\item getMemento: path empty
+\item getMemento: targetfile not valid memento
+\item getMemento: targetfile valid memento but no regular fileextension (.mem)
+\item writeMemento / getMemento: valid write and read
+\item writeMemento: file already exists
+\item writeMemento: folder does not exist
+\item writeMemento: file already exists and is readonly
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+100\% automatisiert
+
+\paragraph*{gefundene Probleme}
+\begin{itemize}
+\item Filestream wurde bei Ausnahmen nicht immer korrekt geschlossen
+\end{itemize}
+
+
+
+
+
+
+\section{Diagram}
+
+\paragraph*{Testfälle}
+\begin{itemize}
+\item flushing a new Diagram
+\item Clone
+\item createExtraPluginInstance
+\item setVideo: null
+\item setVideo: null data
+\item setVideo: empty data
+\item setVideo: correct data
+\item setVideo: processedBy null
+\item setVideo: processedBy empty
+\item setMemento
+\item getMemento
+\item propertyView
+\item type
+\item presentationType
+\item namePlugin
+\item threadSafe
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+100\% automatisiert
+
+\paragraph*{gefundene Probleme}
+keine
+
+
+
+
+
+
+
+\section{Macro}
+
+\paragraph*{Testfälle}
+\begin{itemize}
+\item
+
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+29\% automatisiert
+
+\paragraph*{gefundene Probleme}
+\begin{itemize}
+\item 
+\end{itemize}

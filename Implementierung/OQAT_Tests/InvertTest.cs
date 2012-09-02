@@ -49,7 +49,7 @@ namespace OQAT_Tests
         public static void MyClassInitialize(TestContext testContext)
         {
             Invert inv = new Invert();
-            testMemento = new Memento("PF_Invert", inv);
+            testMemento = new Memento("Invert", inv);
             testBitmap = new Bitmap(100, 100);
             for (int height = 0; height < testBitmap.Height; height++)
             {
@@ -201,7 +201,7 @@ namespace OQAT_Tests
         {
             Invert target = new Invert();
             List<Memento> memList = new List<Memento>();
-            Memento memento = new Memento("PF_Invert", memList);
+            Memento memento = new Memento("Invert", memList);
             target.setMemento(memento);
             Assert.IsTrue(target.getMemento().state is Invert, "Invert doesn't care about Memento's, it does not need any.");
         }
@@ -213,7 +213,7 @@ namespace OQAT_Tests
         public void namePluginTest()
         {
             Invert target = new Invert();
-            string expected = "PF_Invert";
+            string expected = "Invert";
             string actual;
             target.namePlugin = expected;
             actual = target.namePlugin;

@@ -13,14 +13,14 @@ namespace PM_PSNR
     using System.Windows.Controls;
 
 
-    [ExportMetadata("namePlugin", "PM_PSNR")]
+    [ExportMetadata("namePlugin", "PSNR")]
     [ExportMetadata("type", PluginType.IMetricOqat)]
     [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     [Serializable()]
 	public class PSNR :  IMetricOqat
 	{
-        private string _namePlugin = "PM_PSNR";
+        private string _namePlugin = "PSNR";
         private PluginType _type = PluginType.IMetricOqat;
 
         /// <summary>

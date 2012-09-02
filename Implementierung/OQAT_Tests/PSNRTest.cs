@@ -166,7 +166,7 @@ namespace OQAT_Tests
         public void namePluginTest()
         {
             PSNR target = new PSNR();
-            string expected = "PM_PSNR";
+            string expected = "PSNR";
             string actual;
             target.namePlugin = expected;
             actual = target.namePlugin;

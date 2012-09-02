@@ -41,15 +41,19 @@ namespace Oqat.ViewModel
                 XmlTextReader reader = new XmlTextReader(sFilename);
                 reader.Read();
                 reader.Read();
-                String[] t = new String[9];
-                String[] t2 = new String[9];
-                for (int i = 0; i < 9; i++)
+                String[] t = new String[10];
+                String[] t2 = new String[10];
+                for (int i = 0; i < 10; i++)
                 {
                     reader.Read();
                     reader.Read();
                     t[i] = reader.Name;
                     reader.MoveToNextAttribute();
                     t2[i] = reader.Value;
+                    if (t2[i] == "")
+                    {
+                        throw new XmlException("datei nicht lang genug");
+                    }
                 }
                // tb1.Text = t2[0];
                 bt2.Content = t2[1];
@@ -60,8 +64,9 @@ namespace Oqat.ViewModel
                 msgText2 = t2[6];
                 msgText21 = t2[7];
                 msgText3 = t2[8];
+                tbNoSettings.Text = t2[9];
 
-                //TODO: tbNoSettings.Text lokalisieren
+               
 
 
             }

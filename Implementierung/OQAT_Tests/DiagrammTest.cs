@@ -8,7 +8,7 @@ using Oqat.PublicRessources.Plugin;
 using System.Windows.Controls;
 using Oqat.ViewModel.MacroPlugin;
 
-namespace PP_Diagram_Tests
+namespace OQAT_Tests
 {
     
     
@@ -70,6 +70,7 @@ namespace PP_Diagram_Tests
         #endregion
 
 
+
         /// <summary>
         ///Test flushing a new Diagram
         ///</summary>
@@ -83,7 +84,7 @@ namespace PP_Diagram_Tests
         }
 
         /// <summary>
-        ///Test "Clone"
+        ///Test "createExtraPluginInstance"
         ///</summary>
         [TestMethod()]
         public void CloneTest()
@@ -91,6 +92,19 @@ namespace PP_Diagram_Tests
             Diagramm target = new Diagramm();
             object actual;
             actual = target.createExtraPluginInstance();
+
+            Assert.AreNotSame(target, actual, "Created diagram instance is same object as origin.");
+        }
+
+        /// <summary>
+        ///Test "Clone"
+        ///</summary>
+        [TestMethod()]
+        public void CloneTest1()
+        {
+            Diagramm target = new Diagramm();
+            object actual;
+            actual = target.Clone();
 
             Assert.AreNotSame(target, actual, "Cloned diagram is same object as origin.");
         }
@@ -119,7 +133,7 @@ namespace PP_Diagram_Tests
             string vidPath = "";
             IVideoInfo vinfo = null;
             List<IMacroEntry> processedBy = new List<IMacroEntry>();
-            Oqat.ViewModel.MacroPlugin.MacroEntry macroEntry = new Oqat.ViewModel.MacroPlugin.MacroEntry("TestPlugin",PluginType.IMetricOqat ,"TestMemento");
+            Oqat.ViewModel.MacroPlugin.MacroEntry macroEntry = new Oqat.ViewModel.MacroPlugin.MacroEntry("TestPlugin", PluginType.IMetricOqat, "TestMemento");
             processedBy.Add(macroEntry);
             Video video = new Video(isAnalysis, vidPath, vinfo, processedBy);
 
@@ -138,7 +152,7 @@ namespace PP_Diagram_Tests
             string vidPath = "";
             IVideoInfo vinfo = null;
             List<IMacroEntry> processedBy = new List<IMacroEntry>();
-            MacroEntry macroEntry = new MacroEntry("TestPlugin",PluginType.IMetricOqat ,"TestMemento");
+            MacroEntry macroEntry = new MacroEntry("TestPlugin", PluginType.IMetricOqat, "TestMemento");
             processedBy.Add(macroEntry);
             Video video = new Video(isAnalysis, vidPath, vinfo, processedBy);
 
@@ -164,7 +178,7 @@ namespace PP_Diagram_Tests
             string vidPath = "";
             IVideoInfo vinfo = null;
             List<IMacroEntry> processedBy = new List<IMacroEntry>();
-            MacroEntry macroEntry = new MacroEntry("TestPlugin",PluginType.IMetricOqat ,"TestMemento");
+            MacroEntry macroEntry = new MacroEntry("TestPlugin", PluginType.IMetricOqat, "TestMemento");
             processedBy.Add(macroEntry);
             Video video = new Video(isAnalysis, vidPath, vinfo, processedBy);
 
@@ -310,5 +324,21 @@ namespace PP_Diagram_Tests
 
             Assert.AreEqual<string>("PP_Diagram", actual);
         }
+
+        /// <summary>
+        ///Ein Test für "threadSafe"
+        ///</summary>
+        [TestMethod()]
+        public void threadSafeTest()
+        {
+            Diagramm target = new Diagramm();
+            bool expected = false;
+            bool actual;
+            actual = target.threadSafe;
+
+            Assert.AreEqual<bool>(expected, actual);
+        }
+
+        
     }
 }
