@@ -91,8 +91,8 @@ namespace Oqat.ViewModel
             this._custom = new List<IPresentation>();
 
 
-            this.gridPlayer1.Children.Add(playerRef.propertyView);
-            this.gridPlayer2.Children.Add(playerProc.propertyView);
+            this.gridPlayer1.Children.Add(playerProc.propertyView);
+            this.gridPlayer2.Children.Add(playerRef.propertyView);
             this.otherPanel.Children.Add(diagram.propertyView);
             this.gridMacro.Children.Add(macro.propertyView);
         }
@@ -203,84 +203,47 @@ namespace Oqat.ViewModel
             }
             else if (e.isRefVid)
             {
-                if (((vtype == ViewType.MetricView) && (isCompatibleVideo(e.video, this.videoProc)))
-                    || (vtype == ViewType.FilterView))
+                if (isCompatibleVideo(e.video, this.videoProc))
                 {
+                    if (vtype != ViewType.MetricView)
+                        PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(ViewType.MetricView));
 
                     this.videoRef = (IVideo)e.video;
                     this.idRef = e.id;
                     this.playerRef.setVideo(videoRef);
-
-                    if (vtype == ViewType.FilterView)
-                    {
-                        this.videoProc = null;
-                        this.idProc = -1;
-                        this.playerProc.flush();
-                    }
                 }
             }
             else
             {
-                if(isCompatibleVideo(e.video, this.videoRef))
+                if (!isCompatibleVideo(e.video, this.videoRef))
                 {
-                    if (vtype != ViewType.MetricView)  
-                        PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(ViewType.MetricView));
+                    this.videoRef = null;
+                    this.playerRef.flush();
+                }
 
-                    this.videoProc = (IVideo)e.video;
-                    this.idProc = e.id;
-                    this.playerProc.setVideo(videoProc);
+                this.videoProc = (IVideo)e.video;
+                this.idProc = e.id;
+                this.playerProc.setVideo(videoProc);
+
+                if (vtype == ViewType.FilterView)
+                {
+                    this.videoRef = null;
+                    this.idRef = -1;
+                    this.playerRef.flush();
                 }
             }
 
-                        if (vtype == ViewType.FilterView)
-                        {
-                            if (videoRef != null)
-                                macro.setFilterContext(idRef, videoRef);
-                        }
-                        else if (vtype == ViewType.MetricView)
-                        {
-                            if(isCompatibleVideo(videoRef, videoProc))
-                                macro.setMetricContext(videoRef, idProc, videoProc);
-                        }
-     
-            //if (e.video.isAnalysis)
-            //{
-            //    PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(ViewType.AnalyzeView));
-
-            //    this.videoProc = (IVideo)e.video;
-            //    this.playerProc.setVideo(videoProc);
-            //    this.diagram.setVideo(videoProc);
-            //}
-            //else if (e.isRefVid)
-            //{
-            //    if (isCompatibleVideo(e.video, this.videoProc))
-            //    {
-            //        PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(ViewType.MetricView));
-
-            //        this.videoRef = (IVideo)e.video;
-            //        this.idRef = e.id;
-            //        this.playerRef.setVideo(videoRef);
-            //    }
-            //}
-            //else
-            //{
-            //    if(vtype != ViewType.MetricView || isCompatibleVideo(e.video, this.videoRef))
-            //    {
-            //        this.videoProc = (IVideo)e.video;
-            //        this.idProc = e.id;
-            //        this.playerProc.setVideo(videoProc);
-
-            //        this.macro.setFilterContext(this.idProc, this.videoProc);
-            //    }
-            //}
-
-
-            //    //TODO: seems like the naming proc vs. ref was understood the other way round in macro
-            //    macro.vidProc = (Oqat.Model.Video) this.videoRef;
-            //    macro.idProc = this.idRef;
-
-            //    macro.vidRef = (Oqat.Model.Video) this.videoProc;
-            //    macro.idRef = this.idProc;
+            //ref and proc videos are understood the other way round
+            if (vtype == ViewType.FilterView)
+            {
+                if (videoProc != null)
+                    macro.setFilterContext(idProc, videoProc);
+            }
+            else if (vtype == ViewType.MetricView)
+            {
+                if(isCompatibleVideo(videoRef, videoProc))
+                    macro.setMetricContext(videoProc, idRef, videoRef);
+            }
 		}
 
         /// <summary>
