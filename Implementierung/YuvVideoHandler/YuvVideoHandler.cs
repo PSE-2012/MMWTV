@@ -560,54 +560,6 @@ using System.Collections.Generic;
                 }
             }
 
-            #region obsolete
-            //if (readerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
-            //{
-            //    readerWaitEvent.Set();
-
-            //    if (readerThread.ThreadState != System.Threading.ThreadState.Unstarted)
-            //    {
-            //        try
-            //        {
-            //            readerThread.Abort();
-            //        } catch (ThreadStateException) {
-            //            // cant handle this one.. but it shouldnt come this far either.
-            //        }
-            //    }
-
-            //} else if (readerThread.ThreadState == System.Threading.ThreadState.Running) {
-            //    waitReaderStopEvent.Reset();
-            //    readerWaitEvent.Set();
-            //    waitReaderStopEvent.WaitOne();
-            //}
-            //////////////////////////////////////////////////////////////////////////////////////
-            //if ((readerThread.ThreadState == System.Threading.ThreadState.Running) ||
-            //    (readerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin))
-            //    throw new ThreadStateException("YuvVideoHandler problem occured");
-            // shouldnt be neccesary as even 4xHighDefinition frame would be computed
-            // after 5 seconds...
-            ///////////////////
-            //if (readerThread.ThreadState == System.Threading.ThreadState.Running
-            //    || readerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
-            //{
-            //    try
-            //    {
-            //        if (readerThread.ThreadState == System.Threading.ThreadState.Running)
-            //            readerThread.Abort();       // if reader not done after 50 ms it is
-            //        // is probably deadLocked...
-            //    }
-            //    catch (ThreadStateException)
-            //    {
-            //        // nothing to do here
-            //    }
-            //    finally
-            //    {
-
-            //        readerThread = null;
-            //    }
-            //}
-            #endregion
-
 
             
             readerThread = null;
