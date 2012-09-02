@@ -7,20 +7,11 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Threading;
 using Oqat.Model;
 using Oqat.PublicRessources.Model;
 using Oqat.PublicRessources.Plugin;
-using Oqat.ViewModel;
 
 namespace Oqat.ViewModel.MacroPlugin
 {
@@ -43,18 +34,41 @@ namespace Oqat.ViewModel.MacroPlugin
         public Macro()
         {
             // init first entry
-            this.rootEntry = new MacroEntry(this.namePlugin, PluginType.IMacro, "anonymousMacro");
+            this.rootEntry = new MacroEntry(this.namePlugin, PluginType.IMacro, "");
             this.rootEntry.frameCount = 100;
             this.rootEntry.startFrameAbs = 0;
             this.rootEntry.endFrameAbs = 100;
 
             MacroViewDelegates macroViewDelegates = new MacroViewDelegates(addMacroEntry, moveMacroEntry,
                                                     removeMacroEntry, constructMacroFromMementoArg,
-                                                    startProcessing, cancelProcessing, clearMacroEntryList);
+                                                    startProcessing, cancelProcessing, clearMacroEntryList, saveSaveAsHelper,
+                                                    registerOnMacroEventsHelper);
+            
             propertyView = new Macro_PropertyView(this.rootEntry, macroViewDelegates);
-    
-            PluginManager.macroEntryAdd += this.addMacroEntry;
-            PluginManager.OqatToggleView += onToggleView;
+            
+            _propertyView.readOnly = false;
+            
+
+        
+        }
+
+        private bool registered;
+        private void registerOnMacroEventsHelper() {
+            if (!registered)
+            {
+               
+                PluginManager.macroEntryAdd += this.addMacroEntry;
+                PluginManager.OqatToggleView += onToggleView;
+                PluginManager.setMacroMemento += setMemento;
+                registered = true;
+            }
+            else if(registered)
+            {
+                PluginManager.macroEntryAdd -= this.addMacroEntry;
+                PluginManager.OqatToggleView -= onToggleView;
+                PluginManager.setMacroMemento -= setMemento;
+                registered = false;
+            }
         }
 
 #region fieldsProperties
@@ -348,8 +362,8 @@ namespace Oqat.ViewModel.MacroPlugin
                 handRef.flushWriter();
                 handRef = null;
             }
-            this.rootEntry.macroEntries.Clear();
-            this.rootEntry.mementoName = "anonymousMacro";
+            clearMacroEntryList();
+            this.rootEntry.mementoName = "";
             this.rootEntry.frameCount = 100;
             this.rootEntry.startFrameAbs = 0;
             this.rootEntry.endFrameAbs = 100;
@@ -361,19 +375,31 @@ namespace Oqat.ViewModel.MacroPlugin
             return new Macro();
         }
 
+
+        public void setMemento(object sender, MementoEventArgs e)
+        {
+            setMemento(e.memento);
+        }
+    
+
         public void setMemento(PublicRessources.Model.Memento memento)
         {
+            if (memento == null)
+                throw new ArgumentNullException("Given memento is null.");
             var newTLMacroEnry = memento.state as MacroEntry;
 
-            Debug.Assert(newTLMacroEnry != null);
-            Debug.Assert(newTLMacroEnry.mementoName.Equals(memento.name));
-            Debug.Assert(newTLMacroEnry.macroEntries.Count > 0);
+            if (newTLMacroEnry == null)
+                throw new ArgumentNullException("Given state object is null.");
 
+            if (newTLMacroEnry.mementoName != memento.name)
+                throw new ArgumentException("Given memento shows inconsistencies. Name of top level macro does not equal to" +
+                                            "the memento name.");
             flush();
+
             addMacroEntry(newTLMacroEnry, null);
-
-
+           
         }
+        private string originallTlMacroName = "";
 
         public virtual string namePlugin
         {
@@ -501,11 +527,11 @@ namespace Oqat.ViewModel.MacroPlugin
                 if (father == null) // child is new TL macro
                 {
                     rootEntry.mementoName = child.mementoName;
-
+                    originallTlMacroName = rootEntry.mementoName;
                     // these are alway default for topLevel macros
                     //macroEntry.startFrameAbs = child.startFrameAbs;
                     //macroEntry.endFrameAbs = child.endFrameAbs;
-                    rootEntry.macroEntries.Clear();
+                    clearMacroEntryList();
                     rootEntry.macroEntries = (rootEntry.macroEntries.Concat(child.macroEntries))
                         as ObservableCollection<MacroEntry>;
                 }
@@ -531,7 +557,7 @@ namespace Oqat.ViewModel.MacroPlugin
         }
 
         // delete the items (NOT the collection itself)
-        private void clearMacroEntryList() { }
+        private void clearMacroEntryList() { if (rootEntry.macroEntries != null) rootEntry.macroEntries.Clear(); else rootEntry.macroEntries = new ObservableCollection<MacroEntry>(); }
         private void cancelProcessing() { }
         private void pauseProcessing() { }
         private void startProcessing() {
@@ -596,13 +622,37 @@ namespace Oqat.ViewModel.MacroPlugin
             }
         }
 
+
+        private void saveSaveAsHelper(EventType saveType)
+        {
+            if (originallTlMacroName.Equals(rootEntry.mementoName))
+                originallTlMacroName = "";
+
+            //       try
+            //       {
+            PluginManager.pluginManager.raiseEvent(saveType,
+                new MementoEventArgs(this.rootEntry.mementoName, this.namePlugin, originallTlMacroName, getMemento));
+            //      }
+            originallTlMacroName = rootEntry.mementoName;
+        }
+
         public Memento getMemento()
         {
-            if (this.rootEntry.macroEntries.Count > 0)
-                return new Memento(rootEntry.mementoName, rootEntry as IMacroEntry);
+            Memento memToReturn;
+            if (originallTlMacroName.Equals(rootEntry.mementoName))
+                originallTlMacroName = "";
+
+            if (this.rootEntry.mementoName.Equals(""))
+                memToReturn = new Memento(this.rootEntry.mementoName, new object());
+            else if (this.rootEntry.macroEntries.Count > 0)
+                memToReturn = new Memento(rootEntry.mementoName, rootEntry as IMacroEntry);
             else
-                return new Memento(rootEntry.mementoName, null);
+                memToReturn = new Memento(rootEntry.mementoName, null);
+
+            originallTlMacroName = rootEntry.mementoName;
+            return memToReturn;
         }
+
         private MacroEntry constructMacroFromMementoArg(MementoEventArgs e)
         {
 
@@ -634,7 +684,9 @@ namespace Oqat.ViewModel.MacroPlugin
             ConstructMacroFromMementoArgs_Delegate constrMacroFromMem, 
             ParamLess_Delegate startProcessing, 
             ParamLess_Delegate cancelProcessing,
-            ParamLess_Delegate clearEntries)
+            ParamLess_Delegate clearEntries,
+            saveSaveAs_Delegate saveSaveAs,
+           ParamLess_Delegate registerOnMacroEvents)
         {
             #region nullchecks
             if (addMacro == null ||
@@ -643,7 +695,9 @@ namespace Oqat.ViewModel.MacroPlugin
                 constrMacroFromMem == null ||
                 startProcessing == null ||
                 cancelProcessing == null ||
-                clearEntries == null)
+                clearEntries == null ||
+                saveSaveAs == null ||
+                registerOnMacroEvents == null)
                 throw new ArgumentException("Not all given delegates were initialized properly");
             #endregion
 
@@ -654,21 +708,26 @@ namespace Oqat.ViewModel.MacroPlugin
             this.startProcessing = startProcessing;
             this.cancelProcessing = cancelProcessing;
             this.clearEntries = clearEntries;
+            this.saveSaveAs = saveSaveAs;
+            this.registerOnMacroEvents = registerOnMacroEvents;
         }
 
         public AddMacroEntry_Delegate addMacro;
+        public saveSaveAs_Delegate saveSaveAs;
         public MoveMacroEntry_Delegate moveMacro;
         public RemoveMacroEntry_Delegate removeMacro;
         public ConstructMacroFromMementoArgs_Delegate constrMacroFromMem;
         public ParamLess_Delegate startProcessing;
         public ParamLess_Delegate cancelProcessing;
         public ParamLess_Delegate clearEntries;
+        public ParamLess_Delegate registerOnMacroEvents;
 
         public delegate void AddMacroEntry_Delegate(MacroEntry child, MacroEntry father, int index = - 1);
         public delegate void MoveMacroEntry_Delegate(MacroEntry toMoveMacro, MacroEntry target, int index = -1);
         public delegate void RemoveMacroEntry_Delegate(MacroEntry entry);
         public delegate MacroEntry ConstructMacroFromMementoArgs_Delegate(MementoEventArgs e);
         public delegate void ParamLess_Delegate();
+        public delegate void saveSaveAs_Delegate(EventType saveType);
     }
 
 }

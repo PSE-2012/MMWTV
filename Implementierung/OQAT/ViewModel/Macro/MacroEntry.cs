@@ -37,6 +37,7 @@ using System.ComponentModel;
             set
             {
                 _mementoName = value;
+                NotifyPropertyChanged("mementoName");
                 NotifyPropertyChanged("namMemConcat");
             }
         }

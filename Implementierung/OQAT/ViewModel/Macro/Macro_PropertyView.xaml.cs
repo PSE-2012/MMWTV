@@ -25,6 +25,7 @@ namespace Oqat.ViewModel.MacroPlugin
         //it is just the topLevel macro
         private MacroEntry rootEntry;
         private MacroViewDelegates macroViewDelegates;
+        
         public Macro_PropertyView(MacroEntry rootEntry, MacroViewDelegates macroViewDelegates)
         {
             this.macroEntries = rootEntry.macroEntries;
@@ -37,7 +38,7 @@ namespace Oqat.ViewModel.MacroPlugin
         }
 
 
-        private bool _activeState;
+        private bool _activeState = true;
         public bool activeState
         {
             get
@@ -90,12 +91,16 @@ namespace Oqat.ViewModel.MacroPlugin
                 return _readOnly;
             }
             set {
-                _readOnly = value;
-                NotifyPropertyChanged("allowDrop");
-                NotifyPropertyChanged("readOnlyVisibility");
-                NotifyPropertyChanged("readOnlyActiveState");
+                    _readOnly = value;
+
+                    macroViewDelegates.registerOnMacroEvents();
+                    NotifyPropertyChanged("allowDrop");
+                    NotifyPropertyChanged("readOnlyVisibility");
+                    NotifyPropertyChanged("readOnlyActiveState");
+                
             }
         }
+
 
         private bool _processing;
         public bool processing
@@ -756,14 +761,38 @@ namespace Oqat.ViewModel.MacroPlugin
 
         private void saveMacro_Click(object sender, RoutedEventArgs e)
         {
-            PluginManager.pluginManager.raiseEvent(EventType.saveMacro
+            if (this.rootEntryMem_TextBox.Text == "")
+                showMementoNameInvalidDialog(rootMemNameEmptyWarning);
+            else
+            {
+                rootEntry.mementoName = this.rootEntryMem_TextBox.Text;
+                macroViewDelegates.saveSaveAs(EventType.saveMacro);
+            }
         }
-
+        private string rootMemNameEmptyWarning = "You must specifie a name of at least one caracter in " + 
+                                 "order to be able to save this macro for later use.";
+        private string rootMemNameAmbigousWarning = "The name you specified is reserved for " + 
+                                 "an another memento, delelte the existing first or choose a different name please.";
         private void saveMacroAs_Click(object sender, RoutedEventArgs e)
         {
-
+            if (this.rootEntryMem_TextBox.Text == "")
+                showMementoNameInvalidDialog(rootMemNameEmptyWarning);
+            else
+            {
+                rootEntry.mementoName = this.rootEntryMem_TextBox.Text;
+                macroViewDelegates.saveSaveAs(EventType.saveMacroAs);
+            }
         }
 
+
+        private void showMementoNameInvalidDialog(string message)
+        {
+          
+            string caption = "OQAT Macro";
+            MessageBoxButton button = MessageBoxButton.OK;
+            MessageBoxImage icon = MessageBoxImage.Exclamation;
+            MessageBox.Show(message, caption, button, icon);
+        }
     }
 
 
