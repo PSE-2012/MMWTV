@@ -138,8 +138,7 @@
         string importconsiserror = "Mindestens eine Videodatei ist kaputt";
         public void importVideos(StringCollection fileList)
         {
-            try
-            {
+           
                 VM_VidImportOptionsDialog vidImp = new VM_VidImportOptionsDialog(fileList);
                 vidImp.Owner = Window.GetWindow(this);
                 Nullable<bool> result = vidImp.ShowDialog();
@@ -151,11 +150,11 @@
                         project.addNode(vid, -1);
                     }
                 }
-            }
-            catch (FileFormatException e)
-            {
-                MessageBox.Show(importconsiserror);
-            }
+                if (!(bool)result)
+                {
+                    MessageBox.Show(importconsiserror);
+                }
+            
         }
 
 
