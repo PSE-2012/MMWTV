@@ -177,7 +177,7 @@ using System.Collections.Generic;
                 
                 // if we divide the actual filesize by the framebytesize
                 // value, we can expect a integer.
-
+               
                 long divideResult = actualReadFileSize / frameByteSize;
                 if ((frameByteSize * divideResult) != actualReadFileSize)
                     return  false;

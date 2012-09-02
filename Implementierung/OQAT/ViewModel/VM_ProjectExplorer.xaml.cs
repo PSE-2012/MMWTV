@@ -147,13 +147,17 @@
                 {
                     foreach (var vid in vidImp.videoList)
                     {
-                        project.addNode(vid, -1);
+                        if (vid.handler.consistent)
+                        {
+                            project.addNode(vid, -1);
+                        }
+                        else
+                        {
+                            MessageBox.Show(importconsiserror);
+                        }
                     }
                 }
-                if (!(bool)result)
-                {
-                    MessageBox.Show(importconsiserror);
-                }
+             
             
         }
 
