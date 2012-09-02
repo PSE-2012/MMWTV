@@ -54,8 +54,6 @@
                 this.Resources["ref"] = t2[4];
                 this.Resources["ana"] = t2[5];
                 this.Resources["exp"] = t2[6];
-
-              
             }
             catch (IndexOutOfRangeException e) { }
             catch (FileNotFoundException e) { }
@@ -83,7 +81,6 @@
             // projectExplorer
             this.project = project;
             smartTreeExplorer.DataContext = project.smartTree;
-
         }
 
         private void smartTreeExplorer_KeyDown(object sender, KeyEventArgs e)
@@ -94,14 +91,11 @@
                 SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
                 project.rmNode(selNode.id, false);
             }
-
         }
 
         private void smartTreeExplorer_PreviewDrop(object sender, DragEventArgs e)
         {
             e.Handled = true;
-
-            
 
             //select item to drop in if there is one
             var dropInItem = (getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource));
@@ -149,7 +143,6 @@
                 {
                     project.addNode(vid,-1);
                 }
-
             }
         }
 
@@ -175,7 +168,7 @@
             }
             while (current != null);
             return null;
-                 }
+        }
 
         /// <summary>
         /// This method will be invoked if the user drags a object (i.e. file)
@@ -202,8 +195,7 @@
             getNearestFather<TreeViewItem>(tblock).IsSelected = true;
 
             SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
-            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad, 
-                new VideoEventArgs(selNode.video, selNode.id));
+            loadVideo(selNode);
         }
         private void miLoadRef_Click(object sender, RoutedEventArgs e)
         {
@@ -212,8 +204,7 @@
             getNearestFather<TreeViewItem>(tblock).IsSelected = true;
 
             SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
-            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
-                new VideoEventArgs(selNode.video,selNode.id, true));
+            loadVideo(selNode, true);
         }
         private void miLoadProc_Click(object sender, RoutedEventArgs e)
         {
@@ -222,8 +213,7 @@
             getNearestFather<TreeViewItem>(tblock).IsSelected = true;
 
             SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
-            PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
-                new VideoEventArgs(selNode.video,selNode.id));
+            loadVideo(selNode);
         }
 
 
@@ -251,8 +241,7 @@
             if (this.smartTreeExplorer.SelectedItem == ((SmartNode)((TreeViewItem)e.Source).Header))
             {
                 SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
-                PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
-                    new VideoEventArgs(selNode.video, selNode.id, false));
+                loadVideo(selNode, false);
                 if (selNode.video.isAnalysis == true)
                 {
                     btnExport.Visibility = Visibility.Visible;
@@ -262,8 +251,6 @@
                     btnExport.Visibility = Visibility.Hidden;
                 }
             }
-
-
         }
 
         private void btnExport_Click(object sender, RoutedEventArgs e)
@@ -304,9 +291,8 @@
             readOnlyPropViewPanel.Children.Clear();
             
             var newSelSmartNode = (SmartNode)e.NewValue;
-            if (newSelSmartNode != null)
+            if (newSelSmartNode != null && videoCheck(newSelSmartNode))
                 readOnlyPropViewPanel.Children.Add(newSelSmartNode.video.handler.readOnlyInfoView);
-
         }
 
         private void smartTreeExplorer_PreviewDragLeave(object sender, DragEventArgs e)
@@ -357,6 +343,42 @@
                 }
             }
         }
+
+
+
+
+
+
+        private void loadVideo(SmartNode node, bool isRef = false)
+        {
+            if(videoCheck(node))
+            {
+                PluginManager.pluginManager.raiseEvent(PublicRessources.Plugin.EventType.videoLoad,
+                    new VideoEventArgs(node.video, node.id, isRef));
+            }
+        }
+
+        private bool videoCheck(SmartNode node)
+        {
+            //check if videofile still exists
+            if (!File.Exists(node.video.vidPath))
+            {
+                MessageBoxResult result = MessageBox.Show("Die Videodatei konnte nicht gefunden werden, soll das Video aus dem Projekt entfernt werden?", "Datei nicht gefunden", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    project.rmNode(node.id, false);
+                }
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+
+
+
     }
 
     public class NegatingConverter : IValueConverter
@@ -376,5 +398,4 @@
             throw new NotSupportedException();
         }
     }
-
 }
