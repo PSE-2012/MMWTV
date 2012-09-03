@@ -157,17 +157,15 @@ namespace Oqat.ViewModel
         /// </summary>
         private void btt_Import_Click(object sender, RoutedEventArgs e)
         {
+            Nullable<bool> test = true;
             foreach (Video vid in videoList)
             {
                 vid.vidInfo = vid.handler.readVidInfo;
        
-                if (!vid.handler.consistent)
-                {
-                    throw new Exception("Check your input, inconsistencies were detected.");
-                }
+              
             }
             e.Handled = true;
-            this.DialogResult = true;
+            this.DialogResult = test;
         }
         /// <summary>
         /// event to cancel the dialog.

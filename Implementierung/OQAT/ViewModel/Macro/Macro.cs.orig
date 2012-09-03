@@ -45,7 +45,6 @@ namespace Oqat.ViewModel.MacroPlugin
                                                     registerOnMacroEventsHelper);
             
             propertyView = new Macro_PropertyView(this.rootEntry, macroViewDelegates);
-            registeredLock = new Object();
             
             _propertyView.readOnly = false;
             
@@ -53,26 +52,23 @@ namespace Oqat.ViewModel.MacroPlugin
         
         }
 
-        private int registered = 0;
-        private object registeredLock;
+        private bool registered;
         private void registerOnMacroEventsHelper() {
-            lock(registeredLock) {
-            if (!_propertyView.readOnly && registered < 1)
+            if (!registered)
             {
                
                 PluginManager.macroEntryAdd += this.addMacroEntry;
                 PluginManager.OqatToggleView += onToggleView;
                 PluginManager.setMacroMemento += setMemento;
-                registered++;
+                registered = true;
             }
-            else if(_propertyView.readOnly && registered > 0)
+            else if(registered)
             {
                 PluginManager.macroEntryAdd -= this.addMacroEntry;
                 PluginManager.OqatToggleView -= onToggleView;
                 PluginManager.setMacroMemento -= setMemento;
-                registered--;
+                registered = false;
             }
-        }
         }
 
 #region fieldsProperties
@@ -389,26 +385,35 @@ namespace Oqat.ViewModel.MacroPlugin
         public void setMemento(PublicRessources.Model.Memento memento)
         {
             if (memento == null)
+<<<<<<< HEAD
                 throw new ArgumentNullException("Given memento is null.");
-
-             var newTLMacroEnry = memento.state as MacroEntry;
-
+            var newTLMacroEnry = memento.state as MacroEntry;
 
             if (newTLMacroEnry == null)
                 throw new ArgumentNullException("Given state object is null.");
 
+            if (newTLMacroEnry.mementoName != memento.name)
+                throw new ArgumentException("Given memento shows inconsistencies. Name of top level macro does not equal to" +
+                                            "the memento name.");
+            flush();
+
+            addMacroEntry(newTLMacroEnry, null);
+           
+=======
+                throw new ArgumentNullException();
+
+            if (memento.state != null && memento.state is MacroEntry)
+            {
+                MacroEntry newTLMacroEnry = memento.state as MacroEntry;
+
                 //Debug.Assert(newTLMacroEnry.mementoName.Equals(memento.name));
                 //Debug.Assert(newTLMacroEnry.macroEntries.Count > 0);
 
-            if (newTLMacroEnry.mementoName != memento.name)
-                throw new ArgumentException("Given memento shows inconsistencies. Name of top level macro does not equal to" +
-                                            " the memento name.");
                 flush();
-                originallTlMacroName = newTLMacroEnry.mementoName;
-            addMacroEntry(newTLMacroEnry, null);
-           
+                addMacroEntry(newTLMacroEnry, null);
+            }
+>>>>>>> 6b86aa8be2bad20b9bf4b3408ec754fc143f108e
         }
-
         private string originallTlMacroName = "";
 
         public virtual string namePlugin
@@ -542,7 +547,8 @@ namespace Oqat.ViewModel.MacroPlugin
                     //macroEntry.startFrameAbs = child.startFrameAbs;
                     //macroEntry.endFrameAbs = child.endFrameAbs;
                     clearMacroEntryList();
-                    concatObsCollInplace(rootEntry.macroEntries, child.macroEntries);
+                    rootEntry.macroEntries = (rootEntry.macroEntries.Concat(child.macroEntries))
+                        as ObservableCollection<MacroEntry>;
                 }
                 else
                 {
@@ -557,14 +563,6 @@ namespace Oqat.ViewModel.MacroPlugin
                 }
             }
         }
-        private void concatObsCollInplace(ObservableCollection<MacroEntry> first, ObservableCollection<MacroEntry> second)
-        {
-            foreach (var entry in second)
-            {
-                first.Add(entry);
-            }
-        }
-
         private void moveMacroEntry(MacroEntry toMoveMacro, MacroEntry target, int index = -1)
         {
             removeMacroEntry(toMoveMacro);
@@ -642,8 +640,9 @@ namespace Oqat.ViewModel.MacroPlugin
 
         private void saveSaveAsHelper(EventType saveType)
         {
-            if (originallTlMacroName.Equals(rootEntry.mementoName) || (saveType == EventType.saveMacroAs))
+            if (originallTlMacroName.Equals(rootEntry.mementoName))
                 originallTlMacroName = "";
+
             //       try
             //       {
             PluginManager.pluginManager.raiseEvent(saveType,
@@ -658,55 +657,22 @@ namespace Oqat.ViewModel.MacroPlugin
             if (originallTlMacroName.Equals(rootEntry.mementoName))
                 originallTlMacroName = "";
 
-            MacroEntry rootEntryCopy = new MacroEntry(rootEntry.pluginName, rootEntry.type, rootEntry.mementoName);
-
-            rootEntryCopy.startFrameRelative = rootEntry.startFrameRelative;
-            rootEntryCopy.endFrameRelative = rootEntry.endFrameRelative;
-            rootEntryCopy.path = rootEntry.path;
-
-            doDeepCopy(rootEntry, ref rootEntryCopy);
-            if (rootEntryCopy.mementoName.Equals(""))
-                memToReturn = new Memento(rootEntryCopy.mementoName, new object());
-            else if (rootEntryCopy.macroEntries.Count > 0)
-                memToReturn = new Memento(rootEntryCopy.mementoName, rootEntryCopy as IMacroEntry);
+            if (this.rootEntry.mementoName.Equals(""))
+                memToReturn = new Memento(this.rootEntry.mementoName, new object());
+            else if (this.rootEntry.macroEntries.Count > 0)
+                memToReturn = new Memento(rootEntry.mementoName, rootEntry as IMacroEntry);
             else
-                memToReturn = new Memento(rootEntryCopy.mementoName, null);
+                memToReturn = new Memento(rootEntry.mementoName, null);
 
-            originallTlMacroName = rootEntryCopy.mementoName;
+            originallTlMacroName = rootEntry.mementoName;
             return memToReturn;
-        }
-
-        private void doDeepCopy(MacroEntry entryToCopy, ref MacroEntry copy)
-        {
-          
-            foreach (var entry in entryToCopy.macroEntries)
-            {
-                if(entry.macroEntries != null) {
-
-                    var macroEntryCopy = new MacroEntry(entry.pluginName, entry.type, entry.mementoName);
-                    macroEntryCopy.startFrameRelative = entry.startFrameRelative;
-                    macroEntryCopy.endFrameRelative = entry.endFrameRelative;
-                    macroEntryCopy.path = entry.path;
-                
-                    
-                 
-                    copy.macroEntries.Add(macroEntryCopy);
-                   
-                    if (entry.macroEntries.Count() > 0)
-                    {
-                        macroEntryCopy.macroEntries = new ObservableCollection<MacroEntry>();
-                        doDeepCopy(entry, ref macroEntryCopy);
-                    }
-                }
-            }
-      
         }
 
         private MacroEntry constructMacroFromMementoArg(MementoEventArgs e)
         {
 
             PluginType entryType = PluginManager.pluginManager.getPlugin<IPlugin>(e.pluginKey).type;
-            MacroEntry entryToAdd = null;
+            MacroEntry entryToAdd;
             if (entryType != PluginType.IMacro)
             {
                 entryToAdd = new MacroEntry(e.pluginKey, entryType, e.mementoName);
@@ -715,10 +681,7 @@ namespace Oqat.ViewModel.MacroPlugin
             else
             {
                 var tmpMem = PluginManager.pluginManager.getMemento(e.pluginKey, e.mementoName);
-                if (tmpMem == null)
-                    throw new ArgumentException("Given parameters do not refer to a existing memento.");
-                if(tmpMem.state != rootEntry)
-                    entryToAdd = tmpMem.state as MacroEntry;
+                entryToAdd = tmpMem.state as MacroEntry;
             }
 
             return entryToAdd;

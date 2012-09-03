@@ -178,6 +178,9 @@ using System.Collections.Generic;
                 // if we divide the actual filesize by the framebytesize
                 // value, we can expect a integer.
 
+                if (!(frameByteSize > 0))
+                    return false;
+
                 long divideResult = actualReadFileSize / frameByteSize;
                 if ((frameByteSize * divideResult) != actualReadFileSize)
                     return  false;
@@ -559,54 +562,6 @@ using System.Collections.Generic;
                     // lets hope he cleaned up ;-)
                 }
             }
-
-            #region obsolete
-            //if (readerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
-            //{
-            //    readerWaitEvent.Set();
-
-            //    if (readerThread.ThreadState != System.Threading.ThreadState.Unstarted)
-            //    {
-            //        try
-            //        {
-            //            readerThread.Abort();
-            //        } catch (ThreadStateException) {
-            //            // cant handle this one.. but it shouldnt come this far either.
-            //        }
-            //    }
-
-            //} else if (readerThread.ThreadState == System.Threading.ThreadState.Running) {
-            //    waitReaderStopEvent.Reset();
-            //    readerWaitEvent.Set();
-            //    waitReaderStopEvent.WaitOne();
-            //}
-            //////////////////////////////////////////////////////////////////////////////////////
-            //if ((readerThread.ThreadState == System.Threading.ThreadState.Running) ||
-            //    (readerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin))
-            //    throw new ThreadStateException("YuvVideoHandler problem occured");
-            // shouldnt be neccesary as even 4xHighDefinition frame would be computed
-            // after 5 seconds...
-            ///////////////////
-            //if (readerThread.ThreadState == System.Threading.ThreadState.Running
-            //    || readerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
-            //{
-            //    try
-            //    {
-            //        if (readerThread.ThreadState == System.Threading.ThreadState.Running)
-            //            readerThread.Abort();       // if reader not done after 50 ms it is
-            //        // is probably deadLocked...
-            //    }
-            //    catch (ThreadStateException)
-            //    {
-            //        // nothing to do here
-            //    }
-            //    finally
-            //    {
-
-            //        readerThread = null;
-            //    }
-            //}
-            #endregion
 
 
             

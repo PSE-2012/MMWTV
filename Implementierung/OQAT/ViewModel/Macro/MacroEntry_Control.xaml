@@ -26,7 +26,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition  Width="{Binding ragneSliderWidth}"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" Text="{Binding Mode=OneWay, Path=namMemConcat}" Margin="2,0,0,0"/>
         <!--<WrapPanel Grid.Column="1" Margin="10,0,0,0">
@@ -39,8 +39,8 @@
         </WrapPanel>-->
         <AC:RangeSlider x:Name="startEndFrameSlider" 
                         Grid.Column="3" 
-                        IsEnabled="{Binding filterModeActiveState, Mode=OneWay}" 
-                        Visibility="{Binding filterModeVisibility, Mode=OneWay}" 
+                        IsEnabled="{Binding readOnlyVisibility, Mode=OneWay}" 
+                        Visibility="{Binding readOnlyVisibility, Mode=OneWay}" 
                         RangeStart="0" RangeStop="{Binding frameCount, Mode=OneWay}"
                         RangeStartSelected="{Binding startFrameAbs,Mode=TwoWay}" 
                         RangeStopSelected="{Binding endFrameAbs, Mode=TwoWay}"

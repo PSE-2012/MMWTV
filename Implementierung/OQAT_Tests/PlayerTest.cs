@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Markup;
+using Oqat.PublicRessources.Plugin;
 using Oqat.PublicRessources.Model;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -13,10 +14,13 @@ using System.Windows.Controls;
 using PS_YuvVideoHandler;
 using Oqat.Model;
 using System.IO;
+using System.Drawing;
+using Oqat.ViewModel;
+
 namespace OQAT_Tests
 {
-    
-    
+
+
     /// <summary>
     ///Dies ist eine Testklasse für "PlayerTest" und soll
     ///alle PlayerTest Komponententests enthalten.
@@ -24,8 +28,11 @@ namespace OQAT_Tests
     [TestClass()]
     public class PlayerTest
     {
-        private static string testfolder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\..\\..\\..\\..\\OQAT_Tests\\TestData\\";
-        private static string testVidPath = testfolder + "akiyo_qcif.yuv";
+        private static string readPath;
+        private static string writePath;
+        private static string sampleVideosPath;
+        private static string[] sampleVideos;
+        private static string plPathSolution;
 
         private TestContext testContextInstance;
 
@@ -50,10 +57,29 @@ namespace OQAT_Tests
         //Sie können beim Verfassen Ihrer Tests die folgenden zusätzlichen Attribute verwenden:
         //
         //Mit ClassInitialize führen Sie Code aus, bevor Sie den ersten Test in der Klasse ausführen.
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
+        [ClassInitialize()]
+        public static void MyClassInitialize(TestContext testContext)
+        {
+            plPathSolution = testContext.TestRunDirectory + "\\..\\..\\Oqat\\bin\\Debug\\Plugins";
+            sampleVideosPath = testContext.TestDir + "\\..\\..\\Oqat_Tests\\TestData\\sampleVideos";
+            string[] plugins = Directory.GetFiles(plPathSolution, "*.dll");
+
+
+            sampleVideos = Directory.GetFiles(sampleVideosPath, "*.yuv");
+            readPath = sampleVideos[0];
+            writePath = Path.GetDirectoryName(readPath) + Path.GetFileNameWithoutExtension(readPath) + "_Copy.yuv";
+
+            // we are not testing 
+            if (!Directory.Exists(testContext.TestRunDirectory + "\\Out\\Plugins"))
+                Directory.CreateDirectory(testContext.TestRunDirectory + "\\Out\\Plugins");
+
+            foreach (string s in plugins)
+            {
+                string targetpath = testContext.TestRunDirectory + "\\Out\\Plugins\\" + Path.GetFileName(s);
+                if (!File.Exists(targetpath))
+                    File.Copy(s, targetpath);
+            }
+        }
         //
         //Mit ClassCleanup führen Sie Code aus, nachdem alle Tests in einer Klasse ausgeführt wurden.
         //[ClassCleanup()]
@@ -62,32 +88,19 @@ namespace OQAT_Tests
         //}
         //
         //Mit TestInitialize können Sie vor jedem einzelnen Test Code ausführen.
-        [TestInitialize()]
-        public void MyTestInitialize()
-        {
-            if (!Directory.Exists(testfolder))
-            {
-                Directory.CreateDirectory(testfolder);
-                Player target = new Player();
-                YuvVideoInfo vidInfo = new YuvVideoInfo(testVidPath);
-                Video testVideo = new Video(false, testfolder, vidInfo, null);
-                IVideoHandler handler = testVideo.handler;
-                target.setVideo(testVideo, 0);
-            }
-
-        }
+        //[TestInitialize()]
+        //public void MyTestInitialize()
+        //{
+        //}
         //
         //Mit TestCleanup können Sie nach jedem einzelnen Test Code ausführen.
-        [TestCleanup()]
-        public void MyTestCleanup()
-        {
-            if (Directory.Exists(testfolder))
-            {
-                Directory.Delete(testfolder, true);
-            }
-        }
+        //[TestCleanup()]
+        //public void MyTestCleanup()
+        //{
+        //}
         //
         #endregion
+
 
         /// <summary>
         ///Test "Player-Konstruktor"
@@ -103,12 +116,34 @@ namespace OQAT_Tests
         ///Ein Test für "Clone"
         ///</summary>
         [TestMethod()]
-        public void CloneTest()
+        public void createExtraPluginInstanceTest()
         {
             Player target = new Player();
-            object actual;
+            IPlugin actual;
             actual = target.createExtraPluginInstance();
             Assert.IsTrue(actual is Player, "The returned object is not a valid Player instance. ");
+        }
+
+        /// <summary>
+        ///Ein Test für "CopyMemory"
+        ///</summary>
+        [TestMethod()]
+        public void CopyMemoryTest()
+        {
+            IntPtr Destination = new IntPtr();
+            IntPtr Source = new IntPtr();
+            int Length = 0;
+            Player.CopyMemory(Destination, Source, Length);
+        }
+
+        /// <summary>
+        ///Ein Test für "InitializeComponent"
+        ///</summary>
+        [TestMethod()]
+        public void InitializeComponentTest()
+        {
+            Player target = new Player();
+            target.InitializeComponent();
         }
 
         /// <summary>
@@ -124,6 +159,7 @@ namespace OQAT_Tests
             PropertyChangedEventArgs e = new PropertyChangedEventArgs(target.randomJumpPositionUpdate);
             target.OnPropertyChanged(sender, e);
             Assert.AreEqual(expected, e.PropertyName, "Property name is wrong. ");
+            //TODO: Instrumentationsfehler: Binärdatei "...\OQAT\bin\Debug\Plugins\PP_Diagramm.dll" kann nicht gefunden werden.
         }
 
         /// <summary>
@@ -179,14 +215,13 @@ namespace OQAT_Tests
         public void Pause_ClickTest()
         {
             Player_Accessor target = new Player_Accessor();
-            target.playTickerThread.Start();
             object sender = new Button();
             RoutedEventArgs e = null;
-            Assert.AreEqual(ThreadState.Running, target.playTickerThread.ThreadState);
+            Assert.IsTrue(target._pausePlayTicker is ManualResetEvent);
+            target._pausePlayTicker = null;
+            Assert.AreEqual(null, target._pausePlayTicker);
             target.Pause_Click(sender, e);
-            Thread.Sleep(500);
-            //Thread.CurrentThread.sleep(500);
-            Assert.AreEqual(ThreadState.WaitSleepJoin, target.playTickerThread.ThreadState);
+            Assert.IsTrue(target._pausePlayTicker is ManualResetEvent);
         }
 
         /// <summary>
@@ -197,28 +232,12 @@ namespace OQAT_Tests
         public void Play_ClickTest()
         {
             Player_Accessor target = new Player_Accessor();
-            target.playTickerThread.Start();
             object sender = new Button();
             RoutedEventArgs e = null;
-            target.playTickerThread.Suspend();
-            Assert.AreEqual(ThreadState.Suspended, target.playTickerThread.ThreadState);
+            target._pausePlayTicker = null;
+            Assert.AreEqual(null, target._pausePlayTicker);
             target.Play_Click(sender, e);
-            Thread.Sleep(500);
-            Assert.AreEqual(ThreadState.Suspended, target.playTickerThread.ThreadState);
-        }
-
-        /// <summary>
-        ///Ein Test für "Stop_Click"
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("PP_Player.dll")]
-        public void Stop_ClickTest()
-        {
-            Player_Accessor target = new Player_Accessor();
-            object sender = null;
-            RoutedEventArgs e = null;
-            target.Stop_Click(sender, e);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
+            Assert.IsTrue(target._pausePlayTicker is ManualResetEvent);
         }
 
         /// <summary>
@@ -228,11 +247,10 @@ namespace OQAT_Tests
         [DeploymentItem("PP_Player.dll")]
         public void ConnectTest()
         {
-            IComponentConnector target = new Player(); // TODO: Passenden Wert initialisieren
-            int connectionId = 0; // TODO: Passenden Wert initialisieren
-            object target1 = null; // TODO: Passenden Wert initialisieren
+            IComponentConnector target = new Player();
+            int connectionId = 0;
+            object target1 = null;
             target.Connect(connectionId, target1);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
 
         /// <summary>
@@ -243,20 +261,6 @@ namespace OQAT_Tests
         {
             Player target = new Player();
             target.flush();
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
-        }
-
-        /// <summary>
-        ///Ein Test für "getFrame"
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("PP_Player.dll")]
-        public void getFrameTest()
-        {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            int position = 0; // TODO: Passenden Wert initialisieren
-            target.getFrame(position);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
 
         /// <summary>
@@ -265,12 +269,13 @@ namespace OQAT_Tests
         [TestMethod()]
         public void getMementoTest()
         {
-            Player target = new Player(); // TODO: Passenden Wert initialisieren
-            Memento expected = null; // TODO: Passenden Wert initialisieren
+            Player target = new Player();
+            Memento expected = new Memento("dd", null, "dd");
             Memento actual;
             actual = target.getMemento();
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
+            Assert.AreEqual(expected.name, actual.name);
+            Assert.AreEqual(expected.state, actual.state);
+            Assert.AreEqual(expected.mementoPath, actual.mementoPath);
         }
 
         /// <summary>
@@ -280,25 +285,10 @@ namespace OQAT_Tests
         [DeploymentItem("PP_Player.dll")]
         public void jumpToFrameTextBox_GotFocusTest()
         {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            object sender = null; // TODO: Passenden Wert initialisieren
-            RoutedEventArgs e = null; // TODO: Passenden Wert initialisieren
+            Player_Accessor target = new Player_Accessor();
+            object sender = null;
+            RoutedEventArgs e = null;
             target.jumpToFrameTextBox_GotFocus(sender, e);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
-        }
-
-        /// <summary>
-        ///Ein Test für "jumpToFrame_Click"
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("PP_Player.dll")]
-        public void jumpToFrame_ClickTest()
-        {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            object sender = null; // TODO: Passenden Wert initialisieren
-            RoutedEventArgs e = null; // TODO: Passenden Wert initialisieren
-            target.jumpToFrame_Click(sender, e);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
 
         /// <summary>
@@ -308,51 +298,10 @@ namespace OQAT_Tests
         [DeploymentItem("PP_Player.dll")]
         public void nextFrame_ClickTest()
         {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            object sender = null; // TODO: Passenden Wert initialisieren
-            RoutedEventArgs e = null; // TODO: Passenden Wert initialisieren
+            Player_Accessor target = new Player_Accessor();
+            object sender = null;
+            RoutedEventArgs e = null;
             target.nextFrame_Click(sender, e);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
-        }
-
-        /// <summary>
-        ///Ein Test für "playTicker"
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("PP_Player.dll")]
-        public void playTickerTest()
-        {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            target.playTicker();
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
-        }
-
-        /// <summary>
-        ///Ein Test für "positionSlider_DragCompleted"
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("PP_Player.dll")]
-        public void positionSlider_DragCompletedTest()
-        {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            object sender = null; // TODO: Passenden Wert initialisieren
-            DragCompletedEventArgs e = null; // TODO: Passenden Wert initialisieren
-            target.positionSlider_DragCompleted(sender, e);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
-        }
-
-        /// <summary>
-        ///Ein Test für "positionSlider_DragDelta"
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("PP_Player.dll")]
-        public void positionSlider_DragDeltaTest()
-        {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            object sender = null; // TODO: Passenden Wert initialisieren
-            DragDeltaEventArgs e = null; // TODO: Passenden Wert initialisieren
-            target.positionSlider_DragDelta(sender, e);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
 
         /// <summary>
@@ -362,39 +311,10 @@ namespace OQAT_Tests
         [DeploymentItem("PP_Player.dll")]
         public void positionSlider_DragStartedTest()
         {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            object sender = null; // TODO: Passenden Wert initialisieren
-            DragStartedEventArgs e = null; // TODO: Passenden Wert initialisieren
+            Player_Accessor target = new Player_Accessor();
+            object sender = null;
+            DragStartedEventArgs e = null;
             target.positionSlider_DragStarted(sender, e);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
-        }
-
-        /// <summary>
-        ///Ein Test für "previousFrame_Click"
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("PP_Player.dll")]
-        public void previousFrame_ClickTest()
-        {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            object sender = null; // TODO: Passenden Wert initialisieren
-            RoutedEventArgs e = null; // TODO: Passenden Wert initialisieren
-            target.previousFrame_Click(sender, e);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
-        }
-
-        /// <summary>
-        ///Ein Test für "return_Click"
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("PP_Player.dll")]
-        public void return_ClickTest()
-        {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            object sender = null; // TODO: Passenden Wert initialisieren
-            KeyEventArgs e = null; // TODO: Passenden Wert initialisieren
-            target.return_Click(sender, e);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
 
         /// <summary>
@@ -403,10 +323,15 @@ namespace OQAT_Tests
         [TestMethod()]
         public void setMementoTest()
         {
-            Player target = new Player(); // TODO: Passenden Wert initialisieren
-            Memento memento = null; // TODO: Passenden Wert initialisieren
+            Player target = new Player();
+            Memento memento = null;
             target.setMemento(memento);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
+            Memento expected = new Memento("dd", null, "dd");
+            Memento actual;
+            actual = target.getMemento();
+            Assert.AreEqual(expected.name, actual.name);
+            Assert.AreEqual(expected.state, actual.state);
+            Assert.AreEqual(expected.mementoPath, actual.mementoPath);
         }
 
         /// <summary>
@@ -416,10 +341,11 @@ namespace OQAT_Tests
         [DeploymentItem("PP_Player.dll")]
         public void setVideoTest()
         {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            object video = null; // TODO: Passenden Wert initialisieren
+            Player_Accessor target = new Player_Accessor();
+            string vidPath = sampleVideos[2];
+            object video = new Video(false, vidPath, new YuvVideoInfo(vidPath), null);
             target.setVideo(video);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
+            Assert.AreEqual(video, target.video);
         }
 
         /// <summary>
@@ -428,12 +354,12 @@ namespace OQAT_Tests
         [TestMethod()]
         public void setVideoTest1()
         {
-            Player target = new Player();
-            IVideo video = new Video(false, testfolder, new YuvVideoInfo(testVidPath), null);
-            IVideoHandler handler = video.handler;
-            int position = 0; // TODO: Passenden Wert initialisieren
+            Player_Accessor target = new Player_Accessor();
+            string vidPath = sampleVideos[2];
+            IVideo video = new Video(false, vidPath, new YuvVideoInfo(vidPath), null);
+            int position = 0;
             target.setVideo(video, position);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
+            Assert.AreEqual(video, target.video);
         }
 
         /// <summary>
@@ -443,11 +369,12 @@ namespace OQAT_Tests
         [DeploymentItem("PP_Player.dll")]
         public void slowDownButton_ClickTest()
         {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            object sender = null; // TODO: Passenden Wert initialisieren
-            RoutedEventArgs e = null; // TODO: Passenden Wert initialisieren
+            Player_Accessor target = new Player_Accessor();
+            object sender = null;
+            RoutedEventArgs e = null;
+            int playTicker = target.playTickerTimeout;
             target.slowDownButton_Click(sender, e);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
+            Assert.AreEqual(playTicker + 10, target.playTickerTimeout);
         }
 
         /// <summary>
@@ -457,23 +384,12 @@ namespace OQAT_Tests
         [DeploymentItem("PP_Player.dll")]
         public void speedUpButton_ClickTest()
         {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            object sender = null; // TODO: Passenden Wert initialisieren
-            RoutedEventArgs e = null; // TODO: Passenden Wert initialisieren
+            Player_Accessor target = new Player_Accessor();
+            object sender = null;
+            RoutedEventArgs e = null;
+            int playTicker = target.playTickerTimeout;
             target.speedUpButton_Click(sender, e);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
-        }
-
-        /// <summary>
-        ///Ein Test für "writeToDisplay"
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("PP_Player.dll")]
-        public void writeToDisplayTest()
-        {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            target.writeToDisplay();
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
+            Assert.AreEqual(playTicker - 10, target.playTickerTimeout);
         }
 
         /// <summary>
@@ -483,25 +399,24 @@ namespace OQAT_Tests
         [DeploymentItem("PP_Player.dll")]
         public void fpsIndicatorValueTest()
         {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            int expected = 0; // TODO: Passenden Wert initialisieren
+            Player_Accessor target = new Player_Accessor();
+            int expected = 0;
             int actual;
             target.fpsIndicatorValue = expected;
             actual = target.fpsIndicatorValue;
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
         }
 
         /// <summary>
-        ///Ein Test für "namePlugin"
+        ///Test "namePlugin"
         ///</summary>
         [TestMethod()]
         public void namePluginTest()
         {
-            Player target = new Player(); // TODO: Passenden Wert initialisieren
+            Player target = new Player();
             string actual;
             actual = target.namePlugin;
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
+            Assert.AreEqual("PP_Player", actual, "The player is not PP_Player. ");
         }
 
         /// <summary>
@@ -511,10 +426,109 @@ namespace OQAT_Tests
         [DeploymentItem("PP_Player.dll")]
         public void pausePlayTickerTest()
         {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
+            Player_Accessor target = new Player_Accessor();
             ManualResetEvent actual;
+            target._pausePlayTicker = null;
             actual = target.pausePlayTicker;
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
+            Assert.IsTrue(actual is ManualResetEvent);
+        }
+
+        /// <summary>
+        ///Test "playTickerTimeout"
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("PP_Player.dll")]
+        public void playTickerTimeoutTest()
+        {
+            Player_Accessor target = new Player_Accessor();
+            int expected = 0;
+            int actual;
+            target.playTickerTimeout = expected;
+            actual = target.playTickerTimeout;
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        ///Test "positionReader"
+        ///</summary>
+        [TestMethod()]
+        public void positionReaderTest()
+        {
+            Player target = new Player();
+            int expected = 10;
+            int actual;
+            target.positionReader = expected;
+            actual = target.positionReader;
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        ///Test "presentationType"
+        ///</summary>
+        [TestMethod()]
+        public void presentationTypeTest()
+        {
+            Player target = new Player();
+            PresentationPluginType expected = PresentationPluginType.Player;
+            PresentationPluginType actual;
+            actual = target.presentationType;
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        ///Test "propertyView"
+        ///</summary>
+        [TestMethod()]
+        public void propertyViewTest()
+        {
+            Player target = new Player();
+            UserControl actual;
+            actual = target.propertyView;
+        }
+
+        /// <summary>
+        ///Ein Test für "type"
+        ///</summary>
+        [TestMethod()]
+        public void typeTest()
+        {
+            Player target = new Player();
+            PluginType actual;
+            actual = target.type;
+            Assert.AreEqual(PluginType.IPresentation, actual, "Player is not of type IPresentation. ");
+        }
+
+        /// <summary>
+        ///Ein Test für "getFrame"
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("PP_Player.dll")]
+        public void getFrameTest()
+        {
+            Player_Accessor target = new Player_Accessor();
+            string vidPath = sampleVideos[2];
+            IVideo video = new Video(false, vidPath, new YuvVideoInfo(vidPath), null);
+            int position = 0;
+            target.setVideo(video, position);
+            target.getFrame(position);
+        }
+
+
+        /// <summary>
+        ///Ein Test für "jumpToFrame_Click"
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("PP_Player.dll")]
+        public void jumpToFrame_ClickTest()
+        {
+            Player_Accessor target = new Player_Accessor();
+            object sender = null;
+            RoutedEventArgs e = null;
+            string vidPath = sampleVideos[2];
+            IVideo video = new Video(false, vidPath, new YuvVideoInfo(vidPath), null);
+            int position = 0;
+            target.setVideo(video, position);
+            target.jumpToFrame_Click(sender, e);
         }
 
         /// <summary>
@@ -524,80 +538,15 @@ namespace OQAT_Tests
         [DeploymentItem("PP_Player.dll")]
         public void playTickerThreadTest()
         {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            Thread expected = null; // TODO: Passenden Wert initialisieren
+            Player_Accessor target = new Player_Accessor();
+            string vidPath = sampleVideos[2];
+            IVideo video = new Video(false, vidPath, new YuvVideoInfo(vidPath), null);
+            Thread expected = target.playTickerThread;
             Thread actual;
             target.playTickerThread = expected;
             actual = target.playTickerThread;
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
-        }
-
-        /// <summary>
-        ///Ein Test für "playTickerTimeout"
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("PP_Player.dll")]
-        public void playTickerTimeoutTest()
-        {
-            Player_Accessor target = new Player_Accessor(); // TODO: Passenden Wert initialisieren
-            int expected = 0; // TODO: Passenden Wert initialisieren
-            int actual;
-            target.playTickerTimeout = expected;
-            actual = target.playTickerTimeout;
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
-        }
-
-        /// <summary>
-        ///Ein Test für "positionReader"
-        ///</summary>
-        [TestMethod()]
-        public void positionReaderTest()
-        {
-            Player target = new Player(); // TODO: Passenden Wert initialisieren
-            int expected = 0; // TODO: Passenden Wert initialisieren
-            int actual;
-            target.positionReader = expected;
-            actual = target.positionReader;
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
-        }
-
-        /// <summary>
-        ///Ein Test für "presentationType"
-        ///</summary>
-        [TestMethod()]
-        public void presentationTypeTest()
-        {
-            Player target = new Player(); // TODO: Passenden Wert initialisieren
-            PresentationPluginType actual;
-            actual = target.presentationType;
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
-        }
-
-        /// <summary>
-        ///Ein Test für "propertyView"
-        ///</summary>
-        [TestMethod()]
-        public void propertyViewTest()
-        {
-            Player target = new Player(); // TODO: Passenden Wert initialisieren
-            UserControl actual;
-            actual = target.propertyView;
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
-        }
-
-        /// <summary>
-        ///Ein Test für "type"
-        ///</summary>
-        [TestMethod()]
-        public void typeTest()
-        {
-            Player target = new Player(); // TODO: Passenden Wert initialisieren
-            PluginType actual;
-            actual = target.type;
-            Assert.Inconclusive("Überprüfen Sie die Richtigkeit dieser Testmethode.");
+            Assert.IsNotNull(actual);
         }
     }
 }

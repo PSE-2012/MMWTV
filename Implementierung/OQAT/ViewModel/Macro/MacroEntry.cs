@@ -9,6 +9,7 @@
 
     using Oqat.PublicRessources.Plugin;
 using System.ComponentModel;
+    using System.Windows;
 
     /// <summary>
     /// This class represents a particular plugin and its memento wich enables a way to store such
@@ -37,9 +38,13 @@ using System.ComponentModel;
             set
             {
                 _mementoName = value;
+                NotifyPropertyChanged("mementoName");
                 NotifyPropertyChanged("namMemConcat");
             }
         }
+
+        private int defaultRangeSliderWidth = 250;
+
 
         private int _frameCount;
         public int frameCount
@@ -81,6 +86,8 @@ using System.ComponentModel;
                 NotifyPropertyChanged("endFrameAbs");
             }
         }
+
+
        
         public long startFrameAbs
         {
@@ -137,6 +144,55 @@ using System.ComponentModel;
             this.macroEntries = new ObservableCollection<MacroEntry>();
         }
 
+        public Visibility readOnlyVisibility
+        {
+
+            get
+            {
+                if (readOnly)
+                    return System.Windows.Visibility.Collapsed;
+                else
+                    return System.Windows.Visibility.Visible;
+            }
+        }
+        public bool readOnlyActiveState
+        {
+            get
+            {
+                return !readOnly;
+            }
+        }
+        private bool _readOnly = false;
+        public bool readOnly
+        {
+            get
+            {
+                return _readOnly;
+            }
+            set
+            {
+                
+                _readOnly = value;
+                NotifyPropertyChanged("readOnlyVisibility");
+                NotifyPropertyChanged("readOnlyActiveState");
+                NotifyPropertyChanged("rangeSliderWidth");
+
+                if (this.macroEntries != null)
+                    foreach (var entry in this.macroEntries)
+                        entry.readOnly = _readOnly;
+
+            }
+        }
+        public int rangeSliderWidth {
+            get
+            {
+                if (readOnly)
+                    return 0;
+                else 
+                    return defaultRangeSliderWidth;
+            }
+            
+    }
     }
 }
 
