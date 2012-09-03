@@ -117,18 +117,6 @@ namespace OQAT_Tests
         }
 
         /// <summary>
-        ///Ein Test für "localize"
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("PF_NoiseGenerator.dll")]
-        public void localizeTest()
-        {
-            NoiseGenerator_Accessor target = new NoiseGenerator_Accessor();
-            string s = "test";
-            target.localize(s);
-        }
-
-        /// <summary>
         ///Test "process"
         ///</summary>
         [TestMethod()]

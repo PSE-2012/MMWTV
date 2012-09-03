@@ -24,8 +24,8 @@ namespace OQAT_Tests
     [TestClass()]
     public class PlayerTest
     {
-        private static string testfolder = "E:\\PSE\\testfolder\\";//System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(CaretakerTest)).Location);
-        private static string testVidPath = "E:\\PSE\\akiyo_qcif.yuv";
+        private static string testfolder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\..\\..\\..\\..\\OQAT_Tests\\TestData\\";
+        private static string testVidPath = testfolder + "akiyo_qcif.yuv";
 
         private TestContext testContextInstance;
 
@@ -109,17 +109,6 @@ namespace OQAT_Tests
             object actual;
             actual = target.createExtraPluginInstance();
             Assert.IsTrue(actual is Player, "The returned object is not a valid Player instance. ");
-        }
-
-        /// <summary>
-        ///Ein Test für "InitializeComponent"
-        ///</summary>
-        [TestMethod()]
-        public void InitializeComponentTest()
-        {
-            Player target = new Player(); // TODO: Passenden Wert initialisieren
-            target.InitializeComponent();
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
 
         /// <summary>
