@@ -43,6 +43,9 @@ using System.ComponentModel;
             }
         }
 
+        private int defaultRangeSliderWidth = 250;
+
+
         private int _frameCount;
         public int frameCount
         {
@@ -172,6 +175,7 @@ using System.ComponentModel;
                 _readOnly = value;
                 NotifyPropertyChanged("readOnlyVisibility");
                 NotifyPropertyChanged("readOnlyActiveState");
+                NotifyPropertyChanged("rangeSliderWidth");
 
                 if (this.macroEntries != null)
                     foreach (var entry in this.macroEntries)
@@ -179,7 +183,16 @@ using System.ComponentModel;
 
             }
         }
-
+        public int rangeSliderWidth {
+            get
+            {
+                if (readOnly)
+                    return 0;
+                else 
+                    return defaultRangeSliderWidth;
+            }
+            
+    }
     }
 }
 

@@ -56,12 +56,12 @@
         </extToolkit:BusyIndicator.ProgressBarStyle>
         <Grid x:Name="macroTreeViewGrid" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="{Binding controlButtonsHeight}"/>
+            <RowDefinition Height="{Binding controlButtonToTreeGapSize}"/>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="0,2,0,2">
+            <Grid Grid.Row="0" Margin="0,2,0,2" IsEnabled="{Binding readOnlyActiveState}" Visibility="{Binding readOnlyVisibility}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="50"/>
@@ -73,14 +73,11 @@
                     <ColumnDefinition Width="50"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-            <Button x:Name="startProcessing" Visibility="{Binding readOnlyVisibility}" 
+            <Button x:Name="startProcessing" 
                      Grid.Column="0" Margin="0,0,2,0" Content="apply" 
-                    Click="startProcessing_Click"
-                    IsEnabled="{Binding readOnlyActiveState}"/>
+                    Click="startProcessing_Click"/>
 
-            <Button x:Name="clearEntries" Visibility="{Binding readOnlyVisibility}" 
-                     Grid.Column="1" Margin="0,0,2,0" Content="clear entries"
-                    IsEnabled="{Binding readOnlyActiveState}"
+            <Button x:Name="clearEntries" Grid.Column="1" Margin="0,0,2,0" Content="clear entries"
                     Click="clearEntries_Click"/>
             <CheckBox x:Name="previewCheckBox" Visibility="{Binding filterModeVisibility}" 
                       IsEnabled="{Binding filterModeActiveState}"
@@ -90,16 +87,15 @@
                        IsEnabled="{Binding filterModeActiveState}"
                        Text="preview" Grid.Column="3" />
             
-                <Border  Grid.Column="4" Style="{StaticResource SeparatorStyle}"
-                         IsEnabled="{Binding readOnlyActiveState}" Visibility="{Binding readOnlyVisibility}"/>
+                <Border  Grid.Column="4" Style="{StaticResource SeparatorStyle}"/>
 
                 <TextBox x:Name="rootEntryMem_TextBox" Grid.Column="5" HorizontalAlignment="Stretch"
-                         IsEnabled="{Binding readOnlyActiveState}" Visibility="{Binding readOnlyVisibility}"/>
-                <Button x:Name="saveMacro" Visibility="{Binding readOnlyVisibility}"
-                    Grid.Column="6" IsEnabled="{Binding readOnlyActiveState}"
+                         />
+                <Button x:Name="saveMacro" Grid.Column="6" 
                     Margin="0,0,2,0" Content="save" Click="saveMacro_Click" />
-                <Button x:Name="saveMacroAs" Visibility="{Binding readOnlyVisibility}"
-                    Grid.Column="7" IsEnabled="{Binding readOnlyActiveState}" Content="save as" Click="saveMacroAs_Click" HorizontalAlignment="Left" Width="48" />
+                
+                <Button x:Name="saveMacroAs" Grid.Column="7" Content="save as" 
+                        Click="saveMacroAs_Click" HorizontalAlignment="Left" Width="48" />
 
             </Grid>
         <!--<ProgressBar x:Name="progressBar" Grid.Row="1" Margin="0,0,0,5"/>-->
@@ -120,7 +116,7 @@
                 <HierarchicalDataTemplate DataType="{x:Type local:MacroEntry}"
                                               ItemsSource="{Binding macroEntries}">
 
-                    <local:MacroEntry_Control AllowDrop="{Binding allowDrop, Mode=OneWay}"  Margin="0,5,0,5" />
+                    <local:MacroEntry_Control AllowDrop="{Binding allowDrop, Mode=OneWay}"  Margin="{Binding MacroEntryControlsMargin}" />
 
                     <!--Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeView}, AncestorLevel=1}, Path=ActualWidth}"-->
 

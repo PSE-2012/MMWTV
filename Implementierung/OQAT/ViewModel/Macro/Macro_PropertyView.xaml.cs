@@ -99,6 +99,10 @@ namespace Oqat.ViewModel.MacroPlugin
                     NotifyPropertyChanged("readOnlyActiveState");
                     NotifyPropertyChanged("filterModeVisibility");
                     NotifyPropertyChanged("filterModeActiveState");
+                    NotifyPropertyChanged("controlButtonsHeight");
+                    NotifyPropertyChanged("controlButtonToTreeGapSize");
+                    NotifyPropertyChanged("macroEntryControlsMargin");
+
 
                 // notify children.
                     this.rootEntry.readOnly = _readOnly;
@@ -106,6 +110,41 @@ namespace Oqat.ViewModel.MacroPlugin
             }
         }
 
+        private int defaultControlButtonsHeight = 30;
+
+        public int controlButtonsHeight
+        {
+            get
+            {
+                if (_readOnly)
+                    return 0;
+                else
+                    return defaultControlButtonsHeight;
+            }
+        }
+
+        private int defaultControlButtonToTreeGapSize = 20;
+        public int controlButtonToTreeGapsize
+        {
+            get
+            {
+                if (readOnly)
+                    return 0;
+                else
+                    return defaultControlButtonToTreeGapSize;
+            }
+        }
+
+        private Thickness defaultMacroEntryControlsMargin = new Thickness(0, 5, 0, 5);
+        public Thickness macroEntryControlsMargin
+        {
+            get {
+                if(readOnly)
+                    return new Thickness(0);
+                else
+                    return defaultMacroEntryControlsMargin;
+            }
+        }
 
         private bool _processing;
         public bool processing
