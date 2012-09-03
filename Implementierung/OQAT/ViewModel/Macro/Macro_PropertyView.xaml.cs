@@ -799,7 +799,21 @@ namespace Oqat.ViewModel.MacroPlugin
         private void startProcessing_Click(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
-            macroViewDelegates.startProcessing();
+
+            if (this.macroEntries.Count == 0)
+            {
+                MessageBox.Show("Bitte fügen Sie zunächst Einträge zum Macro hinzu, indem Sie diese aus der Liste rechts auswählen.");
+                return;
+            }
+
+            try
+            {
+                macroViewDelegates.startProcessing();
+            }
+            catch (ContextNotSetException ex)
+            {
+                MessageBox.Show("Bitte laden Sie zuerst ein Video.");
+            }
         }
 
 
