@@ -1,23 +1,27 @@
 \chapter{Filteransicht}
 \includegraphics[scale=0.55]{bilder/Filter.png}\\[5ex]
-In der Filteransicht, sieht man links den Projektexplorer, Rechts die Liste der Plugins und in der Mitte das Vorschaufenster.
-Der Projektexplorer zeigt alle mit dem Projekt verknüpften Videos an. Neue Videos können entweder über das ">Projekt"< Menü oder per Drag-and-Drop aus dem Windowsexplorer hinzugefügt werden.
-Per Rechtklick auf ein Video lässt es sich abspielen oder die mit dem Video verknüpften Daten Darstellen oder Exportieren. Man kann es auch für die Metrikview als Referenz hinzufügen, was das Vorschaufenster anpasst.Der Player unterstützt die Standart Player Funktionen, wie abspielen und stoppen, sowie das Einstellen der Abspielgeschwindigkeit mit den Schaltflächen ">+"< bzw ">-"<. Bei bedarf kann man den Player austauschen. Im unteren Teil des Vorschaufensters sieht man die Aktuell ausgewählten Filter mit den Einstellungsnamen und kann Einstellungen treffen, auf welche Bilder sie angewendet werden sollen. Rechts sieht man die Filter, welche sich mithilfe von doppelklick oder der schaltfläche ">zu macro hinzufügen"< in eine Kette von Filtern einreihen lassen, welche dann nacheinander auf ein Video angewendet wird. Wenn man einen  Filter auswählt, wird, falls vorhanden, ein Einstelllungsfenster aufgerufen. Unter jeden Filter stehen die vorhandenen, bereits gespeicherten Einstellungen. Der Punkt ">Macrofilter"< bietet die Möglichkeit Filterketten abzulegen um diese zu einem späteren Zeitpunkt erneut zu verwenden.
+
+In der Filteransicht sieht man links den Projektexplorer, Rechts die Liste der Plugins und in der Mitte das Vorschaufenster.
+Der Projektexplorer zeigt alle mit dem Projekt verknüpften Videos an. Neue Videos können entweder über das ">Projekt"< Menü oder per Drag-and-Drop von Dateien hinzugefügt werden.
+Per Doppelklick, Drag-and-Drop oder über das Kontextmenü mit Rechtsklick auf ein Video lässt es sich abspielen oder die mit dem Video verknüpften Daten Darstellen oder Exportieren. Man kann es auch für Metriken als Referenz hinzufügen, wobei OQAT automatisch in den Metrik-Modus wechselt.
+Der Player unterstützt die Standard Player-Funktionen wie abspielen und stoppen, sowie das Einstellen der Abspielgeschwindigkeit mit den Schaltflächen ">+"< bzw. ">-"<. Der Player ist als Plugin implementiert und lässt sich bei Bedarf austauschen.
+Im unteren Teil des Vorschaufensters sieht man die aktuell ausgewählten Filter mit den Einstellungsnamen und kann Einstellungen treffen, auf welche Bilder sie angewendet werden sollen. Rechts sieht man die Filter, welche sich mit Hilfe von Doppelklick oder der Schaltfläche ">zu Macro hinzufügen"< in eine Kette von Filtern einreihen lassen, welche dann nacheinander auf ein Video angewendet werden. Wenn man einen Filter auswählt, wird, falls vorhanden, ein Einstellungsfenster aufgerufen. Unter jedem Filter stehen die vorhandenen, bereits gespeicherten Einstellungen. Der Punkt ">Macrofilter"< bietet die Möglichkeit Filterketten abzulegen um diese zu einem späteren Zeitpunkt erneut zu verwenden.
 
 
 \begin{itemize}
 \item Convolution \newline
-Hier wird eine vom Nutzer gewählte Matrix über das Bild geschoben und Multipliziert.
+Hier wird eine vom Nutzer gewählte Matrix über das Bild geschoben und multipliziert.
 \item Greyscale \newline
 Dieser Filter wandelt das gegebene Video in ein Graustufenbild um. 
-Der neue gesamt Pixelwert Errechnet sich aus  der Summe der alten Werten mal des jeweiligen Koeffizienten.
+Der neue gesamt Pixelwert errechnet sich aus  der Summe der alten Werten mal des jeweiligen Koeffizienten.
 \item Invert \newline
 Die einzelnden Farbkanäle werden invertiert.
 \item Noisegenerator \newline
 Der Filter erzeugt einen Rauscheffekt.
 \item RelativeColor \newline
-Die jeweiligen Farbkanäle werden mit dem jeweiligen Faktor Multipliziert.
-
+Die jeweiligen Farbkanäle werden mit dem jeweiligen Faktor multipliziert.
+\item Eigene Filter \newline
+Es können eigene Filter als Plugin hinzugefügt werden, indem eine DLL-Datei mit dem Plugin in den Ordner ">Plugins"< im gleichen Verzeichnis wie die OQAT-Exe abgelegt wird. Die zu implementierenden Interfaces IPlugin und IFilterOqat sind der OQAT-API zu entnehmen.
 \end{itemize}
 
 
