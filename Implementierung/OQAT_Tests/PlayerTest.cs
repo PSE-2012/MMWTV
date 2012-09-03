@@ -9,7 +9,6 @@ using Oqat.PublicRessources.Model;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Threading;
-using Oqat.PublicRessources.Plugin;
 using System.Windows.Controls;
 using PS_YuvVideoHandler;
 using Oqat.Model;
@@ -19,8 +18,6 @@ using Oqat.ViewModel;
 
 namespace OQAT_Tests
 {
-
-
     /// <summary>
     ///Dies ist eine Testklasse für "PlayerTest" und soll
     ///alle PlayerTest Komponententests enthalten.
@@ -29,28 +26,9 @@ namespace OQAT_Tests
     public class PlayerTest
     {
         private static string readPath;
-        private static string writePath;
         private static string sampleVideosPath;
         private static string[] sampleVideos;
         private static string plPathSolution;
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Ruft den Testkontext auf, der Informationen
-        ///über und Funktionalität für den aktuellen Testlauf bietet, oder legt diesen fest.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
 
         #region Zusätzliche Testattribute
         // 
@@ -60,14 +38,13 @@ namespace OQAT_Tests
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
         {
+            var pm = PluginManager.pluginManager;
+            Thread.Sleep(20000);
             plPathSolution = testContext.TestRunDirectory + "\\..\\..\\Oqat\\bin\\Debug\\Plugins";
             sampleVideosPath = testContext.TestDir + "\\..\\..\\Oqat_Tests\\TestData\\sampleVideos";
             string[] plugins = Directory.GetFiles(plPathSolution, "*.dll");
-
-
             sampleVideos = Directory.GetFiles(sampleVideosPath, "*.yuv");
             readPath = sampleVideos[0];
-            writePath = Path.GetDirectoryName(readPath) + Path.GetFileNameWithoutExtension(readPath) + "_Copy.yuv";
 
             // we are not testing 
             if (!Directory.Exists(testContext.TestRunDirectory + "\\Out\\Plugins"))
@@ -80,27 +57,7 @@ namespace OQAT_Tests
                     File.Copy(s, targetpath);
             }
         }
-        //
-        //Mit ClassCleanup führen Sie Code aus, nachdem alle Tests in einer Klasse ausgeführt wurden.
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //Mit TestInitialize können Sie vor jedem einzelnen Test Code ausführen.
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //Mit TestCleanup können Sie nach jedem einzelnen Test Code ausführen.
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
         #endregion
-
 
         /// <summary>
         ///Test "Player-Konstruktor"
@@ -153,13 +110,18 @@ namespace OQAT_Tests
         [DeploymentItem("PP_Player.dll")]
         public void OnPropertyChangedTest_randomJumpPositionUpdate()
         {
+            Thread.Sleep(5000);
             Player_Accessor target = new Player_Accessor();
             string expected = "rjpu";
-            object sender = new YuvVideoHandler();
+            string vidPath = sampleVideos[2];
+            object video = new Video(false, vidPath, new YuvVideoInfo(vidPath), null);
+            target.setVideo(video);
             PropertyChangedEventArgs e = new PropertyChangedEventArgs(target.randomJumpPositionUpdate);
-            target.OnPropertyChanged(sender, e);
+            target.OnPropertyChanged(this, e);
+            int jumpTo;
+            Int32.TryParse(target.jumpToFrameTextBox.Text, out jumpTo);
             Assert.AreEqual(expected, e.PropertyName, "Property name is wrong. ");
-            //TODO: Instrumentationsfehler: Binärdatei "...\OQAT\bin\Debug\Plugins\PP_Diagramm.dll" kann nicht gefunden werden.
+            Assert.AreEqual(jumpTo, target.video.handler.positionReader);
         }
 
         /// <summary>
@@ -171,10 +133,10 @@ namespace OQAT_Tests
         {
             Player_Accessor target = new Player_Accessor();
             string expected = "nfpu";
-            object sender = new YuvVideoHandler();
             PropertyChangedEventArgs e = new PropertyChangedEventArgs(target.nextFramePositionUpdate);
-            target.OnPropertyChanged(sender, e);
+            target.OnPropertyChanged(this, e);
             Assert.AreEqual(expected, e.PropertyName, "Property name is wrong. ");
+            Assert.IsTrue(target.pausePlayTicker.Reset());
         }
 
         /// <summary>
@@ -184,12 +146,15 @@ namespace OQAT_Tests
         [DeploymentItem("PP_Player.dll")]
         public void OnPropertyChangedTest_posReadProName()
         {
+            string vidPath = sampleVideos[2];
+            object video = new Video(false, vidPath, new YuvVideoInfo(vidPath), null);
             Player_Accessor target = new Player_Accessor();
+            target.setVideo(video);
             string expected = "positionReader";
-            object sender = new YuvVideoHandler();
             PropertyChangedEventArgs e = new PropertyChangedEventArgs(target.posReadProName);
-            target.OnPropertyChanged(sender, e);
+            target.OnPropertyChanged(this, e);
             Assert.AreEqual(expected, e.PropertyName, "Property name is wrong. ");
+            Assert.AreEqual(target._positionReader, target.video.handler.positionReader);
         }
 
         /// <summary>
@@ -259,8 +224,11 @@ namespace OQAT_Tests
         [TestMethod()]
         public void flushTest()
         {
-            Player target = new Player();
+            Player_Accessor target = new Player_Accessor();
             target.flush();
+            Assert.IsTrue(target.pausePlayTicker.Reset());
+            Assert.IsFalse(target.stopPlayTickerThread);
+            //Assert.IsNull(target.playTickerThread);
         }
 
         /// <summary>
@@ -289,6 +257,10 @@ namespace OQAT_Tests
             object sender = null;
             RoutedEventArgs e = null;
             target.jumpToFrameTextBox_GotFocus(sender, e);
+            if (target.pauseButton.IsVisible)
+            {
+                Pause_ClickTest();
+            }
         }
 
         /// <summary>
@@ -302,6 +274,7 @@ namespace OQAT_Tests
             object sender = null;
             RoutedEventArgs e = null;
             target.nextFrame_Click(sender, e);
+            Assert.IsTrue(target.pausePlayTicker.Reset());
         }
 
         /// <summary>
@@ -315,6 +288,23 @@ namespace OQAT_Tests
             object sender = null;
             DragStartedEventArgs e = null;
             target.positionSlider_DragStarted(sender, e);
+            if (target.pauseButton.IsVisible)
+            {
+                Pause_ClickTest();
+            }
+        }
+
+        /// <summary>
+        ///Ein Test für "positionSlider_DragDelta"
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("PP_Player.dll")]
+        public void positionSlider_DragDeltaTest()
+        {
+            Player_Accessor target = new Player_Accessor();
+            DragDeltaEventArgs e = new DragDeltaEventArgs(2, 0);
+            target.positionSlider_DragDelta(null, e);
+            OnPropertyChangedTest_posReadProName();
         }
 
         /// <summary>
@@ -484,6 +474,7 @@ namespace OQAT_Tests
             Player target = new Player();
             UserControl actual;
             actual = target.propertyView;
+            Assert.AreEqual(actual, target);
         }
 
         /// <summary>
@@ -529,6 +520,7 @@ namespace OQAT_Tests
             int position = 0;
             target.setVideo(video, position);
             target.jumpToFrame_Click(sender, e);
+            OnPropertyChangedTest_randomJumpPositionUpdate();
         }
 
         /// <summary>

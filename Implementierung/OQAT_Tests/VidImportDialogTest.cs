@@ -3,10 +3,12 @@ using System.Text;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Windows;
 using Oqat.ViewModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Threading;
+using Oqat.Model;
 
 namespace OQAT_Tests
 {
@@ -58,8 +60,13 @@ namespace OQAT_Tests
             StringCollection sc = new StringCollection();
             sc.Add(path1);
             sc.Add(path2);
-            VM_VidImportOptionsDialog optdial = new VM_VidImportOptionsDialog(sc);
-            Assert.AreEqual(2, optdial.videoList.Count);
+            VM_VidImportOptionsDialog_Accessor optd = new VM_VidImportOptionsDialog_Accessor(sc);
+            Assert.AreEqual(2, optd.videoList.Count);
+            //optd.btt_Import_Click(this, null);
+            //foreach (Video vid in optd.videoList)
+            //{
+            //    Assert.AreEqual(vid.vidInfo, vid.handler.readVidInfo);
+            //}
         }
     }
 }
