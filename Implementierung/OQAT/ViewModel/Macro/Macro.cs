@@ -402,9 +402,9 @@ namespace Oqat.ViewModel.MacroPlugin
 
             if (newTLMacroEnry.mementoName != memento.name)
                 throw new ArgumentException("Given memento shows inconsistencies. Name of top level macro does not equal to" +
-                                            "the memento name.");
+                                            " the memento name.");
                 flush();
-            
+                originallTlMacroName = newTLMacroEnry.mementoName;
             addMacroEntry(newTLMacroEnry, null);
            
         }
@@ -642,9 +642,8 @@ namespace Oqat.ViewModel.MacroPlugin
 
         private void saveSaveAsHelper(EventType saveType)
         {
-            if (originallTlMacroName.Equals(rootEntry.mementoName))
+            if (originallTlMacroName.Equals(rootEntry.mementoName) || (saveType == EventType.saveMacroAs))
                 originallTlMacroName = "";
-
             //       try
             //       {
             PluginManager.pluginManager.raiseEvent(saveType,
@@ -659,22 +658,55 @@ namespace Oqat.ViewModel.MacroPlugin
             if (originallTlMacroName.Equals(rootEntry.mementoName))
                 originallTlMacroName = "";
 
-            if (this.rootEntry.mementoName.Equals(""))
-                memToReturn = new Memento(this.rootEntry.mementoName, new object());
-            else if (this.rootEntry.macroEntries.Count > 0)
-                memToReturn = new Memento(rootEntry.mementoName, rootEntry as IMacroEntry);
-            else
-                memToReturn = new Memento(rootEntry.mementoName, null);
+            MacroEntry rootEntryCopy = new MacroEntry(rootEntry.pluginName, rootEntry.type, rootEntry.mementoName);
 
-            originallTlMacroName = rootEntry.mementoName;
+            rootEntryCopy.startFrameRelative = rootEntry.startFrameRelative;
+            rootEntryCopy.endFrameRelative = rootEntry.endFrameRelative;
+            rootEntryCopy.path = rootEntry.path;
+
+            doDeepCopy(rootEntry, ref rootEntryCopy);
+            if (rootEntryCopy.mementoName.Equals(""))
+                memToReturn = new Memento(rootEntryCopy.mementoName, new object());
+            else if (rootEntryCopy.macroEntries.Count > 0)
+                memToReturn = new Memento(rootEntryCopy.mementoName, rootEntryCopy as IMacroEntry);
+            else
+                memToReturn = new Memento(rootEntryCopy.mementoName, null);
+
+            originallTlMacroName = rootEntryCopy.mementoName;
             return memToReturn;
+        }
+
+        private void doDeepCopy(MacroEntry entryToCopy, ref MacroEntry copy)
+        {
+          
+            foreach (var entry in entryToCopy.macroEntries)
+            {
+                if(entry.macroEntries != null) {
+
+                    var macroEntryCopy = new MacroEntry(entry.pluginName, entry.type, entry.mementoName);
+                    macroEntryCopy.startFrameRelative = entry.startFrameRelative;
+                    macroEntryCopy.endFrameRelative = entry.endFrameRelative;
+                    macroEntryCopy.path = entry.path;
+                
+                    
+                 
+                    copy.macroEntries.Add(macroEntryCopy);
+                   
+                    if (entry.macroEntries.Count() > 0)
+                    {
+                        macroEntryCopy.macroEntries = new ObservableCollection<MacroEntry>();
+                        doDeepCopy(entry, ref macroEntryCopy);
+                    }
+                }
+            }
+      
         }
 
         private MacroEntry constructMacroFromMementoArg(MementoEventArgs e)
         {
 
             PluginType entryType = PluginManager.pluginManager.getPlugin<IPlugin>(e.pluginKey).type;
-            MacroEntry entryToAdd;
+            MacroEntry entryToAdd = null;
             if (entryType != PluginType.IMacro)
             {
                 entryToAdd = new MacroEntry(e.pluginKey, entryType, e.mementoName);
@@ -683,7 +715,10 @@ namespace Oqat.ViewModel.MacroPlugin
             else
             {
                 var tmpMem = PluginManager.pluginManager.getMemento(e.pluginKey, e.mementoName);
-                entryToAdd = tmpMem.state as MacroEntry;
+                if (tmpMem == null)
+                    throw new ArgumentException("Given parameters do not refer to a existing memento.");
+                if(tmpMem.state != rootEntry)
+                    entryToAdd = tmpMem.state as MacroEntry;
             }
 
             return entryToAdd;
