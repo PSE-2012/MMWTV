@@ -761,6 +761,8 @@ namespace Oqat.ViewModel.MacroPlugin
                             macroViewDelegates.addMacro(dropEntry, rootEntry);
                            // addMacroEntry(dropEntry, rootEntry);
                     }
+
+
                 }
 
             }
