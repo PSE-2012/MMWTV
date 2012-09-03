@@ -101,18 +101,20 @@
         <!--<ProgressBar x:Name="progressBar" Grid.Row="1" Margin="0,0,0,5"/>-->
 
             <TreeView x:Name="MacroEntryTreeView" Grid.Row="2" ItemsSource="{Binding macroEntries}"
-                  AllowDrop="{Binding allowDrop, Mode=OneWay}" ScrollViewer.CanContentScroll="True" 
-                  ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                      PreviewDragEnter="MacroEntryTreeView_PreviewDragEnter"
-                      PreviewDragOver="MacroEntryTreeView_PreviewDragOver"
-                      PreviewDragLeave="MacroEntryTreeView_DragLeave"
-                      PreviewDrop="MacroEntryTreeView_PreviewDrop"
-                      PreviewMouseLeftButtonDown="MacroEntryTreeView_PreviewMouseLeftButtonDown"
-                      PreviewMouseMove="MacroEntryTreeView_PreviewMouseMove"
-                      PreviewMouseLeftButtonUp="MacroEntryTreeView_PreviewMouseLeftButtonUp"
-                      KeyDown="MacroEntryTreeView_KeyDown">
-                    <TreeView.Resources>
+                AllowDrop="{Binding allowDrop, Mode=OneWay}" ScrollViewer.CanContentScroll="True" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                PreviewDragEnter="MacroEntryTreeView_PreviewDragEnter"
+                PreviewDragOver="MacroEntryTreeView_PreviewDragOver"
+                PreviewDragLeave="MacroEntryTreeView_DragLeave"
+                PreviewDrop="MacroEntryTreeView_PreviewDrop"
+                PreviewMouseLeftButtonDown="MacroEntryTreeView_PreviewMouseLeftButtonDown"
+                PreviewMouseMove="MacroEntryTreeView_PreviewMouseMove"
+                PreviewMouseLeftButtonUp="MacroEntryTreeView_PreviewMouseLeftButtonUp"
+                KeyDown="MacroEntryTreeView_KeyDown"
+                SelectedItemChanged="MacroEntryTreeView_SelectedItemChanged">
+                
+                <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type local:MacroEntry}"
                                               ItemsSource="{Binding macroEntries}">
 
