@@ -29,34 +29,4 @@ namespace Oqat.ViewModel.MacroPlugin
         }
 
     }
-
-
-    #region unusedvisibilityBoolConverter
-    //public class ControlVisibility : BaseConverter, IValueConverter
-    //{
-    //    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-    //    {
-    //        // incoming: filterMode
-    //        // outgoing: Visibility
-
-    //        bool filterMode = System.Convert.ToBoolean(value);
-    //        return (filterMode) ? Visibility.Visible : Visibility.Collapsed;
-
-    //    }
-
-
-    //    public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
-
-    //public abstract class BaseConverter : MarkupExtension
-    //{
-    //    public override object ProvideValue(IServiceProvider serviceProvider)
-    //    {
-    //        return this;
-    //    }
-    //}
-    #endregion
 }
