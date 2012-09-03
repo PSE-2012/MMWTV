@@ -58,7 +58,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="{Binding controlButtonsHeight}"/>
             <RowDefinition Height="{Binding controlButtonToTreeGapSize}"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="0,2,0,2" IsEnabled="{Binding readOnlyActiveState}" Visibility="{Binding readOnlyVisibility}">
@@ -101,6 +101,7 @@
         <!--<ProgressBar x:Name="progressBar" Grid.Row="1" Margin="0,0,0,5"/>-->
 
             <TreeView x:Name="MacroEntryTreeView" Grid.Row="2" ItemsSource="{Binding macroEntries}"
+                      VerticalAlignment="Stretch"
                   AllowDrop="{Binding allowDrop, Mode=OneWay}" ScrollViewer.CanContentScroll="True" 
                   ScrollViewer.VerticalScrollBarVisibility="Auto" 
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -116,8 +117,8 @@
                 <HierarchicalDataTemplate DataType="{x:Type local:MacroEntry}"
                                               ItemsSource="{Binding macroEntries}">
 
-                    <local:MacroEntry_Control AllowDrop="{Binding allowDrop, Mode=OneWay}"  Margin="{Binding MacroEntryControlsMargin}" />
-
+                        <local:MacroEntry_Control  Margin="0,5,0,5" />
+<!--Margin="{Binding macroEntryControlsMargin, UpdateSourceTrigger=PropertyChanged}"-->
                     <!--Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeView}, AncestorLevel=1}, Path=ActualWidth}"-->
 
                 </HierarchicalDataTemplate>

@@ -676,7 +676,6 @@ namespace Oqat.ViewModel.MacroPlugin
             else
                 memToReturn = new Memento(rootEntryCopy.mementoName, null);
 
-            originallTlMacroName = rootEntryCopy.mementoName;
             return memToReturn;
         }
 

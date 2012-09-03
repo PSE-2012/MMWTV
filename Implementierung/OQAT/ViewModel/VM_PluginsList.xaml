@@ -17,7 +17,7 @@
         
 
         <TreeView Grid.Row="0" Name="treePlugins" ItemsSource="{Binding}" SelectedItemChanged="treePlugins_SelectedItemChanged"
-                  PreviewMouseLeftButtonDown="treePlugins_PreviewMouseLeftButtonDown" MouseMove="treePlugins_MouseMove">
+                  PreviewMouseLeftButtonDown="treePlugins_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="treePlugins_PreviewMouseLeftButtonUp" PreviewMouseMove="treePlugins_PreviewMouseMove">
             <TreeView.ItemContainerStyle>
                 <Style TargetType="TreeViewItem">
                     <EventSetter Event="MouseDoubleClick" Handler="treeitem_MouseDoubleClicked"/>
