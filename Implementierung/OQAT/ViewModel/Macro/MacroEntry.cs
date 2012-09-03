@@ -45,7 +45,7 @@ using System.ComponentModel;
 
         private int defaultRangeSliderWidth = 250;
 
-
+        [field: NonSerialized]
         private int _frameCount;
         public int frameCount
         {
@@ -73,7 +73,7 @@ using System.ComponentModel;
             get { return new List<IMacroEntry>(macroEntries); }
         }
 
-
+        [field: NonSerialized]
         public long endFrameAbs
         {
             get { return (long)(frameCount / 100.0 * endFrameRelative); }
@@ -88,7 +88,7 @@ using System.ComponentModel;
         }
 
 
-       
+       [field: NonSerialized]
         public long startFrameAbs
         {
             get { return (long)(frameCount / 100.0 * startFrameRelative); }
@@ -162,6 +162,8 @@ using System.ComponentModel;
                 return !readOnly;
             }
         }
+
+        [field: NonSerialized]
         private bool _readOnly = false;
         public bool readOnly
         {
@@ -181,6 +183,14 @@ using System.ComponentModel;
                     foreach (var entry in this.macroEntries)
                         entry.readOnly = _readOnly;
 
+            }
+        }
+
+        public bool allowDrop
+        {
+            get
+            {
+                return !readOnly;
             }
         }
         public int rangeSliderWidth {

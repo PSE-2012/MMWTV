@@ -84,6 +84,48 @@ namespace Oqat.ViewModel.MacroPlugin
             }
         }
 
+
+        public Visibility filterModeVisibility
+        {
+            get
+            {
+                if (filterMode)
+                    return System.Windows.Visibility.Visible;
+                else
+                    return System.Windows.Visibility.Collapsed;
+            }
+        }
+
+        public Visibility readOnlyVisibility
+        {
+
+            get
+            {
+                if (readOnly)
+                    return System.Windows.Visibility.Collapsed;
+                else
+                    return System.Windows.Visibility.Visible;
+            }
+        }
+
+        public bool filterModeActiveState
+        {
+            get
+            {
+                return filterMode;
+            }
+        }
+
+        public bool readOnlyActiveState
+        {
+            get
+            {
+                return !readOnly;
+            }
+        }
+
+
+
         private bool _readOnly = false;
         public bool readOnly
         {
@@ -101,7 +143,7 @@ namespace Oqat.ViewModel.MacroPlugin
                     NotifyPropertyChanged("filterModeActiveState");
                     NotifyPropertyChanged("controlButtonsHeight");
                     NotifyPropertyChanged("controlButtonToTreeGapSize");
-                    NotifyPropertyChanged("macroEntryControlsMargin");
+          //          NotifyPropertyChanged("macroEntryControlsMargin");
 
 
                 // notify children.
@@ -124,7 +166,7 @@ namespace Oqat.ViewModel.MacroPlugin
         }
 
         private int defaultControlButtonToTreeGapSize = 20;
-        public int controlButtonToTreeGapsize
+        public int controlButtonToTreeGapSize
         {
             get
             {
@@ -135,16 +177,16 @@ namespace Oqat.ViewModel.MacroPlugin
             }
         }
 
-        private Thickness defaultMacroEntryControlsMargin = new Thickness(0, 5, 0, 5);
-        public Thickness macroEntryControlsMargin
-        {
-            get {
-                if(readOnly)
-                    return new Thickness(0);
-                else
-                    return defaultMacroEntryControlsMargin;
-            }
-        }
+        //private Thickness defaultMacroEntryControlsMargin = new Thickness(0, 5, 0, 5);
+        //public Thickness macroEntryControlsMargin
+        //{
+        //    get {
+        //        if(readOnly)
+        //            return new Thickness(0);
+        //        else
+        //            return defaultMacroEntryControlsMargin;
+        //    }
+        //}
 
         private bool _processing;
         public bool processing
@@ -190,45 +232,6 @@ namespace Oqat.ViewModel.MacroPlugin
                 NotifyPropertyChanged("processingStateValue");
             }
         }
-        public Visibility filterModeVisibility
-        {
-            get
-            {
-                if (filterMode)
-                    return System.Windows.Visibility.Visible;
-                else
-                    return System.Windows.Visibility.Collapsed;
-            }
-        }
-
-        public Visibility readOnlyVisibility
-        {
-          
-            get
-            {
-                if (readOnly)
-                    return System.Windows.Visibility.Collapsed;
-                else
-                    return System.Windows.Visibility.Visible;
-            }
-        }
-
-        public bool filterModeActiveState
-        {
-            get
-            {
-                return filterMode;
-            }
-        }
-
-        public bool readOnlyActiveState
-        {
-            get
-            {
-                return !readOnly;
-            }
-        }
-
 
         private void NotifyPropertyChanged(string property)
         {
@@ -347,7 +350,7 @@ namespace Oqat.ViewModel.MacroPlugin
         {
             ResetState();
             //  DetachDragAdorner();
-            e.Handled = true;
+           // e.Handled = true;
         }
 
         /// <summary>
@@ -393,10 +396,6 @@ namespace Oqat.ViewModel.MacroPlugin
                     var pos = e.GetPosition(this.MacroEntryTreeView);
                     initializeDragInsertAdorner(this.MacroEntryTreeView, dragData, pos);
 
-                    //set opacity on (source) dragged item
-
-
-
                     //initHighLight adorner
                     var trItem = getNearestFather<TreeViewItem>((DependencyObject)e.OriginalSource) as TreeViewItem;
                     if (trItem != null)
@@ -430,24 +429,6 @@ namespace Oqat.ViewModel.MacroPlugin
         {
             if (propertiesViewAdornerLayer == null)
                 propertiesViewAdornerLayer = AdornerLayer.GetAdornerLayer(adornedElemnt);
-
-            //if (highLightRect == null)
-            //{
-            //    //// create visual content to show on screen
-            //    //DrawingVisual drawingVisual = new DrawingVisual();
-            //    //DrawingContext drawingContext = drawingVisual.RenderOpen();
-            //    //Rect rect = new Rect(size);
-            //    //Rectangle recfdat = new Rectangle(position, size);
-            //    //recfdat.Dra
-
-            //    //drawingContext.DrawRectangle(System.Windows.SystemColors.HighlightBrush, (System.Windows.Media.Pen)null, rect);
-            //   // drawingContext.DrawRectangle(System.Windows.Media.Brushes.Black, (System.Windows.Media.Pen)null, rect);
-
-            //   // drawingVisual.Opacity = opacity;
-
-            //   // highLightRect = new DrawingVisualHost(drawingVisual);
-            //}
-
 
             highLightAdorner = new HighLight_Adorner(adornedElemnt, position, size, opacityHighLight, propertiesViewAdornerLayer);
             highLightAdorner.IsHitTestVisible = false;
@@ -530,7 +511,7 @@ namespace Oqat.ViewModel.MacroPlugin
             else
             {
                 yOffset = 0;
-                size = trItem.RenderSize;
+                size = new Size(trItem.ActualWidth, 5 * 2 - 4);
             }
 
         }
@@ -567,8 +548,11 @@ namespace Oqat.ViewModel.MacroPlugin
             var selItem = this.MacroEntryTreeView.SelectedItem;
 
             if (selItem != null)
-                (this.MacroEntryTreeView.ItemContainerGenerator.ContainerFromItem(selItem) as TreeViewItem).IsSelected = false;
-
+            {
+                var resetSelOn = (this.MacroEntryTreeView.ItemContainerGenerator.ContainerFromItem(selItem) as TreeViewItem);
+                    if(resetSelOn != null)
+                        resetSelOn.IsSelected = false;
+            }
         }
 
         //true => slightly above
@@ -761,6 +745,8 @@ namespace Oqat.ViewModel.MacroPlugin
                             macroViewDelegates.addMacro(dropEntry, rootEntry);
                            // addMacroEntry(dropEntry, rootEntry);
                     }
+
+
                 }
 
             }

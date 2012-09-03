@@ -531,6 +531,7 @@ namespace Oqat.ViewModel.MacroPlugin
         }
         private void addMacroEntry(MacroEntry child, MacroEntry father, int index = -1)
         {
+
             lock (this.rootEntry)
             {
                 if (father == null) // child is new TL macro
@@ -555,6 +556,9 @@ namespace Oqat.ViewModel.MacroPlugin
                     }
                 }
             }
+            // triggers reinitialization
+            this._propertyView.readOnly = this._propertyView.readOnly;
+            
         }
         private void concatObsCollInplace(ObservableCollection<MacroEntry> first, ObservableCollection<MacroEntry> second)
         {
@@ -674,7 +678,6 @@ namespace Oqat.ViewModel.MacroPlugin
             else
                 memToReturn = new Memento(rootEntryCopy.mementoName, null);
 
-            originallTlMacroName = rootEntryCopy.mementoName;
             return memToReturn;
         }
 

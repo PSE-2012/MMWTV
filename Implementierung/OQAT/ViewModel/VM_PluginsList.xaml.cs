@@ -93,30 +93,6 @@ namespace Oqat.ViewModel
                 return (PluginViewModel)this.treePlugins.SelectedItem;
             }
         }
-        IMacro presentationMacro;
-
-        //PluginViewModel _activeMacroPVM;
-        //PluginViewModel activeMacroPVM
-        //{
-        //    get
-        //    {
-        //        if (_activeMacroPVM == null)
-        //        {
-        //            //select parent MacroPlugin (always last entry in list)
-        //            _activeMacroPVM = pluginList.Last();
-        //        }
-        //        return _activeMacroPVM;
-        //    }
-        //    set
-        //    {
-        //        _activeMacroPVM = value;
-        //    }
-        //}
-
-        public delegate void macroLoadHandler(object sender, MementoEventArgs e);
-        public event macroLoadHandler macroLoaded;
-
-       // Panel panelMacroPropertyViewCurrent;
 
         /// <summary>
         /// Constructor
@@ -402,8 +378,9 @@ namespace Oqat.ViewModel
             //}
         }
 
-        private void onMacroSave(object sender, MementoEventArgs e) {
 
+        private void onMacroSave(object sender, MementoEventArgs e) {
+          
             PluginViewModel plVm;
             if(e.previousMementoName == "") { //just save
                 plVm = findPVM(e.pluginKey, e.mementoName);
@@ -420,6 +397,7 @@ namespace Oqat.ViewModel
            
         }
 
+    
         private void onMacroSaveAs(object sender, MementoEventArgs e) {
             PluginViewModel plVm = new PluginViewModel(e.previousMementoName, findPVM(e.pluginKey, null));
             this.tbMementoName.Text = e.mementoName;
@@ -503,14 +481,17 @@ namespace Oqat.ViewModel
         //}
 
         Point dragOrigin;
+        private bool isMouseDown = false;
+        private bool isDragging = false;
         private void treePlugins_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             dragOrigin = e.GetPosition(null);
+            isMouseDown = true;
         }
 
-        private void treePlugins_MouseMove(object sender, MouseEventArgs e)
+        private void treePlugins_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if (isMouseDown && !isDragging)
             {
                 var mousePos = e.GetPosition(null);
                 var diff = dragOrigin - mousePos;
@@ -531,10 +512,12 @@ namespace Oqat.ViewModel
                     if(!selItem.isMemento)
                         return;
 
-
+                    isDragging = true;
                     MementoEventArgs dragData = new MementoEventArgs(selItem.name, selItem.parent.name);
 
                     DragDrop.DoDragDrop(treeViewItem, dragData, DragDropEffects.Move);
+                    isDragging = false;
+                    isMouseDown = false;
                 }
             }
         }
@@ -560,6 +543,12 @@ namespace Oqat.ViewModel
             }
             while (current != null);
             return null;
+        }
+
+        private void treePlugins_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            isMouseDown = false;
+            isDragging = false;
         }
 
     }
