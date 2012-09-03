@@ -267,6 +267,7 @@ using System.Collections.Generic;
         /// <param name="info">VideoInfo containing required informations like resolution and yuv format</param>
         public void setReadContext(string filepath, IVideoInfo info)
         {
+            
 
             // check if values ok (more or less)
             if (!File.Exists(filepath) || info == null)
@@ -277,7 +278,7 @@ using System.Collections.Generic;
             this.readPath = filepath;
             readVidInfo = info;
 
-
+            flushReader();
             //if (consistent)
             //    // Flush has to happen after a VALID vidInfo is set.
             //    flushWriter();
@@ -397,7 +398,7 @@ using System.Collections.Generic;
         }
 
 
-        private int _readerBuffPos = -1;
+        private int _readerBuffPos;
         /// <summary>
         /// This variable marks the number (whithin the
         /// yuvVideo accordingly to the <see cref="YuvVideoInfo"/> object)
@@ -433,7 +434,9 @@ using System.Collections.Generic;
                     #endregion
 
                     // Let reader know to quit filling the buffer.
-                    stopReaderThread = true;
+                    //stopReaderThread = true;
+                    if ((readerBackgroundWorker != null) && readerBackgroundWorker.IsBusy)
+                        readerBackgroundWorker.CancelAsync();
                 }
                 else
                 {
@@ -442,21 +445,21 @@ using System.Collections.Generic;
             }
         }
 
-        /// <summary>
-        /// This flag signals the currently active readerThread(if active)
-        /// to terminate itself.
-        /// </summary>
-        /// <remarks>
-        /// You shouldnt call abort (as described in the corresponding doc entry)
-        /// as the readerThread acquires some locks( i.e. on a file and a the
-        /// <see cref="BitmapData"/> of a <see cref="Bimpap"/>) and couldnt
-        /// release this if you kill it externally.
-        /// </remarks>
-        bool stopReaderThread = false;
+        ///// <summary>
+        ///// This flag signals the currently active readerThread(if active)
+        ///// to terminate itself.
+        ///// </summary>
+        ///// <remarks>
+        ///// You shouldnt call abort (as described in the corresponding doc entry)
+        ///// as the readerThread acquires some locks( i.e. on a file and a the
+        ///// <see cref="BitmapData"/> of a <see cref="Bimpap"/>) and couldnt
+        ///// release this if you kill it externally.
+        ///// </remarks>
+        //bool stopReaderThread = false;
 
 
         object positionReaderLock;
-        private int _positionReader = -1;
+        private int _positionReader;
         /// <summary>
         /// This property holds the number of the frame to be given on
         /// the nex getFrame() call. If it is set to a number
@@ -535,39 +538,44 @@ using System.Collections.Generic;
         /// </remarks>
         public void flushReader()
         {
-            stopReaderThread = true;
+           // stopReaderThread = true;
             readerWaitEvent.Set();
             Thread.Sleep(10); // should suffice as reader checkes stop flag every frame row.
-            if (readerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+            if (readerBackgroundWorker!=null && readerBackgroundWorker.IsBusy)
             {
-                try
-                {
-                    readerThread.Join(10);
-                }
-                catch (ThreadStateException)
-                {
-                    // looks like he finished before we could ask, good for him.
-                }
+                readerBackgroundWorker.CancelAsync();
             }
-            if (readerThread.ThreadState != System.Threading.ThreadState.Stopped
-                && readerThread.ThreadState != System.Threading.ThreadState.StopRequested
-                && readerThread.ThreadState != System.Threading.ThreadState.Unstarted
-                && readerThread.ThreadState != System.Threading.ThreadState.Aborted
-                && readerThread.ThreadState != System.Threading.ThreadState.AbortRequested)
-            {
-                try
-                {
-                    readerThread.Abort();
-                } catch (ThreadStateException) {
-                    // lets hope he cleaned up ;-)
-                }
-            }
+            readerBackgroundWorker = null;
+            //if (readerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+            //{
+            //    try
+            //    {
+            //        readerThread.Join(10);
+            //    }
+            //    catch (ThreadStateException)
+            //    {
+            //        // looks like he finished before we could ask, good for him.
+            //    }
+            //}
+            //if (readerThread.ThreadState != System.Threading.ThreadState.Stopped
+            //    && readerThread.ThreadState != System.Threading.ThreadState.StopRequested
+            //    && readerThread.ThreadState != System.Threading.ThreadState.Unstarted
+            //    && readerThread.ThreadState != System.Threading.ThreadState.Aborted
+            //    && readerThread.ThreadState != System.Threading.ThreadState.AbortRequested)
+            //{
+            //    try
+            //    {
+            //        readerThread.Abort();
+            //    } catch (ThreadStateException) {
+            //        // lets hope he cleaned up ;-)
+            //    }
+            //}
 
 
             
-            readerThread = null;
+          //  readerThread = null;
             readerWaitEvent.Reset();
-            stopReaderThread = false;
+          //  stopReaderThread = false;
 
             //has to use the backdoor to prevent
             //ENDLESS LOOP
@@ -593,27 +601,50 @@ using System.Collections.Generic;
             waitForFlush.Set();
         }
 
-        private Thread _readerThread;
-        private Thread readerThread
-        {
-            get
-            {
-                if ((_readerThread == null) || 
-                    (_readerThread.ThreadState == System.Threading.ThreadState.Stopped) ||
-                    (_readerThread.ThreadState == System.Threading.ThreadState.Aborted))
-                {
-                    _readerThread = new Thread(new ThreadStart(fillBuffer));
-                    _readerThread.Name = "readerThread";
-                }
+
+        private BackgroundWorker readerBackgroundWorker;
+        //private BackgroundWorker readerThread
+        //{
+        //    get
+        //    {
+        //        if ((_readerThread == null) ||
+        //            (_readerThread.ThreadState == System.Threading.ThreadState.Stopped) ||
+        //            (_readerThread.ThreadState == System.Threading.ThreadState.Aborted))
+        //        {
+        //            _readerThread = new Thread(new ThreadStart(fillBuffer));
+        //            _readerThread.Name = "readerThread";
+        //        }
 
 
-                return _readerThread;
-            }
-            set
-            {
-                _readerThread = value;
-            }
-        }
+        //        return _readerThread;
+        //    }
+        //    set
+        //    {
+        //        _readerThread = value;
+        //    }
+        //}
+
+        //private Thread _readerThread;
+        //private Thread readerThread
+        //{
+        //    get
+        //    {
+        //        if ((_readerThread == null) || 
+        //            (_readerThread.ThreadState == System.Threading.ThreadState.Stopped) ||
+        //            (_readerThread.ThreadState == System.Threading.ThreadState.Aborted))
+        //        {
+        //            _readerThread = new Thread(new ThreadStart(fillBuffer));
+        //            _readerThread.Name = "readerThread";
+        //        }
+
+
+        //        return _readerThread;
+        //    }
+        //    set
+        //    {
+        //        _readerThread = value;
+        //    }
+        //}
 
         private ManualResetEvent _readerWaitEvent;
         private ManualResetEvent readerWaitEvent
@@ -626,17 +657,17 @@ using System.Collections.Generic;
                 return _readerWaitEvent;
             }
         }
-        private ManualResetEvent _waitReaderStopEvent;
-        private ManualResetEvent waitReaderStopEvent
-        {
-            get
-            {
-                if (_waitReaderStopEvent == null)
-                    _waitReaderStopEvent = new ManualResetEvent(false);
+        //private ManualResetEvent _waitReaderStopEvent;
+        //private ManualResetEvent waitReaderStopEvent
+        //{
+        //    get
+        //    {
+        //        if (_waitReaderStopEvent == null)
+        //            _waitReaderStopEvent = new ManualResetEvent(false);
 
-                return _waitReaderStopEvent;
-            }
-        }
+        //        return _waitReaderStopEvent;
+        //    }
+        //}
 
 
         private ManualResetEvent _getFrameWaitEvent;
@@ -676,21 +707,31 @@ using System.Collections.Generic;
                 if (((readerBuffPos - positionReader) < (NUMFRAMESINMEM)) || !(readQueue.Count > 0))
                 {
                     readerWaitEvent.Set();
-                    if (readerThread.ThreadState == ThreadState.Unstarted)
+                    if (readerBackgroundWorker==null || !readerBackgroundWorker.IsBusy)
                     {
-                        //readerThread.ThreadState != System.Threading.ThreadState.)
-                        _readerBuffPos = _positionReader;       // avoid racecondition
-                        readerThread.Start();
+                        readerBackgroundWorker = new BackgroundWorker();
+                        readerBackgroundWorker.WorkerSupportsCancellation = true;
+                        readerBackgroundWorker.DoWork += fillBuffer;
+                        readerBackgroundWorker.RunWorkerAsync();
+                        
                     }
+                    //if (readerThread.ThreadState == ThreadState.Unstarted)
+                    //{
+                    //    //readerThread.ThreadState != System.Threading.ThreadState.)
+                    //    _readerBuffPos = _positionReader;       // avoid racecondition
+                    //    readerThread.Start();
+                    //}
                 }
 
-                if (Math.Abs(readerBuffPos - positionReader) < 1)
+                if ((Math.Abs(readerBuffPos - positionReader) < 1) && !(positionReader > readVidInfo.frameCount)) 
                 {
-                    if (positionReader < readVidInfo.frameCount)
+                    while ((readQueue.Count < 1))
                     {
 
                         readerWaitEvent.Set();
                         getFrameWaitEvent.WaitOne();
+                        if(((readQueue.Count > 1) &&  !buffer) || !(positionReader < readVidInfo.frameCount) )
+                            break;
                     }
                 }
             }
@@ -705,14 +746,18 @@ using System.Collections.Generic;
                         waitForFlush.WaitOne();
                         return null;
             }
+            if (readQueue.Count < 1)
+            {
+                int hm = 3;
+            }
             positionReader++;
-            return (readQueue.Count > 0)?(Bitmap)readQueue.Dequeue():null;
+            return (Bitmap)readQueue.Dequeue();
         }
 
 
 
        
-        private void fillBuffer()
+        private void fillBuffer(object s, DoWorkEventArgs e)
         {
 
             readerBuffPos = positionReader;
@@ -720,7 +765,9 @@ using System.Collections.Generic;
             {
 
                 int offset = readerBuffPos * frameByteSize;
-                int count = NUMFRAMESINMEM - readQueue.Count;
+                int count = 1;
+                if(buffer)
+                    count = NUMFRAMESINMEM - readQueue.Count;
 
                 FileInfo file = new FileInfo(readPath);
                 if (!file.Exists)
@@ -747,94 +794,49 @@ using System.Collections.Generic;
 
                 int i = 0;
                 extractBitmapContext[] ctxArray = new extractBitmapContext[count];
-                while ((i < count) && !(readerBuffPos > readVidInfo.frameCount) && !stopReaderThread)
+                while ((i < count) && !(readerBuffPos > readVidInfo.frameCount))// && !stopReaderThread)
                 {
-
-
-                    #region trySomething
-                //    Bitmap _currFrame = new Bitmap(readVidInfo.width, readVidInfo.height);
-                //    BitmapData currFrameData = _currFrame.LockBits(new Rectangle(0, 0, _currFrame.Width, _currFrame.Height),
-                //                ImageLockMode.ReadOnly, _currFrame.PixelFormat);
-
-                //    try
-                //    {
-
-                //        int frameOffset = i * frameByteSize + pixelNum;
-                //        int pBmpBuffer = (System.Int32)currFrameData.Scan0;
-
-                //        for (int y = 0; (y < _currFrame.Height) && !stopReaderThread; y++)
-                //        {
-                //            int uvCoef = (_currFrame.Width / 2) * (y / 2);
-                //            int fastUvCoef = uvCoef + frameOffset;
-                //            int offCord = y * _currFrame.Width;
-
-                //            for (int x = 0; x < _currFrame.Width; x++)
-                //            {
-                //                int halfX = x / 2;
-                //                int rgb = convertToRGB(
-                //                 rawData[offCord + x + fastUvCoef - pixelNum - uvCoef],
-                //                 rawData[fastUvCoef + halfX],
-                //                 rawData[quartSize + fastUvCoef + halfX]);
-
-                //                unsafe
-                //                {
-                //                    *((System.Int32*)pBmpBuffer) = rgb;
-                //                }
-                //                pBmpBuffer += 4;
-
-                //            }
-                //        }
-                //    }
-                //    finally
-                //    {
-                //        _currFrame.UnlockBits(currFrameData);
-                //    }
-                //    readQueue.Enqueue(_currFrame);
-                //    getFrameWaitEvent.Set();
-                //    readerBuffPos++;
-
-                //    i++;
-                //    if (!buffer)
-                //    {
-                //        waitReaderStopEvent.Set();
-                //        getFrameWaitEvent.Set();
-                //        return;
-                //    }
-
+                    if (readerBackgroundWorker.CancellationPending)
+                        break;
                     int frameOffset = i * frameByteSize + pixelNum;
                     ctxArray[i] = new extractBitmapContext(i, rawData, frameOffset, quartSize, pixelNum);
                     ctxArray[i].doneEvent.Reset();
                     ThreadPool.QueueUserWorkItem(extractBmp, ctxArray[i]);
                     i++;
-                    if (!buffer)
-                    {
-                        waitReaderStopEvent.Set();
-                        break;
-                    }
                 }
-                    #endregion
+               
 
                 foreach (var entry in ctxArray)
                 {
                     if (entry != null)
                     {
-                        
+
+                        if (readerBackgroundWorker.CancellationPending)
+                            break;
                         entry.doneEvent.WaitOne();
                         readQueue.Enqueue(entry._currFrame);
                         getFrameWaitEvent.Set();
                         readerBuffPos++;
                     }
                 }
+                if (readerBackgroundWorker.CancellationPending && !buffer)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+
                 if(Math.Abs(_readerBuffPos - readerBuffPos) < NUMFRAMESINMEM)
                 readerWaitEvent.WaitOne();
 
-                //check for stop request
-                if (stopReaderThread || !buffer)
-                {
-                    waitReaderStopEvent.Set();
-                    getFrameWaitEvent.Set();
-                    return;
-                }
+
+
+                ////check for stop request
+                //if (stopReaderThread || !buffer)
+                //{
+                //    waitReaderStopEvent.Set();
+                //    getFrameWaitEvent.Set();
+                //    return;
+                //}
                 readerWaitEvent.Reset();
             }
         //    (new Thread(new ThreadStart(flushReader))).Start();
@@ -855,7 +857,9 @@ using System.Collections.Generic;
                
                 int pBmpBuffer = (System.Int32)currFrameData.Scan0;
 
-                for (int y = 0; (y < ctx._currFrame.Height) && !stopReaderThread; y++)
+                //for (int y = 0; (y < ctx._currFrame.Height) && !stopReaderThread; y++)
+
+                    for (int y = 0; (y < ctx._currFrame.Height) &&  (!readerBackgroundWorker.CancellationPending); y++)
                 {
                     int uvCoef = (ctx._currFrame.Width / 2) * (y / 2);
                     int fastUvCoef = uvCoef + ctx.frameOffset;
