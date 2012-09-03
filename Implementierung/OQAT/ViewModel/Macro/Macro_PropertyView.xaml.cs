@@ -347,7 +347,7 @@ namespace Oqat.ViewModel.MacroPlugin
         {
             ResetState();
             //  DetachDragAdorner();
-            e.Handled = true;
+           // e.Handled = true;
         }
 
         /// <summary>
