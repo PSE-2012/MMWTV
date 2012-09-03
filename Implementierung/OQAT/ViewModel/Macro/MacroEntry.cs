@@ -9,6 +9,7 @@
 
     using Oqat.PublicRessources.Plugin;
 using System.ComponentModel;
+    using System.Windows;
 
     /// <summary>
     /// This class represents a particular plugin and its memento wich enables a way to store such
@@ -82,6 +83,8 @@ using System.ComponentModel;
                 NotifyPropertyChanged("endFrameAbs");
             }
         }
+
+
        
         public long startFrameAbs
         {
@@ -136,6 +139,45 @@ using System.ComponentModel;
             this.type = type;
             this.mementoName = mementoName;
             this.macroEntries = new ObservableCollection<MacroEntry>();
+        }
+
+        public Visibility readOnlyVisibility
+        {
+
+            get
+            {
+                if (readOnly)
+                    return System.Windows.Visibility.Collapsed;
+                else
+                    return System.Windows.Visibility.Visible;
+            }
+        }
+        public bool readOnlyActiveState
+        {
+            get
+            {
+                return !readOnly;
+            }
+        }
+        private bool _readOnly = false;
+        public bool readOnly
+        {
+            get
+            {
+                return _readOnly;
+            }
+            set
+            {
+                
+                _readOnly = value;
+                NotifyPropertyChanged("readOnlyVisibility");
+                NotifyPropertyChanged("readOnlyActiveState");
+
+                if (this.macroEntries != null)
+                    foreach (var entry in this.macroEntries)
+                        entry.readOnly = _readOnly;
+
+            }
         }
 
     }

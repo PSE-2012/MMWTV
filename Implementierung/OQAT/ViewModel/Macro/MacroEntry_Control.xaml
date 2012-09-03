@@ -39,8 +39,8 @@
         </WrapPanel>-->
         <AC:RangeSlider x:Name="startEndFrameSlider" 
                         Grid.Column="3" 
-                        IsEnabled="{Binding filterModeActiveState, Mode=OneWay}" 
-                        Visibility="{Binding filterModeVisibility, Mode=OneWay}" 
+                        IsEnabled="{Binding readOnlyVisibility, Mode=OneWay}" 
+                        Visibility="{Binding readOnlyVisibility, Mode=OneWay}" 
                         RangeStart="0" RangeStop="{Binding frameCount, Mode=OneWay}"
                         RangeStartSelected="{Binding startFrameAbs,Mode=TwoWay}" 
                         RangeStopSelected="{Binding endFrameAbs, Mode=TwoWay}"

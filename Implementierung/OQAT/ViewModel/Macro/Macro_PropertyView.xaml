@@ -90,10 +90,12 @@
                        IsEnabled="{Binding filterModeActiveState}"
                        Text="preview" Grid.Column="3" />
             
-                <Border  Grid.Column="4" Style="{StaticResource SeparatorStyle}"/>
+                <Border  Grid.Column="4" Style="{StaticResource SeparatorStyle}"
+                         IsEnabled="{Binding readOnlyActiveState}" Visibility="{Binding readOnlyVisibility}"/>
 
-                <TextBox x:Name="rootEntryMem_TextBox" Grid.Column="5" HorizontalAlignment="Stretch"></TextBox>
-                    <Button x:Name="saveMacro" Visibility="{Binding readOnlyVisibility}"
+                <TextBox x:Name="rootEntryMem_TextBox" Grid.Column="5" HorizontalAlignment="Stretch"
+                         IsEnabled="{Binding readOnlyActiveState}" Visibility="{Binding readOnlyVisibility}"/>
+                <Button x:Name="saveMacro" Visibility="{Binding readOnlyVisibility}"
                     Grid.Column="6" IsEnabled="{Binding readOnlyActiveState}"
                     Margin="0,0,2,0" Content="save" Click="saveMacro_Click" />
                 <Button x:Name="saveMacroAs" Visibility="{Binding readOnlyVisibility}"
@@ -118,8 +120,7 @@
                 <HierarchicalDataTemplate DataType="{x:Type local:MacroEntry}"
                                               ItemsSource="{Binding macroEntries}">
 
-                    <local:MacroEntry_Control DataContext="{Binding Mode=OneWay}"
-                                             AllowDrop="{Binding allowDrop, Mode=OneWay}"  Margin="0,5,0,5" />
+                    <local:MacroEntry_Control AllowDrop="{Binding allowDrop, Mode=OneWay}"  Margin="0,5,0,5" />
 
                     <!--Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeView}, AncestorLevel=1}, Path=ActualWidth}"-->
 

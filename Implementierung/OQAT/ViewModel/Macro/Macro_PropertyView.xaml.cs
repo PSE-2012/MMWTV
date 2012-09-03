@@ -67,7 +67,7 @@ namespace Oqat.ViewModel.MacroPlugin
         private bool _filterMode = true;
         public bool filterMode
         {
-            get { return _filterMode; }
+            get { if(!readOnly) return _filterMode; else return false; }
             set
             {
                 _filterMode = value;
@@ -97,6 +97,11 @@ namespace Oqat.ViewModel.MacroPlugin
                     NotifyPropertyChanged("allowDrop");
                     NotifyPropertyChanged("readOnlyVisibility");
                     NotifyPropertyChanged("readOnlyActiveState");
+                    NotifyPropertyChanged("filterModeVisibility");
+                    NotifyPropertyChanged("filterModeActiveState");
+
+                // notify children.
+                    this.rootEntry.readOnly = _readOnly;
                 
             }
         }
