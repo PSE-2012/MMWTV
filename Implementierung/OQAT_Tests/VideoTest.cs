@@ -22,20 +22,6 @@ namespace OQAT_Tests
         private static string[] sampleVideos;
         private TestContext testContextInstance;
         private static string plPathSolution;
-        private static string testDataPath;
-
-
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
 
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
@@ -62,13 +48,14 @@ namespace OQAT_Tests
         [TestMethod()]
         public void constructorTest()
         {
-            YuvVideoInfo info = new YuvVideoInfo(sampleVideos[0]);
+            YuvVideoInfo info = new YuvVideoInfo(sampleVideos[2]);
             bool isana = false;
-            Video target = new Video(false, sampleVideos[0], info, null);
-            Assert.AreEqual(sampleVideos[0], target.vidPath);
+            Video target = new Video(false, sampleVideos[2], info, null);
+            Assert.AreEqual(sampleVideos[2], target.vidPath);
             Assert.AreEqual(isana, target.isAnalysis);
             Assert.AreEqual(info, target.vidInfo);
-            Dictionary<PresentationPluginType, System.Collections.Generic.List<string>> er = new System.Collections.Generic.Dictionary<PresentationPluginType, System.Collections.Generic.List<string>>();
+            Dictionary<PresentationPluginType, List<string>> er 
+                = new Dictionary<PresentationPluginType, List<string>>();
             List<string> li = new List<string>();
             li.Add("testcustom");
             er.Add(PresentationPluginType.Custom, li);
@@ -89,17 +76,17 @@ namespace OQAT_Tests
         public void getVideoHandlerTest()
         {
             Thread.Sleep(30000); // pluginmanager needs time for consistency check
-            YuvVideoInfo info = new YuvVideoInfo(sampleVideos[0]);
-            Video target = new Video(false, sampleVideos[0], info, null);
+            YuvVideoInfo info = new YuvVideoInfo(sampleVideos[2]);
+            Video target = new Video(false, sampleVideos[2], info, null);
             IVideoHandler expected = new YuvVideoHandler();
-            expected.setReadContext(sampleVideos[0], info);
+            expected.setReadContext(sampleVideos[2], info);
             IVideoHandler actual = target.handler;
             Assert.AreEqual(expected.readPath, actual.readPath);
             Assert.AreEqual(expected.readVidInfo, actual.readVidInfo);
             IVideoHandler extra = target.getExtraHandler();
             Assert.AreEqual(extra.readPath, actual.readPath);
             Assert.AreEqual(extra.readVidInfo, actual.readVidInfo);
-            Video target2 = new Video(false, sampleVideos[0], null, null);
+            Video target2 = new Video(false, sampleVideos[2], null, null);
             IVideoHandler actual2 = target2.handler;
             string falsePath 
                 = "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\about.txt";
