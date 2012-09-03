@@ -231,12 +231,15 @@ namespace OQAT_Tests
         [TestMethod]
         public void getFrameTest()
         {
-            YuvVideoHandler yvh = new YuvVideoHandler();
+            YuvVideoHandler_Accessor yvh = new YuvVideoHandler_Accessor();
             YuvVideoInfo info = new YuvVideoInfo(readPath);
-            yvh.setImportContext(readPath);
+            info.width = 352;
+            info.height = 240;
+            info.yuvFormat = YuvFormat.YUV420_IYUV;
+            yvh.setReadContext(readPath, info);
+            // yvh.setImportContext(readPath);
             int i = 0;
             System.Drawing.Bitmap testframe;
-            //yvh.positionReader = 0;
             while (yvh.positionReader < yvh.readVidInfo.frameCount)
             {
                 testframe = yvh.getFrame();
@@ -247,7 +250,8 @@ namespace OQAT_Tests
                 }
                 if (testframe == null)
                 {
-                    Assert.Fail("Frame number " + i + " is null");
+                    Assert.Fail("Frame number " + i + " is null" + 
+                        " queuecount" + yvh.readQueue.Count);
                 }
                 if (testframe.Width != yvh.readVidInfo.width
                     || testframe.Height != yvh.readVidInfo.height)
@@ -278,10 +282,17 @@ namespace OQAT_Tests
         [TestMethod]
         public void writeFramesTest()
         {
-            YuvVideoHandler yvh = new YuvVideoHandler();
+            YuvVideoHandler_Accessor yvh = new YuvVideoHandler_Accessor();
+            writePath = sampleVideosPath + "\\susie_cif_150_Copy.yuv";
             YuvVideoInfo info = new YuvVideoInfo(readPath);
+            info.width = 352;
+            info.height = 240;
+            info.yuvFormat = YuvFormat.YUV420_IYUV;
             yvh.setReadContext(readPath, info); // write context cannot be set without a valid read context
             YuvVideoInfo writeinfo = new YuvVideoInfo(writePath);
+            //writeinfo.width = 352;
+            //writeinfo.height = 240;
+            //writeinfo.yuvFormat = YuvFormat.YUV420_IYUV;
             yvh.setWriteContext(writePath, writeinfo);
             System.Drawing.Bitmap testframe = yvh.getFrame();
             System.Drawing.Bitmap[] frames = new System.Drawing.Bitmap[20];

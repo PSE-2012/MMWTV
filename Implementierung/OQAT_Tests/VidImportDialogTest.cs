@@ -39,8 +39,9 @@ namespace OQAT_Tests
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
         {
-            var pm = PluginManager.pluginManager;
-            currentPath = PluginManager.PLUGIN_PATH;
+            //PluginManage
+            //var pm = PluginManager.pluginManager;
+            //currentPath = pm.PLUGIN_PATH;
             testPluginPath =
                 "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT\\bin\\debug\\Plugins";
             string[] plugins = Directory.GetFiles(testPluginPath);
