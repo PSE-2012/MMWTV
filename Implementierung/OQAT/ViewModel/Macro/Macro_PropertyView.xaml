@@ -62,15 +62,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="0,2,0,2" IsEnabled="{Binding readOnlyActiveState}" Visibility="{Binding readOnlyVisibility}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
             <Button x:Name="startProcessing" 
@@ -102,18 +102,20 @@
 
             <TreeView x:Name="MacroEntryTreeView" Grid.Row="2" ItemsSource="{Binding macroEntries}"
                       VerticalAlignment="Stretch"
-                  AllowDrop="{Binding allowDrop, Mode=OneWay}" ScrollViewer.CanContentScroll="True" 
-                  ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                      PreviewDragEnter="MacroEntryTreeView_PreviewDragEnter"
-                      PreviewDragOver="MacroEntryTreeView_PreviewDragOver"
-                      PreviewDragLeave="MacroEntryTreeView_DragLeave"
-                      PreviewDrop="MacroEntryTreeView_PreviewDrop"
-                      PreviewMouseLeftButtonDown="MacroEntryTreeView_PreviewMouseLeftButtonDown"
-                      PreviewMouseMove="MacroEntryTreeView_PreviewMouseMove"
-                      PreviewMouseLeftButtonUp="MacroEntryTreeView_PreviewMouseLeftButtonUp"
-                      KeyDown="MacroEntryTreeView_KeyDown">
-                    <TreeView.Resources>
+                AllowDrop="{Binding allowDrop, Mode=OneWay}" ScrollViewer.CanContentScroll="True" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                PreviewDragEnter="MacroEntryTreeView_PreviewDragEnter"
+                PreviewDragOver="MacroEntryTreeView_PreviewDragOver"
+                PreviewDragLeave="MacroEntryTreeView_DragLeave"
+                PreviewDrop="MacroEntryTreeView_PreviewDrop"
+                PreviewMouseLeftButtonDown="MacroEntryTreeView_PreviewMouseLeftButtonDown"
+                PreviewMouseMove="MacroEntryTreeView_PreviewMouseMove"
+                PreviewMouseLeftButtonUp="MacroEntryTreeView_PreviewMouseLeftButtonUp"
+                KeyDown="MacroEntryTreeView_KeyDown"
+                SelectedItemChanged="MacroEntryTreeView_SelectedItemChanged">
+                
+                <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type local:MacroEntry}"
                                               ItemsSource="{Binding macroEntries}">
 

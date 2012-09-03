@@ -141,7 +141,6 @@ namespace Oqat.ViewModel.MacroPlugin
 
         private void filterProcess(object s, DoWorkEventArgs e)
         {
-
             List<MacroEntry> seqMacroEntryList = new List<MacroEntry>();
             recursiveFilterExplorer(this.rootEntry, seqMacroEntryList);
 
@@ -581,8 +580,11 @@ namespace Oqat.ViewModel.MacroPlugin
         private void clearMacroEntryList() { if (rootEntry.macroEntries != null) rootEntry.macroEntries.Clear(); else rootEntry.macroEntries = new ObservableCollection<MacroEntry>(); }
         private void cancelProcessing() { }
         private void pauseProcessing() { }
-        private void startProcessing() {
 
+        private void startProcessing() 
+        {
+            if (this.handRef == null)
+                throw new ContextNotSetException("No Video loaded.");
 
             _propertyView.processingStateValue = 0;
             _propertyView.processing = true;
@@ -785,4 +787,13 @@ namespace Oqat.ViewModel.MacroPlugin
         public delegate void saveSaveAs_Delegate(EventType saveType);
     }
 
+
+    public class ContextNotSetException : Exception
+    {
+        public ContextNotSetException(string msg)
+            : base(msg)
+        {
+            
+        }
+    }
 }

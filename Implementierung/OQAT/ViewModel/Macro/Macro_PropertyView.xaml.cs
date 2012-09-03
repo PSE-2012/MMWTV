@@ -785,7 +785,21 @@ namespace Oqat.ViewModel.MacroPlugin
         private void startProcessing_Click(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
-            macroViewDelegates.startProcessing();
+
+            if (this.macroEntries.Count == 0)
+            {
+                MessageBox.Show("Bitte fügen Sie zunächst Einträge zum Macro hinzu, indem Sie diese aus der Liste rechts auswählen.");
+                return;
+            }
+
+            try
+            {
+                macroViewDelegates.startProcessing();
+            }
+            catch (ContextNotSetException ex)
+            {
+                MessageBox.Show("Bitte laden Sie zuerst ein Video.");
+            }
         }
 
 
@@ -799,10 +813,10 @@ namespace Oqat.ViewModel.MacroPlugin
                 macroViewDelegates.saveSaveAs(EventType.saveMacro);
             }
         }
-        private string rootMemNameEmptyWarning = "You must specifie a name of at least one caracter in " + 
+        private string rootMemNameEmptyWarning = "You must specify a name of at least one caracter in " + 
                                  "order to be able to save this macro for later use.";
         private string rootMemNameAmbigousWarning = "The name you specified is reserved for " + 
-                                 "an another memento, delelte the existing first or choose a different name please.";
+                                 "an another memento, delete the existing first or choose a different name please.";
         private void saveMacroAs_Click(object sender, RoutedEventArgs e)
         {
             if (this.rootEntryMem_TextBox.Text == "")
@@ -822,6 +836,16 @@ namespace Oqat.ViewModel.MacroPlugin
             MessageBoxButton button = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Exclamation;
             MessageBox.Show(message, caption, button, icon);
+        }
+
+        private void MacroEntryTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            MacroEntry value = (MacroEntry)this.MacroEntryTreeView.SelectedItem;
+            if (value != null)
+            {
+                PluginManager.pluginManager.raiseEvent(EventType.macroEntrySelected,
+                    new MementoEventArgs(value.mementoName, value.pluginName));
+            }
         }
     }
 

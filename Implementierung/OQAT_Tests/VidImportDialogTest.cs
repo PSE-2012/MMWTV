@@ -16,40 +16,34 @@ namespace OQAT_Tests
     [TestClass]
     public class VidImportDialogTest
     {
-        private static string path1 =
-            "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
-        private static string path2 =
-            "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\container_cif.yuv";
+        private static string path1;
+        private static string path2;
         private TestContext testContextInstance;
-        private static string testPluginPath;
-        private static string currentPath;
-
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
+        private static string sampleVideosPath;
+        private static string[] sampleVideos;
+        private static string plPathSolution;
 
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
         {
-            //PluginManage
-            //var pm = PluginManager.pluginManager;
-            //currentPath = pm.PLUGIN_PATH;
-            testPluginPath =
-                "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT\\bin\\debug\\Plugins";
-            string[] plugins = Directory.GetFiles(testPluginPath);
+            plPathSolution = testContext.TestRunDirectory + "\\..\\..\\Oqat\\bin\\Debug\\Plugins";
+            sampleVideosPath = testContext.TestDir + "\\..\\..\\Oqat_Tests\\TestData\\sampleVideos";
+            string[] plugins = Directory.GetFiles(plPathSolution, "*.dll");
+
+            sampleVideos = Directory.GetFiles(sampleVideosPath, "*.yuv");
+            path1 = sampleVideos[0];
+            // Warning: video settings might have to be set manually in test methods!
+            path2 = sampleVideos[2];
+
+            // we are not testing 
+            if (!Directory.Exists(testContext.TestRunDirectory + "\\Out\\Plugins"))
+                Directory.CreateDirectory(testContext.TestRunDirectory + "\\Out\\Plugins");
+
             foreach (string s in plugins)
             {
-                string[] pathSplit = s.Split('\\');
-                string name = pathSplit[pathSplit.Length - 1];
-                File.Copy(testPluginPath + "\\" + name, currentPath + "\\" + name);
+                string targetpath = testContext.TestRunDirectory + "\\Out\\Plugins\\" + Path.GetFileName(s);
+                if (!File.Exists(targetpath))
+                    File.Copy(s, targetpath);
             }
         }
 
@@ -59,6 +53,7 @@ namespace OQAT_Tests
         [TestMethod]
         public void constructorTest()
         {
+            var pm = PluginManager.pluginManager;
             Thread.Sleep(30000);
             StringCollection sc = new StringCollection();
             sc.Add(path1);

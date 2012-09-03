@@ -89,6 +89,7 @@ namespace Oqat.ViewModel
         /// <summary>
         /// construktor 
         /// </summary>
+        bool errorOccured = false;
         public VM_VidImportOptionsDialog(StringCollection vidPathList)
         {
             InitializeComponent();
@@ -98,11 +99,11 @@ namespace Oqat.ViewModel
             Video video;
             IVideoHandler handler;
 
-            bool msgboxShwon = false;
-                foreach (string vidPath in vidPathList)
-                {
-                     try
+            
+            foreach (string vidPath in vidPathList)
             {
+                try
+                {
                     video = new Video(false, vidPath);
                     handler = video.handler;
                     handler.setImportContext(vidPath);
@@ -112,14 +113,14 @@ namespace Oqat.ViewModel
                     presentHandlerView(video);
                     handler = null;
                 }
-                     catch (FileFormatException e)
-                     {
-                         if (msgboxShwon == false)
-                         {
-                             MessageBox.Show(videoerror);
-                             msgboxShwon = true;
-                         }
-                     }
+                catch (FileFormatException e)
+                {
+                    if (errorOccured == false)
+                    {
+                        MessageBox.Show(videoerror);
+                        errorOccured = true;
+                    }
+                }
             }
           
         }
@@ -174,6 +175,12 @@ namespace Oqat.ViewModel
         {
             e.Handled = true;
             this.DialogResult = false;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (errorOccured)
+                this.Close();
         }
 
         
