@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PS_YuvVideoHandler;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 
 namespace OQAT_Tests
 {
@@ -13,10 +14,18 @@ namespace OQAT_Tests
     [TestClass]
     public class VideoInfoTest
     {
-        private static string path =
-            "D:\\Documents and Settings\\fenix1\\OQAT\\Implementierung\\OQAT_Tests\\TestData\\sampleVideos\\bus_cif.yuv";
-        private static int framecount = 150; 
-        //frame count of the video referenced by the above path
+        private static string sampleVideosPath;
+        private static string path;
+        private static int framecount;
+        private static string[] sampleVideos;
+
+        [ClassInitialize()]
+        public static void MyClassInitialize(TestContext testContext)
+        {
+            sampleVideosPath = testContext.TestDir + "\\..\\..\\Oqat_Tests\\TestData\\sampleVideos";
+            // Warning: video settings might have to be set manually in test methods!
+            sampleVideos = Directory.GetFiles(sampleVideosPath, "*.yuv");
+        }
 
         ///<summary>
         ///Constructor test
@@ -24,6 +33,7 @@ namespace OQAT_Tests
         [TestMethod]
         public void constructorTest()
         {
+            path = sampleVideos[2];
             YuvVideoInfo info1 = new YuvVideoInfo();
             info1.width = 352;
             info1.height = 288;
@@ -50,6 +60,7 @@ namespace OQAT_Tests
         [TestMethod]
         public void cloneTest()
         {
+            path = sampleVideos[2];
             YuvVideoInfo info2 = new YuvVideoInfo(path);
             YuvVideoInfo info1 = (YuvVideoInfo)info2.Clone();
             Assert.AreEqual(info1.width, info2.width);
@@ -63,6 +74,8 @@ namespace OQAT_Tests
         [TestMethod]
         public void frameCountTest()
         {
+            framecount = 150;
+            path = sampleVideos[2];
             YuvVideoInfo info = new YuvVideoInfo(path);
             Assert.AreEqual(framecount, info.frameCount);
         }
