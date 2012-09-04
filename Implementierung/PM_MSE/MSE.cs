@@ -75,6 +75,8 @@ namespace PM_MSE
                     {
                         int newPixel = 0;
 
+
+
                         //Get Color from Proc
                         Color colorProc = frameProc.GetPixel(j, i);
                         int alphaProc = colorProc.A;
