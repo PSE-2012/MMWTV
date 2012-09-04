@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.Composition;
 using System.Windows.Controls;
+using System.ComponentModel;
 
 
 namespace PF_Greyscale
@@ -20,7 +21,7 @@ namespace PF_Greyscale
     [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     [Serializable()]
-    public class Greyscale : IFilterOqat
+    public class Greyscale : IFilterOqat, INotifyPropertyChanged
     {
         public bool threadSafe
         {
@@ -30,14 +31,63 @@ namespace PF_Greyscale
         private PluginType _type = PluginType.IFilterOqat;
         VM_Greyscale propertiesView;
 
+        double _red = 0.2125;
+        public double redValue
+        {
+            get
+            {
+                return _red;
+            }
+            set
+            {
+                if (_red != value)
+                {
+                    _red = value;
+                    NotifyPropertyChanged("redValue");
+                }
+            }
+        }
+        double _green = 0.7154;
+        public double greenValue
+        {
+            get
+            {
+                return _green;
+            }
+            set
+            {
+                if (_green != value)
+                {
+                    _green = value;
+                    NotifyPropertyChanged("greenValue");
+                }
+            }
+        }
+        double _blue = 0.0721;
+        public double blueValue
+        {
+            get
+            {
+                return _blue;
+            }
+            set
+            {
+                if (_blue != value)
+                {
+                    _blue = value;
+                    NotifyPropertyChanged("blueValue");
+                }
+            }
+        }
+
         /// <summary>
         /// constructor
         /// </summary>
         public Greyscale()
         {
-            propertiesView = new VM_Greyscale();
-            propertiesView.local(_namePlugin + "_" + Thread.CurrentThread.CurrentCulture+".xml");
+            
         }
+
         /// <summary>
         /// Generates the filtered Image.
         /// </summary>
@@ -46,7 +96,7 @@ namespace PF_Greyscale
             Bitmap grayImage;
             if (frame != null)
             {
-                AForge.Imaging.Filters.Grayscale filter = new AForge.Imaging.Filters.Grayscale(propertiesView.getRed(), propertiesView.getGreen(), propertiesView.getBlue());
+                AForge.Imaging.Filters.Grayscale filter = new AForge.Imaging.Filters.Grayscale(redValue, greenValue, blueValue);
                 grayImage = filter.Apply(frame);
             }
             else
@@ -85,6 +135,12 @@ namespace PF_Greyscale
         {
             get
             {
+                if (propertiesView == null)
+                {
+                    propertiesView = new VM_Greyscale();
+                    propertiesView.local(_namePlugin + "_" + Thread.CurrentThread.CurrentCulture + ".xml");
+                    propertiesView.DataContext = this;
+                }
                 return this.propertiesView;
             }
         }
@@ -101,9 +157,9 @@ namespace PF_Greyscale
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
             double[] colorValues = new double[3];
-            colorValues[0] = this.propertiesView.getRed();
-            colorValues[1] = this.propertiesView.getGreen();
-            colorValues[2] = this.propertiesView.getBlue();
+            colorValues[0] = redValue;
+            colorValues[1] = greenValue;
+            colorValues[2] = blueValue;
             return new Memento(this.namePlugin + "_properties", colorValues);
         }
 
@@ -116,7 +172,9 @@ namespace PF_Greyscale
             {
                 Object obj = memento.state;
                 var colorValues = (double[])obj;
-                this.propertiesView.changeValue(colorValues[0], colorValues[1], colorValues[2]);
+                redValue = colorValues[0];
+                greenValue = colorValues[1];
+                blueValue = colorValues[2];
             }
             
         }
@@ -129,6 +187,17 @@ namespace PF_Greyscale
         public IPlugin createExtraPluginInstance()
         {
             return new Greyscale();
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
        
     }

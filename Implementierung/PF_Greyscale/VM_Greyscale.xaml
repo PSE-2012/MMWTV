@@ -7,34 +7,32 @@
     <StackPanel Name="stackPanel1" Margin="10">
         <WrapPanel Name="wrapPanel1">
             <Label Content="Red Koeffizient"  Name="label1" />
-            <Label Name="lbRed"  Width="45" Content="{Binding ElementName=red, Path=Value}"/>
+            <Label Name="lbRed"  Width="45" Content="{Binding redValue}"/>
         </WrapPanel>
-        <Slider  Name="red"  
-                    Minimum="0"
-                   Maximum="1"
-                      IsSnapToTickEnabled="True"
-    TickFrequency="0.0001"
-               ValueChanged="ValueChanged"
-                />
+        <Slider  Name="red" Minimum="0" Maximum="1" 
+                 IsSnapToTickEnabled="True" TickFrequency="0.0001"
+                 Value="{Binding redValue}" />
+        
         <WrapPanel Name="wrapPanel2">
             <Label Content="Green Koeffizient"  Name="label2"  />
-            <Label  Name="lbGreen" Width="45" Content="{Binding ElementName=green, Path=Value}"/>
+            <Label  Name="lbGreen" Width="45" Content="{Binding greenValue}"/>
         </WrapPanel>
-        <Slider Name="green"  Minimum="0"
-                   Maximum="1"
-                       IsSnapToTickEnabled="True"
-    TickFrequency="0.0001"
-                  ValueChanged="ValueChanged"/>
+        <Slider Name="green"  Minimum="0" Maximum="1"
+                IsSnapToTickEnabled="True" TickFrequency="0.0001"
+                Value="{Binding greenValue}" />
+        
         <WrapPanel Name="wrapPanel3">
             <Label Content="Blue Koeffizient"  Name="label3" />
-            <Label  Name="lbBlue"  Width="45" Content="{Binding ElementName=blue, Path=Value}"/>
+            <Label  Name="lbBlue"  Width="45" Content="{Binding blueValue}"/>
         </WrapPanel>
-        <Slider Name="blue" 
-                     Minimum="0"
-                   Maximum="1"
-                       IsSnapToTickEnabled="True"
-    TickFrequency="0.0001"
-                  ValueChanged="ValueChanged"/>
-       
+        <Slider Name="blue" Minimum="0" Maximum="1"
+                IsSnapToTickEnabled="True" TickFrequency="0.0001"
+                Value="{Binding blueValue}" />
+        <Button Margin="3" Name="bttReset" Click="bttReset_Click" >
+            Reset
+            <Button.ToolTip>
+                <TextBlock>Einstellungen auf die Standard-Grayscaleeinstellungen zurücksetzen</TextBlock>
+            </Button.ToolTip>
+        </Button>
     </StackPanel>
 </UserControl>
