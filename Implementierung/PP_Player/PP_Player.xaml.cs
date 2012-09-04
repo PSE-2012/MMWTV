@@ -150,7 +150,7 @@ namespace PP_Player
             stopPlayTickerThread = false;
             pausePlayTicker.Reset();
             this.i.Source = null;
-            this.video = null;
+            //this.video = null;
         }
 
 
