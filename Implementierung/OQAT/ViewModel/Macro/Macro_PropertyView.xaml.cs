@@ -422,7 +422,7 @@ namespace Oqat.ViewModel.MacroPlugin
         }
 
         // DrawingVisualHost highLightRect;
-        double opacityHighLight = 0.1;
+        double opacityHighLight = 0.3;
         double opacityDragInsertControl = 1;
         double opacityDragSourceItem = 0.5;
 
