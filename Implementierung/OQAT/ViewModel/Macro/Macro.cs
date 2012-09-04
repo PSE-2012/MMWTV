@@ -519,6 +519,7 @@ namespace Oqat.ViewModel.MacroPlugin
             if (vidProc != null)
             {
                 handProc = vidProc.getExtraHandler();
+                this.rootEntry.frameCount = handProc.readVidInfo.frameCount;
             }
 
 
@@ -574,6 +575,9 @@ namespace Oqat.ViewModel.MacroPlugin
 
             lock (this.rootEntry)
             {
+                if (this.handRef != null)
+                    child.frameCount = handRef.readVidInfo.frameCount;
+
                 if (father == null) // child is new TL macro
                 {
                     rootEntry.mementoName = child.mementoName;
