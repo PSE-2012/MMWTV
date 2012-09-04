@@ -265,7 +265,7 @@ namespace Oqat.ViewModel.MacroPlugin
                 }
                 else
                 {
-                    worker.ReportProgress((int)(handRef.positionReader / rootEntry.frameCount / 100.0));
+                    worker.ReportProgress((int)(handRef.positionReader /( rootEntry.frameCount / 100.0)));
                 }
 
             }
