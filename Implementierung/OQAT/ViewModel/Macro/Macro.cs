@@ -131,6 +131,9 @@ namespace Oqat.ViewModel.MacroPlugin
 
                 foreach (var subEntry in e.Result as List<metricResultContext>)
                 {
+                    subEntry.vidRes.handler.flushReader();
+                    subEntry.vidRes.handler.flushWriter();
+                    (subEntry.vidRes as Video).handler = null;
                     PluginManager.pluginManager.raiseEvent(
                         EventType.macroProcessingFinished, new VideoEventArgs(subEntry.vidRes, this.idRes));
                 }
@@ -149,7 +152,7 @@ namespace Oqat.ViewModel.MacroPlugin
                 foreach (var filterEntry in seqMacroEntryList)
                 {
 
-                    if ((filterEntry.startFrameAbs >= (handRef.positionReader - 1))
+                    if ((filterEntry.startFrameAbs <= (handRef.positionReader - 1))
                         && (filterEntry.endFrameAbs >= (handRef.positionReader - 1)))
                     {
                         try
@@ -199,7 +202,14 @@ namespace Oqat.ViewModel.MacroPlugin
             {
                 if (subEntry.type != PluginType.IMacro)
                 {
-                    seqMacroList.Add(subEntry);
+                    var newEntry = new MacroEntry(subEntry.pluginName, subEntry.type, subEntry.mementoName);
+
+             
+                    newEntry._endFrameRelative = subEntry._endFrameRelative;
+                    newEntry._startFrameRelative = subEntry._startFrameRelative;
+                    newEntry.frameCount = subEntry.frameCount;
+                    newEntry.mementoName = subEntry.mementoName;
+                    seqMacroList.Add(newEntry);
                 }
                 else
                 {

@@ -538,64 +538,66 @@ using System.Collections.Generic;
         /// </remarks>
         public void flushReader()
         {
-           // stopReaderThread = true;
-            readerWaitEvent.Set();
-            Thread.Sleep(10); // should suffice as reader checkes stop flag every frame row.
-            if (readerBackgroundWorker!=null && readerBackgroundWorker.IsBusy)
+            if (_readVideoInfo != null)
             {
-                readerBackgroundWorker.CancelAsync();
+                // stopReaderThread = true;
+                readerWaitEvent.Set();
+                Thread.Sleep(10); // should suffice as reader checkes stop flag every frame row.
+                if (readerBackgroundWorker != null && readerBackgroundWorker.IsBusy)
+                {
+                    readerBackgroundWorker.CancelAsync();
+                }
+                readerBackgroundWorker = null;
+                //if (readerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+                //{
+                //    try
+                //    {
+                //        readerThread.Join(10);
+                //    }
+                //    catch (ThreadStateException)
+                //    {
+                //        // looks like he finished before we could ask, good for him.
+                //    }
+                //}
+                //if (readerThread.ThreadState != System.Threading.ThreadState.Stopped
+                //    && readerThread.ThreadState != System.Threading.ThreadState.StopRequested
+                //    && readerThread.ThreadState != System.Threading.ThreadState.Unstarted
+                //    && readerThread.ThreadState != System.Threading.ThreadState.Aborted
+                //    && readerThread.ThreadState != System.Threading.ThreadState.AbortRequested)
+                //{
+                //    try
+                //    {
+                //        readerThread.Abort();
+                //    } catch (ThreadStateException) {
+                //        // lets hope he cleaned up ;-)
+                //    }
+                //}
+
+
+
+                //  readerThread = null;
+                readerWaitEvent.Reset();
+                //  stopReaderThread = false;
+
+                //has to use the backdoor to prevent
+                //ENDLESS LOOP
+                _positionReader = 0;
+                _readerBuffPos = 0;
+                // dont have to reassign buffPos as it will be
+                // overwritten by a starting readerThread
+
+                /// Triggers reinitialization of this value, important
+                /// if for some unknown reason someone tries
+                /// to change the format and or the WIDTHxHEIGHT
+                /// values (i.e. vidInfo) of the currently loaded
+                /// context.
+                frameByteSize = 0;
+
+                // note: grantedMemory is user provided
+                NUMFRAMESINMEM = grantedMemory / frameByteSize;
+
+                readQueue.Clear();
             }
-            readerBackgroundWorker = null;
-            //if (readerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
-            //{
-            //    try
-            //    {
-            //        readerThread.Join(10);
-            //    }
-            //    catch (ThreadStateException)
-            //    {
-            //        // looks like he finished before we could ask, good for him.
-            //    }
-            //}
-            //if (readerThread.ThreadState != System.Threading.ThreadState.Stopped
-            //    && readerThread.ThreadState != System.Threading.ThreadState.StopRequested
-            //    && readerThread.ThreadState != System.Threading.ThreadState.Unstarted
-            //    && readerThread.ThreadState != System.Threading.ThreadState.Aborted
-            //    && readerThread.ThreadState != System.Threading.ThreadState.AbortRequested)
-            //{
-            //    try
-            //    {
-            //        readerThread.Abort();
-            //    } catch (ThreadStateException) {
-            //        // lets hope he cleaned up ;-)
-            //    }
-            //}
-
-
-            
-          //  readerThread = null;
-            readerWaitEvent.Reset();
-          //  stopReaderThread = false;
-
-            //has to use the backdoor to prevent
-            //ENDLESS LOOP
-            _positionReader = 0;
-            _readerBuffPos = 0;
-            // dont have to reassign buffPos as it will be
-            // overwritten by a starting readerThread
-
-            /// Triggers reinitialization of this value, important
-            /// if for some unknown reason someone tries
-            /// to change the format and or the WIDTHxHEIGHT
-            /// values (i.e. vidInfo) of the currently loaded
-            /// context.
-            frameByteSize = 0;
-
-            // note: grantedMemory is user provided
-            NUMFRAMESINMEM = grantedMemory / frameByteSize;
-
-            readQueue.Clear();
-
 
             //signal that flush is done
             waitForFlush.Set();
