@@ -7,10 +7,11 @@
              xmlns:local="clr-namespace:Oqat.ViewModel.MacroPlugin"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="600">
+    
     <UserControl.Resources>
         <ControlTemplate TargetType="{x:Type AC:RangeSlider}" x:Key="rangeSliderTemplate">
             <StackPanel Name="PART_RangeSliderContainer">
-                <RepeatButton Name="PART_LeftEdge" Background="AliceBlue" Content="{Binding startFrameAbs, Mode=OneWay}"/>
+                <RepeatButton Name="PART_LeftEdge" Background="AliceBlue" />
                 <Thumb Name="PART_LeftThumb" Cursor="SizeWE"/>
                 <!--This size of this thumb will auto matically change by the control to 10-->
                 
@@ -19,26 +20,58 @@
                 <Thumb Name="PART_RightThumb" Cursor="SizeWE" />
                 <!--This size of this thumb will auto matically change by the control to 10-->
 
-                <RepeatButton Name="PART_RightEdge" Background="AliceBlue" Content="{Binding endFrameAbs, Mode=OneWay}"/>
+                <RepeatButton Name="PART_RightEdge" Background="AliceBlue" />
+                    <!--Content="{Binding endFrameAbs, Mode=OneWay}"-->
             </StackPanel>
         </ControlTemplate>
     </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="Auto" MinWidth="60"/>
+            <ColumnDefinition Width="Auto" MinWidth="60"/>
             <ColumnDefinition  Width="{Binding rangeSliderWidth}"/>
         </Grid.ColumnDefinitions>
+        
         <TextBlock Grid.Column="0" Text="{Binding Mode=OneWay, Path=namMemConcat}" Margin="2,0,0,0"/>
-        <!--<WrapPanel Grid.Column="1" Margin="10,0,0,0">
-            <TextBlock x:Name="startFrameLabel" Text="start: "/>
+        <WrapPanel Grid.Column="1" Margin="10,0,0,0">
+            <TextBlock x:Name="startFrameLabel" Text="Start: ">
+                <TextBlock.ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Startframe</TextBlock>
+                        <TextBlock TextWrapping="Wrap">
+                            Das Plugin kann eingeschränkt auf bestimmte Frames angewendet werden. 
+                            Dies gibt den ersten Frame an.
+                        </TextBlock>
+                        <TextBlock FontStyle="Italic" TextWrapping="Wrap">
+                            Ziehen Sie die Slider rechts um den gewählten Bereich zu verändern.
+                        </TextBlock>
+                    </StackPanel>
+                </TextBlock.ToolTip>
+            </TextBlock>
             <TextBlock x:Name="startFrameValue"  Text="{Binding Mode=OneWay, Path=startFrameAbs}"/>
         </WrapPanel>
         <WrapPanel Grid.Column="2" Margin="5,0,2,0">
-            <TextBlock x:Name="endFrameLabel" Text="end: "/>
+            <TextBlock x:Name="endFrameLabel" Text="Ende: ">
+                <TextBlock.ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Endframe</TextBlock>
+                        <TextBlock TextWrapping="Wrap">
+                            Das Plugin kann eingeschränkt auf bestimmte Frames angewendet werden. 
+                            Dies gibt den letzten Frame an.
+                        </TextBlock>
+                        <TextBlock FontStyle="Italic" TextWrapping="Wrap">
+                            Ziehen Sie die Slider rechts um den gewählten Bereich zu verändern.
+                        </TextBlock>
+                    </StackPanel>
+                </TextBlock.ToolTip>
+            </TextBlock>
             <TextBlock x:Name="endFrameValue"  Text="{Binding Mode=OneWay,Path=endFrameAbs}" />
-        </WrapPanel>-->
+        </WrapPanel>
         <AC:RangeSlider x:Name="startEndFrameSlider" 
                         Grid.Column="3" 
+                        Height="15"
                         IsEnabled="{Binding readOnlyActiveState, Mode=OneWay}" 
                         Visibility="{Binding readOnlyVisibility, Mode=OneWay}" 
                         RangeStart="0" RangeStop="{Binding frameCount, Mode=OneWay}"
