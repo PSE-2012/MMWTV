@@ -485,6 +485,7 @@ namespace Oqat.ViewModel.MacroPlugin
             {
                 handRef = vidRef.getExtraHandler();
 
+                this.rootEntry.frameCount = handRef.readVidInfo.frameCount;
             }
             if (vidProc != null)
             {
