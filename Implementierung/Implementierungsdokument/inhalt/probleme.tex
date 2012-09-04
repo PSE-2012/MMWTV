@@ -1,11 +1,13 @@
 \chapter{Probleme}
 \begin{itemize}
 \item Macro \newline
-Aufgrund häufiger Abstürze und beschränkter Funktionalität verbunden mit unübersichtlichem Code wurde der Macro neugeschrieben.
+Aufgrund von Änderungen anderer Komponenten wurde der Macro oft umgeschrieben.
+Daraus folgte eine Unübersichtlichkeit im Code.
+Deswegen wurde beschlossen diesen von Grund auf neu zu schreiben.
 \item YuvVideoHandler \newline
 Aufgrund schwacher Performance wurde der Handler neugeschrieben.
 \item Caretaker \newline
-Da er nicht funktioniert hat wurde er neugeschrieben.
+Die Serialisierung von Objekten wurde unterschätzt und musste auf andere Klassen erweitert werden.
 \item SSIM \newline
 Die Metrik hat bis zuletzt nicht immer Werte im Bereich von 0 bis 1 geliefert und wurde deswegen nicht eingefügt.
 \end{itemize}
