@@ -27,6 +27,8 @@ namespace PF_Greyscale
         public VM_Greyscale()
         {
             InitializeComponent();
+
+            resetValues();
         }
 
 
@@ -67,6 +69,11 @@ namespace PF_Greyscale
         }
 
         private void bttReset_Click(object sender, RoutedEventArgs e)
+        {
+            resetValues();
+        }
+
+        private void resetValues()
         {
             this.red.Value = 0.2125;
             this.green.Value = 0.7154;

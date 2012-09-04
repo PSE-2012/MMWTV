@@ -22,58 +22,14 @@ namespace PF_RelativeColor
     [Serializable()]
     public partial class VM_RelativeColor : UserControl
     {
-        double redValue;
-        double greenValue;
-        double blueValue;
-
         /// <summary>
         /// Constructor
         /// </summary>
-
         public VM_RelativeColor()
         {
             InitializeComponent();
 
-            red.Value =1;
-            green.Value = 1;
-            blue.Value = 1;
-            redValue = red.Value;
-            greenValue = green.Value;
-            blueValue = blue.Value;
-            
-        }
-
-        /// <summary>
-        /// Listener for databinding
-        /// </summary>
-
-        private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            redValue = red.Value;
-            greenValue = green.Value;
-            blueValue = blue.Value;
-        }
-
-        /// <summary>
-        /// Sets the sliders.
-        /// </summary>
-
-        public void changeValue(double r,double g, double b){
-            red.Value =r;
-            green.Value = g;
-            blue.Value = b;
-            this.ValueChanged(this,null);
-        }
-        public double getRed(){
-            return redValue;
-        }
-        public double getGreen()
-        {
-            return greenValue;
-        }
-        public double getBlue()
-        {
-            return blueValue;
+            resetValues();
         }
 
         /// <summary>
@@ -109,7 +65,20 @@ namespace PF_RelativeColor
             catch (IndexOutOfRangeException e) { }
             catch (FileNotFoundException e) { }
             catch (XmlException e) { }
-
         }
+
+        private void bttReset_Click(object sender, RoutedEventArgs e)
+        {
+            resetValues();
+        }
+
+        private void resetValues()
+        {
+            this.red.Value = 1;
+            this.green.Value = 1;
+            this.blue.Value = 1;
+        }
+
+
     }
 }

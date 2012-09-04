@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.Composition;
 using System.Windows.Controls;
+using System.ComponentModel;
 
 
 namespace PF_RelativeColor
@@ -19,61 +20,89 @@ namespace PF_RelativeColor
     [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     [Serializable()]
-	public class RelativeColor : IFilterOqat
-	{
-        private string _namePlugin = "RelativeColor";
-        private PluginType _type = PluginType.IFilterOqat;
-        
-        VM_RelativeColor propertiesView;
-
+    public class RelativeColor : IFilterOqat, INotifyPropertyChanged
+    {
         /// <summary>
         /// constructor
         /// </summary>
-
         public RelativeColor()
         {
-            propertiesView = new VM_RelativeColor();
-            localize(_namePlugin + "_" + Thread.CurrentThread.CurrentCulture + ".xml");
+
         }
 
-        /// <summary>
-        /// Generates the filtered Image.
-        /// </summary>
 
-        public Bitmap process(Bitmap frame)
+        #region variables and properties
+
+        private string _namePlugin = "RelativeColor";
+        private PluginType _type = PluginType.IFilterOqat;
+        
+        
+
+        double _red = 1;
+        public double redValue
         {
-            double red = propertiesView.getRed();
-            double green = propertiesView.getGreen();
-            double blue = propertiesView.getBlue();
-
-            for (int i = 0; i < frame.Height - 1; i++)
+            get
             {
-                for (int j = 0; j < frame.Width - 1; j++)
+                return _red;
+            }
+            set
+            {
+                if (_red != value)
                 {
-                    double newRed =frame.GetPixel(j, i).R*red;
-                    double newGreen = frame.GetPixel(j, i).G*green;
-                    double newBlue = frame.GetPixel(j, i).B*blue;
-
-                    if (newRed > 255)
-                    {
-                        newRed = 255;
-                    }
-                    if (newGreen > 255)
-                    {
-                        newGreen = 255;
-                    }
-                    if (newBlue > 255)
-                    {
-                        newBlue = 255;
-                    }
-
-                    int newPixel = ((frame.GetPixel(j, i).A) << 24) | ((int)newRed << 16) | ((int)newGreen << 8) | (int)newBlue;
-                    frame.SetPixel(j, i,Color.FromArgb(newPixel));
-
+                    _red = value;
+                    NotifyPropertyChanged("redValue");
                 }
             }
-            return frame;
         }
+        double _green = 1;
+        public double greenValue
+        {
+            get
+            {
+                return _green;
+            }
+            set
+            {
+                if (_green != value)
+                {
+                    _green = value;
+                    NotifyPropertyChanged("greenValue");
+                }
+            }
+        }
+        double _blue = 1;
+        public double blueValue
+        {
+            get
+            {
+                return _blue;
+            }
+            set
+            {
+                if (_blue != value)
+                {
+                    _blue = value;
+                    NotifyPropertyChanged("blueValue");
+                }
+            }
+        }
+
+
+        VM_RelativeColor propertiesView;
+        public UserControl propertyView
+        {
+            get
+            {
+                if (propertiesView == null)
+                {
+                    propertiesView = new VM_RelativeColor();
+                    localize(_namePlugin + "_" + Thread.CurrentThread.CurrentCulture + ".xml");
+                }
+                return this.propertiesView;
+            }
+        }
+
+
 
         public string namePlugin
         {
@@ -100,31 +129,59 @@ namespace PF_RelativeColor
             }
         }
 
-        public UserControl propertyView
+        public bool threadSafe
         {
-            get
-            {
-                return this.propertiesView;
-            }
+            get { return false; }
         }
 
-        public Dictionary<EventType, List<Delegate>> getEventHandlers()
+        #endregion
+
+        
+
+        /// <summary>
+        /// Generates the filtered Image.
+        /// </summary>
+        public Bitmap process(Bitmap frame)
         {
-            Dictionary<EventType, List<Delegate>> handlers = new Dictionary<EventType, List<Delegate>>();
-            return handlers;
+            for (int i = 0; i < frame.Height - 1; i++)
+            {
+                for (int j = 0; j < frame.Width - 1; j++)
+                {
+                    double newRed =frame.GetPixel(j, i).R*redValue;
+                    double newGreen = frame.GetPixel(j, i).G*greenValue;
+                    double newBlue = frame.GetPixel(j, i).B*blueValue;
+
+                    if (newRed > 255)
+                    {
+                        newRed = 255;
+                    }
+                    if (newGreen > 255)
+                    {
+                        newGreen = 255;
+                    }
+                    if (newBlue > 255)
+                    {
+                        newBlue = 255;
+                    }
+
+                    int newPixel = ((frame.GetPixel(j, i).A) << 24) | ((int)newRed << 16) | ((int)newGreen << 8) | (int)newBlue;
+                    frame.SetPixel(j, i,Color.FromArgb(newPixel));
+
+                }
+            }
+            return frame;
         }
 
 
         /// <summary>
         /// Returns a Memento with the current state of the Object.
         /// </summary>
-
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
             double[] colorValues= new double[3];
-            colorValues[0] = propertiesView.getRed();
-            colorValues[1] = propertiesView.getGreen();
-            colorValues[2] = propertiesView.getBlue();
+            colorValues[0] = redValue;
+            colorValues[1] = greenValue;
+            colorValues[2] = blueValue;
             Memento mem = new Memento(this.namePlugin, colorValues);
 
             return mem;
@@ -133,19 +190,19 @@ namespace PF_RelativeColor
         /// <summary>
         /// Sets a Memento as the current state of the Object.
         /// </summary>
-
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
             Object obj = memento.state;
 
             var colorValues = (double[])obj;
-            this.propertiesView.changeValue(colorValues[0], colorValues[1], colorValues[2]);
+            redValue = colorValues[0];
+            greenValue = colorValues[1];
+            blueValue = colorValues[2];
         }
 
         private void localize(String s)
         {
             propertiesView.local(s);
-
         }
 
         public IPlugin createExtraPluginInstance()
@@ -153,9 +210,14 @@ namespace PF_RelativeColor
             return new RelativeColor();
         }
 
-        public bool threadSafe
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(String info)
         {
-            get { return false; }
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
 
     }
