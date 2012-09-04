@@ -97,6 +97,7 @@ namespace PF_RelativeColor
                 {
                     propertiesView = new VM_RelativeColor();
                     localize(_namePlugin + "_" + Thread.CurrentThread.CurrentCulture + ".xml");
+                    propertiesView.DataContext = this;
                 }
                 return this.propertiesView;
             }
