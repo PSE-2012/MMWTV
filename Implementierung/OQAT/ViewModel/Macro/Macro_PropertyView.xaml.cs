@@ -9,6 +9,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Oqat.PublicRessources.Model;
 using Oqat.PublicRessources.Plugin;
+using System.IO;
+using System.Xml;
+using System.Threading;
 
 namespace Oqat.ViewModel.MacroPlugin
 {
@@ -33,8 +36,9 @@ namespace Oqat.ViewModel.MacroPlugin
             this.macroViewDelegates = macroViewDelegates;
             InitializeComponent();
             self.DataContext = this;
-
+            
             dragControl = new MacroEntry_Control();
+            local("VM_Macro_" + Thread.CurrentThread.CurrentCulture + ".xml");
         }
 
 
@@ -847,6 +851,40 @@ namespace Oqat.ViewModel.MacroPlugin
                 PluginManager.pluginManager.raiseEvent(EventType.macroEntrySelected,
                     new MementoEventArgs(value.mementoName, value.pluginName));
             }
+        }
+        public void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                int count = 6;
+                String[] t = new String[count];
+                String[] t2 = new String[count];
+                for (int i = 0; i < count; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                    if (t2[i] == "")
+                    {
+                        throw new XmlException("datei nicht lang genug");
+                    }
+                }
+                startProcessing.Content = t2[0];
+                clearEntries.Content = t2[1];
+                previewText.Text = t2[2];
+                saveMacro.Content = t2[3];
+                saveMacroAs.Content = t2[4];
+                tt1.Text = t2[5];
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
         }
     }
 

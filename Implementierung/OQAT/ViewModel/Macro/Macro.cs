@@ -637,7 +637,7 @@ namespace Oqat.ViewModel.MacroPlugin
                 _propertyView.MacroEntryTreeView.Dispatcher.VerifyAccess();
 
                 _propertyView.processingStateValue = args.ProgressPercentage;
-                _propertyView.processingStateMessage = "Processed " + this.handRef.positionReader + " of " + this.rootEntry.frameCount + " frames.";
+                _propertyView.processingStateMessage = + this.handRef.positionReader + " von " + this.rootEntry.frameCount + " Bildern verarbeitet.";
 
             };
 
