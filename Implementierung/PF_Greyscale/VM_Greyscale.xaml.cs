@@ -43,9 +43,10 @@ namespace PF_Greyscale
                 XmlTextReader reader = new XmlTextReader(sFilename);
                 reader.Read();
                 reader.Read();
-                String[] t = new String[3];
-                String[] t2 = new String[3];
-                for (int i = 0; i < 3; i++)
+                int count = 4;
+                String[] t = new String[count];
+                String[] t2 = new String[count];
+                for (int i = 0; i < count; i++)
                 {
                     reader.Read();
                     reader.Read();
@@ -60,6 +61,7 @@ namespace PF_Greyscale
                 label1.Content = t2[0];
                 label2.Content = t2[1];
                 label3.Content = t2[2];
+                tb1.Text = t2[3];
             }
             catch (IndexOutOfRangeException e) { }
             catch (FileNotFoundException e) { }
