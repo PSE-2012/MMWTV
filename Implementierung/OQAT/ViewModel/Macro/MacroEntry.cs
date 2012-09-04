@@ -106,7 +106,18 @@ using System.ComponentModel;
             }
             set
             {
-                _endFrameRelative = value;
+                if (value > 100)
+                {
+                    _endFrameRelative = 100;
+                }
+                else if (value < startFrameRelative)
+                {
+                    _endFrameRelative = startFrameRelative;
+                }
+                else
+                {
+                    _endFrameRelative = value;
+                }
                 NotifyPropertyChanged("endFrameRelative");
                 NotifyPropertyChanged("endFrameAbs");
             }
@@ -120,7 +131,18 @@ using System.ComponentModel;
             }
             set
             {
-                _startFrameRelative = value;
+                if (value < 0)
+                {
+                    _startFrameRelative = 0;
+                }
+                else if (value > _endFrameRelative)
+                {
+                    _startFrameRelative = _endFrameRelative;
+                }
+                else
+                {
+                    _startFrameRelative = value;
+                }
                 NotifyPropertyChanged("startFrameRelative");
                 NotifyPropertyChanged("startFrameAbs");
             }
