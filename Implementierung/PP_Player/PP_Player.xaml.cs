@@ -536,6 +536,7 @@ namespace PP_Player
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
+            setVideo(this.video, this._positionReader);
             pausePlayTicker.Set();
             playButton.Visibility = System.Windows.Visibility.Collapsed;
             pauseButton.Visibility = System.Windows.Visibility.Visible;
