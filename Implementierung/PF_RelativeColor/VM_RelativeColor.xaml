@@ -6,36 +6,35 @@
              mc:Ignorable="d" 
              >
     <StackPanel  Name="stackPanel1" >
-        <WrapPanel  Name="wrapPanel1">
-            <Label Content="Red Factor          x"  Name="label1"  />
-            <Label  Name="lbRed" Width="45" Content="{Binding ElementName=red, Path=Value}"/>
+        <WrapPanel Name="wrapPanel1">
+            <Label Content="Rot-Koeffizient"  Name="label1" />
+            <Label Name="lbRed"  Width="45" Content="{Binding redValue}"/>
         </WrapPanel>
-        <Slider  Name="red"
-                    Minimum="0"
-                   Maximum="2"
-                      IsSnapToTickEnabled="True"
-    TickFrequency="0.01"
-               ValueChanged="ValueChanged"
-                />
-        <WrapPanel  Name="wrapPanel2">
-            <Label Content="Green Factor      x"  Name="label2"  />
-            <Label  Name="lbGreen" Width="45" Content="{Binding ElementName=green, Path=Value}"/>
-        </WrapPanel>
-        <Slider  Name="green"   Minimum="0"
-                   Maximum="2"
-                    IsSnapToTickEnabled="True"
-    TickFrequency="0.01"
-                  ValueChanged="ValueChanged"/>
-        <WrapPanel  Name="wrapPanel3" >
-            <Label Content="Blue Factor         x"  Name="label3"  />
-            <Label  Name="lbBlue" Width="45" Content="{Binding ElementName=blue, Path=Value}"/>
-        </WrapPanel>
-        <Slider  Name="blue" 
-                     Minimum="0"
-                   Maximum="2"
-                     IsSnapToTickEnabled="True"
-    TickFrequency="0.01"
-                  ValueChanged="ValueChanged"/>
+        <Slider  Name="red" Minimum="0" Maximum="2" 
+                 IsSnapToTickEnabled="True" TickFrequency="0.01"
+                 Value="{Binding redValue}" />
 
+        <WrapPanel Name="wrapPanel2">
+            <Label Content="Grün-Koeffizient"  Name="label2"  />
+            <Label  Name="lbGreen" Width="45" Content="{Binding greenValue}"/>
+        </WrapPanel>
+        <Slider Name="green"  Minimum="0" Maximum="2"
+                IsSnapToTickEnabled="True" TickFrequency="0.01"
+                Value="{Binding greenValue}" />
+
+        <WrapPanel Name="wrapPanel3">
+            <Label Content="Blau-Koeffizient"  Name="label3" />
+            <Label  Name="lbBlue"  Width="45" Content="{Binding blueValue}"/>
+        </WrapPanel>
+        <Slider Name="blue" Minimum="0" Maximum="2"
+                IsSnapToTickEnabled="True" TickFrequency="0.01"
+                Value="{Binding blueValue}" />
+
+        <Button Margin="3" Name="bttReset" Click="bttReset_Click" >
+            Reset
+            <Button.ToolTip>
+                <TextBlock>Einstellungen auf die Standard-RelativeColoreinstellungen zurücksetzen</TextBlock>
+            </Button.ToolTip>
+        </Button>
     </StackPanel>
 </UserControl>
