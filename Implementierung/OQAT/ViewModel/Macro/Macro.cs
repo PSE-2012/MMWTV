@@ -164,8 +164,9 @@ namespace Oqat.ViewModel.MacroPlugin
                             bmp = actPlugin.process(bmp);
 
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
+                            PluginManager.pluginManager.raiseEvent(EventType.failure, new ErrorEventArgs(ex));
                             //TODO
                             // set plugin to blackList if something went wrong
                         }
