@@ -257,14 +257,6 @@
             {
                 SmartNode selNode = (SmartNode)smartTreeExplorer.SelectedItem;
                 loadVideo(selNode, false);
-                if (selNode.video.isAnalysis == true)
-                {
-                    btnExport.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    btnExport.Visibility = Visibility.Hidden;
-                }
             }
         }
 
@@ -308,6 +300,15 @@
             var newSelSmartNode = (SmartNode)e.NewValue;
             if (newSelSmartNode != null && videoCheck(newSelSmartNode))
                 readOnlyPropViewPanel.Children.Add(newSelSmartNode.video.handler.readOnlyInfoView);
+
+            if (newSelSmartNode.video.isAnalysis == true)
+            {
+                btnExport.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnExport.Visibility = Visibility.Hidden;
+            }
         }
 
         private void smartTreeExplorer_PreviewDragLeave(object sender, DragEventArgs e)

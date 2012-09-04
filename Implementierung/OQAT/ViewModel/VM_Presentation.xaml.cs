@@ -404,19 +404,21 @@ namespace Oqat.ViewModel
         {
             if (e.Data.GetDataPresent("SmartNode"))
             {
-                Oqat.Model.Video vid = (e.Data.GetData("SmartNode") as Oqat.Model.SmartNode).video;
+                Oqat.Model.SmartNode smartnode = (e.Data.GetData("SmartNode") as Oqat.Model.SmartNode);
                 switch (((Grid)sender).Name)
                 {
                     case "gridPlayer1":
-                        this.videoProc = (IVideo)vid;
-                        this.playerProc.setVideo(vid);
+                        PluginManager.pluginManager.raiseEvent(
+                            EventType.videoLoad, 
+                            new VideoEventArgs((IVideo)smartnode.video, smartnode.id));
                         break;
                     case "gridPlayer2":
-                        this.videoRef = (IVideo)vid;
-                        this.playerRef.setVideo(vid);
+                        PluginManager.pluginManager.raiseEvent(
+                            EventType.videoLoad,
+                            new VideoEventArgs((IVideo)smartnode.video, smartnode.id, true));
                         break;
                     case "otherPanel":
-                        this.diagram.setVideo(vid);
+                        this.diagram.setVideo(smartnode.video);
                         break;
                 }
             }

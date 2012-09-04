@@ -2,8 +2,8 @@
 Fast alle Teile des Projekts wurden mit Hilfe von automatisierten Komponententests (unit tests) getestet. Im folgenden eine Übersicht über die Testfälle aller Komponenten, sowie Statistiken über die erreichte Codeabdeckung.
 Im Zusammenhang mit den beschriebenen Tests werden auch damit entdeckte und behobene Fehler dargestellt.
 
-\section{PluginManager}
 
+\section{PluginManager}
 \paragraph*{Testfälle}
 \begin{itemize}
 \item pluginManager singleton getter
@@ -42,10 +42,8 @@ Im Zusammenhang mit den beschriebenen Tests werden auch damit entdeckte und beho
 \item getMemento: pluginname empty
 \item getMemento: pluginname unknown
 \end{itemize}
-
 \paragraph*{Codeabdeckung}
 73\% automatisiert
-
 \paragraph*{gefundene Probleme}
 \begin{itemize}
 \item beschädigte Plugins werden nicht korrekt ausgefiltert
@@ -53,12 +51,7 @@ Im Zusammenhang mit den beschriebenen Tests werden auch damit entdeckte und beho
 \end{itemize}
 
 
-
-
-
-
 \section{Caretaker}
-
 \paragraph*{Testfälle}
 \begin{itemize}
 \item caretaker singleton getter
@@ -71,10 +64,8 @@ Im Zusammenhang mit den beschriebenen Tests werden auch damit entdeckte und beho
 \item writeMemento: folder does not exist
 \item writeMemento: file already exists and is readonly
 \end{itemize}
-
 \paragraph*{Codeabdeckung}
 100\% automatisiert
-
 \paragraph*{gefundene Probleme}
 \begin{itemize}
 \item Filestream wurde bei Ausnahmen nicht immer korrekt geschlossen
@@ -82,11 +73,7 @@ Im Zusammenhang mit den beschriebenen Tests werden auch damit entdeckte und beho
 
 
 
-
-
-
 \section{Diagram}
-
 \paragraph*{Testfälle}
 \begin{itemize}
 \item flushing a new Diagram
@@ -106,34 +93,46 @@ Im Zusammenhang mit den beschriebenen Tests werden auch damit entdeckte und beho
 \item namePlugin
 \item threadSafe
 \end{itemize}
-
 \paragraph*{Codeabdeckung}
 100\% automatisiert
-
 \paragraph*{gefundene Probleme}
 keine
 
 
 
-
-
-
-
 \section{Macro}
-
 \paragraph*{Testfälle}
 \begin{itemize}
 \item
-
+createExtraPluginInstance
+setMemento: null
+setMemento: null state
+setMemento: state not valid
+setMemento: state valid
+getMemento: set before get
+namePlugin
+type
+addMacroEntry: child valid macro, parent null
+addMacroEntry: child valid filter, parent null
+addMacroEntry: child filter add
+addMacroEntry: child filter add with index
+addMacroEntry: child added to itself
+addMacroEntry EventHandler
+removeMacroEntry: non existent
+removeMacroEntry
+moveMacroEntry
+clearMacroEntryList
 \end{itemize}
-
 \paragraph*{Codeabdeckung}
 29\% automatisiert
-
 \paragraph*{gefundene Probleme}
 \begin{itemize}
-\item 
+Da der Macro erst später vollständig implementiert war, traten eine Reihe Probleme zu Tage, die gerade noch in der Implementierung steckten.
 \end{itemize}
+
+
+
+
 
 \section{Smartnode}
 \paragraph{Automatische Unittests}

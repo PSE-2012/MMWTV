@@ -1,1 +1,65 @@
 \chapter{Änderungen am Entwurf}
+\begin{itemize}
+\item Viele Klassen Implementieren nun ISerilizable, damit Mementos abgespeichert werden können.
+\item Smartnode \newline
+Es wurden die Attribute name,id und fatherId hinzugefügt. Außerdem wurde der Konstruktor geändert, da es nun einfacher ist Kinder hinzuzufügen. Er nimmt nun ein Video, id und optional einen Smarttree als Argumente.
+\item Caretaker \newline
+Die Struktur wurde Kompakter, für größere Dynamik und weniger organisatorischen Aufwand.
+\item Project \newline
+Hinzugefügt wurde: Attribut unusedId um ungenuzte werte zu finden, saveProject Methode und Methoden zum hinzufügen und löschen von Smartnodes. Gelöscht wurde die Memento funktionalität, sowie die Konstruktoren, welche eine Videoliste bzw nur einen Pfad als Argument benötigten.
+\item Video \newline
+Die Mementofunktionalität wurde entfernt. Hinzugefügt wurde eine Liste der Plugins die das Video bearbeitet haben, sowie die getExtraHandler Methode.
+\item VideoSource \newline
+Wurde entfernt, da nicht benötigt.
+\item OqatSerializationBinder \newline
+Wurde Hinzugefügt.
+\item class MementoListMemento \newline
+Wurde hinzugefügt um alle Mementos eines Objektes in einem einzigen File zu speichern.
+\item PluginManager: \newline
+Der Typ der Plugintable wurde auf Enumerable geändert, da es praktischer ist. getPluginmanager, wurde in den getter des Pluginmanagers verschoben, da es besser Aussieht und weniger Code ist.
+Die methode loadPluginTable wurde gelöscht, da ihre funktion automatisch abläuft. Auserdem wurde die Hanldertable gelöscht.
+\item Macro \newline
+Wurde Neudesigned.
+\item Oqat \newline
+Event onNewProjectCreated wurde hinzugefügt und initiallisierungsmethoden wurden gelöscht, da nicht verwendet.
+\item Pluginlist \newline
+Es wurde CurrentViewType und das Pluginmanger Attribut entfernt. Der Konstruktor nimmt nun den PluginTyp als Argument.
+\item ProjectExplorer \newline
+Pluginmanger Attribut wurde gelöscht und importVideos methode hinzugefügt, um durch den Video import Dialog zu führen.
+\item Welcome \newline
+Kontruktor nimmt kein Panel mehr an.
+\item VidImportOptionsDialog \newline
+Nimmt nun eine Liste von Videos an um mehrere Videos zu Importieren.
+\item WindowsErrorConsole \newline
+implementiert zum Debugging.
+\item WindowOqatInfo \newline
+Implementiert um allegemeine Informationen über Oqat anzuzeigen.
+\item Sandbox \newline
+Klasse läd temporär ein Plugin für Debugging zwecke.
+\item EntryEventArgs \newline
+Implementiert um String in eventArgs zu verpacken.
+\item PluginType \newline
+Einträge Umbennannt zu der jeweiligen Interface Namen, Da es Praktischer ist um an das jeweilige Gegenstück zu kommen.
+\item EventType \newline
+Wurde um neue Eventypen erweitert.
+\item IVideoInfo \newline
+Implementiert nun IClonable und hat dei zusätzlichen Attribute width,height und framecount.
+\item MetaData \newline
+Plugins müssen dieses interface nun nützen um rihctig geladen zu werden.
+\item IVideo \newline
+Wurde hinzugefügt.
+\item IPlugin \newline namePlugin und type Attribute wurden gelöscht und werden nun in IPluginMetadata bereitgestellt. propertiesView Attribut wurde hinzugefügt sowie die createExtraInstacne methode, falls man ein weiteres objekt des Types Braucht. Ungenutze Methoden wurden entfernt.
+\item IPresentation \newline
+Wurde wegen Player und Handler neudesigned.
+\item IMacro \newline
+Implementiert nun IPlugin, da sonst der Pluginmanager das Interface nicht erkennen kann.
+\item Player \newline
+Neudesigned, aufgrund Performance Problemen.
+\item YuvVideoHandler \newline
+Neudesigned, aufgrund Performance Problemen.
+\item Plugins \newline
+Minor changes with setVideo. SSIM wurde nicht realliesiert, da der wertebereich falsch war.
+
+\end{itemize}
+
+
