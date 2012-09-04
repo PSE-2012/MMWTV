@@ -36,8 +36,6 @@ namespace Oqat.ViewModel.MacroPlugin
             // init first entry
             this.rootEntry = new MacroEntry(this.namePlugin, PluginType.IMacro, "");
             this.rootEntry.frameCount = 100;
-            this.rootEntry.startFrameAbs = 0;
-            this.rootEntry.endFrameAbs = 100;
 
             MacroViewDelegates macroViewDelegates = new MacroViewDelegates(addMacroEntry, moveMacroEntry,
                                                     removeMacroEntry, constructMacroFromMementoArg,
@@ -376,9 +374,6 @@ namespace Oqat.ViewModel.MacroPlugin
             clearMacroEntryList();
             this.rootEntry.mementoName = "";
             this.rootEntry.frameCount = 100;
-            this.rootEntry.startFrameAbs = 0;
-            this.rootEntry.endFrameAbs = 100;
-
         }
 
         public IPlugin createExtraPluginInstance()
