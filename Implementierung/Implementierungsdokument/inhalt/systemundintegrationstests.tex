@@ -1,0 +1,44 @@
+\chapter{System und Integrationstests}
+\section{Qualitätsbestimmung}
+\begin{itemize}
+\item /Q-10/ Die GUI soll falsche Benutzereingaben weitestgehend vermeiden. \newline
+Der Punkt wurde durch einsatz von komponenten, welche solche eingaben vermeiden(z.B.Slider)wo möglich erfüllt.
+\item /Q-20/ Fehlerhafte Eingaben für Pfad, Frames per second, Filter und Analysemetriken werden vom Programm nicht angenommen und der Benutzer wird gefordert, sie zu korrigieren. \newline
+Wurde durch Messageboxen realisiert.
+\item /Q-30/ Ein Filter- oder Analysevorgang findet nur für gültige YUV-Dateien statt, d.h. wenn eine YUV-Datei nicht gelesen werden kann, stürzt das Programm nicht ab und gibt eine entsprechende Fehlermeldung aus. \newline
+Die Dateien werden vor dem hinzufügen auf Gültigkeit getestet.
+\item  /Q-40/Oqat wird Benutzern eine Hilfe, in Form von Tooltipps und einer kurzen Einleitung die wichtigsten Programmfunktionen anbieten. \newline
+Es wurde eine Dokumentation über die einzelnden Ansichten angefertigt.
+
+\end{itemize}]
+\section{Testfälle}
+\begin{itemize}
+\item /T-10/ Projekt erstellen, speichern und laden \newline
+funktioniert
+\item /T-20/ Projekt bearbeiten, speichern und laden\newline
+Videos lassen sich hinzufügen/löschen und verändern.
+\item /T-30/ Projekt auf anderem Rechner öffnen\newline
+Wenn die Pfadressourcen stimmen. Ansonsten gehen die Videos Verloren.
+\item /T-40/ Filter auswählen ohne Video ausgewählt zu haben - Fehlermeldung \newline
+Funktioniert
+\item /T-50/ Filter auswählen, Vorschau betrachten \newline
+Nicht Implementiert
+\item /T-60/ Filter anwenden, generierte Video-Datei überprüfen \newline
+Filter anwenden geht, überprüfung macht keinen Sinn mehr da das Format und die Gültigkeit durch den Handler Gewährleitet werden.
+\item /T-70/ Filter-Einstellungen verändern \newline
+Funktioniert über Properties View bzw über Memento-Funktionalität.
+\item /T-80/ Mehrere Filter auf ein Video anwenden, Reihenfolge verändern \newline
+Funktioniert per Drag-and-Drop
+\item /T-90/ Analysemetrik auswählen ohne zwei Videos ausgewählt zu haben - Fehlermeldung \newline
+Funktioniert
+\item /T-100/ Analyse starten ohne Metrik auszuwählen - Fehlermeldung \newline
+Funktioniert
+\item /T-110/ Analyse durchführen, Ergebnisse anzeigen \newline
+Funktioniert(stand alter macro)
+\item /T-120/ Analyseergebnisse speichern und laden \newline
+Funktioniert(stand alter macro)
+\item /T-130/ Analyseergebnisse exportieren (CSV) \newline
+Funktioniert(stand alter macro)
+\item /T-140/ GUI Funktionalität \newline
+Funktioniert
+\end{itemize}
