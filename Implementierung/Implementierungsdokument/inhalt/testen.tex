@@ -1,4 +1,4 @@
-\chapter{Automatisierte Tests}
+﻿\chapter{Automatisierte Tests}
 Fast alle Teile des Projekts wurden mit Hilfe von automatisierten Komponententests (unit tests) getestet. Im folgenden eine Übersicht über die Testfälle aller Komponenten, sowie Statistiken über die erreichte Codeabdeckung.
 Im Zusammenhang mit den beschriebenen Tests werden auch damit entdeckte und behobene Fehler dargestellt.
 
@@ -189,3 +189,106 @@ keine
 \item falsche Dateien einlesen
 \end{itemize}
 
+\section{Video}
+\paragraph*{Testfälle}
+\begin{itemize}
+\item Initialization: constructor
+\item Initialization: extra resources
+\item Initialization: frame metric values
+\item Handler: handler of video constructed with video info
+\item Handler: handler of video constructed without video info
+\item Handler: handler of video with invalid path
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+100\% automatisiert
+
+\paragraph*{gefundene Probleme}
+keine
+
+\section{YuvVideoInfo}
+\paragraph*{Testfälle}
+\begin{itemize}
+\item Initialization: constructor with path
+\item Initialization: constructor without path
+\item Initialization: constructor with invalid path
+\item Clone: create second instance of a video info
+\item Frame Count: calculate frame count
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+Unbekannt
+
+\paragraph*{gefundene Probleme}
+keine
+
+\section{WelcomeView}
+\paragraph*{Testfälle}
+\begin{itemize}
+\item Initialization: constructor
+\item Initialization: add projects to list
+\item getMemento
+\item setMemento
+\item GUI Test: create new project with valid path
+\item GUI Test: create new project with invalid path
+\item GUI Test: open existing project from file explorer
+\item GUI Test: select and open project with valid path from last projects
+\item GUI Test: select and open non-existant project from last projects
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+80\% automatisiert
+
+\paragraph*{gefundene Probleme}
+keine
+
+\section{VideoImportOptionsDialog}
+\paragraph*{Testfälle}
+\begin{itemize}
+\item Initialization: constructor with valid path list
+\item Initialization: constructor with null
+\item Showing property view of video handler
+\item Importing video
+\item Importing invalid video
+\item Cancelling import
+\item Closing window
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+49\% automatisiert
+
+\paragraph*{gefundene Probleme}
+keine
+
+\section{YuvVideoHandler}
+\paragraph*{Testfälle}
+\begin{itemize}
+\item Initialization: constructor of handler
+\item Initialization: set read context to valid path and video info
+\item Initialization: set read context to invalid path and video info
+\item Initialization: set read context to invalid path with valid video info
+\item Initialization: set read context to valid path with invalid video info
+\item Initialization: set import context to valid path
+\item Initialization: set import context to invalid path
+\item Initialization: set write context without setting read context
+\item Initialization: set write context after setting read context
+\item Initialization: set write context to invalid path and video info
+\item Initialization: set write context to invalid path with valid video info
+\item Initialization: set write context to valid path with invalid video info
+\item Flushing the reader
+\item Flushing the writer
+\item getMemento
+\item setMemento
+\item getFrame: reading all frames of a video
+\item getFrame: reading a frame out of video range
+\item writeFrames: writing a frame array within bounds of frame count
+\item writeFrames: writing a frame array out of bounds
+\item writeFrames: writing at position -1
+\item writeFrames: writing null frames
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+Unbekannt
+
+\paragraph*{gefundene Probleme}
+getFrame might return null if a race condition between the loop containing the call to getFrame, and the buffer occurs

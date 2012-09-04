@@ -3,10 +3,12 @@ using System.Text;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Windows;
 using Oqat.ViewModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Threading;
+using Oqat.Model;
 
 namespace OQAT_Tests
 {
@@ -31,7 +33,7 @@ namespace OQAT_Tests
             string[] plugins = Directory.GetFiles(plPathSolution, "*.dll");
 
             sampleVideos = Directory.GetFiles(sampleVideosPath, "*.yuv");
-            path1 = sampleVideos[0];
+            path1 = sampleVideos[2];
             // Warning: video settings might have to be set manually in test methods!
             path2 = sampleVideos[2];
 
@@ -58,8 +60,21 @@ namespace OQAT_Tests
             StringCollection sc = new StringCollection();
             sc.Add(path1);
             sc.Add(path2);
-            VM_VidImportOptionsDialog optdial = new VM_VidImportOptionsDialog(sc);
-            Assert.AreEqual(2, optdial.videoList.Count);
+            VM_VidImportOptionsDialog_Accessor optd = new VM_VidImportOptionsDialog_Accessor(sc);
+            try
+            {
+                VM_VidImportOptionsDialog optd2 = new VM_VidImportOptionsDialog(null);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            Assert.AreEqual(2, optd.videoList.Count);
+            //optd.btt_Import_Click(this, null);
+            //foreach (Video vid in optd.videoList)
+            //{
+            //    Assert.AreEqual(vid.vidInfo, vid.handler.readVidInfo);
+            //}
         }
     }
 }

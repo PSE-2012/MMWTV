@@ -254,10 +254,17 @@ namespace OQAT_Tests
             // dangerous to use setimportcontext here, as it initializes a
             // yuv video info with the given path, without setting height/width
             int i = 0;
-            System.Drawing.Bitmap testframe;
+            System.Drawing.Bitmap testframe = null;
             while (yvh.positionReader < yvh.readVidInfo.frameCount)
             {
-                testframe = yvh.getFrame();
+                try
+                {
+                    testframe = yvh.getFrame();
+                }
+                catch (Exception ex)
+                {
+                    Assert.Fail("Fail to get frame +" + i);
+                }
                 if (yvh.positionReader != i + 1)
                 {
                     Assert.Fail("Reader possition is " + yvh.positionReader
@@ -300,13 +307,13 @@ namespace OQAT_Tests
             YuvVideoHandler_Accessor yvh = new YuvVideoHandler_Accessor();
             writePath = sampleVideosPath + "\\americanFootball_352x240_125_Copy.yuv";
             YuvVideoInfo info = new YuvVideoInfo();
-            info.path = writePath;
+            info.path = readPath;
             info.width = 352;
             info.height = 240;
             info.yuvFormat = YuvFormat.YUV420_IYUV;
             yvh.setReadContext(readPath, info); // write context cannot be set without a valid read context
             YuvVideoInfo writeinfo = new YuvVideoInfo();
-            writeinfo.path = sampleVideosPath;
+            writeinfo.path = writePath;
             writeinfo.width = 352;
             writeinfo.height = 240;
             writeinfo.yuvFormat = YuvFormat.YUV420_IYUV;
