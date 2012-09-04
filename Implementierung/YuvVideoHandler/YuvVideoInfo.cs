@@ -49,7 +49,7 @@ namespace PS_YuvVideoHandler
             set
             {
                 _width = value;
-                this.calculateFrameCount();
+                _frameCount = -1;
             }
 		}
 
@@ -62,7 +62,8 @@ namespace PS_YuvVideoHandler
             set
             {
                 _height = value;
-                this.calculateFrameCount();
+                _frameCount = -1;
+
             }
 		}
 
@@ -82,6 +83,8 @@ namespace PS_YuvVideoHandler
 		{
             get
             {
+                if (_frameCount < 0)
+                    calculateFrameCount();
                 return _frameCount;
             }
             set
@@ -121,7 +124,6 @@ namespace PS_YuvVideoHandler
             set
             {
                 _path = value;
-                this.calculateFrameCount();
             }
         }
 
@@ -197,6 +199,11 @@ namespace PS_YuvVideoHandler
                 height = 288;
                 width = 352;
                 yuvFormat = YuvFormat.YUV420_IYUV;
+            }
+            else
+            {
+                height = 100;
+                width = 100;
             }
         }
 

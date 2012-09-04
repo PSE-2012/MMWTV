@@ -12,7 +12,7 @@
         int frameCount { get; set; }
         int width { get;  }
         int height { get;  }
-
+        string path { get; set; }
         bool Equals(object o);
 	}
 }

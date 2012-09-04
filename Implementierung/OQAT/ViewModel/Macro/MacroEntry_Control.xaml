@@ -74,11 +74,10 @@
                         Height="15"
                         IsEnabled="{Binding readOnlyActiveState, Mode=OneWay}" 
                         Visibility="{Binding readOnlyVisibility, Mode=OneWay}" 
-                        RangeStart="0" RangeStop="{Binding frameCount, Mode=OneWay}"
-                        RangeStartSelected="{Binding startFrameAbs,Mode=TwoWay}" 
-                        RangeStopSelected="{Binding endFrameAbs, Mode=TwoWay}"
+                        RangeStart="0" RangeStop="100"
+                        RangeStartSelected="{Binding startFrameRelative,Mode=TwoWay}" 
+                        RangeStopSelected="{Binding endFrameRelative, Mode=TwoWay}"
                         Template="{StaticResource rangeSliderTemplate}"
-                        MinRange="{Binding tickSize, Mode=OneWay}"
                         />
                         <!--Width="{Binding Path=ActualWidth, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type TreeView}, AncestorLevel=1}, Converter={local:WidthReduceConverter}}"-->
         <!--HorizontalAlignment="Stretch" RangeStart="0" RangeStop="{Binding frameCount, Mode=OneWay}"-->
