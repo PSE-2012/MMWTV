@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Xml;
 using System.Threading;
+using System.Globalization;
+using System.Windows.Data;
 
 namespace PM_MSE
 {
@@ -49,7 +51,7 @@ namespace PM_MSE
             if (rbB.IsChecked == true)
             {
                 value = 3;
-            } 
+            }
 
             return value;
 
@@ -114,6 +116,24 @@ namespace PM_MSE
             catch (FileNotFoundException e) { }
             catch (XmlException e) { }
 
+        }
+
+
+    }
+
+    public class rbConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType,
+            object parameter, CultureInfo culture)
+        {
+            return ((int)value == (int)parameter);
+        }
+
+        public object ConvertBack(object value, Type targetType,
+            object parameter, CultureInfo culture)
+        {
+            if (!((bool)value)) return -1;
+            else return parameter;
         }
     }
 }

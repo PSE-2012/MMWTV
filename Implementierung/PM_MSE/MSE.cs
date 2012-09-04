@@ -6,6 +6,7 @@ using System.ComponentModel.Composition;
 using Oqat.PublicRessources.Model;
 using System.Windows.Controls;
 using System.Threading;
+using System.ComponentModel;
 
 namespace PM_MSE
 {
@@ -15,13 +16,41 @@ namespace PM_MSE
     [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     [Serializable()]
-    public class MSE : IMetricOqat
+    public class MSE : IMetricOqat, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+
         private string _namePlugin = "MSE";
         private PluginType _type = PluginType.IMetricOqat;
         public double sum;
         public double sumR;
         VM_PM_MSE propertiesView;
+
+        int _radioButton = 0;
+        public int radioButton
+        {
+            get
+            {
+                return _radioButton;
+            }
+            set
+            {
+                if (value > -1 && value < 4)
+                {
+                    _radioButton = value;
+                    NotifyPropertyChanged("radioButton");
+                }
+            }
+        }
 
         /// <summary>
         /// Method to generate the analysis data.
@@ -37,7 +66,7 @@ namespace PM_MSE
                 double sumG = 0;
                 double sumB = 0;
 
-                int rb = (propertiesView.getRb());
+                //int rb = (propertiesView.getRb());
                 float[] resultValues = new float[4];
 
                 for (int i = 0; i < frameRef.Height - 1; i++)
@@ -70,7 +99,7 @@ namespace PM_MSE
                         sumG += newGreen;
                         sumB += newBlue;
 
-                        switch (rb)
+                        switch (radioButton)
                         {
                             case 0:
                                 newPixel = (((alphaProc + alphaRef) / 2) << 24) | (newRed << 16) | (newGreen << 8) | newBlue;
@@ -129,14 +158,20 @@ namespace PM_MSE
         /// </summary>
         public MSE()
         {
-            propertiesView = new VM_PM_MSE();
-            localize(_namePlugin + "_" + Thread.CurrentThread.CurrentCulture + ".xml");
+            
         }
 
         public UserControl propertyView
         {
             get
             {
+                if (propertiesView == null)
+                {
+                    propertiesView = new VM_PM_MSE();
+                    propertiesView.DataContext = this;
+
+                    localize(_namePlugin + "_" + Thread.CurrentThread.CurrentCulture + ".xml");
+                }
                 return this.propertiesView;
             }
         }
@@ -152,8 +187,7 @@ namespace PM_MSE
         /// </summary>
         public Oqat.PublicRessources.Model.Memento getMemento()
         {
-            int rb = propertiesView.getRb();
-            Memento mem = new Memento(this.namePlugin, rb);
+            Memento mem = new Memento(this.namePlugin, radioButton);
             return mem;
         }
 
@@ -165,8 +199,7 @@ namespace PM_MSE
             if (memento.state is int)
             {
                 Object obj = memento.state;
-                var rb = (int)obj;
-                this.propertiesView.setRb(rb);
+                radioButton = (int)obj;
             }
         }
 
@@ -175,7 +208,8 @@ namespace PM_MSE
         /// </summary>
         private void localize(String s)
         {
-            propertiesView.local(s);
+            if(propertiesView != null)
+                propertiesView.local(s);
         }
 
         public IPlugin createExtraPluginInstance()

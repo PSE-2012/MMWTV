@@ -3,14 +3,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-            >
+             xmlns:l="clr-namespace:PM_MSE">
     <Grid >
+        <Grid.Resources>
+            <l:rbConverter x:Key="rbConverter" />
+        </Grid.Resources>
         <StackPanel  HorizontalAlignment="Left" Margin="12,23,0,0" Name="stackPanel1" VerticalAlignment="Top" >
-            <RadioButton Content="RGB"  Name="rbRGB" IsChecked=" true"/>
-            <RadioButton Content="R"  Name="rbR" />
-            <RadioButton Content="G"  Name="rbG" />
-            <RadioButton Content="B"  Name="rbB" />
+            <RadioButton Content="RGB"  Name="rbRGB" >
+                <RadioButton.IsChecked>
+                    <Binding Path="radioButton" Converter="{StaticResource rbConverter}">
+                        <Binding.ConverterParameter>
+                            <sys:Int32>0</sys:Int32>
+                        </Binding.ConverterParameter>
+                    </Binding>
+                </RadioButton.IsChecked>
+            </RadioButton>
+
+            <RadioButton Content="R"  Name="rbR" >
+                <RadioButton.IsChecked>
+                    <Binding Path="radioButton" Converter="{StaticResource rbConverter}">
+                        <Binding.ConverterParameter>
+                            <sys:Int32>1</sys:Int32>
+                        </Binding.ConverterParameter>
+                    </Binding>
+                </RadioButton.IsChecked>
+            </RadioButton>
+            <RadioButton Content="G"  Name="rbG" >
+                <RadioButton.IsChecked>
+                    <Binding Path="radioButton" Converter="{StaticResource rbConverter}">
+                        <Binding.ConverterParameter>
+                            <sys:Int32>2</sys:Int32>
+                        </Binding.ConverterParameter>
+                    </Binding>
+                </RadioButton.IsChecked>
+            </RadioButton>
+            <RadioButton Content="B"  Name="rbB" >
+                <RadioButton.IsChecked>
+                    <Binding Path="radioButton" Converter="{StaticResource rbConverter}">
+                        <Binding.ConverterParameter>
+                            <sys:Int32>3</sys:Int32>
+                        </Binding.ConverterParameter>
+                    </Binding>
+                </RadioButton.IsChecked>
+            </RadioButton>
         </StackPanel>
     </Grid>
 </UserControl>
