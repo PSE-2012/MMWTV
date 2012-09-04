@@ -49,6 +49,8 @@ namespace Oqat.ViewModel.MacroPlugin
             registeredLock = new Object();
             
             _propertyView.readOnly = false;
+            from =  " von ";
+            framesProcessed = " Bilder verarbeitet.";
             local("VM_Macro_" + Thread.CurrentThread.CurrentCulture + ".xml");
 
         
@@ -618,6 +620,9 @@ namespace Oqat.ViewModel.MacroPlugin
         private void cancelProcessing() { }
         private void pauseProcessing() { }
 
+        string from ;
+        string framesProcessed; 
+
         private void startProcessing() 
         {
             if (this.handRef == null)
@@ -657,8 +662,7 @@ namespace Oqat.ViewModel.MacroPlugin
 
             worker.RunWorkerAsync();
         }
-        string from = " von ";
-        string framesProcessed = " Bilder verarbeitet.";
+       
         #endregion
         private void onToggleView(object sender, ViewTypeEventArgs e)
         {

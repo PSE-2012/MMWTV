@@ -38,6 +38,8 @@ namespace Oqat.ViewModel.MacroPlugin
             self.DataContext = this;
             
             dragControl = new MacroEntry_Control();
+            pleaseWait = "Bitte warten...";
+            NotifyPropertyChanged("pleaseWait");
             local("VM_Macro_" + Thread.CurrentThread.CurrentCulture + ".xml");
         }
 
