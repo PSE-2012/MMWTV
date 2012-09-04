@@ -225,7 +225,7 @@ namespace Oqat.ViewModel.MacroPlugin
                 foreach (var subEntry in seqMetricResultCtxList)
                 {
                     // check if set as active
-                    if ((subEntry.entry.startFrameAbs >= (handRef.positionReader - 1))
+                    if ((subEntry.entry.startFrameAbs <= (handRef.positionReader - 1))
                         && (subEntry.entry.endFrameAbs >= handRef.positionReader - 1))
                     {
                         // init plugin
@@ -300,7 +300,13 @@ namespace Oqat.ViewModel.MacroPlugin
 
                     var tmpEntryList = new List<IMacroEntry>();
                     var newEntry = new MacroEntry(subEntry.pluginName, subEntry.type, subEntry.mementoName);
+                   
                     metResContext.entry = newEntry;
+                    metResContext.entry._endFrameRelative = subEntry._endFrameRelative;
+                    metResContext.entry._startFrameRelative = subEntry._startFrameRelative;
+                    metResContext.entry.frameCount = subEntry.frameCount;
+                    metResContext.entry.mementoName = subEntry.mementoName;
+                   
                     tmpEntryList.Add(newEntry);
 
                     var tmpVidInfo = handProc.readVidInfo.Clone() as IVideoInfo;

@@ -180,7 +180,9 @@
             _handler = handler.createExtraPluginInstance() as IVideoHandler;
             if ((this.vidInfo != null) && (File.Exists(vidPath)))
             {
-                _handler.setReadContext(this.vidPath, this.vidInfo);
+                IVideoInfo copy = this.vidInfo.Clone() as IVideoInfo;
+           
+                _handler.setReadContext(this.vidPath, copy);
             }
 
             return _handler;

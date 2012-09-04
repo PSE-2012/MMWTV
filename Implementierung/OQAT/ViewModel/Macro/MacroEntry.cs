@@ -76,13 +76,21 @@ using System.ComponentModel;
  
         public long endFrameAbs
         {
-            get { return (long)(frameCount / 100.0 * endFrameRelative); }
+            get {
+                if (endFrameRelative == 0)
+                    return 0;
+                return (long)(frameCount / 100.0 * endFrameRelative); }
         }
 
 
         public long startFrameAbs
         {
-            get { return (long)(frameCount / 100.0 * startFrameRelative); }
+            get {
+
+
+                if (startFrameRelative == 0)
+                    return 0;
+                return (long)(frameCount / 100.0 * startFrameRelative); }
         }
 
         // if this entry is a metric you can specify a custom path
