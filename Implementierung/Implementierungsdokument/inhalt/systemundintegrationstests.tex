@@ -2,13 +2,13 @@
 \section{Qualitätsbestimmung}
 \begin{itemize}
 \item /Q-10/ Die GUI soll falsche Benutzereingaben weitestgehend vermeiden. \newline
-Der Punkt wurde durch einsatz von komponenten, welche solche eingaben vermeiden(z.B.Slider)wo möglich erfüllt.
+Der Punkt wurde durch Einsatz von Komponenten, welche solche eingaben vermeiden(z.B.Slider) wenn möglich erfüllt.
 \item /Q-20/ Fehlerhafte Eingaben für Pfad, Frames per second, Filter und Analysemetriken werden vom Programm nicht angenommen und der Benutzer wird gefordert, sie zu korrigieren. \newline
 Wurde durch Messageboxen realisiert.
 \item /Q-30/ Ein Filter- oder Analysevorgang findet nur für gültige YUV-Dateien statt, d.h. wenn eine YUV-Datei nicht gelesen werden kann, stürzt das Programm nicht ab und gibt eine entsprechende Fehlermeldung aus. \newline
 Die Dateien werden vor dem hinzufügen auf Gültigkeit getestet.
 \item  /Q-40/Oqat wird Benutzern eine Hilfe, in Form von Tooltipps und einer kurzen Einleitung die wichtigsten Programmfunktionen anbieten. \newline
-Es wurde eine Dokumentation über die einzelnden Ansichten angefertigt. Auch einige Tooltipps wurden eingefügt.
+Es wurde eine Dokumentation über die einzelnen Ansichten angefertigt. Auch einige Tooltipps wurden eingefügt.
 
 \end{itemize}
 \section{Testfälle}
@@ -24,7 +24,7 @@ Funktioniert
 \item /T-50/ Filter auswählen, Vorschau betrachten \newline
 Nicht Implementiert
 \item /T-60/ Filter anwenden, generierte Video-Datei überprüfen \newline
-Filter anwenden geht, überprüfung macht keinen Sinn mehr da das Format und die Gültigkeit durch den Handler Gewährleitet werden.
+Filter anwenden geht, Überprüfung macht keinen Sinn mehr da das Format und die Gültigkeit durch den Handler Gewährleistet werden.
 \item /T-70/ Filter-Einstellungen verändern \newline
 Funktioniert über Properties View bzw über Memento-Funktionalität.
 \item /T-80/ Mehrere Filter auf ein Video anwenden, Reihenfolge verändern \newline
