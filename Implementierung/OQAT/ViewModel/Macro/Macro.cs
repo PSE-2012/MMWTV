@@ -328,7 +328,7 @@ namespace Oqat.ViewModel.MacroPlugin
 
 
             string ext = Path.GetExtension(possiblePath);
-            path = Path.GetDirectoryName(possiblePath) + Path.GetFileNameWithoutExtension(possiblePath);
+            path = Path.GetDirectoryName(possiblePath) + "\\" + Path.GetFileNameWithoutExtension(possiblePath);
             bool pathValid = false;
             int n = 0;
             string counter = "";
@@ -441,6 +441,11 @@ namespace Oqat.ViewModel.MacroPlugin
 
         public void setFilterContext(int idRef, IVideo vidRef)
         {
+            //do not set new context while macro is processing
+            if (_propertyView.processing)
+                return;
+
+
             flush();
 
             this.idRes = idRef;
@@ -467,6 +472,11 @@ namespace Oqat.ViewModel.MacroPlugin
 
         public void setMetricContext(IVideo vidRef, int idProc, IVideo vidProc)
         {
+            //do not set new context while macro is processing
+            if (_propertyView.processing)
+                return;
+
+
 
             flush();
 
@@ -623,6 +633,10 @@ namespace Oqat.ViewModel.MacroPlugin
         #endregion
         private void onToggleView(object sender, ViewTypeEventArgs e)
         {
+            //do not switch display of this macro object if it is processing
+            if (_propertyView.processing)
+                return;
+
             if (e.viewType == viewType)
                 return;
 
