@@ -12,6 +12,9 @@ using System.Windows.Documents;
 using Oqat.Model;
 using Oqat.PublicRessources.Model;
 using Oqat.PublicRessources.Plugin;
+using System.Xml;
+using System.Threading;
+using System.IO;
 
 namespace Oqat.ViewModel.MacroPlugin
 {
@@ -46,7 +49,9 @@ namespace Oqat.ViewModel.MacroPlugin
             registeredLock = new Object();
             
             _propertyView.readOnly = false;
-            
+            from =  " von ";
+            framesProcessed = " Bilder verarbeitet.";
+            local("VM_Macro_" + Thread.CurrentThread.CurrentCulture + ".xml");
 
         
         }
@@ -228,6 +233,7 @@ namespace Oqat.ViewModel.MacroPlugin
             recursiveMetricExplorer(this.rootEntry, seqMetricResultCtxList);
             handRef.positionReader = 0;
             handProc.positionReader = 0;
+            int i = 0;
             while (handRef.positionReader < handRef.readVidInfo.frameCount)
             {
                 Bitmap bmpRef = handRef.getFrame();
@@ -251,7 +257,7 @@ namespace Oqat.ViewModel.MacroPlugin
 
                         // write acquired frame
                         (subEntry.vidRes as Video).frameMetricValue[
-                            handRef.positionReader - 1 - subEntry.entry.startFrameAbs] = info.values;
+                           i++] = info.values;
                         var tmpArray = new Bitmap[1];
                         tmpArray[0] = info.frame;
                         subEntry.handRes.writeFrames(handRef.positionReader - 1 - (int)subEntry.entry.startFrameAbs, tmpArray);
@@ -615,6 +621,9 @@ namespace Oqat.ViewModel.MacroPlugin
         private void cancelProcessing() { }
         private void pauseProcessing() { }
 
+        string from ;
+        string framesProcessed; 
+
         private void startProcessing() 
         {
             if (this.handRef == null)
@@ -647,13 +656,14 @@ namespace Oqat.ViewModel.MacroPlugin
                 _propertyView.MacroEntryTreeView.Dispatcher.VerifyAccess();
 
                 _propertyView.processingStateValue = args.ProgressPercentage;
-                _propertyView.processingStateMessage = "Processed " + this.handRef.positionReader + " of " + this.rootEntry.frameCount + " frames.";
+                _propertyView.processingStateMessage = +this.handRef.positionReader + from + this.rootEntry.frameCount + framesProcessed;
 
             };
 
 
             worker.RunWorkerAsync();
         }
+       
         #endregion
         private void onToggleView(object sender, ViewTypeEventArgs e)
         {
@@ -765,7 +775,36 @@ namespace Oqat.ViewModel.MacroPlugin
 
             return entryToAdd;
         }
-
+        public void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                int count = 9;
+                String[] t = new String[count];
+                String[] t2 = new String[count];
+                for (int i = 0; i < count; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                    if (t2[i] == "")
+                    {
+                        throw new XmlException("datei nicht lang genug");
+                    }
+                }
+                from = t2[7];
+                framesProcessed = t2[8];
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
      
     }
 

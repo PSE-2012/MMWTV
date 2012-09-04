@@ -25,7 +25,7 @@
         <extToolkit:BusyIndicator.BusyContentTemplate>
             <DataTemplate>
                 <StackPanel Margin="4">
-                    <TextBlock Text="Bitte warten ..." FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding pleaseWait, Mode=OneWay}" FontWeight="Bold" HorizontalAlignment="Center"/>
                     <StackPanel Margin="4">
                         <TextBlock Text="{Binding processingStateMessage, Mode=OneWay}"/>
                         <ProgressBar Value="{Binding processingStateValue, Mode=OneWay}"  Height="15"/>
@@ -113,7 +113,7 @@
                 <Button x:Name="saveMacroAs" Grid.Column="7" Content="Speichern unter" 
                         Click="saveMacroAs_Click" HorizontalAlignment="Left">
                     <Button.ToolTip>
-                        <TextBlock>
+                        <TextBlock Name="tt1">
                             Speichert die Einstellungen als neuen Eintrag unter dem angegebenen Namen.
                         </TextBlock>
                     </Button.ToolTip>
