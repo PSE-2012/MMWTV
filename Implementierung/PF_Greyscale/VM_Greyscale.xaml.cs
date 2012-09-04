@@ -21,65 +21,20 @@ namespace PF_Greyscale
     /// </summary>
     public partial class VM_Greyscale : UserControl
     {
-        double redValue;
-        double greenValue;
-        double blueValue;
-
-
         /// <summary>
         /// Constructor
         /// </summary>
         public VM_Greyscale()
         {
             InitializeComponent();
-
-            red.Value =0.2125;
-            green.Value = 0.7154;
-            blue.Value = 0.0721;
-            redValue = red.Value;
-            greenValue = green.Value;
-            blueValue = blue.Value;
-            
         }
 
 
-        /// <summary>
-        /// Listener for data binding
-        /// </summary>
 
-        private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            redValue = red.Value;
-            greenValue = green.Value;
-            blueValue = blue.Value;
-        }
-
-        /// <summary>
-        /// Sets the Sliders.
-        /// </summary>
-
-        public void changeValue(double r,double g, double b){
-            red.Value =r;
-            green.Value = g;
-            blue.Value = b;
-            this.ValueChanged(this,null);
-        }
-        public double getRed(){
-            return redValue;
-        }
-        public double getGreen()
-        {
-            return greenValue;
-        }
-        public double getBlue()
-        {
-            return blueValue;
-        }
 
         /// <summary>
         /// Sets the Language Content and reads it from an XML File.
         /// </summary>
-
         public void local(String s)
         {
             try
@@ -109,7 +64,13 @@ namespace PF_Greyscale
             catch (IndexOutOfRangeException e) { }
             catch (FileNotFoundException e) { }
             catch (XmlException e) { }
+        }
 
+        private void bttReset_Click(object sender, RoutedEventArgs e)
+        {
+            this.red.Value = 0.2125;
+            this.green.Value = 0.7154;
+            this.blue.Value = 0.0721;
         }
 
     }
