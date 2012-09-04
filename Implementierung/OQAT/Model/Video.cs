@@ -154,6 +154,10 @@
             {
                 return (_handler != null) ? _handler : getVideoHandler();
             }
+            set
+            {
+                _handler = value;
+            }
         }
 
 

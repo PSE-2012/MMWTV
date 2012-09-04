@@ -12,6 +12,9 @@ using System.Windows.Documents;
 using Oqat.Model;
 using Oqat.PublicRessources.Model;
 using Oqat.PublicRessources.Plugin;
+using System.Xml;
+using System.Threading;
+using System.IO;
 
 namespace Oqat.ViewModel.MacroPlugin
 {
@@ -46,7 +49,9 @@ namespace Oqat.ViewModel.MacroPlugin
             registeredLock = new Object();
             
             _propertyView.readOnly = false;
-            
+            from =  " von ";
+            framesProcessed = " Bilder verarbeitet.";
+            local("VM_Macro_" + Thread.CurrentThread.CurrentCulture + ".xml");
 
         
         }
@@ -131,6 +136,9 @@ namespace Oqat.ViewModel.MacroPlugin
 
                 foreach (var subEntry in e.Result as List<metricResultContext>)
                 {
+                    subEntry.vidRes.handler.flushReader();
+                    subEntry.vidRes.handler.flushWriter();
+                    (subEntry.vidRes as Video).handler = null;
                     PluginManager.pluginManager.raiseEvent(
                         EventType.macroProcessingFinished, new VideoEventArgs(subEntry.vidRes, this.idRes));
                 }
@@ -149,7 +157,7 @@ namespace Oqat.ViewModel.MacroPlugin
                 foreach (var filterEntry in seqMacroEntryList)
                 {
 
-                    if ((filterEntry.startFrameAbs >= (handRef.positionReader - 1))
+                    if ((filterEntry.startFrameAbs <= (handRef.positionReader - 1))
                         && (filterEntry.endFrameAbs >= (handRef.positionReader - 1)))
                     {
                         try
@@ -200,7 +208,14 @@ namespace Oqat.ViewModel.MacroPlugin
             {
                 if (subEntry.type != PluginType.IMacro)
                 {
-                    seqMacroList.Add(subEntry);
+                    var newEntry = new MacroEntry(subEntry.pluginName, subEntry.type, subEntry.mementoName);
+
+             
+                    newEntry._endFrameRelative = subEntry._endFrameRelative;
+                    newEntry._startFrameRelative = subEntry._startFrameRelative;
+                    newEntry.frameCount = subEntry.frameCount;
+                    newEntry.mementoName = subEntry.mementoName;
+                    seqMacroList.Add(newEntry);
                 }
                 else
                 {
@@ -605,6 +620,9 @@ namespace Oqat.ViewModel.MacroPlugin
         private void cancelProcessing() { }
         private void pauseProcessing() { }
 
+        string from ;
+        string framesProcessed; 
+
         private void startProcessing() 
         {
             if (this.handRef == null)
@@ -637,13 +655,14 @@ namespace Oqat.ViewModel.MacroPlugin
                 _propertyView.MacroEntryTreeView.Dispatcher.VerifyAccess();
 
                 _propertyView.processingStateValue = args.ProgressPercentage;
-                _propertyView.processingStateMessage = "Processed " + this.handRef.positionReader + " of " + this.rootEntry.frameCount + " frames.";
+                _propertyView.processingStateMessage = +this.handRef.positionReader + from + this.rootEntry.frameCount + framesProcessed;
 
             };
 
 
             worker.RunWorkerAsync();
         }
+       
         #endregion
         private void onToggleView(object sender, ViewTypeEventArgs e)
         {
@@ -755,7 +774,36 @@ namespace Oqat.ViewModel.MacroPlugin
 
             return entryToAdd;
         }
-
+        public void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                int count = 9;
+                String[] t = new String[count];
+                String[] t2 = new String[count];
+                for (int i = 0; i < count; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                    if (t2[i] == "")
+                    {
+                        throw new XmlException("datei nicht lang genug");
+                    }
+                }
+                from = t2[7];
+                framesProcessed = t2[8];
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
      
     }
 
