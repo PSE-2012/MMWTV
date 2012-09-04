@@ -89,9 +89,10 @@ namespace Oqat.ViewModel.MacroPlugin
         {
             get
             {
-                if (filterMode)
-                    return System.Windows.Visibility.Visible;
-                else
+                //TODO: reactivate filterpreview when implemented
+                //if (filterMode)
+                //    return System.Windows.Visibility.Visible;
+                //else
                     return System.Windows.Visibility.Collapsed;
             }
         }
