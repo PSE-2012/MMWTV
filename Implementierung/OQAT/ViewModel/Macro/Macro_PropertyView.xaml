@@ -25,7 +25,7 @@
         <extToolkit:BusyIndicator.BusyContentTemplate>
             <DataTemplate>
                 <StackPanel Margin="4">
-                    <TextBlock Text="Please wait.." FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Bitte warten ..." FontWeight="Bold" HorizontalAlignment="Center"/>
                     <StackPanel Margin="4">
                         <TextBlock Text="{Binding processingStateMessage, Mode=OneWay}"/>
                         <ProgressBar Value="{Binding processingStateValue, Mode=OneWay}"  Height="15"/>
@@ -36,7 +36,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" Content="Pause" Click="Pause_Click" HorizontalAlignment="Right" Margin="0 0 2 0"/>
-                        <Button Grid.Column="1" Content="Cancel" Click="Cancel_Click" HorizontalAlignment="Left" Margin="2 0 0 0"/>
+                        <Button Grid.Column="1" Content="Abbrechen" Click="Cancel_Click" HorizontalAlignment="Left" Margin="2 0 0 0"/>
                     </Grid>
                 </StackPanel>
             </DataTemplate>
@@ -49,9 +49,7 @@
         </extToolkit:BusyIndicator.OverlayStyle>
         <extToolkit:BusyIndicator.ProgressBarStyle>
             <Style TargetType="ProgressBar">
-                
                 <Setter Property="Visibility" Value="Collapsed"/>
-                
             </Style>
         </extToolkit:BusyIndicator.ProgressBarStyle>
         <Grid x:Name="macroTreeViewGrid" >
