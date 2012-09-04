@@ -68,8 +68,8 @@
             set
             {
                 _title = value;
+                pathProject = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + title + ".oqatPrj";
                 OnPropertyChanged("title");
-                
             }
         }
 
@@ -78,8 +78,6 @@
         /// </summary>
         private void OnPropertyChanged(string propertyName)
         {
-
-
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
@@ -93,6 +91,7 @@
                 }
             }
         }
+
         private string _pathProject;
         public string pathProject {
             get
