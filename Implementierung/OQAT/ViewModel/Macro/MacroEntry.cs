@@ -73,45 +73,58 @@ using System.ComponentModel;
             get { return new List<IMacroEntry>(macroEntries); }
         }
 
-        [field: NonSerialized]
+ 
         public long endFrameAbs
         {
-            get { return (long)(frameCount / 100.0 * endFrameRelative); }
-            set 
-            {
-                if (value < startFrameAbs)
-                    value = startFrameAbs;
-
-                endFrameRelative =value / (frameCount / 100.0);
-                NotifyPropertyChanged("endFrameAbs");
-            }
+            get {
+                if (endFrameRelative == 0)
+                    return 0;
+                return (long)(frameCount / 100.0 * endFrameRelative); }
         }
 
 
-       [field: NonSerialized]
         public long startFrameAbs
         {
-            get { return (long)(frameCount / 100.0 * startFrameRelative); }
-            set
-            {
-                if (value > endFrameAbs)
-                    value = endFrameAbs;
-                
-                startFrameRelative = value / (frameCount / 100.0);
+            get {
 
-                NotifyPropertyChanged("startFrameAbs");
-            }
+
+                if (startFrameRelative == 0)
+                    return 0;
+                return (long)(frameCount / 100.0 * startFrameRelative); }
         }
 
         // if this entry is a metric you can specify a custom path
         public string path;
 
 
+        public double _endFrameRelative = 100;
         public double endFrameRelative
-        { get; set;}
-
+        {
+            get
+            {
+                return _endFrameRelative;
+            }
+            set
+            {
+                _endFrameRelative = value;
+                NotifyPropertyChanged("endFrameRelative");
+                NotifyPropertyChanged("endFrameAbs");
+            }
+        }
+        public double _startFrameRelative = 0;
         public double startFrameRelative
-        { get; set; }
+        {
+            get
+            {
+                return _startFrameRelative;     
+            }
+            set
+            {
+                _startFrameRelative = value;
+                NotifyPropertyChanged("startFrameRelative");
+                NotifyPropertyChanged("startFrameAbs");
+            }
+        }
 
 
 

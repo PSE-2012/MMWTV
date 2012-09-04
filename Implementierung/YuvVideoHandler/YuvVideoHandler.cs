@@ -722,6 +722,8 @@ using System.Collections.Generic;
                     //    readerThread.Start();
                     //}
                 }
+                if(readQueue.Count < NUMFRAMESINMEM)
+                    readerWaitEvent.Set();
 
                 if ((Math.Abs(readerBuffPos - positionReader) < 1) && !(positionReader > readVidInfo.frameCount)) 
                 {
@@ -730,7 +732,7 @@ using System.Collections.Generic;
 
                         readerWaitEvent.Set();
                         getFrameWaitEvent.WaitOne();
-                        if(((readQueue.Count > 1) &&  !buffer) || !(positionReader < readVidInfo.frameCount) )
+                        if(((readQueue.Count > 0) &&  !buffer) || !(positionReader < readVidInfo.frameCount) )
                             break;
                     }
                 }
@@ -748,7 +750,7 @@ using System.Collections.Generic;
             }
             if (readQueue.Count < 1)
             {
-                int hm = 3;
+                return null;
             }
             positionReader++;
             return (Bitmap)readQueue.Dequeue();
@@ -765,13 +767,35 @@ using System.Collections.Generic;
             {
 
                 int offset = readerBuffPos * frameByteSize;
-                int count = 1;
-                if(buffer)
-                    count = NUMFRAMESINMEM - readQueue.Count;
+                int count = -1;
+                while (count < 0)
+                {
+                    if (buffer)
+                    {
+                        count = NUMFRAMESINMEM - readQueue.Count;
+                    }
+                    else
+                    {
+                        count = 1;
+                    }
+
+                    if (count < 0)
+                    {
+                        getFrameWaitEvent.Set();
+                        readerWaitEvent.WaitOne();
+                    }
+
+                    if (readerBackgroundWorker == null || readerBackgroundWorker.CancellationPending)
+                        break;
+                }
+
+                if (readerBackgroundWorker == null || readerBackgroundWorker.CancellationPending)
+                    break;
 
                 FileInfo file = new FileInfo(readPath);
                 if (!file.Exists)
                     throw new FileNotFoundException();
+               
 
                 byte[] rawData = new byte[frameByteSize * count];
                 using (FileStream fs = new FileStream(readPath, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -796,7 +820,7 @@ using System.Collections.Generic;
                 extractBitmapContext[] ctxArray = new extractBitmapContext[count];
                 while ((i < count) && !(readerBuffPos > readVidInfo.frameCount))// && !stopReaderThread)
                 {
-                    if (readerBackgroundWorker.CancellationPending)
+                    if (readerBackgroundWorker==null || readerBackgroundWorker.CancellationPending)
                         break;
                     int frameOffset = i * frameByteSize + pixelNum;
                     ctxArray[i] = new extractBitmapContext(i, rawData, frameOffset, quartSize, pixelNum);
@@ -811,7 +835,7 @@ using System.Collections.Generic;
                     if (entry != null)
                     {
 
-                        if (readerBackgroundWorker.CancellationPending)
+                        if (readerBackgroundWorker==null || readerBackgroundWorker.CancellationPending)
                             break;
                         entry.doneEvent.WaitOne();
                         readQueue.Enqueue(entry._currFrame);
@@ -819,13 +843,13 @@ using System.Collections.Generic;
                         readerBuffPos++;
                     }
                 }
-                if (readerBackgroundWorker.CancellationPending && !buffer)
+                if (readerBackgroundWorker==null || readerBackgroundWorker.CancellationPending && !buffer)
                 {
                     e.Cancel = true;
                     break;
                 }
 
-                if(Math.Abs(_readerBuffPos - readerBuffPos) < NUMFRAMESINMEM)
+                if(readQueue.Count > NUMFRAMESINMEM)
                 readerWaitEvent.WaitOne();
 
 
@@ -859,7 +883,7 @@ using System.Collections.Generic;
 
                 //for (int y = 0; (y < ctx._currFrame.Height) && !stopReaderThread; y++)
 
-                    for (int y = 0; (y < ctx._currFrame.Height) &&  (!readerBackgroundWorker.CancellationPending); y++)
+                    for (int y = 0; (y < ctx._currFrame.Height); y++)
                 {
                     int uvCoef = (ctx._currFrame.Width / 2) * (y / 2);
                     int fastUvCoef = uvCoef + ctx.frameOffset;

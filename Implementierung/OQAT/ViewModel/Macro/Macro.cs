@@ -36,8 +36,6 @@ namespace Oqat.ViewModel.MacroPlugin
             // init first entry
             this.rootEntry = new MacroEntry(this.namePlugin, PluginType.IMacro, "");
             this.rootEntry.frameCount = 100;
-            this.rootEntry.startFrameAbs = 0;
-            this.rootEntry.endFrameAbs = 100;
 
             MacroViewDelegates macroViewDelegates = new MacroViewDelegates(addMacroEntry, moveMacroEntry,
                                                     removeMacroEntry, constructMacroFromMementoArg,
@@ -143,7 +141,7 @@ namespace Oqat.ViewModel.MacroPlugin
         {
             List<MacroEntry> seqMacroEntryList = new List<MacroEntry>();
             recursiveFilterExplorer(this.rootEntry, seqMacroEntryList);
-
+            handRef.positionReader = 0;
             while (handRef.positionReader < handRef.readVidInfo.frameCount)
             {
                 Bitmap bmp = handRef.getFrame();
@@ -151,8 +149,8 @@ namespace Oqat.ViewModel.MacroPlugin
                 foreach (var filterEntry in seqMacroEntryList)
                 {
 
-                    if (!(filterEntry.startFrameAbs > handRef.positionReader)
-                        && (filterEntry.endFrameAbs > handRef.positionReader))
+                    if ((filterEntry.startFrameAbs >= (handRef.positionReader - 1))
+                        && (filterEntry.endFrameAbs >= (handRef.positionReader - 1)))
                     {
                         try
                         {
@@ -174,7 +172,7 @@ namespace Oqat.ViewModel.MacroPlugin
                 }
                 var tmpBmpArray = new Bitmap[1];
                 tmpBmpArray[0] = bmp;
-                handRef.writeFrames(handRef.positionReader, tmpBmpArray);
+                handRef.writeFrames(handRef.positionReader - 1, tmpBmpArray);
 
                 if (worker.CancellationPending)
                 {
@@ -218,7 +216,8 @@ namespace Oqat.ViewModel.MacroPlugin
             List<metricResultContext> seqMetricResultCtxList = new List<metricResultContext>();
 
             recursiveMetricExplorer(this.rootEntry, seqMetricResultCtxList);
-
+            handRef.positionReader = 0;
+            handProc.positionReader = 0;
             while (handRef.positionReader < handRef.readVidInfo.frameCount)
             {
                 Bitmap bmpRef = handRef.getFrame();
@@ -227,8 +226,8 @@ namespace Oqat.ViewModel.MacroPlugin
                 foreach (var subEntry in seqMetricResultCtxList)
                 {
                     // check if set as active
-                    if (!(subEntry.entry.startFrameAbs > handRef.positionReader)
-                        && (subEntry.entry.endFrameAbs > handRef.positionReader))
+                    if ((subEntry.entry.startFrameAbs <= (handRef.positionReader - 1))
+                        && (subEntry.entry.endFrameAbs >= handRef.positionReader - 1))
                     {
                         // init plugin
                         IMetricOqat curPlugin =
@@ -242,10 +241,10 @@ namespace Oqat.ViewModel.MacroPlugin
 
                         // write acquired frame
                         (subEntry.vidRes as Video).frameMetricValue[
-                            handRef.positionReader - subEntry.entry.startFrameAbs] = info.values;
+                            handRef.positionReader - 1 - subEntry.entry.startFrameAbs] = info.values;
                         var tmpArray = new Bitmap[1];
                         tmpArray[0] = info.frame;
-                        subEntry.handRes.writeFrames(handRef.positionReader - (int)subEntry.entry.startFrameAbs, tmpArray);
+                        subEntry.handRes.writeFrames(handRef.positionReader - 1 - (int)subEntry.entry.startFrameAbs, tmpArray);
 
                     }
                 }
@@ -278,13 +277,15 @@ namespace Oqat.ViewModel.MacroPlugin
 
         private void recursiveMetricExplorer(MacroEntry entry, List<metricResultContext> seqMacroEntryList)
         {
-            Debug.Assert(seqMacroEntryList != null, "Given seqMacroEntryList is null.");
+            if(seqMacroEntryList == null)
+                throw new ArgumentNullException("Given seqMacroEntryList is null.");
+
             foreach (var subEntry in entry.macroEntries)
             {
                 if (subEntry.type != PluginType.IMacro)
                 {
                     metricResultContext metResContext;
-                    metResContext.entry = subEntry;
+
                     string path;
 
 
@@ -299,9 +300,20 @@ namespace Oqat.ViewModel.MacroPlugin
 
 
                     var tmpEntryList = new List<IMacroEntry>();
-                    tmpEntryList.Add(subEntry);
+                    var newEntry = new MacroEntry(subEntry.pluginName, subEntry.type, subEntry.mementoName);
+                   
+                    metResContext.entry = newEntry;
+                    metResContext.entry._endFrameRelative = subEntry._endFrameRelative;
+                    metResContext.entry._startFrameRelative = subEntry._startFrameRelative;
+                    metResContext.entry.frameCount = subEntry.frameCount;
+                    metResContext.entry.mementoName = subEntry.mementoName;
+                   
+                    tmpEntryList.Add(newEntry);
 
                     var tmpVidInfo = handProc.readVidInfo.Clone() as IVideoInfo;
+
+                    tmpVidInfo.path = path;
+
                     tmpVidInfo.frameCount = (int)(subEntry.endFrameAbs - subEntry.startFrameAbs);
 
                     metResContext.vidRes = new Video(isAnalysis: true,
@@ -369,9 +381,6 @@ namespace Oqat.ViewModel.MacroPlugin
             clearMacroEntryList();
             this.rootEntry.mementoName = "";
             this.rootEntry.frameCount = 100;
-            this.rootEntry.startFrameAbs = 0;
-            this.rootEntry.endFrameAbs = 100;
-
         }
 
         public IPlugin createExtraPluginInstance()
@@ -451,11 +460,14 @@ namespace Oqat.ViewModel.MacroPlugin
 
             this.idRes = idRef;
             handRef = vidRef.getExtraHandler();
-
+          
             // construct result video and init handler writing context
             var tmpVidInfo = handRef.readVidInfo.Clone() as IVideoInfo;
+            string newPath = findValidVidPath(vidRef.vidPath, this.rootEntry.mementoName);
+            tmpVidInfo.path = newPath;
+            tmpVidInfo.frameCount = handRef.readVidInfo.frameCount;
             Video vidRes = new Video(isAnalysis: false,
-                vidPath: findValidVidPath(vidRef.vidPath, this.rootEntry.mementoName),
+                vidPath: newPath,
                 vidInfo: tmpVidInfo);
 
 
