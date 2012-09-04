@@ -121,7 +121,6 @@ namespace PS_YuvVideoHandler
             set
             {
                 _path = value;
-                this.calculateFrameCount();
             }
         }
 
