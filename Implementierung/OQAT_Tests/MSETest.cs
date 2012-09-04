@@ -278,5 +278,17 @@ namespace OQAT_Tests
             actual = target.type;
             Assert.AreEqual(expected, actual);
         }
+
+        /// <summary>
+        ///Ein Test für "setMemento"
+        ///</summary>
+        [TestMethod()]
+        public void setMementoTest1()
+        {
+            MSE target = new MSE(); // TODO: Passenden Wert initialisieren
+            Memento memento = null; // TODO: Passenden Wert initialisieren
+            target.setMemento(memento);
+            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
+        }
     }
 }
