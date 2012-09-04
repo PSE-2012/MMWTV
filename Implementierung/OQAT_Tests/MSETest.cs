@@ -209,7 +209,7 @@ namespace OQAT_Tests
             MSE_Accessor target = new MSE_Accessor();
             Memento memento = new Memento("MSE", 2);
             target.setMemento(memento);
-            Assert.AreEqual(target.propertiesView.getRb(), 2, "propertiesView Radio Button could not be set.");
+            Assert.AreEqual(target.getMemento().state, 2, "propertiesView Radio Button could not be set.");
         }
 
         /// <summary>
@@ -233,11 +233,11 @@ namespace OQAT_Tests
             MSE_Accessor target = new MSE_Accessor();
             Memento memento = new Memento("RANGE", -1);
             target.setMemento(memento);
-            Assert.IsTrue(target.propertiesView.getRb() > -1, "Invailed Range for MSE. Range [0, 3]");
+            Assert.IsTrue((int)target.getMemento().state > -1, "Invailed Range for MSE. Range [0, 3]");
 
             memento = new Memento("RANGE", 4);
             target.setMemento(memento);
-            Assert.IsTrue(target.propertiesView.getRb() < 4, "Invailed Range for MSE. Range [0, 3]");
+            Assert.IsTrue((int)target.getMemento().state < 4, "Invailed Range for MSE. Range [0, 3]");
         }
 
         /// <summary>

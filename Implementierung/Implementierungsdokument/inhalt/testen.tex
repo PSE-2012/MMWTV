@@ -318,3 +318,188 @@ getFrame might return null if a race condition between the loop containing the c
 \item Drag-and-Drop auf beide Player
 \item flush
 \end{itemize}
+
+\section{PP_Player}
+\paragraph*{Testfälle}
+\begin{itemize}
+\item Initialization: constructor
+\item InitializeComponentTest
+\item createExtraPluginInstanceTest
+\item CopyMemoryTest
+\item OnPropertyChangedTest: random Jump Position Update
+\item OnPropertyChangedTest: next Frame Position Update
+\item OnPropertyChangedTest: pos Read Pro Name
+\item OnPropertyChangedTest: fps Ind Pro Name
+\item Pause_ClickTest
+\item Play_ClickTest
+\item ConnectTest
+\item flushTest
+\item getMementoTest
+\item jumpToFrameTextBox_GotFocusTest
+\item nextFrame_ClickTest
+\item positionSlider_DragStartedTest
+\item positionSlider_DragDeltaTest
+\item setMementoTest
+\item setVideoTest
+\item setVideoTest1
+\item slowDownButton_ClickTest
+\item speedUpButton_ClickTest
+\item fpsIndicatorValueTest
+\item namePluginTest
+\item pausePlayTickerTest
+\item playTickerTimeoutTest
+\item positionReaderTest
+\item presentationTypeTest
+\item propertyViewTest
+\item typeTest
+\item getFrameTest
+\item jumpToFrame_ClickTest
+\item playTickerThreadTest
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+80\% automatisiert
+
+\paragraph*{gefundene Probleme}
+keine
+
+\section{Invert}
+\paragraph*{Testfälle}
+\begin{itemize}
+\item Initialization: constructor
+\item getMementoTest: start Memento is set
+\item getMementoTest: is Memento
+\item localTest
+\item processTest
+\item processTest: does not return same Bitmap
+\item processTest: empty Bitmap
+\item setMementoTest: empty
+\item setMementoTest: not Memento
+\item namePluginTest
+\item propertyViewTest
+\item typeTest
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+81\% automatisiert
+
+\paragraph*{gefundene Probleme}
+keine
+
+\section{Convolution}
+\paragraph*{Testfälle}
+\begin{itemize}
+\item Initialization: constructor
+\item getMementoTest: start Mememento is set
+\item processTest
+\item setMementoTest
+\item matrixTest
+\item namePluginTest
+\item propertyViewTest
+\item typeTest
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+81\% automatisiert
+
+\paragraph*{gefundene Probleme}
+Matrix ist auf ein quadratisches Rechteck von der Größe [3,25] beschränkt
+
+\section{NoiseGenerator}
+\paragraph*{Testfälle}
+\begin{itemize}
+\item Initialization: constructor
+\item getMementoTest: start Mememento is set
+\item localTest
+\item processTest
+\item setMementoTest
+\item namePluginTest
+\item propertyViewTest
+\item typeTest
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+69\% automatisiert
+
+\paragraph*{gefundene Probleme}
+keine
+
+\section{Greyscale}
+\paragraph*{Testfälle}
+\begin{itemize}
+\item Initialization: constructor
+\item getMementoTest: start Mememento is set
+\item localTest
+\item processTest
+\item processTest: empty Bitmap
+\item setMementoTest
+\item namePluginTest
+\item propertyViewTest
+\item typeTest
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+69\% automatisiert
+
+\paragraph*{gefundene Probleme}
+keine
+
+\section{RelativeColor}
+\paragraph*{Testfälle}
+\begin{itemize}
+\item Initialization: constructor
+\item getMementoTest: start Mememento is set
+\item localTest
+\item processTest
+\item processTest: empty Bitmap
+\item setMementoTest
+\item namePluginTest
+\item propertyViewTest
+\item typeTest
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+73\% automatisiert
+
+\paragraph*{gefundene Probleme}
+keine
+
+\section{MSE}
+\paragraph*{Testfälle}
+\begin{itemize}
+\item Initialization: constructor
+\item getMementoTest: start Mememento is set
+\item localTest
+\item analyseTest
+\item analyseTest: empty Bitmap
+\item setMementoTest
+\item setMementoTest: Object has to be in range [0, 3]
+\item setMementoTest: Object is not type int
+\item namePluginTest
+\item propertyViewTest
+\item typeTest
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+51\% automatisiert
+
+\paragraph*{gefundene Probleme}
+keine
+
+\section{PSNR}
+\paragraph*{Testfälle}
+\begin{itemize}
+\item Initialization: constructor
+\item getMementoTest: start Mememento is set
+\item analyseTest
+\item setMementoTest
+\item namePluginTest
+\item propertyViewTest
+\item typeTest
+\end{itemize}
+
+\paragraph*{Codeabdeckung}
+80\% automatisiert
+
+\paragraph*{gefundene Probleme}
+keine
