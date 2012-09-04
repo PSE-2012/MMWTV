@@ -239,6 +239,11 @@ namespace Oqat.ViewModel
                 }
             }
 
+            setMacroVideoContext();
+		}
+
+        private void setMacroVideoContext()
+        {
             //ref and proc videos are understood the other way round
             if (vtype == ViewType.FilterView)
             {
@@ -247,10 +252,10 @@ namespace Oqat.ViewModel
             }
             else if (vtype == ViewType.MetricView)
             {
-                if(isCompatibleVideo(videoRef, videoProc))
+                if (isCompatibleVideo(videoRef, videoProc))
                     macro.setMetricContext(videoProc, idRef, videoRef);
             }
-		}
+        }
 
         /// <summary>
         /// check if video is compatible with other, already loaded video. 
