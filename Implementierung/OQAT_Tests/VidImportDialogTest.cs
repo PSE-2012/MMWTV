@@ -33,7 +33,7 @@ namespace OQAT_Tests
             string[] plugins = Directory.GetFiles(plPathSolution, "*.dll");
 
             sampleVideos = Directory.GetFiles(sampleVideosPath, "*.yuv");
-            path1 = sampleVideos[0];
+            path1 = sampleVideos[2];
             // Warning: video settings might have to be set manually in test methods!
             path2 = sampleVideos[2];
 
@@ -61,6 +61,14 @@ namespace OQAT_Tests
             sc.Add(path1);
             sc.Add(path2);
             VM_VidImportOptionsDialog_Accessor optd = new VM_VidImportOptionsDialog_Accessor(sc);
+            try
+            {
+                VM_VidImportOptionsDialog optd2 = new VM_VidImportOptionsDialog(null);
+            }
+            catch (Exception ex)
+            {
+
+            }
             Assert.AreEqual(2, optd.videoList.Count);
             //optd.btt_Import_Click(this, null);
             //foreach (Video vid in optd.videoList)

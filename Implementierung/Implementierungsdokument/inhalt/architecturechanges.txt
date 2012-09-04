@@ -1,0 +1,117 @@
+ARCHITECTURE CHANGES
+
+Description of changes that had to be carried out in the design.
+Documented are changes of existing classes, implementation of new
+classes, public methods and attributes.
+(in English because only rtur commented his changes properly and those were in English)
+
+Made many classes implement ISerializable so that their mementos can be saved properly
+
+SmartNode: added extra attributes like name, id and father id.
+Changed constructor - it takes video, id and smartTree as arguments now.
+Reason: Easier to add child nodes
+
+Caretaker: changed structure
+Reason: better dynamics, requires less organisation now
+
+Project: 
+Added extra attribute unusedId to track when the project was last used;
+Removed constructor that takes a Video list as argument;
+Removed constructor that takes only a path as argument;
+Changed method accessors to internal;
+Added saveProject method;
+Added add/rmNote methods for adding new nodes to the project's smartTree;
+Removed get/setMemento
+
+Video:
+Added processedBy list to Video constructor: looks nicer when creating a new Video after
+Macro processing
+Added getExtraHandler method
+Removed get/setMemento
+
+Removed VideoSource class
+Reason: Not needed, as Player doesn't rely on AForge anymore
+
+Added class OqatSerializationBinder
+Reason: rtur knows
+
+Added class MementoListMemento
+Reason: Used for saving all Mementos of an Object in a single file
+
+PluginManager:
+Changed type of pluginTable from Dictionary to Enumerable.
+Reason: It is messy to import into a dictionary
+Moved getPluginManager() into the property getter of PM
+Reason: Looks nicer and needs less code
+Deleted loadPluginTable()
+Reason: It happens automatically -> no need to call it manually
+Removed handlerTable
+Reason: Not used
+
+Redesigned Macro
+Reason: rtur
+
+VM_Oqat:
+Added method onNewProjectCreated(object sender, ProjectEventArgs e);
+Removed init methods: not used
+
+VM_PluginList:
+Changed constructor to take plugin type as argument
+Changed most private methods
+Removed currentViewType attribute: not used
+Removed pluginManager attribute: not needed as PM is singleton
+
+VM_ProjectExplorer:
+Added importVideos method to help import videofiles through the vidImportDialog
+Removed pluginManager attribute: not needed as PM is singleton
+
+VM_Welcome:
+Constructor doesn't take a Panel as argument anymore
+
+VM_VidImportOptionsDialog:
+Uses a list of Videos instead of just one Video now: possible to import multiple videos at once
+
+Implemented WindowsErrorConsole class: useful for debugging
+
+Implemented WindowOqatInfo class: window that shows general information about OQAT
+
+Implemented SandBox class to temporary load a single plugin
+Reason: Check for consistency within plugin folder
+
+Implemented EntryEventArgs Class
+Reason: Can be used to pass string arguments within events
+
+PluginType:
+Renamed type entries to "real" names of a corresponding interface.
+Reason: Now you can use Type.GetType(PluginType.entry.toString()) to get the
+corresponding type object, i.e. for casting.
+
+EventType: expanded with new event types
+
+IVideoInfo has to implement IClonable so that Macro can copy the info;
+Added properties width, height and frameCount
+
+Created MetaData interface
+Reason: Plugins have to import metadata including their name and type in order
+to be loaded correctly.
+
+Created IVideo interface
+
+IPlugin:
+Removed namePlugin & type properties; implemented in IPluginMetaData now
+Reason: Both are in IPluginMetadata, easy import with MEF;
+Removed unused methods and added property view attribute;
+Added createExtraPluginInstance method
+Reason: Classes must implement this method if they need a second instance of a plugin,
+as loading a plugin twice can be tricky
+
+Redesigned IPresentation interface due to Handler/Player
+
+IMacro has to implement IPlugin, else PluginManager would be unable to load it
+
+Redesigned the Player plugin due
+Reason: Massive performance issues and problems with WinForms/WPF integration
+
+Redesigned handler due to performance issues and design problems with Pflichtenheft criteria
+
+There were only minor changes in the rest of the plugins. SSIM Metric was not implemented due to problems getting it to work.
