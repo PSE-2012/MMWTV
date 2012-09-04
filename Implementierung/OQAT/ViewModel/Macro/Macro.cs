@@ -233,6 +233,7 @@ namespace Oqat.ViewModel.MacroPlugin
             recursiveMetricExplorer(this.rootEntry, seqMetricResultCtxList);
             handRef.positionReader = 0;
             handProc.positionReader = 0;
+            int i = 0;
             while (handRef.positionReader < handRef.readVidInfo.frameCount)
             {
                 Bitmap bmpRef = handRef.getFrame();
@@ -256,7 +257,7 @@ namespace Oqat.ViewModel.MacroPlugin
 
                         // write acquired frame
                         (subEntry.vidRes as Video).frameMetricValue[
-                            handRef.positionReader - 1 - subEntry.entry.startFrameAbs] = info.values;
+                           i++] = info.values;
                         var tmpArray = new Bitmap[1];
                         tmpArray[0] = info.frame;
                         subEntry.handRes.writeFrames(handRef.positionReader - 1 - (int)subEntry.entry.startFrameAbs, tmpArray);
