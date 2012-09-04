@@ -430,13 +430,19 @@ namespace Oqat.ViewModel
 
 
             PluginViewModel plVm;
-            if(e.previousMementoName == "") { //just save
+            if(e.previousMementoName == "") 
+            { //just save
                 plVm = findPVM(e.pluginKey, e.mementoName);
-                if (plVm == null)
-                    throw new ArgumentException("No such memento: " + e.mementoName + " found!");
-            } else { // rename and save
+                if (plVm == null || !plVm.isMemento)
+                {
+                    onMacroSaveAs(sender, e);
+                    //throw new ArgumentException("No such memento: " + e.mementoName + " found!");
+                }
+            } 
+            else 
+            { // rename and save
                 plVm = findPVM(e.pluginKey, e.previousMementoName);
-                if (plVm == null)
+                if (plVm == null || !plVm.isMemento)
                     throw new ArgumentException("No such memento: " + e.previousMementoName + " found!");   
             }
             this.tbMementoName.Text = e.mementoName;

@@ -104,10 +104,22 @@
                 <TextBox x:Name="rootEntryMem_TextBox" Grid.Column="5" HorizontalAlignment="Stretch"
                          />
                 <Button x:Name="saveMacro" Grid.Column="6" 
-                    Margin="0,0,2,0" Content="Speichern" Click="saveMacro_Click" />
-                
-                <Button x:Name="saveMacroAs" Grid.Column="7" Content="Kopie speichern" 
-                        Click="saveMacroAs_Click" HorizontalAlignment="Left"/>
+                    Margin="0,0,2,0" Content="Speichern" Click="saveMacro_Click">
+                    <Button.ToolTip>
+                        <TextBlock>
+                            Speichert die Einstellungen indem das Macro mit dem angegebenen Namen überschrieben wird.
+                        </TextBlock>
+                    </Button.ToolTip>
+                </Button>
+
+                <Button x:Name="saveMacroAs" Grid.Column="7" Content="Speichern unter" 
+                        Click="saveMacroAs_Click" HorizontalAlignment="Left">
+                    <Button.ToolTip>
+                        <TextBlock>
+                            Speichert die Einstellungen als neuen Eintrag unter dem angegebenen Namen.
+                        </TextBlock>
+                    </Button.ToolTip>
+                </Button>
 
             </Grid>
         <!--<ProgressBar x:Name="progressBar" Grid.Row="1" Margin="0,0,0,5"/>-->
