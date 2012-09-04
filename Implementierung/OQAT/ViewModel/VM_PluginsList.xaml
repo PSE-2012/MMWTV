@@ -33,7 +33,14 @@
             </TreeView.Resources>
         </TreeView>
 
-        <Button Grid.Row="1"  Visibility="Collapsed" Name="bttAddToMacro" Click="bttAddToMacro_Click">zu Macro hinzufügen</Button>
+        <Button Grid.Row="1"  Visibility="Collapsed" Name="bttAddToMacro" Click="bttAddToMacro_Click">
+            zu Macro hinzufügen
+            <Button.ToolTip>
+                <ToolTip>
+                    <TextBlock TextWrapping="Wrap">Plugin in die Warteschlange für das zu bearbeitende Video einfügen</TextBlock>
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
 
         <Grid Grid.Row="2" Name="panelMementoSave" Visibility="Hidden">
             <Grid.RowDefinitions>
@@ -56,12 +63,27 @@
                 <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Name="tbMementoName" Margin="3" Text=""/>
                 <Button Grid.Row="1" Grid.Column="0" Name="bttSaveMemento" Margin="3" Click="bttSaveMemento_Click">
                     <Image Source="/OqatPublicResources;component/Resources/icons/save.png"/>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock TextWrapping="Wrap">Speichern</TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
                 <Button Grid.Row="1" Grid.Column="1" Name="bttSaveAsMemento" Margin="3" Click="bttSaveAsMemento_Click">
                     <Image Source="/OqatPublicResources;component/Resources/icons/copy.png"/>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock TextWrapping="Wrap">Kopie speichern</TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
                 <Button Grid.Row="1" Grid.Column="2" Name="bttDeleteMemento" Margin="3" Click="bttDeleteMemento_Click">
                     <Image Source="/OqatPublicResources;component/Resources/icons/delete.png"/>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock TextWrapping="Wrap">Löschen</TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
             </Grid> 
         </Grid>
@@ -70,7 +92,16 @@
 
         <StackPanel Grid.Row="2" Name="panelMacroProp">
             <!--<TextBlock Name="tb1" TextWrapping="Wrap">Nur das momentan gesetzte Macro kann bearbeitet und kopiert werden.</TextBlock>-->
-            <Button Name="bt2" Click="bttLoadAsMacro_Click">als Macro laden</Button>
+            <Button Name="bt2" Click="bttLoadAsMacro_Click">
+                als Macro laden
+                <Button.ToolTip>
+                    <ToolTip>
+                        <TextBlock TextWrapping="Wrap">Im Gegensatz zum "Hinzufügen" wird das Macro 
+                            als neue Wurzel der Warteschlange geladen.
+                        </TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
             <!--<Button Name="bt3" Click="bttSwitchToCurrentMacro_Click">aktives Macro fokusieren</Button>-->
         </StackPanel>
         

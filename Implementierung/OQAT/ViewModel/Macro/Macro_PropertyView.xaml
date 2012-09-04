@@ -73,29 +73,41 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-            <Button x:Name="startProcessing" 
-                     Grid.Column="0" Margin="0,0,2,0" Content="apply" 
-                    Click="startProcessing_Click"/>
+                <Button x:Name="startProcessing" 
+                     Grid.Column="0" Margin="0,0,2,0" Content="Anwenden" 
+                    Click="startProcessing_Click">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock>Die gelisteten Plugins auf dem aktiven Video ausführen</TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
 
-            <Button x:Name="clearEntries" Grid.Column="1" Margin="0,0,2,0" Content="clear entries"
-                    Click="clearEntries_Click"/>
-            <CheckBox x:Name="previewCheckBox" Visibility="{Binding filterModeVisibility}" 
+                <Button x:Name="clearEntries" Grid.Column="1" Margin="0,0,2,0" Content="Zurücksetzen"
+                    Click="clearEntries_Click">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock>Alle gelisteten Plugins entfernen und das Macro zurücksetzen</TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+                <CheckBox x:Name="previewCheckBox" Visibility="{Binding filterModeVisibility}" 
                       IsEnabled="{Binding filterModeActiveState}"
                       HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="2" Margin="0,0,2,0"/>
             
             <TextBlock x:Name="previewText" Visibility="{Binding filterModeVisibility}" 
                        IsEnabled="{Binding filterModeActiveState}"
-                       Text="preview" Grid.Column="3" />
+                       Text="Vorschau" Grid.Column="3" />
             
                 <Border  Grid.Column="4" Style="{StaticResource SeparatorStyle}"/>
 
                 <TextBox x:Name="rootEntryMem_TextBox" Grid.Column="5" HorizontalAlignment="Stretch"
                          />
                 <Button x:Name="saveMacro" Grid.Column="6" 
-                    Margin="0,0,2,0" Content="save" Click="saveMacro_Click" />
+                    Margin="0,0,2,0" Content="Speichern" Click="saveMacro_Click" />
                 
-                <Button x:Name="saveMacroAs" Grid.Column="7" Content="save as" 
-                        Click="saveMacroAs_Click" HorizontalAlignment="Left" Width="48" />
+                <Button x:Name="saveMacroAs" Grid.Column="7" Content="Kopie speichern" 
+                        Click="saveMacroAs_Click" HorizontalAlignment="Left"/>
 
             </Grid>
         <!--<ProgressBar x:Name="progressBar" Grid.Row="1" Margin="0,0,0,5"/>-->
