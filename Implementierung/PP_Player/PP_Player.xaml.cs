@@ -150,6 +150,7 @@ namespace PP_Player
             stopPlayTickerThread = false;
             pausePlayTicker.Reset();
             this.i.Source = null;
+            this.video = null;
         }
 
 
@@ -233,7 +234,28 @@ namespace PP_Player
         }
 
         Thread _playTickerThread;
-        IVideo video;
+        IVideo _video;
+        IVideo video
+        {
+            get
+            {
+                return _video;
+            }
+            set
+            {
+                _video = value;
+
+                // enable/disable controls
+                if (_video == null)
+                {
+                    this.playerControls.IsEnabled = false;
+                }
+                else
+                {
+                    this.playerControls.IsEnabled = true;
+                }
+            }
+        }
         WriteableBitmap writeableBitmap;
         bool stopPlayTickerThread = false;
         //   ManualResetEvent _waitPlayTickerThreadStop;

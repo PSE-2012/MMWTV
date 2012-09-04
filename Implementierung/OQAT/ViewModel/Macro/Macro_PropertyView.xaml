@@ -25,7 +25,7 @@
         <extToolkit:BusyIndicator.BusyContentTemplate>
             <DataTemplate>
                 <StackPanel Margin="4">
-                    <TextBlock Text="Please wait.." FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Bitte warten ..." FontWeight="Bold" HorizontalAlignment="Center"/>
                     <StackPanel Margin="4">
                         <TextBlock Text="{Binding processingStateMessage, Mode=OneWay}"/>
                         <ProgressBar Value="{Binding processingStateValue, Mode=OneWay}"  Height="15"/>
@@ -36,7 +36,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" Content="Pause" Click="Pause_Click" HorizontalAlignment="Right" Margin="0 0 2 0"/>
-                        <Button Grid.Column="1" Content="Cancel" Click="Cancel_Click" HorizontalAlignment="Left" Margin="2 0 0 0"/>
+                        <Button Grid.Column="1" Content="Abbrechen" Click="Cancel_Click" HorizontalAlignment="Left" Margin="2 0 0 0"/>
                     </Grid>
                 </StackPanel>
             </DataTemplate>
@@ -49,9 +49,7 @@
         </extToolkit:BusyIndicator.OverlayStyle>
         <extToolkit:BusyIndicator.ProgressBarStyle>
             <Style TargetType="ProgressBar">
-                
                 <Setter Property="Visibility" Value="Collapsed"/>
-                
             </Style>
         </extToolkit:BusyIndicator.ProgressBarStyle>
         <Grid x:Name="macroTreeViewGrid" >
@@ -104,10 +102,22 @@
                 <TextBox x:Name="rootEntryMem_TextBox" Grid.Column="5" HorizontalAlignment="Stretch"
                          />
                 <Button x:Name="saveMacro" Grid.Column="6" 
-                    Margin="0,0,2,0" Content="Speichern" Click="saveMacro_Click" />
-                
-                <Button x:Name="saveMacroAs" Grid.Column="7" Content="Kopie speichern" 
-                        Click="saveMacroAs_Click" HorizontalAlignment="Left"/>
+                    Margin="0,0,2,0" Content="Speichern" Click="saveMacro_Click">
+                    <Button.ToolTip>
+                        <TextBlock>
+                            Speichert die Einstellungen indem das Macro mit dem angegebenen Namen überschrieben wird.
+                        </TextBlock>
+                    </Button.ToolTip>
+                </Button>
+
+                <Button x:Name="saveMacroAs" Grid.Column="7" Content="Speichern unter" 
+                        Click="saveMacroAs_Click" HorizontalAlignment="Left">
+                    <Button.ToolTip>
+                        <TextBlock>
+                            Speichert die Einstellungen als neuen Eintrag unter dem angegebenen Namen.
+                        </TextBlock>
+                    </Button.ToolTip>
+                </Button>
 
             </Grid>
         <!--<ProgressBar x:Name="progressBar" Grid.Row="1" Margin="0,0,0,5"/>-->

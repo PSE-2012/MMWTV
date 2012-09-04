@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Xml;
 using System.Globalization;
+using Oqat.ViewModel.MacroPlugin;
 
 namespace Oqat.ViewModel
 {
@@ -125,8 +126,7 @@ namespace Oqat.ViewModel
         private void loadPluginLists()
         {
             _pluginList = new ObservableCollection<PluginViewModel>();
-            var plList = PluginManager.pluginManager.getPluginNames(pluginType);
-            plList =  plList.Concat(PluginManager.pluginManager.getPluginNames(PluginType.IMacro)).ToList();
+            List<string> plList = PluginManager.pluginManager.getPluginNames(pluginType);
             
             foreach (string name in plList)
             {
@@ -144,8 +144,51 @@ namespace Oqat.ViewModel
 
                 pluginList.Add(pl);
             }
+
+
+            //add macros
+            List<string> mList = PluginManager.pluginManager.getPluginNames(PluginType.IMacro);
+            foreach (string name in mList)
+            {
+                PluginViewModel pl = new PluginViewModel(name);
+
+                List<string> mementos = PluginManager.pluginManager.getMementoNames(name);
+                if (mementos != null)
+                {
+                    foreach (string m in mementos)
+                    {
+                        if (m != "")
+                        {
+                            //only show macro mementos of correct type (filter/memento)
+                            Memento mem = PluginManager.pluginManager.getMemento(name, m);
+                            if(IsCorrectPluginType(((MacroEntry)mem.state)))
+                                pl.children.Add(new PluginViewModel(m, pl));
+                        }
+                    }
+                }
+
+                pluginList.Add(pl);
+            }
         }
 
+
+        private bool IsCorrectPluginType(MacroEntry entry)
+        {
+            if (entry == null)
+                return false;
+
+            if (entry.type == this.pluginType)
+            {
+                return true;
+            }
+            else if (entry.type == PluginType.IMacro 
+                && entry.macroEntries != null && entry.macroEntries.Count > 0)
+            {
+                return IsCorrectPluginType(entry.macroEntries[0]);
+            }
+
+            return false;
+        }
 
 
         /// <summary>
@@ -379,16 +422,27 @@ namespace Oqat.ViewModel
         }
 
 
-        private void onMacroSave(object sender, MementoEventArgs e) {
-          
+        private void onMacroSave(object sender, MementoEventArgs e) 
+        {
+            //ignore if this is a macro not belonging to this list
+            if (!IsCorrectPluginType((MacroEntry)e.getMemDel().state))
+                return;
+
+
             PluginViewModel plVm;
-            if(e.previousMementoName == "") { //just save
+            if(e.previousMementoName == "") 
+            { //just save
                 plVm = findPVM(e.pluginKey, e.mementoName);
-                if (plVm == null)
-                    throw new ArgumentException("No such memento: " + e.mementoName + " found!");
-            } else { // rename and save
+                if (plVm == null || !plVm.isMemento)
+                {
+                    onMacroSaveAs(sender, e);
+                    //throw new ArgumentException("No such memento: " + e.mementoName + " found!");
+                }
+            } 
+            else 
+            { // rename and save
                 plVm = findPVM(e.pluginKey, e.previousMementoName);
-                if (plVm == null)
+                if (plVm == null || !plVm.isMemento)
                     throw new ArgumentException("No such memento: " + e.previousMementoName + " found!");   
             }
             this.tbMementoName.Text = e.mementoName;
@@ -399,6 +453,11 @@ namespace Oqat.ViewModel
 
     
         private void onMacroSaveAs(object sender, MementoEventArgs e) {
+            //ignore if this is a macro not belonging to this list
+            if (!IsCorrectPluginType((MacroEntry)e.getMemDel().state))
+                return;
+
+
             PluginViewModel plVm = new PluginViewModel(e.previousMementoName, findPVM(e.pluginKey, null));
             this.tbMementoName.Text = e.mementoName;
             mementoSaveAs(plVm, e.getMemDel);

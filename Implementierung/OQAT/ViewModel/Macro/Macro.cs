@@ -676,11 +676,10 @@ namespace Oqat.ViewModel.MacroPlugin
         {
             if (originallTlMacroName.Equals(rootEntry.mementoName) || (saveType == EventType.saveMacroAs))
                 originallTlMacroName = "";
-            //       try
-            //       {
+
             PluginManager.pluginManager.raiseEvent(saveType,
                 new MementoEventArgs(this.rootEntry.mementoName, this.namePlugin, originallTlMacroName, getMemento));
-            //      }
+            
             originallTlMacroName = rootEntry.mementoName;
         }
 

@@ -209,7 +209,7 @@ namespace OQAT_Tests
             MSE_Accessor target = new MSE_Accessor();
             Memento memento = new Memento("MSE", 2);
             target.setMemento(memento);
-            Assert.AreEqual(target.propertiesView.getRb(), 2, "propertiesView Radio Button could not be set.");
+            Assert.AreEqual(target.getMemento().state, 2, "propertiesView Radio Button could not be set.");
         }
 
         /// <summary>
@@ -233,11 +233,11 @@ namespace OQAT_Tests
             MSE_Accessor target = new MSE_Accessor();
             Memento memento = new Memento("RANGE", -1);
             target.setMemento(memento);
-            Assert.IsTrue(target.propertiesView.getRb() > -1, "Invailed Range for MSE. Range [0, 3]");
+            Assert.IsTrue((int)target.getMemento().state > -1, "Invailed Range for MSE. Range [0, 3]");
 
             memento = new Memento("RANGE", 4);
             target.setMemento(memento);
-            Assert.IsTrue(target.propertiesView.getRb() < 4, "Invailed Range for MSE. Range [0, 3]");
+            Assert.IsTrue((int)target.getMemento().state < 4, "Invailed Range for MSE. Range [0, 3]");
         }
 
         /// <summary>
@@ -277,6 +277,18 @@ namespace OQAT_Tests
             target.type = expected;
             actual = target.type;
             Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        ///Ein Test für "setMemento"
+        ///</summary>
+        [TestMethod()]
+        public void setMementoTest1()
+        {
+            MSE target = new MSE(); // TODO: Passenden Wert initialisieren
+            Memento memento = null; // TODO: Passenden Wert initialisieren
+            target.setMemento(memento);
+            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
     }
 }
