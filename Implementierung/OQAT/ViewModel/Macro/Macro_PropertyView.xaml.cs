@@ -852,6 +852,17 @@ namespace Oqat.ViewModel.MacroPlugin
                     new MementoEventArgs(value.mementoName, value.pluginName));
             }
         }
+        string _pleaseWait;
+        public string pleaseWait
+        {
+            get { return _pleaseWait; }
+            set
+            {
+                _pleaseWait = value;
+                NotifyPropertyChanged("pleaseWait");
+                
+            }
+        }
         public void local(String s)
         {
             try
@@ -860,7 +871,7 @@ namespace Oqat.ViewModel.MacroPlugin
                 XmlTextReader reader = new XmlTextReader(sFilename);
                 reader.Read();
                 reader.Read();
-                int count = 6;
+                int count = 7;
                 String[] t = new String[count];
                 String[] t2 = new String[count];
                 for (int i = 0; i < count; i++)
@@ -881,6 +892,8 @@ namespace Oqat.ViewModel.MacroPlugin
                 saveMacro.Content = t2[3];
                 saveMacroAs.Content = t2[4];
                 tt1.Text = t2[5];
+                pleaseWait = t2[6];
+                NotifyPropertyChanged("pleaseWait");
             }
             catch (IndexOutOfRangeException e) { }
             catch (FileNotFoundException e) { }
