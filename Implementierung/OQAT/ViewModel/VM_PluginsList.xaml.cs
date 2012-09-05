@@ -127,48 +127,37 @@ namespace Oqat.ViewModel
         {
             _pluginList = new ObservableCollection<PluginViewModel>();
             List<string> plList = PluginManager.pluginManager.getPluginNames(pluginType);
+            plList.Add(Macro.pluginName);
             
             foreach (string name in plList)
             {
-                PluginViewModel pl = new PluginViewModel(name);
-
-                List<string> mementos = PluginManager.pluginManager.getMementoNames(name);
-                if(mementos != null)
-                {
-                    foreach (string m in mementos)
-                    {
-                        if(m!="") // no invisible entries allowed
-                            pl.children.Add(new PluginViewModel(m, pl));
-                    }
-                }
-
-                pluginList.Add(pl);
+                pluginList.Add(createParentPVM(name));
             }
 
+        }
 
-            //add macros
-            List<string> mList = PluginManager.pluginManager.getPluginNames(PluginType.IMacro);
-            foreach (string name in mList)
+        private PluginViewModel createParentPVM(string pluginName)
+        {
+            PluginViewModel pl = new PluginViewModel(pluginName);
+
+            List<string> mementos = PluginManager.pluginManager.getMementoNames(pluginName);
+            if (mementos != null)
             {
-                PluginViewModel pl = new PluginViewModel(name);
-
-                List<string> mementos = PluginManager.pluginManager.getMementoNames(name);
-                if (mementos != null)
+                foreach (string m in mementos)
                 {
-                    foreach (string m in mementos)
+                    if (m != "") // no invisible entries allowed
                     {
-                        if (m != "")
+                        //only show macro mementos of correct type (filter/memento)
+                        if (m != Macro.pluginName ||
+                            IsCorrectPluginType(((MacroEntry)PluginManager.pluginManager.getMemento(pluginName, m).state)))
                         {
-                            //only show macro mementos of correct type (filter/memento)
-                            Memento mem = PluginManager.pluginManager.getMemento(name, m);
-                            if(IsCorrectPluginType(((MacroEntry)mem.state)))
-                                pl.children.Add(new PluginViewModel(m, pl));
+                            pl.children.Add(new PluginViewModel(m, pl));
                         }
                     }
                 }
-
-                pluginList.Add(pl);
             }
+
+            return pl;
         }
 
 
@@ -480,6 +469,11 @@ namespace Oqat.ViewModel
         {
             PluginViewModel s = findPVM(e.pluginKey, e.mementoName);
             if (s != null) s.selected = true;
+        }
+
+        private void onPluginTableChanged(object sender, EntryEventArgs e)
+        {
+            _pluginList.Insert(_pluginList.Count-2, createParentPVM(e.Entry));
         }
 
         #endregion
