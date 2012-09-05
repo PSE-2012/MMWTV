@@ -140,6 +140,7 @@ namespace OQAT_Tests
         ///Write context test
         ///</summary>
         [TestMethod]
+        [ExpectedException(typeof(IOException), "Writer was given a wrong path but didnt complain.")]
         public void writeContextTest()
         {
             YuvVideoHandler yvh = new YuvVideoHandler();
@@ -147,16 +148,10 @@ namespace OQAT_Tests
             info.width = 352;
             info.height = 240;
             info.yuvFormat = YuvFormat.YUV420_IYUV;
-            try
-            {
-                yvh.setWriteContext(readPath, info);
-                Assert.Fail("no exception thrown");
-            }
-            catch (Exception ex)
-            {
 
-            }
-            yvh.setReadContext(readPath, info); // write context cannot be set without a valid read context
+            yvh.setWriteContext(readPath, info);
+
+            yvh.setReadContext(readPath, info);
             yvh.setWriteContext(readPath, info);
             Assert.AreEqual(info, yvh.writeVidInfo);
             Assert.IsTrue(yvh.consistent);

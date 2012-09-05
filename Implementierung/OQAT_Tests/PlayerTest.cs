@@ -194,6 +194,7 @@ namespace OQAT_Tests
         ///</summary>
         [TestMethod()]
         [DeploymentItem("PP_Player.dll")]
+        [ExpectedException(typeof(ArgumentException), "Player dindt throw an exception on a play click without preceding initialization.")]
         public void Play_ClickTest()
         {
             Player_Accessor target = new Player_Accessor();

@@ -1111,8 +1111,7 @@ using System.Collections.Generic;
             }
             catch (IOException e)
             {
-                //TODO: handle writer exceptions?
-                throw e;
+                throw new IOException("Problems occured while writing to disk. \n  Exception : " + e.Message, e);
             }
         }
 
@@ -1141,6 +1140,9 @@ using System.Collections.Generic;
         /// <returns>a byte array filled with yuv equivalents of the given frame</returns>
         private byte[] frameToYUV(Bitmap frame)
         {
+            if (frame == null)
+                throw new ArgumentNullException("Given frame is null.");
+
             byte[] fdata = new byte[((YuvVideoInfo)writeVidInfo).frameSize];
             FrameDataPointers pointers = new FrameDataPointers((YuvVideoInfo)writeVidInfo);
 

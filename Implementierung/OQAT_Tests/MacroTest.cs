@@ -88,18 +88,28 @@ namespace OQAT_Tests
         {
             Macro target = new Macro();
             Memento memento = null;
-            target.setMemento(memento);
+            try
+            {
+                target.setMemento(memento);
+                Assert.Fail("Macro should have raised an exception if setMemento is called with null.");
+            }
+            catch (Exception exc)
+            {
+                Assert.IsTrue(true, "Macro has reacted as expected, exception message: \n" + exc.Message);
+            }
         }
         /// <summary>
         ///Test "setMemento": null state
         ///</summary>
         [TestMethod()]
+        [ExpectedException(typeof(ArgumentNullException), "Macro didnt notice that the given state object was null.")]
         public void setMementoTest_nullstate()
         {
             Macro_Accessor target = new Macro_Accessor();
 
             string mementoname = "testmemento";
             Memento memento = new Memento(mementoname, null);
+
             target.setMemento(memento);
 
             Assert.AreNotEqual<string>(mementoname, target.rootEntry.mementoName, "The invalid memento was partly loaded.");
@@ -145,6 +155,7 @@ namespace OQAT_Tests
         ///Test "getMemento": set before get
         ///</summary>
         [TestMethod()]
+        [ExpectedException(typeof(ArgumentException), "Macro didnt complain about invalid mementos")]
         public void getMementoTest()
         {
             Macro_Accessor target = new Macro_Accessor();
@@ -379,11 +390,25 @@ namespace OQAT_Tests
         ///</summary>
         [TestMethod()]
         [DeploymentItem("OQAT.exe")]
+        [ExpectedException(typeof(ArgumentException), "Macro noticed that the given pluginName" + 
+                                                    " dindt refer to a existing plugin and therefore is still consistent")]
         public void clearMacroEntryListTest()
         {
             Macro_Accessor target = new Macro_Accessor();
+
+            target.addMacroEntry(this, new MementoEventArgs("TestMacroEntry", "notExistingPluginName"));
+
+
+            target.addMacroEntry(this, new MementoEventArgs("memName", "Macro"));
+            PrivateObject macroAccessor = new PrivateObject(target);
+            MacroEntry rootEntry = macroAccessor.GetProperty("rootEntry", null) as MacroEntry;
+            Assert.IsNotNull(rootEntry, "Macro didnt process the add operation correctly.");
+            Assert.IsTrue(1 == rootEntry.macroEntries.Count, "Add macro operation didnt change the entries property.");
+
             target.clearMacroEntryList();
-            Assert.Inconclusive("Function not implemented therefor no tests either.");
+
+            Assert.IsTrue(0 == rootEntry.macroEntries.Count, "Clear operation didnt remove all items.");
+           
         }
 
     }

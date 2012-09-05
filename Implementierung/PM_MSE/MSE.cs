@@ -198,7 +198,10 @@ namespace PM_MSE
         /// </summary>
         public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
-            if (memento.state is int)
+            if (memento == null)
+                throw new ArgumentNullException("Given memento is null.");
+
+            if (memento.state!=null && memento.state is int)
             {
                 Object obj = memento.state;
                 radioButton = (int)obj;
