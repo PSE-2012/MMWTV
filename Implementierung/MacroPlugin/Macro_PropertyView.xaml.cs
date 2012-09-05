@@ -729,7 +729,8 @@ namespace Oqat.ViewModel.MacroPlugin
                         TreeViewItem dropTarget;
                         var insertIndex = getInsertIndex(e, treeViewItem, out dropTarget);
 
-                        entryToDropIn = dropTarget.DataContext as MacroEntry;
+                        if(dropTarget != null)
+                            entryToDropIn = dropTarget.DataContext as MacroEntry;
 
                         if (entryToDropIn == null) // insert at toplevel
                         {
