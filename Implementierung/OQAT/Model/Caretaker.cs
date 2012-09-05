@@ -38,7 +38,7 @@ namespace Oqat.Model
 		/// <summary>
 		/// Getter and setter methods for a Caretaker.
 		/// </summary>
-        internal static Caretaker caretaker
+        public static Caretaker caretaker
         {
             get
             {

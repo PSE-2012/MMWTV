@@ -9,8 +9,6 @@ using System.Threading;
 using System.Xml;
 using System.IO;
 
-using Oqat.ViewModel.MacroPlugin;
-
 namespace Oqat.ViewModel
 {
     /// <summary>
@@ -22,7 +20,7 @@ namespace Oqat.ViewModel
         IPresentation _playerProc;
         IPresentation _playerRef;
         IPresentation _diagram;
-        internal Macro macro;
+        internal IMacro macro;
         
 
         ViewType vtype;
@@ -85,7 +83,7 @@ namespace Oqat.ViewModel
             PluginManager.videoLoad += this.onVideoLoad;
 
             //init macro
-            macro = new Macro();
+            macro = PluginManager.pluginManager.getPlugin<IMacro>("Macro");
 
 
             this._custom = new List<IPresentation>();

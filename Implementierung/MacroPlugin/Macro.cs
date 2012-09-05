@@ -12,6 +12,10 @@ using System.Windows.Documents;
 using Oqat.Model;
 using Oqat.PublicRessources.Model;
 using Oqat.PublicRessources.Plugin;
+using System.Xml;
+using System.Threading;
+using System.IO;
+using System.Windows;
 
 namespace Oqat.ViewModel.MacroPlugin
 {
@@ -19,9 +23,16 @@ namespace Oqat.ViewModel.MacroPlugin
     [ExportMetadata("type", PluginType.IMacro)]
     [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
-
-    class Macro : IMacro
+    public class Macro : IMacro
     {
+        public static string pluginName
+        {
+            get
+            {
+                return "Macro";
+            }
+        }
+
 
         /// <summary>
         /// This is the TopLevel macro. All processing
@@ -36,8 +47,6 @@ namespace Oqat.ViewModel.MacroPlugin
             // init first entry
             this.rootEntry = new MacroEntry(this.namePlugin, PluginType.IMacro, "");
             this.rootEntry.frameCount = 100;
-            this.rootEntry.startFrameAbs = 0;
-            this.rootEntry.endFrameAbs = 100;
 
             MacroViewDelegates macroViewDelegates = new MacroViewDelegates(addMacroEntry, moveMacroEntry,
                                                     removeMacroEntry, constructMacroFromMementoArg,
@@ -45,30 +54,36 @@ namespace Oqat.ViewModel.MacroPlugin
                                                     registerOnMacroEventsHelper);
             
             propertyView = new Macro_PropertyView(this.rootEntry, macroViewDelegates);
+            registeredLock = new Object();
             
             _propertyView.readOnly = false;
-            
+            from =  " von ";
+            framesProcessed = " Bilder verarbeitet.";
+            local("VM_Macro_" + Thread.CurrentThread.CurrentCulture + ".xml");
 
         
         }
 
-        private bool registered;
+        private int registered = 0;
+        private object registeredLock;
         private void registerOnMacroEventsHelper() {
-            if (!registered)
+            lock(registeredLock) {
+            if (!_propertyView.readOnly && registered < 1)
             {
                
                 PluginManager.macroEntryAdd += this.addMacroEntry;
                 PluginManager.OqatToggleView += onToggleView;
                 PluginManager.setMacroMemento += setMemento;
-                registered = true;
+                registered++;
             }
-            else if(registered)
+            else if(_propertyView.readOnly && registered > 0)
             {
                 PluginManager.macroEntryAdd -= this.addMacroEntry;
                 PluginManager.OqatToggleView -= onToggleView;
                 PluginManager.setMacroMemento -= setMemento;
-                registered = false;
+                registered--;
             }
+        }
         }
 
 #region fieldsProperties
@@ -93,54 +108,133 @@ namespace Oqat.ViewModel.MacroPlugin
         {
             get { return false; }
         }
+
+        string processCancelled_MsgBox_Text = "Möchten sie das bis jetzt erstellte video behalten, dann klicken Sie auf \"Ja\"." +
+            " Klicken Sie auf \"Nein\", falls Sie das Video verwerfen möchten.?";
+        string caption_processedCancelled_MsgBox = " Macro prozess abgebrochen.";
 #endregion
+
+
+
         private void filterProcessCompleted(object s, RunWorkerCompletedEventArgs e)
         {
             _propertyView.processing = false;
+            MessageBoxResult result = MessageBoxResult.Yes;
             if (e.Cancelled == true)
             {
-                //cancelled
+                MessageBoxButton button = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+
+                result = MessageBox.Show(processCancelled_MsgBox_Text, 
+                    caption_processedCancelled_MsgBox, button, icon);
+
             }
-            else if (e.Error != null)
+
+
+            if (e.Error != null)
             {
                 //error + e.Error.Message;
             }
-            else
+            else if (result == MessageBoxResult.Yes)
             {
+                vidRes.vidInfo.frameCount = -1;
                 PluginManager.pluginManager.raiseEvent(
                 EventType.macroProcessingFinished, new VideoEventArgs(this.vidRes, this.idRes));
+            }
+            else
+            {
+                if (File.Exists(vidRes.vidPath))
+                    File.Delete(vidRes.vidPath);
             }
         }
 
         private void metricProcessCompleted(object s, RunWorkerCompletedEventArgs e)
         {
             _propertyView.processing = false;
-            if (e.Cancelled == true)
+            MessageBoxResult result = MessageBoxResult.Yes;
+            if (((procFinishedResult)e.Result).cancelled == true)
             {
-                //cancelled
+                MessageBoxButton button = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                result = MessageBox.Show(processCancelled_MsgBox_Text,
+                    caption_processedCancelled_MsgBox, button, icon);
             }
-            else if (e.Error != null)
+
+            if (e.Error != null)
             {
                 //error + e.Error.Message;
             }
-            else
+            else if (result == MessageBoxResult.Yes)
             {
-                Debug.Assert(e.Result is List<metricResultContext>);
 
-                foreach (var subEntry in e.Result as List<metricResultContext>)
+                if(!(((procFinishedResult)e.Result).seqMetricResultCtxList is List<metricResultContext>))
+                 throw new ArgumentException("Result args are not of type procFinishedResult.");
+
+                foreach (var subEntry in ((procFinishedResult)e.Result).seqMetricResultCtxList)
                 {
+                    subEntry.vidRes.handler.flushReader();
+                    subEntry.vidRes.handler.flushWriter();
+                    (subEntry.vidRes as Video).handler = null;
+                    // if video wasnt constructed till the last frame  (user cancelled)
+                    // this will trigger a reinitialization of the frameCount property
+                    subEntry.vidRes.vidInfo.frameCount = -1;
+                    if (((procFinishedResult)e.Result).cancelled)
+                    {
+                        var newFrameMetricValues = subEntry.vidRes.frameMetricValue;
+                        Array.Resize(ref newFrameMetricValues, subEntry.vidRes.vidInfo.frameCount);
+
+                     //  need Video here cause IVideo does not provide a setter for this property
+                       (subEntry.vidRes as Video).frameMetricValue = newFrameMetricValues;
+
+                    }
+                   //     (metResContext.vidRes as Video).frameMetricValue = new float[metResContext.vidRes.vidInfo.frameCount][];
+                   
+
                     PluginManager.pluginManager.raiseEvent(
                         EventType.macroProcessingFinished, new VideoEventArgs(subEntry.vidRes, this.idRes));
+                }
+            }
+            else
+            {//user clicked No -> delete all files
+                foreach (var subEntry in ((procFinishedResult)e.Result).seqMetricResultCtxList)
+                {
+                    if (File.Exists(subEntry.vidRes.vidInfo.path))
+                        File.Delete(subEntry.vidRes.vidInfo.path);
+                    subEntry.vidRes.handler.flushReader();
+                    subEntry.vidRes.handler.flushWriter();
+                    // if video wasnt constructed till the last frame  (user cancelled)
+                    // this will trigger a reinitialization of the frameCount property
+                    vidRes.vidInfo.frameCount = -1;
+                    (subEntry.vidRes as Video).handler = null;
                 }
             }
         }
 
         private void filterProcess(object s, DoWorkEventArgs e)
         {
+            // construct result video and init handler writing context
+            var tmpVidInfo = handRef.readVidInfo.Clone() as IVideoInfo;
+            string ext = this.rootEntry.mementoName;
+            if (ext == "" && rootEntry.macroEntries.Count == 1)
+            {
+                ext = rootEntry.macroEntries[0].mementoName;
+            }
+            string newPath = findValidVidPath(handRef.readPath, ext);
+            tmpVidInfo.path = newPath;
+            tmpVidInfo.frameCount = handRef.readVidInfo.frameCount;
+            Video vidRes = new Video(isAnalysis: false,
+                vidPath: newPath,
+                vidInfo: tmpVidInfo);
+
+            this.vidRes = vidRes;
+            handRef.setWriteContext(vidRes.vidPath, vidRes.vidInfo);
+
+
+
 
             List<MacroEntry> seqMacroEntryList = new List<MacroEntry>();
             recursiveFilterExplorer(this.rootEntry, seqMacroEntryList);
-
+            handRef.positionReader = 0;
             while (handRef.positionReader < handRef.readVidInfo.frameCount)
             {
                 Bitmap bmp = handRef.getFrame();
@@ -148,8 +242,8 @@ namespace Oqat.ViewModel.MacroPlugin
                 foreach (var filterEntry in seqMacroEntryList)
                 {
 
-                    if (!(filterEntry.startFrameAbs > handRef.positionReader)
-                        && (filterEntry.endFrameAbs > handRef.positionReader))
+                    if ((filterEntry.startFrameAbs <= (handRef.positionReader - 1))
+                        && (filterEntry.endFrameAbs >= (handRef.positionReader - 1)))
                     {
                         try
                         {
@@ -161,8 +255,9 @@ namespace Oqat.ViewModel.MacroPlugin
                             bmp = actPlugin.process(bmp);
 
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
+                            PluginManager.pluginManager.raiseEvent(EventType.failure, new ErrorEventArgs(ex));
                             //TODO
                             // set plugin to blackList if something went wrong
                         }
@@ -170,7 +265,7 @@ namespace Oqat.ViewModel.MacroPlugin
                 }
                 var tmpBmpArray = new Bitmap[1];
                 tmpBmpArray[0] = bmp;
-                handRef.writeFrames(handRef.positionReader, tmpBmpArray);
+                handRef.writeFrames(handRef.positionReader - 1, tmpBmpArray);
 
                 if (worker.CancellationPending)
                 {
@@ -198,7 +293,14 @@ namespace Oqat.ViewModel.MacroPlugin
             {
                 if (subEntry.type != PluginType.IMacro)
                 {
-                    seqMacroList.Add(subEntry);
+                    var newEntry = new MacroEntry(subEntry.pluginName, subEntry.type, subEntry.mementoName);
+
+             
+                    newEntry._endFrameRelative = subEntry._endFrameRelative;
+                    newEntry._startFrameRelative = subEntry._startFrameRelative;
+                    newEntry.frameCount = subEntry.frameCount;
+                    newEntry.mementoName = subEntry.mementoName;
+                    seqMacroList.Add(newEntry);
                 }
                 else
                 {
@@ -214,7 +316,8 @@ namespace Oqat.ViewModel.MacroPlugin
             List<metricResultContext> seqMetricResultCtxList = new List<metricResultContext>();
 
             recursiveMetricExplorer(this.rootEntry, seqMetricResultCtxList);
-
+            handRef.positionReader = 0;
+            handProc.positionReader = 0;
             while (handRef.positionReader < handRef.readVidInfo.frameCount)
             {
                 Bitmap bmpRef = handRef.getFrame();
@@ -223,8 +326,8 @@ namespace Oqat.ViewModel.MacroPlugin
                 foreach (var subEntry in seqMetricResultCtxList)
                 {
                     // check if set as active
-                    if (!(subEntry.entry.startFrameAbs > handRef.positionReader)
-                        && (subEntry.entry.endFrameAbs > handRef.positionReader))
+                    if ((subEntry.entry.startFrameAbs <= (handRef.positionReader - 1))
+                        && (subEntry.entry.endFrameAbs > handRef.positionReader - 1))
                     {
                         // init plugin
                         IMetricOqat curPlugin =
@@ -237,32 +340,33 @@ namespace Oqat.ViewModel.MacroPlugin
                         var info = curPlugin.analyse(bmpRef, bmpProc);
 
                         // write acquired frame
-                        (subEntry.vidRes as Video).frameMetricValue[
-                            handRef.positionReader - subEntry.entry.startFrameAbs] = info.values;
+                        (subEntry.vidRes as Video).frameMetricValue[handRef.positionReader - 1 - subEntry.entry.startFrameAbs] = info.values;
                         var tmpArray = new Bitmap[1];
                         tmpArray[0] = info.frame;
-                        subEntry.handRes.writeFrames(handRef.positionReader - (int)subEntry.entry.startFrameAbs, tmpArray);
+                        subEntry.handRes.writeFrames(handRef.positionReader - 1 - (int)subEntry.entry.startFrameAbs, tmpArray);
 
                     }
                 }
                 if (worker.CancellationPending)
                 {
-                    e.Cancel = true;
                     break;
                 }
                 else
                 {
-                    worker.ReportProgress((int)(handRef.positionReader / rootEntry.frameCount / 100.0));
+                    worker.ReportProgress((int)(handRef.positionReader /( rootEntry.frameCount / 100.0)));
                 }
 
             }
-            e.Result = seqMetricResultCtxList;
+            procFinishedResult prFinishResult = new procFinishedResult();
+            prFinishResult.cancelled = worker.CancellationPending;
+            prFinishResult.seqMetricResultCtxList = seqMetricResultCtxList;
 
-            //foreach (var subEntry in seqMacroEntryList)
-            //{
-            //    PluginManager.pluginManager.raiseEvent(
-            //        EventType.macroProcessingFinished, new VideoEventArgs(subEntry.vidRes, this.idRes));
-            //}
+            e.Result = prFinishResult;
+        }
+        struct procFinishedResult
+        {
+           public bool cancelled;
+           public List<metricResultContext> seqMetricResultCtxList;
         }
 
         struct metricResultContext
@@ -274,13 +378,15 @@ namespace Oqat.ViewModel.MacroPlugin
 
         private void recursiveMetricExplorer(MacroEntry entry, List<metricResultContext> seqMacroEntryList)
         {
-            Debug.Assert(seqMacroEntryList != null, "Given seqMacroEntryList is null.");
+            if(seqMacroEntryList == null)
+                throw new ArgumentNullException("Given seqMacroEntryList is null.");
+
             foreach (var subEntry in entry.macroEntries)
             {
                 if (subEntry.type != PluginType.IMacro)
                 {
                     metricResultContext metResContext;
-                    metResContext.entry = subEntry;
+
                     string path;
 
 
@@ -295,9 +401,20 @@ namespace Oqat.ViewModel.MacroPlugin
 
 
                     var tmpEntryList = new List<IMacroEntry>();
-                    tmpEntryList.Add(subEntry);
+                    var newEntry = new MacroEntry(subEntry.pluginName, subEntry.type, subEntry.mementoName);
+                   
+                    metResContext.entry = newEntry;
+                    metResContext.entry._endFrameRelative = subEntry._endFrameRelative;
+                    metResContext.entry._startFrameRelative = subEntry._startFrameRelative;
+                    metResContext.entry.frameCount = subEntry.frameCount;
+                    metResContext.entry.mementoName = subEntry.mementoName;
+                   
+                    tmpEntryList.Add(newEntry);
 
                     var tmpVidInfo = handProc.readVidInfo.Clone() as IVideoInfo;
+
+                    tmpVidInfo.path = path;
+
                     tmpVidInfo.frameCount = (int)(subEntry.endFrameAbs - subEntry.startFrameAbs);
 
                     metResContext.vidRes = new Video(isAnalysis: true,
@@ -325,7 +442,7 @@ namespace Oqat.ViewModel.MacroPlugin
 
 
             string ext = Path.GetExtension(possiblePath);
-            path = Path.GetDirectoryName(possiblePath) + Path.GetFileNameWithoutExtension(possiblePath);
+            path = Path.GetDirectoryName(possiblePath) + "\\" + Path.GetFileNameWithoutExtension(possiblePath);
             bool pathValid = false;
             int n = 0;
             string counter = "";
@@ -364,10 +481,7 @@ namespace Oqat.ViewModel.MacroPlugin
             }
             clearMacroEntryList();
             this.rootEntry.mementoName = "";
-            this.rootEntry.frameCount = 100;
-            this.rootEntry.startFrameAbs = 0;
-            this.rootEntry.endFrameAbs = 100;
-
+           // this.rootEntry.frameCount = 100;
         }
 
         public IPlugin createExtraPluginInstance()
@@ -385,35 +499,26 @@ namespace Oqat.ViewModel.MacroPlugin
         public void setMemento(PublicRessources.Model.Memento memento)
         {
             if (memento == null)
-<<<<<<< HEAD
                 throw new ArgumentNullException("Given memento is null.");
-            var newTLMacroEnry = memento.state as MacroEntry;
+
+             var newTLMacroEnry = memento.state as MacroEntry;
+
 
             if (newTLMacroEnry == null)
                 throw new ArgumentNullException("Given state object is null.");
 
+
             if (newTLMacroEnry.mementoName != memento.name)
                 throw new ArgumentException("Given memento shows inconsistencies. Name of top level macro does not equal to" +
-                                            "the memento name.");
-            flush();
+                                            " the memento name.");
 
+
+            //flush();
+            originallTlMacroName = newTLMacroEnry.mementoName;
             addMacroEntry(newTLMacroEnry, null);
            
-=======
-                throw new ArgumentNullException();
-
-            if (memento.state != null && memento.state is MacroEntry)
-            {
-                MacroEntry newTLMacroEnry = memento.state as MacroEntry;
-
-                //Debug.Assert(newTLMacroEnry.mementoName.Equals(memento.name));
-                //Debug.Assert(newTLMacroEnry.macroEntries.Count > 0);
-
-                flush();
-                addMacroEntry(newTLMacroEnry, null);
-            }
->>>>>>> 6b86aa8be2bad20b9bf4b3408ec754fc143f108e
         }
+
         private string originallTlMacroName = "";
 
         public virtual string namePlugin
@@ -447,21 +552,15 @@ namespace Oqat.ViewModel.MacroPlugin
 
         public void setFilterContext(int idRef, IVideo vidRef)
         {
+            //do not set new context while macro is processing
+            if (_propertyView.processing)
+                return;
+
+
             flush();
 
             this.idRes = idRef;
             handRef = vidRef.getExtraHandler();
-
-            // construct result video and init handler writing context
-            var tmpVidInfo = handRef.readVidInfo.Clone() as IVideoInfo;
-            Video vidRes = new Video(isAnalysis: false,
-                vidPath: findValidVidPath(vidRef.vidPath, this.rootEntry.mementoName),
-                vidInfo: tmpVidInfo);
-
-
-            this.vidRes = vidRes;
-            handRef.setWriteContext(vidRes.vidPath, vidRes.vidInfo);
-
 
             (propertyView as Macro_PropertyView).filterMode = true;
 
@@ -473,6 +572,11 @@ namespace Oqat.ViewModel.MacroPlugin
 
         public void setMetricContext(IVideo vidRef, int idProc, IVideo vidProc)
         {
+            //do not set new context while macro is processing
+            if (_propertyView.processing)
+                return;
+
+
 
             flush();
 
@@ -481,10 +585,12 @@ namespace Oqat.ViewModel.MacroPlugin
             {
                 handRef = vidRef.getExtraHandler();
 
+                this.rootEntry.frameCount = handRef.readVidInfo.frameCount;
             }
             if (vidProc != null)
             {
                 handProc = vidProc.getExtraHandler();
+                this.rootEntry.frameCount = handProc.readVidInfo.frameCount;
             }
 
 
@@ -537,18 +643,21 @@ namespace Oqat.ViewModel.MacroPlugin
         }
         private void addMacroEntry(MacroEntry child, MacroEntry father, int index = -1)
         {
+
             lock (this.rootEntry)
             {
+                if (this.handRef != null)
+                    child.frameCount = handRef.readVidInfo.frameCount;
+                else if (this.handProc != null)
+                    child.frameCount = handProc.readVidInfo.frameCount;
+
                 if (father == null) // child is new TL macro
                 {
                     rootEntry.mementoName = child.mementoName;
                     originallTlMacroName = rootEntry.mementoName;
-                    // these are alway default for topLevel macros
-                    //macroEntry.startFrameAbs = child.startFrameAbs;
-                    //macroEntry.endFrameAbs = child.endFrameAbs;
+                    _propertyView.rootEntryMem_TextBox.Text = rootEntry.mementoName;
                     clearMacroEntryList();
-                    rootEntry.macroEntries = (rootEntry.macroEntries.Concat(child.macroEntries))
-                        as ObservableCollection<MacroEntry>;
+                    concatObsCollInplace(rootEntry.macroEntries, child.macroEntries);
                 }
                 else
                 {
@@ -562,7 +671,18 @@ namespace Oqat.ViewModel.MacroPlugin
                     }
                 }
             }
+            // triggers reinitialization
+            this._propertyView.readOnly = this._propertyView.readOnly;
+            
         }
+        private void concatObsCollInplace(ObservableCollection<MacroEntry> first, ObservableCollection<MacroEntry> second)
+        {
+            foreach (var entry in second)
+            {
+                first.Add(entry);
+            }
+        }
+
         private void moveMacroEntry(MacroEntry toMoveMacro, MacroEntry target, int index = -1)
         {
             removeMacroEntry(toMoveMacro);
@@ -573,10 +693,20 @@ namespace Oqat.ViewModel.MacroPlugin
 
         // delete the items (NOT the collection itself)
         private void clearMacroEntryList() { if (rootEntry.macroEntries != null) rootEntry.macroEntries.Clear(); else rootEntry.macroEntries = new ObservableCollection<MacroEntry>(); }
-        private void cancelProcessing() { }
-        private void pauseProcessing() { }
-        private void startProcessing() {
+        private void cancelProcessing() {
 
+            if (worker != null)
+                worker.CancelAsync();
+        }
+        private void pauseProcessing() { }
+
+        string from ;
+        string framesProcessed; 
+
+        private void startProcessing() 
+        {
+            if (this.handRef == null)
+                throw new ContextNotSetException("No Video loaded.");
 
             _propertyView.processingStateValue = 0;
             _propertyView.processing = true;
@@ -605,16 +735,21 @@ namespace Oqat.ViewModel.MacroPlugin
                 _propertyView.MacroEntryTreeView.Dispatcher.VerifyAccess();
 
                 _propertyView.processingStateValue = args.ProgressPercentage;
-                _propertyView.processingStateMessage = "Processed " + this.handRef.positionReader + " of " + this.rootEntry.frameCount + " frames.";
+                _propertyView.processingStateMessage = +this.handRef.positionReader + from + this.rootEntry.frameCount + framesProcessed;
 
             };
 
 
             worker.RunWorkerAsync();
         }
+       
         #endregion
         private void onToggleView(object sender, ViewTypeEventArgs e)
         {
+            //do not switch display of this macro object if it is processing
+            if (_propertyView.processing)
+                return;
+
             if (e.viewType == viewType)
                 return;
 
@@ -640,14 +775,12 @@ namespace Oqat.ViewModel.MacroPlugin
 
         private void saveSaveAsHelper(EventType saveType)
         {
-            if (originallTlMacroName.Equals(rootEntry.mementoName))
+            if (originallTlMacroName.Equals(rootEntry.mementoName) || (saveType == EventType.saveMacroAs))
                 originallTlMacroName = "";
 
-            //       try
-            //       {
             PluginManager.pluginManager.raiseEvent(saveType,
                 new MementoEventArgs(this.rootEntry.mementoName, this.namePlugin, originallTlMacroName, getMemento));
-            //      }
+            
             originallTlMacroName = rootEntry.mementoName;
         }
 
@@ -657,22 +790,57 @@ namespace Oqat.ViewModel.MacroPlugin
             if (originallTlMacroName.Equals(rootEntry.mementoName))
                 originallTlMacroName = "";
 
-            if (this.rootEntry.mementoName.Equals(""))
-                memToReturn = new Memento(this.rootEntry.mementoName, new object());
-            else if (this.rootEntry.macroEntries.Count > 0)
-                memToReturn = new Memento(rootEntry.mementoName, rootEntry as IMacroEntry);
-            else
-                memToReturn = new Memento(rootEntry.mementoName, null);
+            MacroEntry rootEntryCopy = new MacroEntry(rootEntry.pluginName, rootEntry.type, rootEntry.mementoName);
 
-            originallTlMacroName = rootEntry.mementoName;
+            rootEntryCopy.startFrameRelative = rootEntry.startFrameRelative;
+            rootEntryCopy.endFrameRelative = rootEntry.endFrameRelative;
+            rootEntryCopy.path = rootEntry.path;
+
+            doDeepCopy(rootEntry, ref rootEntryCopy);
+            if (rootEntryCopy.mementoName.Equals(""))
+                memToReturn = new Memento(rootEntryCopy.mementoName, new object());
+            else if (rootEntryCopy.macroEntries.Count > 0)
+                memToReturn = new Memento(rootEntryCopy.mementoName, rootEntryCopy as IMacroEntry);
+            else
+                memToReturn = new Memento(rootEntryCopy.mementoName, null);
+
             return memToReturn;
+        }
+
+        private void doDeepCopy(MacroEntry entryToCopy, ref MacroEntry copy)
+        {
+          
+            foreach (var entry in entryToCopy.macroEntries)
+            {
+                if(entry.macroEntries != null) {
+
+                    var macroEntryCopy = new MacroEntry(entry.pluginName, entry.type, entry.mementoName);
+                    macroEntryCopy.startFrameRelative = entry.startFrameRelative;
+                    macroEntryCopy.endFrameRelative = entry.endFrameRelative;
+                    macroEntryCopy.path = entry.path;
+                
+                    
+                 
+                    copy.macroEntries.Add(macroEntryCopy);
+                   
+                    if (entry.macroEntries.Count() > 0)
+                    {
+                        macroEntryCopy.macroEntries = new ObservableCollection<MacroEntry>();
+                        doDeepCopy(entry, ref macroEntryCopy);
+                    }
+                }
+            }
+      
         }
 
         private MacroEntry constructMacroFromMementoArg(MementoEventArgs e)
         {
-
+            IPlugin plToConstrFrom = PluginManager.pluginManager.getPlugin<IPlugin>(e.pluginKey);
+            if (plToConstrFrom == null)
+                throw new ArgumentException("Given plugin name either does not refer to a existing plugin or is blacklisted.");
+       
             PluginType entryType = PluginManager.pluginManager.getPlugin<IPlugin>(e.pluginKey).type;
-            MacroEntry entryToAdd;
+            MacroEntry entryToAdd = null;
             if (entryType != PluginType.IMacro)
             {
                 entryToAdd = new MacroEntry(e.pluginKey, entryType, e.mementoName);
@@ -681,12 +849,46 @@ namespace Oqat.ViewModel.MacroPlugin
             else
             {
                 var tmpMem = PluginManager.pluginManager.getMemento(e.pluginKey, e.mementoName);
-                entryToAdd = tmpMem.state as MacroEntry;
+                if (tmpMem == null)
+                    throw new ArgumentException("Given parameters do not refer to a existing memento.");
+                if(tmpMem.state != rootEntry)
+                    entryToAdd = tmpMem.state as MacroEntry;
             }
 
             return entryToAdd;
         }
-
+        public void local(String s)
+        {
+            try
+            {
+                String sFilename = Directory.GetCurrentDirectory() + "/" + s;
+                XmlTextReader reader = new XmlTextReader(sFilename);
+                reader.Read();
+                reader.Read();
+                int count = 11;
+                String[] t = new String[count];
+                String[] t2 = new String[count];
+                for (int i = 0; i < count; i++)
+                {
+                    reader.Read();
+                    reader.Read();
+                    t[i] = reader.Name;
+                    reader.MoveToNextAttribute();
+                    t2[i] = reader.Value;
+                    if (t2[i] == "")
+                    {
+                        throw new XmlException("datei nicht lang genug");
+                    }
+                }
+                from = t2[7];
+                framesProcessed = t2[8];
+                processCancelled_MsgBox_Text =t2[9];
+                caption_processedCancelled_MsgBox = t2[10];
+            }
+            catch (IndexOutOfRangeException e) { }
+            catch (FileNotFoundException e) { }
+            catch (XmlException e) { }
+        }
      
     }
 
@@ -745,4 +947,13 @@ namespace Oqat.ViewModel.MacroPlugin
         public delegate void saveSaveAs_Delegate(EventType saveType);
     }
 
+
+    public class ContextNotSetException : Exception
+    {
+        public ContextNotSetException(string msg)
+            : base(msg)
+        {
+            
+        }
+    }
 }

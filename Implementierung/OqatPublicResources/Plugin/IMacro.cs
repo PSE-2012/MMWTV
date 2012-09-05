@@ -22,6 +22,7 @@
 
         void setFilterContext(int idRef, IVideo vidRef);
         void setMetricContext(IVideo vidRef, int idProc, IVideo vidProc);
+        void flush();
 	}
 }
 

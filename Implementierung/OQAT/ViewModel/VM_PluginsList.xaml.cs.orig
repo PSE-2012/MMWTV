@@ -126,7 +126,7 @@ namespace Oqat.ViewModel
         {
             _pluginList = new ObservableCollection<PluginViewModel>();
             List<string> plList = PluginManager.pluginManager.getPluginNames(pluginType);
-            plList.Add("Macro");
+            plList.Add(Macro.pluginName);
             
             foreach (string name in plList)
             {
@@ -148,10 +148,17 @@ namespace Oqat.ViewModel
                     if (m != "") // no invisible entries allowed
                     {
                         //only show macro mementos of correct type (filter/memento)
-                        if (pluginName != "Macro" ||
-                            IsCorrectPluginType(((IMacroEntry)PluginManager.pluginManager.getMemento(pluginName, m).state)))
+                        if (pluginName != Macro.pluginName ||
+                            IsCorrectPluginType(((MacroEntry)PluginManager.pluginManager.getMemento(pluginName, m).state)))
                         {
+<<<<<<< HEAD
+                            //only show macro mementos of correct type (filter/memento)
+                            Memento mem = PluginManager.pluginManager.getMemento(name, m);
+                            if(IsCorrectPluginType(((IMacroEntry)mem.state)))
+                                pl.children.Add(new PluginViewModel(m, pl));
+=======
                             pl.children.Add(new PluginViewModel(m, pl));
+>>>>>>> 0c0a03e328f5b8854dc58fc695d835a17e7a0f34
                         }
                     }
                 }

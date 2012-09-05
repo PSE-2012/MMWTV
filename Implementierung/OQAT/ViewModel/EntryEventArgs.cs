@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Oqat.ViewModel
 {
-    class EntryEventArgs : EventArgs
+    public class EntryEventArgs : EventArgs
     {
         public EntryEventArgs(string entry)
         {

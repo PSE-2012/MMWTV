@@ -11,7 +11,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
-using Oqat.ViewModel.MacroPlugin;
 using Oqat.Model;
 using Oqat.PublicRessources.Model;
 using System.Runtime.InteropServices;
