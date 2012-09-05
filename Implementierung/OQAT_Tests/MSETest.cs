@@ -283,12 +283,13 @@ namespace OQAT_Tests
         ///Ein Test für "setMemento"
         ///</summary>
         [TestMethod()]
+        [ExpectedException(typeof(ArgumentNullException), "MSE didnt notice, that the given memento is null.");
         public void setMementoTest1()
         {
-            MSE target = new MSE(); // TODO: Passenden Wert initialisieren
-            Memento memento = null; // TODO: Passenden Wert initialisieren
+            MSE target = new MSE(); 
+            Memento memento = null;
+
             target.setMemento(memento);
-            Assert.Inconclusive("Eine Methode, die keinen Wert zurückgibt, kann nicht überprüft werden.");
         }
     }
 }

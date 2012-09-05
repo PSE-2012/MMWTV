@@ -203,7 +203,7 @@ namespace PF_RelativeColor
 
         private void localize(String s)
         {
-            propertiesView.local(s);
+            (propertyView as VM_RelativeColor).local(s);
         }
 
         public IPlugin createExtraPluginInstance()
