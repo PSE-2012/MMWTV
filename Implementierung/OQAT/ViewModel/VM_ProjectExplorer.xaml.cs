@@ -298,16 +298,19 @@
             readOnlyPropViewPanel.Children.Clear();
             
             var newSelSmartNode = (SmartNode)e.NewValue;
-            if (newSelSmartNode != null && videoCheck(newSelSmartNode))
-                readOnlyPropViewPanel.Children.Add(newSelSmartNode.video.handler.readOnlyInfoView);
+            if (newSelSmartNode != null)
+            {
+                if (videoCheck(newSelSmartNode))
+                    readOnlyPropViewPanel.Children.Add(newSelSmartNode.video.handler.readOnlyInfoView);
 
-            if (newSelSmartNode.video.isAnalysis == true)
-            {
-                btnExport.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                btnExport.Visibility = Visibility.Hidden;
+                if (newSelSmartNode.video != null && newSelSmartNode.video.isAnalysis == true)
+                {
+                    btnExport.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    btnExport.Visibility = Visibility.Hidden;
+                }
             }
         }
 
