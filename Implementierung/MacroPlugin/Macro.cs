@@ -25,6 +25,14 @@ namespace Oqat.ViewModel.MacroPlugin
     [Export(typeof(IPlugin))]
     public class Macro : IMacro
     {
+        public static string pluginName
+        {
+            get
+            {
+                return "Macro";
+            }
+        }
+
 
         /// <summary>
         /// This is the TopLevel macro. All processing
