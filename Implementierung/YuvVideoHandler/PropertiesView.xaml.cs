@@ -92,7 +92,7 @@ namespace PS_YuvVideoHandler
     /// </summary>
     public class ComboBoxYuvFormats
     {
-        YuvFormat _formatEnum;
+        YuvFormat _formatEnum =  YuvFormat.YUV420_IYUV;
         string _formatString;
 
         public YuvFormat formatEnum 

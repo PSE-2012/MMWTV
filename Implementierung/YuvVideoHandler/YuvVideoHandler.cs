@@ -126,9 +126,9 @@
             }
             set
             {
-                if (value < 5)
+                if (value < 6)
                 {
-                    _NUMFRAMESINMEM = 5;
+                    _NUMFRAMESINMEM = 6;
                 }
                 else
                 {
@@ -652,6 +652,9 @@
                 }
             }
 
+            if (readQueue.Count < NUMFRAMESINMEM)
+                coordinatorWaitEvent.Set();
+
             while ((readQueue.Count < 1) &&
                 !(coordinatorPos > readVidInfo.frameCount) &&
                 !(positionReader > readVidInfo.frameCount))
@@ -727,9 +730,6 @@
                 else
                     break;
 
-                if (((coordinatorPos - positionReader) > NUMFRAMESINMEM))
-                    coordinatorWaitEvent.WaitOne();
-
             }
 
             stopReadBufferWorker = true;
@@ -766,7 +766,7 @@
                 if (buffer)
                     while (count < 0)
                     {
-                        count = NUMFRAMESINMEM - readQueue.Count;
+                        count = NUMFRAMESINMEM - internalBuffer.Count;
                         if (count < 0)
                             waitForCoordinatorBufferToEmpty_WaitEvent.WaitOne();
                         //readerWaitEvent.WaitOne();
@@ -826,13 +826,8 @@
                 if (stopReadBufferWorker || !buffer)
                     break;
 
-                if (((readerBuffPos - coordinatorPos) > NUMFRAMESINMEM) && buffer)
-                    waitForCoordinatorBufferToEmpty_WaitEvent.WaitOne();
-                //if ((readerBuffPos - coordinatorPos) > NUMFRAMESINMEM)
-                //{
-                //readerWaitEvent.WaitOne();
-                //    readerWaitEvent.Reset();
-                //}
+                if (!buffer)
+                    break;
 
             }
 

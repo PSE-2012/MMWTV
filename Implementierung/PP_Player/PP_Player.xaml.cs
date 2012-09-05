@@ -554,40 +554,58 @@ namespace PP_Player
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            setVideo(this.video, this._positionReader);
-            pausePlayTicker.Set();
-            playButton.Visibility = System.Windows.Visibility.Collapsed;
-            pauseButton.Visibility = System.Windows.Visibility.Visible;
+            if (this.video != null)
+            {
+                setVideo(this.video, this._positionReader);
+                pausePlayTicker.Set();
+                playButton.Visibility = System.Windows.Visibility.Collapsed;
+                pauseButton.Visibility = System.Windows.Visibility.Visible;
+            }
 
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-            setVideo(this.video, 0);
+            if (this.video != null)
+            {
+                setVideo(this.video, 0);
+            }
         }
 
         private void previousFrame_Click(object sender, RoutedEventArgs e)
         {
-            OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));
+            if (this.video != null)
+            {
+                OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));
+            }
         }
 
         private void nextFrame_Click(object sender, RoutedEventArgs e)
         {
-            OnPropertyChanged(null, new PropertyChangedEventArgs(nextFramePositionUpdate));
+            if (this.video != null)
+            {
+                OnPropertyChanged(null, new PropertyChangedEventArgs(nextFramePositionUpdate));
+            }
         }
 
         private void return_Click(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == Key.Return)
+            if (this.video != null)
             {
-                e.Handled = true;
-                jumpToFrame_Click(this, new RoutedEventArgs());
+                if (e.Key == Key.Return)
+                {
+                    e.Handled = true;
+                    jumpToFrame_Click(this, new RoutedEventArgs());
+                }
             }
         }
 
         private void jumpToFrame_Click(object sender, RoutedEventArgs e)
         {
-            OnPropertyChanged(this, new PropertyChangedEventArgs(randomJumpPositionUpdate));
+            if (this.video != null)
+            {
+                OnPropertyChanged(this, new PropertyChangedEventArgs(randomJumpPositionUpdate));
+            }
         }
 
 

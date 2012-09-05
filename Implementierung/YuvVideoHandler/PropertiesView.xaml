@@ -24,7 +24,7 @@
             <TextBox Height="20" Name="tb_height" Text="{Binding height}" Width="40" />
         </WrapPanel>
         
-        <WrapPanel>
+        <WrapPanel Visibility="Collapsed" >
             <Label Name="l3" Height="30" Margin="0,5,0,0" Width="50">Format:</Label>
             <ComboBox x:Name="cb_format" Height="20" Width="100" DisplayMemberPath="formatString"
                       SelectedValuePath="formatEnum" SelectedValue="{Binding yuvFormat}" />
