@@ -195,7 +195,8 @@ namespace Oqat.ViewModel
 		{
             if (e.video.isAnalysis)
             {
-                PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(ViewType.AnalyzeView));
+                if(vtype != ViewType.AnalyzeView)
+                    PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(ViewType.AnalyzeView));
 
                 this.videoProc = (IVideo)e.video;
                 this.playerProc.setVideo(videoProc);
@@ -215,6 +216,11 @@ namespace Oqat.ViewModel
             }
             else
             {
+                //only toggle away from AnalyzeView, keep MetricView if it is loaded
+                if (vtype == ViewType.AnalyzeView)
+                        PluginManager.pluginManager.raiseEvent(EventType.toggleView, new ViewTypeEventArgs(ViewType.FilterView));
+
+
                 if (!isCompatibleVideo(e.video, this.videoRef))
                 {
                     this.videoRef = null;
@@ -233,6 +239,11 @@ namespace Oqat.ViewModel
                 }
             }
 
+            setMacroVideoContext();
+		}
+
+        private void setMacroVideoContext()
+        {
             //ref and proc videos are understood the other way round
             if (vtype == ViewType.FilterView)
             {
@@ -241,10 +252,10 @@ namespace Oqat.ViewModel
             }
             else if (vtype == ViewType.MetricView)
             {
-                if(isCompatibleVideo(videoRef, videoProc))
+                if (isCompatibleVideo(videoRef, videoProc))
                     macro.setMetricContext(videoProc, idRef, videoRef);
             }
-		}
+        }
 
         /// <summary>
         /// check if video is compatible with other, already loaded video. 

@@ -160,7 +160,7 @@ namespace PF_Greyscale
             colorValues[0] = redValue;
             colorValues[1] = greenValue;
             colorValues[2] = blueValue;
-            return new Memento(this.namePlugin + "_properties", colorValues);
+            return new Memento(this.namePlugin , colorValues);
         }
 
         /// <summary>

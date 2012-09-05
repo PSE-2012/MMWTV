@@ -205,6 +205,26 @@ namespace Oqat.ViewModel.MacroPlugin
 
         private void filterProcess(object s, DoWorkEventArgs e)
         {
+            // construct result video and init handler writing context
+            var tmpVidInfo = handRef.readVidInfo.Clone() as IVideoInfo;
+            string ext = this.rootEntry.mementoName;
+            if (ext == "" && rootEntry.macroEntries.Count == 1)
+            {
+                ext = rootEntry.macroEntries[0].mementoName;
+            }
+            string newPath = findValidVidPath(handRef.readPath, ext);
+            tmpVidInfo.path = newPath;
+            tmpVidInfo.frameCount = handRef.readVidInfo.frameCount;
+            Video vidRes = new Video(isAnalysis: false,
+                vidPath: newPath,
+                vidInfo: tmpVidInfo);
+
+            this.vidRes = vidRes;
+            handRef.setWriteContext(vidRes.vidPath, vidRes.vidInfo);
+
+
+
+
             List<MacroEntry> seqMacroEntryList = new List<MacroEntry>();
             recursiveFilterExplorer(this.rootEntry, seqMacroEntryList);
             handRef.positionReader = 0;
@@ -291,7 +311,6 @@ namespace Oqat.ViewModel.MacroPlugin
             recursiveMetricExplorer(this.rootEntry, seqMetricResultCtxList);
             handRef.positionReader = 0;
             handProc.positionReader = 0;
-            int i = 0;
             while (handRef.positionReader < handRef.readVidInfo.frameCount)
             {
                 Bitmap bmpRef = handRef.getFrame();
@@ -301,7 +320,7 @@ namespace Oqat.ViewModel.MacroPlugin
                 {
                     // check if set as active
                     if ((subEntry.entry.startFrameAbs <= (handRef.positionReader - 1))
-                        && (subEntry.entry.endFrameAbs >= handRef.positionReader - 1))
+                        && (subEntry.entry.endFrameAbs > handRef.positionReader - 1))
                     {
                         // init plugin
                         IMetricOqat curPlugin =
@@ -314,8 +333,7 @@ namespace Oqat.ViewModel.MacroPlugin
                         var info = curPlugin.analyse(bmpRef, bmpProc);
 
                         // write acquired frame
-                        (subEntry.vidRes as Video).frameMetricValue[
-                           i++] = info.values;
+                        (subEntry.vidRes as Video).frameMetricValue[handRef.positionReader - 1 - subEntry.entry.startFrameAbs] = info.values;
                         var tmpArray = new Bitmap[1];
                         tmpArray[0] = info.frame;
                         subEntry.handRes.writeFrames(handRef.positionReader - 1 - (int)subEntry.entry.startFrameAbs, tmpArray);
@@ -488,8 +506,10 @@ namespace Oqat.ViewModel.MacroPlugin
             if (newTLMacroEnry.mementoName != memento.name)
                 throw new ArgumentException("Given memento shows inconsistencies. Name of top level macro does not equal to" +
                                             " the memento name.");
-                flush();
-                originallTlMacroName = newTLMacroEnry.mementoName;
+
+
+            //flush();
+            originallTlMacroName = newTLMacroEnry.mementoName;
             addMacroEntry(newTLMacroEnry, null);
            
         }
@@ -536,20 +556,6 @@ namespace Oqat.ViewModel.MacroPlugin
 
             this.idRes = idRef;
             handRef = vidRef.getExtraHandler();
-          
-            // construct result video and init handler writing context
-            var tmpVidInfo = handRef.readVidInfo.Clone() as IVideoInfo;
-            string newPath = findValidVidPath(vidRef.vidPath, this.rootEntry.mementoName);
-            tmpVidInfo.path = newPath;
-            tmpVidInfo.frameCount = handRef.readVidInfo.frameCount;
-            Video vidRes = new Video(isAnalysis: false,
-                vidPath: newPath,
-                vidInfo: tmpVidInfo);
-
-
-            this.vidRes = vidRes;
-            handRef.setWriteContext(vidRes.vidPath, vidRes.vidInfo);
-
 
             (propertyView as Macro_PropertyView).filterMode = true;
 

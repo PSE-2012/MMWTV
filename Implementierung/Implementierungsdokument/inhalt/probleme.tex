@@ -8,6 +8,8 @@ Deswegen wurde beschlossen diesen von Grund auf neu zu schreiben.
 Aufgrund schwacher Performance wurde der Handler neugeschrieben.
 \item Caretaker \newline
 Die Serialisierung von Objekten wurde unterschätzt und musste auf andere Klassen erweitert werden.
+\item Filter und Metriken  \newline
+Das Binding der GUI Elemente der meisten Filter und Metriken musste umgeschrieben werden, aufgrund von Threadingzugriffsfehlern.
 \item SSIM \newline
 Die Metrik hat bis zuletzt nicht immer Werte im Bereich von 0 bis 1 geliefert und wurde deswegen nicht eingefügt.
 \end{itemize}
