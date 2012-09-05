@@ -826,7 +826,10 @@ namespace Oqat.ViewModel.MacroPlugin
 
         private MacroEntry constructMacroFromMementoArg(MementoEventArgs e)
         {
-
+            IPlugin plToConstrFrom = PluginManager.pluginManager.getPlugin<IPlugin>(e.pluginKey);
+            if (plToConstrFrom == null)
+                throw new ArgumentException("Given plugin name either does not refer to a existing plugin or is blacklisted.");
+       
             PluginType entryType = PluginManager.pluginManager.getPlugin<IPlugin>(e.pluginKey).type;
             MacroEntry entryToAdd = null;
             if (entryType != PluginType.IMacro)

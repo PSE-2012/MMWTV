@@ -57,6 +57,8 @@ namespace PP_Player
 
             lock (setVideoContextLock)
             {
+                if (video == null || video.vidInfo == null || video.vidPath == null)
+                    throw new ArgumentException("Given video was not initialized properly.");
                 flush();
 
                 this.video = video;

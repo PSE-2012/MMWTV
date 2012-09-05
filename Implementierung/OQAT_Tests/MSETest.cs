@@ -283,7 +283,7 @@ namespace OQAT_Tests
         ///Ein Test für "setMemento"
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentNullException), "MSE didnt notice, that the given memento is null.");
+        [ExpectedException(typeof(ArgumentNullException), "MSE didnt notice that the given memento is null.")]
         public void setMementoTest1()
         {
             MSE target = new MSE(); 
