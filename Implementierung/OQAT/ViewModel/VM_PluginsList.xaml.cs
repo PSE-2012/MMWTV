@@ -16,8 +16,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Xml;
 using System.Globalization;
-using Oqat.ViewModel.MacroPlugin;
-
 namespace Oqat.ViewModel
 {
     /// <summary>
@@ -161,7 +159,7 @@ namespace Oqat.ViewModel
                         {
                             //only show macro mementos of correct type (filter/memento)
                             Memento mem = PluginManager.pluginManager.getMemento(name, m);
-                            if(IsCorrectPluginType(((MacroEntry)mem.state)))
+                            if(IsCorrectPluginType(((IMacroEntry)mem.state)))
                                 pl.children.Add(new PluginViewModel(m, pl));
                         }
                     }
@@ -172,7 +170,7 @@ namespace Oqat.ViewModel
         }
 
 
-        private bool IsCorrectPluginType(MacroEntry entry)
+        private bool IsCorrectPluginType(IMacroEntry entry)
         {
             if (entry == null)
                 return false;
@@ -426,7 +424,7 @@ namespace Oqat.ViewModel
         private void onMacroSave(object sender, MementoEventArgs e) 
         {
             //ignore if this is a macro not belonging to this list
-            if (!IsCorrectPluginType((MacroEntry)e.getMemDel().state))
+            if (!IsCorrectPluginType((IMacroEntry)e.getMemDel().state))
                 return;
 
 
@@ -455,7 +453,7 @@ namespace Oqat.ViewModel
     
         private void onMacroSaveAs(object sender, MementoEventArgs e) {
             //ignore if this is a macro not belonging to this list
-            if (!IsCorrectPluginType((MacroEntry)e.getMemDel().state))
+            if (!IsCorrectPluginType((IMacroEntry)e.getMemDel().state))
                 return;
 
 

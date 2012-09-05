@@ -35,7 +35,7 @@ namespace Oqat.ViewModel
         /// <summary>
         /// The one and only PluginManager instance in a running OQAT application.
         /// </summary>
-        internal static PluginManager pluginManager
+        public static PluginManager pluginManager
         {
             get
             {
@@ -526,7 +526,7 @@ namespace Oqat.ViewModel
         /// <param name="namePlugin">Name of the plugin to get memento names from</param>
         /// <returns>List of known memento names. Please note that the list will be empty if no mementos could be found or 
         /// null if no corresponding plugin was found.</returns>
-        internal virtual List<String> getMementoNames(string namePlugin)
+        public virtual List<String> getMementoNames(string namePlugin)
         {
             List<string> nameList = new List<string>();
             List<Memento> tmpMemList;
@@ -550,7 +550,7 @@ namespace Oqat.ViewModel
         /// <param name="namePlugin"></param>
         /// <param name="mem"></param>
         /// <exception cref="ArgumentException">thrown if no plugin with the given name is found.</exception>
-        internal virtual void addMemento(string namePlugin, Memento mem)
+        public virtual void addMemento(string namePlugin, Memento mem)
         {
             List<string> memNames = getMementoNames(namePlugin);
             if (memNames == null)
@@ -589,30 +589,30 @@ namespace Oqat.ViewModel
 
         #region events
 
-        internal delegate void OqatErrorHandler(object sender, ErrorEventArgs e);
-        internal static event OqatErrorHandler OqatInfo;
-        internal static event OqatErrorHandler OqatPanic;
-        internal static event OqatErrorHandler OqatFailure;
-        internal delegate void notificationHandler(object sender, EntryEventArgs e);
-        internal static event notificationHandler OqatPluginTableChanged;
+        public delegate void OqatErrorHandler(object sender, ErrorEventArgs e);
+        public static event OqatErrorHandler OqatInfo;
+        public static event OqatErrorHandler OqatPanic;
+        public static event OqatErrorHandler OqatFailure;
+        public delegate void notificationHandler(object sender, EntryEventArgs e);
+        public static event notificationHandler OqatPluginTableChanged;
 
-        internal delegate void videoLoadHandler(object sender, VideoEventArgs e);
-        internal static event videoLoadHandler videoLoad;
+        public delegate void videoLoadHandler(object sender, VideoEventArgs e);
+        public static event videoLoadHandler videoLoad;
 
-        internal delegate void macroProcessingFinishedHandler(object sender, VideoEventArgs e);
-        internal static event macroProcessingFinishedHandler macroProcessingFinished;
+        public delegate void macroProcessingFinishedHandler(object sender, VideoEventArgs e);
+        public static event macroProcessingFinishedHandler macroProcessingFinished;
 
-        internal delegate void mementoArgsEventHandler(object sender, MementoEventArgs e);
-        internal static event mementoArgsEventHandler macroEntrySelected;
-        internal static event mementoArgsEventHandler saveMacro;
-        internal static event mementoArgsEventHandler saveMacroAs;
-        internal static event mementoArgsEventHandler setMacroMemento;
-        internal static event mementoArgsEventHandler macroEntryAdd;
+        public delegate void mementoArgsEventHandler(object sender, MementoEventArgs e);
+        public static event mementoArgsEventHandler macroEntrySelected;
+        public static event mementoArgsEventHandler saveMacro;
+        public static event mementoArgsEventHandler saveMacroAs;
+        public static event mementoArgsEventHandler setMacroMemento;
+        public static event mementoArgsEventHandler macroEntryAdd;
 
-        internal delegate void newProjectCreatedHandler(object sender, ProjectEventArgs e);
-        internal static event newProjectCreatedHandler OqatNewProjectCreatedHandler;
-        internal delegate void toggleViewHandler(object sender, ViewTypeEventArgs e);
-        internal static event toggleViewHandler OqatToggleView;
+        public delegate void newProjectCreatedHandler(object sender, ProjectEventArgs e);
+        public static event newProjectCreatedHandler OqatNewProjectCreatedHandler;
+        public delegate void toggleViewHandler(object sender, ViewTypeEventArgs e);
+        public static event toggleViewHandler OqatToggleView;
  
 
 
@@ -623,7 +623,7 @@ namespace Oqat.ViewModel
         /// is valid.
         /// </summary>
         /// <param name="eType"> The type of event to raise.</param>
-        internal virtual void raiseEvent(EventType eType, EventArgs e)
+        public virtual void raiseEvent(EventType eType, EventArgs e)
         {
             switch (eType)
             {

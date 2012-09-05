@@ -1,8 +1,8 @@
 ﻿using Oqat.ViewModel.MacroPlugin;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using Oqat.PublicRessources.Plugin;
 using Oqat.PublicRessources.Model;
+using Oqat.PublicRessources.Plugin;
 
 namespace OQAT_Tests
 {
@@ -201,7 +201,7 @@ namespace OQAT_Tests
             Assert.AreEqual<PluginType>(PluginType.IMacro, actual);
         }
 
-        
+
 
         /// <summary>
         ///Test "addMacroEntry": child valid macro, parent null
@@ -334,7 +334,6 @@ namespace OQAT_Tests
         ///Test "removeMacroEntry": non existent
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("OQAT.exe")]
         public void removeMacroEntryTest_nonexistent()
         {
             Macro_Accessor target = new Macro_Accessor();
@@ -389,9 +388,8 @@ namespace OQAT_Tests
         ///Test "clearMacroEntryList"
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("OQAT.exe")]
-        [ExpectedException(typeof(ArgumentException), "Macro noticed that the given pluginName" + 
-                                                    " dindt refer to a existing plugin and therefore is still consistent")]
+        [ExpectedException(typeof(ArgumentException), "Macro noticed that the given pluginName" +
+                                 " dindt refer to a existing plugin and therefore is still consistent")]
         public void clearMacroEntryListTest()
         {
             Macro_Accessor target = new Macro_Accessor();
@@ -408,7 +406,7 @@ namespace OQAT_Tests
             target.clearMacroEntryList();
 
             Assert.IsTrue(0 == rootEntry.macroEntries.Count, "Clear operation didnt remove all items.");
-           
+
         }
 
     }

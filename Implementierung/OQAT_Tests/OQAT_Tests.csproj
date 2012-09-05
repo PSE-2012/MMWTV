@@ -64,9 +64,6 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack.Shell">
-      <HintPath>..\..\lib\Windows API Code Pack 1.1\binaries\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
-    </Reference>
     <Reference Include="OxyPlot">
       <HintPath>..\PP_Diagramm\OxyPlot.dll</HintPath>
     </Reference>
@@ -121,6 +118,10 @@
     <Compile Include="WelcomeViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MacroPlugin\MacroPlugin.csproj">
+      <Project>{2622D65C-7E3E-4DB4-A80B-6CE35BAE42D7}</Project>
+      <Name>MacroPlugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OqatPublicResources\OqatPublicResources.csproj">
       <Project>{64D5940A-48B4-410D-B1A2-752ED52C2D5F}</Project>
       <Name>OqatPublicResources</Name>
@@ -190,6 +191,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Shadow Include="Testverweise\MacroPlugin.accessor" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

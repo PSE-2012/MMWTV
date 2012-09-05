@@ -133,7 +133,7 @@ namespace OQAT_Tests
             string vidPath = "";
             IVideoInfo vinfo = null;
             List<IMacroEntry> processedBy = new List<IMacroEntry>();
-            Oqat.ViewModel.MacroPlugin.MacroEntry macroEntry = new Oqat.ViewModel.MacroPlugin.MacroEntry("TestPlugin", PluginType.IMetricOqat, "TestMemento");
+            MacroEntry macroEntry = new Oqat.ViewModel.MacroPlugin.MacroEntry("TestPlugin", PluginType.IMetricOqat, "TestMemento");
             processedBy.Add(macroEntry);
             Video video = new Video(isAnalysis, vidPath, vinfo, processedBy);
 
