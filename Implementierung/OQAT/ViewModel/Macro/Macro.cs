@@ -648,9 +648,7 @@ namespace Oqat.ViewModel.MacroPlugin
                 {
                     rootEntry.mementoName = child.mementoName;
                     originallTlMacroName = rootEntry.mementoName;
-                    // these are alway default for topLevel macros
-                    //macroEntry.startFrameAbs = child.startFrameAbs;
-                    //macroEntry.endFrameAbs = child.endFrameAbs;
+                    _propertyView.rootEntryMem_TextBox.Text = rootEntry.mementoName;
                     clearMacroEntryList();
                     concatObsCollInplace(rootEntry.macroEntries, child.macroEntries);
                 }
