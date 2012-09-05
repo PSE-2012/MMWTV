@@ -15,6 +15,7 @@ using Oqat.PublicRessources.Plugin;
 using System.Xml;
 using System.Threading;
 using System.IO;
+using System.Windows;
 
 namespace Oqat.ViewModel.MacroPlugin
 {
@@ -100,47 +101,104 @@ namespace Oqat.ViewModel.MacroPlugin
         {
             get { return false; }
         }
+
+        string processCancelled_MsgBox_Text = "Möchten sie das bis jetzt erstellte video behalten, dann klicken Sie auf \"Ja\"." +
+            " Klicken Sie auf \"Nein\", falls Sie das Video verwerfen möchten.?";
+        string caption_processedCancelled_MsgBox = " Macro prozess abgebrochen.";
 #endregion
+
+
+
         private void filterProcessCompleted(object s, RunWorkerCompletedEventArgs e)
         {
             _propertyView.processing = false;
+            MessageBoxResult result = MessageBoxResult.Yes;
             if (e.Cancelled == true)
             {
-                //cancelled
+                MessageBoxButton button = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+
+                result = MessageBox.Show(processCancelled_MsgBox_Text, 
+                    caption_processedCancelled_MsgBox, button, icon);
+
             }
-            else if (e.Error != null)
+
+
+            if (e.Error != null)
             {
                 //error + e.Error.Message;
             }
-            else
+            else if (result == MessageBoxResult.Yes)
             {
+                vidRes.vidInfo.frameCount = -1;
                 PluginManager.pluginManager.raiseEvent(
                 EventType.macroProcessingFinished, new VideoEventArgs(this.vidRes, this.idRes));
+            }
+            else
+            {
+                if (File.Exists(vidRes.vidPath))
+                    File.Delete(vidRes.vidPath);
             }
         }
 
         private void metricProcessCompleted(object s, RunWorkerCompletedEventArgs e)
         {
             _propertyView.processing = false;
-            if (e.Cancelled == true)
+            MessageBoxResult result = MessageBoxResult.Yes;
+            if (((procFinishedResult)e.Result).cancelled == true)
             {
-                //cancelled
+                MessageBoxButton button = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                result = MessageBox.Show(processCancelled_MsgBox_Text,
+                    caption_processedCancelled_MsgBox, button, icon);
             }
-            else if (e.Error != null)
+
+            if (e.Error != null)
             {
                 //error + e.Error.Message;
             }
-            else
+            else if (result == MessageBoxResult.Yes)
             {
-                Debug.Assert(e.Result is List<metricResultContext>);
 
-                foreach (var subEntry in e.Result as List<metricResultContext>)
+                if(!(((procFinishedResult)e.Result).seqMetricResultCtxList is List<metricResultContext>))
+                 throw new ArgumentException("Result args are not of type procFinishedResult.");
+
+                foreach (var subEntry in ((procFinishedResult)e.Result).seqMetricResultCtxList)
                 {
                     subEntry.vidRes.handler.flushReader();
                     subEntry.vidRes.handler.flushWriter();
                     (subEntry.vidRes as Video).handler = null;
+                    // if video wasnt constructed till the last frame  (user cancelled)
+                    // this will trigger a reinitialization of the frameCount property
+                    subEntry.vidRes.vidInfo.frameCount = -1;
+                    if (((procFinishedResult)e.Result).cancelled)
+                    {
+                        var newFrameMetricValues = subEntry.vidRes.frameMetricValue;
+                        Array.Resize(ref newFrameMetricValues, subEntry.vidRes.vidInfo.frameCount);
+
+                     //  need Video here cause IVideo does not provide a setter for this property
+                       (subEntry.vidRes as Video).frameMetricValue = newFrameMetricValues;
+
+                    }
+                   //     (metResContext.vidRes as Video).frameMetricValue = new float[metResContext.vidRes.vidInfo.frameCount][];
+                   
+
                     PluginManager.pluginManager.raiseEvent(
                         EventType.macroProcessingFinished, new VideoEventArgs(subEntry.vidRes, this.idRes));
+                }
+            }
+            else
+            {//user clicked No -> delete all files
+                foreach (var subEntry in ((procFinishedResult)e.Result).seqMetricResultCtxList)
+                {
+                    if (File.Exists(subEntry.vidRes.vidInfo.path))
+                        File.Delete(subEntry.vidRes.vidInfo.path);
+                    subEntry.vidRes.handler.flushReader();
+                    subEntry.vidRes.handler.flushWriter();
+                    // if video wasnt constructed till the last frame  (user cancelled)
+                    // this will trigger a reinitialization of the frameCount property
+                    vidRes.vidInfo.frameCount = -1;
+                    (subEntry.vidRes as Video).handler = null;
                 }
             }
         }
@@ -266,7 +324,6 @@ namespace Oqat.ViewModel.MacroPlugin
                 }
                 if (worker.CancellationPending)
                 {
-                    e.Cancel = true;
                     break;
                 }
                 else
@@ -275,13 +332,16 @@ namespace Oqat.ViewModel.MacroPlugin
                 }
 
             }
-            e.Result = seqMetricResultCtxList;
+            procFinishedResult prFinishResult = new procFinishedResult();
+            prFinishResult.cancelled = worker.CancellationPending;
+            prFinishResult.seqMetricResultCtxList = seqMetricResultCtxList;
 
-            //foreach (var subEntry in seqMacroEntryList)
-            //{
-            //    PluginManager.pluginManager.raiseEvent(
-            //        EventType.macroProcessingFinished, new VideoEventArgs(subEntry.vidRes, this.idRes));
-            //}
+            e.Result = prFinishResult;
+        }
+        struct procFinishedResult
+        {
+           public bool cancelled;
+           public List<metricResultContext> seqMetricResultCtxList;
         }
 
         struct metricResultContext
@@ -622,7 +682,11 @@ namespace Oqat.ViewModel.MacroPlugin
 
         // delete the items (NOT the collection itself)
         private void clearMacroEntryList() { if (rootEntry.macroEntries != null) rootEntry.macroEntries.Clear(); else rootEntry.macroEntries = new ObservableCollection<MacroEntry>(); }
-        private void cancelProcessing() { }
+        private void cancelProcessing() {
+
+            if (worker != null)
+                worker.CancelAsync();
+        }
         private void pauseProcessing() { }
 
         string from ;
@@ -787,7 +851,7 @@ namespace Oqat.ViewModel.MacroPlugin
                 XmlTextReader reader = new XmlTextReader(sFilename);
                 reader.Read();
                 reader.Read();
-                int count = 9;
+                int count = 11;
                 String[] t = new String[count];
                 String[] t2 = new String[count];
                 for (int i = 0; i < count; i++)
@@ -804,6 +868,8 @@ namespace Oqat.ViewModel.MacroPlugin
                 }
                 from = t2[7];
                 framesProcessed = t2[8];
+                processCancelled_MsgBox_Text =t2[9];
+                caption_processedCancelled_MsgBox = t2[10];
             }
             catch (IndexOutOfRangeException e) { }
             catch (FileNotFoundException e) { }
