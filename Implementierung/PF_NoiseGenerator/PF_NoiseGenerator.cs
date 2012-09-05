@@ -46,7 +46,7 @@ namespace PF_NoiseGenerator
         public Bitmap process(Bitmap frame)
         {
            
-            IRandomNumberGenerator generator = new UniformGenerator(new Range(-1*noise, noise));
+            IRandomNumberGenerator generator = new UniformGenerator(new Range(-1*noise, noise), System.DateTime.Now.Millisecond);
            
             AdditiveNoise filter = new AdditiveNoise(generator);
             Bitmap test = new Bitmap(frame.Width, frame.Height, PixelFormat.Format24bppRgb);
