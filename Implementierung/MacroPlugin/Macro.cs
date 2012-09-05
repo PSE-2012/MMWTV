@@ -473,7 +473,7 @@ namespace Oqat.ViewModel.MacroPlugin
             }
             clearMacroEntryList();
             this.rootEntry.mementoName = "";
-            this.rootEntry.frameCount = 100;
+           // this.rootEntry.frameCount = 100;
         }
 
         public IPlugin createExtraPluginInstance()
@@ -640,6 +640,8 @@ namespace Oqat.ViewModel.MacroPlugin
             {
                 if (this.handRef != null)
                     child.frameCount = handRef.readVidInfo.frameCount;
+                else if (this.handProc != null)
+                    child.frameCount = handProc.readVidInfo.frameCount;
 
                 if (father == null) // child is new TL macro
                 {
