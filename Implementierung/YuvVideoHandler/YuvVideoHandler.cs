@@ -503,8 +503,15 @@
         /// </remarks>
         public void flushReader()
         {
+
+
+            if (_readVideoInfo == null)
+                return;
+
+
             lock (flushLock)
             {
+                
 
                 stopCoordinator = true;
                 if (currentHandle != null)
