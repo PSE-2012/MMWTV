@@ -108,9 +108,10 @@ namespace Oqat.ViewModel
             PluginManager.macroEntrySelected += onMacroFilterEntryClicked;
             PluginManager.saveMacro += onMacroSave;
             PluginManager.saveMacroAs += onMacroSaveAs;
+            PluginManager.OqatPluginTableChanged += onPluginTableChanged;
 
             loadPluginLists();
-            this.treePlugins.ItemsSource = pluginList;
+            
 
             //panelMacroPropertyViewCurrent = new StackPanel();
             //    TextBlock l2 = new TextBlock();
@@ -134,6 +135,7 @@ namespace Oqat.ViewModel
                 pluginList.Add(createParentPVM(name));
             }
 
+            this.treePlugins.ItemsSource = pluginList;
         }
 
         private PluginViewModel createParentPVM(string pluginName)
@@ -148,7 +150,7 @@ namespace Oqat.ViewModel
                     if (m != "") // no invisible entries allowed
                     {
                         //only show macro mementos of correct type (filter/memento)
-                        if (m != Macro.pluginName ||
+                        if (pluginName != Macro.pluginName ||
                             IsCorrectPluginType(((MacroEntry)PluginManager.pluginManager.getMemento(pluginName, m).state)))
                         {
                             pl.children.Add(new PluginViewModel(m, pl));
@@ -473,7 +475,10 @@ namespace Oqat.ViewModel
 
         private void onPluginTableChanged(object sender, EntryEventArgs e)
         {
-            _pluginList.Insert(_pluginList.Count-2, createParentPVM(e.Entry));
+            this.loadPluginLists();
+
+            //e.Entry seems empty
+            //_pluginList.Insert(_pluginList.Count-2, createParentPVM(e.Entry));
         }
 
         #endregion
