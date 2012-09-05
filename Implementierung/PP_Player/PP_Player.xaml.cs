@@ -26,7 +26,6 @@ namespace PP_Player
     [Export(typeof(IPlugin))]
     public partial class Player : System.Windows.Controls.UserControl, IPresentation, INotifyPropertyChanged
     {
-
         public Player()
         {
             InitializeComponent();
@@ -36,8 +35,85 @@ namespace PP_Player
             //waitPlayTickerThreadStop.Reset();
             stopPlayTickerThread = false;
             setVideoContextLock = new Object();
-
         }
+
+        #region Player fields & properties
+
+        WriteableBitmap writeableBitmap;
+
+        Bitmap bmpHand;
+        BitmapData bmpData;
+
+        private object setVideoContextLock;
+
+        private readonly string randomJumpPositionUpdate = "rjpu";
+        private readonly string nextFramePositionUpdate = "nfpu";
+        private readonly string posReadProName = "positionReader";
+        private readonly string fpsIndProName = "fpsIndicatorValue";
+
+        IVideo _video;
+        IVideo video
+        {
+            get
+            {
+                return _video;
+            }
+            set
+            {
+                _video = value;
+
+                // enable/disable controls
+                if (_video == null)
+                {
+                    this.playerControls.IsEnabled = false;
+                }
+                else
+                {
+                    this.playerControls.IsEnabled = true;
+                }
+            }
+        }
+
+        private int _positionReader;
+        public int positionReader
+        {
+            get
+            {
+                return _positionReader;
+            }
+            set
+            {
+                if (value != _positionReader)
+                {
+                    _positionReader = value;
+                    OnPropertyChanged(null, new PropertyChangedEventArgs(posReadProName));
+                }
+
+            }
+        }
+
+        private int fpsUpdateBlocker = 10;
+        private int _fpsIndicatorValue;
+        public int fpsIndicatorValue
+        {
+            get
+            {
+                return _fpsIndicatorValue;
+            }
+            private set
+            {
+                if (fpsUpdateBlocker-- < 0)
+                {
+                    fpsUpdateBlocker = _fpsIndicatorValue / 2;
+                    _fpsIndicatorValue = value;
+                    OnPropertyChanged(this, new PropertyChangedEventArgs(fpsIndProName));
+                }
+            }
+        }
+
+        #endregion
+
+        #region Plugin properties & methods
 
         public PresentationPluginType presentationType
         {
@@ -47,14 +123,122 @@ namespace PP_Player
             }
         }
 
-        private void setVideo(object video)
+        public string namePlugin
         {
-            setVideo(video as IVideo, 0);
+            get { return "PP_Player"; }
         }
 
-        public void setVideo(Oqat.PublicRessources.Model.IVideo video, int position = 0)
+        public PluginType type
+        {
+            get { return PluginType.IPresentation; }
+        }
+
+        public System.Windows.Controls.UserControl propertyView
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        public IPlugin createExtraPluginInstance()
+        {
+            return new Player();
+        }
+
+
+        public bool threadSafe
+        {
+            get { return false; }
+        }
+
+
+
+
+        /// <summary>
+        /// Not implemented!
+        /// </summary>
+        /// <returns>the current player state save as a memento</returns>
+        public Oqat.PublicRessources.Model.Memento getMemento()
+        {
+            return new Memento("player", null, "player");
+        }
+        /// <summary>
+        /// Not implemented!
+        /// </summary>
+        /// <param name="memento">a memento to load as new state of the player</param>
+        public void setMemento(Oqat.PublicRessources.Model.Memento memento)
         {
 
+        }
+
+        #endregion
+
+        #region Threading properties
+
+        private ManualResetEvent pausePlayTicker
+        {
+            get
+            {
+                if (_pausePlayTicker == null)
+                    _pausePlayTicker = new ManualResetEvent(false);
+                return _pausePlayTicker;
+            }
+        }
+
+        Thread _playTickerThread;
+        private Thread playTickerThread
+        {
+            get
+            {
+                if ((_playTickerThread == null) ||
+                    (_playTickerThread.ThreadState == System.Threading.ThreadState.Stopped) ||
+                    (_playTickerThread.ThreadState == System.Threading.ThreadState.Aborted))
+                {
+                    _playTickerThread = new Thread(new ThreadStart(playTicker));
+                    _playTickerThread.Name = "playTicker";
+                }
+
+
+                return _playTickerThread;
+            }
+            set
+            {
+                _playTickerThread = value;
+            }
+        }
+
+        bool stopPlayTickerThread = false;
+        ManualResetEvent _pausePlayTicker;
+
+        int _playTickerTimeout = 1000 / 25;
+        int playTickerTimeout
+        {
+            get
+            {
+                return _playTickerTimeout;
+            }
+            set
+            {
+                _playTickerTimeout = (value < 0) ? 10 : ((value > 800) ? Timeout.Infinite : value);
+                //refresh fpsIndicator
+                fpsUpdateBlocker = 0;
+            }
+        }
+
+        #endregion
+
+
+
+
+        /// <summary>
+        /// Loads a video object into the player.
+        /// Displays the frame at position.
+        /// </summary>
+        /// <param name="video">the video object to be loaded and played</param>
+        /// <param name="position">zero-based indes of the frame to which the player should jump in the video. Default is first frame (0)</param>
+        public void setVideo(Oqat.PublicRessources.Model.IVideo video, int position = 0)
+        {
             lock (setVideoContextLock)
             {
                 if (video == null || video.vidInfo == null || video.vidPath == null)
@@ -62,18 +246,9 @@ namespace PP_Player
                 flush();
 
                 this.video = video;
-                //// meddling with the GUI -> Invoke gui thread
-                // if (!i.Dispatcher.CheckAccess())
-                // {   
-                //     i.Dispatcher.Invoke(new MethodInvoker(init));
-                //     return;
-                // }
-
-
 
                 RenderOptions.SetBitmapScalingMode(i, BitmapScalingMode.NearestNeighbor);
                 RenderOptions.SetEdgeMode(i, EdgeMode.Aliased);
-
 
                 // image
                 writeableBitmap = new WriteableBitmap(
@@ -88,9 +263,6 @@ namespace PP_Player
                 playButton.Visibility = System.Windows.Visibility.Visible;
                 pauseButton.Visibility = System.Windows.Visibility.Collapsed;
 
-
-
-
                 positionSlider.Maximum = video.vidInfo.frameCount;
                 playerControls.DataContext = this;
 
@@ -99,14 +271,12 @@ namespace PP_Player
                 jtfReadPosbind.Converter = new intStringConverter();
                 jumpToFrameTextBox.SetBinding(System.Windows.Controls.TextBox.TextProperty, jtfReadPosbind);
 
-
                 Binding slReadPosBind = new Binding("positionReader");
                 slReadPosBind.Mode = System.Windows.Data.BindingMode.OneWay;
                 slReadPosBind.Converter = new intDoubleConverter();
                 positionSlider.SetBinding(System.Windows.Controls.Slider.ValueProperty, slReadPosBind);
 
                 video.handler.PropertyChanged += OnPropertyChanged;
-
 
                 // draw Frame on panel
                 getFrame(position);
@@ -120,6 +290,20 @@ namespace PP_Player
             }
         }
 
+        /// <summary>
+        /// Calls setVideo(IVideo video, int position = 0
+        /// Needed to support the ParameterizedThreadStart
+        /// </summary>
+        /// <param name="video"></param>
+        private void setVideo(object video)
+        {
+            setVideo(video as IVideo, 0);
+        }
+
+
+        /// <summary>
+        /// Resets the players context.
+        /// </summary>
         public void flush()
         {
             stopPlayTickerThread = true;
@@ -152,17 +336,17 @@ namespace PP_Player
             stopPlayTickerThread = false;
             pausePlayTicker.Reset();
             this.i.Source = null;
-            //this.video = null;
         }
 
 
+
         /// <summary>
-        /// 
+        /// Displays new frames periodically.
         /// </summary>
+        /// <remarks>This is run in its own thread to play the video.</remarks>
         private void playTicker()
         {
             #region fpsCounter
-
             //int[] times = new int[video.vidInfo.frameCount];
             //Stopwatch sw = new Stopwatch();
             //int i = 0;
@@ -180,6 +364,7 @@ namespace PP_Player
             //}
             //double fps = (i /( sum/1000.0));
             #endregion
+
             System.Diagnostics.Stopwatch fpsTimer = new System.Diagnostics.Stopwatch();
             while ((video.handler.positionReader < video.vidInfo.frameCount) && !stopPlayTickerThread)
             {
@@ -191,139 +376,14 @@ namespace PP_Player
                 fpsIndicatorValue = 1000 / (int)((fpsTimer.ElapsedMilliseconds > 0) ? fpsTimer.ElapsedMilliseconds : 1);
                 fpsTimer.Reset();
             }
-            //    waitPlayTickerThreadStop.Set();
         }
 
-        private ManualResetEvent pausePlayTicker
-        {
-            get
-            {
-                if (_pausePlayTicker == null)
-                    _pausePlayTicker = new ManualResetEvent(false);
-                return _pausePlayTicker;
-            }
-        }
 
-        //private ManualResetEvent waitPlayTickerThreadStop
-        //{
-        //    get
-        //    {
-        //        if (_waitPlayTickerThreadStop == null)
-        //            _waitPlayTickerThreadStop = new ManualResetEvent(false);
-        //        return _waitPlayTickerThreadStop;
-        //    }
-        //}
-
-        private Thread playTickerThread
-        {
-            get
-            {
-                if ((_playTickerThread == null) ||
-                    (_playTickerThread.ThreadState == System.Threading.ThreadState.Stopped) ||
-                    (_playTickerThread.ThreadState == System.Threading.ThreadState.Aborted))
-                {
-                    _playTickerThread = new Thread(new ThreadStart(playTicker));
-                    _playTickerThread.Name = "playTicker";
-                }
-
-
-                return _playTickerThread;
-            }
-            set
-            {
-                _playTickerThread = value;
-            }
-        }
-
-        Thread _playTickerThread;
-        IVideo _video;
-        IVideo video
-        {
-            get
-            {
-                return _video;
-            }
-            set
-            {
-                _video = value;
-
-                // enable/disable controls
-                if (_video == null)
-                {
-                    this.playerControls.IsEnabled = false;
-                }
-                else
-                {
-                    this.playerControls.IsEnabled = true;
-                }
-            }
-        }
-        WriteableBitmap writeableBitmap;
-        bool stopPlayTickerThread = false;
-        //   ManualResetEvent _waitPlayTickerThreadStop;
-        int _playTickerTimeout = 1000 / 25;
-        int playTickerTimeout
-        {
-            get
-            {
-                return _playTickerTimeout;
-            }
-            set
-            {
-                _playTickerTimeout = (value < 0) ? 10 : ((value > 800) ? Timeout.Infinite : value);
-                //refresh fpsIndicator
-                fpsUpdateBlocker = 0;
-            }
-        }
-        ManualResetEvent _pausePlayTicker;
-        Bitmap bmpHand;
-        BitmapData bmpData;
-        //   private object getFrameLock;
-        private object setVideoContextLock;
-        private int _positionReader;
-
-        private int fpsUpdateBlocker = 10;
-        private int _fpsIndicatorValue;
-        public int fpsIndicatorValue
-        {
-            get
-            {
-                return _fpsIndicatorValue;
-            }
-            private set
-            {
-                if (fpsUpdateBlocker-- < 0)
-                {
-                    fpsUpdateBlocker = _fpsIndicatorValue / 2;
-                    _fpsIndicatorValue = value;
-                    OnPropertyChanged(this, new PropertyChangedEventArgs(fpsIndProName));
-                }
-            }
-        }
-
-        private readonly string randomJumpPositionUpdate = "rjpu";
-        private readonly string nextFramePositionUpdate = "nfpu";
-        private readonly string posReadProName = "positionReader";
-        private readonly string fpsIndProName = "fpsIndicatorValue";
-
-        public int positionReader
-        {
-            get
-            {
-                return _positionReader;
-            }
-            set
-            {
-                if (value != _positionReader)
-                {
-                    _positionReader = value;
-                    OnPropertyChanged(null, new PropertyChangedEventArgs(posReadProName));
-                }
-
-            }
-        }
-
-        void getFrame(int position = -1)
+        /// <summary>
+        /// Loads the requested frame into bmpHand
+        /// </summary>
+        /// <param name="position">the frame to load</param>
+        private void getFrame(int position = -1)
         {
             if (!(position < 0))
             {
@@ -355,8 +415,6 @@ namespace PP_Player
             /// There is no easy way to check this as
             /// the handler works directly on the bitmap
             /// data (unsafe mode).
-            #region tryAndCatch zone..
-            //lock data for exclusive -> fast :D access
             try
             {
                 bmpData = bmpHand.LockBits(new System.Drawing.Rectangle(0, 0, bmpHand.Width, bmpHand.Height),
@@ -374,10 +432,16 @@ namespace PP_Player
             {
                 // nothing to handle, the user shouldnt notice one missing frame..
             }
-            #endregion
         }
 
-        void writeToDisplay()
+
+        // import native function (unmanaged)
+        [DllImport("Kernel32.dll", EntryPoint = "RtlMoveMemory")]
+        public static extern void CopyMemory(IntPtr Destination, IntPtr Source, System.Int32 Length);
+        /// <summary>
+        /// 
+        /// </summary>
+        private void writeToDisplay()
         {
             writeableBitmap.Lock();
 
@@ -402,181 +466,11 @@ namespace PP_Player
             }
         }
 
-        // import native function (unmanaged)
-        [DllImport("Kernel32.dll", EntryPoint = "RtlMoveMemory")]
-        public static extern void CopyMemory(IntPtr Destination, IntPtr Source, System.Int32 Length);
 
 
-        #region obsolete
-        //public void flush()
-        //{
+        #region UI handlers
 
-        //    stopPlayTickerThread = true;
-        //    pausePlayTicker.Set();
-        //    Thread.Sleep(playTickerTimeout);
-        //    if (playTickerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
-        //    {
-        //        try
-        //        {
-        //            playTickerThread.Join(playTickerTimeout);
-        //        }
-        //        catch (ThreadStateException)
-        //        {
-        //            // looks like he finished before we could ask, good for him.
-        //        }
-        //    }
-        //    if (playTickerThread.ThreadState != System.Threading.ThreadState.Stopped
-        //       && playTickerThread.ThreadState != System.Threading.ThreadState.StopRequested
-        //       && playTickerThread.ThreadState != System.Threading.ThreadState.Unstarted
-        //       && playTickerThread.ThreadState != System.Threading.ThreadState.Aborted
-        //       && playTickerThread.ThreadState != System.Threading.ThreadState.AbortRequested)
-        //    {
-        //        try
-        //        {
-        //            playTickerThread.Abort();
-        //        }
-        //        catch (ThreadStateException)
-        //        {
-        //            // lets hope he cleaned up ;-)
-        //        }
-        //    }
-
-        //if(playTickerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin) {
-        //     playTickerThread.Join(playTickerTimeout);
-        //     if (playTickerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
-        //     {
-        //         try
-        //         {
-        //             playTickerThread.Abort();
-        //         }
-        //         catch (ThreadStateException)
-        //         {
-        //             // cant handle this one, let hope all resources were cleaned up..
-        //         }
-        //     }
-        //} else if (playTickerThread.ThreadState == System.Threading.ThreadState.Running)
-        //{
-        //    // allow  to go on if blocked
-        //    pausePlayTicker.Set();
-        //}
-        //if ((playTickerThread.ThreadState == System.Threading.ThreadState.Running)
-        //    || (playTickerThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin))
-        //{
-        //    // let know to terminate himself
-
-        //    waitPlayTickerThreadStop.Reset();
-        //    // allow to go on if blocked
-        //    pausePlayTicker.Set();
-        //    waitPlayTickerThreadStop.WaitOne(playTickerTimeout);
-        //    #region obsolete
-        //    //try
-        //    //{
-        //    //    playTickerThread.Join(1000);
-        //    //    if (playTickerThread.ThreadState == System.Threading.ThreadState.Running)
-        //    //    {
-        //    //        playTickerThread.Abort();
-        //    //    }
-        //    //}
-        //    //catch (ThreadStateException)
-        //    //{
-        //    //    //should never come to this..
-        //    //}
-        //    //finally
-        //    //{
-        //    #endregion
-
-        //    pausePlayTicker.Reset();
-        //    playTickerThread = null;
-        //    //}
-
-        //}
-
-        //    playTickerThread = null;
-        //    stopPlayTickerThread = false;
-        //    pausePlayTicker.Reset();
-        //    this.i.Source = null;
-        //    this.video = null;
-        //}
-        #endregion
-
-
-
-        public System.Windows.Controls.UserControl propertyView
-        {
-            get
-            {
-                return this;
-            }
-        }
-
-        public Oqat.PublicRessources.Model.Memento getMemento()
-        {
-            return new Memento("dd", null, "dd");
-        }
-
-        public void setMemento(Oqat.PublicRessources.Model.Memento memento)
-        {
-
-        }
-
-        public string namePlugin
-        {
-            get { return "PP_Player"; }
-        }
-
-        public PluginType type
-        {
-            get { return PluginType.IPresentation; }
-        }
-
-        private void Pause_Click(object sender, RoutedEventArgs e)
-        {
-            pausePlayTicker.Reset();
-            pauseButton.Visibility = System.Windows.Visibility.Collapsed;
-            playButton.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void Play_Click(object sender, RoutedEventArgs e)
-        {
-            setVideo(this.video, this._positionReader);
-            pausePlayTicker.Set();
-            playButton.Visibility = System.Windows.Visibility.Collapsed;
-            pauseButton.Visibility = System.Windows.Visibility.Visible;
-
-        }
-
-        private void Stop_Click(object sender, RoutedEventArgs e)
-        {
-            setVideo(this.video, 0);
-        }
-
-        private void previousFrame_Click(object sender, RoutedEventArgs e)
-        {
-            OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));
-        }
-
-        private void nextFrame_Click(object sender, RoutedEventArgs e)
-        {
-            OnPropertyChanged(null, new PropertyChangedEventArgs(nextFramePositionUpdate));
-        }
-
-        private void return_Click(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                e.Handled = true;
-                jumpToFrame_Click(this, new RoutedEventArgs());
-            }
-        }
-
-        private void jumpToFrame_Click(object sender, RoutedEventArgs e)
-        {
-            OnPropertyChanged(this, new PropertyChangedEventArgs(randomJumpPositionUpdate));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
 
@@ -650,9 +544,53 @@ namespace PP_Player
 
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        //private bool dragStarted = false;
+        private void Pause_Click(object sender, RoutedEventArgs e)
+        {
+            pausePlayTicker.Reset();
+            pauseButton.Visibility = System.Windows.Visibility.Collapsed;
+            playButton.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void Play_Click(object sender, RoutedEventArgs e)
+        {
+            setVideo(this.video, this._positionReader);
+            pausePlayTicker.Set();
+            playButton.Visibility = System.Windows.Visibility.Collapsed;
+            pauseButton.Visibility = System.Windows.Visibility.Visible;
+
+        }
+
+        private void Stop_Click(object sender, RoutedEventArgs e)
+        {
+            setVideo(this.video, 0);
+        }
+
+        private void previousFrame_Click(object sender, RoutedEventArgs e)
+        {
+            OnPropertyChanged(null, new PropertyChangedEventArgs(randomJumpPositionUpdate));
+        }
+
+        private void nextFrame_Click(object sender, RoutedEventArgs e)
+        {
+            OnPropertyChanged(null, new PropertyChangedEventArgs(nextFramePositionUpdate));
+        }
+
+        private void return_Click(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                e.Handled = true;
+                jumpToFrame_Click(this, new RoutedEventArgs());
+            }
+        }
+
+        private void jumpToFrame_Click(object sender, RoutedEventArgs e)
+        {
+            OnPropertyChanged(this, new PropertyChangedEventArgs(randomJumpPositionUpdate));
+        }
+
+
         private void positionSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
         {
             if (pauseButton.IsVisible)
@@ -661,7 +599,6 @@ namespace PP_Player
 
         private void positionSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
-            //this.dragStarted = false;
             OnPropertyChanged(this, new PropertyChangedEventArgs(randomJumpPositionUpdate));
         }
 
@@ -669,8 +606,8 @@ namespace PP_Player
         {
             if (e.HorizontalChange > 1)
                 OnPropertyChanged(this, new PropertyChangedEventArgs(posReadProName));
-
         }
+
 
         private void jumpToFrameTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -681,7 +618,6 @@ namespace PP_Player
         private void slowDownButton_Click(object sender, RoutedEventArgs e)
         {
             playTickerTimeout += 10;
-
         }
 
         private void speedUpButton_Click(object sender, RoutedEventArgs e)
@@ -689,17 +625,23 @@ namespace PP_Player
             playTickerTimeout -= 10;
         }
 
-        public IPlugin createExtraPluginInstance()
-        {
-            return new Player();
-        }
+        #endregion
 
-
-       public bool threadSafe
-        {
-            get { return false; }
-        }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     internal class intStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -716,6 +658,14 @@ namespace PP_Player
             return positionReader;
         }
     }
+
+
+
+
+
+
+
+
 
     internal class intDoubleConverter : IValueConverter
     {
