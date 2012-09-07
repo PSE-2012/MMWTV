@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="659dd309-7676-4273-bf60-0839ae9183c0" name="IPluginStructure" linkedPackageId="d786c7a1-bb3f-433d-b046-52cf121c7ce6" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="ec55c016-4b94-421f-8d9f-468a69a910cd" name="IPlugin" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="c425f445-c108-47c3-bdf6-823da406af4a" />
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="03ac33a8-5ac9-4acf-98dc-50acd11e7f0e" name="IPresentation" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="fd897381-87f8-4feb-a3fe-d29fd3078d06" />
+        <generalsInternal>
+          <generalization Id="a645f353-3857-4018-8137-e70f8b842598" isSubstitutable="false">
+            <interfaceMoniker Id="ec55c016-4b94-421f-8d9f-468a69a910cd" LastKnownName="IPlugin" />
+            <elementDefinition Id="426b08e5-2321-45b8-ba68-7d55c399e1cc" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="dd3c5a55-ca37-4f0a-bd01-584a6187794f" name="IFilter" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="479c5cac-fb02-478b-a6d4-3274ca44516c" />
+        <generalsInternal>
+          <generalization Id="3ba41b07-c691-4cf7-b338-4c0a77f8a5a3" isSubstitutable="false">
+            <interfaceMoniker Id="ec55c016-4b94-421f-8d9f-468a69a910cd" LastKnownName="IPlugin" />
+            <elementDefinition Id="78f82c02-c51c-40ff-b053-a23aef077eb8" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="82d6395b-7432-46bb-9676-90a668c67f77" name="IMetrik" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="1812d78c-8d89-4fc0-b75c-f2767b5b0a62" />
+        <generalsInternal>
+          <generalization Id="830d4cc6-8136-4118-841a-ef67f376a617" isSubstitutable="false">
+            <interfaceMoniker Id="ec55c016-4b94-421f-8d9f-468a69a910cd" LastKnownName="IPlugin" />
+            <elementDefinition Id="dd7e252e-95f3-4746-afd4-fe56c54d4a3d" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="aa6ca22d-b296-4d92-ae3b-2840c082ad65" name="IVideoHandler" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="964cc909-5f82-4418-a3e0-027e52a68330" />
+        <generalsInternal>
+          <generalization Id="6c782d84-de93-441d-b125-47e7ed770ad2" isSubstitutable="false">
+            <interfaceMoniker Id="ec55c016-4b94-421f-8d9f-468a69a910cd" LastKnownName="IPlugin" />
+            <elementDefinition Id="5fd1dcb7-6484-4368-9436-dc5efa178574" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="d786c7a1-bb3f-433d-b046-52cf121c7ce6" name="ModelingProject1">
+    <elementDefinition Id="80456cd2-8341-4414-a381-dbb6b51bd1f2" />
+    <profileInstances>
+      <packageHasProfileInstances Id="0d879a50-8d6b-414f-8ba6-4ce01d41e150">
+        <profileInstance Id="9b61ebf0-1152-43e6-bae3-a01c8b8eac9e" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="b771d7e0-85dd-4d7d-ba49-4d7aa80d4a9b">
+        <profileInstance Id="94b8214b-c3d9-42c1-b2b5-ee412ad6526d" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</logicalClassDesignerModel>

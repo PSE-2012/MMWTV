@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="80456cd2-8341-4414-a381-dbb6b51bd1f2"
+  name="ModelingProject1" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
+      <profileInstance
+        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
+        name="StandardProfileL2" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="29349502-908c-4fda-9054-c48619c59ed0">
+      <profileInstance
+        Id="532ea607-fb19-44b8-8502-3351b05452be"
+        name="StandardProfileL3" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <Interface
+        Id="d58695c2-b6a9-4bd9-ad4c-bf4a73b8fdcf"
+        name="IPlugin"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="f2213e1c-0550-45d9-95d2-b3ab3a852bd3"
+        name="IPlugin"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="628e21a7-34d9-4835-bd9c-de6a0d7d18c0"
+        name="IPresentation"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="24c6d563-fba3-4658-999b-0234151b2959"
+            isSubstitutable="false">
+            <interfaceMoniker
+              Id="f2213e1c-0550-45d9-95d2-b3ab3a852bd3"
+              LastKnownName="IPlugin"
+              LastKnownLocation="ModelingProject1.uml" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="5fa9521b-5c3c-459b-821b-9f47868281f8"
+        name="IFilter"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="1bd06809-354c-490c-a6ab-2126893b7615"
+            isSubstitutable="false">
+            <interfaceMoniker
+              Id="f2213e1c-0550-45d9-95d2-b3ab3a852bd3"
+              LastKnownName="IPlugin"
+              LastKnownLocation="ModelingProject1.uml" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="cc44fb91-21ce-4d03-939a-b0b3a172de5f"
+        name="IMetrik"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="47c222ef-5705-4c03-8537-c7c7e7b59d74"
+            isSubstitutable="false">
+            <interfaceMoniker
+              Id="f2213e1c-0550-45d9-95d2-b3ab3a852bd3"
+              LastKnownName="IPlugin"
+              LastKnownLocation="ModelingProject1.uml" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="d56c2ded-2b8f-4f0a-bb6d-b005237fd28c"
+        name="IVideoHandler"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="2492ae71-643c-4eaa-b37a-ecc7d1d96af2"
+            isSubstitutable="false">
+            <interfaceMoniker
+              Id="f2213e1c-0550-45d9-95d2-b3ab3a852bd3"
+              LastKnownName="IPlugin"
+              LastKnownLocation="ModelingProject1.uml" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="c425f445-c108-47c3-bdf6-823da406af4a"
+        name="IPlugin"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="fd897381-87f8-4feb-a3fe-d29fd3078d06"
+        name="IPresentation"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="426b08e5-2321-45b8-ba68-7d55c399e1cc"
+            isSubstitutable="false">
+            <interfaceMoniker
+              Id="c425f445-c108-47c3-bdf6-823da406af4a"
+              LastKnownName="IPlugin"
+              LastKnownLocation="ModelingProject1.uml" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="479c5cac-fb02-478b-a6d4-3274ca44516c"
+        name="IFilter"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="78f82c02-c51c-40ff-b053-a23aef077eb8"
+            isSubstitutable="false">
+            <interfaceMoniker
+              Id="c425f445-c108-47c3-bdf6-823da406af4a"
+              LastKnownName="IPlugin"
+              LastKnownLocation="ModelingProject1.uml" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="1812d78c-8d89-4fc0-b75c-f2767b5b0a62"
+        name="IMetrik"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="dd7e252e-95f3-4746-afd4-fe56c54d4a3d"
+            isSubstitutable="false">
+            <interfaceMoniker
+              Id="c425f445-c108-47c3-bdf6-823da406af4a"
+              LastKnownName="IPlugin"
+              LastKnownLocation="ModelingProject1.uml" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="964cc909-5f82-4418-a3e0-027e52a68330"
+        name="IVideoHandler"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="5fd1dcb7-6484-4368-9436-dc5efa178574"
+            isSubstitutable="false">
+            <interfaceMoniker
+              Id="c425f445-c108-47c3-bdf6-823da406af4a"
+              LastKnownName="IPlugin"
+              LastKnownLocation="ModelingProject1.uml" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="cf5ca235-3f10-48c1-bc67-b5ba63361221"
+        name="VM_Oqat"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="8a19bcde-9405-4844-9bf8-7d8c8b01fa42"
+        name="VM_Presentation"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="8b8d6a4e-3335-41a3-8a70-f79990d8082f"
+        name="VM_ProjectExplorer"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="da75e8d2-5cab-4e97-8af3-f6c2391c4f83"
+        name="VM_PluginLists"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="9c401684-25c6-40e1-939f-e6ef5b473791"
+        name="VM_Macro"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="c22ee1b4-7b42-4437-8d54-b6dd4142d639"
+        name="Pluginmanager"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>
