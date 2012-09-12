@@ -67,32 +67,40 @@ Leidig \\[0.3cm] Betreuer: Dipl.-Inform. Sebastian Kobbe}
 \begin{frame}
 \frametitle{Architekturmuster  MVVM}
 \begin{minipage}{5,5cm}
+\begin{center}
 \includegraphics[scale=.5]{img/arch/mvvm.png}
+\end{center}
 \end{minipage}
 \begin{minipage}{5,5cm}
 \begin{itemize}
-\item <+-> Model View ViewModel Architekturmuster.
-\item <+-> View wurde nahezu vollständig deklarativ definiert.
-\item <+-> Verbesserte Testbarkeit durch Trennung der Darstellung von der Anwendungslogik.
+\itemsep1em
+\item <+-> Model View ViewModel Architekturmuster
+\item <+-> View deklarativ definiert
+\item <+-> Databinding
+\item <+-> Erweiterbarkeit durch Plugins
+\item <+-> Verbesserte Testbarkeit
 \end{itemize}
 \end{minipage}
 \end{frame}
 \begin{frame}
-\frametitle{Von der View zum ViewModel}
-\includegraphics[scale=.23]{img/arch/generalOverview.png}
-\end{frame}
-\begin{frame}
 \frametitle{Plugins}
+\begin{center}
 \includegraphics[scale=.5]{img/arch/IPluginStructure.png}
-\newline
-\newline
+\end{center}
 \begin{itemize}
+\itemsep1em
 \item <+-> Managed Extensibility Framework (MEF)
-\item <+-> Plugins werden mit Hilfe exportierter Metadaten und
- implementierter Schnittstellen identifiziert
- \item <+-> Eine PluginManager Klasse ist für die Koordination und Konsistenz aller Plugins verantwortlich.
+\item <+-> Kein Neustart notwendig
+ \item <+-> Pluginmanager
 \end{itemize}
 \end{frame}
+\begin{frame}
+\frametitle{Von der View zum ViewModel}
+\begin{center}
+\includegraphics[scale=.23]{img/arch/generalOverview.png}
+\end{center}
+\end{frame}
+
 \section{Entwicklungsumgebung}
 \begin{frame}
 	\frametitle{Entwicklungsumgebung}
