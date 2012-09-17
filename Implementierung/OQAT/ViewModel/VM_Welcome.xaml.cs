@@ -58,7 +58,7 @@
         /// Helper method to set the listbox content to the projects attribute.
         /// </summary>
         private void updateListBox(){
-            btnOpSelPrj.IsEnabled = false;
+            //btnOpSelPrj.IsEnabled = false;
             listBox1.Items.Clear();
             this.projects.Reverse();
             foreach (String s in projects)
@@ -157,7 +157,7 @@
         /// </summary>
         private void listView1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            btnOpSelPrj.IsEnabled = true;
+            //btnOpSelPrj.IsEnabled = true;
         }
 
         /// <summary>
@@ -217,7 +217,7 @@
         /// </summary>
         private void listBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            btnOpSelPrj.IsEnabled = true;
+            //btnOpSelPrj.IsEnabled = true;
         }
 
         /// <summary>
@@ -247,7 +247,7 @@
                 }
                 msg = t2[3];
                 newPrjCreate_Button.Content = t2[2];
-                btnOpSelPrj.Content = t2[1];
+                //btnOpSelPrj.Content = t2[1];
                 btnEx.Content = t2[0];
             }
             catch (IndexOutOfRangeException e) { }

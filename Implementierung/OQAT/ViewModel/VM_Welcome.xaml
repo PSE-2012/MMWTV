@@ -3,16 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignHeight="233">
+             mc:Ignorable="d" d:DesignHeight="233" d:DesignWidth="500">
+    
     <UserControl.Resources>
         <Style x:Key="buttonBaseStyle" TargetType="{x:Type Control}">
-            <Setter Property="FontWeight" Value="Bold"/>
+            <!--<Setter Property="FontWeight" Value="Bold"/> -->
         </Style>
         <Style x:Key="welcomeButtonStyle" BasedOn="{StaticResource buttonBaseStyle}" TargetType="Button">
-            <Setter Property="Margin" Value="5,5,5,5"/>
+            <!--<Setter Property="Margin" Value="5,5,5,5"/>
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="FontSize" Value="15"/>
-           
+            <Setter Property="FontSize" Value="15"/>-->
         </Style>
         <Style x:Key="lineStyle" TargetType="Line">
             <Setter Property="Stroke" Value="Blue" />
@@ -25,52 +25,47 @@
             <Setter Property="X2" Value="1" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="Grid.ColumnSpan" 
-                    Value="{Binding   
-                                Path=ColumnDefinitions.Count,  
-                                RelativeSource={RelativeSource AncestorType=Grid}}"/>
+                    Value="{Binding Path=ColumnDefinitions.Count, RelativeSource={RelativeSource AncestorType=Grid}}"/>
         </Style>
 
         <Style x:Key="verticalLineStyle" TargetType="Line" BasedOn="{StaticResource lineStyle}">
             <Setter Property="Y2" Value="1" />
             <Setter Property="HorizontalAlignment" Value="Right" />
             <Setter Property="Grid.RowSpan"   
-                    Value="{Binding   
-                                Path=RowDefinitions.Count,  
-                                RelativeSource={RelativeSource AncestorType=Grid}}"/>
+                    Value="{Binding Path=RowDefinitions.Count, RelativeSource={RelativeSource AncestorType=Grid}}"/>
         </Style>
     </UserControl.Resources>
+    
     <Border>
-        <Grid >
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-           
+            <RowDefinition Height="170"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition  />
-                <ColumnDefinition />
-                <ColumnDefinition  />
-                <ColumnDefinition  />
+
+        <Image Grid.Row="0" Source="/OQAT;component/oqat.png" Margin="10" HorizontalAlignment="Center"/>
+
+        <ListBox Grid.Row="1"  Name="listBox1" SelectionChanged="listBox1_SelectionChanged" MouseDoubleClick="listbox1_DoubleKlick" />
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
-
-     
-        
             
-                <ListBox  Name="listBox1" Grid.ColumnSpan="3" Grid.RowSpan="3" SelectionChanged="listBox1_SelectionChanged" MouseDoubleClick="listbox1_DoubleKlick" />
-      
-                <WrapPanel  Name="wrapPanel1"  Grid.Column="1" Grid.Row="3" >
-                    <Button Style="{StaticResource welcomeButtonStyle}" Grid.Row="5" Grid.Column="0" x:Name="newPrjCreate_Button" Click="newPrjCreate_Click">Neues Projekt erstellen</Button>
-                </WrapPanel>
-                <WrapPanel  Name="wrapPanel2"  Grid.Column="2" Grid.Row="3" >
-                    <Button Name="btnEx" Style="{StaticResource welcomeButtonStyle}" Grid.Row="5" Grid.Column="1"  Click="exPrjOpen_Click">Projekt suchen</Button>
-                </WrapPanel>
-                <WrapPanel  Name="wrapPanel3"  Grid.Column="0" Grid.Row="3" >
-                    <Button Name="btnOpSelPrj" Grid.Row="5"  Style="{StaticResource welcomeButtonStyle}" Grid.Column="2"  Content="Gewähltes Projekt öffnen"   IsEnabled="False" Click="btnOpSelPrj_Click" />
-                </WrapPanel>
-           
+            <Button Name="newPrjCreate_Button" Click="newPrjCreate_Click" Grid.Column="0" HorizontalAlignment="Stretch">
+                <Image Grid.Row="0" Source="/OQAT;component/new-icon.png" Margin="3" HorizontalAlignment="Center"/>
+                <Button.ToolTip>Neues Projekt</Button.ToolTip>
+            </Button>
+
+            <Button Name="btnEx" Click="exPrjOpen_Click" Grid.Column="1" HorizontalAlignment="Stretch">
+                <Image Grid.Row="0" Source="/OQAT;component/open-icon.png" Margin="3" HorizontalAlignment="Center"/>
+                <Button.ToolTip>Projekt öffnen</Button.ToolTip>
+            </Button>
         </Grid>
-        </Border>
+        
+        
+    </Grid>
+    </Border>
 </UserControl>

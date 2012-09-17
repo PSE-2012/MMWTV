@@ -8,7 +8,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Border>
-        <Grid>
+        <TabControl>
+            <TabItem Header="Videos">
+                <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
@@ -16,8 +18,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+
             
-            <TreeView Grid.Row="0" x:Name="smartTreeExplorer" ItemsSource="{Binding}"
+                    <TreeView Grid.Row="0" x:Name="smartTreeExplorer" ItemsSource="{Binding}"
                       KeyDown="smartTreeExplorer_KeyDown"
                     
                           DragDrop.Drop="smartTreeExplorer_PreviewDrop" AllowDrop="True"
@@ -29,27 +32,32 @@
                       PreviewMouseLeftButtonUp="smartTreeExplorer_PreviewMouseLeftButtonUp"
                       PreviewMouseMove="smartTreeExplorer_PreviewMouseMove">
 
-                <TreeView.Resources>
-                    <localconv:NegatingConverter x:Key="oppositeConverter" />
-                    <HierarchicalDataTemplate DataType="{x:Type local:SmartNode}"
+                        <TreeView.Resources>
+                            <localconv:NegatingConverter x:Key="oppositeConverter" />
+
+                            <HierarchicalDataTemplate DataType="{x:Type local:SmartNode}"
                                               ItemsSource="{Binding smartTree}">
-                        <TextBlock  Text="{Binding Path=name}">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu  Name="cm" StaysOpen="true">
-                                    <MenuItem  Header="{DynamicResource proc}" x:Name="miLoadProc" Click="miLoadProc_Click" IsEnabled="{Binding Path=video.isAnalysis, Converter={StaticResource oppositeConverter}}" />
-                                    <MenuItem Header="{DynamicResource ref}" x:Name="miLoadRef" Click="miLoadRef_Click" IsEnabled="{Binding Path=video.isAnalysis, Converter={StaticResource oppositeConverter}}" />
-                                    <MenuItem Header="{DynamicResource ana}" x:Name="miLoadAna" Click="miLoadAna_Click" IsEnabled="{Binding Path=video.isAnalysis}" />
-                                    <MenuItem Header="{DynamicResource exp}" x:Name="miExpAna" Click="btnExport_Click" IsEnabled="{Binding Path=video.isAnalysis}" />
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                    </HierarchicalDataTemplate>
-                    <Style TargetType="TreeViewItem">
-                        <EventSetter Event="MouseDoubleClick" Handler="treeitem_MouseDoubleClicked"/>
-                    </Style>
-                </TreeView.Resources>
-            </TreeView>
-            
+                                <WrapPanel>
+                                    <Image Source="{Binding Path=icon}" Height="16" Margin="1"/>
+                                    <TextBlock  Text="{Binding Path=name}" Margin="1">
+                                <TextBlock.ContextMenu>
+                                    <ContextMenu  Name="cm" StaysOpen="true">
+                                        <MenuItem  Header="{DynamicResource proc}" x:Name="miLoadProc" Click="miLoadProc_Click" IsEnabled="{Binding Path=video.isAnalysis, Converter={StaticResource oppositeConverter}}" />
+                                        <MenuItem Header="{DynamicResource ref}" x:Name="miLoadRef" Click="miLoadRef_Click" IsEnabled="{Binding Path=video.isAnalysis, Converter={StaticResource oppositeConverter}}" />
+                                        <MenuItem Header="{DynamicResource ana}" x:Name="miLoadAna" Click="miLoadAna_Click" IsEnabled="{Binding Path=video.isAnalysis}" />
+                                        <MenuItem Header="{DynamicResource exp}" x:Name="miExpAna" Click="btnExport_Click" IsEnabled="{Binding Path=video.isAnalysis}" />
+                                    </ContextMenu>
+                                </TextBlock.ContextMenu>
+                                    </TextBlock>
+                                </WrapPanel>
+                            </HierarchicalDataTemplate>
+                            <Style TargetType="TreeViewItem">
+                                <EventSetter Event="MouseDoubleClick" Handler="treeitem_MouseDoubleClicked"/>
+                            </Style>
+                        </TreeView.Resources>
+                    </TreeView>
+                
+
             <StackPanel Grid.Row="1">
                 <StackPanel.DataContext>
                     <Binding ElementName="smartTreeExplorer"  Path="SelectedItem"/>
@@ -68,5 +76,7 @@
                 <Grid x:Name="readOnlyPropViewPanel" Margin="5"/>
             </StackPanel>
         </Grid>
+            </TabItem>
+        </TabControl>
     </Border>
 </UserControl>
