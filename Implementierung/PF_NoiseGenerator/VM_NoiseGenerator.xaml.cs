@@ -22,7 +22,6 @@ namespace PF_NoiseGenerator
     [Serializable()]
     public partial class VM_NoiseGenerator : UserControl
     {
-        float uperBorder;
 
         /// <summary>
         /// Constructor
@@ -91,9 +90,9 @@ namespace PF_NoiseGenerator
                 
                 label1.Content = t2[0];
            }
-           catch (IndexOutOfRangeException e) { }
-           catch (FileNotFoundException e) { }
-           catch (XmlException e) { }
+           catch (IndexOutOfRangeException) { }
+           catch (FileNotFoundException) { }
+           catch (XmlException) { }
           
         }
        

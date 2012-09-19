@@ -15,7 +15,6 @@ using System.IO;
 using System.Xml;
 using System.Threading;
 using System.Globalization;
-using System.Windows.Data;
 
 namespace PM_MSE
 {
@@ -112,9 +111,9 @@ namespace PM_MSE
                 rbG.Content = t2[2];
                 rbB.Content = t2[3];
             }
-            catch (IndexOutOfRangeException e) { }
-            catch (FileNotFoundException e) { }
-            catch (XmlException e) { }
+            catch (IndexOutOfRangeException) { }
+            catch (FileNotFoundException) { }
+            catch (XmlException) { }
 
         }
 

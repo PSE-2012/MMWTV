@@ -56,33 +56,34 @@ namespace Oqat.ViewModel
             try
             {
                 String sFilename = Directory.GetCurrentDirectory() + "/" + s;
-                XmlTextReader reader = new XmlTextReader(sFilename);
-                reader.Read();
-                reader.Read();
-                String[] t = new String[4];
-                String[] t2 = new String[4];
-                for (int i = 0; i < 4; i++)
+                using (XmlTextReader reader = new XmlTextReader(sFilename))
                 {
                     reader.Read();
                     reader.Read();
-                    t[i] = reader.Name;
-                    reader.MoveToNextAttribute();
-                    t2[i] = reader.Value;
-                    if (t2[i] == "")
+                    String[] t = new String[4];
+                    String[] t2 = new String[4];
+                    for (int i = 0; i < 4; i++)
                     {
-                        throw new XmlException("datei nicht lang genug");
+                        reader.Read();
+                        reader.Read();
+                        t[i] = reader.Name;
+                        reader.MoveToNextAttribute();
+                        t2[i] = reader.Value;
+                        if (t2[i] == "")
+                        {
+                            throw new XmlException("datei nicht lang genug");
+                        }
                     }
+                    this.Title = t2[0];
+                    btt_Import.Content = t2[1];
+                    btt_Cancel.Content = t2[2];
+                    videoerror = t2[3];
                 }
-                this.Title = t2[0];
-                btt_Import.Content = t2[1];
-                btt_Cancel.Content = t2[2];
-                videoerror = t2[3];
-
 
             }
-            catch (IndexOutOfRangeException e) { }
-            catch (FileNotFoundException e) { }
-            catch (XmlException e) { }
+            catch (IndexOutOfRangeException) { }
+            catch (FileNotFoundException) { }
+            catch (XmlException) { }
         }
 
 
@@ -113,7 +114,7 @@ namespace Oqat.ViewModel
                     presentHandlerView(video);
                     handler = null;
                 }
-                catch (FileFormatException e)
+                catch (FileFormatException)
                 {
                     if (errorOccured == false)
                     {

@@ -76,29 +76,6 @@ namespace Oqat.Model
         {
             return name;
         }
-        /// <summary>
-        /// returns true if obj = this
-        /// </summary>
-        public override bool Equals(object obj)
-        {
-            if (!(obj is SmartNode) || obj == null)
-                return false;
-
-            SmartNode node = obj as SmartNode;
-
-            if (!this.name.Equals(node.name) || this.idFather!=node.idFather || this.id!=node.id
-                || this.smartTree.Count != node.smartTree.Count||!this.video.Equals(node.video))
-                return false;
-
-            for (int i = 0; i < this.smartTree.Count; i++)
-            {
-                if (this.smartTree[i] != node.smartTree[i])
-                    return false;
-            }
-
-
-            return true;
-        }
 
     }
 }

@@ -159,7 +159,7 @@ namespace OQAT_Tests
                 test.addNode(null, -1);
                 Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -169,7 +169,7 @@ namespace OQAT_Tests
                 test.addNode(vid1, 0);
                 Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -179,7 +179,7 @@ namespace OQAT_Tests
                 test.rmNode(0,true);
                 Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

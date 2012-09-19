@@ -35,37 +35,39 @@ namespace Oqat.ViewModel
             try
             {
                 String sFilename = Directory.GetCurrentDirectory() + "/" + s;
-                XmlTextReader reader = new XmlTextReader(sFilename);
-                reader.Read();
-                reader.Read();
-                String[] t = new String[8];
-                String[] t2 = new String[8];
-                for (int i = 0; i < 8; i++)
+                using (XmlTextReader reader = new XmlTextReader(sFilename))
                 {
                     reader.Read();
                     reader.Read();
-                    t[i] = reader.Name;
-                    reader.MoveToNextAttribute();
-                    t2[i] = reader.Value;
-                    if (t2[i] == "")
+                    String[] t = new String[8];
+                    String[] t2 = new String[8];
+                    for (int i = 0; i < 8; i++)
                     {
-                        throw new XmlException("datei nicht lang genug");
+                        reader.Read();
+                        reader.Read();
+                        t[i] = reader.Name;
+                        reader.MoveToNextAttribute();
+                        t2[i] = reader.Value;
+                        if (t2[i] == "")
+                        {
+                            throw new XmlException("datei nicht lang genug");
+                        }
                     }
+
+                    mn1.Header = t2[0];
+                    mn2.Header = t2[1];
+                    miInfo.Header = t2[2];
+                    tabFilter.Header = t2[3];
+                    tabMetric.Header = t2[4];
+                    miVidImport.Header = t2[5];
+                    miNewProject.Header = t2[6];
+                    miOpenProject.Header = t2[7];
                 }
-                mn1.Header= t2[0];
-                mn2.Header = t2[1];
-                miInfo.Header= t2[2];
-                tabFilter.Header = t2[3];
-                tabMetric.Header= t2[4];
-                miVidImport.Header = t2[5];
-                miNewProject.Header = t2[6];
-                miOpenProject.Header = t2[7];
-              
 
             }
-            catch (IndexOutOfRangeException e) { }
-            catch (FileNotFoundException e) { }
-            catch (XmlException e) { }
+            catch (IndexOutOfRangeException) { }
+            catch (FileNotFoundException) { }
+            catch (XmlException) { }
         }
         /// <summary>
         /// constructor of the PRogramm. initialises all components.
@@ -227,17 +229,6 @@ namespace Oqat.ViewModel
         #region styles
 
 
-        [StructLayout(LayoutKind.Sequential)]
-            private struct MARGINS
-            {
-                public int cxLeftWidth;      // width of left border that retains its size
-                public int cxRightWidth;     // width of right border that retains its size
-                public int cyTopHeight;      // height of top border that retains its size
-                public int cyBottomHeight;   // height of bottom border that retains its size
-            };
-
-            [DllImport("DwmApi.dll")]
-            private static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS pMarInset);
 
             private void Window_Loaded(object sender, RoutedEventArgs e)
             {
@@ -247,7 +238,7 @@ namespace Oqat.ViewModel
 
                 mainWindowSrc.CompositionTarget.BackgroundColor = Color.FromArgb(0, 0, 0, 0);
 
-                MARGINS margins = new MARGINS()
+                NativeMethods.MARGINS margins = new NativeMethods.MARGINS()
                 {
                     cxLeftWidth = -1,
                     cxRightWidth = -1,
@@ -255,7 +246,7 @@ namespace Oqat.ViewModel
                     cyTopHeight = -1
                 };
 
-                DwmExtendFrameIntoClientArea(myHwnd, ref margins);
+              NativeMethods.DwmExtendFrameIntoClientArea(myHwnd, ref margins);
             }
 
         #endregion
@@ -322,6 +313,21 @@ namespace Oqat.ViewModel
         }
 
 
+    }
+
+    internal static class NativeMethods
+    {
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct MARGINS
+        {
+            public int cxLeftWidth;      // width of left border that retains its size
+            public int cxRightWidth;     // width of right border that retains its size
+            public int cyTopHeight;      // height of top border that retains its size
+            public int cyBottomHeight;   // height of bottom border that retains its size
+        };
+
+        [DllImport("DwmApi.dll")]
+        internal static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS pMarInset);
     }
 
 }

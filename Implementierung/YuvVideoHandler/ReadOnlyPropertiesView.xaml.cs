@@ -56,9 +56,9 @@ namespace PS_YuvVideoHandler
 
 
             }
-            catch (IndexOutOfRangeException e) { }
-            catch (FileNotFoundException e) { }
-            catch (XmlException e) { }
+            catch (IndexOutOfRangeException) { }
+            catch (FileNotFoundException) { }
+            catch (XmlException) { }
         }
        
     }

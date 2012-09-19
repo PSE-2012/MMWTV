@@ -67,34 +67,34 @@ namespace Oqat.Model
         /// </summary>
         /// <param name="fileName">The binary file to load.</param> 
         public virtual Memento getMemento(string fileName)
-		{
+        {
             Memento objectToSerialize = null;
             //check if correct file exist
             if (File.Exists(fileName))
             {
-                //Reading files and creates a list of mementos
-                Stream stream;
-  
-                stream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                //using binary format
-                BinaryFormatter bFormatter = new BinaryFormatter();
-                bFormatter.Binder = new OqatSerializationBinder();
-
+                
                 try
                 {
-                    objectToSerialize = (Memento)bFormatter.Deserialize(stream);
+                    using (Stream stream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                    {
+
+                        //using binary format
+                        BinaryFormatter bFormatter = new BinaryFormatter();
+                        bFormatter.Binder = new OqatSerializationBinder();
+
+                        objectToSerialize = (Memento)bFormatter.Deserialize(stream);
+                    }
                 }
-                catch(SerializationException ex)
+                catch (SerializationException ex)
                 {
-                    stream.Close();
                     PluginManager.pluginManager.raiseEvent(EventType.failure, new ErrorEventArgs(ex));
-                    return null;
                 }
 
-                stream.Close();
+              
             }
+
             return objectToSerialize;
-		}
+        }
 
         /// <summary>
         /// Saves newly created Memento to the hard disk drive.
@@ -106,10 +106,11 @@ namespace Oqat.Model
             {
                 lock (writeDisk)
                 {
-                    Stream stream = File.Open(objectToSerialize.mementoPath, FileMode.Create, FileAccess.Write, FileShare.None);
-                    BinaryFormatter bFormatter = new BinaryFormatter();
-                    bFormatter.Serialize(stream, objectToSerialize);
-                    stream.Close();
+                    using(Stream stream = File.Open(objectToSerialize.mementoPath, FileMode.Create, FileAccess.Write, FileShare.None)) 
+                    {
+                        BinaryFormatter bFormatter = new BinaryFormatter();
+                        bFormatter.Serialize(stream, objectToSerialize);
+                    }
                 }
             }
             catch (Exception exc)

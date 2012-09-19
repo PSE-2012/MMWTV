@@ -20,7 +20,6 @@ namespace OQAT_Tests
     {
         private static string sampleVideosPath;
         private static string[] sampleVideos;
-        private TestContext testContextInstance;
         private static string plPathSolution;
 
         [ClassInitialize()]
@@ -96,7 +95,7 @@ namespace OQAT_Tests
                 IVideoHandler noHandler = fakeVideo.handler;
                 Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

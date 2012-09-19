@@ -10,6 +10,7 @@ using System.ComponentModel.Composition.Hosting;
 using Oqat.PublicRessources.Model;
 using Oqat.PublicRessources.Plugin;
 using System.Diagnostics;
+using System.Security.Permissions;
 
 
 namespace Oqat.ViewModel
@@ -27,7 +28,7 @@ namespace Oqat.ViewModel
     /// [ExportMetadata("type", type)]
     /// [Export(typeof(IPlugin))]
     /// </remarks>
-    public class PluginManager
+    public class PluginManager : IDisposable
     {
         private static Object key = new Object();
         private static PluginManager plMan;
@@ -82,19 +83,21 @@ namespace Oqat.ViewModel
             {
                 pluginContainer = new CompositionContainer(catalog);
                 pluginContainer.ComposeParts(this);
-
-                watcher = new FileSystemWatcher(PLUGIN_PATH);
-                watcher.Created += new FileSystemEventHandler(onPluginFolderChanged);
-                watcher.Deleted += new FileSystemEventHandler(onPluginFolderChanged);
-                watcher.EnableRaisingEvents = true;
+                registerFileWatchers();
             }
             catch (Exception exc)
             {
                 raiseEvent(EventType.failure, new ErrorEventArgs(exc));
             }
         }
-
-
+        [PermissionSet(SecurityAction.Demand, Name="FullTrust")]
+        private void registerFileWatchers()
+        {
+            watcher = new FileSystemWatcher(PLUGIN_PATH);
+            watcher.Created += new FileSystemEventHandler(onPluginFolderChanged);
+            watcher.Deleted += new FileSystemEventHandler(onPluginFolderChanged);
+            watcher.EnableRaisingEvents = true;
+        }
 
         /// <summary>
         /// Here happens the matching of exports provided by a Catalog with import attributes provided by
@@ -185,7 +188,10 @@ namespace Oqat.ViewModel
                             Lazy<IPlugin, IPluginMetadata> tmpPlugin;
                             try
                             {
-                                tmpPlugin = (new PluginSandbox(file)).tmpPlugin;
+                                using (PluginSandbox plSandBox = new PluginSandbox(file))
+                                {
+                                    tmpPlugin = plSandBox.tmpPlugin;
+                                }
                             }
                             catch (Exception exc)
                             {
@@ -244,6 +250,7 @@ namespace Oqat.ViewModel
                                     errorsOcured = true;
                                 }
                             }
+                            
                         }
                     }
                 }
@@ -327,8 +334,10 @@ namespace Oqat.ViewModel
                 EntryEventArgs pluginTableChanges;
                 if (!tmpSlot) // i.e. no errors occured
                 {
-                    var tmpPlugin = new PluginSandbox(e.FullPath);
-                    pluginTableChanges = new EntryEventArgs(tmpPlugin.tmpPlugin.Metadata.namePlugin);
+                    using (var tmpPlugin = new PluginSandbox(e.FullPath))
+                    {
+                        pluginTableChanges = new EntryEventArgs(tmpPlugin.tmpPlugin.Metadata.namePlugin);
+                    }
                 }
                 else
                 {
@@ -623,7 +632,7 @@ namespace Oqat.ViewModel
         /// is valid.
         /// </summary>
         /// <param name="eType"> The type of event to raise.</param>
-        public virtual void raiseEvent(EventType eType, EventArgs e)
+        public void raiseEvent(EventType eType, EventArgs e)
         {
             switch (eType)
             {
@@ -776,6 +785,39 @@ namespace Oqat.ViewModel
         #endregion
 
 
+        
+// Dispose() calls Dispose(true)
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+    // NOTE: Leave out the finalizer altogether if this class doesn't 
+    // own unmanaged resources itself, but leave the other methods
+    // exactly as they are. 
+    ~PluginManager() 
+    {
+        // Finalizer calls Dispose(false)
+        Dispose(false);
+    }
+    // The bulk of the clean-up code is implemented in Dispose(bool)
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            disposing = true;
+            if (pluginCatalog != null)
+                pluginCatalog.Dispose();
+            if (watcher != null)
+                watcher.Dispose();
+            if (catalog != null)
+                catalog.Dispose();
+            if (pluginContainer != null)
+                pluginContainer.Dispose();
+            if (plMan != null)
+                plMan.Dispose();
+        }
+    }
     }
 }
 

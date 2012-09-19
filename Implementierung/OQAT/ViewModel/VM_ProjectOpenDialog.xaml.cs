@@ -25,36 +25,37 @@
             try
             {
                 String sFilename = Directory.GetCurrentDirectory() + "/" + s;
-                XmlTextReader reader = new XmlTextReader(sFilename);
-                reader.Read();
-                reader.Read();
-                String[] t = new String[8];
-                String[] t2 = new String[8];
-                for (int i = 0; i < 8; i++)
+                using (XmlTextReader reader = new XmlTextReader(sFilename))
                 {
                     reader.Read();
                     reader.Read();
-                    t[i] = reader.Name;
-                    reader.MoveToNextAttribute();
-                    t2[i] = reader.Value;
-                    if (t2[i] == "")
+                    String[] t = new String[8];
+                    String[] t2 = new String[8];
+                    for (int i = 0; i < 8; i++)
                     {
-                        throw new XmlException("datei nicht lang genug");
+                        reader.Read();
+                        reader.Read();
+                        t[i] = reader.Name;
+                        reader.MoveToNextAttribute();
+                        t2[i] = reader.Value;
+                        if (t2[i] == "")
+                        {
+                            throw new XmlException("datei nicht lang genug");
+                        }
                     }
+                    bt1.Content = t2[1];
+                    bt2.Content = t2[0];
+                    gb3.Header = t2[2];
+                    gb4.Header = t2[3];
+                    btnBrowse.Content = t2[4];
+                    tb6.Text = t2[5];
+                    this.Title = t2[6];
+                    msgboxovverid = t2[7];
                 }
-                bt1.Content = t2[1];
-                bt2.Content = t2[0];
-                gb3.Header = t2[2];
-                gb4.Header = t2[3];
-                btnBrowse.Content = t2[4];
-                tb6.Text = t2[5];
-                this.Title = t2[6];
-                msgboxovverid = t2[7];
-
             }
-            catch (IndexOutOfRangeException e) { }
-            catch (FileNotFoundException e) { }
-            catch (XmlException e) { }
+            catch (IndexOutOfRangeException) { }
+            catch (FileNotFoundException) { }
+            catch (XmlException) { }
         }
 
 

@@ -37,41 +37,42 @@ namespace Oqat.ViewModel
             try
             {
                 String sFilename = Directory.GetCurrentDirectory() + "/" + s;
-                XmlTextReader reader = new XmlTextReader(sFilename);
-                reader.Read();
-                reader.Read();
-                String[] t = new String[10];
-                String[] t2 = new String[10];
-                for (int i = 0; i < 10; i++)
+                using (XmlTextReader reader = new XmlTextReader(sFilename))
                 {
                     reader.Read();
                     reader.Read();
-                    t[i] = reader.Name;
-                    reader.MoveToNextAttribute();
-                    t2[i] = reader.Value;
-                    if (t2[i] == "")
+                    String[] t = new String[10];
+                    String[] t2 = new String[10];
+                    for (int i = 0; i < 10; i++)
                     {
-                        throw new XmlException("datei nicht lang genug");
+                        reader.Read();
+                        reader.Read();
+                        t[i] = reader.Name;
+                        reader.MoveToNextAttribute();
+                        t2[i] = reader.Value;
+                        if (t2[i] == "")
+                        {
+                            throw new XmlException("datei nicht lang genug");
+                        }
                     }
+                    // tb1.Text = t2[0];
+                    bt2.Content = t2[1];
+                    // bt3.Content = t2[2];
+                    bttAddToMacro.Content = t2[3];
+                    l2text = t2[4];
+                    msgText1 = t2[5];
+                    msgText2 = t2[6];
+                    msgText21 = t2[7];
+                    msgText3 = t2[8];
+                    tbNoSettings.Text = t2[9];
+
+
+
                 }
-               // tb1.Text = t2[0];
-                bt2.Content = t2[1];
-               // bt3.Content = t2[2];
-                bttAddToMacro.Content = t2[3];
-                l2text = t2[4];
-                msgText1 = t2[5];
-                msgText2 = t2[6];
-                msgText21 = t2[7];
-                msgText3 = t2[8];
-                tbNoSettings.Text = t2[9];
-
-               
-
-
             }
-            catch (IndexOutOfRangeException e) { }
-            catch (FileNotFoundException e) { }
-            catch (XmlException e) { }
+            catch (IndexOutOfRangeException) { }
+            catch (FileNotFoundException) { }
+            catch (XmlException) { }
         }
 
         ObservableCollection<PluginViewModel> _pluginList;

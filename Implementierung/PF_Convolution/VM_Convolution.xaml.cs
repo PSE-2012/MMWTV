@@ -70,7 +70,7 @@ namespace PF_Convolution
                         {
                             matrix[i, j] = int.Parse(fields[j]);
                         }
-                        catch (FormatException ex)
+                        catch (FormatException)
                         {
 
                         }

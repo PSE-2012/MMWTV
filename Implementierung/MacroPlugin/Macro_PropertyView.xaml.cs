@@ -804,7 +804,7 @@ namespace Oqat.ViewModel.MacroPlugin
             {
                 macroViewDelegates.startProcessing();
             }
-            catch (ContextNotSetException ex)
+            catch (ContextNotSetException)
             {
                 MessageBox.Show("Bitte laden Sie zuerst ein Video.");
             }
@@ -823,8 +823,6 @@ namespace Oqat.ViewModel.MacroPlugin
         }
         private string rootMemNameEmptyWarning = "You must specify a name of at least one caracter in " + 
                                  "order to be able to save this macro for later use.";
-        private string rootMemNameAmbigousWarning = "The name you specified is reserved for " + 
-                                 "an another memento, delete the existing first or choose a different name please.";
         private void saveMacroAs_Click(object sender, RoutedEventArgs e)
         {
             if (this.rootEntryMem_TextBox.Text == "")
@@ -898,9 +896,9 @@ namespace Oqat.ViewModel.MacroPlugin
                 pleaseWait = t2[6];
                 NotifyPropertyChanged("pleaseWait");
             }
-            catch (IndexOutOfRangeException e) { }
-            catch (FileNotFoundException e) { }
-            catch (XmlException e) { }
+            catch (IndexOutOfRangeException) { }
+            catch (FileNotFoundException) { }
+            catch (XmlException) { }
         }
     }
 

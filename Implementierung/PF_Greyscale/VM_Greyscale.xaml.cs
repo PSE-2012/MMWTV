@@ -65,9 +65,9 @@ namespace PF_Greyscale
                 label3.Content = t2[2];
                 tb1.Text = t2[3];
             }
-            catch (IndexOutOfRangeException e) { }
-            catch (FileNotFoundException e) { }
-            catch (XmlException e) { }
+            catch (IndexOutOfRangeException) { }
+            catch (FileNotFoundException) { }
+            catch (XmlException) { }
         }
 
         private void bttReset_Click(object sender, RoutedEventArgs e)

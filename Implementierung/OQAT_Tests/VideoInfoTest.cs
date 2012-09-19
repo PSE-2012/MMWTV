@@ -48,7 +48,7 @@ namespace OQAT_Tests
                 YuvVideoInfo falseInfo = new YuvVideoInfo("D:\\bla_cif.yuv");
                 Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

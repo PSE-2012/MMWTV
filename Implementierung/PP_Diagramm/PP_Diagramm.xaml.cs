@@ -111,7 +111,7 @@ namespace PP_Diagramm
                     plugin = video.processedBy[0].pluginName;
 
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     plugin = "";
                 }

@@ -30,38 +30,40 @@
             try
             {
                 String sFilename = Directory.GetCurrentDirectory() + "/" + s;
-                XmlTextReader reader = new XmlTextReader(sFilename);
-                reader.Read();
-                reader.Read();
-                int count = 10;
-                String[] t = new String[count];
-                String[] t2 = new String[count];
-                for (int i = 0; i < count; i++)
+                using (XmlTextReader reader = new XmlTextReader(sFilename))
                 {
                     reader.Read();
                     reader.Read();
-                    t[i] = reader.Name;
-                    reader.MoveToNextAttribute();
-                    t2[i] = reader.Value;
-                    if (t2[i] == "")
+                    int count = 10;
+                    String[] t = new String[count];
+                    String[] t2 = new String[count];
+                    for (int i = 0; i < count; i++)
                     {
-                        throw new XmlException("datei nicht lang genug");
+                        reader.Read();
+                        reader.Read();
+                        t[i] = reader.Name;
+                        reader.MoveToNextAttribute();
+                        t2[i] = reader.Value;
+                        if (t2[i] == "")
+                        {
+                            throw new XmlException("datei nicht lang genug");
+                        }
                     }
+                    lb1.Content = t2[0];
+                    lb2.Content = t2[1];
+                    btnExport.Content = t2[2];
+                    this.Resources["proc"] = t2[3];
+                    this.Resources["ref"] = t2[4];
+                    this.Resources["ana"] = t2[5];
+                    this.Resources["exp"] = t2[6];
+                    importconsiserror = t2[7];
+                    notfound1 = t2[8];
+                    notfound2 = t2[9];
                 }
-                lb1.Content = t2[0];
-                lb2.Content = t2[1];
-                btnExport.Content = t2[2];
-                this.Resources["proc"] = t2[3];
-                this.Resources["ref"] = t2[4];
-                this.Resources["ana"] = t2[5];
-                this.Resources["exp"] = t2[6];
-                importconsiserror = t2[7];
-                notfound1 = t2[8];
-                notfound2 = t2[9];
             }
-            catch (IndexOutOfRangeException e) { }
-            catch (FileNotFoundException e) { }
-            catch (XmlException e) { }
+            catch (IndexOutOfRangeException) { }
+            catch (FileNotFoundException) { }
+            catch (XmlException) { }
         }
         /// <summary>
         /// Reference to the currently active project.
@@ -284,9 +286,10 @@
                     s = s + System.Environment.NewLine;
                 }
                 String p = dlg.FileName;
-                StreamWriter myFile = new StreamWriter(p);
-                myFile.Write(s);
-                myFile.Close();
+                using (StreamWriter myFile = new StreamWriter(p))
+                {
+                    myFile.Write(s);
+                }
             }
     
         }

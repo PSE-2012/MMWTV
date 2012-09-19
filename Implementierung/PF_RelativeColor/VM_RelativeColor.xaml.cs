@@ -62,9 +62,9 @@ namespace PF_RelativeColor
                 label2.Content = t2[1];
                 label3.Content = t2[2];
             }
-            catch (IndexOutOfRangeException e) { }
-            catch (FileNotFoundException e) { }
-            catch (XmlException e) { }
+            catch (IndexOutOfRangeException) { }
+            catch (FileNotFoundException) { }
+            catch (XmlException) { }
         }
 
         private void bttReset_Click(object sender, RoutedEventArgs e)

@@ -14,7 +14,6 @@ using Oqat.PublicRessources.Model;
 using Oqat.PublicRessources.Plugin;
 using System.Xml;
 using System.Threading;
-using System.IO;
 using System.Windows;
 
 namespace Oqat.ViewModel.MacroPlugin
@@ -885,9 +884,9 @@ namespace Oqat.ViewModel.MacroPlugin
                 processCancelled_MsgBox_Text =t2[9];
                 caption_processedCancelled_MsgBox = t2[10];
             }
-            catch (IndexOutOfRangeException e) { }
-            catch (FileNotFoundException e) { }
-            catch (XmlException e) { }
+            catch (IndexOutOfRangeException) { }
+            catch (FileNotFoundException) { }
+            catch (XmlException) { }
         }
      
     }

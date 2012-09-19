@@ -946,18 +946,6 @@
             }
         }
 
-        /// <summary>
-        /// This flag signals the currently active writerThread(if active)
-        /// to terminate itself.
-        /// </summary>
-        /// <remarks>
-        /// You shouldnt call abort (as described in the corresponding doc entry)
-        /// as the writerThread acquires some locks( i.e. on a file and a the
-        /// <see cref="BitmapData"/> of a <see cref="Bimpap"/>) and couldnt
-        /// release this if you kill it externally.
-        /// </remarks>
-        bool stopWriterThread = false;
-
         private int _positionWriter = -1;
         public int positionWriter
         {

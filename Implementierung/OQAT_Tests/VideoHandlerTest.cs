@@ -73,7 +73,7 @@ namespace OQAT_Tests
                 yvh.setReadContext(falsePath, falseInfo);
                 Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -82,7 +82,7 @@ namespace OQAT_Tests
                 yvh.setReadContext(falsePath, info);
                 Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -91,7 +91,7 @@ namespace OQAT_Tests
                 yvh.setReadContext(readPath, falseInfo);
                 Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -117,7 +117,7 @@ namespace OQAT_Tests
                 yvh.setImportContext(falsePath);
                 Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             }
@@ -163,7 +163,7 @@ namespace OQAT_Tests
                 yvh.setWriteContext(falsePath, falseInfo);
                 Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             }
@@ -172,7 +172,7 @@ namespace OQAT_Tests
                 yvh.setWriteContext(falsePath, info);
                 Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             }
@@ -181,7 +181,7 @@ namespace OQAT_Tests
                 yvh.setWriteContext(readPath, falseInfo);
                 Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -256,7 +256,7 @@ namespace OQAT_Tests
                 {
                     testframe = yvh.getFrame();
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
                     Assert.Fail("Fail to get frame +" + i);
                 }
@@ -287,7 +287,7 @@ namespace OQAT_Tests
                 testframe = yvh.getFrame();
                 Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             }
@@ -326,7 +326,7 @@ namespace OQAT_Tests
                 yvh.writeFrames(-1, frames);
                 Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             }
@@ -335,7 +335,7 @@ namespace OQAT_Tests
             yvh.writeFrames(3, new System.Drawing.Bitmap[3]);
             Assert.Fail("no exception thrown");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -343,7 +343,7 @@ namespace OQAT_Tests
             {
                 File.Delete(writePath);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             }

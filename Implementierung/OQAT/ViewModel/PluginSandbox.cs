@@ -9,7 +9,7 @@ using System.ComponentModel.Composition.Hosting;
 
 namespace Oqat.ViewModel
 {
-    class PluginSandbox
+    class PluginSandbox : IDisposable
     {
         [Import(typeof(IPlugin))]
         internal Lazy<IPlugin, IPluginMetadata> tmpPlugin
@@ -22,9 +22,36 @@ namespace Oqat.ViewModel
         CompositionContainer tmpContainer;
         internal PluginSandbox(string file) {
 
-            AssemblyCatalog tmpCatalog = new AssemblyCatalog(file);
-            tmpContainer = new CompositionContainer(tmpCatalog);
-            tmpContainer.ComposeParts(this);
+            using (AssemblyCatalog tmpCatalog = new AssemblyCatalog(file))
+            {
+                tmpContainer = new CompositionContainer(tmpCatalog);
+                tmpContainer.ComposeParts(this);
+            }
         }
+
+        // Dispose() calls Dispose(true)
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+    // NOTE: Leave out the finalizer altogether if this class doesn't 
+    // own unmanaged resources itself, but leave the other methods
+    // exactly as they are. 
+    ~PluginSandbox() 
+    {
+        // Finalizer calls Dispose(false)
+        Dispose(false);
+    }
+    // The bulk of the clean-up code is implemented in Dispose(bool)
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing) 
+        {
+            if (tmpContainer != null)
+                tmpContainer.Dispose();
+        }
+    }
+
     }
 }

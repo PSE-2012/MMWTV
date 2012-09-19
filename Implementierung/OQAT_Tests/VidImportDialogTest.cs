@@ -20,7 +20,6 @@ namespace OQAT_Tests
     {
         private static string path1;
         private static string path2;
-        private TestContext testContextInstance;
         private static string sampleVideosPath;
         private static string[] sampleVideos;
         private static string plPathSolution;
@@ -65,7 +64,7 @@ namespace OQAT_Tests
             {
                 VM_VidImportOptionsDialog optd2 = new VM_VidImportOptionsDialog(null);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

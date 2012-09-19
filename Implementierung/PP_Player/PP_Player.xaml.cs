@@ -12,6 +12,7 @@ using System.Drawing;
 using System.ComponentModel;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using System.Windows.Threading;
 
 
 
@@ -22,7 +23,7 @@ namespace PP_Player
     /// </summary>
     [ExportMetadata("namePlugin", "PP_Player")]
     [ExportMetadata("type", PluginType.IPresentation)]
-     [ExportMetadata("threadSafe", false)]
+    [ExportMetadata("threadSafe", false)]
     [Export(typeof(IPlugin))]
     public partial class Player : System.Windows.Controls.UserControl, IPresentation, INotifyPropertyChanged
     {
@@ -239,54 +240,62 @@ namespace PP_Player
         /// <param name="position">zero-based indes of the frame to which the player should jump in the video. Default is first frame (0)</param>
         public void setVideo(Oqat.PublicRessources.Model.IVideo video, int position = 0)
         {
-            lock (setVideoContextLock)
+            if (i.Dispatcher.CheckAccess())
             {
-                if (video == null || video.vidInfo == null || video.vidPath == null)
-                    throw new ArgumentException("Given video was not initialized properly.");
-                flush();
+                lock (setVideoContextLock)
+                {
+                    if (video == null || video.vidInfo == null || video.vidPath == null)
+                        throw new ArgumentException("Given video was not initialized properly.");
+                    flush();
 
-                this.video = video;
+                    this.video = video;
 
-                RenderOptions.SetBitmapScalingMode(i, BitmapScalingMode.NearestNeighbor);
-                RenderOptions.SetEdgeMode(i, EdgeMode.Aliased);
+                    RenderOptions.SetBitmapScalingMode(i, BitmapScalingMode.NearestNeighbor);
+                    RenderOptions.SetEdgeMode(i, EdgeMode.Aliased);
 
-                // image
-                writeableBitmap = new WriteableBitmap(
-                    video.vidInfo.width,
-                    video.vidInfo.height,
-                    96,
-                    96,
-                    PixelFormats.Bgr32,
-                    null);
+                    // image
+                    writeableBitmap = new WriteableBitmap(
+                        video.vidInfo.width,
+                        video.vidInfo.height,
+                        96,
+                        96,
+                        PixelFormats.Bgr32,
+                        null);
 
-                i.Source = writeableBitmap;
-                playButton.Visibility = System.Windows.Visibility.Visible;
-                pauseButton.Visibility = System.Windows.Visibility.Collapsed;
+                    i.Source = writeableBitmap;
+                    playButton.Visibility = System.Windows.Visibility.Visible;
+                    pauseButton.Visibility = System.Windows.Visibility.Collapsed;
 
-                positionSlider.Maximum = video.vidInfo.frameCount;
-                playerControls.DataContext = this;
+                    positionSlider.Maximum = video.vidInfo.frameCount;
+                    playerControls.DataContext = this;
 
-                Binding jtfReadPosbind = new Binding("positionReader");
-                jtfReadPosbind.Mode = System.Windows.Data.BindingMode.OneWay;
-                jtfReadPosbind.Converter = new intStringConverter();
-                jumpToFrameTextBox.SetBinding(System.Windows.Controls.TextBox.TextProperty, jtfReadPosbind);
+                    Binding jtfReadPosbind = new Binding("positionReader");
+                    jtfReadPosbind.Mode = System.Windows.Data.BindingMode.OneWay;
+                    jtfReadPosbind.Converter = new intStringConverter();
+                    jumpToFrameTextBox.SetBinding(System.Windows.Controls.TextBox.TextProperty, jtfReadPosbind);
 
-                Binding slReadPosBind = new Binding("positionReader");
-                slReadPosBind.Mode = System.Windows.Data.BindingMode.OneWay;
-                slReadPosBind.Converter = new intDoubleConverter();
-                positionSlider.SetBinding(System.Windows.Controls.Slider.ValueProperty, slReadPosBind);
+                    Binding slReadPosBind = new Binding("positionReader");
+                    slReadPosBind.Mode = System.Windows.Data.BindingMode.OneWay;
+                    slReadPosBind.Converter = new intDoubleConverter();
+                    positionSlider.SetBinding(System.Windows.Controls.Slider.ValueProperty, slReadPosBind);
 
-                video.handler.PropertyChanged += OnPropertyChanged;
+                    video.handler.PropertyChanged += OnPropertyChanged;
 
-                // draw Frame on panel
-                getFrame(position);
+                    // draw Frame on panel
+                    getFrame(position);
 
-                // prepare playTickerThread + Sync
-                stopPlayTickerThread = false;
-                pausePlayTicker.Reset();
-                //    waitPlayTickerThreadStop.Set();
-                if (playTickerThread.ThreadState != System.Threading.ThreadState.Running)
-                    playTickerThread.Start();
+                    // prepare playTickerThread + Sync
+                    stopPlayTickerThread = false;
+                    pausePlayTicker.Reset();
+                    //    waitPlayTickerThreadStop.Set();
+                    if (playTickerThread.ThreadState != System.Threading.ThreadState.Running)
+                        playTickerThread.Start();
+                }
+            } else {
+                playButton.Dispatcher.Invoke((Action)(() =>
+                {
+                    setVideo(video, position);
+                }));
             }
         }
 
@@ -376,6 +385,11 @@ namespace PP_Player
                 fpsIndicatorValue = 1000 / (int)((fpsTimer.ElapsedMilliseconds > 0) ? fpsTimer.ElapsedMilliseconds : 1);
                 fpsTimer.Reset();
             }
+
+            new Thread(() =>
+                {
+                    setVideo(this.video);
+                }).Start();
         }
 
 
@@ -470,6 +484,7 @@ namespace PP_Player
 
         #region UI handlers
 
+        private bool buisy = false;
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -479,13 +494,13 @@ namespace PP_Player
                 if (PropertyChanged != null)
                     PropertyChanged(this, e);
             }
-            else
-
-                if (Monitor.TryEnter(setVideoContextLock))
+            else if (!buisy &&(e.PropertyName.Equals(nextFramePositionUpdate) || e.PropertyName.Equals(randomJumpPositionUpdate)))
                 {
+                    buisy = true;
                     bool wasPlaying = false;
                     if (pauseButton.IsVisible)
                     {
+
                         Pause_Click(null, null);
                         wasPlaying = true;
                     }
@@ -500,9 +515,13 @@ namespace PP_Player
                         {
                             int jumpTo;
                             Int32.TryParse(jumpToFrameTextBox.Text, out jumpTo);
-                            jumpTo -= 2;
-                            if ((Math.Abs(jumpTo - _positionReader) > 0))
+                            jumpTo -= 1;
+                            if (jumpTo >= 0 && Math.Abs(jumpTo - _positionReader) > 0)
                             {
+
+                                if (jumpTo > video.vidInfo.frameCount)
+                                    jumpTo = video.vidInfo.frameCount - 2;
+
                                 wasPlaying = false;
                                 setVideo(this.video, jumpTo);
                             }
@@ -510,12 +529,16 @@ namespace PP_Player
                         }
                         else
                         {
-                            setVideo(this.video, (int)positionSlider.Value);
+                            if (positionSlider.Value < video.vidInfo.frameCount)
+                                setVideo(video, (int)positionSlider.Value);
+                            else
+                                setVideo(video, video.vidInfo.frameCount - 2);
 
                         }
 
-                        if (wasPlaying)
-                            Play_Click(null, null);
+                        if (wasPlaying)                    
+                                Play_Click(null, null);
+                            
 
                     }
                     else if (e.PropertyName.Equals(nextFramePositionUpdate))// nextFrame jump 
@@ -530,7 +553,11 @@ namespace PP_Player
                         pausePlayTicker.Reset();
 
                     }
+
+                    buisy = false;
                 }
+            
+
             if (sender is IVideoHandler &&
                     e.PropertyName.Equals(posReadProName) &&
                     (PropertyChanged != null))
@@ -544,22 +571,41 @@ namespace PP_Player
 
         }
 
-
         private void Pause_Click(object sender, RoutedEventArgs e)
         {
-            pausePlayTicker.Reset();
-            pauseButton.Visibility = System.Windows.Visibility.Collapsed;
-            playButton.Visibility = System.Windows.Visibility.Visible;
+            if (pauseButton.Dispatcher.CheckAccess())
+            {
+                pausePlayTicker.Reset();
+                pauseButton.Visibility = System.Windows.Visibility.Collapsed;
+                playButton.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                playButton.Dispatcher.Invoke((Action)(() =>
+                {
+                    Pause_Click(null, null);
+                }));
+            }
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            if (this.video != null)
+            if (playButton.Dispatcher.CheckAccess())
             {
-                setVideo(this.video, this._positionReader);
-                pausePlayTicker.Set();
-                playButton.Visibility = System.Windows.Visibility.Collapsed;
-                pauseButton.Visibility = System.Windows.Visibility.Visible;
+                if (this.video != null)
+                {
+                    setVideo(this.video, this._positionReader);
+                    pausePlayTicker.Set();
+                    playButton.Visibility = System.Windows.Visibility.Collapsed;
+                    pauseButton.Visibility = System.Windows.Visibility.Visible;
+                }
+            }
+            else
+            {
+                playButton.Dispatcher.Invoke((Action)(() =>
+                {
+                    Play_Click(null, null);
+                }));
             }
 
         }
