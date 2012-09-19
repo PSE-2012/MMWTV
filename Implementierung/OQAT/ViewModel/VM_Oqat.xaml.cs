@@ -86,6 +86,7 @@ namespace Oqat.ViewModel
             //  initMenu();
             vM_Welcome = new VM_Welcome();
             this.welcomePanel.Children.Add(vM_Welcome);
+            setWelcomeViewParameters(true);
 
             //  initPluginLists
             vM_FilterList = new VM_PluginsList(Oqat.PublicRessources.Plugin.PluginType.IFilterOqat);
@@ -106,7 +107,24 @@ namespace Oqat.ViewModel
             //startup viewType is WelcomeView (visibilities set in xaml)
         }
 
-
+        
+        private void setWelcomeViewParameters(bool set)
+        {
+            if (set)
+            {
+                this.Width = 400;
+                this.Height = 400;
+                this.ResizeMode = System.Windows.ResizeMode.NoResize;
+            }
+            else
+            {
+                this.Width = 1024;
+                this.Height = 768;
+                this.ResizeMode = System.Windows.ResizeMode.CanResizeWithGrip;
+                this.WindowState = System.Windows.WindowState.Maximized;
+                
+            }
+        }
 
         #region VM fields
 
@@ -171,6 +189,8 @@ namespace Oqat.ViewModel
 
         public void onNewProjectCreated(object sender, ProjectEventArgs e)
         {
+            setWelcomeViewParameters(false);
+
             this.vM_ProjectExplorer = new VM_ProjectExplorer(e.project);
             this.projectExplorerPanel.Children.Add(vM_ProjectExplorer);
 
