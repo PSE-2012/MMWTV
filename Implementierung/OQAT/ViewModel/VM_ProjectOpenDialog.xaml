@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:Oqat.ViewModel"
              Title="Neues Projekt erstellen."
              ResizeMode="NoResize"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d"
+            Width="500" Height="255">
     <!-- Background="Transparent" Loaded="Window_Loaded" -->
     
     <Window.Resources>
@@ -64,18 +64,16 @@
             <Setter Property="Background" Value="Transparent"/>
         </Style>
     </Window.Resources>
+    
     <Grid x:Name="prjProperties">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="50"/>
-            <!--lower Buttons-->
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <GroupBox Name="gb3" Header="Titel und Pfad wählen." Style="{StaticResource oqatGroupBoxStyle}" >
 
-            <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Grid.RowSpan="3">
+        <GroupBox Name="gb3" Header="Titel und Pfad wählen." Style="{StaticResource oqatGroupBoxStyle}" Grid.Row="0">
+            <Grid>
                 <Grid.RowDefinitions>
                     <!--Path/Title fields-->
                     <RowDefinition/>
@@ -88,6 +86,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                
                 <TextBlock Name="tb5" Height="11" VerticalAlignment="Top">Titel:</TextBlock>
                 <TextBox Name="tbTitel"  Style="{StaticResource textBoxTransparent}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Text="{Binding title}"/>
 
@@ -97,24 +96,23 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Name="gb4" Grid.Row="1"  Grid.Column="0" Grid.RowSpan="3" Header="Beschreibung" Style="{StaticResource oqatGroupBoxStyle}">
-            <TextBox Style="{StaticResource textBoxTransparent}" BorderBrush="Transparent" x:Name="projDescField" MinLines="6" MaxLines="6" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
-                         TextWrapping="Wrap" Text="{Binding description}" >
+        <GroupBox Name="gb4" Grid.Row="1" Header="Beschreibung" Style="{StaticResource oqatGroupBoxStyle}">
+            <TextBox Style="{StaticResource textBoxTransparent}" BorderBrush="Transparent" x:Name="projDescField" 
+                    MinLines="6" MaxLines="6" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                    TextWrapping="Wrap" Text="{Binding description}" >
             </TextBox>
         </GroupBox>
-        <Border Grid.Row="4" BorderThickness="2" CornerRadius="4" Margin="2,2,2,2" Padding="2,2,2,2" BorderBrush="Black">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Button Name="bt1"  Grid.Column="2" Click="buildProject_Click" IsDefault="True">Projekt erstellen</Button>
-                <Button Name="bt2" Grid.Column="1" Click="cancelButton_Click" IsCancel="True">Abbrechen</Button>
-            </Grid>
-        </Border>
 
+        <Grid Grid.Row="2" Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <Button Name="bt1"  Grid.Column="2" Click="buildProject_Click" IsDefault="True">Projekt erstellen</Button>
+            <Button Name="bt2" Grid.Column="1" Click="cancelButton_Click" IsCancel="True">Abbrechen</Button>
+        </Grid>
 
     </Grid>
-
 </Window>

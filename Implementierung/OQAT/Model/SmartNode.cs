@@ -56,6 +56,17 @@ namespace Oqat.Model
             private set;
         }
 
+        public string icon
+        {
+            get
+            {
+                if(video == null) return "";
+                if (video.isAnalysis) return "/OQAT;component/vidanalysed-icon.png";
+                //else if (video.processedBy != null) return "/OQAT;component/vidfiltered-icon.png";
+                else return "/OQAT;component/vid-icon.png";
+            }
+        }
+
         /// <summary>
         /// Creates a new SmartNode from a given path to a video file.
         /// </summary>
