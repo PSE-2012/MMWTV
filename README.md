@@ -23,7 +23,7 @@ the videos it produces with your fix. To be able to get the most information out
 you can write a __Presentation Plugin__ to format the data in some meaningfull way (like a diagram, video, motion
 vector overlay, ...). 
 
-On top of the functionality described above there are many more feateures, like 
+In addition of the functionality described above there are many more feateures, like 
   * Project Handling  
   * Task Queue  
   This is provided by the only inextendible plugin, called __Macro Plugin__. The Task Queue
