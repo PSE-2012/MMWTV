@@ -42,8 +42,14 @@ On top of the functionality described above there are many more feateures, like
   * Unit testing using [Visual Studio Unit Testing Framework](http://msdn.microsoft.com/en-us/library/ms243147.aspx)
   * [Coded UI Tests with Visual Studio](http://msdn.microsoft.com/en-us/library/dd286726.aspx)
   * [Avalon Controls Library](http://avaloncontrolslib.codeplex.com/)
+  * [Extended WPF Toolkit](http://wpftoolkit.codeplex.com/)
   * [AForge.NET Framework](http://www.aforgenet.com/)
 
 
 #####Note
-Even if you read the above carefully you still wouldn't know half of OQATs functionallity. 
+Even if you read the above carefully you still wouldn't know half of OQATs functionallity, you should either try it out
+(a compiled version can be found in /OQAT_release) or dive into the code (in /Implementierung). If you understand German 
+you could have a look into /docs/Entwurf.pdf for some general overview on OQATs architecture.
+
+ 
+
