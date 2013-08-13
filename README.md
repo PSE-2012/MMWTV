@@ -19,8 +19,9 @@ the result to disk) for OQAT and execute it on all your videos. After that you c
 a fix for your encoder. To be able to document objectively about the effectiveness of your fix you 
 can write a __Metric Plugin__ (some are provided) and execute it (two input videos, one output video 
 according to the implemented quality metric) on the results the encoder produced before the fix and 
-he videos it produces with your fix. To be able to get the most information out of your __Metric Plugin__ 
-you can write a __Presentation Plugin__ to format the data in some meaningfull way. 
+the videos it produces with your fix. To be able to get the most information out of your __Metric Plugin__ 
+you can write a __Presentation Plugin__ to format the data in some meaningfull way (like a diagram, video, motion
+vector overlay, ...). 
 
 On top of the functionality described above there are many more feateures, like 
   * Project Handling
