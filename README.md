@@ -24,19 +24,19 @@ you can write a __Presentation Plugin__ to format the data in some meaningfull w
 vector overlay, ...). 
 
 On top of the functionality described above there are many more feateures, like 
-  * Project Handling
-  you can organize your diffierent projects and analyses into projects.
-  * Task Queue 
+  * Project Handling  
+  * Task Queue  
   This is provided by the only inextendible plugin, called __Macro Plugin__. The Task Queue
   lets you arrange your filters/metrics/videos in a certain order and duration of execution (e.g. 
   execute _Noise Filter_ only the first 10 seconds but after your Custom Filter was executed).
   
-  * Extensive use of Plugins
+  * Extensive use of Plugins  
   Nearly every element of OQAT (except some GUI elements) is a plugin and can be extended, which leaves the
-  user very much control over how OQAT works.
+  user very much control over how OQAT works. The other nice effect of OQAT being build mostly out of plugins is
+  the relaitvely small core, which leaves less oportunity for bugs.
 
 #####Technology
-
+  * [C#](http://msdn.microsoft.com/en-us/vstudio/hh341490.aspx)
   * [.NET 4.0 Framework](http://msdn.microsoft.com/en-us/vstudio/aa496123.aspx)
   * [Windows Presentation Foundation](http://msdn.microsoft.com/en-us/library/aa970268.aspx)
   * Dependency Injection using [MEF](http://msdn.microsoft.com/en-us/library/dd460648.aspx)
