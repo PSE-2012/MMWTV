@@ -31,9 +31,9 @@ In addition to the functionality described above there are many more feateures, 
   execute _Noise Filter_ only the first 10 seconds but after your Custom Filter was executed).
   
   * Extensive use of Plugins  
-  Nearly every element of OQAT (except some GUI elements) is a plugin and can be extended, which leaves the
-  user very much control over how OQAT works. The other nice effect of OQAT being build mostly out of plugins is
-  the relaitvely small core, which leaves less oportunity for bugs.
+  Nearly every element of OQAT (except some GUI elements and the core) is a plugin and can be extended (even at 
+  runtime) , which leaves the user very much control over how OQAT works. The other nice effect of OQAT being build mostly out of plugins is
+  the relaitvely small core, which leaves less space for bugs.
 
 #####Technology
   * [C#](http://msdn.microsoft.com/en-us/vstudio/hh341490.aspx)
